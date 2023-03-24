@@ -73,6 +73,10 @@ public:
 	
 	};
 
+	virtual int GetState()
+	{
+		return 0;
+	}
 public:
 
 	SString name;
