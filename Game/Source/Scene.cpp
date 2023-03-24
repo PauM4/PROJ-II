@@ -9,6 +9,9 @@
 #include "Map.h"
 #include "PathFinding.h"
 #include "GuiManager.h"
+#include "Fonts.h"
+
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -27,6 +30,7 @@ bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
@@ -50,6 +54,11 @@ bool Scene::Start()
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	
+	//Fonts initialize
+	char lookUpTable[] = { " !ç#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ç]^_çabcdefghijklmnopqrstuvwxyz{|}~" };
+
+	font = app->fonts->Load("Assets/Fonts/GameFont.png", lookUpTable, 1);
+
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load();
 
@@ -86,6 +95,8 @@ bool Scene::Start()
 		// Texture to show path origin 
 		originTex = app->tex->Load("Assets/Maps/x_square.png");
 	}
+
+
 
 	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
 
@@ -127,6 +138,11 @@ bool Scene::Update(float dt)
 
 	//L15: Draw GUI
 	app->guiManager->Draw();
+
+	//Font test
+	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, {255,255,255,255}, app->fonts->gameFont);
+
+	
 
 	// L08: DONE 3: Test World to map method
 
@@ -178,6 +194,7 @@ bool Scene::Update(float dt)
 	app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
 	*/
 
+
 	return true;
 }
 
@@ -203,6 +220,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	app->fonts->UnLoad(font);
 
 	return true;
 }

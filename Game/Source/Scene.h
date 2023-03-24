@@ -52,7 +52,9 @@ private:
 	iPoint origin;
 	bool originSelected = false;
 
-	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
+	//Fonts
+	int font;
+
 
 };
 
