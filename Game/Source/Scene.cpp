@@ -67,37 +67,19 @@ bool Scene::Start()
 		int w, h;
 		uchar* data = NULL;
 
-		bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
-		if(retWalkMap) app->pathfinding->SetMap(w, h, data);
+		//bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		//if(retWalkMap) app->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
 
 	}
 
-	//Sets the camera to be centered in isometric map
-	if (app->map->mapData.type == MapTypes::MAPTYPE_ISOMETRIC) {
-		uint width, height;
-		app->win->GetWindowSize(width, height);
-		app->render->camera.x = width / 2;
+	
+	mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
 
-		// Texture to highligh mouse position 
-		mouseTileTex = app->tex->Load("Assets/Maps/path.png");
-
-		// Texture to show path origin 
-		originTex = app->tex->Load("Assets/Maps/x.png");
-	}
-
-	if (app->map->mapData.type == MapTypes::MAPTYPE_ORTHOGONAL) {
-
-		// Texture to highligh mouse position 
-		mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
-
-		// Texture to show path origin 
-		originTex = app->tex->Load("Assets/Maps/x_square.png");
-	}
-
-
-
+	// Texture to show path origin 
+	originTex = app->tex->Load("Assets/Maps/x_square.png");
+	
 	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
 
 	return true;
