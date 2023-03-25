@@ -1,9 +1,10 @@
 #ifndef __PLAYABLE_H__
-#define __PLAYABLE_H__ç
+#define __PLAYABLE_H__
 
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "List.h"
 
 class Playable : public Entity {
 public:
@@ -12,16 +13,29 @@ public:
 	
 	virtual ~Playable();
 
-	virtual void AttackArea();
+	virtual void Attack();
 
-	virtual void AbilityArea();
+	virtual void Ability();
+
+	virtual void Movement();
 
 	bool TakeDamage(uint attack);
 
 private:
-
+	
 
 public:
+
+	enum PlayableState
+	{
+		UNKNOWN = -1,
+		OUTOFCOMBAT,
+		THINKING,
+		MOVING,
+		ATTACKING,
+		IDLE,
+		
+	};
 
 
 private:
@@ -42,4 +56,4 @@ private:
 
 };
 
-#endif // __ENTITY_H__
+#endif // __PLAYABLE_H__

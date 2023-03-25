@@ -1,9 +1,11 @@
 #include "EntityManager.h"
 #include "Player.h"
-#include "Item.h"
+
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
+#include "Playable.h"
+#include "Nonplayable.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -85,12 +87,12 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	switch (type)
 	{
 
-	case EntityType::PLAYER:
-		entity = new Player();
+	case EntityType::PLAYABLE:
+		entity = new Playable();
 		break;
 
-	case EntityType::ITEM:
-		entity = new Item();
+	case EntityType::NONPLAYABLE:
+		entity = new NonPlayable();
 		break;
 
 	default: break;

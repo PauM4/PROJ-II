@@ -9,7 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 
-Player::Player() : Entity(EntityType::PLAYER)
+Player::Player() : Entity(EntityType::PLAYABLE)
 {
 	name.Create("Player");
 }
