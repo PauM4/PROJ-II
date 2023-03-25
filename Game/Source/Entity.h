@@ -73,6 +73,16 @@ public:
 	
 	};
 
+	virtual void LoadInfo(iPoint pos, int state)
+	{
+
+	}
+
+	virtual void SaveInfo()
+	{
+
+	}
+
 	virtual int GetState()
 	{
 		return 0;
