@@ -79,11 +79,11 @@ bool  SceneBattle::LoadCombatMap() {
 	
 	bool ret = true;
 
-	for (int i = 0; i < sizeof(combatMap); i++) {
+	/*for (int i = 0; i < sizeof(combatMap); i++) {
 		for (int j = 0; j < sizeof(combatMap[0]); j++) {
 
 		}
-	}
+	}*/
 
 	return ret;
 }

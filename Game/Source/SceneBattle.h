@@ -10,8 +10,8 @@
 struct SDL_Texture;
 
 enum class TILE_TYPE {
-	UNKNOWN,
-	FLOOR = 0,
+	UNKNOWN = -1,
+	FLOOR,
 	MUD,
 	BARRIER,
 	HALF_BARRIER
@@ -21,6 +21,7 @@ struct TileData
 {
 	int x;
 	int y;
+	Entity* character;
 	TILE_TYPE type;
 };
 
@@ -63,7 +64,7 @@ public:
 
 private:;
 
-	TileData combatMap[12][9];
+	TileData combatMap;
 
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
