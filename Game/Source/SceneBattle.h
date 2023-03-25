@@ -9,6 +9,21 @@
 
 struct SDL_Texture;
 
+enum class TILE_TYPE {
+	UNKNOWN,
+	FLOOR = 0,
+	MUD,
+	BARRIER,
+	HALF_BARRIER
+};
+
+struct TileData
+{
+	int x;
+	int y;
+	TILE_TYPE type;
+};
+
 class SceneBattle : public Module
 {
 public:
@@ -39,11 +54,16 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	// Loads combat map from Map module using GID tile metadata
+	bool LoadCombatMap();
 
 public:
 
 
+
 private:;
+
+	TileData combatMap[12][9];
 
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;

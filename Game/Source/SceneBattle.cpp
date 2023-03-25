@@ -69,9 +69,23 @@ bool SceneBattle::PostUpdate()
 
 bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 {
-	// L15: TODO 5: Implement the OnGuiMouseClickEvent method
+	
 
 	return true;
+}
+
+// Loads combat map from Map module using GID tile metadata
+bool  SceneBattle::LoadCombatMap() {
+	
+	bool ret = true;
+
+	for (int i = 0; i < sizeof(combatMap); i++) {
+		for (int j = 0; j < sizeof(combatMap[0]); j++) {
+
+		}
+	}
+
+	return ret;
 }
 
 //Called before quitting
