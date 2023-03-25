@@ -144,22 +144,30 @@ bool App::Start()
 // Called each loop iteration
 bool App::Update()
 {
+	barTimer.Start();
 	bool ret = true;
 	PrepareUpdate();
+	prepareUpdate = barTimer.ReadMs();
 
 	if (input->GetWindowEvent(WE_QUIT) == true)
 		ret = false;
 
 	if (ret == true)
 		ret = PreUpdate();
+	preUpdate = barTimer.ReadMs();
 
 	if (ret == true)
 		ret = DoUpdate();
+	doUpdate = barTimer.ReadMs();
 
+	
 	if (ret == true)
 		ret = PostUpdate();
+	postUpdate = barTimer.ReadMs();
 
 	FinishUpdate();
+	finishUpdate = barTimer.ReadMs();
+	update = prepareUpdate + preUpdate + doUpdate + postUpdate + finishUpdate;
 	return ret;
 }
 
@@ -179,7 +187,7 @@ bool App::LoadConfig()
 	else {
 		LOG("Error in App::LoadConfig(): %s", parseResult.description());
 	}
-
+	
 	return ret;
 }
 

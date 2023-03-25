@@ -28,6 +28,7 @@
     <ClCompile Include="Source\SceneBattle.cpp" />
     <ClCompile Include="Source\Nonplayable.cpp" />
     <ClCompile Include="Source\Playable.cpp" />
+    <ClCompile Include="Source\PerformanceBar2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="Source\Animation.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PerformanceBar2.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
