@@ -11,8 +11,6 @@
 #include "GuiManager.h"
 #include "Fonts.h"
 
-
-
 #include "Defs.h"
 #include "Log.h"
 
@@ -136,27 +134,36 @@ bool Scene::Update(float dt)
 	// L14: TODO 4: Make the camera movement independent of framerate
 	float speed = 0.2 * dt;
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += ceil(speed);;
+		app->render->camera.y += ceil(speed);
 
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= ceil(speed);;
+		app->render->camera.y -= ceil(speed);
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += ceil(speed);;
+		app->render->camera.x += ceil(speed);
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= ceil(speed);;
+		app->render->camera.x -= ceil(speed);
+
 
 	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 	{
 		if (pauseMenuActive == true)
 		{
+			if(!player->npcInteractAvailable == true || !player->itemInteractAvailable == true)
+			{
+				player->movementRestringed = false;		
+			}
 			pauseMenuActive = false;
 			button1_continue->state = GuiControlState::NONE;
 			button2_exit->state = GuiControlState::NONE;
 		}
 		else
 		{
+			if (!player->npcInteractAvailable == true || !player->itemInteractAvailable == true)
+			{
+				player->movementRestringed = false;
+			}
 			pauseMenuActive = true;
 			button1_continue->state = GuiControlState::NORMAL;
 			button2_exit->state = GuiControlState::NORMAL;

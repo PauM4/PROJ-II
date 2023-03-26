@@ -94,7 +94,7 @@ bool Player::Update()
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN && (npcInteractAvailable == true || itemInteractAvailable == true))
 	{
 		movementRestringed = false;
 	}
