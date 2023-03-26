@@ -41,6 +41,11 @@ bool Player::Start() {
 
 	pbody->ctype = ColliderType::PLAYER;
 
+	// Bool variables
+	npcInteractAvailable = false;
+	itemInteractAvailable = false;
+	movementRestringed = false;
+
 	return true;
 }
 
@@ -50,21 +55,48 @@ bool Player::Update()
 	int speed = 10; 
 	b2Vec2 vel = b2Vec2(0, 0); 
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		vel.y = -speed;
 
-	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		vel.y = speed;
+	if (movementRestringed == false)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+			vel.y = -speed;
 
-	}
-		
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		vel.x = -speed;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			vel.y = speed;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+			vel.x = -speed;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+			vel.x = speed;
+		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		vel.x = speed;
+	
+
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	{
+		// Interaction with NPC
+		if (npcInteractAvailable == true)
+		{
+			movementRestringed = true;
+			LOG("TALKING TO NPC1");
+		}
+
+		// Interaction with ITEM
+		if (itemInteractAvailable == true)
+		{
+			movementRestringed = true;
+			LOG("INTERACTING WITH ITEM1");
+		}
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	{
+		movementRestringed = false;
 	}
 
 	pbody->body->SetLinearVelocity(vel);
@@ -88,7 +120,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
-			app->audio->PlayFx(pickCoinFxId);
+			itemInteractAvailable = true;
 			break;
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
@@ -98,6 +130,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 		case ColliderType::NPC:
 			LOG("Collision NPC");
+			npcInteractAvailable = true;
 			break;
 	}
 	

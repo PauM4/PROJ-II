@@ -41,9 +41,12 @@ public:
 
 public:
 
-	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+
+
 	Npc* npc1;
+
+	Item* item1;
 
 private:
 	SDL_Texture* img;
