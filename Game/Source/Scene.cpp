@@ -106,6 +106,12 @@ bool Scene::Start()
 
 	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
 
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 50,(int)h / 2 - 30,100,20 }, this);
+	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Button 2", { (int)w / 2 - 50,(int)h / 2,100,20 }, this);
+
+
 	return true;
 }
 
@@ -220,8 +226,18 @@ bool Scene::PostUpdate()
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
-	// L15: TODO 5: Implement the OnGuiMouseClickEvent method
+	// L15: DONE 5: Implement the OnGuiMouseClickEvent method
+	LOG("Event by %d ", control->id);
 
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button 1 click");
+		break;
+	case 2:
+		LOG("Button 2 click");
+		break;
+	}
 	return true;
 }
 

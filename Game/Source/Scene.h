@@ -60,6 +60,10 @@ private:
 	//Fonts
 	int font;
 
+	// L15: DONE 2: Declare a GUI Button and create it using the GuiManager
+	GuiButton* button1;
+	GuiButton* button2;
+
 
 };
 
