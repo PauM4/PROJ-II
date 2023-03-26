@@ -111,6 +111,7 @@ bool Scene::Start()
 	button2_exit->state = GuiControlState::NONE;
 
 	pauseMenuActive = false;
+	exitButtonBool = false;
 
 
 	return true;
@@ -235,8 +236,15 @@ bool Scene::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
+	// When exit button click, close app
+	if (exitButtonBool == true)
+	{
+		return false;
+	}
+
 	app->fonts->DrawText("NPC1", -20, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
 	app->fonts->DrawText("ITEM1", 100, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+
 
 	return ret;
 }
@@ -249,10 +257,11 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button 1 Continue click");
+		pauseMenuActive = false;
 		break;
 	case 2:
 		LOG("Button 2 Exit click");
-
+		exitButtonBool = true;
 		break;
 	}
 	return true;

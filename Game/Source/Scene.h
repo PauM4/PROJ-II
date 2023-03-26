@@ -65,6 +65,7 @@ private:
 	GuiButton* button2_exit;
 
 	bool pauseMenuActive;
+	bool exitButtonBool;
 
 
 };
