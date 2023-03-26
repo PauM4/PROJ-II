@@ -74,7 +74,10 @@ bool GuiManager::Update(float dt)
 
 		while (control != nullptr)
 		{
-			control->data->Update(dt);
+			if (control->data->state != GuiControlState::NONE)
+			{
+				control->data->Update(dt);
+			}
 			control = control->next;
 		}
 
@@ -91,7 +94,10 @@ bool GuiManager::Draw() {
 
 	while (control != nullptr)
 	{
-		control->data->Draw(app->render);
+		if (control->data->state != GuiControlState::NONE)
+		{
+			control->data->Draw(app->render);
+		}
 		control = control->next;
 	}
 

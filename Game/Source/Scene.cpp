@@ -103,13 +103,14 @@ bool Scene::Start()
 	}
 
 
-
-	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
-
 	uint w, h;
 	app->win->GetWindowSize(w, h);
-	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 50,(int)h / 2 - 30,100,20 }, this);
-	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Button 2", { (int)w / 2 - 50,(int)h / 2,100,20 }, this);
+	button1_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Continue", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
+	button1_continue->state = GuiControlState::NONE;
+	button2_exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Exit", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
+	button2_exit->state = GuiControlState::NONE;
+
+	pauseMenuActive = false;
 
 
 	return true;
@@ -145,11 +146,27 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= ceil(speed);;
 
+	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		if (pauseMenuActive == true)
+		{
+			pauseMenuActive = false;
+			button1_continue->state = GuiControlState::NONE;
+			button2_exit->state = GuiControlState::NONE;
+		}
+		else
+		{
+			pauseMenuActive = true;
+			button1_continue->state = GuiControlState::NORMAL;
+			button2_exit->state = GuiControlState::NORMAL;
+		}
+	}
+
+	if(pauseMenuActive)	app->guiManager->Draw();
+
 	// Draw map
 	app->map->Draw();
 
-	//L15: Draw GUI
-	app->guiManager->Draw();
 
 	//Font test
 	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, {255,255,255,255}, app->fonts->gameFont);
@@ -226,16 +243,16 @@ bool Scene::PostUpdate()
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
-	// L15: DONE 5: Implement the OnGuiMouseClickEvent method
 	LOG("Event by %d ", control->id);
 
 	switch (control->id)
 	{
 	case 1:
-		LOG("Button 1 click");
+		LOG("Button 1 Continue click");
 		break;
 	case 2:
-		LOG("Button 2 click");
+		LOG("Button 2 Exit click");
+
 		break;
 	}
 	return true;
