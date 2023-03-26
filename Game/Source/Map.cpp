@@ -3,6 +3,7 @@
 #include "Textures.h"
 #include "Map.h"
 #include "Physics.h"
+#include "SceneBattle.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -325,6 +326,8 @@ bool Map::LoadMap(pugi::xml_node mapFile)
         mapData.width = map.attribute("width").as_int();
         mapData.tileHeight = map.attribute("tileheight").as_int();
         mapData.tileWidth = map.attribute("tilewidth").as_int();
+
+        mapData.mapType = (MAP_TYPE)map.child("properties").child("property").attribute("value").as_int();
     }
 
     return ret;
@@ -384,6 +387,13 @@ bool Map::LoadTileLayer(pugi::xml_node& node, TileLayer* layer)
     for (tile = node.child("data").child("tile"); tile && ret; tile = tile.next_sibling("tile"))
     {
         layer->data[i] = tile.attribute("gid").as_int();
+
+        //Fills a 2D array with every gid value from metadata tile layer
+        if (mapData.mapType == MAP_TYPE::COMBAT && layer->name == "metadata") {
+
+            metadataLayer[i % COMBAT_MAP_WIDTH][i / COMBAT_MAP_WIDTH] = tile.attribute("gid").as_int() - 1;
+        }
+
         i++;
     }
 
@@ -446,11 +456,11 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
     bool ret = false;
 
-    for (pugi::xml_node propertieNode = node.child("properties").child("property"); propertieNode; propertieNode = propertieNode.next_sibling("property"))
+    for (pugi::xml_node propertyNode = node.child("properties").child("property"); propertyNode; propertyNode = propertyNode.next_sibling("property"))
     {
         Properties::Property* p = new Properties::Property();
-        p->name = propertieNode.attribute("name").as_string();
-        p->value = propertieNode.attribute("value").as_bool(); // (!!) I'm assuming that all values are bool !!
+        p->name = propertyNode.attribute("name").as_string();
+        p->value = propertyNode.attribute("value").as_bool(); // (!!) I'm assuming that all values are bool !!
 
         properties.list.Add(p);
     }

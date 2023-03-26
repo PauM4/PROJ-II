@@ -19,6 +19,7 @@ class Render;
 class Textures;
 class Audio;
 class Scene;
+class SceneBattle;
 class EntityManager;
 class Map;
 class Fonts;
@@ -93,6 +94,7 @@ public:
 	Textures* tex;
 	Audio* audio;
 	Scene* scene;
+	SceneBattle* sceneBattle;
 	EntityManager* entityManager;
 	Map* map;
 	Fonts* fonts; 

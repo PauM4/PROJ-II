@@ -11,10 +11,10 @@ struct SDL_Texture;
 
 enum class TILE_TYPE {
 	UNKNOWN = -1,
-	FLOOR,
-	MUD,
 	BARRIER,
-	HALF_BARRIER
+	FLOOR,
+	HALF_BARRIER,
+	MUD
 };
 
 struct TileData
@@ -56,15 +56,22 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	// Loads combat map from Map module using GID tile metadata
-	bool LoadCombatMap();
+	bool MakeCombatMap();
+
+	// Draws an area of attack/ability/movement from an ally
+	bool DisplayArea(List<TileData*> area, int type);
 
 public:
 
-
+	TileData combatMap[16][9];
 
 private:;
 
-	TileData combatMap;
+	TileData* selectedtile;
+
+	Entity* characterTurn;
+
+	List<Entity*> targets;
 
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;

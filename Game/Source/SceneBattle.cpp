@@ -38,6 +38,9 @@ bool SceneBattle::Start()
 	//Load map
 	bool retLoad = app->map->Load();
 
+	//Load combat map
+	MakeCombatMap();
+
 	return true;
 }
 
@@ -45,6 +48,7 @@ bool SceneBattle::Start()
 // Called each loop iteration
 bool SceneBattle::PreUpdate()
 {
+	bool ret = true;
 
 	return true;
 }
@@ -52,7 +56,8 @@ bool SceneBattle::PreUpdate()
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
-	
+	bool ret = true;
+
 	return true;
 }
 
@@ -61,8 +66,12 @@ bool SceneBattle::PostUpdate()
 {
 	bool ret = true;
 
-	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	//if (!DisplayArea()) ret = false;
+
+	app->map->Draw();
 
 	return ret;
 }
@@ -75,15 +84,58 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 }
 
 // Loads combat map from Map module using GID tile metadata
-bool  SceneBattle::LoadCombatMap() {
+bool  SceneBattle::MakeCombatMap() {
 	
 	bool ret = true;
 
-	/*for (int i = 0; i < sizeof(combatMap); i++) {
-		for (int j = 0; j < sizeof(combatMap[0]); j++) {
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < 9; j++) {
 
+			combatMap[i][j].x = i;
+			combatMap[i][j].y = j;
+			combatMap[i][j].character = NULL;
+			combatMap[i][j].type = (TILE_TYPE)app->map->metadataLayer[i][j];
 		}
-	}*/
+	}
+
+	return ret;
+}
+
+bool SceneBattle::DisplayArea(List<TileData*> area, int type) {
+
+	bool ret = true;
+
+	ListItem<TileData*>* tileListItem;
+	tileListItem = area.start;
+
+	uint color[3];
+
+	switch (type)
+	{
+	case 0:
+		color[0] = 255;
+		color[1] = 0;
+		color[2] = 0;
+		break;
+	case 1:
+		color[0] = 0;
+		color[1] = 255;
+		color[2] = 0;
+		break;
+	case 2:
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 255;
+		break;
+	default:
+		break;
+	}
+
+	while (tileListItem != NULL) {
+		app->render->DrawRectangle({ tileListItem->data->x,tileListItem->data->y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, color[0], color[1], color[2], 100);
+
+		tileListItem = tileListItem->next;
+	}
 
 	return ret;
 }

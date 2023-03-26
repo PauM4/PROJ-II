@@ -50,10 +50,6 @@ private:
 	uint resistence;
 	uint speed;
 	uint skill;
-
-	List<Entity*> targets;
-
-
 };
 
 #endif // __PLAYABLE_H__

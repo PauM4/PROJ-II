@@ -11,6 +11,15 @@
 
 #define COST_MAP_SIZE 25
 
+#define COMBAT_MAP_WIDTH 16
+#define COMBAT_MAP_HEIGHT 9
+
+enum class MAP_TYPE {
+	UNKNOWN = -1,
+	NORMAL,
+	COMBAT
+};
+
 struct TileSet
 {
 	SString	name;
@@ -103,6 +112,7 @@ struct MapData
 	int	height;
 	int tileWidth;
 	int tileHeight;
+	MAP_TYPE mapType;
 	List<TileSet*> tilesets;
 
 	//List of layers of the map
@@ -149,7 +159,6 @@ private:
 	bool LoadImageLayer(pugi::xml_node& node, ImageLayer* layer);
 	bool LoadAllLayers(pugi::xml_node mapNode);
 
-
 	TileSet* GetTilesetFromTileId(int gid) const;
 
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
@@ -157,6 +166,8 @@ private:
 public: 
 
 	MapData mapData;
+
+	int metadataLayer[COMBAT_MAP_WIDTH][COMBAT_MAP_HEIGHT];
 
 private:
 

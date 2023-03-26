@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Scene.h"
+#include "SceneBattle.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
@@ -34,6 +35,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new Physics();
 	pathfinding = new PathFinding();
 	scene = new Scene();
+	sceneBattle = new SceneBattle();
 	entityManager = new EntityManager();
 	map = new Map();
 	guiManager = new GuiManager();
@@ -49,7 +51,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(physics);
 	AddModule(fonts);
 	AddModule(pathfinding);
-	AddModule(scene);
+	AddModule(sceneBattle);
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(guiManager);
