@@ -146,6 +146,7 @@ bool Scene::Update(float dt)
 		app->render->camera.x -= ceil(speed);
 
 
+	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 	{
 		if (pauseMenuActive == true)
