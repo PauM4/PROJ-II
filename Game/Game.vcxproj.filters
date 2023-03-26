@@ -29,6 +29,8 @@
     <ClCompile Include="Source\SDL_Timer.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Npc.cpp" />
+    <ClCompile Include="Source\Npc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -85,6 +87,7 @@
     <ClInclude Include="Source\SDL_Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Npc.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

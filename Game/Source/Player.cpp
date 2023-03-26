@@ -96,6 +96,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
 			break;
+		case ColliderType::NPC:
+			LOG("Collision NPC");
+			break;
 	}
 	
 

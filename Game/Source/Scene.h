@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Item.h"
 #include "GuiButton.h"
+#include "Npc.h"
 
 struct SDL_Texture;
 
@@ -42,6 +43,7 @@ public:
 
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+	Npc* npc1;
 
 private:
 	SDL_Texture* img;
