@@ -11,6 +11,7 @@
 #include "Pathfinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
+#include "SceneManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -33,6 +34,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//L07 DONE 2: Add Physics module
 	physics = new Physics();
 	pathfinding = new PathFinding();
+	sceneManager = new SceneManager();
 	scene = new Scene();
 	entityManager = new EntityManager();
 	map = new Map();
@@ -49,6 +51,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(physics);
 	AddModule(fonts);
 	AddModule(pathfinding);
+	AddModule(sceneManager);
 	AddModule(scene);
 	AddModule(entityManager);
 	AddModule(map);

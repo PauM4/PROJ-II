@@ -21,6 +21,7 @@ class Scene;
 class EntityManager;
 class Map;
 class Fonts;
+class SceneManager;
 //L07 DONE 2: Add Physics module
 class Physics;
 class PathFinding;
@@ -95,6 +96,7 @@ public:
 	EntityManager* entityManager;
 	Map* map;
 	Fonts* fonts; 
+	SceneManager* sceneManager; 
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
 	PathFinding* pathfinding;
