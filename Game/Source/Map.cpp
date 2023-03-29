@@ -26,7 +26,7 @@ bool Map::Awake(pugi::xml_node& config)
     LOG("Loading Map Parser");
     bool ret = true;
 
-    mapFileName = "Assets/Maps/Scenes/test.tmx";
+    mapFileName = "Assets/Maps/Scenes/scene_01.tmx";
     mapFolder = "Assets/Maps/Scenes/";
 
     return ret;
@@ -466,6 +466,39 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
     }
 
     return ret;
+}
+
+bool Map::LoadColliders(pugi::xml_node& node) {
+
+    bool ret = true;
+
+    for (pugi::xml_node colLayerNode = node.child("objectgroup"); colLayerNode; colLayerNode = colLayerNode.next_sibling("objectgroup")) {
+        ColTypes colType = (ColTypes)colLayerNode.child("properties").child("property").attribute("value").as_int();
+        for (pugi::xml_node colNode = colLayerNode.child("object"); colNode; colNode = colNode.next_sibling("object")) {
+
+            ColData col;
+
+            col.id = colNode.attribute("id").as_int();
+            col.x = colNode.attribute("x").as_float();
+            col.y = colNode.attribute("y").as_float();
+            col.width = colNode.attribute("width").as_float() - 1;
+            col.height = colNode.attribute("height").as_float() - 1;
+            col.type = colType;
+
+            CreateColliders(col);
+
+        }
+    }
+
+    return ret;
+}
+
+void Map::CreateColliders(ColData col) {
+
+    PhysBody* collider;
+
+    collider = app->physics->CreateRectangleSensor(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
+
 }
 
 Properties::Property* Properties::GetProperty(const char* name)

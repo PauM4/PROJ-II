@@ -120,6 +120,34 @@ struct MapData
 	List<ImageLayer*> imageLayers;
 };
 
+//Collision types
+enum ColTypes {
+
+	UNKNOWN = -1,
+	TERRAIN,
+	DOOR,
+	TRIGGER
+};
+
+//Collisions data
+struct ColData
+{
+	ColData() : type((ColTypes)-1) {}
+
+	ColData(ColTypes type) : type(type){}
+
+	~ColData() {};
+
+	uint id;
+
+	int x;
+	int	y;
+	int width;
+	int	height;
+
+	ColTypes type;
+};
+
 class Map : public Module
 {
 public:
@@ -162,6 +190,9 @@ private:
 	TileSet* GetTilesetFromTileId(int gid) const;
 
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+
+	bool LoadColliders(pugi::xml_node& node);
+	void CreateColliders(ColData colliders);
 
 public: 
 

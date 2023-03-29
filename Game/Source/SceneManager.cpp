@@ -16,17 +16,24 @@ SceneManager::~SceneManager()
 
 bool SceneManager::Awake(pugi::xml_node& config)
 {
-	return true;
+	bool ret = true;
+
+	return ret;
 }
 
 bool SceneManager::Start()
 {
+	bool ret = true;
+
 	scene = GameScene::INTRO;
 
+	return ret;
 }
 
 bool SceneManager::PreUpdate()
 {
+	bool ret = true;
+
 	switch (scene) {
 	case INTRO:
 		break;
@@ -39,10 +46,14 @@ bool SceneManager::PreUpdate()
 	default:
 		break; 
 	}
+
+	return ret;
 }
 
 bool SceneManager::Update(float dt)
 {
+	bool ret = true;
+
 	switch (scene) {
 	case INTRO:
 		break;
@@ -55,6 +66,8 @@ bool SceneManager::Update(float dt)
 	default:
 		break;
 	}
+
+	return ret;
 }
 
 void SceneManager::LoadScene(GameScene gameScene) {

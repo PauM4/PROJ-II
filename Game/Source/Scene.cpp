@@ -39,6 +39,7 @@ bool Scene::Awake(pugi::xml_node& config)
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
 	}*/
+
 	return ret;
 }
 
@@ -109,17 +110,6 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= ceil(speed);;
 
-	// Draw map
-	app->map->Draw();
-
-	//L15: Draw GUI
-	app->guiManager->Draw();
-
-	//Font test
-	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, {255,255,255,255}, app->fonts->gameFont);
-
-	
-
 	// L08: DONE 3: Test World to map method
 
 	/*
@@ -181,6 +171,18 @@ bool Scene::PostUpdate()
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	// Draw map
+	app->map->Draw();
+
+	//L15: Draw GUI
+	app->guiManager->Draw();
+
+	//Font test
+	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+
+	//Player Test
+	app->render->DrawRectangle({ (-1)*app->render->camera.x + app->render->camera.w/2, (-1) * app->render->camera.y + app->render->camera.h / 2,90,140 }, 100, 100, 0);
 
 	return ret;
 }
