@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Scene.h"
+#include "SceneBattle.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
@@ -36,6 +37,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding();
 	sceneManager = new SceneManager();
 	scene = new Scene();
+	sceneBattle = new SceneBattle();
 	entityManager = new EntityManager();
 	map = new Map();
 	guiManager = new GuiManager();
@@ -147,22 +149,30 @@ bool App::Start()
 // Called each loop iteration
 bool App::Update()
 {
+	barTimer.Start();
 	bool ret = true;
 	PrepareUpdate();
+	prepareUpdate = barTimer.ReadMs();
 
 	if (input->GetWindowEvent(WE_QUIT) == true)
 		ret = false;
 
 	if (ret == true)
 		ret = PreUpdate();
+	preUpdate = barTimer.ReadMs();
 
 	if (ret == true)
 		ret = DoUpdate();
+	doUpdate = barTimer.ReadMs();
 
+	
 	if (ret == true)
 		ret = PostUpdate();
+	postUpdate = barTimer.ReadMs();
 
 	FinishUpdate();
+	finishUpdate = barTimer.ReadMs();
+	update = prepareUpdate + preUpdate + doUpdate + postUpdate + finishUpdate;
 	return ret;
 }
 
@@ -182,7 +192,7 @@ bool App::LoadConfig()
 	else {
 		LOG("Error in App::LoadConfig(): %s", parseResult.description());
 	}
-
+	
 	return ret;
 }
 

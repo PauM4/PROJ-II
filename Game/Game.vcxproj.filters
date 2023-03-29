@@ -17,7 +17,6 @@
     </ClCompile>
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Player.cpp" />
-    <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
@@ -30,6 +29,10 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneManager.cpp" />
+    <ClCompile Include="Source\SceneBattle.cpp" />
+    <ClCompile Include="Source\Nonplayable.cpp" />
+    <ClCompile Include="Source\Playable.cpp" />
+    <ClCompile Include="Source\PerformanceBar2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -70,7 +73,6 @@
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Entity.h" />
-    <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\PQueue.h">
@@ -87,6 +89,13 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneManager.h" />
+    <ClInclude Include="Source\SceneBattle.h" />
+    <ClInclude Include="Source\Nonplayable.h" />
+    <ClInclude Include="Source\Playable.h" />
+    <ClInclude Include="Source\Animation.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PerformanceBar2.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

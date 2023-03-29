@@ -31,7 +31,6 @@
 
   <map>
     <mapfolder path="Assets/Maps/"/>
-    <!--mapfile path="Assets/Maps/iso.tmx"/-->
     <mapfile path="Assets/Maps/MapTemplate.tmx"/>
   </map>
   

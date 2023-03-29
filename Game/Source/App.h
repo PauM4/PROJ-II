@@ -5,6 +5,7 @@
 #include "List.h"
 #include "PerfTimer.h"
 #include "Timer.h"
+#include "PerformanceBar2.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -18,6 +19,7 @@ class Render;
 class Textures;
 class Audio;
 class Scene;
+class SceneBattle;
 class EntityManager;
 class Map;
 class Fonts;
@@ -93,6 +95,7 @@ public:
 	Textures* tex;
 	Audio* audio;
 	Scene* scene;
+	SceneBattle* sceneBattle;
 	EntityManager* entityManager;
 	Map* map;
 	Fonts* fonts; 
@@ -101,6 +104,15 @@ public:
 	Physics* physics;
 	PathFinding* pathfinding;
 	GuiManager* guiManager;
+
+	double prepareUpdate;
+	double finishUpdate;
+	double preUpdate;
+	double doUpdate;
+	double postUpdate;
+	double update;
+	PerformanceBar perfBar; 
+	PerfTimer barTimer;
 
 private:
 
