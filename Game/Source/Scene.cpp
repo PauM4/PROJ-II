@@ -182,7 +182,7 @@ bool Scene::PostUpdate()
 	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
 
 	//Player Test
-	app->render->DrawRectangle({ (-1)*app->render->camera.x + app->render->camera.w/2, (-1) * app->render->camera.y + app->render->camera.h / 2,90,140 }, 100, 100, 0);
+	app->render->DrawRectangle({ (-1)*app->render->camera.x + app->render->camera.w/2, (-1) * app->render->camera.y + app->render->camera.h / 2,65,120 }, 100, 100, 0);
 
 	return ret;
 }

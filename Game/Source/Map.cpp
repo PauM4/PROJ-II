@@ -258,6 +258,11 @@ bool Map::Load()
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
 
+    if (ret == true)
+    {
+        ret = LoadColliders(mapFileXML.child("map"));
+    }
+
     if(ret == true)
     {
         // LOG all the data loaded iterate all tilesets and LOG everything
@@ -473,7 +478,7 @@ bool Map::LoadColliders(pugi::xml_node& node) {
     bool ret = true;
 
     for (pugi::xml_node colLayerNode = node.child("objectgroup"); colLayerNode; colLayerNode = colLayerNode.next_sibling("objectgroup")) {
-        ColTypes colType = (ColTypes)colLayerNode.child("properties").child("property").attribute("value").as_int();
+        int colType = colLayerNode.child("properties").child("property").attribute("value").as_int();
         for (pugi::xml_node colNode = colLayerNode.child("object"); colNode; colNode = colNode.next_sibling("object")) {
 
             ColData col;
@@ -481,8 +486,8 @@ bool Map::LoadColliders(pugi::xml_node& node) {
             col.id = colNode.attribute("id").as_int();
             col.x = colNode.attribute("x").as_float();
             col.y = colNode.attribute("y").as_float();
-            col.width = colNode.attribute("width").as_float() - 1;
-            col.height = colNode.attribute("height").as_float() - 1;
+            col.width = colNode.attribute("width").as_float();
+            col.height = colNode.attribute("height").as_float();
             col.type = colType;
 
             CreateColliders(col);
@@ -497,7 +502,8 @@ void Map::CreateColliders(ColData col) {
 
     PhysBody* collider;
 
-    collider = app->physics->CreateRectangleSensor(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
+    collider = app->physics->CreateRectangle(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
+    collider->ctype = (ColliderType)col.type;
 
 }
 

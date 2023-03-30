@@ -120,21 +120,12 @@ struct MapData
 	List<ImageLayer*> imageLayers;
 };
 
-//Collision types
-enum ColTypes {
-
-	UNKNOWN = -1,
-	TERRAIN,
-	DOOR,
-	TRIGGER
-};
-
 //Collisions data
 struct ColData
 {
-	ColData() : type((ColTypes)-1) {}
+	ColData() : type(-1) {}
 
-	ColData(ColTypes type) : type(type){}
+	ColData(int type) : type(type){}
 
 	~ColData() {};
 
@@ -145,7 +136,7 @@ struct ColData
 	int width;
 	int	height;
 
-	ColTypes type;
+	int type;
 };
 
 class Map : public Module
