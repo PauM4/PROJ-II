@@ -39,10 +39,10 @@ bool Scene::Awake(pugi::xml_node& config)
 	}
 
 	//L02: DONE 3: Instantiate the player using the entity manager
-	if (config.child("player")) {
-		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-		player->parameters = config.child("player");
-	}
+	//if (config.child("player")) {
+	//	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	//	player->parameters = config.child("player");
+	//}
 
 	//L02: DONE 3: Instantiate the player using the entity manager
 	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
@@ -250,8 +250,8 @@ bool Scene::PostUpdate()
 		return false;
 	}
 
-	app->fonts->DrawText("NPC1", -20, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("ITEM1", 100, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText("NPC1", -20, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText("ITEM1", 100, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
 
 
 	return ret;
