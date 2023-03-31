@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "PathFinding.h"
 #include "GuiManager.h"
+#include "Fonts.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -28,6 +29,26 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+
+	// iterate all objects in the scene
+	// Check https://pugixml.org/docs/quickstart.html#access
+	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+	{
+		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		item->parameters = itemNode;
+	}
+
+	//L02: DONE 3: Instantiate the player using the entity manager
+	if (config.child("player")) {
+		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+		player->parameters = config.child("player");
+	}
+
+	//L02: DONE 3: Instantiate the player using the entity manager
+	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
+
+	item1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+
 	return ret;
 }
 
@@ -36,6 +57,59 @@ bool Scene::Start()
 {
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	
+	//Fonts initialize
+	char lookUpTable[] = { " !ç#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ç]^_çabcdefghijklmnopqrstuvwxyz{|}~" };
+
+	font = app->fonts->Load("Assets/Fonts/GameFont.png", lookUpTable, 1);
+
+	// L03: DONE: Load map
+	bool retLoad = app->map->Load();
+
+	// L12 Create walkability map
+	if (retLoad) {
+		int w, h;
+		uchar* data = NULL;
+
+		bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		if(retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+
+	}
+
+	//Sets the camera to be centered in isometric map
+	if (app->map->mapData.type == MapTypes::MAPTYPE_ISOMETRIC) {
+		uint width, height;
+		app->win->GetWindowSize(width, height);
+		app->render->camera.x = width / 2;
+
+		// Texture to highligh mouse position 
+		mouseTileTex = app->tex->Load("Assets/Maps/path.png");
+
+		// Texture to show path origin 
+		originTex = app->tex->Load("Assets/Maps/x.png");
+	}
+
+	if (app->map->mapData.type == MapTypes::MAPTYPE_ORTHOGONAL) {
+
+		// Texture to highligh mouse position 
+		mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
+
+		// Texture to show path origin 
+		originTex = app->tex->Load("Assets/Maps/x_square.png");
+	}
+
+
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	button1_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Continue", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
+	button1_continue->state = GuiControlState::NONE;
+	button2_exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Exit", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
+	button2_exit->state = GuiControlState::NONE;
+
+	pauseMenuActive = false;
+	exitButtonBool = false;
 
 
 	return true;
@@ -57,7 +131,7 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 
-	// L14: DONE 4: Make the camera movement independent of framerate
+	// L14: TODO 4: Make the camera movement independent of framerate
 	float speed = 0.2 * dt;
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera.y += ceil(speed);
@@ -71,8 +145,42 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= ceil(speed);
 
+
+	// Menu appear
+	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		if (pauseMenuActive == true)
+		{
+			if(!player->npcInteractAvailable == true || !player->itemInteractAvailable == true)
+			{
+				player->movementRestringed = false;		
+			}
+			pauseMenuActive = false;
+			button1_continue->state = GuiControlState::NONE;
+			button2_exit->state = GuiControlState::NONE;
+		}
+		else
+		{
+			if (!player->npcInteractAvailable == true || !player->itemInteractAvailable == true)
+			{
+				player->movementRestringed = false;
+			}
+			pauseMenuActive = true;
+			button1_continue->state = GuiControlState::NORMAL;
+			button2_exit->state = GuiControlState::NORMAL;
+		}
+	}
+
+	if(pauseMenuActive)	app->guiManager->Draw();
+
 	// Draw map
 	app->map->Draw();
+
+
+	//Font test
+	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, {255,255,255,255}, app->fonts->gameFont);
+
+	
 
 	// L08: DONE 3: Test World to map method
 
@@ -124,6 +232,7 @@ bool Scene::Update(float dt)
 	app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
 	*/
 
+
 	return true;
 }
 
@@ -135,24 +244,34 @@ bool Scene::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
+	// When exit button click, close app
+	if (exitButtonBool == true)
+	{
+		return false;
+	}
+
+	app->fonts->DrawText("NPC1", -20, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("ITEM1", 100, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+
+
 	return ret;
 }
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
-	// L15: DONE 5: Implement the OnGuiMouseClickEvent method
-	LOG("Event by %d ",control->id);
+	LOG("Event by %d ", control->id);
 
 	switch (control->id)
 	{
 	case 1:
-		LOG("Button 1 click");
+		LOG("Button 1 Continue click");
+		pauseMenuActive = false;
 		break;
 	case 2:
-		LOG("Button 2 click");
+		LOG("Button 2 Exit click");
+		exitButtonBool = true;
 		break;
 	}
-
 	return true;
 }
 
@@ -160,6 +279,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	app->fonts->UnLoad(font);
 
 	return true;
 }

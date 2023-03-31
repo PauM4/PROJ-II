@@ -11,6 +11,7 @@ class PhysBody;
 enum class EntityType
 {
 	PLAYER,
+	NPC,
 	ITEM,
 	UNKNOWN
 };
@@ -73,6 +74,20 @@ public:
 	
 	};
 
+	virtual void LoadInfo(iPoint pos, int state)
+	{
+
+	}
+
+	virtual void SaveInfo()
+	{
+
+	}
+
+	virtual int GetState()
+	{
+		return 0;
+	}
 public:
 
 	SString name;

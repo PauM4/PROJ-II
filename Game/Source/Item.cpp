@@ -18,31 +18,24 @@ Item::~Item() {}
 
 bool Item::Awake() {
 
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
-	texturePath = parameters.attribute("texturepath").as_string();
+	position.x = 100;
+	position.y = 0;
 
 	return true;
 }
 
 bool Item::Start() {
 
-	//initilize textures
-	texture = app->tex->Load(texturePath);
 	
-	// L07 DONE 4: Add a physics to an item - initialize the physics body
-	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
-
-	// L07 DONE 7: Assign collider type
+	pbody = app->physics->CreateRectangleSensor(position.x, position.y, 40, 40, bodyType::STATIC);
+	pbody->listener = this;
 	pbody->ctype = ColliderType::ITEM;
 
 	return true;
 }
 
 bool Item::Update()
-{
-
-
+{ 
 	return true;
 }
 

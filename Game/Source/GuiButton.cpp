@@ -22,36 +22,36 @@ GuiButton::~GuiButton()
 
 bool GuiButton::Update(float dt)
 {
-	//if (state != GuiControlState::DISABLED)
-	//{
-	//	// L15: DONE 3: Update the state of the GUiButton according to the mouse position
-	//	app->input->GetMousePosition(mouseX, mouseY);
+	if (state != GuiControlState::DISABLED)
+	{
+		// L15: DONE 3: Update the state of the GUiButton according to the mouse position
+		app->input->GetMousePosition(mouseX, mouseY);
 
-	//	GuiControlState previousState = state;
+		GuiControlState previousState = state;
 
-	//	// I'm inside the limitis of the button
-	//	if (mouseX >= bounds.x && mouseX <= bounds.x + bounds.w &&
-	//		mouseY >= bounds.y && mouseY <= bounds.y + bounds.h) {
-	//		
-	//		state = GuiControlState::FOCUSED;
-	//		if (previousState != state) {
-	//			LOG("Change state from %d to %d",previousState,state);
-	//			app->audio->PlayFx(audioFxId);
-	//		}
+		// I'm inside the limitis of the button
+		if (mouseX >= bounds.x && mouseX <= bounds.x + bounds.w &&
+			mouseY >= bounds.y && mouseY <= bounds.y + bounds.h) {
 
-	//		if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT) {
-	//			state = GuiControlState::PRESSED;
-	//		}
+			state = GuiControlState::FOCUSED;
+			if (previousState != state) {
+				LOG("Change state from %d to %d", previousState, state);
+				app->audio->PlayFx(audioFxId);
+			}
 
-	//		//
-	//		if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
-	//			NotifyObserver();
-	//		}
-	//	}
-	//	else {
-	//		state = GuiControlState::NORMAL;
-	//	}
-	//}
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT) {
+				state = GuiControlState::PRESSED;
+			}
+
+			//
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
+				NotifyObserver();
+			}
+		}
+		else {
+			state = GuiControlState::NORMAL;
+		}
+	}
 
 	return false;
 }
@@ -79,7 +79,7 @@ bool GuiButton::Draw(Render* render)
 		break;
 	}
 
-	app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, {255,255,255});
+	app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });
 
 	return false;
 }

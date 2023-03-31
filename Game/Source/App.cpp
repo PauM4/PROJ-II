@@ -10,6 +10,7 @@
 #include "Physics.h"
 #include "Pathfinding.h"
 #include "GuiManager.h"
+#include "Fonts.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -20,7 +21,7 @@
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
 {
-	// L13: DONE 3: Measure the amount of ms that takes to execute the App constructor and LOG the result
+	// L13: TODO 3: Measure the amount of ms that takes to execute the App constructor and LOG the result
 
 	frames = 0;
 
@@ -36,6 +37,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager();
 	map = new Map();
 	guiManager = new GuiManager();
+	fonts = new Fonts();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,6 +47,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);
+	AddModule(fonts);
 	AddModule(pathfinding);
 	AddModule(scene);
 	AddModule(entityManager);
@@ -79,7 +82,7 @@ void App::AddModule(Module* module)
 // Called before render is available
 bool App::Awake()
 {
-	// L13: DONE 3: Measure the amount of ms that takes to execute the Awake and LOG the result
+	// L13: TODO 3: Measure the amount of ms that takes to execute the Awake and LOG the result
 	timer = Timer();
 
 	bool ret = false;
@@ -91,7 +94,7 @@ bool App::Awake()
 	{
 		title = configNode.child("app").child("title").child_value(); // L01: DONE 4: Read the title from the config file
 		
-		// L14: DONE 1: Read from config file your framerate cap
+		// L14: TODO 1: Read from config file your framerate cap
 		maxFrameDuration = configNode.child("app").child("frcap").attribute("value").as_int();
 
 		ListItem<Module*>* item;
@@ -117,7 +120,7 @@ bool App::Awake()
 // Called before the first frame
 bool App::Start()
 {
-	// L13: DONE 3: Measure the amount of ms that takes to execute the App Start() and LOG the result
+	// L13: TODO 3: Measure the amount of ms that takes to execute the App Start() and LOG the result
 	timer.Start();
 	startupTime.Start();
 	lastSecFrameTime.Start();
@@ -193,7 +196,7 @@ void App::FinishUpdate()
 	if (loadGameRequested == true) LoadFromFile();
 	if (saveGameRequested == true) SaveToFile();
 
-	// L13: DONE 4: Now calculate:
+	// L13: TODO 4: Now calculate:
 	// Amount of frames since startup
 	frameCount++;
 	// Amount of time since game start (use a low resolution timer)
@@ -211,8 +214,8 @@ void App::FinishUpdate()
 		averageFps = (averageFps + framesPerSecond) / 2;
 	}
 
-	// L14: DONE 2: Use SDL_Delay to make sure you get your capped framerate
-	// L14: DONE 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
+	// L14: TODO 2: Use SDL_Delay to make sure you get your capped framerate
+	// L14: TODO 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
 
 	float delay = float(maxFrameDuration) - dt;
 

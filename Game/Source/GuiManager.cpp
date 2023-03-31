@@ -29,28 +29,28 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	case GuiControlType::BUTTON:
 		guiControl = new GuiButton(id, bounds, text);
 		break;
-	/*
-	case GuiControlType::TOGGLE:
-		break;
-	case GuiControlType::CHECKBOX:
-		break;
-	case GuiControlType::SLIDER:
-		break;
-	case GuiControlType::SLIDERBAR:
-		break;
-	case GuiControlType::COMBOBOX:
-		break;
-	case GuiControlType::DROPDOWNBOX:
-		break;
-	case GuiControlType::INPUTBOX:
-		break;
-	case GuiControlType::VALUEBOX:
-		break;
-	case GuiControlType::SPINNER:
-		break;
-	default:
-		break;
-		*/
+		/*
+		case GuiControlType::TOGGLE:
+			break;
+		case GuiControlType::CHECKBOX:
+			break;
+		case GuiControlType::SLIDER:
+			break;
+		case GuiControlType::SLIDERBAR:
+			break;
+		case GuiControlType::COMBOBOX:
+			break;
+		case GuiControlType::DROPDOWNBOX:
+			break;
+		case GuiControlType::INPUTBOX:
+			break;
+		case GuiControlType::VALUEBOX:
+			break;
+		case GuiControlType::SPINNER:
+			break;
+		default:
+			break;
+			*/
 	}
 
 	//Set the observer
@@ -63,9 +63,28 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 }
 
 bool GuiManager::Update(float dt)
-{	
-	
-	
+{
+	accumulatedTime += dt;
+	if (accumulatedTime >= updateMsCycle) doLogic = true;
+
+	// We control how often the GUI is updated to optimize the performance
+	if (doLogic == true)
+	{
+		ListItem<GuiControl*>* control = guiControlsList.start;
+
+		while (control != nullptr)
+		{
+			if (control->data->state != GuiControlState::NONE)
+			{
+				control->data->Update(dt);
+			}
+			control = control->next;
+		}
+
+		accumulatedTime = 0.0f;
+		doLogic = false;
+	}
+
 	return true;
 }
 
@@ -75,7 +94,10 @@ bool GuiManager::Draw() {
 
 	while (control != nullptr)
 	{
-		control->data->Draw(app->render);
+		if (control->data->state != GuiControlState::NONE)
+		{
+			control->data->Draw(app->render);
+		}
 		control = control->next;
 	}
 
