@@ -64,23 +64,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 
 bool GuiManager::Update(float dt)
 {	
-	accumulatedTime += dt;
-	if (accumulatedTime >= updateMsCycle) doLogic = true;
-
-	// We control how often the GUI is updated to optimize the performance
-	if (doLogic == true)
-	{
-		ListItem<GuiControl*>* control = guiControlsList.start;
-
-		while (control != nullptr)
-		{
-			control->data->Update(dt);
-			control = control->next;
-		}
-
-		accumulatedTime = 0.0f;
-		doLogic = false;
-	}
+	
 	
 	return true;
 }
