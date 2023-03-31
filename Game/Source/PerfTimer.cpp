@@ -7,7 +7,7 @@
 
 uint64 PerfTimer::frequency = 0;
 
-// L13: TODO 2: Fill Constructor, Start(),ReadMs() and ReadTicks() methods
+// L13: DONE 2: Fill Constructor, Start(),ReadMs() and ReadTicks() methods
 // they are simple, one line each!
 
 PerfTimer::PerfTimer()

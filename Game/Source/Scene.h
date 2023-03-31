@@ -52,10 +52,9 @@ private:
 	iPoint origin;
 	bool originSelected = false;
 
-	//Fonts
-	int font;
-
-
+	// L15: DONE 2: Declare a GUI Button and create it using the GuiManager
+	GuiButton* button1; 
+	GuiButton* button2;
 };
 
 #endif // __SCENE_H__

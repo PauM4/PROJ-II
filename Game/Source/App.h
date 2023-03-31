@@ -20,7 +20,6 @@ class Audio;
 class Scene;
 class EntityManager;
 class Map;
-class Fonts;
 //L07 DONE 2: Add Physics module
 class Physics;
 class PathFinding;
@@ -94,7 +93,6 @@ public:
 	Scene* scene;
 	EntityManager* entityManager;
 	Map* map;
-	Fonts* fonts; 
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
 	PathFinding* pathfinding;
@@ -122,7 +120,7 @@ private:
     bool saveGameRequested;
 	bool loadGameRequested;
 
-	// L13: TODO 4: Calculate some timing measures
+	// L13: DONE 4: Calculate some timing measures
 	// required variables are provided:
 	Timer timer;
 	PerfTimer ptimer;
