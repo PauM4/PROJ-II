@@ -3,7 +3,7 @@
 
 #include "Module.h"
 #include "Player.h"
-#include "Entity.h"
+
 #include "GuiButton.h"
 #include "List.h"
 
@@ -60,9 +60,6 @@ public:
 
 	// Draws an area of attack/ability/movement from an ally
 	bool DisplayArea(List<TileData*> area, int type);
-
-	// ID == 1: Basic, ID == 2: Hability
-	bool Attack(int id);
 
 public:
 

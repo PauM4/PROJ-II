@@ -7,7 +7,6 @@
 #include "SceneBattle.h"
 #include "EntityManager.h"
 #include "Map.h"
-#include "Entity.h"
 #include "PathFinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
@@ -140,23 +139,6 @@ bool SceneBattle::DisplayArea(List<TileData*> area, int type) {
 
 	return ret;
 }
-
-
-bool SceneBattle::Attack(int id)
-{
-	bool ret = true;
-	if (id == 1) {
-		characterTurn->parameters;
-		selectedtile->character->parameters;
-	}
-	if (id == 2) {
-		characterTurn->parameters;
-		selectedtile->character->parameters;
-	}
-
-	return ret;
-}
-
 
 //Called before quitting
 bool SceneBattle::CleanUp()
