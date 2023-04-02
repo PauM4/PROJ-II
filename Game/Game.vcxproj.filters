@@ -15,8 +15,6 @@
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp">
       <Filter>External\PugiXml</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EntityManager.cpp" />
-    <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
@@ -30,9 +28,19 @@
     </ClCompile>
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\SceneBattle.cpp" />
-    <ClCompile Include="Source\Nonplayable.cpp" />
-    <ClCompile Include="Source\Playable.cpp" />
     <ClCompile Include="Source\PerformanceBar2.cpp" />
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Playable.cpp">
+      <Filter>Entities\Playable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Nonplayable.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -70,9 +78,6 @@
     <ClInclude Include="Source\Queue.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\EntityManager.h" />
-    <ClInclude Include="Source\Player.h" />
-    <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\PQueue.h">
@@ -90,12 +95,25 @@
     </ClInclude>
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\SceneBattle.h" />
-    <ClInclude Include="Source\Nonplayable.h" />
-    <ClInclude Include="Source\Playable.h" />
     <ClInclude Include="Source\Animation.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\PerformanceBar2.h" />
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityManager.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Playable.h">
+      <Filter>Entities\Playable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Nonplayable.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -106,6 +124,15 @@
     </Filter>
     <Filter Include="External\PugiXml">
       <UniqueIdentifier>{2855ff7f-53a1-413d-a75b-18b4ade921dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{69eb42a3-181f-4db8-828e-be96dfcd6080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Playable">
+      <UniqueIdentifier>{1624f8c2-d35d-4bf0-a3f3-e08205813ffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\NonPlayable">
+      <UniqueIdentifier>{1832da15-3a2b-44e6-bb34-84d1c65a3b76}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

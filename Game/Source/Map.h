@@ -95,10 +95,8 @@ struct ImageLayer {
 
 	SString name;
 	int id;
-	int width;
-	int height;
-	int x;
-	int y;
+	int offsetX;
+	int offsetY;
 
 	Properties properties;
 
