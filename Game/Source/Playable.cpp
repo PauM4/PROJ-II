@@ -9,8 +9,9 @@ Playable::~Playable() {
 
 }
 
-void Playable::Attack()
+int Playable::Attack()
 {
+	return attack;
 
 }
 
@@ -24,3 +25,11 @@ void Playable::Movement()
 {
 
  }
+
+bool Playable::TakeDamage(uint reciveattack)
+{
+
+	health = reciveattack - defense;
+
+	return false;
+}

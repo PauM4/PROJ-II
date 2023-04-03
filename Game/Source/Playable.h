@@ -13,13 +13,14 @@ public:
 	
 	virtual ~Playable();
 
-	virtual void Attack();
+	virtual int Attack();
 
 	virtual void Ability();
 
 	virtual void Movement();
+	
+	bool TakeDamage(uint reciveattack);
 
-	bool TakeDamage(uint attack);
 
 private:
 	
@@ -36,20 +37,26 @@ public:
 		IDLE,
 		
 	};
-
-
-private:
-
 	//Character Stats
 	uint level;
 	uint health;
 	uint movement;
-	uint attack;
 	uint defense;
 	uint magic;
 	uint resistence;
 	uint speed;
 	uint skill;
+	uint attack;
+	iPoint AttArea;
+	uint Ab1Dmg;
+	iPoint Ab1Area;
+	uint Ab2Dmg;
+	iPoint Ab2Area;
+
+private:
+
+
+	
 };
 
 #endif // __PLAYABLE_H__

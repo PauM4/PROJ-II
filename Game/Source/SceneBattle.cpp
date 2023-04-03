@@ -6,10 +6,12 @@
 #include "Window.h"
 #include "SceneBattle.h"
 #include "EntityManager.h"
+#include "Entity.h"
 #include "Map.h"
 #include "PathFinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
+#include "Playable.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -38,6 +40,10 @@ bool SceneBattle::Start()
 	//Load map
 	bool retLoad = app->map->Load();
 
+	Playable timmy;
+	Playable villager;
+
+	timmy.AttArea = iPoint(1, 1);
 	//Load combat map
 	MakeCombatMap();
 
