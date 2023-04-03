@@ -69,10 +69,10 @@ bool Scene::Start()
 	}
 
 	
-	mouseTileTex = app->tex->Load("Assets/Maps/path_square.png");
+	
 
 	// Texture to show path origin 
-	originTex = app->tex->Load("Assets/Maps/x_square.png");
+	
 	
 	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
 
@@ -110,7 +110,7 @@ bool Scene::Update(float dt)
 		app->render->camera.x -= ceil(speed);;
 
 	// Draw map
-	app->map->Draw();
+	//app->map->Draw();
 
 	//L15: Draw GUI
 	app->guiManager->Draw();

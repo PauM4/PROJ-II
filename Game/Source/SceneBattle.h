@@ -77,6 +77,9 @@ private:;
 	SDL_Texture* mouseTileTex = nullptr;
 	SDL_Texture* originTex = nullptr;
 
+
+	iPoint origin;
+	bool originSelected = false;
 };
 
 #endif // __SCENE_BATTLE_H__

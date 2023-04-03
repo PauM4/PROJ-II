@@ -63,6 +63,23 @@ bool SceneBattle::Start()
 	//Load combat map
 	MakeCombatMap();
 
+
+	if (retLoad) {
+		int w, h;
+		uchar* data = NULL;
+
+		bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		if (retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+
+	}
+
+
+	mouseTileTex = app->tex->Load("Assets\Maps\Scenes\Path.png");
+
+	originTex = app->tex->Load("Assets\Maps\Scenes\tesTileset.png");
+
 	return true;
 }
 
@@ -94,6 +111,63 @@ bool SceneBattle::PostUpdate()
 	//if (!DisplayArea()) ret = false;
 
 	app->map->Draw();
+
+	
+
+	int mouseX, mouseY;
+	app->input->GetMousePosition(mouseX, mouseY);
+
+	iPoint mouseTile = iPoint(0, 0);
+
+	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x,mouseY - app->render->camera.y);
+
+	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
+	if (app->pathfinding->IsWalkable(mouseTile)) {
+		app->render->DrawRectangle({ highlightedTileWorld.x, highlightedTileWorld.y, 120, 120 }, 0, 143, 57, 100, true);
+		app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);
+	}
+
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		
+			if (originSelected == true)
+			{
+				if (app->pathfinding->IsWalkable(origin)) {
+					app->pathfinding->CreatePath(origin, mouseTile);
+					originSelected = false;
+				}
+			}
+			else
+			{
+					origin = mouseTile;
+					if (app->pathfinding->IsWalkable(origin)) {
+						originSelected = true;
+						app->pathfinding->ClearLastPath();
+					}
+				
+			}
+		
+		
+	}
+
+
+	const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		
+			app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+		
+	}
+
+	// L12: Debug pathfinding
+	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
+	if (app->pathfinding->IsWalkable(origin)) {
+
+	  app->render->DrawRectangle({ originScreen.x, originScreen.y, 120, 120 }, 250, 0, 0, 100, true);
+	  app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
+
+	}
 
 	return ret;
 }
