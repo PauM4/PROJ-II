@@ -13,6 +13,7 @@
 #include "GuiManager.h"
 #include "Fonts.h"
 #include "SceneManager.h"
+#include "FadeToBlack.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -33,9 +34,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures();
 	audio = new Audio();
 	//L07 DONE 2: Add Physics module
+	fadeToBlack = new FadeToBlack();
 	physics = new Physics();
 	pathfinding = new PathFinding();
-	sceneManager = new SceneManager();
+	sceneManager = new SceneManager(); 
 	scene = new Scene();
 	sceneBattle = new SceneBattle();
 	entityManager = new EntityManager();
@@ -54,10 +56,16 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(pathfinding);
 	AddModule(sceneManager);
+	//Scenes
 	AddModule(scene);
+	AddModule(sceneBattle);
+
+
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(guiManager);
+
+	AddModule(fadeToBlack);
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -83,6 +91,7 @@ void App::AddModule(Module* module)
 	module->Init();
 	modules.Add(module);
 }
+
 
 // Called before render is available
 bool App::Awake()

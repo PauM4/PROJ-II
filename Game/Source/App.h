@@ -23,7 +23,9 @@ class SceneBattle;
 class EntityManager;
 class Map;
 class Fonts;
+class FadeToBlack;
 class SceneManager;
+
 //L07 DONE 2: Add Physics module
 class Physics;
 class PathFinding;
@@ -99,6 +101,7 @@ public:
 	EntityManager* entityManager;
 	Map* map;
 	Fonts* fonts; 
+	FadeToBlack* fadeToBlack;
 	SceneManager* sceneManager; 
 	//L07 DONE 2: Add Physics module
 	Physics* physics;

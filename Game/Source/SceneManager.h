@@ -6,6 +6,7 @@
 #include "Render.h"
 #include "Input.h"
 #include "Scene.h"
+#include "FadeToBlack.h"
 
 enum GameScene {
 	NONE = 0,

@@ -41,6 +41,7 @@
     <ClCompile Include="Source\Player.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FadeToBlack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Source\Player.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FadeToBlack.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
