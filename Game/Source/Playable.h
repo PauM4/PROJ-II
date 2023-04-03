@@ -15,11 +15,13 @@ public:
 
 	virtual int Attack();
 
-	virtual void Ability();
+	virtual int Ability(int id);
 
 	virtual void Movement();
 	
 	bool TakeDamage(uint reciveattack);
+
+	bool TakeHealing(uint recievedhealing);
 
 
 private:
@@ -40,18 +42,24 @@ public:
 	//Character Stats
 	uint level;
 	uint health;
-	uint movement;
+	uint maxhealth;
 	uint defense;
 	uint magic;
-	uint resistence;
+	uint stamina;
+	uint maxstamina;
 	uint speed;
 	uint skill;
 	uint attack;
 	iPoint AttArea;
-	uint Ab1Dmg;
+	uint Ab1Power;
+	uint Ab2Power;
+	//1 if melee 2 if mage 3 if healing;
+	uint Ab1Type;
+	//1 if melee 2 if mage 3 if healing;
+	uint Ab2Type;
 	iPoint Ab1Area;
-	uint Ab2Dmg;
 	iPoint Ab2Area;
+	uint healingpower;
 
 private:
 

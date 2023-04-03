@@ -42,8 +42,24 @@ bool SceneBattle::Start()
 
 	Playable timmy;
 	Playable villager;
-
+	timmy.level = 1;
+	timmy.health = 20;
+	timmy.maxhealth = 20;
+	timmy.defense = 5;
+	timmy.magic = 1;
+	timmy.stamina = 15;
+	timmy.maxstamina = 15;
+	timmy.speed=5;
+	timmy.attack = 6;
 	timmy.AttArea = iPoint(1, 1);
+	timmy.Ab1Type = 1;
+	timmy.Ab1Area = iPoint(1, 3);
+	timmy.Ab1Power = 2;
+	timmy.Ab2Type = 1;
+	timmy.Ab2Area = iPoint(1, 3);
+	timmy.Ab2Power = 3;
+	timmy.healingpower = 0;
+
 	//Load combat map
 	MakeCombatMap();
 
