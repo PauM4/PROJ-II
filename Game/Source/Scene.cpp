@@ -147,31 +147,26 @@ bool Scene::Update(float dt)
 
 
 	// Menu appear
-	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
-		if (pauseMenuActive == true)
+		if (player->playerState == player->PlayerState::PAUSE)
 		{
-			if(!player->npcInteractAvailable == true || !player->itemInteractAvailable == true)
-			{
-				player->movementRestringed = false;		
-			}
-			pauseMenuActive = false;
+			player->playerState = player->playerPrevState;
+
 			button1_continue->state = GuiControlState::NONE;
 			button2_exit->state = GuiControlState::NONE;
 		}
 		else
 		{
-			if (!player->npcInteractAvailable == true || !player->itemInteractAvailable == true)
-			{
-				player->movementRestringed = false;
-			}
-			pauseMenuActive = true;
+			// Save previous state to go back
+			player->playerPrevState = player->playerState;
+			player->playerState = player->PlayerState::PAUSE;
 			button1_continue->state = GuiControlState::NORMAL;
-			button2_exit->state = GuiControlState::NORMAL;
+			button2_exit->state = GuiControlState::NORMAL;			
 		}
 	}
 
-	if(pauseMenuActive)	app->guiManager->Draw();
+	if(player->playerState == player->PAUSE) app->guiManager->Draw();
 
 	// Draw map
 	app->map->Draw();
@@ -179,7 +174,6 @@ bool Scene::Update(float dt)
 
 	//Font test
 	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, {255,255,255,255}, app->fonts->gameFont);
-
 	
 
 	// L08: DONE 3: Test World to map method
@@ -265,7 +259,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button 1 Continue click");
-		pauseMenuActive = false;
+		player->playerState = player->playerPrevState;
 		break;
 	case 2:
 		LOG("Button 2 Exit click");
