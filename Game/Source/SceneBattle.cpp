@@ -136,14 +136,18 @@ bool SceneBattle::PostUpdate()
 					app->pathfinding->CreatePath(origin, mouseTile);
 					originSelected = false;
 				}
+				else {
+					app->pathfinding->ClearLastPath();
+				}
 			}
 			else
 			{
 					origin = mouseTile;
 					if (app->pathfinding->IsWalkable(origin)) {
 						originSelected = true;
-						app->pathfinding->ClearLastPath();
+						
 					}
+					app->pathfinding->ClearLastPath();
 				
 			}
 		
