@@ -13,13 +13,16 @@ public:
 	
 	virtual ~Playable();
 
-	virtual void Attack();
+	virtual int Attack();
 
-	virtual void Ability();
+	virtual int Ability(int id);
 
 	virtual void Movement();
+	
+	bool TakeDamage(uint reciveattack);
 
-	bool TakeDamage(uint attack);
+	bool TakeHealing(uint recievedhealing);
+
 
 private:
 	
@@ -36,20 +39,32 @@ public:
 		IDLE,
 		
 	};
-
-
-private:
-
 	//Character Stats
 	uint level;
 	uint health;
-	uint movement;
-	uint attack;
+	uint maxhealth;
 	uint defense;
 	uint magic;
-	uint resistence;
+	uint stamina;
+	uint maxstamina;
 	uint speed;
 	uint skill;
+	uint attack;
+	iPoint AttArea;
+	uint Ab1Power;
+	uint Ab2Power;
+	//1 if melee 2 if mage 3 if healing;
+	uint Ab1Type;
+	//1 if melee 2 if mage 3 if healing;
+	uint Ab2Type;
+	iPoint Ab1Area;
+	iPoint Ab2Area;
+	uint healingpower;
+
+private:
+
+
+	
 };
 
 #endif // __PLAYABLE_H__

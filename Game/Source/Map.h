@@ -164,6 +164,9 @@ public:
 	// L08: DONE 3: Add method WorldToMap to obtain  
 	iPoint Map::WorldToMap(int x, int y);
 
+
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
 private:
 
 	bool LoadMap(pugi::xml_node mapFile);
