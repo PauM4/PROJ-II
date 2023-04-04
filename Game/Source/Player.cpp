@@ -48,7 +48,7 @@ bool Player::Awake() {
 bool Player::Start() {
 
 	texture = app->tex->Load(texturePath);
-	walkDownTexture = app->tex->Load("Assets/Sprites/Character_X_Sprites_down.png");
+	walkDownTexture = app->tex->Load("Assets/Characters/Character_X_Sprites_down.png");
 	currentAnimation = &walkDownAnim;
 
 	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 16, bodyType::DYNAMIC);
@@ -173,7 +173,7 @@ bool Player::Update()
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	// Animation removed to continue working
-	//app->render->DrawTexture(walkDownTexture, position.x - 200, position.y - 200, &rect);
+	app->render->DrawTexture(walkDownTexture, position.x - 200, position.y - 200, &rect);
 	app->render->DrawTexture(texture, position.x , position.y);
 
 	return true;
