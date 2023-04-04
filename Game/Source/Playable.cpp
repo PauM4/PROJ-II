@@ -52,7 +52,7 @@ int Playable::Ability(int id)
 		}
 		if (Ab1Type == 3) {
 
-			return healingpower;
+			return healingpower * 1.5;
 
 		}
 	}

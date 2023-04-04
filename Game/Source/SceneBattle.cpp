@@ -41,6 +41,7 @@ bool SceneBattle::Start()
 	bool retLoad = app->map->Load();
 
 	Playable timmy;
+	Playable bunny;
 	Playable villager;
 	timmy.level = 1;
 	timmy.health = 20;
@@ -59,6 +60,25 @@ bool SceneBattle::Start()
 	timmy.Ab2Area = iPoint(1, 3);
 	timmy.Ab2Power = 3;
 	timmy.healingpower = 0;
+
+	villager.level = 1;
+	villager.health = 20;
+	villager.maxhealth = 20;
+	villager.defense = 5;
+	villager.magic = 1;
+	villager.stamina = 15;
+	villager.maxstamina = 15;
+	villager.speed = 5;
+	villager.attack = 6;
+	villager.AttArea = iPoint(1, 1);
+	villager.Ab1Type = 1;
+	villager.Ab1Area = iPoint(1, 3);
+	villager.Ab1Power = 2;
+	villager.Ab2Type = 1;
+	villager.Ab2Area = iPoint(1, 3);
+	villager.Ab2Power = 3;
+	villager.healingpower = 0;
+
 
 	//Load combat map
 	MakeCombatMap();
@@ -237,6 +257,42 @@ bool SceneBattle::DisplayArea(List<TileData*> area, int type) {
 		tileListItem = tileListItem->next;
 	}
 
+	return ret;
+}
+
+// Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
+bool SceneBattle::Combat(Playable* inturn, List<Playable*> target, int id) {
+	
+	bool ret = true;
+
+	//id = 1 --> attack
+	if (id == 1) {
+		for (int i = 0; i++; i > target.Count()) {
+			target.At(i)->data->TakeDamage(inturn->Attack());
+		}
+	}
+	//id = 2 --> ability 1
+	if (id == 2) {
+		for (int i = 0; i++; i > target.Count()) {
+			if (inturn->Ab1Type != 3) {
+				target.At(i)->data->TakeDamage(inturn->Ability(1));
+			}
+			if (inturn->Ab1Type == 3) {
+				target.At(i)->data->TakeHealing(inturn->Ability(1));
+			}
+		}
+	}
+	//id = 3 --> ability 2
+	if (id == 3) {
+		for (int i = 0; i++; i > target.Count()) {
+			if (inturn->Ab1Type != 3) {
+				target.At(i)->data->TakeDamage(inturn->Ability(2));
+			}
+			if (inturn->Ab1Type == 3) {
+				target.At(i)->data->TakeHealing(inturn->Ability(2));
+			}
+		}
+	}
 	return ret;
 }
 

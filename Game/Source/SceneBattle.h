@@ -3,7 +3,8 @@
 
 #include "Module.h"
 #include "Player.h"
-
+#include "Entity.h"
+#include "Playable.h"
 #include "GuiButton.h"
 #include "List.h"
 
@@ -61,6 +62,10 @@ public:
 	// Draws an area of attack/ability/movement from an ally
 	bool DisplayArea(List<TileData*> area, int type);
 
+	// Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
+	bool Combat(Playable* inturn, List<Playable*> target, int id);
+
+
 public:
 
 	TileData combatMap[16][9];
@@ -69,9 +74,9 @@ private:;
 
 	TileData* selectedtile;
 
-	Entity* characterTurn;
+	Playable* characterTurn;
 
-	List<Entity*> targets;
+	List<Playable*> targets;
 
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
