@@ -76,9 +76,9 @@ bool SceneBattle::Start()
 	}
 
 
-	mouseTileTex = app->tex->Load("Assets\Maps\Scenes\Path.png");
+	mouseTileTex = app->tex->Load("Assets/Maps/Scenes/Path.png");
 
-	originTex = app->tex->Load("Assets\Maps\Scenes\tesTileset.png");
+	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
 	return true;
 }
@@ -124,7 +124,7 @@ bool SceneBattle::PostUpdate()
 	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
 	if (app->pathfinding->IsWalkable(mouseTile)) {
 		app->render->DrawRectangle({ highlightedTileWorld.x, highlightedTileWorld.y, 120, 120 }, 0, 143, 57, 100, true);
-		app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);
+		/*app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);*/
 	}
 
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
