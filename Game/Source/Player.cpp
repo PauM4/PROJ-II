@@ -8,6 +8,8 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Animation.h"
+#include "Fonts.h"
 
 Player::Player() : Entity(EntityType::PLAYABLE)
 {
@@ -24,6 +26,17 @@ bool Player::Awake() {
 	//pos = position;
 	//texturePath = "Assets/Textures/player/idle1.png";
 
+	walkDownAnim.PushBack({ 70, 0, 562, 754 });
+	walkDownAnim.PushBack({ 600, 0, 562, 754 });
+	walkDownAnim.PushBack({ 1150, 0, 562, 754 });
+	walkDownAnim.PushBack({ 1685, 0, 562, 754 });
+	walkDownAnim.PushBack({ 2217, 0, 562, 754 });
+	walkDownAnim.PushBack({ 2780, 0, 562, 754 });
+	walkDownAnim.PushBack({ 3300, 0, 562, 754 });
+	walkDownAnim.PushBack({ 3838, 0, 562, 754 });
+	walkDownAnim.loop = true;
+	walkDownAnim.speed = 0.15f;
+
 	//L02: DONE 5: Get Player parameters from XML
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -34,56 +47,133 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	//initilize textures
 	texture = app->tex->Load(texturePath);
+	walkDownTexture = app->tex->Load("Assets/Characters/Character_X_Sprites_down.png");
+	currentAnimation = &walkDownAnim;
 
-	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 16, bodyType::DYNAMIC);
+	pbody->listener = this;
 
-	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
-	pbody->listener = this; 
-
-	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
 
-	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
-	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	// Bool variables
+	npcInteractAvailable = false;
+	itemInteractAvailable = false;
+	movementRestringed = false;
+	playerState = PlayerState::MOVING;
+	playerPrevState = PlayerState::MOVING;
 
 	return true;
 }
 
 bool Player::Update()
 {
-
-	// L07 DONE 5: Add physics to the player - updated player position using physics
+	currentAnimation->Update();
 
 	int speed = 10; 
 	b2Vec2 vel = b2Vec2(0, 0); 
 
-	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		vel.y = -speed;
+	switch (playerState)
+	{
+	case PAUSE:
+		movementRestringed = true;
+		app->fonts->DrawText("PLAYER STATE: PAUSE", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+		break;
+	case INVENTORY:
+		movementRestringed = true;
+		app->fonts->DrawText("PLAYER STATE: INVENTORY", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
 
+		break;
+	case MOVING:
+		movementRestringed = false;
+		app->fonts->DrawText("PLAYER STATE: MOVING", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+		break;
+	case BATTLE:
+		break;
+	case NPC_INTERACT:
+		LOG("TALKING TO NPC1");
+		movementRestringed = true;
+		app->fonts->DrawText("PLAYER STATE: NPC_INTERACT", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+		break;
+	case ITEM_INTERACT:
+		LOG("INTERACTING WITH ITEM");
+		movementRestringed = true;
+		app->fonts->DrawText("PLAYER STATE: ITEM_INTERACT", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+		break;
+	case NONE:
+		break;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		vel.y = speed;
 
+	// movement code
+	if (movementRestringed == false)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+			vel.y = -speed;
+
+		}
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			vel.y = speed;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+			vel.x = -speed;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+			vel.x = speed;
+		}
 	}
+
+
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	{
+		if (playerState != PlayerState::PAUSE)
+		{
+			if (npcInteractAvailable)
+			{
+				if (playerState == NPC_INTERACT)
+				{
+					playerState = MOVING;
+				}
+				// Moving
+				else
+				{
+					playerPrevState = playerState;
+					playerState = NPC_INTERACT;
+				}
+			}
+
+			else if (itemInteractAvailable)
+			{
+				if (playerState == ITEM_INTERACT)
+				{
+					playerState = MOVING;
+				}
+				// Moving
+				else
+				{
+					playerPrevState = playerState;
+					playerState = ITEM_INTERACT;
+				}
+			}
+		}
 		
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		vel.x = -speed;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		vel.x = speed;
-	}
-
-	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	// Animation removed to continue working
+	app->render->DrawTexture(walkDownTexture, position.x - 200, position.y - 200, &rect);
 	app->render->DrawTexture(texture, position.x , position.y);
 
 	return true;
@@ -94,22 +184,23 @@ bool Player::CleanUp()
 	return true;
 }
 
-// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
-
-	// L07 DONE 7: Detect the type of collision
 
 	switch (physB->ctype)
 	{
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
-			app->audio->PlayFx(pickCoinFxId);
+			itemInteractAvailable = true;
 			break;
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
 			break;
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
+			break;
+		case ColliderType::NPC:
+			LOG("Collision NPC");
+			npcInteractAvailable = true;
 			break;
 	}
 	

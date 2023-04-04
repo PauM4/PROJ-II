@@ -7,6 +7,7 @@
 #include "Playable.h"
 #include "Nonplayable.h"
 
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -86,6 +87,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 	switch (type)
 	{
+	case EntityType::NPC:
+		entity = new Npc();
+		break;
 
 	case EntityType::PLAYABLE:
 		entity = new Playable();

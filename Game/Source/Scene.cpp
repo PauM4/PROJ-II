@@ -11,8 +11,6 @@
 #include "GuiManager.h"
 #include "Fonts.h"
 
-
-
 #include "Defs.h"
 #include "Log.h"
 
@@ -39,6 +37,12 @@ bool Scene::Awake(pugi::xml_node& config)
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
 	}*/
+	}
+
+	//L02: DONE 3: Instantiate the player using the entity manager
+	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
+
+	item1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 
 	return ret;
 }
@@ -70,12 +74,16 @@ bool Scene::Start()
 	}
 
 	
-	
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	button1_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Continue", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
+	button1_continue->state = GuiControlState::NONE;
+	button2_exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Exit", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
+	button2_exit->state = GuiControlState::NONE;
 
-	// Texture to show path origin 
-	
-	
-	// L15: TODO 2: Declare a GUI Button and create it using the GuiManager
+	pauseMenuActive = false;
+	exitButtonBool = false;
+
 
 	return true;
 }
@@ -99,26 +107,46 @@ bool Scene::Update(float dt)
 	// L14: TODO 4: Make the camera movement independent of framerate
 	float speed = 0.2 * dt;
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += ceil(speed);;
+		app->render->camera.y += ceil(speed);
 
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= ceil(speed);;
+		app->render->camera.y -= ceil(speed);
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += ceil(speed);;
+		app->render->camera.x += ceil(speed);
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= ceil(speed);;
+		app->render->camera.x -= ceil(speed);
+
+
+	// Menu appear
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		if (player->playerState == player->PlayerState::PAUSE)
+		{
+			player->playerState = player->playerPrevState;
+
+			button1_continue->state = GuiControlState::NONE;
+			button2_exit->state = GuiControlState::NONE;
+		}
+		else
+		{
+			// Save previous state to go back
+			player->playerPrevState = player->playerState;
+			player->playerState = player->PlayerState::PAUSE;
+			button1_continue->state = GuiControlState::NORMAL;
+			button2_exit->state = GuiControlState::NORMAL;			
+		}
+	}
+
+	if(player->playerState == player->PAUSE) app->guiManager->Draw();
 
 	// Draw map
 	app->map->Draw();
 
-	//L15: Draw GUI
-	app->guiManager->Draw();
 
 	//Font test
 	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, {255,255,255,255}, app->fonts->gameFont);
-
 	
 
 	
@@ -140,20 +168,35 @@ bool Scene::PostUpdate()
 
 	//L15: Draw GUI
 	app->guiManager->Draw();
+	
+	// When exit button click, close app
+	if (exitButtonBool == true)
+	{
+		return false;
+	}
 
-	//Font test
-	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("NPC1", -20, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("ITEM1", 100, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
 
-	//Player Test
-	app->render->DrawRectangle({ (-1)*app->render->camera.x + app->render->camera.w/2, (-1) * app->render->camera.y + app->render->camera.h / 2,65,120 }, 100, 100, 0);
 
 	return ret;
 }
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
-	// L15: TODO 5: Implement the OnGuiMouseClickEvent method
+	LOG("Event by %d ", control->id);
 
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button 1 Continue click");
+		player->playerState = player->playerPrevState;
+		break;
+	case 2:
+		LOG("Button 2 Exit click");
+		exitButtonBool = true;
+		break;
+	}
 	return true;
 }
 

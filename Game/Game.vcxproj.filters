@@ -42,6 +42,7 @@
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
     <ClCompile Include="Source\FadeToBlack.cpp" />
+    <ClCompile Include="Source\Npc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -116,6 +117,8 @@
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
     <ClInclude Include="Source\FadeToBlack.h" />
+    <ClInclude Include="Source\Npc.h" />
+    <ClInclude Include="Source\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

@@ -5,6 +5,7 @@
 #include "Player.h"
 
 #include "GuiButton.h"
+#include "Npc.h"
 
 struct SDL_Texture;
 
@@ -40,8 +41,12 @@ public:
 
 public:
 
-	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+
+
+	Npc* npc1;
+
+	Item* item1;
 
 private:
 	SDL_Texture* img;
@@ -54,6 +59,13 @@ private:
 
 	//Fonts
 	int font;
+
+	// L15: DONE 2: Declare a GUI Button and create it using the GuiManager
+	GuiButton* button1_continue;
+	GuiButton* button2_exit;
+
+	bool pauseMenuActive;
+	bool exitButtonBool;
 
 
 };

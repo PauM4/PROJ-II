@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -28,6 +29,28 @@ public:
 
 
 public:
+	// This bool checks if the player is interacting with something (In the furute will be change for a state machine)
+	// (In the furute will be change for a state machine)
+	bool movementRestringed;
+
+
+	//These two bools checks if the player can interact with an npc or an item
+	bool npcInteractAvailable;
+	bool itemInteractAvailable;
+
+	enum PlayerState
+	{
+		PAUSE,
+		INVENTORY,
+		MOVING,
+		BATTLE,
+		NPC_INTERACT,
+		ITEM_INTERACT,
+		NONE
+	};
+
+	int playerState;
+	int playerPrevState;
 
 private:
 
@@ -38,7 +61,11 @@ private:
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 
-	int pickCoinFxId;
+	SDL_Texture* walkDownTexture;
+
+	Animation* currentAnimation;
+	Animation walkDownAnim;
+
 
 };
 
