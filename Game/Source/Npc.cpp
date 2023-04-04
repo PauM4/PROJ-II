@@ -8,9 +8,11 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Nonplayable.h"
+#include "Entity.h"
 #include "Npc.h"
 
-Npc::Npc() : Entity(EntityType::NPC)
+Npc::Npc() : NonPlayable(NonPlayableType::NPC)
 {
 	name.Create("Npc");
 }

@@ -37,11 +37,11 @@ void PerformanceBar::Render()
 		app->finishUpdate / app->update,
 	};
 
-	std::cout << "prepareUpdate: " << sectionHeights[0] << std::endl;
-	std::cout << "preUpdate" << sectionHeights[1] << std::endl;
-	std::cout << "doUpdate" << sectionHeights[2] << std::endl;
-	std::cout << "postUpdate" << sectionHeights[3] << std::endl;
-	std::cout << "finishUpdate" << sectionHeights[4] << std::endl;
+	//std::cout << "prepareUpdate: " << sectionHeights[0] << std::endl;
+	//std::cout << "preUpdate" << sectionHeights[1] << std::endl;
+	//std::cout << "doUpdate" << sectionHeights[2] << std::endl;
+	//std::cout << "postUpdate" << sectionHeights[3] << std::endl;
+	//std::cout << "finishUpdate" << sectionHeights[4] << std::endl;
 
 	const int barWidth = 10;
 	const int rectHeight = barHeight / numSections;

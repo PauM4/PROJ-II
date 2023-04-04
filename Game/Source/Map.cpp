@@ -90,7 +90,7 @@ void Map::Draw()
 
     ListItem<ImageLayer*>* imageLayerItem;
     imageLayerItem = mapData.imageLayers.start;
-
+    
    
    while (imageLayerItem != NULL) {
         if (imageLayerItem->data->properties.GetProperty("Draw") != NULL && imageLayerItem->data->properties.GetProperty("Draw")->value) {

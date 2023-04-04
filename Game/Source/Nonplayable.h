@@ -7,22 +7,32 @@
 #include "List.h"
 #include "Animation.h"
 
+enum class NonPlayableType {
+
+	PLAYER,
+	NPC,
+	ITEM
+
+};
+
 class NonPlayable : public Entity {
 public:
 
-	NonPlayable();
+	NonPlayable(NonPlayableType type_): Entity(EntityType::NONPLAYABLE){
+		NonType = type_;
+	}
 
 	virtual ~NonPlayable();
 
 	//player interacts with Nonplayable
-	void Interact();
+	//void Interact();
 
 
 private:
 
 
 public:
-
+	NonPlayableType NonType;
 	enum NonPlayableState
 	{
 		UNKNOWN = -1,
@@ -33,10 +43,10 @@ public:
 
 private:
 
-	PhysBody* pbody;
+	/*PhysBody* pbody;
 	SDL_Texture* texture;
 	const char* texturePath;
-	Animation* animation;
+	Animation* animation;*/
 
 };
 

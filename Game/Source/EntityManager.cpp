@@ -87,16 +87,13 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 	switch (type)
 	{
-	case EntityType::NPC:
-		entity = new Npc();
-		break;
 
 	case EntityType::PLAYABLE:
 		entity = new Playable();
 		break;
 
 	case EntityType::NONPLAYABLE:
-		entity = new NonPlayable();
+		entity = new NonPlayable(NonPlayableType::PLAYER);
 		break;
 
 	default: break;

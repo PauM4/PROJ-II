@@ -5,6 +5,7 @@
 #include "Player.h"
 
 #include "GuiButton.h"
+#include "Item.h"
 #include "Npc.h"
 
 struct SDL_Texture;

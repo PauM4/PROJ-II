@@ -1,19 +1,18 @@
-#ifndef __NPC_H__
-#define __NPC_H__
+#ifndef __ITEM_H__
+#define __ITEM_H__
 
-#include "Nonplayable.h"
+#include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
 
-class Npc : public NonPlayable
+class Item : public Entity
 {
 public:
 
-	Npc();
-
-	virtual ~Npc();
+	Item();
+	virtual ~Item();
 
 	bool Awake();
 
@@ -23,19 +22,17 @@ public:
 
 	bool CleanUp();
 
-	void OnCollision(PhysBody* physA, PhysBody* physB);
-
-
 public:
+
+	bool isPicked = false;
 
 private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
 
+	//DONE 4: Add a physics to an item
 	PhysBody* pbody;
-
-
 };
 
-#endif // __NPC_H__
+#endif // __ITEM_H__
