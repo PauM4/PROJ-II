@@ -13,12 +13,12 @@ class Module
 {
 public:
 
-	Module() : active(false)
+	Module(bool isActive = true) : active{ isActive }
 	{}
 
 	void Init()
 	{
-		active = true;
+		
 	}
 
 	// Called before render is available

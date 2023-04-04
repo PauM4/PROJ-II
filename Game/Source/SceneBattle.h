@@ -30,7 +30,7 @@ class SceneBattle : public Module
 {
 public:
 
-	SceneBattle();
+	SceneBattle(bool isActive);
 
 	// Destructor
 	virtual ~SceneBattle();

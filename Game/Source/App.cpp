@@ -39,7 +39,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding();
 	sceneManager = new SceneManager(); 
 	scene = new Scene();
-	sceneBattle = new SceneBattle();
+	sceneBattle = new SceneBattle(false);
 	entityManager = new EntityManager();
 	map = new Map();
 	guiManager = new GuiManager();

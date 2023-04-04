@@ -26,6 +26,7 @@ bool Map::Awake(pugi::xml_node& config)
     LOG("Loading Map Parser");
     bool ret = true;
 
+   /* mapFileName = "Assets/Maps/Scenes/Test.tmx";*/
     mapFileName = "Assets/Maps/Scenes/scene_01.tmx";
     mapFolder = "Assets/Maps/Scenes/";
 

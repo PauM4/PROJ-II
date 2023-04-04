@@ -111,7 +111,7 @@ bool Scene::Update(float dt)
 		app->render->camera.x -= ceil(speed);;
 
 	// Draw map
-	//app->map->Draw();
+	app->map->Draw();
 
 	//L15: Draw GUI
 	app->guiManager->Draw();

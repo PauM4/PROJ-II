@@ -16,7 +16,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-SceneBattle::SceneBattle() : Module()
+SceneBattle::SceneBattle(bool isActive) : Module(isActive)
 {
 	name.Create("scene");
 }
@@ -81,7 +81,7 @@ bool SceneBattle::Start()
 
 
 	//Load combat map
-	MakeCombatMap();
+	/*MakeCombatMap();*/
 
 
 	if (retLoad) {
@@ -125,14 +125,14 @@ bool SceneBattle::PostUpdate()
 {
 	bool ret = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	//if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	//	ret = false;
 
-	//if (!DisplayArea()) ret = false;
+	////if (!DisplayArea()) ret = false;
 
 	app->map->Draw();
 
-	
+	//
 
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
