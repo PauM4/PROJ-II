@@ -123,7 +123,6 @@
     <ClInclude Include="Source\Item.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MemLeaks.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
