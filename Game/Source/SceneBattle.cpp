@@ -19,7 +19,7 @@
 
 SceneBattle::SceneBattle(bool isActive) : Module(isActive)
 {
-	name.Create("scene");
+	name.Create("sceneBattle");
 }
 
 // Destructor
@@ -32,6 +32,9 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+	mapName = config.attribute("name").as_string();
+	mapFolder = config.attribute("path").as_string();
+
 	return ret;
 }
 
@@ -39,7 +42,7 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 bool SceneBattle::Start()
 {
 	//Load map
-	bool retLoad = app->map->Load();
+	bool retLoad = app->map->Load(mapName, mapFolder);
 
 	/*Entity* timmy = new Timmy();*/
 	//Entity* bunny;

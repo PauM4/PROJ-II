@@ -156,7 +156,7 @@ public:
     bool CleanUp();
 
     // Load new map
-    bool Load();
+    bool Load(SString mapPath, SString mapFolder);
 
 	// L05: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;

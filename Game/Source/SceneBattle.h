@@ -71,6 +71,9 @@ public:
 
 private:;
 
+	SString mapName;
+	SString mapFolder;
+
 	TileData* selectedtile;
 
 	Entity* characterTurn;

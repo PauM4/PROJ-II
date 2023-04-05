@@ -1,36 +1,34 @@
 <config>
-  <app>
-    <title>Game Development Testbed</title>
-    <organization>UPC</organization>
-    <frcap value = "16"/>
-  </app>
+	<app>
+		<title>Game Development Testbed</title>
+		<organization>UPC</organization>
+		<frcap value = "16"/>
+	</app>
 
-  <renderer>
-    <vsync value="false"/>
-  </renderer>
+	<renderer>
+		<vsync value="false"/>
+	</renderer>
 
-  <window>
-    <resolution width="1920" height="1080" scale="1"/>
-    <fullscreen value="false"/>
-    <borderless value="false"/>
-    <resizable value="false"/>
-    <fullscreen_window value="false"/>
-  </window>
+	<window>
+		<resolution width="1920" height="1080" scale="1"/>
+		<fullscreen value="false"/>
+		<borderless value="false"/>
+		<resizable value="false"/>
+		<fullscreen_window value="false"/>
+	</window>
 
-  <audio>
+	<audio>
 
-  </audio>
+	</audio>
 
-  <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
-  <scene>
-    <player x="2000" y="0" texturepath="Assets/Textures/.png"/>
-	  <!--<item x="0" y="0" texturepath="Assets/Textures/.png"/> -->
-  
-  </scene>
+	<scene name="Assets/Maps/Scenes/scene_01.tmx" path="Assets/Maps/Scenes/">
+		<player x="2000" y="0" texturepath="Assets/Textures/.png"/>
+		<!--<item x="0" y="0" texturepath="Assets/Textures/.png"/> -->
 
-  <map>
-    <mapfolder path="Assets/Maps/"/>
-    <mapfile path="Assets/Maps/MapTemplate.tmx"/>
-  </map>
-  
+	</scene>
+
+	<sceneBattle name="Assets/Maps/Scenes/test.tmx" path="Assets/Maps/Scenes/">
+		
+	</sceneBattle>
+	
 </config>

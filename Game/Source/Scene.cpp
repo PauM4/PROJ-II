@@ -30,10 +30,9 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
-
-	// iterate all objects in the scene
-	// Check https://pugixml.org/docs/quickstart.html#access
-	//L02: DONE 3: Instantiate the player using the entity manager
+	mapName = config.attribute("name").as_string();
+	mapFolder = config.attribute("path").as_string();
+	
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
@@ -59,7 +58,7 @@ bool Scene::Start()
 	font = app->fonts->Load("Assets/Fonts/GameFont.png", lookUpTable, 1);
 
 	// L03: DONE: Load map
-	bool retLoad = app->map->Load();
+	bool retLoad = app->map->Load(mapName, mapFolder);
 
 	// L12 Create walkability map
 	if (retLoad) {

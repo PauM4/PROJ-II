@@ -58,7 +58,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneManager);
 	//Scenes
 	AddModule(scene);
-	/*AddModule(sceneBattle);*/
+	//AddModule(sceneBattle);
 
 
 	AddModule(entityManager);

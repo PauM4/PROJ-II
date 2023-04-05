@@ -26,10 +26,6 @@ bool Map::Awake(pugi::xml_node& config)
     LOG("Loading Map Parser");
     bool ret = true;
 
-   /* mapFileName = "Assets/Maps/Scenes/Test.tmx";*/
-    mapFileName = "Assets/Maps/Scenes/scene_01.tmx";
-    mapFolder = "Assets/Maps/Scenes/";
-
     return ret;
 }
 
@@ -226,12 +222,12 @@ bool Map::CleanUp()
 }
 
 // Load new map
-bool Map::Load()
+bool Map::Load(SString mapName, SString mapFolder)
 {
     bool ret = true;
 
-    //Load texture to show the path
-    //tileX = app->tex->Load("Assets/Maps/x.png");
+    mapFileName = mapName;
+    this->mapFolder = mapFolder;
 
     pugi::xml_document mapFileXML;
     pugi::xml_parse_result result = mapFileXML.load_file(mapFileName.GetString());

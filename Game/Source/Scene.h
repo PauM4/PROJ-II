@@ -50,6 +50,10 @@ public:
 	Item* item1;
 
 private:
+
+	SString mapName;
+	SString mapFolder;
+
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
 	SDL_Texture* originTex = nullptr;
