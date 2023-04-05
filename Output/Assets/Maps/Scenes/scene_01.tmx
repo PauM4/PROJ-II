@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="4" nextobjectid="26">
+ <imagelayer id="2" name="BG" offsetx="-336.364" offsety="-1712.85">
+  <image source="Assets\Maps\Scenes\scene_01.png" width="4736" height="6319"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <objectgroup color="#ff0000" id="3" name=" ">
+  <properties>
+   <property name="ColType" type="int" value="0"/>
+  </properties>
+  <object id="1" x="221.212" y="2344.85" width="1118.18" height="1806.06"/>
+  <object id="2" x="1921.21" y="2329.7" width="960.606" height="1790.91"/>
+  <object id="3" x="1921.21" y="1638.79" width="696.97" height="575.758"/>
+  <object id="4" x="636.364" y="1666.06" width="309.091" height="533.333"/>
+  <object id="5" x="942.424" y="1456.97" width="424.242" height="430.303"/>
+  <object id="6" x="1863.64" y="1238.79" width="406.061" height="160.606"/>
+  <object id="7" x="1042.42" y="738.788" width="418.182" height="145.455"/>
+  <object id="8" x="1863.64" y="693.333" width="424.242" height="145.455"/>
+  <object id="9" x="1027.27" y="208.485" width="412.121" height="139.394"/>
+  <object id="11" x="2015.15" y="-109.7" width="269.697" height="342.424"/>
+  <object id="12" x="315.152" y="408.485" width="548.485" height="1118.18"/>
+  <object id="13" x="136.364" y="1414.55" width="339.394" height="1000"/>
+  <object id="14" x="321.212" y="238.788" width="96.9697" height="215.152"/>
+  <object id="15" x="351.515" y="-1303.64" width="500" height="1542.42"/>
+  <object id="17" x="2400" y="-712" width="1640" height="2232"/>
+  <object id="18" x="2640" y="1472" width="344" height="968"/>
+ </objectgroup>
+</map>

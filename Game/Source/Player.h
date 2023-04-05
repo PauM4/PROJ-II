@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -26,7 +27,6 @@ public:
 	// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-
 public:
 	// This bool checks if the player is interacting with something (In the furute will be change for a state machine)
 	// (In the furute will be change for a state machine)
@@ -37,6 +37,20 @@ public:
 	bool npcInteractAvailable;
 	bool itemInteractAvailable;
 
+	enum PlayerState
+	{
+		PAUSE,
+		INVENTORY,
+		MOVING,
+		BATTLE,
+		NPC_INTERACT,
+		ITEM_INTERACT,
+		NONE
+	};
+
+	int playerState;
+	int playerPrevState;
+
 private:
 
 	//L02: DONE 1: Declare player parameters
@@ -45,6 +59,11 @@ private:
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
+
+	SDL_Texture* walkDownTexture;
+
+	Animation* currentAnimation;
+	Animation walkDownAnim;
 
 
 };

@@ -5,12 +5,15 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Scene.h"
+#include "SceneBattle.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
 #include "Pathfinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
+#include "SceneManager.h"
+#include "FadeToBlack.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -31,9 +34,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures();
 	audio = new Audio();
 	//L07 DONE 2: Add Physics module
+	fadeToBlack = new FadeToBlack();
 	physics = new Physics();
 	pathfinding = new PathFinding();
+	sceneManager = new SceneManager(); 
 	scene = new Scene();
+	sceneBattle = new SceneBattle(false);
 	entityManager = new EntityManager();
 	map = new Map();
 	guiManager = new GuiManager();
@@ -49,10 +55,17 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(physics);
 	AddModule(fonts);
 	AddModule(pathfinding);
+	AddModule(sceneManager);
+	//Scenes
 	AddModule(scene);
+	/*AddModule(sceneBattle);*/
+
+
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(guiManager);
+
+	AddModule(fadeToBlack);
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -78,6 +91,7 @@ void App::AddModule(Module* module)
 	module->Init();
 	modules.Add(module);
 }
+
 
 // Called before render is available
 bool App::Awake()
@@ -144,22 +158,30 @@ bool App::Start()
 // Called each loop iteration
 bool App::Update()
 {
+	barTimer.Start();
 	bool ret = true;
 	PrepareUpdate();
+	prepareUpdate = barTimer.ReadMs();
 
 	if (input->GetWindowEvent(WE_QUIT) == true)
 		ret = false;
 
 	if (ret == true)
 		ret = PreUpdate();
+	preUpdate = barTimer.ReadMs();
 
 	if (ret == true)
 		ret = DoUpdate();
+	doUpdate = barTimer.ReadMs();
 
+	
 	if (ret == true)
 		ret = PostUpdate();
+	postUpdate = barTimer.ReadMs();
 
 	FinishUpdate();
+	finishUpdate = barTimer.ReadMs();
+	update = prepareUpdate + preUpdate + doUpdate + postUpdate + finishUpdate;
 	return ret;
 }
 
@@ -179,7 +201,7 @@ bool App::LoadConfig()
 	else {
 		LOG("Error in App::LoadConfig(): %s", parseResult.description());
 	}
-
+	
 	return ret;
 }
 

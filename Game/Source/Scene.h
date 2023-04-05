@@ -3,8 +3,9 @@
 
 #include "Module.h"
 #include "Player.h"
-#include "Item.h"
+
 #include "GuiButton.h"
+#include "Item.h"
 #include "Npc.h"
 
 struct SDL_Texture;

@@ -8,7 +8,6 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
-#include "Npc.h"
 
 Npc::Npc() : Entity(EntityType::NPC)
 {
