@@ -100,10 +100,6 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		entity = new Player();
 		break;
 
-	case EntityType::NPC:
-		entity = new Npc();
-		break;
-
 	case EntityType::ITEM:
 		entity = new Item();
 		break;

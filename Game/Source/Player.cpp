@@ -78,33 +78,33 @@ bool Player::Update()
 	{
 	case PAUSE:
 		movementRestringed = true;
-		app->fonts->DrawText("PLAYER STATE: PAUSE", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+		/*app->fonts->DrawText("PLAYER STATE: PAUSE", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
 		break;
 	case INVENTORY:
 		movementRestringed = true;
-		app->fonts->DrawText("PLAYER STATE: INVENTORY", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+		/*app->fonts->DrawText("PLAYER STATE: INVENTORY", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
 
 		break;
 	case MOVING:
 		movementRestringed = false;
-		app->fonts->DrawText("PLAYER STATE: MOVING", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+		/*app->fonts->DrawText("PLAYER STATE: MOVING", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
 		break;
 	case BATTLE:
 		break;
 	case NPC_INTERACT:
 		LOG("TALKING TO NPC1");
 		movementRestringed = true;
-		app->fonts->DrawText("PLAYER STATE: NPC_INTERACT", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+		/*app->fonts->DrawText("PLAYER STATE: NPC_INTERACT", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
 		break;
 	case ITEM_INTERACT:
 		LOG("INTERACTING WITH ITEM");
 		movementRestringed = true;
-		app->fonts->DrawText("PLAYER STATE: ITEM_INTERACT", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+		/*app->fonts->DrawText("PLAYER STATE: ITEM_INTERACT", position.x + 100, position.y + 100,
+			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
 		break;
 	case NONE:
 		break;
@@ -175,7 +175,7 @@ bool Player::Update()
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	// Animation removed to continue working
 	app->render->DrawTexture(walkDownTexture, position.x - 200, position.y - 200, &rect);
-	app->render->DrawTexture(texture, position.x , position.y);
+	/*app->render->DrawTexture(texture, position.x , position.y);*/
 
 	return true;
 }
