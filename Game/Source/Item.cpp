@@ -9,7 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 
-Item::Item() : Entity(EntityType::NONPLAYABLE)
+Item::Item() : Entity(EntityType::ITEM)
 {
 	name.Create("item");
 }

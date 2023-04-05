@@ -9,7 +9,6 @@
 #include "Map.h"
 #include "PathFinding.h"
 #include "GuiManager.h"
-#include "Nonplayable.h"
 #include "Fonts.h"
 #include "Item.h"
 
@@ -35,16 +34,16 @@ bool Scene::Awake(pugi::xml_node& config)
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
 	//L02: DONE 3: Instantiate the player using the entity manager
-	/*if (config.child("player")) {
+
+	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
-	}*/
+	}
 	
-
 	//L02: DONE 3: Instantiate the player using the entity manager
-	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NONPLAYABLE);
+	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
 
-	item1 = (Item*)app->entityManager->CreateEntity(EntityType::NONPLAYABLE);
+	item1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 
 	return ret;
 }
@@ -144,8 +143,6 @@ bool Scene::Update(float dt)
 	if(player->playerState == player->PAUSE) app->guiManager->Draw();
 
 	
-
-
 	//Font test
 	app->fonts->DrawText("Hello World!", 500, 0, 100, 100, {255,255,255,255}, app->fonts->gameFont);
 	

@@ -1,22 +1,31 @@
-#include "Playable.h"
+#include "Timmy.h"
+#include "App.h"
+#include "Textures.h"
+#include "Audio.h"
+#include "Input.h"
+#include "Render.h"
+#include "Scene.h"
+#include "Log.h"
+#include "Point.h"
+#include "Physics.h"
 
-Playable::Playable() : Entity(EntityType::PLAYABLE)
+Timmy::Timmy() : Entity(EntityType::TIMMY)
 {
-	name.Create("Playable");
+	name.Create("Timmy");
 }
 
-Playable::~Playable() {
+Timmy::~Timmy() {
 
 }
 
-int Playable::Attack()
+int Timmy::Attack()
 {
 	stamina -= 1;
 	return attack;
 
 }
 
-int Playable::Ability(int id)
+int Timmy::Ability(int id)
 {
 	//If ability 1 is selected
 	if (id == 1) {
@@ -58,25 +67,6 @@ int Playable::Ability(int id)
 	}
 }
 
+void Timmy::Movement() {
 
-void Playable::Movement()
-{
-
- }
-
-bool Playable::TakeDamage(uint reciveattack)
-{
-
-	health = health - (reciveattack - defense);
-
-	return true;
-}
-
-bool Playable::TakeHealing(uint recievedhealing)
-{
-	health += recievedhealing;
-	if (health > maxhealth) {
-		health = maxhealth;
-	}
-	return true;
 }

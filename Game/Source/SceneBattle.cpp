@@ -11,7 +11,8 @@
 #include "PathFinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
-#include "Playable.h"
+
+#include "Timmy.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -40,28 +41,28 @@ bool SceneBattle::Start()
 	//Load map
 	bool retLoad = app->map->Load();
 
-	Playable timmy;
-	Playable bunny;
-	Playable villager;
-	timmy.level = 1;
-	timmy.health = 20;
-	timmy.maxhealth = 20;
-	timmy.defense = 5;
-	timmy.magic = 1;
-	timmy.stamina = 15;
-	timmy.maxstamina = 15;
-	timmy.speed=5;
-	timmy.attack = 6;
-	timmy.AttArea = iPoint(1, 1);
-	timmy.Ab1Type = 1;
-	timmy.Ab1Area = iPoint(1, 3);
-	timmy.Ab1Power = 2;
-	timmy.Ab2Type = 1;
-	timmy.Ab2Area = iPoint(1, 3);
-	timmy.Ab2Power = 3;
-	timmy.healingpower = 0;
+	/*Entity* timmy = new Timmy();*/
+	//Entity* bunny;
+	//Entity villager;
+	//timmy.level = 1;
+	//timmy.health = 20;
+	//timmy.maxhealth = 20;
+	//timmy.defense = 5;
+	//timmy.magic = 1;
+	//timmy.stamina = 15;
+	//timmy.maxstamina = 15;
+	//timmy.speed=5;
+	//timmy.attack = 6;
+	//timmy.AttArea = iPoint(1, 1);
+	//timmy.Ab1Type = 1;
+	//timmy.Ab1Area = iPoint(1, 3);
+	//timmy.Ab1Power = 2;
+	//timmy.Ab2Type = 1;
+	//timmy.Ab2Area = iPoint(1, 3);
+	//timmy.Ab2Power = 3;
+	//timmy.healingpower = 0;
 
-	villager.level = 1;
+	/*villager.level = 1;
 	villager.health = 20;
 	villager.maxhealth = 20;
 	villager.defense = 5;
@@ -77,7 +78,7 @@ bool SceneBattle::Start()
 	villager.Ab2Type = 1;
 	villager.Ab2Area = iPoint(1, 3);
 	villager.Ab2Power = 3;
-	villager.healingpower = 0;
+	villager.healingpower = 0;*/
 
 
 	//Load combat map
@@ -261,7 +262,7 @@ bool SceneBattle::DisplayArea(List<TileData*> area, int type) {
 }
 
 // Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
-bool SceneBattle::Combat(Playable* inturn, List<Playable*> target, int id) {
+bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
 	
 	bool ret = true;
 

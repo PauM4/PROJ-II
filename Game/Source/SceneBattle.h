@@ -4,7 +4,6 @@
 #include "Module.h"
 #include "Player.h"
 #include "Entity.h"
-#include "Playable.h"
 #include "GuiButton.h"
 #include "List.h"
 
@@ -63,7 +62,7 @@ public:
 	bool DisplayArea(List<TileData*> area, int type);
 
 	// Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
-	bool Combat(Playable* inturn, List<Playable*> target, int id);
+	bool Combat(Entity* inturn, List<Entity*> target, int id);
 
 
 public:
@@ -74,9 +73,9 @@ private:;
 
 	TileData* selectedtile;
 
-	Playable* characterTurn;
+	Entity* characterTurn;
 
-	List<Playable*> targets;
+	List<Entity*> targets;
 
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;

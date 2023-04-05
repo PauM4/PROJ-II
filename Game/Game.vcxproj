@@ -111,7 +111,7 @@
     <ClCompile Include="Source\PerformanceBar2.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
-    <ClCompile Include="Source\Playable.cpp" />
+    <ClCompile Include="Source\Timmy.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
@@ -131,13 +131,12 @@
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
-    <ClInclude Include="Source\Nonplayable.h" />
     <ClInclude Include="Source\Npc.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerformanceBar2.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Physics.h" />
-    <ClInclude Include="Source\Playable.h" />
+    <ClInclude Include="Source\Timmy.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PQueue.h" />
     <ClInclude Include="Source\Queue.h" />

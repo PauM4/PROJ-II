@@ -32,15 +32,19 @@
     <ClCompile Include="Source\EntityManager.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Playable.cpp">
+    <ClCompile Include="Source\Timmy.cpp">
       <Filter>Entities\Playable</Filter>
     </ClCompile>
     <ClCompile Include="Source\Player.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
     <ClCompile Include="Source\FadeToBlack.cpp" />
-    <ClCompile Include="Source\Npc.cpp" />
-    <ClCompile Include="Source\Item.cpp" />
+    <ClCompile Include="Source\Npc.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Item.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -105,19 +109,20 @@
     <ClInclude Include="Source\EntityManager.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Playable.h">
+    <ClInclude Include="Source\Timmy.h">
       <Filter>Entities\Playable</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Nonplayable.h">
-      <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
     <ClInclude Include="Source\FadeToBlack.h" />
-    <ClInclude Include="Source\Npc.h" />
     <ClInclude Include="Source\Animation.h" />
-    <ClInclude Include="Source\Item.h" />
+    <ClInclude Include="Source\Npc.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Item.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

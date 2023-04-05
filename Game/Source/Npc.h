@@ -1,13 +1,13 @@
 #ifndef __NPC_H__
 #define __NPC_H__
 
-#include "Nonplayable.h"
+#include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
 
-class Npc : public NonPlayable
+class Npc : public Entity
 {
 public:
 
@@ -24,6 +24,12 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
+
+	int Attack() override;
+
+	int Ability(int id) override;
+
+	void Movement() override;
 
 
 public:

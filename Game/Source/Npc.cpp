@@ -8,11 +8,8 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
-#include "Nonplayable.h"
-#include "Entity.h"
-#include "Npc.h"
 
-Npc::Npc() : NonPlayable(NonPlayableType::NPC)
+Npc::Npc() : Entity(EntityType::NPC)
 {
 	name.Create("Npc");
 }
@@ -50,5 +47,19 @@ bool Npc::CleanUp()
 
 void Npc::OnCollision(PhysBody* physA, PhysBody* physB)
 {
+
+}
+
+int Npc::Attack() {
+
+	return 0;
+}
+
+int Npc::Ability(int id) {
+
+	return 0;
+}
+
+void Npc::Movement() {
 
 }

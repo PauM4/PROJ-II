@@ -11,7 +11,7 @@
 #include "Animation.h"
 #include "Fonts.h"
 
-Player::Player() : Entity(EntityType::PLAYABLE)
+Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
 }
@@ -51,7 +51,8 @@ bool Player::Start() {
 	walkDownTexture = app->tex->Load("Assets/Characters/Character_X_Sprites_down.png");
 	currentAnimation = &walkDownAnim;
 
-	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 16, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(2000,0,120,140, bodyType::DYNAMIC);
+	pbody->body->SetFixedRotation(true);
 	pbody->listener = this;
 
 	pbody->ctype = ColliderType::PLAYER;
