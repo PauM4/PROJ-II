@@ -40,6 +40,11 @@ bool Npc::Update()
 	return true;
 }
 
+bool Npc::PostUpdate()
+{
+	return true;
+}
+
 bool Npc::CleanUp()
 {
 	return true;

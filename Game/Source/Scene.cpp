@@ -143,11 +143,6 @@ bool Scene::Update(float dt)
 	
 	//Font test
 	
-	
-
-	
-
-
 	return true;
 }
 
@@ -170,7 +165,6 @@ bool Scene::PostUpdate()
 	{
 		return false;
 	}
-	app->render->DrawRectangle({ (-1) *app->render->camera.x + app->render->camera.w / 2, (-1) *app->render->camera.y + app->render->camera.h / 2,65,120 }, 100, 100, 0);
 	//app->fonts->DrawText("NPC1", -20, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
 	//app->fonts->DrawText("ITEM1", 100, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
 

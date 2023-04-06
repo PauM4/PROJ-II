@@ -172,6 +172,13 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
+	
+
+	return true;
+}
+
+bool Player::PostUpdate() {
+
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	// Animation removed to continue working
 	app->render->DrawTexture(walkDownTexture, position.x - 200, position.y - 200, &rect);

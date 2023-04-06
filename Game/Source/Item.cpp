@@ -39,6 +39,11 @@ bool Item::Update()
 	return true;
 }
 
+bool Item::PostUpdate()
+{
+	return true;
+}
+
 bool Item::CleanUp()
 {
 	return true;

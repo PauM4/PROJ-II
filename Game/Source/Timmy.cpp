@@ -18,6 +18,31 @@ Timmy::~Timmy() {
 
 }
 
+bool Timmy::Awake()
+{
+	return true;
+}
+
+bool Timmy::Start()
+{
+	return true;
+}
+
+bool Timmy::Update()
+{
+	return true;
+}
+
+bool Timmy::PostUpdate()
+{
+	return true;
+}
+
+bool Timmy::CleanUp()
+{
+	return true;
+}
+
 int Timmy::Attack()
 {
 	stamina -= 1;

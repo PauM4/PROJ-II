@@ -20,6 +20,8 @@ public:
 
 	bool Update();
 
+	bool PostUpdate();
+
 	bool CleanUp();
 
 public:

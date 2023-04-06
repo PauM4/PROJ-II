@@ -13,6 +13,16 @@ public:
 	
 	virtual ~Timmy();
 
+	bool Awake();
+
+	bool Start();
+
+	bool Update();
+
+	bool PostUpdate();
+
+	bool CleanUp();
+
 	int Attack() override;
 
 	int Ability(int id) override;
