@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="4" nextobjectid="62">
+ <imagelayer id="2" name="BG" offsetx="-336.364" offsety="-1712.85">
+  <image source="Assets\Maps\World_01\scene_01.png" width="4000" height="5337"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <objectgroup color="#ff0000" id="3" name="Collisions">
+  <properties>
+   <property name="ColType" type="int" value="0"/>
+  </properties>
+  <object id="1" x="221.212" y="2287.64" width="1118.18" height="1863.27"/>
+  <object id="2" x="1921.21" y="2193.03" width="712.121" height="1927.58"/>
+  <object id="3" x="1858.88" y="1549.29" width="23.6367" height="137.758"/>
+  <object id="5" x="874.424" y="1375.97" width="468.242" height="429.303"/>
+  <object id="6" x="1905.64" y="960.79" width="301.061" height="369.606"/>
+  <object id="7" x="1062.42" y="599.788" width="323.182" height="392.455"/>
+  <object id="8" x="1978.31" y="418.666" width="275.242" height="355.455"/>
+  <object id="9" x="1110.94" y="-93.8483" width="312.121" height="396.727"/>
+  <object id="11" x="1811.82" y="-410.367" width="301.697" height="391.757"/>
+  <object id="12" x="315.152" y="408.485" width="548.485" height="1118.18"/>
+  <object id="13" x="136.364" y="1414.55" width="339.394" height="1000"/>
+  <object id="14" x="321.212" y="238.788" width="96.9697" height="215.152"/>
+  <object id="15" x="370.515" y="-953.64" width="500" height="1134.42"/>
+  <object id="17" x="2304" y="-719" width="1640" height="2232"/>
+  <object id="18" x="2583" y="1425" width="344" height="830"/>
+  <object id="27" x="1860.85" y="1853.12" width="23.6367" height="280.425"/>
+  <object id="28" x="1861.51" y="1546.45" width="667.97" height="18.4247"/>
+  <object id="29" x="1868.68" y="2091.79" width="667.97" height="18.4247"/>
+  <object id="30" x="2504.18" y="1547.62" width="23.6367" height="563.592"/>
+  <object id="31" x="734" y="-1041.21" width="406" height="264.42"/>
+  <object id="32" x="1286" y="-1158.21" width="331" height="164.42"/>
+  <object id="33" x="1013" y="-1129.21" width="276" height="164.42"/>
+  <object id="34" x="1711.5" y="-1393.21" width="268" height="400.42"/>
+  <object id="35" x="1559.5" y="-1172.21" width="197" height="108.42"/>
+  <object id="36" x="1177.33" y="-522.877" width="130.667" height="90.42"/>
+  <object id="37" x="1442.67" y="-483.21" width="276.667" height="52.0867"/>
+  <object id="38" x="1486.17" y="-539.043" width="187.167" height="140.587"/>
+  <object id="39" x="2184" y="368.123" width="130.667" height="85.0867"/>
+  <object id="40" x="868" y="576.457" width="130.667" height="85.0867"/>
+  <object id="41" x="868.667" y="1014.46" width="184.667" height="85.0867"/>
+  <object id="42" x="1216.21" y="1794.35" width="229.575" height="87.303"/>
+  <object id="43" x="1735.21" y="2140.35" width="229.575" height="87.303"/>
+  <object id="44" x="1233.21" y="1470.35" width="229.575" height="87.303"/>
+  <object id="45" x="520.848" y="1636.45" width="23.6367" height="490.425"/>
+  <object id="46" x="793.515" y="1988.12" width="23.6367" height="132.425"/>
+  <object id="47" x="793.515" y="1633.79" width="23.6367" height="255.758"/>
+  <object id="48" x="523.015" y="2103.79" width="292.97" height="18.4247"/>
+  <object id="49" x="520.515" y="1634.79" width="292.97" height="18.4247"/>
+  <object id="50" x="1780.38" y="419.272" width="102.242" height="354.455"/>
+  <object id="51" x="1788.88" y="380.273" width="282.242" height="310.455"/>
+  <object id="52" x="2397.33" y="-799.877" width="130.667" height="85.0867"/>
+  <object id="53" x="2225.33" y="-1162.54" width="130.667" height="85.0867"/>
+  <object id="54" x="2700" y="-1129.21" width="130.667" height="85.0867"/>
+  <object id="55" x="3204" y="-1202.54" width="130.667" height="85.0867"/>
+  <object id="56" x="1943.33" y="-1660.21" width="1992.24" height="400.42"/>
+  <object id="57" x="1376.33" y="2293.29" width="130.667" height="198.42"/>
+  <object id="58" x="1266.67" y="2205.79" width="130.667" height="90.42"/>
+  <object id="59" x="1700.67" y="2836.79" width="130.667" height="90.42"/>
+  <object id="60" x="1385.33" y="3313.46" width="130.667" height="90.42"/>
+  <object id="61" x="1724" y="3494.79" width="130.667" height="90.42"/>
+ </objectgroup>
+</map>
