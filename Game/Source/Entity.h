@@ -5,7 +5,7 @@
 #include "SString.h"
 #include "Input.h"
 #include "Render.h"
-
+#include "Map.h"
 class PhysBody;
 
 enum class State {
@@ -28,7 +28,10 @@ enum class EntityType
 
 	PLAYER,
 	NPC,
-	ITEM
+	ITEM,
+
+	//Enemies
+	LRRH
 };
 
 class Entity
@@ -127,8 +130,8 @@ public:
 	bool TakeHealing(uint recievedhealing) {
 
 		health += recievedhealing;
-		if (health > maxhealth) {
-			health = maxhealth;
+		if (health > maxHealth) {
+			health = maxHealth;
 		}
 
 		return true;
@@ -162,14 +165,15 @@ public:
 	//Character Stats
 	uint level;
 	uint health;
-	uint maxhealth;
+	uint maxHealth;
 	uint defense;
 	uint magic;
 	uint stamina;
-	uint maxstamina;
+	uint maxStamina;
 	uint speed;
 	uint skill;
 	uint attack;
+	uint resistance; 
 	iPoint AttArea;
 	uint Ab1Power;
 	uint Ab2Power;
@@ -180,6 +184,8 @@ public:
 	iPoint Ab1Area;
 	iPoint Ab2Area;
 	uint healingpower;
+
+	iPoint tilePos; 
 };
 
 #endif // __ENTITY_H__

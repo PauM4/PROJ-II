@@ -8,7 +8,7 @@
 
 #define VSYNC true
 
-Render::Render() : Module()
+Render::Render(bool isActive) : Module(isActive)
 {
 	name.Create("renderer");
 	background.r = 0;
@@ -77,8 +77,8 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
-	camera.x = -(int)app->scene->player->position.x  + camera.w / 2;
-	camera.y = -(int)app->scene->player->position.y  + camera.h / 2;
+	//camera.x = -(int)app->scene->player->position.x  + camera.w / 2;
+	//camera.y = -(int)app->scene->player->position.y  + camera.h / 2;
 	return true;
 }
 

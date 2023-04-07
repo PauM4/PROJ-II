@@ -12,7 +12,7 @@ class Render : public Module
 {
 public:
 
-	Render();
+	Render(bool isActive);
 
 	// Destructor
 	virtual ~Render();

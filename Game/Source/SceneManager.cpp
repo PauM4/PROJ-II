@@ -5,7 +5,7 @@
 #include "App.h"
 
 
-SceneManager::SceneManager() : Module()
+SceneManager::SceneManager(bool isActive) : Module(isActive)
 {
 	name.Create("Scene_manager");
 }

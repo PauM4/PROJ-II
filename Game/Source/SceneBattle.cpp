@@ -121,6 +121,9 @@ bool SceneBattle::Update(float dt)
 {
 	bool ret = true;
 
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+
 	return true;
 }
 

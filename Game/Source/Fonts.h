@@ -32,7 +32,7 @@ class Fonts : public Module
 public:
 
 	// Constructor
-	Fonts();
+	Fonts(bool isActive);
 
 	// Destructor
 	virtual ~Fonts();

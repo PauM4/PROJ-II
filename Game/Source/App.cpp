@@ -28,22 +28,26 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	frames = 0;
 
-	input = new Input();
-	win = new Window();
-	render = new Render();
-	tex = new Textures();
-	audio = new Audio();
+	input = new Input(true);
+	win = new Window(true);
+	render = new Render(true);
+	tex = new Textures(true);
+	audio = new Audio(true);
 	//L07 DONE 2: Add Physics module
-	fadeToBlack = new FadeToBlack();
-	physics = new Physics();
-	pathfinding = new PathFinding();
-	sceneManager = new SceneManager(); 
-	scene = new Scene();
+	fadeToBlack = new FadeToBlack(true);
+	physics = new Physics(true);
+	pathfinding = new PathFinding(true);
+	sceneManager = new SceneManager(true); 
+
+
+	scene = new Scene(false);
 	sceneBattle = new SceneBattle(false);
-	entityManager = new EntityManager();
-	map = new Map();
-	guiManager = new GuiManager();
-	fonts = new Fonts();
+
+
+	entityManager = new EntityManager(true);
+	map = new Map(true);
+	guiManager = new GuiManager(true);
+	fonts = new Fonts(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -58,7 +62,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneManager);
 	//Scenes
 	AddModule(scene);
-	//AddModule(sceneBattle);
+	AddModule(sceneBattle);
 
 	AddModule(entityManager);
 	AddModule(map);
@@ -145,7 +149,9 @@ bool App::Start()
 
 	while (item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->active == true) {
+			ret = item->data->Start();
+		}
 		item = item->next;
 	}
 

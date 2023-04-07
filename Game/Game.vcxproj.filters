@@ -45,6 +45,9 @@
     <ClCompile Include="Source\Item.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy_LRRH.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -121,6 +124,9 @@
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
     <ClInclude Include="Source\Item.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy_LRRH.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
   </ItemGroup>

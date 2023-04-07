@@ -19,7 +19,7 @@ enum GameScene {
 class SceneManager : public Module {
 public:
 
-	SceneManager();
+	SceneManager(bool isActive);
 	~SceneManager();
 
 	bool Awake(pugi::xml_node& config);

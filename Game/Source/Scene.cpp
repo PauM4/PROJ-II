@@ -15,7 +15,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-Scene::Scene() : Module()
+Scene::Scene(bool isActive) : Module(isActive)
 {
 	name.Create("scene");
 }
@@ -96,6 +96,9 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	app->render->camera.x = -(int)player->position.x + app->render->camera.w / 2;
+	app->render->camera.y = -(int)player->position.y + app->render->camera.h / 2;
+
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGameRequest();
@@ -194,8 +197,10 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
 	app->fonts->UnLoad(font);
+	app->map->CleanUp(); 
+	app->entityManager->CleanUp(); 
+
 
 	return true;
 }

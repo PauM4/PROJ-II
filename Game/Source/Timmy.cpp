@@ -12,6 +12,17 @@
 Timmy::Timmy() : Entity(EntityType::TIMMY)
 {
 	name.Create("Timmy");
+	level = 6;
+	health = 25;
+	maxHealth = 25;
+	attack = 13;
+	defense = 7;
+	magic = 0;
+	resistance = 4;
+	speed = 13;
+	skill = 15;
+	stamina = 15;
+	maxStamina = 15;
 }
 
 Timmy::~Timmy() {

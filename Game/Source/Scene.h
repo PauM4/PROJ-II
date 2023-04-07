@@ -14,7 +14,7 @@ class Scene : public Module
 {
 public:
 
-	Scene();
+	Scene(bool isActive);
 
 	// Destructor
 	virtual ~Scene();

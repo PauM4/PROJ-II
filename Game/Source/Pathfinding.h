@@ -20,7 +20,7 @@ class PathFinding : public Module
 {
 public:
 
-	PathFinding();
+	PathFinding(bool isActive);
 
 	// Destructor
 	~PathFinding();

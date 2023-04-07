@@ -7,7 +7,7 @@
 
 #include<string.h>
 
-Fonts::Fonts()
+Fonts::Fonts(bool isActive) : Module(isActive)
 {
 
 }

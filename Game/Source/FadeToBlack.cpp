@@ -7,7 +7,7 @@
 
 #include "SDL/include/SDL_render.h"
 
-FadeToBlack::FadeToBlack() : Module()
+FadeToBlack::FadeToBlack(bool isActive) : Module(isActive)
 {
 	screenRect = {0, 0, 1920, 1080};
 	name.Create("fadeToBlack");
@@ -39,6 +39,7 @@ bool FadeToBlack::Update(float dt)
 		{
 			moduleToDisable->Disable();
 			moduleToEnable->Enable();
+			moduleToEnable->Start();
 
 			currentStep = Fade_Step::FROM_BLACK;
 		}

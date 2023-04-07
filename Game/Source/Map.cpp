@@ -11,7 +11,7 @@
 #include <math.h>
 #include "SDL_image/include/SDL_image.h"
 
-Map::Map() : Module(), mapLoaded(false)
+Map::Map(bool isActive) : Module(isActive), mapLoaded(false)
 {
     name.Create("map");
 }
@@ -215,6 +215,7 @@ bool Map::CleanUp()
     while (imageLayerItem != NULL)
     {
         RELEASE(imageLayerItem->data);
+        mapData.imageLayers.Del(imageLayerItem);
         imageLayerItem = imageLayerItem->next;
     }
 
