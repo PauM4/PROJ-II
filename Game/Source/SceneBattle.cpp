@@ -177,8 +177,6 @@ bool SceneBattle::PostUpdate()
 					app->pathfinding->ClearLastPath();
 				
 			}
-		
-		
 	}
 
 
@@ -307,6 +305,6 @@ bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
 bool SceneBattle::CleanUp()
 {
 	LOG("Freeing sceneBattle");
-
+	app->map->CleanUp(); 
 	return true;
 }

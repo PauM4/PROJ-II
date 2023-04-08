@@ -205,6 +205,7 @@ bool Map::CleanUp()
     while (tileLayerItem != NULL)
     {
         RELEASE(tileLayerItem->data);
+        mapData.tileLayers.Del(tileLayerItem); 
         tileLayerItem = tileLayerItem->next;
     }
 

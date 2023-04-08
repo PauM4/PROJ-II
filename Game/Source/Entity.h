@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Map.h"
+#include "Pathfinding.h"
 class PhysBody;
 
 enum class State {
@@ -160,7 +161,7 @@ public:
 		ATTACKING,
 		IDLE,
 
-	};
+	} battleState;
 
 	//Character Stats
 	uint level;
@@ -186,6 +187,8 @@ public:
 	uint healingpower;
 
 	iPoint tilePos; 
+
+	bool isAlive;
 };
 
 #endif // __ENTITY_H__

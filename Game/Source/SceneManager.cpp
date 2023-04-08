@@ -72,6 +72,12 @@ bool SceneManager::Update(float dt)
 			currentScene->Enable(); 
 			LOG("SCENE");
 		}
+		else if(currentScene!= (Module*)app->scene) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->scene, 60)) {
+				currentScene = (Module*)app->scene;
+				LOG("SCENE");
+			}
+		}
 		break;
 	case BATTLE:
 		if (currentScene != (Module*)app->sceneBattle) {

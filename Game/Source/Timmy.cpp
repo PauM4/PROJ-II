@@ -12,17 +12,8 @@
 Timmy::Timmy() : Entity(EntityType::TIMMY)
 {
 	name.Create("Timmy");
-	level = 6;
-	health = 25;
-	maxHealth = 25;
-	attack = 13;
-	defense = 7;
-	magic = 0;
-	resistance = 4;
-	speed = 13;
-	skill = 15;
-	stamina = 15;
-	maxStamina = 15;
+	isAlive = true;
+	battleState = IDLE; 
 }
 
 Timmy::~Timmy() {
@@ -36,11 +27,35 @@ bool Timmy::Awake()
 
 bool Timmy::Start()
 {
+
+	level = 6;
+	health = 25;
+	maxHealth = 25;
+	attack = 13;
+	defense = 7;
+	magic = 0;
+	resistance = 4;
+	speed = 13;
+	skill = 15;
+	stamina = 15;
+	maxStamina = 15;
+
 	return true;
 }
 
 bool Timmy::Update()
 {
+	switch (battleState) {
+	case IDLE:
+		break; 
+	case THINKING:
+		break; 
+	case MOVING:
+		break; 
+	case ATTACKING:
+		break; 
+
+	}
 	return true;
 }
 
