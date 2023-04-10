@@ -90,11 +90,11 @@ bool SceneBattle::Start()
 	//Buttons
 	uint w, h;
 	app->win->GetWindowSize(w, h);
-	button1_attack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Attack", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
+	button1_attack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Attack", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
 	button1_attack->state = GuiControlState::NORMAL;
-	button2_skill = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Skill", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
+	button2_skill = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Skill", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
 	button2_skill->state = GuiControlState::NORMAL;
-	button3_endTurn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "End Turn", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
+	button3_endTurn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "End Turn", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
 	button3_endTurn->state = GuiControlState::NORMAL;
 
 	if (retLoad) {
