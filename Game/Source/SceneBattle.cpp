@@ -87,6 +87,15 @@ bool SceneBattle::Start()
 	//Load combat map
 	/*MakeCombatMap();*/
 
+	//Buttons
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	button1_attack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Attack", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
+	button1_attack->state = GuiControlState::NORMAL;
+	button2_skill = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Skill", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
+	button2_skill->state = GuiControlState::NORMAL;
+	button3_endTurn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "End Turn", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
+	button3_endTurn->state = GuiControlState::NORMAL;
 
 	if (retLoad) {
 		int w, h;
@@ -131,6 +140,8 @@ bool SceneBattle::Update(float dt)
 bool SceneBattle::PostUpdate()
 {
 	bool ret = true;
+
+	app->guiManager->Draw();
 
 	//if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	//	ret = false;
@@ -203,8 +214,23 @@ bool SceneBattle::PostUpdate()
 
 bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 {
-	
+	LOG("Event by %d ", control->id);
 
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button 1 Attack click");
+		
+		break;
+	case 2:
+		LOG("Button 2 Skill click");
+		
+		break;
+	case 3:
+		LOG("Button 3 End Turn click");
+
+		break;
+	}
 	return true;
 }
 
