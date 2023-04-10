@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "Pathfinding.h"
+#include "UriBehaviorTree.h"
 
 class Enemy_LRRH : public Entity {
 	Enemy_LRRH(iPoint pos);
@@ -34,6 +35,53 @@ class Enemy_LRRH : public Entity {
 private: 
 	SDL_Texture* texture;
 
+private:
+
+	//Action Nodes
+	class GetCloser : public BehaviorTreeNode
+	{
+	public:
+		NodeStatus Run() override;
+	};
+
+
+	class JumpGetCloser : public BehaviorTreeNode
+	{
+	public:
+		NodeStatus Run() override;
+	};
+
+
+	class Shoot : public BehaviorTreeNode
+	{
+	public:
+		NodeStatus Run() override;
+	};
+
+
+	class MoveAway : public BehaviorTreeNode
+	{
+	public:
+		NodeStatus Run() override;
+	};
+
+
+	class JumpMoveAway : public BehaviorTreeNode
+	{
+	public:
+		NodeStatus Run() override;
+	};
+
+
+	//Control Flow Nodes
+	std::shared_ptr<RandomUniformDistribution> getCloserChooser;
+	std::shared_ptr<RandomUniformDistribution> moveAwayChooser;
+	std::shared_ptr<SwitchConditionNode> inRangeChecker;
+	std::shared_ptr<SwitchConditionNode> healthChecker;
+	std::shared_ptr<SwitchConditionNode> isEnemyTooClose;
+
 	
+	//Behavior Tree Node
+	std::unique_ptr<BehaviorTree> behaviorTree;
 
 };

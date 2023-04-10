@@ -48,6 +48,15 @@
     <ClCompile Include="Source\Enemy_LRRH.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UriBehaviorTree.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy_AngryVillager.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy_CorruptedSprout.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -127,6 +136,15 @@
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enemy_LRRH.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UriBehaviorTree.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy_AngryVillager.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy_CorruptedSprout.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
   </ItemGroup>

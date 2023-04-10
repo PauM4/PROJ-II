@@ -7,6 +7,8 @@
 #include "Render.h"
 #include "Map.h"
 #include "Pathfinding.h"
+#include <memory>
+
 class PhysBody;
 
 enum class State {
@@ -32,7 +34,9 @@ enum class EntityType
 	ITEM,
 
 	//Enemies
-	LRRH
+	LRRH,
+	ANGRYVILLAGER,
+	CORRUPTEDSPROUT,
 };
 
 class Entity
