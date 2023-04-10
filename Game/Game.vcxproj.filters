@@ -147,6 +147,9 @@
     <ClInclude Include="Source\Enemy_CorruptedSprout.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
+    <ClInclude Include="Source\DialogueTree.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
