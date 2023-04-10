@@ -22,6 +22,10 @@ Timmy::~Timmy() {
 
 bool Timmy::Awake()
 {
+	pbody = app->physics->CreateRectangle(50, 50, 120, 140, bodyType::DYNAMIC);
+	pbody->body->SetFixedRotation(true);
+	pbody->listener = this;
+
 	return true;
 }
 
@@ -39,12 +43,15 @@ bool Timmy::Start()
 	skill = 15;
 	stamina = 15;
 	maxStamina = 15;
+	
 
 	return true;
 }
 
 bool Timmy::Update()
 {
+	b2Vec2 vel = b2Vec2(0, 0);
+
 	switch (battleState) {
 	case IDLE:
 		break; 
@@ -57,10 +64,19 @@ bool Timmy::Update()
 
 	}
 	return true;
+
+	pbody->body->SetLinearVelocity(vel);
+
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 }
 
 bool Timmy::PostUpdate()
 {
+	iPoint pos;
+	pbody->GetPosition(pos.x,pos.y);
+
+	app->render->DrawRectangle({ pos.x, pos.y, 120, 140 }, 250, 0, 0, 100, true);
 	return true;
 }
 

@@ -1,4 +1,4 @@
-#ifndef __TIMMY_H__
+	#ifndef __TIMMY_H__
 #define __TIMMY_H__
 
 #include "Entity.h"
@@ -38,6 +38,7 @@ public:
 
 private:
 
+	PhysBody* pbody;
 
 	
 };

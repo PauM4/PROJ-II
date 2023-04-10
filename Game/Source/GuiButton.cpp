@@ -79,7 +79,7 @@ bool GuiButton::Draw(Render* render)
 		break;
 	}
 
-	app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });
+	/*app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });*/
 
 	return false;
 }

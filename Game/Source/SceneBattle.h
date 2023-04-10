@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Player.h"
+#include "Timmy.h"
 #include "Entity.h"
 #include "GuiButton.h"
 #include "List.h"
@@ -21,7 +22,7 @@ struct TileData
 {
 	int x;
 	int y;
-	Entity* character;
+	bool character;
 	TILE_TYPE type;
 };
 
@@ -68,6 +69,7 @@ public:
 public:
 
 	TileData combatMap[16][9];
+	
 
 private:;
 
@@ -92,6 +94,20 @@ private:;
 	GuiButton* button1_attack;
 	GuiButton* button2_skill;
 	GuiButton* button3_endTurn;
+	DynArray<iPoint> path;
+	iPoint pos;
+	fPoint playerPos;
+
+	int  length;
+
+	const iPoint *nextpos;
+	int pathIndex;
+	iPoint destination;
+
+	
+	Timmy* timmy;
+
+	PhysBody* pbody;
 };
 
 #endif // __SCENE_BATTLE_H__
