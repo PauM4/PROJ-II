@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "Timmy.h"
+#include "Bunny.h"
 #include "Entity.h"
 #include "GuiButton.h"
 #include "List.h"
@@ -106,7 +107,7 @@ private:;
 
 	
 	Timmy* timmy;
-
+	Bunny* bunny;
 	PhysBody* pbody;
 };
 

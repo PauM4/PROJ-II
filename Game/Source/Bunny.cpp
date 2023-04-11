@@ -1,4 +1,4 @@
-#include "Timmy.h"
+#include "Bunny.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -9,18 +9,18 @@
 #include "Point.h"
 #include "Physics.h"
 
-Timmy::Timmy() : Entity(EntityType::TIMMY)
+Bunny::Bunny() : Entity(EntityType::BUNNY)
 {
-	name.Create("Timmy");
+	name.Create("Bunny");
 	isAlive = true;
 	battleState = IDLE; 
 }
 
-Timmy::~Timmy() {
+Bunny::~Bunny() {
 
 }
 
-bool Timmy::Awake()
+bool Bunny::Awake()
 {
 	pbody = app->physics->CreateRectangle(50, 50, 120, 140, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
@@ -29,31 +29,31 @@ bool Timmy::Awake()
 	return true;
 }
 
-bool Timmy::Start()
+bool Bunny::Start()
 {
 	level = 1;
-	health = 20;
-	maxHealth = 20;
+	health = 15;
+	maxHealth = 15;
 	defense = 5;
-	magic = 1;
+	magic = 5;
 	stamina = 15;
 	maxStamina = 15;
-	speed = 5;
-	attack = 6;
+	speed = 6;
+	attack = 3;
 	AttArea = iPoint(1, 1);
-	Ab1Type = 1;
-	Ab1Area = iPoint(1, 3);
+	Ab1Type = 3;
+	Ab1Area = iPoint(10, 10);
 	Ab1Power = 2;
-	Ab2Type = 1;
-	Ab2Area = iPoint(1, 3);
-	Ab2Power = 3;
-	healingpower = 0;
+	Ab2Type = 2;
+	Ab2Area = iPoint(2, 3);
+	Ab2Power = 2;
+	healingpower = 8;
 	
 
 	return true;
 }
 
-bool Timmy::Update()
+bool Bunny::Update()
 {
 	b2Vec2 vel = b2Vec2(0, 0);
 
@@ -76,7 +76,7 @@ bool Timmy::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 }
 
-bool Timmy::PostUpdate()
+bool Bunny::PostUpdate()
 {
 	iPoint pos;
 	pbody->GetPosition(pos.x,pos.y);
@@ -85,19 +85,19 @@ bool Timmy::PostUpdate()
 	return true;
 }
 
-bool Timmy::CleanUp()
+bool Bunny::CleanUp()
 {
 	return true;
 }
 
-int Timmy::Attack()
+int Bunny::Attack()
 {
 	stamina -= 1;
 	return attack;
 
 }
 
-int Timmy::Ability(int id)
+int Bunny::Ability(int id)
 {
 	//If ability 1 is selected
 	if (id == 1) {
@@ -139,6 +139,6 @@ int Timmy::Ability(int id)
 	}
 }
 
-void Timmy::Movement() {
+void Bunny::Movement() {
 
 }

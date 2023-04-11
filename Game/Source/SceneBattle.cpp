@@ -45,46 +45,7 @@ bool SceneBattle::Start()
 	bool retLoad = app->map->Load(mapName, mapFolder);
 
 	pathIndex = 0;
-
-	/*Entity* timmy = new Timmy();*/
-	//Entity* bunny;
-	//Entity villager;
-	//timmy.level = 1;
-	//timmy.health = 20;
-	//timmy.maxhealth = 20;
-	//timmy.defense = 5;
-	//timmy.magic = 1;
-	//timmy.stamina = 15;
-	//timmy.maxstamina = 15;
-	//timmy.speed=5;
-	//timmy.attack = 6;
-	//timmy.AttArea = iPoint(1, 1);
-	//timmy.Ab1Type = 1;
-	//timmy.Ab1Area = iPoint(1, 3);
-	//timmy.Ab1Power = 2;
-	//timmy.Ab2Type = 1;
-	//timmy.Ab2Area = iPoint(1, 3);
-	//timmy.Ab2Power = 3;
-	//timmy.healingpower = 0;
-
-	/*villager.level = 1;
-	villager.health = 20;
-	villager.maxhealth = 20;
-	villager.defense = 5;
-	villager.magic = 1;
-	villager.stamina = 15;
-	villager.maxstamina = 15;
-	villager.speed = 5;
-	villager.attack = 6;
-	villager.AttArea = iPoint(1, 1);
-	villager.Ab1Type = 1;
-	villager.Ab1Area = iPoint(1, 3);
-	villager.Ab1Power = 2;
-	villager.Ab2Type = 1;
-	villager.Ab2Area = iPoint(1, 3);
-	villager.Ab2Power = 3;
-	villager.healingpower = 0;*/
-
+	
 
 	//Load combat map
 	/*MakeCombatMap();*/
