@@ -60,12 +60,16 @@ public:
 	// Loads combat map from Map module using GID tile metadata
 	bool MakeCombatMap();
 
+	// Creates area of an attack or ability, type is 0 if atack, 1 if lineal, 2 if "circular", 3 if global
+	List<TileData*> CreateArea(int range, int type);
+
 	// Draws an area of attack/ability/movement from an ally
 	bool DisplayArea(List<TileData*> area, int type);
 
 	// Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
 	bool Combat(Entity* inturn, List<Entity*> target, int id);
 
+	
 
 public:
 
@@ -105,6 +109,7 @@ private:;
 	int pathIndex;
 	iPoint destination;
 
+	bool turnstart;
 	
 	Timmy* timmy;
 	Bunny* bunny;

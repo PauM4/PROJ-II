@@ -40,12 +40,14 @@ bool Timmy::Start()
 	maxStamina = 15;
 	speed = 5;
 	attack = 6;
-	AttArea = iPoint(1, 1);
+	AttArea = 1;
 	Ab1Type = 1;
-	Ab1Area = iPoint(1, 3);
+	Ab1Area = 4;
+	Ab1RangeType = 1;
 	Ab1Power = 2;
-	Ab2Type = 1;
-	Ab2Area = iPoint(1, 3);
+	Ab2Type = 2;
+	Ab2Area = 3;
+	Ab2RangeType = 1;
 	Ab2Power = 3;
 	healingpower = 0;
 	

@@ -179,15 +179,19 @@ public:
 	uint skill;
 	uint attack;
 	uint resistance; 
-	iPoint AttArea;
+	int AttArea;
 	uint Ab1Power;
 	uint Ab2Power;
-	//1 if melee 2 if mage 3 if healing;
+	//1 if physic 2 if mage 3 if healing
 	uint Ab1Type;
-	//1 if melee 2 if mage 3 if healing;
+	//1 if physic 2 if mage 3 if healing
 	uint Ab2Type;
-	iPoint Ab1Area;
-	iPoint Ab2Area;
+	//1 if lineal 2 if "circular" 3 if global
+	uint Ab1RangeType;
+	//1 if lineal 2 if "circular" 3 if global
+	uint Ab2RangeType;
+	int Ab1Area;
+	int Ab2Area;
 	uint healingpower;
 
 	iPoint tilePos; 
