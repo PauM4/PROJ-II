@@ -220,6 +220,8 @@ bool Map::CleanUp()
         imageLayerItem = imageLayerItem->next;
     }
 
+   
+
     return true;
 }
 

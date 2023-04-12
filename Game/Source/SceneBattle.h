@@ -97,7 +97,7 @@ private:;
 	GuiButton* button3_endTurn;
 	DynArray<iPoint> path;
 	iPoint pos;
-	fPoint playerPos;
+	
 
 	int  length;
 
