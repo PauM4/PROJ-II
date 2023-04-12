@@ -44,7 +44,7 @@ bool SceneBattle::Start()
 	//Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
 
-	pathIndex = 0;
+	pathIndex = 1;
 	
 
 	//Load combat map
@@ -78,7 +78,7 @@ bool SceneBattle::Start()
 
 	MakeCombatMap();
 
-	pbody = app->physics->CreateRectangle(620, 500, 120, 140, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(620, 300, 50, 50, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
 	pbody->listener = timmy;
 
@@ -126,8 +126,9 @@ bool SceneBattle::PostUpdate()
 
 	//
 	iPoint posTile = iPoint(0, 0);
-	posTile = app->map->WorldToMap(pos.x - app->render->camera.x, pos.y - app->render->camera.y);
-
+	posTile = app->map->WorldToMap(pos.x - app->render->camera.x , pos.y - app->render->camera.y);
+	
+	
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
@@ -148,7 +149,8 @@ bool SceneBattle::PostUpdate()
 			{
 				if (app->pathfinding->IsWalkable(origin)) {
 					length=app->pathfinding->CreatePath(origin, mouseTile);
-					destination = mouseTile;
+					destination.x = mouseTile.x;
+					destination.y = mouseTile.y;
 					originSelected = false;
 				}
 				else {
@@ -172,6 +174,8 @@ bool SceneBattle::PostUpdate()
 	for (uint i = 0; i < lastpath->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(lastpath->At(i)->x, lastpath->At(i)->y);
+
+		    LOG("posTileY= %d", lastpath->At(i)->y);
 		
 			app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
 		
@@ -274,49 +278,63 @@ bool SceneBattle::PostUpdate()
 	
 
 
-
-	length = app->pathfinding->CreatePath(origin, destination);
+	if (pathIndex != length) {
+		length = app->pathfinding->CreatePath(origin, destination);
+	}
+	else {
+		length = 1;
+		pathIndex = 1;
+		app->pathfinding->ClearLastPath();
+	}
 	iPoint dist;
 	iPoint finaldist;
+	LOG("length= %d", length);
+	LOG(" posTileX: %d", posTile.x);
+	LOG(" posTiley: %d", posTile.y);
 	if (length > 1) {
-		pos = app->map->WorldToMap(METERS_TO_PIXELS(pbody->body->GetPosition().x), METERS_TO_PIXELS(pbody->body->GetPosition().y));
+		
 		lastpath = app->pathfinding->GetLastPath();
-		nextpos = lastpath->At(pathIndex);
-		LOG(" Nextpos: %d", nextpos);
-		dist.x = nextpos->x - pos.x;
+		nextpos.x = lastpath->At(pathIndex)->x;
+		nextpos.y = lastpath->At(pathIndex)->y -1;
+		LOG(" NextposX: %d", nextpos.x);
+		LOG(" NextposY: %d", nextpos.y);
+		
+		dist.x = nextpos.x - posTile.x;
 		LOG(" disX: %d", dist.x);
-		dist.y = nextpos->y - pos.y;
+		dist.y = nextpos.y - posTile.y;
 		LOG(" disY: %d", dist.y);
 
-		finaldist.x = pos.x - destination.x;
-		finaldist.y = pos.y - destination.y;
 
-		if (finaldist.x == 0 && finaldist.y == 0) {
-			pathIndex=0;
-		}
-		else if (dist.x==0 || dist.y ==0) {
+	
+
+		
+		if (dist.x==0 && dist.y ==0) {
 			pathIndex++;
+			
 		}
 		else if (dist.x > 0) {
 			vel.x = 10;
-
+			
 		}
 		else if (dist.x < 0) {
 			vel.x = -10;
-
+			
 		}
 		else if (dist.y > 0) {
 			vel.y = 10;
-
+			
 		}
 		else if (dist.y < 0) {
 			vel.y = -10;
-
+			
 		}
+
+		/*if(pathIndex == length){ 
+			pathIndex = 0; app->pathfinding->ClearLastPath();
+			length = 0;
+		}*/
 	}
-	else {
-		pathIndex = 0;
-	}
+
 
 
 
@@ -333,15 +351,15 @@ bool SceneBattle::PostUpdate()
 
 	pbody->body->SetLinearVelocity(vel);
 
-	pos.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	pos.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+	pos.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+	pos.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 
 	
 
 	/*LOG("%d %d", posTile.x-4, posTile.y);*/
 	combatMap[posTile.x-4][ posTile.y ].character = true;
 	
-	app->render->DrawRectangle({ int(pos.x), int(pos.y), 110, 140 }, 250, 0, 0, 250, true);
+	app->render->DrawRectangle({ int(pos.x)+20, int(pos.y)+100, 50, 50 }, 250, 0, 0, 250, true);
 
 	
 

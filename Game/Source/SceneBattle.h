@@ -101,7 +101,7 @@ private:;
 
 	int  length;
 
-	const iPoint *nextpos;
+    iPoint nextpos;
 	int pathIndex;
 	iPoint destination;
 
