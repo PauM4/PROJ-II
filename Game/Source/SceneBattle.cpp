@@ -45,6 +45,8 @@ bool SceneBattle::Start()
 	bool retLoad = app->map->Load(mapName, mapFolder);
 
 	pathIndex = 1;
+	turnstart = true;
+	pathIndex = 0;
 	
 	app->physics->Enable();
 	//Load combat map
@@ -92,14 +94,28 @@ bool SceneBattle::Start()
 bool SceneBattle::PreUpdate()
 {
 	bool ret = true;
-
 	return true;
 }
 
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
-	
+	if (turnstart == true) {
+		//if user selects attack
+		CreateArea(characterTurn->AttArea, 0);
+		Combat(characterTurn, targets, 1);
+		turnstart = false;
+		//if user selects ab1
+		CreateArea(characterTurn->Ab1Area, characterTurn->Ab1RangeType);
+		Combat(characterTurn, targets, 2);
+		turnstart = false;
+
+		//if user selects ab2
+		CreateArea(characterTurn->Ab2Area, characterTurn->Ab2RangeType);
+		Combat(characterTurn, targets, 3);
+		turnstart = false;
+	}
+
 	bool ret = true;
 
 	app->render->camera.x = 0;
@@ -390,7 +406,7 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 }
 
 // Loads combat map from Map module using GID tile metadata
-bool  SceneBattle::MakeCombatMap() {
+bool SceneBattle::MakeCombatMap() {
 	
 	bool ret = true;
 
@@ -405,6 +421,35 @@ bool  SceneBattle::MakeCombatMap() {
 	}
 
 	return ret;
+}
+
+List<TileData*> SceneBattle::CreateArea(int range, int type) {
+
+	List<TileData*> area;
+	
+	switch (type) {
+
+	case 0:
+		//attack
+	case 1:
+		//lineal
+	case 2:
+		//circular
+	case 3:
+		//global
+		for (int i = 0; i < COMBAT_MAP_HEIGHT; i++) {
+			for (int j = 0; j < COMBAT_MAP_WIDTH; j++) {
+				if (combatMap[j][i].type != TILE_TYPE::BARRIER && combatMap[j][i].type != TILE_TYPE::HALF_BARRIER) {
+				
+					area.Add(&combatMap[j][i]);
+
+				}
+			}
+		}
+	}
+
+	return area;
+
 }
 
 bool SceneBattle::DisplayArea(List<TileData*> area, int type) {

@@ -40,12 +40,14 @@ bool Bunny::Start()
 	maxStamina = 15;
 	speed = 6;
 	attack = 3;
-	AttArea = iPoint(1, 1);
+	AttArea = 1;
 	Ab1Type = 3;
-	Ab1Area = iPoint(10, 10);
+	Ab1Area = 1;
+	Ab1RangeType = 3;
 	Ab1Power = 2;
 	Ab2Type = 2;
-	Ab2Area = iPoint(2, 3);
+	Ab2Area = 3;
+	Ab2RangeType = 2;
 	Ab2Power = 2;
 	healingpower = 8;
 	
