@@ -11,6 +11,7 @@
 #include "GuiManager.h"
 #include "Fonts.h"
 #include "Item.h"
+#include "Physics.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -82,7 +83,7 @@ bool Scene::Start()
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
-
+	
 
 	return true;
 }
@@ -200,7 +201,7 @@ bool Scene::CleanUp()
 	app->fonts->UnLoad(font);
 	app->map->CleanUp(); 
 	app->entityManager->CleanUp(); 
-
+	
 
 	return true;
 }

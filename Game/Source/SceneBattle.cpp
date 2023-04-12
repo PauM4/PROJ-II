@@ -48,7 +48,7 @@ bool SceneBattle::Start()
 	turnstart = true;
 	pathIndex = 0;
 	
-
+	app->physics->Enable();
 	//Load combat map
 	/*MakeCombatMap();*/
 
@@ -120,6 +120,7 @@ bool SceneBattle::Update(float dt)
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
+	app->map->Draw();
 
 	return true;
 }
@@ -138,7 +139,7 @@ bool SceneBattle::PostUpdate()
 
 	////if (!DisplayArea()) ret = false;
 
-	app->map->Draw();
+	
 
 	//
 	iPoint posTile = iPoint(0, 0);
@@ -375,7 +376,7 @@ bool SceneBattle::PostUpdate()
 	/*LOG("%d %d", posTile.x-4, posTile.y);*/
 	combatMap[posTile.x-4][ posTile.y ].character = true;
 	
-	app->render->DrawRectangle({ int(pos.x)+20, int(pos.y)+100, 50, 50 }, 250, 0, 0, 250, true);
+	app->render->DrawRectangle({ int(pos.x)+2, int(pos.y), 50, 50 }, 250, 0, 0, 250, true);
 
 	
 
