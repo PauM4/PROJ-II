@@ -78,7 +78,7 @@ bool SceneBattle::Start()
 
 	MakeCombatMap();
 
-	pbody = app->physics->CreateRectangle(620, 300, 50, 50, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(670, 420, 50, 50, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
 	pbody->listener = timmy;
 
@@ -138,7 +138,7 @@ bool SceneBattle::PostUpdate()
 	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x,mouseY - app->render->camera.y);
 	/*LOG("%d %d", mouseTile.x-4, mouseTile.y-1);*/
 	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
-	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x-4][mouseTile.y-1].character!=false) {
+	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x-4][mouseTile.y].character!=false) {
 		app->render->DrawRectangle({ highlightedTileWorld.x, highlightedTileWorld.y, 120, 120 }, 0, 143, 57, 100, true);
 		/*app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);*/
 	}
@@ -158,7 +158,7 @@ bool SceneBattle::PostUpdate()
 					app->pathfinding->ClearLastPath();
 				}
 			}
-			else if(combatMap[mouseTile.x - 4][ mouseTile.y - 1].character != false)
+			else if(combatMap[mouseTile.x - 4][ mouseTile.y ].character != false)
 			{
 					origin = mouseTile;
 					if (app->pathfinding->IsWalkable(origin)) {
@@ -296,7 +296,7 @@ bool SceneBattle::PostUpdate()
 		
 		lastpath = app->pathfinding->GetLastPath();
 		nextpos.x = lastpath->At(pathIndex)->x;
-		nextpos.y = lastpath->At(pathIndex)->y -1;
+		nextpos.y = lastpath->At(pathIndex)->y;
 		LOG(" NextposX: %d", nextpos.x);
 		LOG(" NextposY: %d", nextpos.y);
 		
@@ -360,7 +360,7 @@ bool SceneBattle::PostUpdate()
 	/*LOG("%d %d", posTile.x-4, posTile.y);*/
 	combatMap[posTile.x-4][ posTile.y ].character = true;
 	
-	app->render->DrawRectangle({ int(pos.x)+2, int(pos.y), 50, 50 }, 250, 0, 0, 250, true);
+	app->render->DrawRectangle({ int(pos.x)-25, int(pos.y)-25, 50, 50 }, 250, 0, 0, 250, true);
 
 	
 
@@ -487,5 +487,6 @@ bool SceneBattle::CleanUp()
 {
 	LOG("Freeing sceneBattle");
 	app->map->CleanUp(); 
+	app->physics->Disable();
 	return true;
 }
