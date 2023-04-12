@@ -45,7 +45,7 @@ bool SceneBattle::Start()
 	bool retLoad = app->map->Load(mapName, mapFolder);
 
 	pathIndex = 1;
-	turnstart = true;
+	turnstart = false;
 	pathIndex = 0;
 	
 	app->physics->Enable();
