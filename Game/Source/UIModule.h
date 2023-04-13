@@ -53,7 +53,15 @@ public:
 
 
 	// Buttons list
-	GuiButton* button1_continue;
+	GuiButton* mainmenu_play_button;
+	GuiButton* mainmenu_options_button;
+	GuiButton* mainmenu_credits_button;
+	GuiButton* mainmenu_quit_button;
+	GuiButton* mainmenu_newGame_button;
+	GuiButton* mainmenu_continueGame_button;
+	GuiButton* mainmenu_return_button;
+
+
 
 private:
 
