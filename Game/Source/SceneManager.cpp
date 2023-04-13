@@ -44,9 +44,25 @@ bool SceneManager::PreUpdate()
 		app->sceneManager->isBattle = true;
 		scene = BATTLE;
 	}
+	if ((app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = false;
+		scene = INTRO;
+	}
+	if ((app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = false;
+		scene = MAIN_MENU;
+	}
 
 	switch (scene) {
 	case INTRO:
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			scene = SCENE;
+		}
+		break;
+	case MAIN_MENU:
 		break;
 	case SCENE:
 		break; 
@@ -65,6 +81,14 @@ bool SceneManager::Update(float dt)
 
 	switch (scene) {
 	case INTRO:
+		if (currentScene != (Module*)app->sceneIntro) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneIntro, 60)) {
+				currentScene = (Module*)app->sceneIntro;
+				LOG("SCENE_INTRO");
+			}
+		}
+		break;
+	case MAIN_MENU:
 		break;
 	case SCENE:
 		if (currentScene == nullptr) {

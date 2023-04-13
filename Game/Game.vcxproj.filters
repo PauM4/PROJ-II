@@ -60,6 +60,7 @@
     <ClCompile Include="Source\Bunny.cpp">
       <Filter>Entities\Playable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneIntro.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Source\Bunny.h">
       <Filter>Entities\Playable</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SceneIntro.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
