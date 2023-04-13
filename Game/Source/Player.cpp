@@ -140,6 +140,7 @@ bool Player::Update()
 				if (playerState == NPC_INTERACT)
 				{
 					playerState = MOVING;
+					npcInteractAvailable = false;
 				}
 				// Moving
 				else
@@ -154,6 +155,7 @@ bool Player::Update()
 				if (playerState == ITEM_INTERACT)
 				{
 					playerState = MOVING;
+					itemInteractAvailable = false;
 				}
 				// Moving
 				else
