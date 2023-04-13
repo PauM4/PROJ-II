@@ -51,7 +51,7 @@ bool Player::Start() {
 	walkDownTexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	currentAnimation = &walkDownAnim;
 
-	pbody = app->physics->CreateRectangle(2000,0,120,140, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(2000,0,70,70, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
 	pbody->listener = this;
 
@@ -183,7 +183,7 @@ bool Player::PostUpdate() {
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	// Animation removed to continue working
-	app->render->DrawTexture(walkDownTexture, position.x - 200, position.y - 200, &rect);
+	app->render->DrawTexture(walkDownTexture, position.x - 55, position.y-75, &rect);
 	/*app->render->DrawTexture(texture, position.x , position.y);*/
 
 	return true;

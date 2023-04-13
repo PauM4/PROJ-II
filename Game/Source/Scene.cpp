@@ -98,7 +98,7 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	app->render->camera.x = -(int)player->position.x + app->render->camera.w / 2;
-	app->render->camera.y = -(int)player->position.y + app->render->camera.h / 2;
+	app->render->camera.y = -(int)player->position.y-35 + app->render->camera.h / 2;
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)

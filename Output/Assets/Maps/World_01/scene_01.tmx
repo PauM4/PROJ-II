@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="4" nextobjectid="62">
  <imagelayer id="2" name="BG" offsetx="-336.364" offsety="-1712.85">
-  <image source="Assets\Maps\World_01\scene_01.png" width="4000" height="5337"/>
+  <image source="Assets/Maps/World_01/scene_01.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <objectgroup color="#ff0000" id="3" name="Collisions">
+ <objectgroup color="#ff0000" id="3" name="Collisions" offsetx="-79" offsety="12">
   <properties>
    <property name="ColType" type="int" value="0"/>
   </properties>
@@ -26,8 +26,8 @@
   <object id="17" x="2304" y="-719" width="1640" height="2232"/>
   <object id="18" x="2583" y="1425" width="344" height="830"/>
   <object id="27" x="1860.85" y="1853.12" width="23.6367" height="280.425"/>
-  <object id="28" x="1861.51" y="1546.45" width="667.97" height="18.4247"/>
-  <object id="29" x="1868.68" y="2091.79" width="667.97" height="18.4247"/>
+  <object id="28" x="1861.51" y="1532.45" width="667.97" height="32.4247"/>
+  <object id="29" x="1868.68" y="2075.79" width="667.97" height="34.4247"/>
   <object id="30" x="2504.18" y="1547.62" width="23.6367" height="563.592"/>
   <object id="31" x="734" y="-1041.21" width="406" height="264.42"/>
   <object id="32" x="1286" y="-1158.21" width="331" height="164.42"/>
