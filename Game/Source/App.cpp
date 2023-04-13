@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "SceneIntro.h"
+#include "SceneMainMenu.h"
 #include "Scene.h"
 #include "SceneBattle.h"
 #include "EntityManager.h"
@@ -40,6 +41,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding(true);
 	sceneManager = new SceneManager(true); 
 
+	sceneMainMenu = new SceneMainMenu(false);
 	sceneIntro = new SceneIntro(false);
 	scene = new Scene(false);
 	sceneBattle = new SceneBattle(false);
@@ -63,6 +65,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneManager);
 	//Scenes
 	AddModule(sceneIntro);
+	AddModule(sceneMainMenu);
 	AddModule(scene);
 	AddModule(sceneBattle);
 

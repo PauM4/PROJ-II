@@ -61,6 +61,7 @@
       <Filter>Entities\Playable</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneIntro.cpp" />
+    <ClCompile Include="Source\SceneMainMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -158,6 +159,7 @@
       <Filter>Entities\Playable</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneIntro.h" />
+    <ClInclude Include="Source\SceneMainMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

@@ -19,6 +19,7 @@ class Render;
 class Textures;
 class Audio;
 class SceneIntro;
+class SceneMainMenu;
 class Scene;
 class SceneBattle;
 class EntityManager;
@@ -99,6 +100,7 @@ public:
 	Audio* audio;
 	Scene* scene;
 	SceneIntro* sceneIntro;
+	SceneMainMenu* sceneMainMenu;
 	SceneBattle* sceneBattle;
 	EntityManager* entityManager;
 	Map* map;

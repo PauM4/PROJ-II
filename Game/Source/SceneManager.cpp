@@ -89,6 +89,12 @@ bool SceneManager::Update(float dt)
 		}
 		break;
 	case MAIN_MENU:
+		if (currentScene != (Module*)app->sceneMainMenu) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneMainMenu, 20)) {
+				currentScene = (Module*)app->sceneMainMenu;
+				LOG("SCENE_MAINMENU");
+			}
+		}
 		break;
 	case SCENE:
 		if (currentScene == nullptr) {
@@ -97,7 +103,7 @@ bool SceneManager::Update(float dt)
 			LOG("SCENE");
 		}
 		else if(currentScene!= (Module*)app->scene) {
-			if (app->fadeToBlack->Fade(currentScene, (Module*)app->scene, 60)) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->scene, 20)) {
 				currentScene = (Module*)app->scene;
 				LOG("SCENE");
 			}
@@ -105,7 +111,7 @@ bool SceneManager::Update(float dt)
 		break;
 	case BATTLE:
 		if (currentScene != (Module*)app->sceneBattle) {
-			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneBattle, 60)) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneBattle, 20)) {
 				currentScene = (Module*)app->sceneBattle;
 				LOG("SCENE_BATTLE");
 			}
