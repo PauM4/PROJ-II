@@ -16,6 +16,7 @@
 #include "Fonts.h"
 #include "SceneManager.h"
 #include "FadeToBlack.h"
+#include "UIModule.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -51,6 +52,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map(true);
 	guiManager = new GuiManager(true);
 	fonts = new Fonts(true);
+	uiModule = new UIModule(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -72,6 +74,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(guiManager);
+	AddModule(uiModule);
 
 	AddModule(fadeToBlack);
 

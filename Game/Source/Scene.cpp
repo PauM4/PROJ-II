@@ -162,7 +162,7 @@ bool Scene::PostUpdate()
 	app->map->Draw();
 
 	//L15: Draw GUI
-	app->guiManager->Draw();
+	if (player->playerState == player->PAUSE) app->guiManager->Draw();
 	
 	// When exit button click, close app
 	if (exitButtonBool == true)

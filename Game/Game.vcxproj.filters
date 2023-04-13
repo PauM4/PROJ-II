@@ -62,6 +62,7 @@
     </ClCompile>
     <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
+    <ClCompile Include="Source\UIModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -160,6 +161,7 @@
     </ClInclude>
     <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
+    <ClInclude Include="Source\UIModule.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

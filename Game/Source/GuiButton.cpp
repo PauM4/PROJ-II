@@ -43,7 +43,6 @@ bool GuiButton::Update(float dt)
 				state = GuiControlState::PRESSED;
 			}
 
-			//
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
 				NotifyObserver();
 			}

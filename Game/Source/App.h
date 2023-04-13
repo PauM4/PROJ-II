@@ -32,6 +32,7 @@ class SceneManager;
 class Physics;
 class PathFinding;
 class GuiManager;
+class UIModule;
 
 class App
 {
@@ -111,6 +112,7 @@ public:
 	Physics* physics;
 	PathFinding* pathfinding;
 	GuiManager* guiManager;
+	UIModule* uiModule;
 
 	double prepareUpdate;
 	double finishUpdate;
