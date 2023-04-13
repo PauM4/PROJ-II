@@ -48,7 +48,7 @@ bool SceneBattle::Start()
 	turnstart = false;
 	pathIndex = 0;
 	
-	app->physics->Enable();
+	//app->physics->Enable();
 	//Load combat map
 	/*MakeCombatMap();*/
 
@@ -532,6 +532,6 @@ bool SceneBattle::CleanUp()
 {
 	LOG("Freeing sceneBattle");
 	app->map->CleanUp(); 
-	app->physics->Disable();
+	//app->physics->Disable();
 	return true;
 }

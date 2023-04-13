@@ -52,7 +52,7 @@ bool Scene::Start()
 {
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-	app->physics->Enable();
+	//app->physics->Enable();
 	//Fonts initialize
 	char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
 
@@ -201,7 +201,7 @@ bool Scene::CleanUp()
 	app->fonts->UnLoad(font);
 	app->map->CleanUp(); 
 	app->entityManager->CleanUp(); 
-	app->physics->Disable();	
+	//app->physics->Disable();	
 	
 
 	return true;

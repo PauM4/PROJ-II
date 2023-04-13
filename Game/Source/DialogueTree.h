@@ -41,6 +41,19 @@ public:
 
 	}
 
+	void SetAsLastNode()
+	{
+		for (auto& child : children)
+		{
+			if (child->isActivated)
+			{
+				child->DesactivateNode();
+			}
+		}
+
+		this->isActivated = true;
+	}
+
 	std::vector<std::string> GetDialogue()
 	{
 		std::vector<std::string> dialogue;

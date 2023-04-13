@@ -26,14 +26,14 @@ bool Player::Awake() {
 	//pos = position;
 	//texturePath = "Assets/Textures/player/idle1.png";
 
-	walkDownAnim.PushBack({ 70, 0, 562, 754 });
-	walkDownAnim.PushBack({ 600, 0, 562, 754 });
-	walkDownAnim.PushBack({ 1150, 0, 562, 754 });
-	walkDownAnim.PushBack({ 1685, 0, 562, 754 });
-	walkDownAnim.PushBack({ 2217, 0, 562, 754 });
-	walkDownAnim.PushBack({ 2780, 0, 562, 754 });
-	walkDownAnim.PushBack({ 3300, 0, 562, 754 });
-	walkDownAnim.PushBack({ 3838, 0, 562, 754 });
+	walkDownAnim.PushBack({ 0, 0, 140, 140 });
+	//walkDownAnim.PushBack({ 600, 0, 562, 754 });
+	//walkDownAnim.PushBack({ 1150, 0, 562, 754 });
+	//walkDownAnim.PushBack({ 1685, 0, 562, 754 });
+	//walkDownAnim.PushBack({ 2217, 0, 562, 754 });
+	//walkDownAnim.PushBack({ 2780, 0, 562, 754 });
+	//walkDownAnim.PushBack({ 3300, 0, 562, 754 });
+	//walkDownAnim.PushBack({ 3838, 0, 562, 754 });
 	walkDownAnim.loop = true;
 	walkDownAnim.speed = 0.15f;
 
@@ -48,7 +48,7 @@ bool Player::Awake() {
 bool Player::Start() {
 
 	texture = app->tex->Load(texturePath);
-	walkDownTexture = app->tex->Load("Assets/Characters/Character_X_Sprites_down.png");
+	walkDownTexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra2.png");
 	currentAnimation = &walkDownAnim;
 
 	pbody = app->physics->CreateRectangle(2000,0,120,140, bodyType::DYNAMIC);
