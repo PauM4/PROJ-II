@@ -82,7 +82,7 @@ bool SceneManager::Update(float dt)
 	switch (scene) {
 	case INTRO:
 		if (currentScene != (Module*)app->sceneIntro) {
-			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneIntro, 60)) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneIntro, 20)) {
 				currentScene = (Module*)app->sceneIntro;
 				LOG("SCENE_INTRO");
 			}
