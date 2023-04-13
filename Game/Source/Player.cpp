@@ -48,7 +48,7 @@ bool Player::Awake() {
 bool Player::Start() {
 
 	texture = app->tex->Load(texturePath);
-	walkDownTexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra2.png");
+	walkDownTexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	currentAnimation = &walkDownAnim;
 
 	pbody = app->physics->CreateRectangle(2000,0,120,140, bodyType::DYNAMIC);
