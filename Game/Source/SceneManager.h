@@ -43,6 +43,11 @@ public:
 
 	Module* currentScene = nullptr; 
 
+	// Intro Scene things:
+	Timer intro_timer;
+	bool skipIntroScene;
+	uint32 introCurrentTime;
+
 	bool isBattle; 
 };
 

@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "App.h"
-
+#include <iostream>
 
 SceneManager::SceneManager(bool isActive) : Module(isActive)
 {
@@ -24,6 +24,8 @@ bool SceneManager::Awake(pugi::xml_node& config)
 bool SceneManager::Start()
 {
 	bool ret = true;
+
+	skipIntroScene = false;
 
 	scene = GameScene::SCENE;
 
@@ -48,8 +50,10 @@ bool SceneManager::PreUpdate()
 	{
 		app->sceneManager->isBattle = false;
 		scene = INTRO;
+		intro_timer.Start();
 	}
-	if ((app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) && currentScene->active == true)
+	// If click key 4 or (we are at sceneIntro and time is >= 3), change scene to MainMenu
+	if ((app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN || (currentScene == (Module*)app->sceneIntro && intro_timer.ReadSec() >= 3)) && currentScene->active == true)
 	{
 		app->sceneManager->isBattle = false;
 		scene = MAIN_MENU;
@@ -57,10 +61,6 @@ bool SceneManager::PreUpdate()
 
 	switch (scene) {
 	case INTRO:
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		{
-			scene = SCENE;
-		}
 		break;
 	case MAIN_MENU:
 		break;
@@ -86,6 +86,7 @@ bool SceneManager::Update(float dt)
 				currentScene = (Module*)app->sceneIntro;
 				LOG("SCENE_INTRO");
 			}
+			intro_timer.Start();
 		}
 		break;
 	case MAIN_MENU:
@@ -102,7 +103,7 @@ bool SceneManager::Update(float dt)
 			currentScene->Enable(); 
 			LOG("SCENE");
 		}
-		else if(currentScene!= (Module*)app->scene) {
+		else if(currentScene != (Module*)app->scene) {
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->scene, 20)) {
 				currentScene = (Module*)app->scene;
 				LOG("SCENE");
@@ -120,6 +121,8 @@ bool SceneManager::Update(float dt)
 	default:
 		break;
 	}
+
+	introCurrentTime = intro_timer.ReadSec();
 
 	return ret;
 }
