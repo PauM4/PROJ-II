@@ -145,6 +145,8 @@ bool Scene::Update(float dt)
 	if(player->playerState == player->PAUSE) app->guiManager->Draw();
 
 	
+	// Draw map
+	app->map->Draw();
 	//Font test
 	
 	return true;
@@ -158,8 +160,7 @@ bool Scene::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	// Draw map
-	app->map->Draw();
+
 
 	//L15: Draw GUI
 	app->guiManager->Draw();
