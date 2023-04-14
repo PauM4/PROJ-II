@@ -11,7 +11,7 @@
 #include "GuiManager.h"
 #include "Fonts.h"
 #include "Item.h"
-#include "Physics.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -374,6 +374,30 @@ void Scene::Prueba()
 
 }
 
+void Scene::RunDialogueTree(ColliderType NPC)
+{
+	switch (NPC)
+	{
+	case ColliderType::ANGRYVILLAGER:
+
+		break;
+	case ColliderType::TALISMANVILLAGER:
+		angryVillagerTreePT->Update(1);
+		dialogue = angryVillagerTreePT->Run();
+		Prueba();
+		break;
+	case ColliderType::GRANDMA:
+		dialogue = angryVillagerTreePT->Run();
+		Prueba();
+		break;
+	case ColliderType::LRRH:
+
+		break;
+	default:
+		break;
+	}
+}
+
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
@@ -386,15 +410,16 @@ bool Scene::Update(float dt)
 	else if (pruebaj == 1)
 	{
 		//dialogo version tipo 2
-		angryVillagerTreePT->Update(1);
-		dialogue = angryVillagerTreePT->Run();
-		Prueba();
+		//angryVillagerTreePT->Update(1);
+		//dialogue = angryVillagerTreePT->Run();
+		//Prueba();
 
 		//dialogo version tipo 1: funciona en las diferentes opciones
 		//talismanVillagerTree->Update(2);
 		//dialogue = talismanVillagerTree->Run();
 		//Prueba();
 	}
+	
 	
 
 	app->render->camera.x = -(int)player->position.x + app->render->camera.w / 2;

@@ -64,11 +64,17 @@ bool Player::Start() {
 	playerState = PlayerState::MOVING;
 	playerPrevState = PlayerState::MOVING;
 
+	lastCollision = ColliderType::UNKNOWN;
+
 	return true;
 }
 
 bool Player::Update()
 {
+
+	/*std::cout << position.x << std::endl;
+	std::cout << position.y << std::endl;*/
+
 	currentAnimation->Update();
 
 	int speed = 10; 
@@ -97,6 +103,7 @@ bool Player::Update()
 	case NPC_INTERACT:
 		LOG("TALKING TO NPC1");
 		movementRestringed = true;
+		TriggerDialogueTree(lastCollision);
 		/*app->fonts->DrawText("PLAYER STATE: NPC_INTERACT", position.x + 100, position.y + 100,
 			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
 		break;
@@ -168,6 +175,8 @@ bool Player::Update()
 		
 	}
 
+	
+
 	pbody->body->SetLinearVelocity(vel);
 
 	//Update player position in pixels
@@ -177,6 +186,27 @@ bool Player::Update()
 	
 
 	return true;
+}
+
+void Player::TriggerDialogueTree(ColliderType NPC)
+{
+	switch (NPC)
+	{
+	case ColliderType::ANGRYVILLAGER:
+		app->scene->RunDialogueTree(ColliderType::ANGRYVILLAGER);
+		break;
+	case ColliderType::TALISMANVILLAGER:
+		app->scene->RunDialogueTree(ColliderType::TALISMANVILLAGER);
+		break;
+	case ColliderType::GRANDMA:
+		app->scene->RunDialogueTree(ColliderType::GRANDMA);
+		break;
+	case ColliderType::LRRH:
+		app->scene->RunDialogueTree(ColliderType::LRRH);
+		break;
+	default:
+		break;
+	}
 }
 
 bool Player::PostUpdate() {
@@ -208,9 +238,25 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
 			break;
-		case ColliderType::NPC:
-			LOG("Collision NPC");
+		case ColliderType::ANGRYVILLAGER:
+			LOG("Collision 	ANGRYVILLAGER");
 			npcInteractAvailable = true;
+			lastCollision = ColliderType::ANGRYVILLAGER;
+			break;
+		case ColliderType::TALISMANVILLAGER:
+			LOG("Collision 	TALISMANVILLAGER");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::TALISMANVILLAGER;
+			break;
+		case ColliderType::GRANDMA:
+			LOG("Collision 	GRANDMA");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::GRANDMA;
+			break;
+		case ColliderType::LRRH:
+			LOG("Collision 	LRRH");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::LRRH;
 			break;
 	}
 	

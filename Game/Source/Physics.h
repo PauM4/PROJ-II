@@ -25,7 +25,10 @@ enum bodyType {
 
 enum class ColliderType {
 	PLAYER,
-	NPC,
+	ANGRYVILLAGER,
+	TALISMANVILLAGER,
+	GRANDMA,
+	LRRH,
 	ITEM,
 	PLATFORM, 
 	UNKNOWN

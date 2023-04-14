@@ -8,6 +8,7 @@
 #include "Item.h"
 #include "Npc.h"
 #include "DialogueTree.h"
+#include "Physics.h"
 
 struct SDL_Texture;
 
@@ -42,6 +43,8 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	void CreateDialogue();
+
+	void RunDialogueTree(ColliderType NPC);
 
 public:
 

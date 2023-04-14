@@ -35,8 +35,17 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	PhysBody* pbody;
+	iPoint posAVillager;
+	PhysBody* pbodyAVillager;
 
+	iPoint posTLVillager;
+	PhysBody* pbodyTLVillager;
+
+	iPoint posGrandma;
+	PhysBody* pbodyGrandma;
+
+	iPoint posLRRH;
+	PhysBody* pbodyLRRH;
 
 };
 
