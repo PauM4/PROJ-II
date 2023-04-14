@@ -68,7 +68,8 @@ bool SceneIntro::PostUpdate()
 // Called before quitting
 bool SceneIntro::CleanUp()
 {
-	LOG("Freeing sceneIntro");	
+	LOG("Freeing sceneIntro");
+	app->tex->UnLoad(logo_image);
 
 	return true;
 }

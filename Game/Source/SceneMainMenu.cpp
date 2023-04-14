@@ -69,6 +69,7 @@ bool SceneMainMenu::PostUpdate()
 bool SceneMainMenu::CleanUp()
 {
 	LOG("Freeing sceneMainMenu");	
+	app->tex->UnLoad(mainMenu_image);
 
 	return true;
 }
