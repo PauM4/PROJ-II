@@ -7,6 +7,7 @@
 #include "GuiButton.h"
 #include "Item.h"
 #include "Npc.h"
+#include "DialogueTree.h"
 
 struct SDL_Texture;
 
@@ -39,6 +40,8 @@ public:
 
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
+
+	void CreateDialogue();
 
 public:
 

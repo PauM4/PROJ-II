@@ -44,7 +44,270 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	item1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 
+	CreateDialogue(); //3MB
+
 	return ret;
+}
+
+
+void Scene::CreateDialogue()
+{
+	// - Angry Villager Pre Tutorial
+	//2nd level
+	auto AVillagerToOption1 = std::make_shared<DialogueNode>();
+	AVillagerToOption1->SetText("Just passing through? You think you can just walk away from this mess? You're as much a part of this as anyone else. I'll make sure you regret your indifference.");
+
+	auto AVillagerToOption2 = std::make_shared<DialogueNode>();
+	AVillagerToOption2->SetText("A wand? You think a wand will solve our problems? You're even more clueless than I thought. I'll tell you what you need, a good beating.");
+
+	auto AVillagerToOption3 = std::make_shared<DialogueNode>();
+	AVillagerToOption3->SetText("You don't have time for this? You're the one who's wasting our time with your useless questions. I'll teach you a lesson you won't forget.");
+
+	auto AVillagerToOption4 = std::make_shared<DialogueNode>();
+	AVillagerToOption4->SetText("Help? You don't need help, you need a good thrashing. You think you can just come here and demand our help? I'll show you what we do with strangers who cause trouble.");
+
+
+	//1rst level
+	auto firstOption1 = std::make_shared<DialogueNode>();
+	firstOption1->SetText("I'm just passing through.  What's going on?");
+	firstOption1->AddChild(AVillagerToOption1);
+
+	auto firstOption2 = std::make_shared<DialogueNode>();
+	firstOption2->SetText("I'm looking for something. Have you seen a wand around here?");
+	firstOption2->AddChild(AVillagerToOption2);
+
+	auto firstOption3 = std::make_shared<DialogueNode>();
+	firstOption3->SetText("I don't have time for this. Let me in.");
+	firstOption3->AddChild(AVillagerToOption3);
+
+	auto firstOption4 = std::make_shared<DialogueNode>();
+	firstOption4->SetText("Please, I need your help. I'm lost and scared.");
+	firstOption4->AddChild(AVillagerToOption4);
+
+
+	//Root
+	auto firstNodeAngryVillager = std::make_shared<DialogueNode>();
+	firstNodeAngryVillager->SetText("What do you want? Can't you see we're in the middle of a crisis here?");
+	firstNodeAngryVillager->AddChild(firstOption1);
+	firstNodeAngryVillager->AddChild(firstOption2);
+	firstNodeAngryVillager->AddChild(firstOption3);
+	firstNodeAngryVillager->AddChild(firstOption4);
+
+
+	//Tree
+	auto angryVillagerTree = std::make_shared<DialogueTree>();
+	angryVillagerTree->SetRoot(firstNodeAngryVillager);
+
+
+
+	// - Angry Villager Post Tutorial
+	//3rd level
+	auto secondOption1PT = std::make_shared<DialogueNode>();
+	secondOption1PT->SetText("Nod silently and look concerned. -Leave it to me.-");
+
+	auto secondOption2PT = std::make_shared<DialogueNode>();
+	secondOption2PT->SetText("Yawn and stretch, showing disinterest while saying, -Okay...sure.-");
+
+	auto secondOption3PT = std::make_shared<DialogueNode>();
+	secondOption3PT->SetText("What a bunch of cowards! You're all hiding in your homes while someone is out there killing innocent animals. You should be ashamed of yourselves. I'll take care of her myself.");
+
+	auto secondOption4PT = std::make_shared<DialogueNode>();
+	secondOption4PT->SetText("Tremble and stutter, - L - Little Red ? Killing animals ? That's terrifying... I-I'll try to talk to her.");
+
+	//2nd level
+	auto AVillagerToOptionPT = std::make_shared<DialogueNode>();
+	AVillagerToOptionPT->SetText("It all started with Little Red. She's gone mad and started killing the animals in the forest. We've tried talking to her grandmother, but she won't do anything to stop her. Now the villagers are angry and scared, looking for someone to blame. Little Red is dangerous and unpredictable, and we fear for our safety. That's why we're all holed up in our homes");
+	AVillagerToOptionPT->AddChild(secondOption1PT);
+	AVillagerToOptionPT->AddChild(secondOption2PT);
+	AVillagerToOptionPT->AddChild(secondOption3PT);
+	AVillagerToOptionPT->AddChild(secondOption4PT);
+
+	//1rst level
+	auto firstOption1PT = std::make_shared<DialogueNode>();
+	firstOption1->SetText("What's going on? Why is everyone hiding in their houses?");
+	firstOption1->AddChild(AVillagerToOptionPT);
+
+	auto firstOption2PT = std::make_shared<DialogueNode>();
+	firstOption2->SetText("Sounds like a tough situation. What can I do to assist?");
+	firstOption2->AddChild(AVillagerToOptionPT);
+
+	auto firstOption3PT = std::make_shared<DialogueNode>();
+	firstOption3->SetText("Just tell me what I need to know. I'll take care of it myself since it seems like nobody here can handle it.");
+	firstOption3->AddChild(AVillagerToOptionPT);
+
+	auto firstOption4PT = std::make_shared<DialogueNode>();
+	firstOption4->SetText("I don't really care about what's going on. But I guess I'll have to help, what a drag.");
+	firstOption4->AddChild(AVillagerToOptionPT);
+
+	//Root
+	auto firstNodeAngryVillagerPT = std::make_shared<DialogueNode>();
+	firstNodeAngryVillagerPT->SetText("I can't believe it. You beat me fair and square. I guess I underestimated you. Listen, I'm sorry for being so hostile before. It's just that we're all on edge here. The situation is dire.");
+	firstNodeAngryVillagerPT->AddChild(firstOption1PT);
+	firstNodeAngryVillagerPT->AddChild(firstOption2PT);
+	firstNodeAngryVillagerPT->AddChild(firstOption3PT);
+	firstNodeAngryVillagerPT->AddChild(firstOption4PT);
+
+	//Tree
+	auto angryVillagerTreePT = std::make_shared<DialogueTree>();
+	angryVillagerTreePT->SetRoot(firstNodeAngryVillagerPT);
+
+
+
+	// - Talisman Villager
+	//2nd level
+	auto tVillagerToOption1 = std::make_shared<DialogueNode>();
+	tVillagerToOption1->SetText("Thank you so much for getting my medallion back! You're a lifesaver.");
+
+	auto tVillagerToOption2 = std::make_shared<DialogueNode>();
+	tVillagerToOption2->SetText("It's about time. You should have been able to do that faster.");
+
+	auto tVillagerToOption3 = std::make_shared<DialogueNode>();
+	tVillagerToOption3->SetText("Well, I suppose you did the bare minimum. But don't expect me to thank you for doing something you should have done in the first place.");
+
+	auto tVillagerToOption4 = std::make_shared<DialogueNode>();
+	tVillagerToOption4->SetText("Oh, you actually did it! I didn't think you had it in you. Well done! See? There was nothing to be afraid of. You've got some skills, kid.");
+
+
+	//1rst level
+	auto firstOption1TV = std::make_shared<DialogueNode>();
+	firstOption1TV->SetText("Sure thing, I'll get it for you. Don't worry about it.");
+	firstOption1TV->AddChild(tVillagerToOption1);
+
+	auto firstOption2TV = std::make_shared<DialogueNode>();
+	firstOption2TV->SetText("rolls eyes -Ugh, fine.Just give me a minute.");
+	firstOption2TV->AddChild(tVillagerToOption2);
+
+	auto firstOption3TV = std::make_shared<DialogueNode>();
+	firstOption3TV->SetText("Why didn't you watch where you were going? You should be more careful with your belongings. I'll help you this time, but you need to take better care of your things.");
+	firstOption3TV->AddChild(tVillagerToOption3);
+
+	auto firstOption4TV = std::make_shared<DialogueNode>();
+	firstOption4TV->SetText("starts sweating profusely. -I - I don't know if I can do it. What if I mess up?");
+	firstOption4TV->AddChild(tVillagerToOption4);
+
+
+	//Root
+	auto firstNodeTalismanVillager = std::make_shared<DialogueNode>();
+	firstNodeTalismanVillager->SetText("Oh, hello there. You look like an adventurer. Can you help me out? You see, my family's medallion fell into the well and I can't get it out. It's been passed down for generations and it's the only thing we have left of our family history...");
+	firstNodeTalismanVillager->AddChild(firstOption1TV);
+	firstNodeTalismanVillager->AddChild(firstOption2TV);
+	firstNodeTalismanVillager->AddChild(firstOption3TV);
+	firstNodeTalismanVillager->AddChild(firstOption4TV);
+
+
+	//Tree
+	auto talismanVillagerTree = std::make_shared<DialogueTree>();
+	talismanVillagerTree->SetRoot(firstNodeTalismanVillager);
+
+
+
+
+	// - Little Red Riding Hood
+	//2nd Level
+	auto lRToOption1 = std::make_shared<DialogueNode>();
+	lRToOption1->SetText("I don't believe you. Everyone wants to kill me.");
+
+	auto lRToOption2 = std::make_shared<DialogueNode>();
+	lRToOption1->SetText("I've faced tougher foes than you. Bring it on");
+
+	auto lRToOption3 = std::make_shared<DialogueNode>();
+	lRToOption1->SetText("Wake up, lazybone. This fight won't be a naptime");
+
+	auto lRToOption4 = std::make_shared<DialogueNode>();
+	lRToOption1->SetText("Hmph. Don't think your tears will work on me.");
+
+
+	//1st Level
+	auto firstOption1LR = std::make_shared<DialogueNode>();
+	firstOption1LR->SetText("I'm not here to hurt you.");
+	firstOption1LR->AddChild(lRToOption1);
+
+	auto firstOption2LR = std::make_shared<DialogueNode>();
+	firstOption2LR->SetText("Watch your mouth. You think you can take me down?");
+	firstOption2LR->AddChild(lRToOption2);
+
+	auto firstOption3LR = std::make_shared<DialogueNode>();
+	firstOption3LR->SetText("yawns -Can't someone else deal with this?");
+	firstOption3LR->AddChild(lRToOption3);
+
+	auto firstOption4LR = std::make_shared<DialogueNode>();
+	firstOption4LR->SetText("P-please don't hurt me.");
+	firstOption4LR->AddChild(lRToOption4);
+
+
+	//Root
+	auto firstNodeLR = std::make_shared<DialogueNode>();
+	firstNodeLR->SetText("-Who...are...you?- Little Red's voice is raspy and distorted, as if coming from a deep, dark place. -What...do...you...want?- Her eyes narrow and she grips her longbow tighter, a low growl emanating from her throat. -If...you're...here...to...kill...me...just...get...it...over...with-. Suddenly, a strange, otherworldly sound fills the room, like the creaking of a thousand dead branches. -I...won't...go...down...without...a...fight.-");
+	firstNodeLR->AddChild(firstOption1LR);
+	firstNodeLR->AddChild(firstOption2LR);
+	firstNodeLR->AddChild(firstOption3LR);
+	firstNodeLR->AddChild(firstOption4LR);
+
+
+	//Tree
+	auto littleRedTree = std::make_shared <DialogueTree>();
+	littleRedTree->SetRoot(firstNodeLR);
+
+
+	// - Grandma
+
+	//3rd Level
+	auto secondOption1G = std::make_shared<DialogueNode>();
+	secondOption1G->SetText("Thank you for your help. I will head over to your house now.");
+
+	auto secondOption2G = std::make_shared<DialogueNode>();
+	secondOption2G->SetText("Whatever, I don’t need your help anymore.");
+
+	auto secondOption3G = std::make_shared<DialogueNode>();
+	secondOption3G->SetText("Yeah, sure. Whatever, old lady. Thanks for the info, I guess. I'm outta here. Shrugs and leaves");
+
+	auto secondOption4G = std::make_shared<DialogueNode>();
+	secondOption4G->SetText("Thank you so much. I'll make sure to be careful on the way.");
+
+	//2nd Level
+	auto gToOption1 = std::make_shared<DialogueNode>();
+	gToOption1->SetText("Little Red Riding Hood is my granddaughter, and she's currently in her house. Please be gentle with her, though. She's lost her way and needs our help to find her path back home.");
+	gToOption1->AddChild(secondOption1G);
+
+	auto gToOption2 = std::make_shared<DialogueNode>();
+	gToOption2->SetText("I will not tolerate that kind of rude behavior in my home. If you have business with Little Red Riding Hood, you will address me with respect. And yes, I know where she is. She is in her house, safe and sound. But I must warn you, if you have any ill intentions towards her, you will answer to me. So please be mindful of her state of mind. She's lost and needs our love and guidance to find her way back on track.");
+	gToOption2->AddChild(secondOption2G);
+
+	auto gToOption3 = std::make_shared<DialogueNode>();
+	gToOption3->SetText("Little Red Riding Hood is my granddaughter, and she's currently staying in her house. Please be gentle with her, though. She's lost and needs our love and guidance to find her way back on track");
+	gToOption3->AddChild(secondOption3G);
+
+	auto gToOption4 = std::make_shared<DialogueNode>();
+	gToOption4->SetText("Please don't be afraid, dear. Little Red Riding Hood is in her house. If you come across my granddaughter, show her kindness. She's lost her way and needs our help to find the path back to the light.");
+	gToOption4->AddChild(secondOption4G);
+
+
+	//1st Level
+	auto firstOption1G = std::make_shared<DialogueNode>();
+	firstOption1G->SetText("I apologize for barging in. I am looking for Little Red Riding Hood. Do you know where she is?");
+	firstOption1G->AddChild(gToOption1);
+
+	auto firstOption2G = std::make_shared<DialogueNode>();
+	firstOption2G->SetText("Why do you care who I am? I have business with Little Red Riding Hood, and I need to find her now.");
+	firstOption2G->AddChild(gToOption2);
+
+	auto firstOption3G = std::make_shared<DialogueNode>();
+	firstOption3G->SetText("Uh, sorry, I didn't mean to barge in or anything. I was just looking for someone to help LRRH, you know? She's in trouble and stuff. Needs our help or whatever. yawns");
+	firstOption3G->AddChild(gToOption3);
+
+	auto firstOption4G = std::make_shared<DialogueNode>();
+	firstOption4G->SetText("Timmy nervously stammers and says: -I'm sorry, I didn't mean to bother you.I'm just a bit lost and scared. I heard that Little Red Riding Hood might be in trouble, and I was hoping you could help me find her. Please, can you tell me where she is?");
+	firstOption4G->AddChild(gToOption4);
+
+	//Root
+	auto fristNodeG = std::make_shared<DialogueNode>();
+	fristNodeG->SetText("Who are you? And how dare you barge into my home uninvited? I won't tolerate any nonsense or trouble.If you have something to say, say it quicklyand leave.");
+
+	//Tree
+	auto grandmaTree = std::make_shared<DialogueTree>();
+	grandmaTree->SetRoot(fristNodeG);
+
+
 }
 
 // Called before the first frame
