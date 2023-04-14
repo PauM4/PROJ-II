@@ -176,6 +176,7 @@ public:
 	uint stamina;
 	uint maxStamina;
 	uint speed;
+	uint movement;
 	uint skill;
 	uint attack;
 	uint resistance; 
