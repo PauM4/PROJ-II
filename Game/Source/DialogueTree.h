@@ -41,7 +41,7 @@ public:
 
 	}
 
-	void SetAsLastNode()
+	void SetAsLastNode() //cambiar nombre
 	{
 		for (auto& child : children)
 		{
@@ -53,6 +53,8 @@ public:
 
 		this->isActivated = true;
 	}
+
+	//Hacer un funcion para setear 4 childs vacios (?)
 
 	std::vector<std::string> GetDialogue()
 	{
@@ -96,6 +98,7 @@ public:
 		
 		
 	}
+
 
 private:
 	
