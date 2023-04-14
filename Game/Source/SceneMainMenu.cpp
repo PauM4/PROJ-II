@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "SceneMainMenu.h"
+#include "UIModule.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -34,6 +35,9 @@ bool SceneMainMenu::Start()
 
 	w = app->win->width;
 	h = app->win->height;
+
+	// Tell to UIModule which currentMenuType we are now
+	app->uiModule->currentMenuType = CurrentMenuType::MAIN;
 
 	return true;
 }

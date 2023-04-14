@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "UIModule.h"
+#include "SceneManager.h"
 #include <iostream>
 
 #include "Defs.h"
@@ -35,19 +36,24 @@ bool UIModule::Start()
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
+
+
 	mainmenu_play_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { (int)w - 300, (int)h - 1000, 100, 20 }, this);
-	mainmenu_play_button->state = GuiControlState::NORMAL;
 	mainmenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { (int)w - 300, (int)h - 975, 100, 20 }, this);
-	mainmenu_options_button->state = GuiControlState::NORMAL;
 	mainmenu_credits_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { (int)w - 300, (int)h - 950, 100, 20 }, this);
-	mainmenu_credits_button->state = GuiControlState::NORMAL;
 	mainmenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { (int)w - 300, (int)h - 925, 100, 20 }, this);
-	mainmenu_quit_button->state = GuiControlState::NORMAL;
 	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { (int)w - 300, (int)h - 1000, 100, 20 }, this);
-	mainmenu_newGame_button->state = GuiControlState::NONE;
 	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { (int)w - 300, (int)h - 975, 100, 20 }, this);
-	mainmenu_continueGame_button->state = GuiControlState::NONE;
 	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { (int)w - 300, (int)h - 950, 100, 20 }, this);
+
+	// When creating a new button, iniciate it in NONE state. On the Update() switch, set the correct state on each currentMenuType
+
+	mainmenu_play_button->state = GuiControlState::NONE;
+	mainmenu_options_button->state = GuiControlState::NONE;
+	mainmenu_credits_button->state = GuiControlState::NONE;
+	mainmenu_quit_button->state = GuiControlState::NONE;
+	mainmenu_newGame_button->state = GuiControlState::NONE;
+	mainmenu_continueGame_button->state = GuiControlState::NONE;
 	mainmenu_return_button->state = GuiControlState::NONE;
 
 	return true;
@@ -62,11 +68,39 @@ bool UIModule::PreUpdate()
 // Called each loop iteration
 bool UIModule::Update(float dt)
 {
+	// AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+	// Constant override on button state, how do I fix it?
 	switch (currentMenuType)
 	{
 	case MAIN:
+		// Activate main menu buttons
+		mainmenu_play_button->state = GuiControlState::NORMAL;
+		mainmenu_options_button->state = GuiControlState::NORMAL;
+		mainmenu_credits_button->state = GuiControlState::NORMAL;
+		mainmenu_quit_button->state = GuiControlState::NORMAL;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_return_button->state = GuiControlState::NONE;
+		//...
+
+		// Disable other menu buttons
+		
 		break;
 	case PAUSE:
+
+		//...
+
+		// Disable all main menu buttons
+		mainmenu_play_button->state = GuiControlState::NONE;
+		mainmenu_options_button->state = GuiControlState::NONE;
+		mainmenu_credits_button->state = GuiControlState::NONE;
+		mainmenu_quit_button->state = GuiControlState::NONE;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_return_button->state = GuiControlState::NONE;
+
+		// Disable other menus buttons:
+
 		break;
 	case DIALOG:
 		break;
@@ -103,6 +137,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 
 	switch (control->id)
 	{
+		// When button Play Is Pressed, show the Continue, New Game & Return buttons
 	case 1:
 		std::cout << "PLAY PRESSED" << std::endl;
 		mainmenu_continueGame_button->state = GuiControlState::NORMAL;
@@ -115,6 +150,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_quit_button->state = GuiControlState::NONE;
 
 		break;
+		// When button Return Is Pressed, show the Main Menu buttons
 	case 7:
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_newGame_button->state = GuiControlState::NONE;
