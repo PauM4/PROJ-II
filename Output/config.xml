@@ -28,6 +28,7 @@
 	</scene>
 
 	<sceneBattle name="Assets/Maps/World_01/test.tmx" path="Assets/Maps/World_01/">
+	    <timmy x= "670" y="420" movement= "3"/>
 		
 	</sceneBattle>
 	

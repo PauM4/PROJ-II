@@ -25,6 +25,8 @@ struct TileData
 	int x;
 	int y;
 	bool character;
+	bool inRange;
+
 	TILE_TYPE type;
 };
 
@@ -109,6 +111,7 @@ private:;
     iPoint nextpos;
 	int pathIndex;
 	iPoint destination;
+	bool move;
 
 	bool turnstart;
 	

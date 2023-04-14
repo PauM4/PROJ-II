@@ -22,10 +22,11 @@ Timmy::~Timmy() {
 
 bool Timmy::Awake()
 {
-	pbody = app->physics->CreateRectangle(50, 50, 120, 140, bodyType::DYNAMIC);
-	pbody->body->SetFixedRotation(true);
-	pbody->listener = this;
-
+	
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
+	speed = parameters.attribute("speed").as_int();
+	movement = parameters.attribute("movement").as_int();
 	return true;
 }
 
@@ -72,18 +73,14 @@ bool Timmy::Update()
 	}
 	return true;
 
-	pbody->body->SetLinearVelocity(vel);
 
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+
+
 }
 
 bool Timmy::PostUpdate()
 {
-	iPoint pos;
-	pbody->GetPosition(pos.x,pos.y);
 
-	app->render->DrawRectangle({ pos.x, pos.y, 120, 140 }, 250, 0, 0, 100, true);
 	return true;
 }
 

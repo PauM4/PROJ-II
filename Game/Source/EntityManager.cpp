@@ -3,6 +3,7 @@
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
+#include "Timmy.h"
 #include "Npc.h"
 
 #include "Defs.h"
@@ -89,7 +90,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 
 	case EntityType::TIMMY:
-		//entity = new Timmy();
+		entity = new Timmy();
 		break;
 
 	case EntityType::BUNNY:
