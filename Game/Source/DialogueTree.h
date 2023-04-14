@@ -15,7 +15,7 @@ public:
 	DialogueNode(bool status, std::string text) { isActivated = status, nodeText = text; };
 	~DialogueNode() {};
 
-	
+
 	void SetText(std::string text) { nodeText = text; }
 	std::string GetText() const { return nodeText; }
 
@@ -41,34 +41,21 @@ public:
 
 	}
 
-	void SetAsLastNode() //cambiar nombre
-	{
-		for (auto& child : children)
-		{
-			if (child->isActivated)
-			{
-				child->DesactivateNode();
-			}
-		}
-
-		this->isActivated = true;
-	}
-
-	//Hacer un funcion para setear 4 childs vacios (?)
-
 	std::vector<std::string> GetDialogue()
 	{
 		std::vector<std::string> dialogue;
 
 		if (isActivated)
 		{
-			
+
 			dialogue.push_back(nodeText);
 
-			for (auto &child : children)
+			for (auto& child : children)
 			{
 				dialogue.push_back(child->GetText());
 			}
+
+			return dialogue;
 		}
 		else
 		{
@@ -80,10 +67,135 @@ public:
 
 					break;
 				}
+				else
+				{
+					auto grandchildren = child->children;
+
+					for (auto& childv2 : grandchildren)
+					{
+						dialogue = childv2->GetDialogue();
+
+						if (!dialogue.empty())
+						{
+							break;
+						}						
+						
+					}
+				}
+				if (!dialogue.empty())
+				{
+					break;
+				}
 			}
 		}
 
 		return dialogue;
+	}
+
+
+	std::vector<DialogueNode> GetNodes()
+	{
+		std::vector<DialogueNode> nodes;
+
+		if (isActivated)
+		{
+			nodes.push_back(this);
+
+			for (auto& child : children)
+			{
+				//nodes.push_back(*child.get());
+				nodes.push_back(*child);
+			}
+			return nodes;
+		}
+		else
+		{
+			for (auto& child : children)
+			{
+				if (child->isActivated)
+				{
+					nodes = child->GetNodes();
+
+					break;
+				}
+				else
+				{
+					auto grandchildren = child->children;
+
+					for (auto& childv2 : grandchildren)
+					{
+						nodes = childv2->GetNodes();
+
+						break;
+					}
+				}
+			}
+		}
+
+		return nodes;
+	}
+
+	//void UpdateNodes(int nextRoot)
+	//{
+
+	//	if (isActivated)
+	//	{
+	//		DesactivateAll();
+	//		int index = nextRoot;
+
+	//		for (auto& child : children)
+	//		{
+	//			if (index == 1)
+	//			{
+	//				child->ActivateNode();
+	//			}
+	//			index--;
+	//		}
+
+	//		return;
+	//	}
+	//	else
+	//	{
+	//		for (auto& child : children)
+	//		{
+	//			child->UpdateNodes(nextRoot);
+	//		}
+
+	//	}
+	//}
+
+	void UpdateNodes(int nextRoot)
+	{
+
+		if (isActivated)
+		{
+			DesactivateAll();
+			int index = nextRoot;
+
+			for (auto& child : children)
+			{
+				if (index == 1)
+				{
+					auto aux = child->children;
+
+					for (auto& a : aux)
+					{
+						a->ActivateNode();
+					}
+				}
+				index--;
+			}
+
+			return;
+		}
+		else
+		{
+			for (auto& child : children)
+			{
+				child->UpdateNodes(nextRoot);
+			}
+
+		}
 	}
 
 	void AddChild(std::shared_ptr<DialogueNode> child)
@@ -94,20 +206,19 @@ public:
 		{
 			children.push_back(child);
 		}
-		
-		
-		
+
+
+
 	}
 
-
 private:
-	
+
 	std::string nodeText;
 	std::vector<std::shared_ptr<DialogueNode>> children;
-	
+
 private:
 	bool isActivated;
-	
+
 };
 
 
@@ -127,6 +238,18 @@ public:
 		return dialogue;
 	}
 
+	std::vector<DialogueNode> RunNodes()
+	{
+
+		std::vector<DialogueNode> nodes = rootNode->GetNodes();
+		return nodes;
+	}
+
+	void Update(int idx)
+	{
+		rootNode->UpdateNodes(idx);
+	}
+
 	void DesactivateTree()
 	{
 		rootNode->DesactivateAll();
@@ -139,41 +262,3 @@ private:
 
 
 #endif
-
-
-
-//auto raiz = std::make_shared<DialogueNode>(true, "hola, como te llamas?");
-//
-//auto uno = std::make_shared<DialogueNode>(false, "me llamo A");
-//auto dos = std::make_shared<DialogueNode>(false, "me llamo B");
-//auto tres = std::make_shared<DialogueNode>(false, "me llamo C");
-//auto cuatro = std::make_shared<DialogueNode>(false, "me llamo D");
-//auto cinco = std::make_shared<DialogueNode>(false, "me llamo CINCO");
-//auto seis = std::make_shared<DialogueNode>(false, "me llamo SEIS");
-//
-//raiz->AddChild(uno);
-//raiz->AddChild(dos);
-//raiz->AddChild(tres);
-//raiz->AddChild(cuatro);
-//
-//uno->AddChild(cinco);
-//uno->AddChild(seis);
-//
-//auto tree = std::make_shared<DialogueTree>(raiz);
-//
-//auto imprimir = tree->Run();
-//
-//for (auto& a : imprimir)
-//{
-//	std::cout << a << std::endl;
-//}
-//
-//std::cout << "SEGUNDA PARTE" << std::endl;
-//tree->DesactivateTree();
-//uno->ActivateNode();
-//imprimir = tree->Run();
-//
-//for (auto& a : imprimir)
-//{
-//	std::cout << a << std::endl;
-//}

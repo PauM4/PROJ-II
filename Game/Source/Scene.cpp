@@ -92,10 +92,10 @@ void Scene::CreateDialogue()
 	firstNodeAngryVillager->AddChild(firstOption2);
 	firstNodeAngryVillager->AddChild(firstOption3);
 	firstNodeAngryVillager->AddChild(firstOption4);
-
+	firstNodeAngryVillager->ActivateNode();
 
 	//Tree
-	auto angryVillagerTree = std::make_shared<DialogueTree>();
+	angryVillagerTree = std::make_shared<DialogueTree>();
 	angryVillagerTree->SetRoot(firstNodeAngryVillager);
 
 
@@ -124,20 +124,20 @@ void Scene::CreateDialogue()
 
 	//1rst level
 	auto firstOption1PT = std::make_shared<DialogueNode>();
-	firstOption1->SetText("What's going on? Why is everyone hiding in their houses?");
-	firstOption1->AddChild(AVillagerToOptionPT);
+	firstOption1PT->SetText("What's going on? Why is everyone hiding in their houses?");
+	firstOption1PT->AddChild(AVillagerToOptionPT);
 
 	auto firstOption2PT = std::make_shared<DialogueNode>();
-	firstOption2->SetText("Sounds like a tough situation. What can I do to assist?");
-	firstOption2->AddChild(AVillagerToOptionPT);
+	firstOption2PT->SetText("Sounds like a tough situation. What can I do to assist?");
+	firstOption2PT->AddChild(AVillagerToOptionPT);
 
 	auto firstOption3PT = std::make_shared<DialogueNode>();
-	firstOption3->SetText("Just tell me what I need to know. I'll take care of it myself since it seems like nobody here can handle it.");
-	firstOption3->AddChild(AVillagerToOptionPT);
+	firstOption3PT->SetText("Just tell me what I need to know. I'll take care of it myself since it seems like nobody here can handle it.");
+	firstOption3PT->AddChild(AVillagerToOptionPT);
 
 	auto firstOption4PT = std::make_shared<DialogueNode>();
-	firstOption4->SetText("I don't really care about what's going on. But I guess I'll have to help, what a drag.");
-	firstOption4->AddChild(AVillagerToOptionPT);
+	firstOption4PT->SetText("I don't really care about what's going on. But I guess I'll have to help, what a drag.");
+	firstOption4PT->AddChild(AVillagerToOptionPT);
 
 	//Root
 	auto firstNodeAngryVillagerPT = std::make_shared<DialogueNode>();
@@ -146,9 +146,10 @@ void Scene::CreateDialogue()
 	firstNodeAngryVillagerPT->AddChild(firstOption2PT);
 	firstNodeAngryVillagerPT->AddChild(firstOption3PT);
 	firstNodeAngryVillagerPT->AddChild(firstOption4PT);
+	firstNodeAngryVillagerPT->ActivateNode();
 
 	//Tree
-	auto angryVillagerTreePT = std::make_shared<DialogueTree>();
+	angryVillagerTreePT = std::make_shared<DialogueTree>();
 	angryVillagerTreePT->SetRoot(firstNodeAngryVillagerPT);
 
 
@@ -193,10 +194,11 @@ void Scene::CreateDialogue()
 	firstNodeTalismanVillager->AddChild(firstOption2TV);
 	firstNodeTalismanVillager->AddChild(firstOption3TV);
 	firstNodeTalismanVillager->AddChild(firstOption4TV);
+	firstNodeTalismanVillager->ActivateNode();
 
 
 	//Tree
-	auto talismanVillagerTree = std::make_shared<DialogueTree>();
+	talismanVillagerTree = std::make_shared<DialogueTree>();
 	talismanVillagerTree->SetRoot(firstNodeTalismanVillager);
 
 
@@ -242,10 +244,11 @@ void Scene::CreateDialogue()
 	firstNodeLR->AddChild(firstOption2LR);
 	firstNodeLR->AddChild(firstOption3LR);
 	firstNodeLR->AddChild(firstOption4LR);
+	firstNodeLR->ActivateNode();
 
 
 	//Tree
-	auto littleRedTree = std::make_shared <DialogueTree>();
+	littleRedTree = std::make_shared <DialogueTree>();
 	littleRedTree->SetRoot(firstNodeLR);
 
 
@@ -302,9 +305,10 @@ void Scene::CreateDialogue()
 	//Root
 	auto fristNodeG = std::make_shared<DialogueNode>();
 	fristNodeG->SetText("Who are you? And how dare you barge into my home uninvited? I won't tolerate any nonsense or trouble.If you have something to say, say it quicklyand leave.");
+	fristNodeG->ActivateNode();
 
 	//Tree
-	auto grandmaTree = std::make_shared<DialogueTree>();
+	grandmaTree = std::make_shared<DialogueTree>();
 	grandmaTree->SetRoot(fristNodeG);
 
 
@@ -347,6 +351,9 @@ bool Scene::Start()
 	pauseMenuActive = false;
 	exitButtonBool = false;
 	
+	//dialogue = angryVillagerTreePT->Run(); //dialogo tipo 2
+	dialogue = talismanVillagerTree->Run();
+
 
 	return true;
 }
@@ -357,9 +364,39 @@ bool Scene::PreUpdate()
 	return true;
 }
 
+void Scene::Prueba()
+{
+	for (auto& e : dialogue)
+	{
+		std::cout << e << std::endl;
+	}
+	pruebaj++;
+
+}
+
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	if (pruebaj == 0)
+	{
+		Prueba();
+		std::cout <<" "<< std::endl;
+		
+	}
+	else if (pruebaj == 1)
+	{
+		//dialogo version tipo 2
+		angryVillagerTreePT->Update(1);
+		dialogue = angryVillagerTreePT->Run();
+		Prueba();
+
+		//dialogo version tipo 1: funciona en las diferentes opciones
+		//talismanVillagerTree->Update(2);
+		//dialogue = talismanVillagerTree->Run();
+		//Prueba();
+	}
+	
+
 	app->render->camera.x = -(int)player->position.x + app->render->camera.w / 2;
 	app->render->camera.y = -(int)player->position.y-35 + app->render->camera.h / 2;
 

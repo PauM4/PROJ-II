@@ -75,6 +75,14 @@ private:
 	bool pauseMenuActive;
 	bool exitButtonBool;
 
+	std::shared_ptr<DialogueTree> angryVillagerTree, angryVillagerTreePT, 
+		talismanVillagerTree, littleRedTree, grandmaTree;
+
+	std::vector<std::string> dialogue;
+
+	void Prueba();
+
+	int pruebaj = 0;
 
 };
 
