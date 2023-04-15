@@ -34,6 +34,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 	
+	
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
@@ -44,6 +45,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	npc1->parameters = config.child("npc");
 
 	item1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+
+	app->entityManager->Awake(config);
 
 	CreateDialogue(); //3MB
 
@@ -320,7 +323,7 @@ bool Scene::Start()
 {
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-	//app->physics->Enable();
+	app->entityManager->Start();
 	//Fonts initialize
 	char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
 
@@ -582,8 +585,7 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 	app->fonts->UnLoad(font);
 	app->map->CleanUp(); 
-	app->entityManager->CleanUp(); 
-	//app->physics->Disable();	
+	app->entityManager->CleanUp(); 	
 	
 
 	return true;

@@ -82,6 +82,18 @@ public:
 		if (!active)
 		{
 			active = true;
+			pugi::xml_document configFile;
+			pugi::xml_node configNode;
+
+			pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+
+			// L01: DONE 3: Check result for loading errors
+			if (parseResult) {
+				configNode = configFile.child("config");
+			}
+
+			pugi::xml_node node = configNode.child(name.GetString());
+			Awake(node);
 			Start();
 		}
 	}

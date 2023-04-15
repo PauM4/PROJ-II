@@ -34,6 +34,7 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
+	
 	//This reads some parameters from xml
 	if (config.child("timmy")) {
 		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
@@ -57,6 +58,8 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 	if (config.parent().child("enemy_angryVillager")) {
 		villager->stats = config.parent().child("enemy_angryVillager");
 	}
+	app->entityManager->Awake(config);
+	
 	return ret;
 }
 
@@ -72,7 +75,7 @@ bool SceneBattle::Start()
 	turnstart = false;
 	pathIndex = 0;
 	
-	//app->physics->Enable();
+	app->entityManager->Start(); 
 	//Load combat map
 	/*MakeCombatMap();*/
 
@@ -577,5 +580,6 @@ bool SceneBattle::CleanUp()
 {
 	LOG("Freeing sceneBattle");
 	app->map->CleanUp();
+	app->entityManager->CleanUp(); 
 	return true;
 }
