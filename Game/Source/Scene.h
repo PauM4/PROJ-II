@@ -41,6 +41,9 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
+
 public:
 
 	Player* player;

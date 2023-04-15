@@ -42,9 +42,9 @@ bool UIModule::Start()
 	mainmenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { (int)w - 860, (int)h - 975, 100, 20 }, this);
 	mainmenu_credits_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { (int)w - 860, (int)h - 950, 100, 20 }, this);
 	mainmenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { (int)w - 860, (int)h - 925, 100, 20 }, this);
-	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { (int)w - 860, (int)h - 1000, 100, 20 }, this);
-	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { (int)w - 860, (int)h - 975, 100, 20 }, this);
-	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { (int)w - 860, (int)h - 950, 100, 20 }, this);
+	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { (int)w - 860, (int)h - 975, 100, 20 }, this);
+	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { (int)w - 860, (int)h - 950, 100, 20 }, this);
+	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { (int)w - 860, (int)h - 925, 100, 20 }, this);
 
 	pausemenu_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, "Resume", { (int)w - 300, (int)h - 1000, 100, 20 }, this);
 	pausemenu_save_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Save", { (int)w - 300, (int)h - 975, 100, 20 }, this);
@@ -175,8 +175,18 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		// Close app
 		quitButtonBool = true;
 		break;
+		// New Game. Start the game with all original config.xml info
+	case 5:
+
+		app->scene->player->position.x = app->scene->player->parameters.attribute("x").as_int();
+		app->scene->player->position.y = app->scene->player->parameters.attribute("y").as_int();
+
+		app->sceneManager->isBattle = false;
+		app->sceneManager->scene = SCENE;
+		break;
 		// When continue pressed, go to gameplay
 	case 6:
+		app->LoadGameRequest();
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;
 		break;
@@ -212,11 +222,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// Save
 	case 8:
-
+		app->SaveGameRequest();
 		break;
 		//Load
 	case 22:
-
+		app->LoadGameRequest();
 		break;
 		// When options pressed, go to options (image with settings)
 	case 9:

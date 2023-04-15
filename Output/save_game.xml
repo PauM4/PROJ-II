@@ -8,11 +8,18 @@
 	<:anonymous />
 	<pathfinding />
 	<Scene_manager />
-	<scene />
+	<sceneIntro />
+	<sceneMainMenu />
+	<scene>
+		<player x="1525" y="-81" />
+	</scene>
+	<sceneBattle />
 	<entitymanager />
 	<map />
 	<guiManager />
+	<UIModule />
+	<fadeToBlack />
 	<renderer>
-		<camera x="-650" y="-1010" />
+		<camera x="-565" y="611" />
 	</renderer>
 </save_state>

@@ -47,9 +47,14 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
+	// Grab player position from save_game file
+
+
 	texture = app->tex->Load(texturePath);
 	walkDownTexture = app->tex->Load("Assets/Characters/Character_X_Sprites_down.png");
 	currentAnimation = &walkDownAnim;
+
+	transformPosition teleport;
 
 	pbody = app->physics->CreateRectangle(2000,0,120,140, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
@@ -174,7 +179,14 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	
+	//PLAYER TELEPORT
+	if (teleport.turn == true)
+	{
+		b2Vec2 resetPos = b2Vec2(PIXEL_TO_METERS(teleport.posX), PIXEL_TO_METERS(teleport.posY));
+		pbody->body->SetTransform(resetPos, 0);
+
+		teleport.turn = false;
+	}
 
 	return true;
 }
@@ -215,5 +227,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 	
 
+
+}
+
+void Player::ChangePosition(int x, int y)
+{
+
+	teleport.posX = x;
+	teleport.posY = y;
+	teleport.turn = true;
 
 }
