@@ -104,9 +104,10 @@ bool SceneBattle::PreUpdate()
 bool SceneBattle::Update(float dt)
 {
 
-	// Tell to UIModule which currentMenuType we are now and what was the previous one
-	app->uiModule->previousMenuType = app->uiModule->currentMenuType;
-	app->uiModule->currentMenuType = CurrentMenuType::COMBAT;
+	// Tell to UIModule which currentMenuType we are now
+	app->uiModule->currentMenuType = BATTLE;
+	// Call this function only when scene is changed
+	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 	if (turnstart == true) {
 		//if user selects attack

@@ -33,19 +33,26 @@ bool UIModule::Awake(pugi::xml_node& config)
 bool UIModule::Start()
 {
 	currentMenuType = DISABLED;
-	previousMenuType = DISABLED;
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
 
 
-	mainmenu_play_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { (int)w - 300, (int)h - 1000, 100, 20 }, this);
-	mainmenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { (int)w - 300, (int)h - 975, 100, 20 }, this);
-	mainmenu_credits_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { (int)w - 300, (int)h - 950, 100, 20 }, this);
-	mainmenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { (int)w - 300, (int)h - 925, 100, 20 }, this);
-	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { (int)w - 300, (int)h - 1000, 100, 20 }, this);
-	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { (int)w - 300, (int)h - 975, 100, 20 }, this);
-	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { (int)w - 300, (int)h - 950, 100, 20 }, this);
+	mainmenu_play_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { (int)w - 860, (int)h - 1000, 100, 20 }, this);
+	mainmenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { (int)w - 860, (int)h - 975, 100, 20 }, this);
+	mainmenu_credits_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { (int)w - 860, (int)h - 950, 100, 20 }, this);
+	mainmenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { (int)w - 860, (int)h - 925, 100, 20 }, this);
+	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { (int)w - 860, (int)h - 1000, 100, 20 }, this);
+	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { (int)w - 860, (int)h - 975, 100, 20 }, this);
+	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { (int)w - 860, (int)h - 950, 100, 20 }, this);
+
+	pausemenu_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, "Resume", { (int)w - 300, (int)h - 1000, 100, 20 }, this);
+	pausemenu_save_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Save", { (int)w - 300, (int)h - 975, 100, 20 }, this);
+	pausemenu_load_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Load", { (int)w - 300, (int)h - 950, 100, 20 }, this);
+	pausemenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Options", { (int)w - 300, (int)h - 925, 100, 20 }, this);
+	pausemenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, "Return", { (int)w - 300, (int)h - 1000, 100, 20 }, this);
+	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "Back to Menu", { (int)w - 300, (int)h - 900, 100, 20 }, this);
+	pausemenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "Quit", { (int)w - 300, (int)h - 875, 100, 20 }, this);
 
 	// When creating a new button, iniciate it in NONE state
 
@@ -56,6 +63,14 @@ bool UIModule::Start()
 	mainmenu_newGame_button->state = GuiControlState::NONE;
 	mainmenu_continueGame_button->state = GuiControlState::NONE;
 	mainmenu_return_button->state = GuiControlState::NONE;
+
+	pausemenu_resume_button->state = GuiControlState::NONE;
+	pausemenu_save_button->state = GuiControlState::NONE;
+	pausemenu_options_button->state = GuiControlState::NONE;
+	pausemenu_return_button->state = GuiControlState::NONE;
+	pausemenu_load_button->state = GuiControlState::NONE;
+	pausemenu_backtomain_button->state = GuiControlState::NONE;
+	pausemenu_quit_button->state = GuiControlState::NONE;
 
 	quitButtonBool = false;
 
@@ -72,13 +87,7 @@ bool UIModule::PreUpdate()
 bool UIModule::Update(float dt)
 {
 
-	// Call this function only when scene is changed
-	if (currentMenuType != previousMenuType)
-	{
-		ChangeButtonState(currentMenuType);
-	}
-
-	// If Quit button is pressed in Main Menu, close app
+	// If Quit button is pressed in Main Menu or Pause, close app
 	if (quitButtonBool)
 	{
 		return false;
@@ -110,6 +119,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
+	// Main Menu Switch
 	switch (control->id)
 	{
 		// When button Play Is Pressed, show the Continue, New Game & Return buttons
@@ -173,6 +183,71 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_quit_button->state = GuiControlState::NORMAL;
 		break;
 	}
+
+	// Pause Menu Switch
+	switch (control->id)
+	{
+		// Resume
+	case 20:
+		pausemenu_resume_button->state = GuiControlState::NONE;
+		pausemenu_save_button->state = GuiControlState::NONE;
+		pausemenu_options_button->state = GuiControlState::NONE;
+		pausemenu_load_button->state = GuiControlState::NONE;
+		pausemenu_backtomain_button->state = GuiControlState::NONE;
+		pausemenu_quit_button->state = GuiControlState::NONE;
+		pausemenu_return_button->state = GuiControlState::NONE;
+
+		app->scene->player->playerState = app->scene->player->playerPrevState;
+
+		break;
+		// Save
+	case 8:
+
+		break;
+		//Load
+	case 22:
+
+		break;
+		// When options pressed, go to options (image with settings)
+	case 9:
+		pausemenu_return_button->state = GuiControlState::NORMAL;
+
+		pausemenu_resume_button->state = GuiControlState::NONE;
+		pausemenu_save_button->state = GuiControlState::NONE;
+		pausemenu_options_button->state = GuiControlState::NONE;
+		pausemenu_load_button->state = GuiControlState::NONE;
+		pausemenu_backtomain_button->state = GuiControlState::NONE;
+		pausemenu_quit_button->state = GuiControlState::NONE;
+
+		break;
+		// Return pressed --> return from options to pause menu
+	case 23:
+		pausemenu_resume_button->state = GuiControlState::NORMAL;
+		pausemenu_save_button->state = GuiControlState::NORMAL;
+		pausemenu_options_button->state = GuiControlState::NORMAL;
+		pausemenu_load_button->state = GuiControlState::NORMAL;
+		pausemenu_backtomain_button->state = GuiControlState::NORMAL;
+		pausemenu_quit_button->state = GuiControlState::NORMAL;
+
+		pausemenu_return_button->state = GuiControlState::NONE;
+		break;
+		//Back to Main Menu
+	case 10:
+
+		app->sceneManager->isBattle = false;
+		app->sceneManager->scene = MAIN_MENU;
+
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = MAIN;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+		break;
+		//Quit the game
+	case 11:
+		quitButtonBool = true;
+		break;
+	}
 	return true;
 }
 
@@ -194,11 +269,25 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		//...
 
 		// Disable other menu buttons
+		pausemenu_resume_button->state = GuiControlState::NONE;
+		pausemenu_save_button->state = GuiControlState::NONE;
+		pausemenu_load_button->state = GuiControlState::NONE;
+		pausemenu_options_button->state = GuiControlState::NONE;
+		pausemenu_return_button->state = GuiControlState::NONE;
+		pausemenu_backtomain_button->state = GuiControlState::NONE;
+		pausemenu_quit_button->state = GuiControlState::NONE;
 
 		break;
 	case PAUSE:
 
 		// Activate pause buttons
+		pausemenu_resume_button->state = GuiControlState::NORMAL;
+		pausemenu_save_button->state = GuiControlState::NORMAL;
+		pausemenu_load_button->state = GuiControlState::NORMAL;
+		pausemenu_options_button->state = GuiControlState::NORMAL;
+		pausemenu_return_button->state = GuiControlState::NONE;
+		pausemenu_backtomain_button->state = GuiControlState::NORMAL;
+		pausemenu_quit_button->state = GuiControlState::NORMAL;
 
 		// Disable all main menu buttons
 		mainmenu_play_button->state = GuiControlState::NONE;
@@ -237,6 +326,15 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		mainmenu_newGame_button->state = GuiControlState::NONE;
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_return_button->state = GuiControlState::NONE;
+
+		// Disable al pause menu buttons
+		pausemenu_resume_button->state = GuiControlState::NONE;
+		pausemenu_save_button->state = GuiControlState::NONE;
+		pausemenu_load_button->state = GuiControlState::NONE;
+		pausemenu_options_button->state = GuiControlState::NONE;
+		pausemenu_return_button->state = GuiControlState::NONE;
+		pausemenu_backtomain_button->state = GuiControlState::NONE;
+		pausemenu_quit_button->state = GuiControlState::NONE;
 
 		// Disable other menus buttons:
 
