@@ -572,7 +572,6 @@ void SceneBattle::DestroyListArea(List<TileData*> arealist)
 bool SceneBattle::CleanUp()
 {
 	LOG("Freeing sceneBattle");
-	app->map->CleanUp(); 
-	//app->physics->Disable();
+	app->map->CleanUp();
 	return true;
 }
