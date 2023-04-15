@@ -8,6 +8,7 @@
 #include "Item.h"
 #include "Npc.h"
 #include "DialogueTree.h"
+#include "UriBehaviorTree.h"
 #include "Physics.h"
 
 struct SDL_Texture;
@@ -45,6 +46,14 @@ public:
 	void CreateDialogue();
 
 	void RunDialogueTree(ColliderType NPC);
+
+	void UpdateDialogueTree(int opt);
+
+	std::string LastTextNPC(ColliderType NPC);
+	std::string LastTextAngryVillager(std::string);
+	std::string LastTextTalismanVillager(std::string);
+	std::string LastTextGrandmaVillager(std::string);
+	std::string LastTextLittleRedVillager(std::string);
 
 public:
 

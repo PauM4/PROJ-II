@@ -104,6 +104,8 @@ bool Player::Update()
 		LOG("TALKING TO NPC1");
 		movementRestringed = true;
 		TriggerDialogueTree(lastCollision);
+		InteractWithTree();
+
 		/*app->fonts->DrawText("PLAYER STATE: NPC_INTERACT", position.x + 100, position.y + 100,
 			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
 		break;
@@ -186,6 +188,28 @@ bool Player::Update()
 	
 
 	return true;
+}
+
+void Player:: InteractWithTree()
+{
+	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
+	{
+		app->scene->UpdateDialogueTree(1);
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	{
+		app->scene->UpdateDialogueTree(2);
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+	{
+		app->scene->UpdateDialogueTree(3);
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	{
+		app->scene->UpdateDialogueTree(4);
+	}
+
+
 }
 
 void Player::TriggerDialogueTree(ColliderType NPC)

@@ -370,7 +370,7 @@ void Scene::Prueba()
 	{
 		std::cout << e << std::endl;
 	}
-	pruebaj++;
+//	pruebaj++;
 
 }
 
@@ -379,46 +379,101 @@ void Scene::RunDialogueTree(ColliderType NPC)
 	switch (NPC)
 	{
 	case ColliderType::ANGRYVILLAGER:
-
+		dialogue = angryVillagerTreePT->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+			Prueba();
 		break;
 	case ColliderType::TALISMANVILLAGER:
-		angryVillagerTreePT->Update(1);
-		dialogue = angryVillagerTreePT->Run();
-		Prueba();
+		dialogue = talismanVillagerTree->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+			Prueba();
 		break;
-	case ColliderType::GRANDMA:
-		dialogue = angryVillagerTreePT->Run();
-		Prueba();
-		break;
-	case ColliderType::LRRH:
 
+	case ColliderType::GRANDMA:
+		dialogue = grandmaTree->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+			Prueba();
+		break;
+
+	case ColliderType::LRRH:
+		dialogue = littleRedTree->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+			Prueba();
 		break;
 	default:
 		break;
 	}
 }
 
+
+void Scene::UpdateDialogueTree(int option)
+{
+	if (1 >= option <= 4)
+	{
+		switch (app->scene->player->lastCollision)
+		{
+		case ColliderType::ANGRYVILLAGER: 
+			angryVillagerTreePT->Update(option);
+			break;
+
+		case ColliderType::TALISMANVILLAGER:
+			talismanVillagerTree->Update(option);
+			break;
+
+		case ColliderType::GRANDMA:
+			grandmaTree->Update(option);
+			break;
+
+		case ColliderType::LRRH:
+			littleRedTree->Update(option);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+
+	
+}
+
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	if (pruebaj == 0)
-	{
-		Prueba();
-		std::cout <<" "<< std::endl;
-		
-	}
-	else if (pruebaj == 1)
-	{
-		//dialogo version tipo 2
-		//angryVillagerTreePT->Update(1);
-		//dialogue = angryVillagerTreePT->Run();
-		//Prueba();
+	//if (pruebaj == 0)
+	//{
+	//	Prueba();
+	//	std::cout <<" "<< std::endl;
+	//	
+	//}
+	//else if (pruebaj == 1)
+	//{
+	//	//dialogo version tipo 2
+	//	//angryVillagerTreePT->Update(1);
+	//	//dialogue = angryVillagerTreePT->Run();
+	//	//Prueba();
 
-		//dialogo version tipo 1: funciona en las diferentes opciones
-		//talismanVillagerTree->Update(2);
-		//dialogue = talismanVillagerTree->Run();
-		//Prueba();
-	}
+	//	//dialogo version tipo 1: funciona en las diferentes opciones
+	//	//talismanVillagerTree->Update(2);
+	//	//dialogue = talismanVillagerTree->Run();
+	//	//Prueba();
+	//}
 	
 	
 
@@ -532,3 +587,109 @@ bool Scene::CleanUp()
 
 	return true;
 }
+
+
+
+
+std::string Scene::LastTextNPC(ColliderType NPC)
+{
+	std::string auxString;
+	switch (NPC)
+	{
+	case ColliderType::ANGRYVILLAGER:
+		auxString = LastTextAngryVillager(auxString);
+		break;
+	case ColliderType::TALISMANVILLAGER:
+		auxString = LastTextTalismanVillager(auxString);
+		break;
+
+	case ColliderType::GRANDMA:
+		auxString = LastTextGrandmaVillager(auxString);
+		break;
+
+	case ColliderType::LRRH:
+		auxString = LastTextLittleRedVillager(auxString);
+		break;
+	default:
+
+		break;
+	}
+
+	return auxString;
+}
+
+//Return random number between 2 numbers
+int GenerateRandomNumber(int num1, int num2)
+{
+	auto eng = std::default_random_engine(std::time(0));
+	std::uniform_int_distribution<int> dist(num1, num2);
+
+	return dist(eng);
+
+
+}
+
+std::string Scene::LastTextAngryVillager(std::string lastText)
+{
+	int index = GenerateRandomNumber(1, 2);
+
+	switch (index)
+	{
+	case 1:
+		lastText = "What are you waiting?";
+		break;
+	case 2:
+		lastText = "Hmm... I'm hungry";
+		break;
+	}
+
+	return lastText;
+}
+
+std::string Scene::LastTextTalismanVillager(std::string lastText)
+{
+	int index = GenerateRandomNumber(1, 2);
+
+	switch (index)
+	{
+	case 1:
+		lastText = "May God bless you?";
+		break;
+	case 2:
+		lastText = "Look at this beautiful talisman!";
+		break;
+	}
+	return lastText;
+}
+
+std::string Scene::LastTextGrandmaVillager(std::string lastText)
+{
+	int index = GenerateRandomNumber(1, 2);
+
+	switch (index)
+	{
+	case 1:
+		lastText = "The early bird catches the worm.";
+		break;
+	case 2:
+		lastText = "If you don't have anything nice to say, don't say anything at all.";
+		break;
+	}
+	return lastText;
+}
+
+std::string Scene::LastTextLittleRedVillager(std::string lastText)
+{
+	
+	int index = GenerateRandomNumber(1, 2);
+
+	switch (index)
+	{
+	case 1:
+		break;
+	case 2:
+		break;
+	}
+	return lastText;
+}
+

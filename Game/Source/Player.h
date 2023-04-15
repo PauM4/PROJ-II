@@ -32,6 +32,7 @@ public:
 
 private:
 	void TriggerDialogueTree(ColliderType NPC);
+	void InteractWithTree();
 
 public:
 	// This bool checks if the player is interacting with something (In the furute will be change for a state machine)
