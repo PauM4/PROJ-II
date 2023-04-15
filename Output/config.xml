@@ -24,6 +24,7 @@
 	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
 		<player x="2000" y="0" texturepath="Assets/Textures/.png"/>
 		<!--<item x="0" y="0" texturepath="Assets/Textures/.png"/> -->
+    <npc npcTexturePath ="Assets/Characters/npc.png"/>
 
 	</scene>
 

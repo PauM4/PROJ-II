@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -31,21 +32,27 @@ public:
 public:
 
 private:
+	
+	Animation* currentAnimation;
 
-	SDL_Texture* texture;
-	const char* texturePath;
+	SDL_Texture* npcTexture;
+	const char* npcTexturePath;
 
-	iPoint posAVillager;
+	iPoint posAngryVillager;
 	PhysBody* pbodyAVillager;
+	Animation angryVillagerAnimation;
 
-	iPoint posTLVillager;
+	iPoint posTalismanVillager;
 	PhysBody* pbodyTLVillager;
+	Animation talismanVillagerAnimation;
 
 	iPoint posGrandma;
 	PhysBody* pbodyGrandma;
+	Animation grandmaAnimation;
 
 	iPoint posLRRH;
 	PhysBody* pbodyLRRH;
+	Animation lrrhAnimation;
 
 };
 

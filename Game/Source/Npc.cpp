@@ -20,27 +20,46 @@ Npc::~Npc() {
 
 bool Npc::Awake() {
 
-	// Initialize Npc parameters
-	position.x = 0;
-	position.y = 0;
+	npcTexturePath = parameters.attribute("npcTexturePath").as_string();
+
+	posAngryVillager.x = 1107, posAngryVillager.y = 1843;
+
+	posTalismanVillager.x = 1584, posTalismanVillager.y = -380;
+
+	posGrandma.x = 1667, posGrandma.y = -978;
+
+	posLRRH.x = 1595, posLRRH.y = -162;
+
+	angryVillagerAnimation.PushBack({ 586,44,105,174 });
+
+	talismanVillagerAnimation.PushBack({ 586,243, 112, 203 });
+
+	grandmaAnimation.PushBack({ 13,471,123,185 });
+
+	lrrhAnimation.PushBack({ 17,276,122,179 });
+
 
 	return true;
 }
 
-bool Npc::Start() { //128 // 128
-	pbodyAVillager = app->physics->CreateRectangleSensor(1107, 1843, 130, 150, bodyType::STATIC);
+bool Npc::Start() {
+	currentAnimation = nullptr;
+
+	npcTexture = app->tex->Load(npcTexturePath);
+
+	pbodyAVillager = app->physics->CreateRectangleSensor(posAngryVillager.x, posAngryVillager.y, 130, 150, bodyType::STATIC);
 	pbodyAVillager->listener = this;				
 	pbodyAVillager->ctype = ColliderType::ANGRYVILLAGER;
 
-	pbodyTLVillager = app->physics->CreateRectangleSensor(1584, -380, 130, 150, bodyType::STATIC);
+	pbodyTLVillager = app->physics->CreateRectangleSensor(posTalismanVillager.x, posTalismanVillager.y, 130, 150, bodyType::STATIC);
 	pbodyTLVillager->listener = this;				
 	pbodyTLVillager->ctype = ColliderType::TALISMANVILLAGER;
 
-	pbodyGrandma = app->physics->CreateRectangleSensor(1667, -978, 130, 150, bodyType::STATIC);
+	pbodyGrandma = app->physics->CreateRectangleSensor(posGrandma.x, posGrandma.y, 130, 150, bodyType::STATIC);
 	pbodyGrandma->listener = this;				
 	pbodyGrandma->ctype = ColliderType::GRANDMA;
 
-	pbodyLRRH = app->physics->CreateRectangleSensor(1595, -162, 130, 150, bodyType::STATIC);
+	pbodyLRRH = app->physics->CreateRectangleSensor(posLRRH.x, posLRRH.y, 130, 150, bodyType::STATIC);
 	pbodyLRRH->listener = this;
 	pbodyLRRH->ctype = ColliderType::LRRH;
 
@@ -55,12 +74,30 @@ bool Npc::Update()
 
 bool Npc::PostUpdate()
 {
+	currentAnimation = &angryVillagerAnimation;
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(npcTexture, posAngryVillager.x - 13, posAngryVillager.y - 26, &rect);
+
+	currentAnimation = &talismanVillagerAnimation;
+	rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(npcTexture, posTalismanVillager.x - 13, posTalismanVillager.y - 26, &rect);
+
+	currentAnimation = &grandmaAnimation;
+	rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(npcTexture, posGrandma.x - 13, posGrandma.y - 26, &rect);
+
+	currentAnimation = &lrrhAnimation;
+	rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(npcTexture, posLRRH.x - 13, posLRRH.y - 26, &rect);
+
+	
+
 	return true;
 }
 
 bool Npc::CleanUp()
 {
-	app->tex->UnLoad(texture);
+	app->tex->UnLoad(npcTexture);
 
 	if (pbodyAVillager != NULL)
 	{
