@@ -126,16 +126,16 @@ bool SceneBattle::Update(float dt)
 {
 	if (turnstart == true) {
 		//if user selects attack
-		CreateArea(characterTurn->AttArea, 0);
+		CreateArea(characterTurn,characterTurn->AttArea, 0);
 		Combat(characterTurn, targets, 1);
 		turnstart = false;
 		//if user selects ab1
-		CreateArea(characterTurn->Ab1Area, characterTurn->Ab1RangeType);
+		CreateArea(characterTurn,characterTurn->Ab1Area, characterTurn->Ab1RangeType);
 		Combat(characterTurn, targets, 2);
 		turnstart = false;
 
 		//if user selects ab2
-		CreateArea(characterTurn->Ab2Area, characterTurn->Ab2RangeType);
+		CreateArea(characterTurn,characterTurn->Ab2Area, characterTurn->Ab2RangeType);
 		Combat(characterTurn, targets, 3);
 		turnstart = false;
 	}
@@ -261,23 +261,19 @@ bool SceneBattle::PostUpdate()
 				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
 				 combatMap[nexTile.x ][nexTile.y].inRange = true;
 				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
+
+				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
+				 combatMap[nexTile.x][nexTile.y].inRange = true;
+				 /*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
+
+				 nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
+				 combatMap[nexTile.x][nexTile.y].inRange = true;
+				 /*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 			
 			}
 	
 		}
-		for (i = 0; i < characterTurn->movement; i++) {
-			for (j = 0; j < characterTurn->movement - i; j++) {
-				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
-				combatMap[nexTile.x ][nexTile.y].inRange = true;
-				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
-	
-				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
-				combatMap[nexTile.x ][nexTile.y].inRange = true;
-				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
-		
-			}
 
-		}
 
 		/*DisplayArea(arealist, 0);*/
 		
@@ -459,18 +455,45 @@ bool SceneBattle::GetNext() {
 	return true;
 
 }
-List<TileData*> SceneBattle::CreateArea(int range, int type) {
+List<TileData*> SceneBattle::CreateArea(Entity*character, int range, int type) {
 
 	List<TileData*> area;
+	iPoint posTile = character->tilePos;
 	
 	switch (type) {
 
 	case 0:
 		//attack
+		
+		area.Add(&combatMap[posTile.x+1][posTile.y]);
+		area.Add(&combatMap[posTile.x-1][posTile.y]);
+		area.Add(&combatMap[posTile.x][posTile.y+1]);
+		area.Add(&combatMap[posTile.x][posTile.y-1]);
+		break;
 	case 1:
 		//lineal
+		for (int i = 1; i <= range; i++) {
+			area.Add(&combatMap[posTile.x + i][posTile.y]);
+			area.Add(&combatMap[posTile.x - i][posTile.y]);
+			area.Add(&combatMap[posTile.x][posTile.y + i]);
+			area.Add(&combatMap[posTile.x][posTile.y - i]);
+		}
+		break;
 	case 2:
 		//circular
+		int i;
+		int j;
+		for (i = 0; i < range; i++) {
+			for (j = 0; j < range - i; j++) {
+				area.Add(&combatMap[posTile.x + i][posTile.y+j]);
+				area.Add(&combatMap[posTile.x -i][posTile.y+j]);
+				area.Add(&combatMap[posTile.x + i][posTile.y + j]);
+				area.Add(&combatMap[posTile.x +i][posTile.y - j]);
+			}
+
+		}
+
+		break;
 	case 3:
 		//global
 		for (int i = 0; i < COMBAT_MAP_HEIGHT; i++) {
@@ -482,6 +505,7 @@ List<TileData*> SceneBattle::CreateArea(int range, int type) {
 				}
 			}
 		}
+		break;
 	}
 
 	return area;
