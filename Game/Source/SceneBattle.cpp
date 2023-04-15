@@ -368,13 +368,13 @@ bool SceneBattle::PostUpdate()
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
 
-	app->render->DrawRectangle({ int(bunny->position.x), int(bunny->position.y), 50, 50 }, 0, 0, 250, 250, true);
+	app->render->DrawRectangle({ int(bunny->position.x)+35, int(bunny->position.y)+35, 50, 50 }, 0, 0, 250, 250, true);
 
 	
 	combatMap[timmy->tilePos.x][timmy->tilePos.y ].character = true;
 	combatMap[timmy->tilePos.x][timmy->tilePos.y].characterType = timmy;
 	
-	app->render->DrawRectangle({ int(timmy->position.x), int(timmy->position.y), 50, 50 }, 250, 0, 0, 250, true);
+	app->render->DrawRectangle({ int(timmy->position.x)+35, int(timmy->position.y)+35, 50, 50 }, 250, 0, 0, 250, true);
 
 	
 
