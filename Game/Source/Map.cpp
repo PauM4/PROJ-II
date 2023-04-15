@@ -205,9 +205,10 @@ bool Map::CleanUp()
     while (tileLayerItem != NULL)
     {
         RELEASE(tileLayerItem->data);
-        mapData.tileLayers.Del(tileLayerItem); 
+        //mapData.tileLayers.Del(tileLayerItem); 
         tileLayerItem = tileLayerItem->next;
     }
+    mapData.tileLayers.Clear();
 
     // Remove imageLayers
     ListItem<ImageLayer*>* imageLayerItem;
@@ -216,9 +217,10 @@ bool Map::CleanUp()
     while (imageLayerItem != NULL)
     {
         RELEASE(imageLayerItem->data);
-        mapData.imageLayers.Del(imageLayerItem);
+        //mapData.imageLayers.Del(imageLayerItem);
         imageLayerItem = imageLayerItem->next;
     }
+    mapData.imageLayers.Clear();
 
     // Remove colliders
     ListItem<PhysBody*>* colliderItem;
@@ -228,9 +230,10 @@ bool Map::CleanUp()
     {
         app->physics->world->DestroyBody(colliderItem->data->body);
         RELEASE(colliderItem->data);
-        mapData.collisions.Del(colliderItem);
+        //mapData.collisions.Del(colliderItem);
         colliderItem = colliderItem->next;
     }
+    mapData.collisions.Clear();
 
     return true;
 }
