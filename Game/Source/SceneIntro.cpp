@@ -36,7 +36,13 @@ bool SceneIntro::Start()
 	w = app->win->width;
 	h = app->win->height;
 
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 
+	// Tell to UIModule which currentMenuType we are now
+	app->uiModule->currentMenuType = DISABLED;
+	// Call this function only when scene is changed
+	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 	return true;
 }
@@ -51,11 +57,6 @@ bool SceneIntro::PreUpdate()
 bool SceneIntro::Update(float dt)
 {
 
-	// Tell to UIModule which currentMenuType we are now
-	app->uiModule->currentMenuType = DISABLED;
-	// Call this function only when scene is changed
-	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-
 	return true;
 }
 
@@ -64,7 +65,7 @@ bool SceneIntro::PostUpdate()
 {
 	bool ret = true;
 
-	app->render->DrawTexture(logo_image, w/2 + 65, -h/2 + 35, NULL);
+	app->render->DrawTexture(logo_image, 0, 0, NULL);
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

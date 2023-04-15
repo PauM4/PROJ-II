@@ -51,7 +51,6 @@ bool SceneBattle::Start()
 	app->physics->Enable();
 
 
-
 	//Load combat map
 	/*MakeCombatMap();*/
 
@@ -87,7 +86,8 @@ bool SceneBattle::Start()
 	pbody->body->SetFixedRotation(true);
 	pbody->listener = timmy;
 
-	
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 
 	return true;
 }
@@ -127,8 +127,7 @@ bool SceneBattle::Update(float dt)
 
 	bool ret = true;
 
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+
 	app->map->Draw();
 
 	return true;

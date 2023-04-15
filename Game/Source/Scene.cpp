@@ -82,6 +82,11 @@ bool Scene::Start()
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
+
+	// Tell to UIModule which currentMenuType
+	app->uiModule->currentMenuType = DISABLED;
+	// Call this function only when buttons change
+	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 	
 
 	return true;
