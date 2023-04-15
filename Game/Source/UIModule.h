@@ -80,6 +80,7 @@ public:
 
 	bool quitButtonBool;
 
+
 private:
 
 };

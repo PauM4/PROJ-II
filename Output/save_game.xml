@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1525" y="-81" />
+		<player x="1984" y="35" />
 	</scene>
 	<sceneBattle />
 	<entitymanager />
@@ -20,6 +20,6 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-565" y="611" />
+		<camera x="-1024" y="495" />
 	</renderer>
 </save_state>

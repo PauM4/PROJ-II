@@ -123,6 +123,11 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= ceil(speed);
 
+	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		app->audio->PlayFx(app->guiManager->pressedFxId);
+		app->audio->PlayFx(app->guiManager->hoverFxId);
+	}
 
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
