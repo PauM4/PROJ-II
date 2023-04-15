@@ -253,11 +253,12 @@ bool SceneBattle::PostUpdate()
 		iPoint pos;
 		for (i = 0; i < characterTurn->movement; i++ ) {
 			for ( j = 0 ; j < characterTurn->movement-i; j++) {
-				  nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
-				  combatMap[nexTile.x ][nexTile.y].inRange = true;
-				 /* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
 
-			
+				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
+				
+				combatMap[nexTile.x][nexTile.y].inRange = true;
+				/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+				  
 				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
 				 combatMap[nexTile.x ][nexTile.y].inRange = true;
 				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
@@ -272,6 +273,56 @@ bool SceneBattle::PostUpdate()
 			
 			}
 	
+		}
+
+		for (i = 0; i < characterTurn->movement; i++) {
+			for (j = 0; j < characterTurn->movement - i; j++) {
+
+				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
+				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
+					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
+					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
+					combatMap[nexTile.x][nexTile.y - 1].inRange == false &&
+					app->pathfinding->IsWalkable(nexTile)) {
+
+					combatMap[nexTile.x][nexTile.y].inRange = false;
+					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+				}
+				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
+				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
+					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
+					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
+					combatMap[nexTile.x][nexTile.y - 1].inRange == false &&
+					app->pathfinding->IsWalkable(nexTile)) {
+
+					combatMap[nexTile.x][nexTile.y].inRange = false;
+					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+				}
+
+				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
+				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
+					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
+					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
+					combatMap[nexTile.x][nexTile.y - 1].inRange == false && 
+					app->pathfinding->IsWalkable(nexTile) ) {
+
+					combatMap[nexTile.x][nexTile.y].inRange = false;
+					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+				}
+
+				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
+				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
+					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
+					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
+					combatMap[nexTile.x][nexTile.y - 1].inRange == false &&
+					app->pathfinding->IsWalkable(nexTile)) {
+
+					combatMap[nexTile.x][nexTile.y].inRange = false;
+					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+				}
+
+			}
+
 		}
 
 
@@ -409,6 +460,7 @@ bool SceneBattle::MakeCombatMap() {
 			combatMap[i][j].y = j;
 			combatMap[i][j].character = false;
 			combatMap[i][j].characterType = nullptr;
+			combatMap[i][j].inRange = false;
 			combatMap[i][j].type = (TILE_TYPE)app->map->metadataLayer[i][j];
 		}
 	}
