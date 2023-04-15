@@ -27,9 +27,9 @@ bool Item::Awake() {
 bool Item::Start() {
 
 	
-	pbody = app->physics->CreateRectangleSensor(position.x, position.y, 40, 40, bodyType::STATIC);
-	pbody->listener = this;
-	pbody->ctype = ColliderType::ITEM;
+	//pbody = app->physics->CreateRectangleSensor(position.x, position.y, 40, 40, bodyType::STATIC);
+	//pbody->listener = this;
+	//pbody->ctype = ColliderType::ITEM;
 
 	return true;
 }

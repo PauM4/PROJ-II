@@ -38,7 +38,7 @@ public:
 
 private:
 
-	PhysBody* pbody;
+	
 	
 	
 };

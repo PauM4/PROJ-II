@@ -160,6 +160,7 @@ bool SceneBattle::PostUpdate()
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 
+	/*timmy->position = app->map->MapToWorld(timmy->tilePos.x, timmy->tilePos.y);*/
 	
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);

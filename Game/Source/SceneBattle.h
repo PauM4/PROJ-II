@@ -133,7 +133,7 @@ private:;
 	Timmy* timmy;
 	Bunny* bunny;
 	Enemy_AngryVillager* villager;
-	PhysBody* pbody;
+	
 };
 
 #endif // __SCENE_BATTLE_H__
