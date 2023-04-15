@@ -24,15 +24,20 @@ enum bodyType {
 };
 
 enum class ColliderType {
+
+	UNKNOWN = -1,
+
+	//Map
+	BARRIER,
+	DOOR,
+
+	//Entities
 	PLAYER,
 	ANGRYVILLAGER,
 	TALISMANVILLAGER,
 	GRANDMA,
 	LRRH,
-	ITEM,
-	PLATFORM, 
-	DOOR,
-	UNKNOWN
+	ITEM
 	// ..
 };
 

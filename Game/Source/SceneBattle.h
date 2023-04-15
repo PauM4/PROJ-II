@@ -71,7 +71,7 @@ public:
 	bool MakeCombatMap();
 
 	// Creates area of an attack or ability, type is 0 if atack, 1 if lineal, 2 if "circular", 3 if global
-	List<TileData*> CreateArea(int range, int type);
+	List<TileData*> CreateArea(Entity* character, int range, int type);
 
 	// Draws an area of attack/ability/movement from an ally
 	bool DisplayArea(List<TileData*> area, int type);
@@ -82,6 +82,7 @@ public:
 	bool GetTurns();
 
 	bool GetNext();
+	
 	void DestroyListArea(List<TileData*> arealist);
 
 
@@ -133,7 +134,7 @@ private:;
 	Timmy* timmy;
 	Bunny* bunny;
 	Enemy_AngryVillager* villager;
-	PhysBody* pbody;
+	
 };
 
 #endif // __SCENE_BATTLE_H__

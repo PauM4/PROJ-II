@@ -69,7 +69,7 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 	currentAnimation = &idleAnim;
 
-	pbody = app->physics->CreateRectangle(2000,0,70,70, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x,position.y,70,70, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
 	pbody->listener = this;
 
@@ -182,8 +182,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision ITEM");
 			itemInteractAvailable = true;
 			break;
-		case ColliderType::PLATFORM:
-			LOG("Collision PLATFORM");
+		case ColliderType::BARRIER:
+			LOG("Collision BARRIER");
+			break;
+		case ColliderType::DOOR:
+			LOG("Collision DOOR");
+
 			break;
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");

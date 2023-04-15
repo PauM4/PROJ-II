@@ -22,15 +22,15 @@
 	</audio>
 
 	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
-		<player x="2000" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
+		<player x="1920" y="3600" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
 		<!--<item x="0" y="0" texturepath="Assets/Textures/.png"/> -->
     <npc npcTexturePath ="Assets/Characters/npc.png"/>
 
 	</scene>
 
 	<sceneBattle name="Assets/Maps/World_01/test.tmx" path="Assets/Maps/World_01/">
-		<timmy x= "670" y="420" movement= "3"/>
-		<bunny x= "670" y="600" movement= "2"/>
+		<timmy x= "600" y="600" movement= "3"/>
+		<bunny x= "600" y="720" movement= "2"/>
 		<enemy_angryVillager/>
 
 		
