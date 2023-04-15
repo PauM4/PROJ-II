@@ -226,7 +226,7 @@ bool Map::CleanUp()
 
     while (colliderItem != NULL)
     {
-        //app->physics->world->DestroyBody(colliderItem->data->body);
+        app->physics->world->DestroyBody(colliderItem->data->body);
         RELEASE(colliderItem->data);
         mapData.collisions.Del(colliderItem);
         colliderItem = colliderItem->next;

@@ -54,8 +54,8 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 	if (config.parent().child("bunny")) {
 		bunny->stats = config.parent().child("bunny");
 	}
-	if (config.parent().child("Enemy_AngryVillager")) {
-		villager->stats = config.parent().child("Enemy_AngryVillager");
+	if (config.parent().child("enemy_angryVillager")) {
+		villager->stats = config.parent().child("enemy_angryVillager");
 	}
 	return ret;
 }
