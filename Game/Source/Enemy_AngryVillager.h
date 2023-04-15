@@ -2,9 +2,14 @@
 #include "Entity.h"
 #include "Pathfinding.h"
 #include "UriBehaviorTree.h"
+#include "SDL/include/SDL.h"
+#include "List.h"
 
 class Enemy_AngryVillager : public Entity {
-	Enemy_AngryVillager(iPoint pos);
+public:
+	Enemy_AngryVillager();
+
+	virtual ~Enemy_AngryVillager();
 
 	bool Awake() override;
 
