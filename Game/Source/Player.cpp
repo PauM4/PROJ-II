@@ -93,6 +93,9 @@ bool Player::Update()
 {
 	currentAnimation->Update();
 
+	std::cout << position.x << std::endl;
+	std::cout << position.y << std::endl;
+
 	switch (playerState)
 	{
 	case PAUSE:

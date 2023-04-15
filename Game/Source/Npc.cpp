@@ -22,13 +22,13 @@ bool Npc::Awake() {
 
 	npcTexturePath = parameters.attribute("npcTexturePath").as_string();
 
-	posAngryVillager.x = 1107, posAngryVillager.y = 1843;
+	posAngryVillager.x = 1463, posAngryVillager.y = 3592;
 
-	posTalismanVillager.x = 1584, posTalismanVillager.y = -380;
+	posTalismanVillager.x = 1920, posTalismanVillager.y = 1408;
 
-	posGrandma.x = 1667, posGrandma.y = -978;
+	posGrandma.x = 2008, posGrandma.y = 771;
 
-	posLRRH.x = 1595, posLRRH.y = -162;
+	posLRRH.x = 2338, posLRRH.y = 771;
 
 	angryVillagerAnimation.PushBack({ 586,44,105,174 });
 
@@ -37,7 +37,6 @@ bool Npc::Awake() {
 	grandmaAnimation.PushBack({ 13,471,123,185 });
 
 	lrrhAnimation.PushBack({ 17,276,122,179 });
-
 
 	return true;
 }
