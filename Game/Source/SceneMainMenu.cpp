@@ -68,6 +68,8 @@ bool SceneMainMenu::PostUpdate()
 
 	app->render->DrawTexture(mainMenu_image, 0, 0, NULL);
 
+
+
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 

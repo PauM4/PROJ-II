@@ -54,16 +54,6 @@ bool SceneBattle::Start()
 	//Load combat map
 	/*MakeCombatMap();*/
 
-	//Buttons
-	uint w, h;
-	app->win->GetWindowSize(w, h);
-	button1_attack = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Attack", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
-	button1_attack->state = GuiControlState::NORMAL;
-	button2_skill = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "Skill", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
-	button2_skill->state = GuiControlState::NORMAL;
-	button3_endTurn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "End Turn", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
-	button3_endTurn->state = GuiControlState::NORMAL;
-
 	if (retLoad) {
 		int w, h;
 		uchar* data = NULL;
@@ -89,6 +79,11 @@ bool SceneBattle::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	// Tell to UIModule which currentMenuType
+	app->uiModule->currentMenuType = COMBAT;
+	// Call this function only when buttons change
+	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 	return true;
 }
 
@@ -103,11 +98,6 @@ bool SceneBattle::PreUpdate()
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
-
-	// Tell to UIModule which currentMenuType we are now
-	app->uiModule->currentMenuType = BATTLE;
-	// Call this function only when scene is changed
-	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 	if (turnstart == true) {
 		//if user selects attack
@@ -397,17 +387,7 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 
 	switch (control->id)
 	{
-	case 1:
-		LOG("Button 1 Attack click");
-		
-		break;
-	case 2:
-		LOG("Button 2 Skill click");
-		
-		break;
-	case 3:
-		LOG("Button 3 End Turn click");
-
+	default:
 		break;
 	}
 	return true;

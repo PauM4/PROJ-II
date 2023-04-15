@@ -73,6 +73,11 @@ public:
 	GuiButton* pausemenu_backtomain_button;
 	GuiButton* pausemenu_quit_button;
 
+	GuiButton* combat_attack_button;
+	GuiButton* combat_ability_button;
+	GuiButton* combat_move_button;
+	GuiButton* combat_endTurn_button;
+
 	bool quitButtonBool;
 
 private:
