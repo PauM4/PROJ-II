@@ -34,10 +34,21 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
-
+	//This reads some parameters from xml
 	if (config.child("timmy")) {
 		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
 		timmy->parameters = config.child("timmy");
+	}
+	if (config.child("bunny")) {
+		bunny = (Bunny*)app->entityManager->CreateEntity(EntityType::BUNNY);
+		bunny->parameters = config.child("bunny");
+	}
+	//This reads stats from xml
+	if (config.parent().child("timmy")) {
+		timmy->stats = config.parent().child("timmy");
+	}
+	if (config.parent().child("bunny")) {
+		bunny->stats = config.parent().child("bunny");
 	}
 	
 	return ret;
@@ -104,6 +115,8 @@ bool SceneBattle::PreUpdate()
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
+	int speed = timmy->speed;
+	int defense = timmy->defense;
 	if (turnstart == true) {
 		//if user selects attack
 		CreateArea(characterTurn->AttArea, 0);
@@ -391,7 +404,46 @@ bool SceneBattle::MakeCombatMap() {
 
 	return ret;
 }
+bool SceneBattle::GetTurns() {
+	if (allentities.At(0)->data->speed >= allentities.At(1)->data->speed && allentities.At(0)->data->speed >= allentities.At(2)->data->speed)
+	{
+		characterTurn = allentities.At(0)->data;
+		turnqueue.Add(allentities.At(0)->data);
+	}
+	if (allentities.At(1)->data->speed >= allentities.At(0)->data->speed && allentities.At(1)->data->speed >= allentities.At(2)->data->speed)
+	{
+		characterTurn = allentities.At(1)->data;
+		turnqueue.Add(allentities.At(1)->data);
+	}
+	if (allentities.At(2)->data->speed >= allentities.At(0)->data->speed && allentities.At(2)->data->speed >= allentities.At(1)->data->speed)
+	{
+		characterTurn = allentities.At(2)->data;
+		turnqueue.Add(allentities.At(2)->data);
+	}
+	if (allentities.At(1)->data->speed > allentities.At(2)->data->speed)
+	{
+		turnqueue.Add(allentities.At(1)->data);
+		turnqueue.Add(allentities.At(2)->data);
+	}
+	if (allentities.At(2)->data->speed > allentities.At(1)->data->speed)
+	{
+		turnqueue.Add(allentities.At(2)->data);
+		turnqueue.Add(allentities.At(1)->data);
+	}
+	return true;
+}
 
+bool SceneBattle::GetNext() {
+
+	Entity* temp;
+	temp = turnqueue.At(0)->data;
+	turnqueue.At(0)->data = turnqueue.At(1)->data;
+	turnqueue.At(1)->data = turnqueue.At(2)->data;
+	turnqueue.At(2)->data = temp;
+	characterTurn = turnqueue.At(0)->data;
+	return true;
+
+}
 List<TileData*> SceneBattle::CreateArea(int range, int type) {
 
 	List<TileData*> area;

@@ -148,6 +148,7 @@ public:
 	EntityType type;
 	bool active = true;
 	pugi::xml_node parameters;
+	pugi::xml_node stats;
 
 	// Possible properties, it depends on how generic we
 	// want our Entity class, maybe it's not renderable...
@@ -185,7 +186,7 @@ public:
 	uint Ab2Power;
 	//1 if physic 2 if mage 3 if healing
 	uint Ab1Type;
-	//1 if physic 2 if mage 3 if healing
+	//0 if not able 1 if physic 2 if mage 3 if healing
 	uint Ab2Type;
 	//1 if lineal 2 if "circular" 3 if global
 	uint Ab1RangeType;
@@ -196,7 +197,7 @@ public:
 	uint healingpower;
 
 	iPoint tilePos; 
-
+	bool isEnemy;
 	bool isAlive;
 };
 

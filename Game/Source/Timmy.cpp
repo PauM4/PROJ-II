@@ -11,9 +11,10 @@
 
 Timmy::Timmy() : Entity(EntityType::TIMMY)
 {
-	name.Create("Timmy");
+	name.Create("timmy");
 	isAlive = true;
 	battleState = IDLE; 
+	isEnemy = false;
 }
 
 Timmy::~Timmy() {
@@ -25,33 +26,14 @@ bool Timmy::Awake()
 	
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
-	speed = parameters.attribute("speed").as_int();
-	movement = parameters.attribute("movement").as_int();
+	speed = stats.attribute("speed").as_int();
+	movement = stats.attribute("movement").as_int();
 	return true;
 }
 
 bool Timmy::Start()
 {
-	level = 1;
-	health = 20;
-	maxHealth = 20;
-	defense = 5;
-	magic = 1;
-	stamina = 15;
-	maxStamina = 15;
-	speed = 5;
-	attack = 6;
-	AttArea = 1;
-	Ab1Type = 1;
-	Ab1Area = 4;
-	Ab1RangeType = 1;
-	Ab1Power = 2;
-	Ab2Type = 2;
-	Ab2Area = 3;
-	Ab2RangeType = 1;
-	Ab2Power = 3;
-	healingpower = 0;
-	
+
 
 	return true;
 }

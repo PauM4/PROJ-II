@@ -5,7 +5,7 @@
 #include "Scene.h"
 #include "Timmy.h"
 #include "Npc.h"
-
+#include "Bunny.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -94,7 +94,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 
 	case EntityType::BUNNY:
-		//entity = new Bunny();
+		entity = new Bunny();
 		break;
 
 	case EntityType::PLAYER:

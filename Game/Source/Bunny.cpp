@@ -11,9 +11,10 @@
 
 Bunny::Bunny() : Entity(EntityType::BUNNY)
 {
-	name.Create("Bunny");
+	name.Create("bunny");
 	isAlive = true;
 	battleState = IDLE; 
+
 }
 
 Bunny::~Bunny() {
@@ -22,15 +23,7 @@ Bunny::~Bunny() {
 
 bool Bunny::Awake()
 {
-	pbody = app->physics->CreateRectangle(50, 50, 120, 140, bodyType::DYNAMIC);
-	pbody->body->SetFixedRotation(true);
-	pbody->listener = this;
-
-	return true;
-}
-
-bool Bunny::Start()
-{
+	
 	level = 1;
 	health = 15;
 	maxHealth = 15;
@@ -50,14 +43,20 @@ bool Bunny::Start()
 	Ab2RangeType = 2;
 	Ab2Power = 2;
 	healingpower = 8;
-	
+	isEnemy = false;
+
+	return true;
+}
+
+bool Bunny::Start()
+{
+
 
 	return true;
 }
 
 bool Bunny::Update()
 {
-	b2Vec2 vel = b2Vec2(0, 0);
 
 	switch (battleState) {
 	case IDLE:
@@ -72,18 +71,12 @@ bool Bunny::Update()
 	}
 	return true;
 
-	pbody->body->SetLinearVelocity(vel);
 
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+	
 }
 
 bool Bunny::PostUpdate()
 {
-	iPoint pos;
-	pbody->GetPosition(pos.x,pos.y);
-
-	app->render->DrawRectangle({ pos.x, pos.y, 120, 140 }, 250, 0, 0, 100, true);
 	return true;
 }
 
