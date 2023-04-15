@@ -36,8 +36,7 @@ bool SceneIntro::Start()
 	w = app->win->width;
 	h = app->win->height;
 
-	// Tell to UIModule which currentMenuType we are now
-	app->uiModule->currentMenuType = CurrentMenuType::DISABLED;
+
 
 	return true;
 }
@@ -51,7 +50,11 @@ bool SceneIntro::PreUpdate()
 // Called each loop iteration
 bool SceneIntro::Update(float dt)
 {
-	
+
+	// Tell to UIModule which currentMenuType we are now and what was the previous one
+	app->uiModule->previousMenuType = app->uiModule->currentMenuType;
+	app->uiModule->currentMenuType = CurrentMenuType::DISABLED;
+
 	return true;
 }
 

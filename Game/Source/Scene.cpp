@@ -53,6 +53,9 @@ bool Scene::Start()
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	app->physics->Enable();
+
+
+
 	//Fonts initialize
 	char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
 
@@ -99,6 +102,10 @@ bool Scene::Update(float dt)
 {
 	app->render->camera.x = -(int)player->position.x + app->render->camera.w / 2;
 	app->render->camera.y = -(int)player->position.y + app->render->camera.h / 2;
+
+	// Tell to UIModule which currentMenuType we are now and what was the previous one
+	app->uiModule->previousMenuType = app->uiModule->currentMenuType;
+	app->uiModule->currentMenuType = CurrentMenuType::DISABLED;
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)

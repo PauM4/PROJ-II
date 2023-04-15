@@ -55,7 +55,7 @@ public:
 public:
 
 	int currentMenuType;
-
+	int previousMenuType;
 
 	// Buttons list
 	GuiButton* mainmenu_play_button;
@@ -66,7 +66,7 @@ public:
 	GuiButton* mainmenu_continueGame_button;
 	GuiButton* mainmenu_return_button;
 
-
+	bool quitButtonBool;
 
 private:
 

@@ -33,6 +33,7 @@ bool UIModule::Awake(pugi::xml_node& config)
 bool UIModule::Start()
 {
 	currentMenuType = DISABLED;
+	previousMenuType = DISABLED;
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
@@ -56,6 +57,8 @@ bool UIModule::Start()
 	mainmenu_continueGame_button->state = GuiControlState::NONE;
 	mainmenu_return_button->state = GuiControlState::NONE;
 
+	quitButtonBool = false;
+
 	return true;
 }
 
@@ -70,7 +73,16 @@ bool UIModule::Update(float dt)
 {
 
 	// Call this function only when scene is changed
-	ChangeButtonState(currentMenuType);
+	if (currentMenuType != previousMenuType)
+	{
+		ChangeButtonState(currentMenuType);
+	}
+
+	// If Quit button is pressed in Main Menu, close app
+	if (quitButtonBool)
+	{
+		return false;
+	}
 
 	return true;
 }
@@ -113,6 +125,42 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_quit_button->state = GuiControlState::NONE;
 
 		break;
+		// When options pressed, go to options (image with settings)
+	case 2:
+		mainmenu_return_button->state = GuiControlState::NORMAL;
+
+		mainmenu_play_button->state = GuiControlState::NONE;
+		mainmenu_credits_button->state = GuiControlState::NONE;
+		mainmenu_options_button->state = GuiControlState::NONE;
+		mainmenu_quit_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+
+
+		break;
+
+		// When credits pressed, appear image with credits and return button
+	case 3:
+		mainmenu_return_button->state = GuiControlState::NORMAL;
+
+		mainmenu_play_button->state = GuiControlState::NONE;
+		mainmenu_credits_button->state = GuiControlState::NONE;
+		mainmenu_options_button->state = GuiControlState::NONE;
+		mainmenu_quit_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+		break;
+		// When quit pressed, quit the game
+	case 4:
+		// Close app
+		quitButtonBool = true;
+		break;
+		// When continue pressed, go to gameplay
+	case 6:
+		app->sceneManager->isBattle = false;
+		app->sceneManager->scene = SCENE;
+		break;
+
 		// When button Return Is Pressed, show the Main Menu buttons
 	case 7:
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
@@ -150,7 +198,7 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		break;
 	case PAUSE:
 
-		//...
+		// Activate pause buttons
 
 		// Disable all main menu buttons
 		mainmenu_play_button->state = GuiControlState::NONE;
@@ -165,10 +213,33 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 		break;
 	case DIALOG:
+		// Activate dialog buttonts
+		// Maybe there would be another switch for each dialog, idk how it will work
+
+		// Disable other menus buttons:
+
 		break;
 	case COMBAT:
+		// Activate combat buttons
+
+		// Disable other menus buttons:
+
 		break;
 	case DISABLED:
+
+		//...
+
+		// Disable all main menu buttons
+		mainmenu_play_button->state = GuiControlState::NONE;
+		mainmenu_options_button->state = GuiControlState::NONE;
+		mainmenu_credits_button->state = GuiControlState::NONE;
+		mainmenu_quit_button->state = GuiControlState::NONE;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_return_button->state = GuiControlState::NONE;
+
+		// Disable other menus buttons:
+
 		break;
 	}
 

@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Player.h"
+#include "UIModule.h"
 
 #include "GuiButton.h"
 #include "Item.h"

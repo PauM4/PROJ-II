@@ -8,6 +8,7 @@
 #include "Entity.h"
 #include "GuiButton.h"
 #include "List.h"
+#include "UIModule.h"
 
 struct SDL_Texture;
 

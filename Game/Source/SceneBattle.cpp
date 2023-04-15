@@ -49,6 +49,9 @@ bool SceneBattle::Start()
 	pathIndex = 0;
 	
 	app->physics->Enable();
+
+
+
 	//Load combat map
 	/*MakeCombatMap();*/
 
@@ -100,6 +103,11 @@ bool SceneBattle::PreUpdate()
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
+
+	// Tell to UIModule which currentMenuType we are now and what was the previous one
+	app->uiModule->previousMenuType = app->uiModule->currentMenuType;
+	app->uiModule->currentMenuType = CurrentMenuType::COMBAT;
+
 	if (turnstart == true) {
 		//if user selects attack
 		CreateArea(characterTurn->AttArea, 0);
