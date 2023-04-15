@@ -54,6 +54,8 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	bool Move(TileData* tile);
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -72,6 +74,9 @@ public:
 	// Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
 	bool Combat(Entity* inturn, List<Entity*> target, int id);
 
+	void DestroyListArea(List<TileData*> arealist);
+
+
 
 
 public:
@@ -89,6 +94,7 @@ private:;
 	Entity* characterTurn;
 
 	List<Entity*> targets;
+	List<TileData*> arealist;
 
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
