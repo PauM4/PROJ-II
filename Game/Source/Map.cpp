@@ -515,7 +515,7 @@ void Map::CreateColliders(ColData col) {
 
     switch (col.type)
     {
-    case (int)ColliderType::PLATFORM:
+    case (int)ColliderType::BARRIER:
         collider = app->physics->CreateRectangle(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
         break;
     case (int)ColliderType::DOOR:
