@@ -23,27 +23,11 @@ Bunny::~Bunny() {
 
 bool Bunny::Awake()
 {
-	
-	level = 1;
-	health = 15;
-	maxHealth = 15;
-	defense = 5;
-	magic = 5;
-	stamina = 15;
-	maxStamina = 15;
-	speed = 6;
-	attack = 3;
-	AttArea = 1;
-	Ab1Type = 3;
-	Ab1Area = 1;
-	Ab1RangeType = 3;
-	Ab1Power = 2;
-	Ab2Type = 2;
-	Ab2Area = 3;
-	Ab2RangeType = 2;
-	Ab2Power = 2;
-	healingpower = 8;
-	isEnemy = false;
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
+	speed = stats.attribute("speed").as_int();
+	movement = stats.attribute("movement").as_int();
+
 
 	return true;
 }

@@ -26,7 +26,7 @@ struct TileData
 	int y;
 	bool character;
 	bool inRange;
-
+	Entity* characterType;
 	TILE_TYPE type;
 };
 
@@ -61,6 +61,10 @@ public:
 
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
+
+	bool Move(Entity* character, int pathindex, int length);
+
+	bool Move();
 
 	// Loads combat map from Map module using GID tile metadata
 	bool MakeCombatMap();

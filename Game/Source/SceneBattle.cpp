@@ -147,23 +147,13 @@ bool SceneBattle::PostUpdate()
 {
 	bool ret = true;
 
-	b2Vec2 vel = b2Vec2(0, 0);
+	
 	app->guiManager->Draw();
 
-	//if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	//	ret = false;
 
-	////if (!DisplayArea()) ret = false;
+	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
+	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 
-	
-
-	//
-
-
-
-	iPoint posTile = iPoint(0, 0);
-	posTile = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
-	
 	
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
@@ -171,11 +161,11 @@ bool SceneBattle::PostUpdate()
 	iPoint mouseTile = iPoint(0, 0);
 
 	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x,mouseY - app->render->camera.y);
-	/*LOG("%d %d", mouseTile.x-4, mouseTile.y-1);*/
+	LOG("%d %d", mouseTile.x, mouseTile.y);
 	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
-	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x-4][mouseTile.y].character!=false) {
+	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x][mouseTile.y].character!=false && move == false) {
 		app->render->DrawRectangle({ highlightedTileWorld.x, highlightedTileWorld.y, 120, 120 }, 0, 143, 57, 100, true);
-		/*app->render->DrawTexture(mouseTileTex, highlightedTileWorld.x, highlightedTileWorld.y);*/
+		
 	}
 
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -183,7 +173,7 @@ bool SceneBattle::PostUpdate()
 		
 			if (originSelected == true)
 			{
-				if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x - 4][mouseTile.y].inRange == true) {
+				if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x ][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
 					length=app->pathfinding->CreatePath(origin, mouseTile);
 					destination.x = mouseTile.x;
 					destination.y = mouseTile.y;
@@ -194,12 +184,13 @@ bool SceneBattle::PostUpdate()
 					app->pathfinding->ClearLastPath();
 				}
 			}
-			else if(combatMap[mouseTile.x - 4][ mouseTile.y ].character != false)
+			else if(combatMap[mouseTile.x ][ mouseTile.y ].character != false)
 			{
 					origin = mouseTile;
 					if (app->pathfinding->IsWalkable(origin)) {
 						originSelected = true;
 						move = true;
+						characterTurn = combatMap[mouseTile.x][mouseTile.y].characterType;
 					}
 					app->pathfinding->ClearLastPath();
 				
@@ -227,7 +218,7 @@ bool SceneBattle::PostUpdate()
 
 	}
 
-
+	
 	
 
 
@@ -240,55 +231,10 @@ bool SceneBattle::PostUpdate()
 		app->pathfinding->ClearLastPath();
 		
 	}
-	iPoint dist;
-	fPoint pixelPosition;
-	fPoint finalPosition;
-	float distance;
-
-	LOG("length= %d", length);
-	LOG(" posTileX: %d", posTile.x);
-	LOG(" posTiley: %d", posTile.y);
 
 	if (length > 1) {
-		
-		lastpath = app->pathfinding->GetLastPath();
-	
 
-		pixelPosition.x = lastpath->At(pathIndex)->x * app->map->mapData.tileWidth;
-		pixelPosition.y = lastpath->At(pathIndex)->y * app->map->mapData.tileHeight;
-
-		finalPosition.x = lastpath->At(length - 1)->x * app->map->mapData.tileWidth;
-		finalPosition.x = lastpath->At(length - 1)->x * app->map->mapData.tileWidth;
-		LOG(" NextposX: %d", nextpos.x);
-		LOG(" NextposY: %d", nextpos.y);
-		
-		dist.x =pixelPosition.x - timmy->position.x;
-		LOG(" disX: %d", dist.x);
-		dist.y = pixelPosition.y - timmy->position.y;
-		LOG(" disY: %d", dist.y);
-
-
-	
-		int xDir = (dist.x > 0) ? 1 : -1;
-		int yDir = (dist.y > 0) ? 1 : -1;
-		
-		if (dist.x==0 && dist.y ==0) {
-			pathIndex++;
-			
-		}
-		else if (abs(dist.x) > 0) {
-			vel.x = 10*xDir;
-			
-		}
-		else if (abs(dist.y) > 0) {
-			vel.y = 10*yDir;
-			
-		}
-		else {
-
-
-		}
-
+		Move(characterTurn, pathIndex, length);
 	}
 
 
@@ -298,28 +244,28 @@ bool SceneBattle::PostUpdate()
 		int i = 0;
 		iPoint nexTile;
 		iPoint pos;
-		for (i = 0; i < timmy->movement; i++ ) {
-			for ( j = 0 ; j < timmy->movement-i; j++) {
-				  nexTile = iPoint(posTile.x + j, posTile.y + i);
-				  combatMap[nexTile.x - 4][nexTile.y].inRange = true;
+		for (i = 0; i < characterTurn->movement; i++ ) {
+			for ( j = 0 ; j < characterTurn->movement-i; j++) {
+				  nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
+				  combatMap[nexTile.x ][nexTile.y].inRange = true;
 				 /* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
 
 			
-				 nexTile = iPoint(posTile.x - j, posTile.y + i);
-				 combatMap[nexTile.x - 4][nexTile.y].inRange = true;
+				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
+				 combatMap[nexTile.x ][nexTile.y].inRange = true;
 				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 			
 			}
 	
 		}
-		for (i = 0; i < timmy->movement; i++) {
-			for (j = 0; j < timmy->movement - i; j++) {
-				nexTile = iPoint(posTile.x - j, posTile.y - i);
-				combatMap[nexTile.x - 4][nexTile.y].inRange = true;
+		for (i = 0; i < characterTurn->movement; i++) {
+			for (j = 0; j < characterTurn->movement - i; j++) {
+				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
+				combatMap[nexTile.x ][nexTile.y].inRange = true;
 				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 	
-				nexTile = iPoint(posTile.x + j, posTile.y - i);
-				combatMap[nexTile.x-4 ][nexTile.y].inRange = true;
+				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
+				combatMap[nexTile.x ][nexTile.y].inRange = true;
 				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 		
 			}
@@ -335,11 +281,11 @@ bool SceneBattle::PostUpdate()
 		for (int i = 0; i < 16; i++) {
 			for (int j = 0; j < 9; j++) {
 
-				combatMap[i][j].x = i;
-				combatMap[i][j].y = j;
+				combatMap[i][j].characterType = nullptr;
 				combatMap[i][j].character = false;
 				combatMap[i][j].inRange = false;
-				combatMap[i][j].type = (TILE_TYPE)app->map->metadataLayer[i][j];
+				
+				
 			}
 		}
 
@@ -348,8 +294,8 @@ bool SceneBattle::PostUpdate()
 
 	for (int i = 0; i < 16; i++) {
 		for (int j = 0; j < 9; j++) {
-			if (combatMap[i][j].inRange==true) {
-				iPoint pos = iPoint(i+4, j);
+			if (combatMap[i][j].inRange==true && combatMap[i][j].character == false) {
+				iPoint pos = iPoint(i, j);
 				if (app->pathfinding->IsWalkable(pos)) {
 					pos = app->map->MapToWorld(pos.x, pos.y);
 				   app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
@@ -360,13 +306,16 @@ bool SceneBattle::PostUpdate()
 
 	}
 
-	timmy->position.x = timmy->position.x + vel.x;
-	timmy->position.y = timmy->position.y + vel.y;
-
 	
 
-	/*LOG("%d %d", posTile.x-4, posTile.y);*/
-	combatMap[posTile.x-4][ posTile.y ].character = true;
+	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
+	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
+
+	app->render->DrawRectangle({ int(bunny->position.x), int(bunny->position.y), 50, 50 }, 0, 0, 250, 250, true);
+
+	
+	combatMap[timmy->tilePos.x][timmy->tilePos.y ].character = true;
+	combatMap[timmy->tilePos.x][timmy->tilePos.y].characterType = timmy;
 	
 	app->render->DrawRectangle({ int(timmy->position.x), int(timmy->position.y), 50, 50 }, 250, 0, 0, 250, true);
 
@@ -397,6 +346,54 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
+bool SceneBattle::Move(Entity * character, int pathindex,int length) {
+
+	iPoint dist;
+	fPoint pixelPosition;
+	fPoint finalPosition;
+	float distance;
+	b2Vec2 vel = b2Vec2(0, 0);
+
+	const DynArray<iPoint>* lastpath = app->pathfinding->GetLastPath();
+
+
+	pixelPosition.x = lastpath->At(pathIndex)->x * app->map->mapData.tileWidth;
+	pixelPosition.y = lastpath->At(pathIndex)->y * app->map->mapData.tileHeight;
+
+	finalPosition.x = lastpath->At(length - 1)->x * app->map->mapData.tileWidth;
+	finalPosition.x = lastpath->At(length - 1)->x * app->map->mapData.tileWidth;
+	LOG(" NextposX: %d", nextpos.x);
+	LOG(" NextposY: %d", nextpos.y);
+
+	dist.x = pixelPosition.x - character->position.x;
+	LOG(" disX: %d", dist.x);
+	dist.y = pixelPosition.y - character->position.y;
+	LOG(" disY: %d", dist.y);
+
+
+
+	int xDir = (dist.x > 0) ? 1 : -1;
+	int yDir = (dist.y > 0) ? 1 : -1;
+
+	if (dist.x == 0 && dist.y == 0) {
+		pathIndex++;
+
+	}
+	else if (abs(dist.x) > 0) {
+		vel.x = 10 * xDir;
+
+	}
+	else if (abs(dist.y) > 0) {
+		vel.y = 10 * yDir;
+
+	}
+
+	character->position.x = character->position.x + vel.x;
+	character->position.y = character->position.y + vel.y;
+
+	return true;
+}
+
 // Loads combat map from Map module using GID tile metadata
 bool SceneBattle::MakeCombatMap() {
 	
@@ -408,6 +405,7 @@ bool SceneBattle::MakeCombatMap() {
 			combatMap[i][j].x = i;
 			combatMap[i][j].y = j;
 			combatMap[i][j].character = false;
+			combatMap[i][j].characterType = nullptr;
 			combatMap[i][j].type = (TILE_TYPE)app->map->metadataLayer[i][j];
 		}
 	}
