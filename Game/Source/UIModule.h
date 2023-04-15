@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "GuiManager.h"
 #include "GuiButton.h"
+#include "SceneManager.h"
 
 
 struct SDL_Texture;
@@ -47,8 +48,12 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	// Change buttons state depending on the scene
+	bool ChangeButtonState(int& currentMenuType);
+
 
 public:
+
 	int currentMenuType;
 
 

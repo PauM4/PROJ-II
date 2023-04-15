@@ -46,7 +46,7 @@ bool UIModule::Start()
 	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { (int)w - 300, (int)h - 975, 100, 20 }, this);
 	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { (int)w - 300, (int)h - 950, 100, 20 }, this);
 
-	// When creating a new button, iniciate it in NONE state. On the Update() switch, set the correct state on each currentMenuType
+	// When creating a new button, iniciate it in NONE state
 
 	mainmenu_play_button->state = GuiControlState::NONE;
 	mainmenu_options_button->state = GuiControlState::NONE;
@@ -68,47 +68,10 @@ bool UIModule::PreUpdate()
 // Called each loop iteration
 bool UIModule::Update(float dt)
 {
-	// AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-	// Constant override on button state, how do I fix it?
-	switch (currentMenuType)
-	{
-	case MAIN:
-		// Activate main menu buttons
-		mainmenu_play_button->state = GuiControlState::NORMAL;
-		mainmenu_options_button->state = GuiControlState::NORMAL;
-		mainmenu_credits_button->state = GuiControlState::NORMAL;
-		mainmenu_quit_button->state = GuiControlState::NORMAL;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-		//...
 
-		// Disable other menu buttons
-		
-		break;
-	case PAUSE:
+	// Call this function only when scene is changed
+	ChangeButtonState(currentMenuType);
 
-		//...
-
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable other menus buttons:
-
-		break;
-	case DIALOG:
-		break;
-	case COMBAT:
-		break;
-	case DISABLED:
-		break;
-	}
 	return true;
 }
 
@@ -162,5 +125,52 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_quit_button->state = GuiControlState::NORMAL;
 		break;
 	}
+	return true;
+}
+
+
+// Change buttons state depending on the scene
+bool UIModule::ChangeButtonState(int& currentMenuType)
+{
+	switch (currentMenuType)
+	{
+	case MAIN:
+		// Activate main menu buttons
+		mainmenu_play_button->state = GuiControlState::NORMAL;
+		mainmenu_options_button->state = GuiControlState::NORMAL;
+		mainmenu_credits_button->state = GuiControlState::NORMAL;
+		mainmenu_quit_button->state = GuiControlState::NORMAL;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_return_button->state = GuiControlState::NONE;
+		//...
+
+		// Disable other menu buttons
+
+		break;
+	case PAUSE:
+
+		//...
+
+		// Disable all main menu buttons
+		mainmenu_play_button->state = GuiControlState::NONE;
+		mainmenu_options_button->state = GuiControlState::NONE;
+		mainmenu_credits_button->state = GuiControlState::NONE;
+		mainmenu_quit_button->state = GuiControlState::NONE;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_return_button->state = GuiControlState::NONE;
+
+		// Disable other menus buttons:
+
+		break;
+	case DIALOG:
+		break;
+	case COMBAT:
+		break;
+	case DISABLED:
+		break;
+	}
+
 	return true;
 }
