@@ -43,6 +43,10 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 		bunny = (Bunny*)app->entityManager->CreateEntity(EntityType::BUNNY);
 		bunny->parameters = config.child("bunny");
 	}
+	if (config.child("enemy_angryVillager")) {
+		villager = (Enemy_AngryVillager*)app->entityManager->CreateEntity(EntityType::ANGRYVILLAGER);
+		villager->parameters = config.child("enemy_angryVillager");
+	}
 	//This reads stats from xml
 	if (config.parent().child("timmy")) {
 		timmy->stats = config.parent().child("timmy");
@@ -50,7 +54,9 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 	if (config.parent().child("bunny")) {
 		bunny->stats = config.parent().child("bunny");
 	}
-	
+	if (config.parent().child("Enemy_AngryVillager")) {
+		villager->stats = config.parent().child("Enemy_AngryVillager");
+	}
 	return ret;
 }
 
@@ -100,7 +106,10 @@ bool SceneBattle::Start()
 
 
 	/*timmy->position = iPoint(670, 420);*/
-
+	allentities.Add(timmy);
+	allentities.Add(bunny);
+	allentities.Add(villager);
+	GetTurns();
 	return true;
 }
 
@@ -115,8 +124,6 @@ bool SceneBattle::PreUpdate()
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
-	int speed = timmy->speed;
-	int defense = timmy->defense;
 	if (turnstart == true) {
 		//if user selects attack
 		CreateArea(characterTurn->AttArea, 0);
@@ -132,8 +139,7 @@ bool SceneBattle::Update(float dt)
 		Combat(characterTurn, targets, 3);
 		turnstart = false;
 	}
-
-	bool ret = true;
+	
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;

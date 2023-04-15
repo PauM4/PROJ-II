@@ -33,6 +33,11 @@ public:
 private:
 	void TriggerDialogueTree(ColliderType NPC);
 	void InteractWithTree();
+	void Movement();
+	bool VerticalMovement();
+	bool HorizontalMovement();
+	void InteractWithEntities();
+	void StopVelocity();
 
 public:
 	// This bool checks if the player is interacting with something (In the furute will be change for a state machine)
@@ -59,6 +64,8 @@ public:
 	int playerPrevState;
 
 	ColliderType lastCollision;
+	int speed;
+	b2Vec2 vel;
 
 private:
 
@@ -69,10 +76,13 @@ private:
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 
-	SDL_Texture* walkDownTexture;
-
 	Animation* currentAnimation;
 	Animation walkDownAnim;
+	Animation walkUpAnim;
+	Animation walkRightAnim;
+	Animation walkLeftAnim;
+	Animation idleAnim;
+
 
 	
 };

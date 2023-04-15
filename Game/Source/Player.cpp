@@ -22,25 +22,44 @@ Player::~Player() {
 
 bool Player::Awake() {
 
-	//L02: DONE 1: Initialize Player parameters
-	//pos = position;
-	//texturePath = "Assets/Textures/player/idle1.png";
+	idleAnim.PushBack({ 0, 0, 140, 140 });
+	idleAnim.loop = true;
 
-	walkDownAnim.PushBack({ 0, 0, 140, 140 });
-	//walkDownAnim.PushBack({ 600, 0, 562, 754 });
-	//walkDownAnim.PushBack({ 1150, 0, 562, 754 });
-	//walkDownAnim.PushBack({ 1685, 0, 562, 754 });
-	//walkDownAnim.PushBack({ 2217, 0, 562, 754 });
-	//walkDownAnim.PushBack({ 2780, 0, 562, 754 });
-	//walkDownAnim.PushBack({ 3300, 0, 562, 754 });
-	//walkDownAnim.PushBack({ 3838, 0, 562, 754 });
+	for (int i = 0; i < 10; i++) //penutlima:cabezon
+	{
+		walkDownAnim.PushBack({ (i*150), 150, 150, 150 });
+	}
 	walkDownAnim.loop = true;
-	walkDownAnim.speed = 0.15f;
+	walkDownAnim.speed = 0.20f;
 
-	//L02: DONE 5: Get Player parameters from XML
+	for (int i = 0; i < 10; i++)
+	{
+		walkUpAnim.PushBack({ (i * 150), 600, 150, 150 });
+	}
+	walkUpAnim.loop = true;
+	walkUpAnim.speed = 0.20f;
+
+	for (int i = 0; i < 10; i++)
+	{
+		walkRightAnim.PushBack({ (i * 150), 450, 150, 150 });
+	}
+	walkRightAnim.loop = true;
+	walkRightAnim.speed = 0.20f;
+
+	for (int i = 0; i < 10; i++)
+	{
+		walkLeftAnim.PushBack({ (i * 150), 300, 150, 150 });
+	}
+	walkLeftAnim.loop = true;
+	walkLeftAnim.speed = 0.20f;
+
+	
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
+	
+	speed = 10;
+	vel = b2Vec2(0, 0);
 
 	return true;
 }
@@ -48,8 +67,7 @@ bool Player::Awake() {
 bool Player::Start() {
 
 	texture = app->tex->Load(texturePath);
-	walkDownTexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
-	currentAnimation = &walkDownAnim;
+	currentAnimation = &idleAnim;
 
 	pbody = app->physics->CreateRectangle(2000,0,70,70, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
@@ -66,19 +84,14 @@ bool Player::Start() {
 
 	lastCollision = ColliderType::UNKNOWN;
 
+	
+
 	return true;
 }
 
 bool Player::Update()
 {
-
-	/*std::cout << position.x << std::endl;
-	std::cout << position.y << std::endl;*/
-
 	currentAnimation->Update();
-
-	int speed = 10; 
-	b2Vec2 vel = b2Vec2(0, 0); 
 
 	switch (playerState)
 	{
@@ -119,67 +132,18 @@ bool Player::Update()
 		break;
 	}
 
-	// movement code
-	if (movementRestringed == false)
+	//Movement
+	if (!movementRestringed)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			vel.y = -speed;
-
-		}
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			vel.y = speed;
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			vel.x = -speed;
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			vel.x = speed;
-		}
+		Movement();
 	}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 	{
-		if (playerState != PlayerState::PAUSE)
-		{
-			if (npcInteractAvailable)
-			{
-				if (playerState == NPC_INTERACT)
-				{
-					playerState = MOVING;
-					npcInteractAvailable = false;
-				}
-				// Moving
-				else
-				{
-					playerPrevState = playerState;
-					playerState = NPC_INTERACT;
-				}
-			}
-
-			else if (itemInteractAvailable)
-			{
-				if (playerState == ITEM_INTERACT)
-				{
-					playerState = MOVING;
-					itemInteractAvailable = false;
-				}
-				// Moving
-				else
-				{
-					playerPrevState = playerState;
-					playerState = ITEM_INTERACT;
-				}
-			}
-		}
-		
+		InteractWithEntities();
 	}
 
-	
-
-	pbody->body->SetLinearVelocity(vel);
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
@@ -190,7 +154,65 @@ bool Player::Update()
 	return true;
 }
 
-void Player:: InteractWithTree()
+bool Player::PostUpdate() {
+
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x - 55, position.y-75, &rect);
+
+	return true;
+}
+
+bool Player::CleanUp()
+{
+	app->tex->UnLoad(texture);
+
+	if (pbody != NULL)
+	{
+		pbody->body->GetWorld()->DestroyBody(pbody->body);
+	}
+
+	return true;
+}
+
+void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
+
+	switch (physB->ctype)
+	{
+		case ColliderType::ITEM:
+			LOG("Collision ITEM");
+			itemInteractAvailable = true;
+			break;
+		case ColliderType::PLATFORM:
+			LOG("Collision PLATFORM");
+			break;
+		case ColliderType::UNKNOWN:
+			LOG("Collision UNKNOWN");
+			break;
+		case ColliderType::ANGRYVILLAGER:
+			LOG("Collision 	ANGRYVILLAGER");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::ANGRYVILLAGER;
+			break;
+		case ColliderType::TALISMANVILLAGER:
+			LOG("Collision 	TALISMANVILLAGER");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::TALISMANVILLAGER;
+			break;
+		case ColliderType::GRANDMA:
+			LOG("Collision 	GRANDMA");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::GRANDMA;
+			break;
+		case ColliderType::LRRH:
+			LOG("Collision 	LRRH");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::LRRH;
+			break;
+	}
+	
+}
+
+void Player::InteractWithTree()
 {
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
 	{
@@ -233,57 +255,97 @@ void Player::TriggerDialogueTree(ColliderType NPC)
 	}
 }
 
-bool Player::PostUpdate() {
-
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	// Animation removed to continue working
-	app->render->DrawTexture(walkDownTexture, position.x - 55, position.y-75, &rect);
-	/*app->render->DrawTexture(texture, position.x , position.y);*/
-
-	return true;
-}
-
-bool Player::CleanUp()
+void Player::Movement()
 {
-	return true;
+	vel = b2Vec2(0, 0);
+
+	bool isMovingH, isMovingV;
+
+	isMovingH = HorizontalMovement();
+	isMovingV = VerticalMovement();
+
+	if (!isMovingH && !isMovingV)
+		currentAnimation = &idleAnim;
+
+	pbody->body->SetLinearVelocity(vel);
 }
 
-void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
-
-	switch (physB->ctype)
-	{
-		case ColliderType::ITEM:
-			LOG("Collision ITEM");
-			itemInteractAvailable = true;
-			break;
-		case ColliderType::PLATFORM:
-			LOG("Collision PLATFORM");
-			break;
-		case ColliderType::UNKNOWN:
-			LOG("Collision UNKNOWN");
-			break;
-		case ColliderType::ANGRYVILLAGER:
-			LOG("Collision 	ANGRYVILLAGER");
-			npcInteractAvailable = true;
-			lastCollision = ColliderType::ANGRYVILLAGER;
-			break;
-		case ColliderType::TALISMANVILLAGER:
-			LOG("Collision 	TALISMANVILLAGER");
-			npcInteractAvailable = true;
-			lastCollision = ColliderType::TALISMANVILLAGER;
-			break;
-		case ColliderType::GRANDMA:
-			LOG("Collision 	GRANDMA");
-			npcInteractAvailable = true;
-			lastCollision = ColliderType::GRANDMA;
-			break;
-		case ColliderType::LRRH:
-			LOG("Collision 	LRRH");
-			npcInteractAvailable = true;
-			lastCollision = ColliderType::LRRH;
-			break;
+bool Player::VerticalMovement()
+{
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		vel.y = -speed;
+		currentAnimation = &walkUpAnim;
+		return true;
 	}
-	
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		vel.y = speed;
+		currentAnimation = &walkDownAnim;
+		return true;
+	}
 
+	return false;
+}
 
+bool Player::HorizontalMovement()
+{
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		vel.x = -speed;
+		currentAnimation = &walkLeftAnim;
+		return true;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		vel.x = speed;
+		currentAnimation = &walkRightAnim;
+		return true;
+	}
+
+	return false;
+
+}
+
+void Player::InteractWithEntities()
+{
+	if (playerState != PlayerState::PAUSE)
+	{
+		if (npcInteractAvailable)
+		{
+			if (playerState == NPC_INTERACT)
+			{
+				playerState = MOVING;
+				npcInteractAvailable = false;
+			}
+			// Moving
+			else
+			{
+				playerPrevState = playerState;
+				playerState = NPC_INTERACT;
+				StopVelocity();
+			}
+		}
+
+		else if (itemInteractAvailable)
+		{
+			if (playerState == ITEM_INTERACT)
+			{
+				playerState = MOVING;
+				itemInteractAvailable = false;
+			}
+			// Moving
+			else
+			{
+				playerPrevState = playerState;
+				playerState = ITEM_INTERACT;
+				StopVelocity();
+			}
+		}
+	}
+}
+
+void Player::StopVelocity()
+{
+	vel = b2Vec2(0, 0);
+	pbody->body->SetLinearVelocity(vel);
+	currentAnimation = &idleAnim;
 }
