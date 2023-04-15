@@ -220,7 +220,17 @@ bool Map::CleanUp()
         imageLayerItem = imageLayerItem->next;
     }
 
-   
+    // Remove colliders
+    ListItem<PhysBody*>* colliderItem;
+    colliderItem = mapData.collisions.start;
+
+    while (colliderItem != NULL)
+    {
+        //app->physics->world->DestroyBody(colliderItem->data->body);
+        RELEASE(colliderItem->data);
+        mapData.collisions.Del(colliderItem);
+        colliderItem = colliderItem->next;
+    }
 
     return true;
 }
@@ -498,11 +508,26 @@ bool Map::LoadColliders(pugi::xml_node& node) {
 
 void Map::CreateColliders(ColData col) {
 
-    PhysBody* collider;
+    PhysBody* collider = new PhysBody;
 
-    collider = app->physics->CreateRectangle(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
+    switch (col.type)
+    {
+    case (int)ColliderType::PLATFORM:
+        collider = app->physics->CreateRectangle(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
+        break;
+    case (int)ColliderType::DOOR:
+        collider = app->physics->CreateRectangleSensor(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
+        break;
+    default:
+        collider = app->physics->CreateRectangle(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
+        break;
+    }
+    
     collider->ctype = (ColliderType)col.type;
 
+    mapData.collisions.Add(collider);
+
+    return;
 }
 
 Properties::Property* Properties::GetProperty(const char* name)

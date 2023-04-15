@@ -22,7 +22,7 @@
 	</audio>
 
 	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
-		<player x="2000" y="0" texturepath="Assets/Textures/.png"/>
+		<player x="2000" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
 		<!--<item x="0" y="0" texturepath="Assets/Textures/.png"/> -->
     <npc npcTexturePath ="Assets/Characters/npc.png"/>
 
@@ -36,5 +36,5 @@
 	</sceneBattle>
 	<timmy level="1" health= "20" maxHealth = "20" defense  =  "5" magic  =  "1" stamina  =  "15" maxStamina  =  "15" speed  =  "5" attack  =  "6" AttArea  =  "1" Ab1Type  =  "1" Ab1Area  =  "4" Ab1RangeType  =  "1" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "3"/>
 	<bunny level="1" health= "15" maxHealth = "15" defense  =  "5" magic  =  "5" stamina  =  "15" maxStamina  =  "15" speed  =  "4" attack  =  "6" AttArea  =  "1" Ab1Type  =  "1" Ab1Area  =  "4" Ab1RangeType  =  "1" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "4"/>
-
+    <Enemy_AngryVillager level="1" health= "15" maxHealth = "15" defense  =  "5" magic  =  "5" stamina  =  "15" maxStamina  =  "15" speed  =  "4" attack  =  "3" AttArea  =  "1" Ab1Type  =  "3" Ab1Area  =  "1" Ab1RangeType  =  "3" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "2"/>
 </config>

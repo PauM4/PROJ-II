@@ -112,6 +112,7 @@ struct MapData
 	int tileHeight;
 	MAP_TYPE mapType;
 	List<TileSet*> tilesets;
+	List<PhysBody*> collisions;
 
 	//List of layers of the map
 	List<TileLayer*> tileLayers;

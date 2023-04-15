@@ -7,6 +7,7 @@
 #include "Npc.h"
 #include "Bunny.h"
 #include "Defs.h"
+#include "Enemy_AngryVillager.h"
 #include "Log.h"
 
 EntityManager::EntityManager(bool isActive) : Module(isActive)
@@ -103,6 +104,10 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 	case EntityType::ITEM:
 		entity = new Item();
+		break;
+
+	case EntityType::ANGRYVILLAGER:
+		entity = new Enemy_AngryVillager();
 		break;
 	default: break;
 	}

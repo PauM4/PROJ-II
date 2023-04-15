@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Timmy.h"
 #include "Bunny.h"
+#include "Enemy_AngryVillager.h"
 #include "Entity.h"
 #include "GuiButton.h"
 #include "List.h"
@@ -131,6 +132,7 @@ private:;
 	
 	Timmy* timmy;
 	Bunny* bunny;
+	Enemy_AngryVillager* villager;
 	PhysBody* pbody;
 };
 
