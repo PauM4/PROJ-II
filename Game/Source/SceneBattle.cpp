@@ -248,6 +248,7 @@ bool SceneBattle::PostUpdate()
 	LOG("length= %d", length);
 	LOG(" posTileX: %d", posTile.x);
 	LOG(" posTiley: %d", posTile.y);
+
 	if (length > 1) {
 		
 		lastpath = app->pathfinding->GetLastPath();
@@ -300,10 +301,13 @@ bool SceneBattle::PostUpdate()
 		for (i = 0; i < timmy->movement; i++ ) {
 			for ( j = 0 ; j < timmy->movement-i; j++) {
 				  nexTile = iPoint(posTile.x + j, posTile.y + i);
-				  combatMap[nexTile.x-4][nexTile.y].inRange = true;
+				  combatMap[nexTile.x - 4][nexTile.y].inRange = true;
+				 /* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+
 			
 				 nexTile = iPoint(posTile.x - j, posTile.y + i);
-				 combatMap[nexTile.x-4][nexTile.y].inRange = true;
+				 combatMap[nexTile.x - 4][nexTile.y].inRange = true;
+				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 			
 			}
 	
@@ -311,14 +315,18 @@ bool SceneBattle::PostUpdate()
 		for (i = 0; i < timmy->movement; i++) {
 			for (j = 0; j < timmy->movement - i; j++) {
 				nexTile = iPoint(posTile.x - j, posTile.y - i);
-				combatMap[nexTile.x-4][nexTile.y].inRange = true;
+				combatMap[nexTile.x - 4][nexTile.y].inRange = true;
+				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 	
 				nexTile = iPoint(posTile.x + j, posTile.y - i);
-				combatMap[nexTile.x-4][nexTile.y].inRange = true;
+				combatMap[nexTile.x-4 ][nexTile.y].inRange = true;
+				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 		
 			}
 
 		}
+
+		/*DisplayArea(arealist, 0);*/
 		
 
 	}
@@ -334,6 +342,8 @@ bool SceneBattle::PostUpdate()
 				combatMap[i][j].type = (TILE_TYPE)app->map->metadataLayer[i][j];
 			}
 		}
+
+		/*DestroyListArea(arealist);*/
 	}
 
 	for (int i = 0; i < 16; i++) {
@@ -504,7 +514,8 @@ bool SceneBattle::DisplayArea(List<TileData*> area, int type) {
 	}
 
 	while (tileListItem != NULL) {
-		app->render->DrawRectangle({ tileListItem->data->x,tileListItem->data->y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, color[0], color[1], color[2], 100);
+		iPoint pos = app->map->MapToWorld(tileListItem->data->x, tileListItem->data->y);
+		app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, color[0], color[1], color[2], 100);
 
 		tileListItem = tileListItem->next;
 	}
@@ -547,7 +558,16 @@ bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
 	}
 	return ret;
 }
-
+void SceneBattle::DestroyListArea(List<TileData*> arealist)
+{
+	ListItem<TileData*>* item;
+	int i = 0;
+	for (item = arealist.start; item != NULL; item = item->next)
+	{
+		if (item->data ==arealist.At(i)->data) arealist.Del(item);
+		i++;
+	}
+}
 //Called before quitting
 bool SceneBattle::CleanUp()
 {

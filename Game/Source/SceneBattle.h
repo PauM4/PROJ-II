@@ -54,6 +54,8 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	bool Move(TileData* tile);
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -75,6 +77,9 @@ public:
 	bool GetTurns();
 
 	bool GetNext();
+	void DestroyListArea(List<TileData*> arealist);
+
+
 
 
 public:
@@ -93,6 +98,7 @@ private:;
 	List<Entity*> turnqueue;
 	List<Entity*> allentities;
 	List<Entity*> targets;
+	List<TileData*> arealist;
 
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
