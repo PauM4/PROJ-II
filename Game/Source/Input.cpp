@@ -158,3 +158,37 @@ void Input::GetMouseMotion(int& x, int& y)
 	x = mouseMotionX;
 	y = mouseMotionY;
 }
+
+int Input::GetWorldMouseXRelativeToPlayer(int playerPosX) const
+{
+	int mousePosX = GetScreenMouseX();
+	int halfWindowWidth = 1920 / 2;
+
+	if (mousePosX < halfWindowWidth)
+	{
+		mousePosX = playerPosX - (halfWindowWidth - mousePosX);
+	}
+	else
+	{
+		mousePosX = playerPosX + (mousePosX - halfWindowWidth);
+	}
+
+	return mousePosX;
+}
+
+int Input::GetWorldMouseYRelativeToPlayer(int playerPosY) const
+{
+	int mousePosY = GetScreenMouseY();
+	int halfWindowHeigth = 1080 / 2;
+
+	if (mousePosY < halfWindowHeigth)
+	{
+		mousePosY = playerPosY - (halfWindowHeigth - mousePosY);
+	}
+	else
+	{
+		mousePosY = playerPosY + (mousePosY - halfWindowHeigth);
+	}
+
+	return mousePosY;
+}

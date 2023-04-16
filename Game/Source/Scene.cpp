@@ -505,7 +505,7 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= ceil(speed);
 
-
+	
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
@@ -528,8 +528,13 @@ bool Scene::Update(float dt)
 
 	if(player->playerState == player->PAUSE) app->guiManager->Draw();
 
-	
-	// Draw map
+	std::cout << "Screen X: " << app->input->GetScreenMouseX() << std::endl;
+	std::cout << "Screen Y: " << app->input->GetScreenMouseY() << std::endl;
+
+	std::cout << "World X: " << app->input->GetWorldMouseXRelativeToPlayer(player->position.x) << std::endl;
+	std::cout << "World Y: " << app->input->GetWorldMouseYRelativeToPlayer(player->position.y) << std::endl;
+
+		// Draw map
 	app->map->Draw();
 	//Font test
 	

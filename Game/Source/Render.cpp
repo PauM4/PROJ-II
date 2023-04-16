@@ -283,3 +283,17 @@ bool Render::SaveState(pugi::xml_node& data)
 
 	return true;
 }
+
+void Render::FollowObject(int posX, int posY, int offsetX, int offsetY)
+{
+	camera.x = posX + offsetX;
+	camera.y = posY + offsetY;
+}
+
+void Render::FollowObjectRespectBoundaries(int posX, int posY, int offsetX, int offsetY)
+{
+
+	camera.x = posX + offsetX;
+
+	camera.y = posY + offsetY;
+}

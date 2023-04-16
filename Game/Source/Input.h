@@ -3,6 +3,7 @@
 
 #include "Module.h"
 
+
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 //#define LAST_KEYS_PRESSED_BUFFER 50
@@ -64,6 +65,20 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+
+	int GetScreenMouseX() const
+	{
+		return mouseX;
+	}
+
+	int GetScreenMouseY() const
+	{
+		return mouseY;
+	}
+
+	int GetWorldMouseXRelativeToPlayer(int playerPosX) const;
+
+	int GetWorldMouseYRelativeToPlayer(int playerPosY) const;
 
 private:
 	bool windowEvents[WE_COUNT];

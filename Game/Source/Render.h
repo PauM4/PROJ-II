@@ -49,6 +49,9 @@ public:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
 
+	void FollowObject(int posX, int posY, int offsetX, int offsetY);
+	void FollowObjectRespectBoundaries(int posX, int posY, int offsetX, int offsetY);
+
 public:
 
 	SDL_Renderer* renderer;

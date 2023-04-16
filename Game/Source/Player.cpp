@@ -93,8 +93,8 @@ bool Player::Update()
 {
 	currentAnimation->Update();
 
-	std::cout << position.x << std::endl;
-	std::cout << position.y << std::endl;
+	std::cout << "Player pos X: " << position.x << std::endl;
+	std::cout << "Player pos Y: " << position.y << std::endl;
 
 	switch (playerState)
 	{
@@ -151,6 +151,7 @@ bool Player::Update()
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+
 
 	
 
