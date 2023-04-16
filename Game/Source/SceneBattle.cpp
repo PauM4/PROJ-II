@@ -162,6 +162,7 @@ bool SceneBattle::PostUpdate()
 
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
+	villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
 	/*timmy->position = app->map->MapToWorld(timmy->tilePos.x, timmy->tilePos.y);*/
 	
@@ -180,7 +181,7 @@ bool SceneBattle::PostUpdate()
 
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		
+		atack = false;
 			if (originSelected == true)
 			{
 				if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x ][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
@@ -229,7 +230,17 @@ bool SceneBattle::PostUpdate()
 	}
 
 	
-	
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+		atack = true;
+		
+
+	}
+
+	if (atack ==true) {
+
+		List<TileData*>area = CreateArea(characterTurn, 3, 3);
+		/*DisplayArea(area, 1);*/
+	}
 
 
 	if (pathIndex != length) {
@@ -363,7 +374,10 @@ bool SceneBattle::PostUpdate()
 
 	}
 
-	
+	combatMap[villager->tilePos.x][villager->tilePos.y].enemy = true;
+	combatMap[villager->tilePos.x][villager->tilePos.y].characterType = villager;
+
+	app->render->DrawRectangle({ int(villager->position.x) + 35, int(villager->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
@@ -462,6 +476,7 @@ bool SceneBattle::MakeCombatMap() {
 			combatMap[i][j].x = i;
 			combatMap[i][j].y = j;
 			combatMap[i][j].character = false;
+			combatMap[i][j].enemy = false;
 			combatMap[i][j].characterType = nullptr;
 			combatMap[i][j].inRange = false;
 			combatMap[i][j].type = (TILE_TYPE)app->map->metadataLayer[i][j];
@@ -571,7 +586,7 @@ bool SceneBattle::DisplayArea(List<TileData*> area, int type) {
 
 	bool ret = true;
 
-	ListItem<TileData*>* tileListItem;
+	ListItem<TileData*>*tileListItem;
 	tileListItem = area.start;
 
 	uint color[3];

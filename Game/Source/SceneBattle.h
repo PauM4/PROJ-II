@@ -27,6 +27,7 @@ struct TileData
 	int y;
 	bool character;
 	bool inRange;
+	bool enemy;
 	Entity* characterType;
 	TILE_TYPE type;
 };
@@ -128,7 +129,7 @@ private:;
 	int pathIndex;
 	iPoint destination;
 	bool move;
-
+	bool atack;
 	bool turnstart;
 	
 	Timmy* timmy;
