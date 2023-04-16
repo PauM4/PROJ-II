@@ -15,9 +15,9 @@ struct SDL_Texture;
 
 enum class TILE_TYPE {
 	UNKNOWN = -1,
-	BARRIER,
-	FLOOR,
-	HALF_BARRIER,
+	BARRIER =4,
+	FLOOR=2,
+	HALF_BARRIER=3,
 	MUD
 };
 
@@ -72,10 +72,12 @@ public:
 	bool MakeCombatMap();
 
 	// Creates area of an attack or ability, type is 0 if atack, 1 if lineal, 2 if "circular", 3 if global
-	List<TileData*> CreateArea(Entity* character, int range, int type);
+	bool CreateArea(Entity* character, int range, int type);
+
+	
 
 	// Draws an area of attack/ability/movement from an ally
-	bool DisplayArea(List<TileData*> area, int type);
+	bool DisplayArea( int type);
 
 	// Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
 	bool Combat(Entity* inturn, List<Entity*> target, int id);
@@ -84,7 +86,7 @@ public:
 
 	bool GetNext();
 	
-	void DestroyListArea(List<TileData*> arealist);
+	void DestroyListArea();
 
 
 
@@ -122,6 +124,7 @@ private:;
 	DynArray<iPoint> path;
 	iPoint pos;
 	
+	List<TileData*> area;
 
 	int  length;
 

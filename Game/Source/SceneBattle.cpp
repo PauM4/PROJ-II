@@ -70,7 +70,7 @@ bool SceneBattle::Start()
 	//Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
 	move = false;
-
+	originSelected = false;
 	pathIndex = 1;
 	turnstart = false;
 	pathIndex = 0;
@@ -113,6 +113,10 @@ bool SceneBattle::Start()
 	allentities.Add(bunny);
 	allentities.Add(villager);
 	GetTurns();
+
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+
 	return true;
 }
 
@@ -144,8 +148,7 @@ bool SceneBattle::Update(float dt)
 	}
 	
 
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+	
 	app->map->Draw();
 
 	return true;
@@ -182,7 +185,8 @@ bool SceneBattle::PostUpdate()
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		atack = false;
-			if (originSelected == true)
+		
+			if (originSelected == true && length==1)
 			{
 				if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x ][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
 					length=app->pathfinding->CreatePath(origin, mouseTile);
@@ -195,7 +199,7 @@ bool SceneBattle::PostUpdate()
 					app->pathfinding->ClearLastPath();
 				}
 			}
-			else if(combatMap[mouseTile.x ][ mouseTile.y ].character != false)
+			else if(combatMap[mouseTile.x ][ mouseTile.y ].character != false &&length == 1)
 			{
 					origin = mouseTile;
 					if (app->pathfinding->IsWalkable(origin)) {
@@ -231,16 +235,31 @@ bool SceneBattle::PostUpdate()
 
 	
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-		atack = true;
-		
 
+		DestroyListArea();
+		CreateArea(characterTurn, 3, 3);
+
+		atack = true;
 	}
 
 	if (atack ==true) {
-
-		List<TileData*>area = CreateArea(characterTurn, 3, 3);
-		/*DisplayArea(area, 1);*/
+		
+		
+		DisplayArea(1);
 	}
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+		DestroyListArea();
+		CreateArea(characterTurn, 3, 2);
+
+		atack = true;
+	}
+
+	if (atack == true) {
+
+
+		DisplayArea(1);
+	}
+
 
 
 	if (pathIndex != length) {
@@ -362,7 +381,7 @@ bool SceneBattle::PostUpdate()
 
 	for (int i = 0; i < 16; i++) {
 		for (int j = 0; j < 9; j++) {
-			if (combatMap[i][j].inRange==true && combatMap[i][j].character == false) {
+			if (combatMap[i][j].inRange==true && combatMap[i][j].character == false && atack==false) {
 				iPoint pos = iPoint(i, j);
 				if (app->pathfinding->IsWalkable(pos)) {
 					pos = app->map->MapToWorld(pos.x, pos.y);
@@ -525,40 +544,64 @@ bool SceneBattle::GetNext() {
 	return true;
 
 }
-List<TileData*> SceneBattle::CreateArea(Entity*character, int range, int type) {
+bool SceneBattle::CreateArea(Entity*character, int range, int type) {
 
-	List<TileData*> area;
+	
 	iPoint posTile = character->tilePos;
 	
 	switch (type) {
 
 	case 0:
 		//attack
-		
-		area.Add(&combatMap[posTile.x+1][posTile.y]);
-		area.Add(&combatMap[posTile.x-1][posTile.y]);
-		area.Add(&combatMap[posTile.x][posTile.y+1]);
-		area.Add(&combatMap[posTile.x][posTile.y-1]);
+		if (combatMap[posTile.x + 1][posTile.y].type == TILE_TYPE::FLOOR) {
+			
+			area.Add(&combatMap[posTile.x + 1][posTile.y]);
+		}
+		if (combatMap[posTile.x - 1][posTile.y].type == TILE_TYPE::FLOOR) {
+			area.Add(&combatMap[posTile.x - 1][posTile.y]);
+		}
+		if (combatMap[posTile.x][posTile.y + 1].type == TILE_TYPE::FLOOR) {
+			area.Add(&combatMap[posTile.x][posTile.y + 1]);
+		}
+		if (combatMap[posTile.x][posTile.y-1].type == TILE_TYPE::FLOOR) {
+			area.Add(&combatMap[posTile.x][posTile.y - 1]);
+		}
 		break;
 	case 1:
 		//lineal
 		for (int i = 1; i <= range; i++) {
-			area.Add(&combatMap[posTile.x + i][posTile.y]);
-			area.Add(&combatMap[posTile.x - i][posTile.y]);
-			area.Add(&combatMap[posTile.x][posTile.y + i]);
-			area.Add(&combatMap[posTile.x][posTile.y - i]);
+			if (combatMap[posTile.x + i][posTile.y].type == TILE_TYPE::FLOOR) {
+				area.Add(&combatMap[posTile.x + i][posTile.y]);
+			}
+			if (combatMap[posTile.x - i][posTile.y].type == TILE_TYPE::FLOOR) {
+				area.Add(&combatMap[posTile.x - i][posTile.y]);
+			}
+			if (combatMap[posTile.x][posTile.y + i].type == TILE_TYPE::FLOOR) {
+				area.Add(&combatMap[posTile.x][posTile.y + i]);
+			}
+			if (combatMap[posTile.x][posTile.y - i].type == TILE_TYPE::FLOOR) {
+				area.Add(&combatMap[posTile.x][posTile.y - i]);
+			}
 		}
 		break;
 	case 2:
 		//circular
 		int i;
 		int j;
-		for (i = 0; i < range; i++) {
-			for (j = 0; j < range - i; j++) {
-				area.Add(&combatMap[posTile.x + i][posTile.y+j]);
-				area.Add(&combatMap[posTile.x -i][posTile.y+j]);
-				area.Add(&combatMap[posTile.x + i][posTile.y + j]);
-				area.Add(&combatMap[posTile.x +i][posTile.y - j]);
+		for (i = 0; i <=range; i++) {
+			for (j = 0; j <= range - i; j++) {
+				if (combatMap[posTile.x+j][posTile.y +i].type == TILE_TYPE::FLOOR) {
+					area.Add(&combatMap[posTile.x + j][posTile.y + i]);
+				}
+				if (combatMap[posTile.x - j][posTile.y + i].type == TILE_TYPE::FLOOR) {
+					area.Add(&combatMap[posTile.x - j][posTile.y + i]);
+				}
+				if (combatMap[posTile.x - j][posTile.y - i].type == TILE_TYPE::FLOOR) {
+					area.Add(&combatMap[posTile.x - j][posTile.y - i]);
+				}
+				if (combatMap[posTile.x + j][posTile.y - i].type == TILE_TYPE::FLOOR) {
+					area.Add(&combatMap[posTile.x + j][posTile.y - i]);
+				}
 			}
 
 		}
@@ -568,21 +611,23 @@ List<TileData*> SceneBattle::CreateArea(Entity*character, int range, int type) {
 		//global
 		for (int i = 0; i < COMBAT_MAP_HEIGHT; i++) {
 			for (int j = 0; j < COMBAT_MAP_WIDTH; j++) {
-				if (combatMap[j][i].type != TILE_TYPE::BARRIER && combatMap[j][i].type != TILE_TYPE::HALF_BARRIER) {
+				iPoint pos= iPoint(i,j);
+				if (combatMap[j][i].type == TILE_TYPE::FLOOR) {
 				
 					area.Add(&combatMap[j][i]);
 
 				}
+				LOG("CombatMap[i][j]: %d", int(combatMap[j][i].type));
 			}
 		}
 		break;
 	}
 
-	return area;
+	return true;
 
 }
 
-bool SceneBattle::DisplayArea(List<TileData*> area, int type) {
+bool SceneBattle::DisplayArea( int type) {
 
 	bool ret = true;
 
@@ -613,8 +658,10 @@ bool SceneBattle::DisplayArea(List<TileData*> area, int type) {
 	}
 
 	while (tileListItem != NULL) {
+
+		
 		iPoint pos = app->map->MapToWorld(tileListItem->data->x, tileListItem->data->y);
-		app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, color[0], color[1], color[2], 100);
+		app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 0, 0, 250, 100);
 
 		tileListItem = tileListItem->next;
 	}
@@ -657,15 +704,17 @@ bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
 	}
 	return ret;
 }
-void SceneBattle::DestroyListArea(List<TileData*> arealist)
+void SceneBattle::DestroyListArea()
 {
-	ListItem<TileData*>* item;
-	int i = 0;
-	for (item = arealist.start; item != NULL; item = item->next)
-	{
-		if (item->data ==arealist.At(i)->data) arealist.Del(item);
-		i++;
-	}
+	//ListItem<TileData*>* item;
+	//int i = 0;
+	//for (item = area.start; item != NULL; item = item->next)
+	//{
+	//	if (item->data ==area.At(i)->data) area.Del(item);
+	//	i++;
+	//}
+
+	area.Clear();
 }
 //Called before quitting
 bool SceneBattle::CleanUp()
