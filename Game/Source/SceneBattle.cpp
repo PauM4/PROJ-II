@@ -285,8 +285,8 @@ bool SceneBattle::PostUpdate()
 				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
-					combatMap[nexTile.x][nexTile.y - 1].inRange == false &&
-					app->pathfinding->IsWalkable(nexTile)) {
+					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
+					app->pathfinding->IsWalkable(nexTile) == false) {
 
 					combatMap[nexTile.x][nexTile.y].inRange = false;
 					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
@@ -295,8 +295,8 @@ bool SceneBattle::PostUpdate()
 				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
-					combatMap[nexTile.x][nexTile.y - 1].inRange == false &&
-					app->pathfinding->IsWalkable(nexTile)) {
+					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
+					app->pathfinding->IsWalkable(nexTile) == false) {
 
 					combatMap[nexTile.x][nexTile.y].inRange = false;
 					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
@@ -306,8 +306,8 @@ bool SceneBattle::PostUpdate()
 				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
-					combatMap[nexTile.x][nexTile.y - 1].inRange == false && 
-					app->pathfinding->IsWalkable(nexTile) ) {
+					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
+					app->pathfinding->IsWalkable(nexTile) == false) {
 
 					combatMap[nexTile.x][nexTile.y].inRange = false;
 					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
@@ -317,8 +317,8 @@ bool SceneBattle::PostUpdate()
 				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
-					combatMap[nexTile.x][nexTile.y - 1].inRange == false &&
-					app->pathfinding->IsWalkable(nexTile)) {
+					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
+					app->pathfinding->IsWalkable(nexTile)==false) {
 
 					combatMap[nexTile.x][nexTile.y].inRange = false;
 					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
