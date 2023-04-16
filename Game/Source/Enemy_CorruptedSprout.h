@@ -4,6 +4,7 @@
 #include "UriBehaviorTree.h"
 
 class Enemy_CorruptedSprout : public Entity {
+public:
 	Enemy_CorruptedSprout(iPoint pos);
 
 	bool Awake() override;

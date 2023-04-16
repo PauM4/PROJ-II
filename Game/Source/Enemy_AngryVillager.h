@@ -37,6 +37,7 @@ public:
 	int Ability(int id) override;
 
 	void Movement() override;
+
 private:
 	SDL_Texture* texture;
 

@@ -4,6 +4,7 @@
 #include "UriBehaviorTree.h"
 
 class Enemy_LRRH : public Entity {
+public:
 	Enemy_LRRH(iPoint pos);
 
 	bool Awake() override; 
