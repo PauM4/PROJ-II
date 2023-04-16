@@ -55,6 +55,10 @@ public:
 	std::string LastTextGrandmaVillager(std::string);
 	std::string LastTextLittleRedVillager(std::string);
 
+private:
+
+	void Camera();
+	void GodMode();
 public:
 
 	Player* player;
@@ -95,6 +99,8 @@ private:
 	void Prueba();
 
 	int pruebaj = 0;
+
+	bool godMode;
 
 };
 

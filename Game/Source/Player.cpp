@@ -72,8 +72,8 @@ bool Player::Start() {
 	pbody = app->physics->CreateRectangle(position.x,position.y,70,70, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
 	pbody->listener = this;
-
 	pbody->ctype = ColliderType::PLAYER;
+
 
 	// Bool variables
 	npcInteractAvailable = false;
@@ -84,6 +84,7 @@ bool Player::Start() {
 
 	lastCollision = ColliderType::UNKNOWN;
 
+	godMode = false;
 	
 
 	return true;
@@ -147,15 +148,33 @@ bool Player::Update()
 		InteractWithEntities();
 	}
 
+	GodMode();
+
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
 
+
 	
 
 	return true;
+}
+
+void Player::GodMode()
+{
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godMode)
+		{
+			godMode = false;
+		}
+		else
+		{
+			godMode = true;
+		}
+	}
 }
 
 bool Player::PostUpdate() {
@@ -271,11 +290,44 @@ void Player::Movement()
 
 	isMovingH = HorizontalMovement();
 	isMovingV = VerticalMovement();
+	bool isRunning = SprintMovement();
+
 
 	if (!isMovingH && !isMovingV)
 		currentAnimation = &idleAnim;
 
+	if (godMode)
+	{
+		if(!isRunning)
+		vel *= 2;
+	}
+
 	pbody->body->SetLinearVelocity(vel);
+
+}
+
+bool Player::SprintMovement()
+{
+	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+	{
+		vel *= 2;
+
+		walkDownAnim.speed = 0.45f;
+		walkUpAnim.speed = 0.45f;
+		walkRightAnim.speed = 0.45f;
+		walkLeftAnim.speed = 0.45f;
+
+		return true;
+	}
+	else
+	{
+		walkDownAnim.speed = 0.30f;
+		walkUpAnim.speed = 0.30f;
+		walkRightAnim.speed = 0.30f;
+		walkLeftAnim.speed = 0.30f;
+
+		return false;
+	}
 }
 
 bool Player::VerticalMovement()

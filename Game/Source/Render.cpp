@@ -65,6 +65,7 @@ bool Render::Start()
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
+	godMode = false;
 	return true;
 }
 
@@ -79,12 +80,18 @@ bool Render::Update(float dt)
 {
 	//camera.x = -(int)app->scene->player->position.x  + camera.w / 2;
 	//camera.y = -(int)app->scene->player->position.y  + camera.h / 2;
+
+	GodMode();
 	return true;
 }
 
 bool Render::PostUpdate()
 {
-	app->perfBar.Render();
+	if (godMode)
+	{
+		app->perfBar.Render();
+	}
+	
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
@@ -288,12 +295,30 @@ void Render::FollowObject(int posX, int posY, int offsetX, int offsetY)
 {
 	camera.x = posX + offsetX;
 	camera.y = posY + offsetY;
+	
 }
 
 void Render::FollowObjectRespectBoundaries(int posX, int posY, int offsetX, int offsetY)
 {
 
 	camera.x = posX + offsetX;
-
 	camera.y = posY + offsetY;
+	
+	camera.x = clamp(camera.x, -2032, -18); //max y min hardcodeados
+	camera.y = clamp(camera.y, -4274, -16);
+}
+
+void Render::GodMode()
+{
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godMode)
+		{
+			godMode = false;
+		}
+		else
+		{
+			godMode = true;
+		}
+	}
 }

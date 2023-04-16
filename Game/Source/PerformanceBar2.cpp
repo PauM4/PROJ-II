@@ -47,11 +47,11 @@ void PerformanceBar::Render()
 	const int rectHeight = barHeight / numSections;
 
 	// Drawin the rectangle sections
-	int y = 0;
+	int y = -app->render->camera.y;
 	for (int i = 0; i < numSections; i++)
 	{
 		int sectionHeight = (int)(sectionHeights[i] * barHeight);
-		app->render->DrawRectangle({ 0, y, barWidth, sectionHeight }, colors[i].r, colors[i].g, colors[i].b, colors[i].a, true);
+		app->render->DrawRectangle({ -app->render->camera.x, y, barWidth, sectionHeight }, colors[i].r, colors[i].g, colors[i].b, colors[i].a, true);
 		y += sectionHeight;
 	}
 	

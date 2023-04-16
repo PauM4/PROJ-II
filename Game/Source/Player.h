@@ -36,8 +36,10 @@ private:
 	void Movement();
 	bool VerticalMovement();
 	bool HorizontalMovement();
+	bool SprintMovement();
 	void InteractWithEntities();
 	void StopVelocity();
+	void GodMode();
 
 public:
 	// This bool checks if the player is interacting with something (In the furute will be change for a state machine)
@@ -82,6 +84,8 @@ private:
 	Animation walkRightAnim;
 	Animation walkLeftAnim;
 	Animation idleAnim;
+
+	bool godMode;
 
 
 	

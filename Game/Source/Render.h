@@ -52,6 +52,8 @@ public:
 	void FollowObject(int posX, int posY, int offsetX, int offsetY);
 	void FollowObjectRespectBoundaries(int posX, int posY, int offsetX, int offsetY);
 
+private:
+	void GodMode();
 public:
 
 	SDL_Renderer* renderer;
@@ -59,6 +61,8 @@ public:
 	SDL_Rect viewport;
 	SDL_Color background;
 	TTF_Font* font;
+
+	bool godMode;
 };
 
 #endif // __RENDER_H__

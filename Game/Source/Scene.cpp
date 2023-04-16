@@ -358,6 +358,8 @@ bool Scene::Start()
 	//dialogue = angryVillagerTreePT->Run(); //dialogo tipo 2
 	dialogue = talismanVillagerTree->Run();
 
+	godMode = false;
+
 
 	return true;
 }
@@ -368,94 +370,7 @@ bool Scene::PreUpdate()
 	return true;
 }
 
-void Scene::Prueba()
-{
-	for (auto& e : dialogue)
-	{
-		std::cout << e << std::endl;
-	}
-//	pruebaj++;
 
-}
-
-void Scene::RunDialogueTree(ColliderType NPC)
-{
-	switch (NPC)
-	{
-	case ColliderType::ANGRYVILLAGER:
-		dialogue = angryVillagerTreePT->Run();
-		//Prueba();
-		if (dialogue.empty())
-		{
-			dialogue.push_back(LastTextNPC(NPC));
-		}
-			Prueba();
-		break;
-	case ColliderType::TALISMANVILLAGER:
-		dialogue = talismanVillagerTree->Run();
-		//Prueba();
-		if (dialogue.empty())
-		{
-			dialogue.push_back(LastTextNPC(NPC));
-		}
-			Prueba();
-		break;
-
-	case ColliderType::GRANDMA:
-		dialogue = grandmaTree->Run();
-		//Prueba();
-		if (dialogue.empty())
-		{
-			dialogue.push_back(LastTextNPC(NPC));
-		}
-			Prueba();
-		break;
-
-	case ColliderType::LRRH:
-		dialogue = littleRedTree->Run();
-		//Prueba();
-		if (dialogue.empty())
-		{
-			dialogue.push_back(LastTextNPC(NPC));
-		}
-			Prueba();
-		break;
-	default:
-		break;
-	}
-}
-
-
-void Scene::UpdateDialogueTree(int option)
-{
-	if (1 >= option <= 4)
-	{
-		switch (app->scene->player->lastCollision)
-		{
-		case ColliderType::ANGRYVILLAGER: 
-			angryVillagerTreePT->Update(option);
-			break;
-
-		case ColliderType::TALISMANVILLAGER:
-			talismanVillagerTree->Update(option);
-			break;
-
-		case ColliderType::GRANDMA:
-			grandmaTree->Update(option);
-			break;
-
-		case ColliderType::LRRH:
-			littleRedTree->Update(option);
-			break;
-
-		default:
-			break;
-		}
-	}
-
-
-	
-}
 
 // Called each loop iteration
 bool Scene::Update(float dt)
@@ -478,11 +393,9 @@ bool Scene::Update(float dt)
 	//	//dialogue = talismanVillagerTree->Run();
 	//	//Prueba();
 	//}
-	
-	
 
-	app->render->camera.x = -(int)player->position.x + app->render->camera.w / 2;
-	app->render->camera.y = -(int)player->position.y-35 + app->render->camera.h / 2;
+
+	Camera();
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -528,17 +441,49 @@ bool Scene::Update(float dt)
 
 	if(player->playerState == player->PAUSE) app->guiManager->Draw();
 
-	std::cout << "Screen X: " << app->input->GetScreenMouseX() << std::endl;
-	std::cout << "Screen Y: " << app->input->GetScreenMouseY() << std::endl;
+	GodMode();
 
-	std::cout << "World X: " << app->input->GetWorldMouseXRelativeToPlayer(player->position.x) << std::endl;
-	std::cout << "World Y: " << app->input->GetWorldMouseYRelativeToPlayer(player->position.y) << std::endl;
+	//std::cout << "Screen X: " << app->input->GetScreenMouseX() << std::endl;
+	//std::cout << "Screen Y: " << app->input->GetScreenMouseY() << std::endl;
+
+	//std::cout << "World X: " << app->input->GetWorldMouseXRelativeToPlayer(player->position.x) << std::endl;
+	//std::cout << "World Y: " << app->input->GetWorldMouseYRelativeToPlayer(player->position.y) << std::endl;
 
 		// Draw map
 	app->map->Draw();
 	//Font test
 	
 	return true;
+}
+
+void Scene::GodMode()
+{
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godMode)
+		{
+			godMode = false;
+		}
+		else
+		{
+			godMode = true;
+		}
+	}
+}
+
+void Scene::Camera()
+{
+	if (godMode)
+	{
+		app->render->FollowObject(-(int)player->position.x, -(int)player->position.y - 35,
+			app->render->camera.w / 2, app->render->camera.h / 2);
+	}
+	else
+	{
+		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
+			app->render->camera.w / 2, app->render->camera.h / 2);
+	}
+
 }
 
 // Called each loop iteration
@@ -701,3 +646,91 @@ std::string Scene::LastTextLittleRedVillager(std::string lastText)
 	return lastText;
 }
 
+void Scene::Prueba()
+{
+	for (auto& e : dialogue)
+	{
+		std::cout << e << std::endl;
+	}
+	//	pruebaj++;
+
+}
+
+void Scene::RunDialogueTree(ColliderType NPC)
+{
+	switch (NPC)
+	{
+	case ColliderType::ANGRYVILLAGER:
+		dialogue = angryVillagerTreePT->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+		Prueba();
+		break;
+	case ColliderType::TALISMANVILLAGER:
+		dialogue = talismanVillagerTree->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+		Prueba();
+		break;
+
+	case ColliderType::GRANDMA:
+		dialogue = grandmaTree->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+		Prueba();
+		break;
+
+	case ColliderType::LRRH:
+		dialogue = littleRedTree->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+		Prueba();
+		break;
+	default:
+		break;
+	}
+}
+
+
+void Scene::UpdateDialogueTree(int option)
+{
+	if (1 >= option <= 4)
+	{
+		switch (app->scene->player->lastCollision)
+		{
+		case ColliderType::ANGRYVILLAGER:
+			angryVillagerTreePT->Update(option);
+			break;
+
+		case ColliderType::TALISMANVILLAGER:
+			talismanVillagerTree->Update(option);
+			break;
+
+		case ColliderType::GRANDMA:
+			grandmaTree->Update(option);
+			break;
+
+		case ColliderType::LRRH:
+			littleRedTree->Update(option);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+
+
+}

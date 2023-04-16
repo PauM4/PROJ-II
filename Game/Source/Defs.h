@@ -67,6 +67,9 @@ inline const char* const PATH(const char* folder, const char* file)
 #define PERF_START(timer) timer.Start()
 #define PERF_PEEK(timer) LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())
 
-
+template <typename T>
+const T& clamp(const T& value, const T& low, const T& high) {
+	return std::min(std::max(value, low), high);
+}
 
 #endif	// __DEFS_H__
