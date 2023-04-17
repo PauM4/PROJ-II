@@ -56,7 +56,7 @@ bool Timmy::Start()
 	return true;
 }
 
-bool Timmy::Update()
+bool Timmy::Update(float dt)
 {
 	b2Vec2 vel = b2Vec2(0, 0);
 

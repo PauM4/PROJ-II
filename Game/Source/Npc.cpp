@@ -65,7 +65,7 @@ bool Npc::Start() {
 	return true;
 }
 
-bool Npc::Update()
+bool Npc::Update(float dt)
 {
 
 	return true;

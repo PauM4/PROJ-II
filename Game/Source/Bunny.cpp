@@ -57,7 +57,7 @@ bool Bunny::Start()
 	return true;
 }
 
-bool Bunny::Update()
+bool Bunny::Update(float dt) 
 {
 
 	switch (battleState) {

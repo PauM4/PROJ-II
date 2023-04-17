@@ -65,7 +65,7 @@ bool Enemy_LRRH::Start()
 	return true;
 }
 
-bool Enemy_LRRH::Update()
+bool Enemy_LRRH::Update(float dt)
 {
 	return true;
 }

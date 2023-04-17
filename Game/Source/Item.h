@@ -18,7 +18,7 @@ public:
 
 	bool Start();
 
-	bool Update();
+	bool Update(float dt);
 
 	bool PostUpdate();
 

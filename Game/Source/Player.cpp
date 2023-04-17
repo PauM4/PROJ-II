@@ -90,7 +90,7 @@ bool Player::Start() {
 	return true;
 }
 
-bool Player::Update()
+bool Player::Update(float dt)
 {
 	currentAnimation->Update();
 

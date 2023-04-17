@@ -55,7 +55,7 @@ bool Enemy_CorruptedSprout::Start()
 	return true;
 }
 
-bool Enemy_CorruptedSprout::Update()
+bool Enemy_CorruptedSprout::Update(float dt)
 {
 	return true;
 }

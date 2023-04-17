@@ -71,7 +71,7 @@ bool Enemy_AngryVillager::Start()
 	return true;
 }
 
-bool Enemy_AngryVillager::Update()
+bool Enemy_AngryVillager::Update(float dt)
 {
 	return true;
 }

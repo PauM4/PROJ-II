@@ -34,7 +34,7 @@ bool Item::Start() {
 	return true;
 }
 
-bool Item::Update()
+bool Item::Update(float dt)
 { 
 	return true;
 }
