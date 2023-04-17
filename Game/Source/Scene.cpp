@@ -181,6 +181,9 @@ bool Scene::Update(float dt)
 		}
 	}
 
+	// Draw map
+	app->map->Draw();
+
 	return true;
 }
 
@@ -192,9 +195,6 @@ bool Scene::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-
-		// Draw map
-	app->map->Draw();
 
 	// Draw GUI
 	app->guiManager->Draw();

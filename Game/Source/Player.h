@@ -37,6 +37,9 @@ public:
 	// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	// Magic function that allows the player to teleport :D
+	void Player::ChangePosition(int x, int y);
+
 private:
 	void TriggerDialogueTree(ColliderType NPC);
 	void InteractWithTree();
@@ -47,8 +50,7 @@ private:
 	void InteractWithEntities();
 	void StopVelocity();
 	void GodMode();
-	// Magic function that allows the player to teleport :D
-	void Player::ChangePosition(int x, int y);
+
 
 public:
 	// This bool checks if the player is interacting with something (In the furute will be change for a state machine)

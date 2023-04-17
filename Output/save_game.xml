@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1984" y="35" />
+		<player x="1815" y="2256" />
 	</scene>
 	<sceneBattle />
 	<entitymanager />
@@ -20,49 +20,6 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-1024" y="495" />
+		<camera x="-855" y="-1761" />
 	</renderer>
-	<timmy>
-		<level value = "1"/>
-		<health value =  "20"/>
-		<maxHealth value =  "20"/>
-		<defense value =  "5"/>
-		<magic value =  "1"/>
-		<stamina value =  "15"/>
-		<maxStamina value =  "15"/>
-		<speed value =  "5"/>
-		<attack value =  "6"/>
-		<AttArea value =  "1"/>
-		<Ab1Type value =  "1"/>
-		<Ab1Area value =  "4"/>
-		<Ab1RangeType value =  "1"/>
-		<Ab1Power value =  "2"/>
-		<Ab2Type value =  "2"/>
-		<Ab2Area value = "3"/>
-		<Ab2RangeType value = "1"/>
-		<Ab2Power value = "3"/>
-		<healingpower value = "0"/>
-	</timmy>
-	<bunny>
-		<level value = "1"/>
-		<health value =  "20"/>
-		<maxHealth value =  "20"/>
-		<defense value =  "5"/>
-		<magic value =  "1"/>
-		<stamina value =  "15"/>
-		<maxStamina value =  "15"/>
-		<speed value =  "5"/>
-		<attack value =  "6"/>
-		<AttArea value =  "1"/>
-		<Ab1Type value =  "1"/>
-		<Ab1Area value =  "4"/>
-		<Ab1RangeType value =  "1"/>
-		<Ab1Power value =  "2"/>
-		<Ab2Type value =  "2"/>
-		<Ab2Area value = "3"/>
-		<Ab2RangeType value = "1"/>
-		<Ab2Power value = "3"/>
-		<healingpower value = "0"/>
-	</bunny>
-	
 </save_state>
