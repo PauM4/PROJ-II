@@ -14,9 +14,8 @@ GuiManager::~GuiManager() {}
 
 bool GuiManager::Start()
 {
-
 	hoverFxId = app->audio->LoadFx("Assets/Sounds/FX/ui_hover_button.wav");
-	pressedFxId = app->audio->LoadFx("Aseets/Sounds/FX/ui_pressed_button.wav");
+	pressedFxId = app->audio->LoadFx("Assets/Sounds/FX/ui_pressed_button.wav");
 
 	return true;
 }

@@ -40,8 +40,8 @@ public:
 	SDL_Texture* texture;
 
 	// SFX for buttons
-	int hoverFxId;
-	int pressedFxId;
+	int hoverFxId = -1;
+	int pressedFxId = -1;
 
 };
 

@@ -90,7 +90,6 @@ bool Scene::Start()
 
 	godMode = false;
 
-
 	return true;
 }
 
@@ -153,7 +152,7 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
 		app->uiModule->currentMenuType = DIALOG;
-		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);		
 	}
 
 	// Menu appear
