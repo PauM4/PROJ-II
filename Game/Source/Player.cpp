@@ -162,21 +162,6 @@ bool Player::Update()
 	return true;
 }
 
-void Player::GodMode()
-{
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-	{
-		if (godMode)
-		{
-			godMode = false;
-		}
-		else
-		{
-			godMode = true;
-		}
-	}
-}
-
 bool Player::PostUpdate() {
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
@@ -239,6 +224,23 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	
 }
 
+//This function toggles the player's god mode when the F10 key is pressed
+void Player::GodMode()
+{
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godMode)
+		{
+			godMode = false;
+		}
+		else
+		{
+			godMode = true;
+		}
+	}
+}
+
+//This function checks for input from the player's keyboard and updates the dialogue tree in the game's scene accordingly. The function checks if any button is being pressed, and if so, it calls the UpdateDialogueTree() function in the scene and passes it an integer value from 1 to 4, depending on which button was pressed.
 void Player::InteractWithTree()
 {
 	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
@@ -261,6 +263,7 @@ void Player::InteractWithTree()
 
 }
 
+//This function takes a ColliderType parameter and runs the corresponding dialogue tree in the game's scene
 void Player::TriggerDialogueTree(ColliderType NPC)
 {
 	switch (NPC)
@@ -282,6 +285,7 @@ void Player::TriggerDialogueTree(ColliderType NPC)
 	}
 }
 
+//This function handles the player's movement in the game. The function also sets the player's animation based on their direction of movement.
 void Player::Movement()
 {
 	vel = b2Vec2(0, 0);
@@ -306,6 +310,7 @@ void Player::Movement()
 
 }
 
+//This function checks if the player is holding down the left shift key to sprint. If the key is being held down, the function increases the player's velocity and sets the animation speed to a faster value
 bool Player::SprintMovement()
 {
 	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
@@ -330,6 +335,7 @@ bool Player::SprintMovement()
 	}
 }
 
+//Handles the player vertical movement.
 bool Player::VerticalMovement()
 {
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
@@ -346,6 +352,7 @@ bool Player::VerticalMovement()
 	return false;
 }
 
+//Handles the player horizontal movement.
 bool Player::HorizontalMovement()
 {
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -365,6 +372,7 @@ bool Player::HorizontalMovement()
 
 }
 
+//This function handles the player's interaction with other entities in the game. It checks if the player is near an NPC or item that can be interacted with, and if so, it sets the player's state to either NPC_INTERACT or ITEM_INTERACT. If the player is already in one of these states, the function resets the player's state to MOVING.
 void Player::InteractWithEntities()
 {
 	if (playerState != PlayerState::PAUSE)
@@ -403,6 +411,7 @@ void Player::InteractWithEntities()
 	}
 }
 
+//This function sets the player's velocity to zero and sets the player's animation to the idle animation. This is used to stop the player's movement when they are interacting with an NPC or item.
 void Player::StopVelocity()
 {
 	vel = b2Vec2(0, 0);

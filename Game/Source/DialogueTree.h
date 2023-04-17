@@ -15,20 +15,25 @@ public:
 	DialogueNode(bool status, std::string text) { isActivated = status, nodeText = text; };
 	~DialogueNode() {};
 
-
+	//Sets the nodeText member variable of the DialogueNode object to the provided text string.
 	void SetText(std::string text) { nodeText = text; }
+
+	//Returns the nodeText member variable of the DialogueNode object.
 	std::string GetText() const { return nodeText; }
 
+	//Activates the DialogueNode object by setting its isActivated member variable to true.
 	void ActivateNode()
 	{
 		isActivated = true;
 	}
 
+	//Deactivates the DialogueNode object by setting its isActivated member variable to false.
 	void DesactivateNode()
 	{
 		isActivated = false;
 	}
 
+	//Deactivates all child nodes of the DialogueNode object, as well as the DialogueNode object itself.
 	void DesactivateAll()
 	{
 		//assert(this != nullptr);
@@ -41,6 +46,7 @@ public:
 
 	}
 
+	//Returns a vector of strings containing the text of activated node and his children. If the DialogueNode object is not activated, it recursively checks its children until it finds an activated node.
 	std::vector<std::string> GetDialogue()
 	{
 		std::vector<std::string> dialogue;
@@ -92,7 +98,7 @@ public:
 		return dialogue;
 	}
 
-
+	//Returns a vector of DialogueNode objects containing activated node and his children. If the DialogueNode object is not activated, it recursively checks its children until it finds an activated node.
 	std::vector<DialogueNode> GetNodes()
 	{
 		std::vector<DialogueNode> nodes;
@@ -135,35 +141,7 @@ public:
 		return nodes;
 	}
 
-	//void UpdateNodes(int nextRoot)
-	//{
-
-	//	if (isActivated)
-	//	{
-	//		DesactivateAll();
-	//		int index = nextRoot;
-
-	//		for (auto& child : children)
-	//		{
-	//			if (index == 1)
-	//			{
-	//				child->ActivateNode();
-	//			}
-	//			index--;
-	//		}
-
-	//		return;
-	//	}
-	//	else
-	//	{
-	//		for (auto& child : children)
-	//		{
-	//			child->UpdateNodes(nextRoot);
-	//		}
-
-	//	}
-	//}
-
+	//Updates the activation state of child nodes of the DialogueNode object based on the provided nextRoot int value. This function is used to progress the dialogue tree to the next set of child nodes.
 	void UpdateNodes(int nextRoot)
 	{
 
@@ -198,6 +176,7 @@ public:
 		}
 	}
 
+	//Adds a child DialogueNode object to the DialogueNode object's children vector member variable.
 	void AddChild(std::shared_ptr<DialogueNode> child)
 	{
 
@@ -229,8 +208,10 @@ public:
 	DialogueTree(const std::shared_ptr<DialogueNode>& root) { rootNode = root; };
 	~DialogueTree() {};
 
+	// Sets the root node of the DialogueTree object to the provided root std::shared_ptr to a DialogueNode object.
 	void SetRoot(const std::shared_ptr<DialogueNode>& root) { rootNode = root; }
 
+	//Returns a vector of strings containing the text of activated node and his children.
 	std::vector<std::string> Run()
 	{
 
@@ -238,6 +219,7 @@ public:
 		return dialogue;
 	}
 
+	//Returns a vector of DialogueNode objects containing activated node and his children.
 	std::vector<DialogueNode> RunNodes()
 	{
 
@@ -245,11 +227,13 @@ public:
 		return nodes;
 	}
 
+	//Updates the activation state of child nodes of the root node of the `Dialogue
 	void Update(int idx)
 	{
 		rootNode->UpdateNodes(idx);
 	}
 
+	//Deactivates all child nodes of the DialogueNode object, as well as the DialogueNode object itself.
 	void DesactivateTree()
 	{
 		rootNode->DesactivateAll();

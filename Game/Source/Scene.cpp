@@ -53,7 +53,429 @@ bool Scene::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+// Called before the first frame
+bool Scene::Start()
+{
+	app->entityManager->Start();
+	//Fonts initialize
+	char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
 
+	font = app->fonts->Load("Assets/Fonts/GameFont.png", lookUpTable, 1);
+
+	// L03: DONE: Load map
+	bool retLoad = app->map->Load(mapName, mapFolder);
+
+	// L12 Create walkability map
+	if (retLoad) {
+		int w, h;
+		uchar* data = NULL;
+
+		//bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		//if(retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+
+	}
+
+	
+	//uint w, h;
+	//app->win->GetWindowSize(w, h);
+	//button1_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Continue", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
+	//button1_continue->state = GuiControlState::NONE;
+	//button2_exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Exit", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
+	//button2_exit->state = GuiControlState::NONE;
+
+	pauseMenuActive = false;
+	exitButtonBool = false;
+	
+	//dialogue = angryVillagerTreePT->Run(); //dialogo tipo 2
+	dialogue = talismanVillagerTree->Run();
+
+	godMode = false;
+
+
+	return true;
+}
+
+// Called each loop iteration
+bool Scene::PreUpdate()
+{
+	return true;
+}
+
+
+
+// Called each loop iteration
+bool Scene::Update(float dt)
+{
+	//if (pruebaj == 0)
+	//{
+	//	Prueba();
+	//	std::cout <<" "<< std::endl;
+	//	
+	//}
+	//else if (pruebaj == 1)
+	//{
+	//	//dialogo version tipo 2
+	//	//angryVillagerTreePT->Update(1);
+	//	//dialogue = angryVillagerTreePT->Run();
+	//	//Prueba();
+
+	//	//dialogo version tipo 1: funciona en las diferentes opciones
+	//	//talismanVillagerTree->Update(2);
+	//	//dialogue = talismanVillagerTree->Run();
+	//	//Prueba();
+	//}
+
+
+	Camera();
+
+	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		app->SaveGameRequest();
+
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		app->LoadGameRequest();
+
+	// L14: TODO 4: Make the camera movement independent of framerate
+	float speed = 0.2 * dt;
+	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		app->render->camera.y += ceil(speed);
+
+	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		app->render->camera.y -= ceil(speed);
+
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		app->render->camera.x += ceil(speed);
+
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		app->render->camera.x -= ceil(speed);
+
+	
+	// Menu appear
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		//if (player->playerState == player->PlayerState::PAUSE)
+		//{
+		//	player->playerState = player->playerPrevState;
+
+		//	button1_continue->state = GuiControlState::NONE;
+		//	button2_exit->state = GuiControlState::NONE;
+		//}
+		//else
+		//{
+		//	// Save previous state to go back
+		//	player->playerPrevState = player->playerState;
+		//	player->playerState = player->PlayerState::PAUSE;
+		//	button1_continue->state = GuiControlState::NORMAL;
+		//	button2_exit->state = GuiControlState::NORMAL;			
+		//}
+	}
+
+	if(player->playerState == player->PAUSE) app->guiManager->Draw();
+
+	GodMode();
+
+	//std::cout << "Screen X: " << app->input->GetScreenMouseX() << std::endl;
+	//std::cout << "Screen Y: " << app->input->GetScreenMouseY() << std::endl;
+
+	//std::cout << "World X: " << app->input->GetWorldMouseXRelativeToPlayer(player->position.x) << std::endl;
+	//std::cout << "World Y: " << app->input->GetWorldMouseYRelativeToPlayer(player->position.y) << std::endl;
+
+		// Draw map
+	app->map->Draw();
+	//Font test
+	
+	return true;
+}
+
+// Called each loop iteration
+bool Scene::PostUpdate()
+{
+	bool ret = true;
+
+	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;
+
+
+
+	//L15: Draw GUI
+	app->guiManager->Draw();
+	
+	// When exit button click, close app
+	if (exitButtonBool == true)
+	{
+		return false;
+	}
+	//app->fonts->DrawText("NPC1", -20, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText("ITEM1", 100, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
+
+
+	return ret;
+}
+
+bool Scene::OnGuiMouseClickEvent(GuiControl* control)
+{
+	LOG("Event by %d ", control->id);
+
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button 1 Continue click");
+		player->playerState = player->playerPrevState;
+		break;
+	case 2:
+		LOG("Button 2 Exit click");
+		exitButtonBool = true;
+		break;
+	}
+	return true;
+}
+
+// Called before quitting
+bool Scene::CleanUp()
+{
+	LOG("Freeing scene");
+	app->fonts->UnLoad(font);
+	app->map->CleanUp(); 
+	app->entityManager->CleanUp(); 	
+	
+
+	return true;
+}
+
+//Toggles god mode on and off when the F10 key is pressed. When god mode is on, the camera follows the player's position without any boundaries.
+void Scene::GodMode()
+{
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godMode)
+		{
+			godMode = false;
+		}
+		else
+		{
+			godMode = true;
+		}
+	}
+}
+
+//Updates the camera position based on the player's position. If god mode is on, the camera follows the player's position without any boundaries. If god mode is off, the camera follows the player's position while respecting the game's boundaries.
+void Scene::Camera()
+{
+	if (godMode)
+	{
+		app->render->FollowObject(-(int)player->position.x, -(int)player->position.y - 35,
+			app->render->camera.w / 2, app->render->camera.h / 2);
+	}
+	else
+	{
+		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
+			app->render->camera.w / 2, app->render->camera.h / 2);
+	}
+
+}
+
+//Returns a string with the last line spoken by the specified NPC. This function delegates the NPC specific behavior to other functions based on the enum passed in.
+std::string Scene::LastTextNPC(ColliderType NPC)
+{
+	std::string auxString;
+	switch (NPC)
+	{
+	case ColliderType::ANGRYVILLAGER:
+		auxString = LastTextAngryVillager(auxString);
+		break;
+	case ColliderType::TALISMANVILLAGER:
+		auxString = LastTextTalismanVillager(auxString);
+		break;
+
+	case ColliderType::GRANDMA:
+		auxString = LastTextGrandmaVillager(auxString);
+		break;
+
+	case ColliderType::LRRH:
+		auxString = LastTextLittleRedVillager(auxString);
+		break;
+	default:
+
+		break;
+	}
+
+	return auxString;
+}
+
+//Return random number between 2 numbers
+int GenerateRandomNumber(int num1, int num2)
+{
+	auto eng = std::default_random_engine(std::time(0));
+	std::uniform_int_distribution<int> dist(num1, num2);
+
+	return dist(eng);
+
+
+}
+
+//Returns a random string based on a random number generator. This function is used by LastTextNPC() to generate a random line spoken by the Angry Villager NPC.
+std::string Scene::LastTextAngryVillager(std::string lastText)
+{
+	int index = GenerateRandomNumber(1, 2);
+
+	switch (index)
+	{
+	case 1:
+		lastText = "What are you waiting?";
+		break;
+	case 2:
+		lastText = "Hmm... I'm hungry";
+		break;
+	}
+
+	return lastText;
+}
+
+//Returns a random string based on a random number generator. This function is used by LastTextNPC() to generate a random line spoken by the Talisman Villager NPC.
+std::string Scene::LastTextTalismanVillager(std::string lastText)
+{
+	int index = GenerateRandomNumber(1, 2);
+
+	switch (index)
+	{
+	case 1:
+		lastText = "May God bless you?";
+		break;
+	case 2:
+		lastText = "Look at this beautiful talisman!";
+		break;
+	}
+	return lastText;
+}
+
+//Returns a random string based on a random number generator. This function is used by LastTextNPC() to generate a random line spoken by the Grandma Villager NPC.
+std::string Scene::LastTextGrandmaVillager(std::string lastText)
+{
+	int index = GenerateRandomNumber(1, 2);
+
+	switch (index)
+	{
+	case 1:
+		lastText = "The early bird catches the worm.";
+		break;
+	case 2:
+		lastText = "If you don't have anything nice to say, don't say anything at all.";
+		break;
+	}
+	return lastText;
+}
+
+//Returns a random string based on a random number generator. This function is used by LastTextNPC() to generate a random line spoken by LRRH.
+std::string Scene::LastTextLittleRedVillager(std::string lastText)
+{
+	
+	int index = GenerateRandomNumber(1, 2);
+
+	switch (index)
+	{
+	case 1:
+		break;
+	case 2:
+		break;
+	}
+	return lastText;
+}
+
+void Scene::Prueba()
+{
+	for (auto& e : dialogue)
+	{
+		std::cout << e << std::endl;
+	}
+	//	pruebaj++;
+
+}
+
+//Runs a dialogue tree for a specific NPC, identified using a ColliderType enum. This function delegates the NPC specific behavior to other functions based on the enum passed in.
+void Scene::RunDialogueTree(ColliderType NPC)
+{
+	switch (NPC)
+	{
+	case ColliderType::ANGRYVILLAGER:
+		dialogue = angryVillagerTreePT->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+		Prueba();
+		break;
+	case ColliderType::TALISMANVILLAGER:
+		dialogue = talismanVillagerTree->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+		Prueba();
+		break;
+
+	case ColliderType::GRANDMA:
+		dialogue = grandmaTree->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+		Prueba();
+		break;
+
+	case ColliderType::LRRH:
+		dialogue = littleRedTree->Run();
+		//Prueba();
+		if (dialogue.empty())
+		{
+			dialogue.push_back(LastTextNPC(NPC));
+		}
+		Prueba();
+		break;
+	default:
+		break;
+	}
+}
+
+//Updates the dialogue tree based on the player's response to a dialogue prompt. The dialogue tree to update is selected based on the type of NPC the player last interacted
+//with, as determined by the player's lastCollision variable. 
+void Scene::UpdateDialogueTree(int option)
+{
+	if (1 >= option <= 4)
+	{
+		switch (app->scene->player->lastCollision)
+		{
+		case ColliderType::ANGRYVILLAGER:
+			angryVillagerTreePT->Update(option);
+			break;
+
+		case ColliderType::TALISMANVILLAGER:
+			talismanVillagerTree->Update(option);
+			break;
+
+		case ColliderType::GRANDMA:
+			grandmaTree->Update(option);
+			break;
+
+		case ColliderType::LRRH:
+			littleRedTree->Update(option);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+
+
+}
+
+
+//Create Tree Dialogues
 void Scene::CreateDialogue()
 {
 	// - Angry Villager Pre Tutorial
@@ -314,421 +736,6 @@ void Scene::CreateDialogue()
 	//Tree
 	grandmaTree = std::make_shared<DialogueTree>();
 	grandmaTree->SetRoot(fristNodeG);
-
-
-}
-
-// Called before the first frame
-bool Scene::Start()
-{
-	app->entityManager->Start();
-	//Fonts initialize
-	char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
-
-	font = app->fonts->Load("Assets/Fonts/GameFont.png", lookUpTable, 1);
-
-	// L03: DONE: Load map
-	bool retLoad = app->map->Load(mapName, mapFolder);
-
-	// L12 Create walkability map
-	if (retLoad) {
-		int w, h;
-		uchar* data = NULL;
-
-		//bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
-		//if(retWalkMap) app->pathfinding->SetMap(w, h, data);
-
-		RELEASE_ARRAY(data);
-
-	}
-
-	
-	//uint w, h;
-	//app->win->GetWindowSize(w, h);
-	//button1_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Continue", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
-	//button1_continue->state = GuiControlState::NONE;
-	//button2_exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Exit", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
-	//button2_exit->state = GuiControlState::NONE;
-
-	pauseMenuActive = false;
-	exitButtonBool = false;
-	
-	//dialogue = angryVillagerTreePT->Run(); //dialogo tipo 2
-	dialogue = talismanVillagerTree->Run();
-
-	godMode = false;
-
-
-	return true;
-}
-
-// Called each loop iteration
-bool Scene::PreUpdate()
-{
-	return true;
-}
-
-
-
-// Called each loop iteration
-bool Scene::Update(float dt)
-{
-	//if (pruebaj == 0)
-	//{
-	//	Prueba();
-	//	std::cout <<" "<< std::endl;
-	//	
-	//}
-	//else if (pruebaj == 1)
-	//{
-	//	//dialogo version tipo 2
-	//	//angryVillagerTreePT->Update(1);
-	//	//dialogue = angryVillagerTreePT->Run();
-	//	//Prueba();
-
-	//	//dialogo version tipo 1: funciona en las diferentes opciones
-	//	//talismanVillagerTree->Update(2);
-	//	//dialogue = talismanVillagerTree->Run();
-	//	//Prueba();
-	//}
-
-
-	Camera();
-
-	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		app->SaveGameRequest();
-
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		app->LoadGameRequest();
-
-	// L14: TODO 4: Make the camera movement independent of framerate
-	float speed = 0.2 * dt;
-	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += ceil(speed);
-
-	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= ceil(speed);
-
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += ceil(speed);
-
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= ceil(speed);
-
-	
-	// Menu appear
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	{
-		//if (player->playerState == player->PlayerState::PAUSE)
-		//{
-		//	player->playerState = player->playerPrevState;
-
-		//	button1_continue->state = GuiControlState::NONE;
-		//	button2_exit->state = GuiControlState::NONE;
-		//}
-		//else
-		//{
-		//	// Save previous state to go back
-		//	player->playerPrevState = player->playerState;
-		//	player->playerState = player->PlayerState::PAUSE;
-		//	button1_continue->state = GuiControlState::NORMAL;
-		//	button2_exit->state = GuiControlState::NORMAL;			
-		//}
-	}
-
-	if(player->playerState == player->PAUSE) app->guiManager->Draw();
-
-	GodMode();
-
-	//std::cout << "Screen X: " << app->input->GetScreenMouseX() << std::endl;
-	//std::cout << "Screen Y: " << app->input->GetScreenMouseY() << std::endl;
-
-	//std::cout << "World X: " << app->input->GetWorldMouseXRelativeToPlayer(player->position.x) << std::endl;
-	//std::cout << "World Y: " << app->input->GetWorldMouseYRelativeToPlayer(player->position.y) << std::endl;
-
-		// Draw map
-	app->map->Draw();
-	//Font test
-	
-	return true;
-}
-
-void Scene::GodMode()
-{
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-	{
-		if (godMode)
-		{
-			godMode = false;
-		}
-		else
-		{
-			godMode = true;
-		}
-	}
-}
-
-void Scene::Camera()
-{
-	if (godMode)
-	{
-		app->render->FollowObject(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2);
-	}
-	else
-	{
-		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2);
-	}
-
-}
-
-// Called each loop iteration
-bool Scene::PostUpdate()
-{
-	bool ret = true;
-
-	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
-
-
-
-	//L15: Draw GUI
-	app->guiManager->Draw();
-	
-	// When exit button click, close app
-	if (exitButtonBool == true)
-	{
-		return false;
-	}
-	//app->fonts->DrawText("NPC1", -20, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText("ITEM1", 100, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
-
-
-	return ret;
-}
-
-bool Scene::OnGuiMouseClickEvent(GuiControl* control)
-{
-	LOG("Event by %d ", control->id);
-
-	switch (control->id)
-	{
-	case 1:
-		LOG("Button 1 Continue click");
-		player->playerState = player->playerPrevState;
-		break;
-	case 2:
-		LOG("Button 2 Exit click");
-		exitButtonBool = true;
-		break;
-	}
-	return true;
-}
-
-// Called before quitting
-bool Scene::CleanUp()
-{
-	LOG("Freeing scene");
-	app->fonts->UnLoad(font);
-	app->map->CleanUp(); 
-	app->entityManager->CleanUp(); 	
-	
-
-	return true;
-}
-
-
-
-
-std::string Scene::LastTextNPC(ColliderType NPC)
-{
-	std::string auxString;
-	switch (NPC)
-	{
-	case ColliderType::ANGRYVILLAGER:
-		auxString = LastTextAngryVillager(auxString);
-		break;
-	case ColliderType::TALISMANVILLAGER:
-		auxString = LastTextTalismanVillager(auxString);
-		break;
-
-	case ColliderType::GRANDMA:
-		auxString = LastTextGrandmaVillager(auxString);
-		break;
-
-	case ColliderType::LRRH:
-		auxString = LastTextLittleRedVillager(auxString);
-		break;
-	default:
-
-		break;
-	}
-
-	return auxString;
-}
-
-//Return random number between 2 numbers
-int GenerateRandomNumber(int num1, int num2)
-{
-	auto eng = std::default_random_engine(std::time(0));
-	std::uniform_int_distribution<int> dist(num1, num2);
-
-	return dist(eng);
-
-
-}
-
-std::string Scene::LastTextAngryVillager(std::string lastText)
-{
-	int index = GenerateRandomNumber(1, 2);
-
-	switch (index)
-	{
-	case 1:
-		lastText = "What are you waiting?";
-		break;
-	case 2:
-		lastText = "Hmm... I'm hungry";
-		break;
-	}
-
-	return lastText;
-}
-
-std::string Scene::LastTextTalismanVillager(std::string lastText)
-{
-	int index = GenerateRandomNumber(1, 2);
-
-	switch (index)
-	{
-	case 1:
-		lastText = "May God bless you?";
-		break;
-	case 2:
-		lastText = "Look at this beautiful talisman!";
-		break;
-	}
-	return lastText;
-}
-
-std::string Scene::LastTextGrandmaVillager(std::string lastText)
-{
-	int index = GenerateRandomNumber(1, 2);
-
-	switch (index)
-	{
-	case 1:
-		lastText = "The early bird catches the worm.";
-		break;
-	case 2:
-		lastText = "If you don't have anything nice to say, don't say anything at all.";
-		break;
-	}
-	return lastText;
-}
-
-std::string Scene::LastTextLittleRedVillager(std::string lastText)
-{
-	
-	int index = GenerateRandomNumber(1, 2);
-
-	switch (index)
-	{
-	case 1:
-		break;
-	case 2:
-		break;
-	}
-	return lastText;
-}
-
-void Scene::Prueba()
-{
-	for (auto& e : dialogue)
-	{
-		std::cout << e << std::endl;
-	}
-	//	pruebaj++;
-
-}
-
-void Scene::RunDialogueTree(ColliderType NPC)
-{
-	switch (NPC)
-	{
-	case ColliderType::ANGRYVILLAGER:
-		dialogue = angryVillagerTreePT->Run();
-		//Prueba();
-		if (dialogue.empty())
-		{
-			dialogue.push_back(LastTextNPC(NPC));
-		}
-		Prueba();
-		break;
-	case ColliderType::TALISMANVILLAGER:
-		dialogue = talismanVillagerTree->Run();
-		//Prueba();
-		if (dialogue.empty())
-		{
-			dialogue.push_back(LastTextNPC(NPC));
-		}
-		Prueba();
-		break;
-
-	case ColliderType::GRANDMA:
-		dialogue = grandmaTree->Run();
-		//Prueba();
-		if (dialogue.empty())
-		{
-			dialogue.push_back(LastTextNPC(NPC));
-		}
-		Prueba();
-		break;
-
-	case ColliderType::LRRH:
-		dialogue = littleRedTree->Run();
-		//Prueba();
-		if (dialogue.empty())
-		{
-			dialogue.push_back(LastTextNPC(NPC));
-		}
-		Prueba();
-		break;
-	default:
-		break;
-	}
-}
-
-
-void Scene::UpdateDialogueTree(int option)
-{
-	if (1 >= option <= 4)
-	{
-		switch (app->scene->player->lastCollision)
-		{
-		case ColliderType::ANGRYVILLAGER:
-			angryVillagerTreePT->Update(option);
-			break;
-
-		case ColliderType::TALISMANVILLAGER:
-			talismanVillagerTree->Update(option);
-			break;
-
-		case ColliderType::GRANDMA:
-			grandmaTree->Update(option);
-			break;
-
-		case ColliderType::LRRH:
-			littleRedTree->Update(option);
-			break;
-
-		default:
-			break;
-		}
-	}
-
 
 
 }
