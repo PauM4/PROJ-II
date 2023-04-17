@@ -8,12 +8,19 @@
 	<:anonymous />
 	<pathfinding />
 	<Scene_manager />
-	<scene />
+	<sceneIntro />
+	<sceneMainMenu />
+	<scene>
+		<player x="1984" y="35" />
+	</scene>
+	<sceneBattle />
 	<entitymanager />
 	<map />
 	<guiManager />
+	<UIModule />
+	<fadeToBlack />
 	<renderer>
-		<camera x="-650" y="-1010" />
+		<camera x="-1024" y="495" />
 	</renderer>
 	<timmy>
 		<level value = "1"/>

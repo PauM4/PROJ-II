@@ -9,6 +9,13 @@
 
 struct SDL_Texture;
 
+struct transformPosition {
+	float posX;
+	float posY;
+	bool turn;
+
+};
+
 class Player : public Entity
 {
 public:
@@ -40,6 +47,8 @@ private:
 	void InteractWithEntities();
 	void StopVelocity();
 	void GodMode();
+	// Magic function that allows the player to teleport :D
+	void Player::ChangePosition(int x, int y);
 
 public:
 	// This bool checks if the player is interacting with something (In the furute will be change for a state machine)
@@ -69,14 +78,15 @@ public:
 	int speed;
 	b2Vec2 vel;
 
+	transformPosition teleport;
+
 private:
 
+	PhysBody* pbody;
 	//L02: DONE 1: Declare player parameters
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	// L07 DONE 5: Add physics to the player - declare a Physics body
-	PhysBody* pbody;
 
 	Animation* currentAnimation;
 	Animation walkDownAnim;
@@ -88,7 +98,6 @@ private:
 	bool godMode;
 
 
-	
 };
 
 #endif // __PLAYER_H__

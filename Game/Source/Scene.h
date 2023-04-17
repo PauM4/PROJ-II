@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Player.h"
+#include "UIModule.h"
 
 #include "GuiButton.h"
 #include "Item.h"
@@ -59,6 +60,9 @@ private:
 
 	void Camera();
 	void GodMode();
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
+
 public:
 
 	Player* player;
@@ -77,10 +81,6 @@ private:
 
 	//Fonts
 	int font;
-
-	// L15: DONE 2: Declare a GUI Button and create it using the GuiManager
-	GuiButton* button1_continue;
-	GuiButton* button2_exit;
 
 	bool pauseMenuActive;
 	bool exitButtonBool;

@@ -9,6 +9,7 @@
 #include "Entity.h"
 #include "GuiButton.h"
 #include "List.h"
+#include "UIModule.h"
 
 
 struct SDL_Texture;
@@ -117,10 +118,6 @@ private:;
 	iPoint origin;
 	bool originSelected = false;
 
-	//Buttons
-	GuiButton* button1_attack;
-	GuiButton* button2_skill;
-	GuiButton* button3_endTurn;
 	DynArray<iPoint> path;
 	iPoint pos;
 	

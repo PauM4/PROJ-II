@@ -39,6 +39,10 @@ public:
 
 	SDL_Texture* texture;
 
+	// SFX for buttons
+	int hoverFxId;
+	int pressedFxId;
+
 };
 
 #endif // __GUIMANAGER_H__

@@ -6,11 +6,13 @@
 #include "Render.h"
 #include "Input.h"
 #include "Scene.h"
+#include "SceneIntro.h"
 #include "FadeToBlack.h"
 
 enum GameScene {
 	NONE = 0,
 	INTRO,
+	MAIN_MENU,
 	SCENE,
 	BATTLE,
 	GAME_OVER
@@ -40,6 +42,11 @@ public:
 	GameScene scene;
 
 	Module* currentScene = nullptr; 
+
+	// Intro Scene things:
+	Timer intro_timer;
+	bool skipIntroScene;
+	uint32 introCurrentTime;
 
 	bool isBattle; 
 };

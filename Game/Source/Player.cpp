@@ -66,8 +66,13 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
+	// Grab player position from save_game file
+
+
 	texture = app->tex->Load(texturePath);
 	currentAnimation = &idleAnim;
+
+	transformPosition teleport;
 
 	pbody = app->physics->CreateRectangle(position.x,position.y,70,70, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
@@ -155,9 +160,14 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
+	//PLAYER TELEPORT
+	if (teleport.turn == true)
+	{
+		b2Vec2 resetPos = b2Vec2(PIXEL_TO_METERS(teleport.posX), PIXEL_TO_METERS(teleport.posY));
+		pbody->body->SetTransform(resetPos, 0);
 
-
-	
+		teleport.turn = false;
+	}
 
 	return true;
 }
@@ -417,4 +427,12 @@ void Player::StopVelocity()
 	vel = b2Vec2(0, 0);
 	pbody->body->SetLinearVelocity(vel);
 	currentAnimation = &idleAnim;
+}
+void Player::ChangePosition(int x, int y)
+{
+
+	teleport.posX = x;
+	teleport.posY = y;
+	teleport.turn = true;
+
 }

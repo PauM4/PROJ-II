@@ -77,16 +77,13 @@ bool Scene::Start()
 
 	}
 
-	
-	//uint w, h;
-	//app->win->GetWindowSize(w, h);
-	//button1_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Continue", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
-	//button1_continue->state = GuiControlState::NONE;
-	//button2_exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Exit", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
-	//button2_exit->state = GuiControlState::NONE;
-
 	pauseMenuActive = false;
 	exitButtonBool = false;
+
+	// Tell to UIModule which currentMenuType
+	app->uiModule->currentMenuType = DISABLED;
+	// Call this function only when buttons change
+	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 	
 	//dialogue = angryVillagerTreePT->Run(); //dialogo tipo 2
 	dialogue = talismanVillagerTree->Run();
@@ -151,41 +148,39 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= ceil(speed);
 
+	GodMode();
 	
+	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		app->uiModule->currentMenuType = DIALOG;
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	}
+
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
-		//if (player->playerState == player->PlayerState::PAUSE)
-		//{
-		//	player->playerState = player->playerPrevState;
+		// If player is in pause, close it
+		if (player->playerState == player->PlayerState::PAUSE)
+		{
+			player->playerState = player->playerPrevState;
 
-		//	button1_continue->state = GuiControlState::NONE;
-		//	button2_exit->state = GuiControlState::NONE;
-		//}
-		//else
-		//{
-		//	// Save previous state to go back
-		//	player->playerPrevState = player->playerState;
-		//	player->playerState = player->PlayerState::PAUSE;
-		//	button1_continue->state = GuiControlState::NORMAL;
-		//	button2_exit->state = GuiControlState::NORMAL;			
-		//}
+			app->uiModule->currentMenuType = DISABLED;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+		}
+		// If player is NOT in pause, open it
+		else
+		{
+			// Save previous state to go back
+			player->playerPrevState = player->playerState;
+			player->playerState = player->PlayerState::PAUSE;
+
+			app->uiModule->currentMenuType = PAUSE;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+		}
 	}
 
-	if(player->playerState == player->PAUSE) app->guiManager->Draw();
-
-	GodMode();
-
-	//std::cout << "Screen X: " << app->input->GetScreenMouseX() << std::endl;
-	//std::cout << "Screen Y: " << app->input->GetScreenMouseY() << std::endl;
-
-	//std::cout << "World X: " << app->input->GetWorldMouseXRelativeToPlayer(player->position.x) << std::endl;
-	//std::cout << "World Y: " << app->input->GetWorldMouseYRelativeToPlayer(player->position.y) << std::endl;
-
-		// Draw map
-	app->map->Draw();
-	//Font test
-	
 	return true;
 }
 
@@ -198,17 +193,17 @@ bool Scene::PostUpdate()
 		ret = false;
 
 
+		// Draw map
+	app->map->Draw();
 
-	//L15: Draw GUI
+	// Draw GUI
 	app->guiManager->Draw();
-	
+
 	// When exit button click, close app
 	if (exitButtonBool == true)
 	{
 		return false;
 	}
-	//app->fonts->DrawText("NPC1", -20, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText("ITEM1", 100, -90, 100, 100, { 255,255,255,255 }, app->fonts->gameFont);
 
 
 	return ret;
@@ -220,13 +215,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 
 	switch (control->id)
 	{
-	case 1:
-		LOG("Button 1 Continue click");
-		player->playerState = player->playerPrevState;
-		break;
-	case 2:
-		LOG("Button 2 Exit click");
-		exitButtonBool = true;
+	default:
 		break;
 	}
 	return true;
@@ -738,4 +727,20 @@ void Scene::CreateDialogue()
 	grandmaTree->SetRoot(fristNodeG);
 
 
+}
+bool Scene::LoadState(pugi::xml_node& data)
+{
+	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+
+	return true;
+}
+
+bool Scene::SaveState(pugi::xml_node& data)
+{
+	pugi::xml_node playerNode = data.append_child("player");
+
+	playerNode.append_attribute("x") = player->position.x;
+	playerNode.append_attribute("y") = player->position.y;
+
+	return true;
 }

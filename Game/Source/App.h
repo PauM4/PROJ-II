@@ -18,6 +18,8 @@ class Input;
 class Render;
 class Textures;
 class Audio;
+class SceneIntro;
+class SceneMainMenu;
 class Scene;
 class SceneBattle;
 class EntityManager;
@@ -30,6 +32,7 @@ class SceneManager;
 class Physics;
 class PathFinding;
 class GuiManager;
+class UIModule;
 
 class App
 {
@@ -97,6 +100,8 @@ public:
 	Textures* tex;
 	Audio* audio;
 	Scene* scene;
+	SceneIntro* sceneIntro;
+	SceneMainMenu* sceneMainMenu;
 	SceneBattle* sceneBattle;
 	EntityManager* entityManager;
 	Map* map;
@@ -107,6 +112,7 @@ public:
 	Physics* physics;
 	PathFinding* pathfinding;
 	GuiManager* guiManager;
+	UIModule* uiModule;
 
 	double prepareUpdate;
 	double finishUpdate;

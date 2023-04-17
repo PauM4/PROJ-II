@@ -4,6 +4,8 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
+#include "SceneIntro.h"
+#include "SceneMainMenu.h"
 #include "Scene.h"
 #include "SceneBattle.h"
 #include "EntityManager.h"
@@ -14,6 +16,7 @@
 #include "Fonts.h"
 #include "SceneManager.h"
 #include "FadeToBlack.h"
+#include "UIModule.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -39,7 +42,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding(true);
 	sceneManager = new SceneManager(true); 
 
-
+	sceneMainMenu = new SceneMainMenu(false);
+	sceneIntro = new SceneIntro(false);
 	scene = new Scene(false);
 	sceneBattle = new SceneBattle(false);
 
@@ -48,6 +52,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map(true);
 	guiManager = new GuiManager(true);
 	fonts = new Fonts(true);
+	uiModule = new UIModule(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -61,12 +66,15 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(sceneManager);
 	//Scenes
+	AddModule(sceneIntro);
+	AddModule(sceneMainMenu);
 	AddModule(scene);
 	AddModule(sceneBattle);
 
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(guiManager);
+	AddModule(uiModule);
 
 	AddModule(fadeToBlack);
 

@@ -3,6 +3,7 @@
 #include "App.h"
 #include "Audio.h"
 #include "Log.h"
+#include "GuiManager.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -11,8 +12,6 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 
 	canClick = true;
 	drawBasic = false;
-
-	//audioFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 }
 
 GuiButton::~GuiButton()
@@ -36,14 +35,14 @@ bool GuiButton::Update(float dt)
 			state = GuiControlState::FOCUSED;
 			if (previousState != state) {
 				LOG("Change state from %d to %d", previousState, state);
-				app->audio->PlayFx(audioFxId);
+				app->audio->PlayFx(app->guiManager->hoverFxId);
 			}
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT) {
 				state = GuiControlState::PRESSED;
+				app->audio->PlayFx(app->guiManager->pressedFxId);
 			}
 
-			//
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
 				NotifyObserver();
 			}
@@ -79,7 +78,7 @@ bool GuiButton::Draw(Render* render)
 		break;
 	}
 
-	/*app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });*/
+	app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });
 
 	return false;
 }
