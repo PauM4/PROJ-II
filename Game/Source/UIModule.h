@@ -78,6 +78,11 @@ public:
 	GuiButton* combat_move_button;
 	GuiButton* combat_endTurn_button;
 
+	GuiButton* dialog_option1_button;
+	GuiButton* dialog_option2_button;
+	GuiButton* dialog_option3_button;
+	GuiButton* dialog_option4_button;
+
 	bool quitButtonBool;
 
 

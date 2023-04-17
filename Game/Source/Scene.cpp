@@ -125,8 +125,8 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
-		app->audio->PlayFx(app->guiManager->pressedFxId);
-		app->audio->PlayFx(app->guiManager->hoverFxId);
+		app->uiModule->currentMenuType = DIALOG;
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 	}
 
 	// Menu appear
