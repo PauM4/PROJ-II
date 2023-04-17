@@ -44,7 +44,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
 	npc1->parameters = config.child("npc");
 
-	item1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	//item1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 
 	app->entityManager->Awake(config);
 
@@ -321,8 +321,6 @@ void Scene::CreateDialogue()
 // Called before the first frame
 bool Scene::Start()
 {
-	//img = app->tex->Load("Assets/Textures/test.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	app->entityManager->Start();
 	//Fonts initialize
 	char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
@@ -345,12 +343,12 @@ bool Scene::Start()
 	}
 
 	
-	uint w, h;
-	app->win->GetWindowSize(w, h);
-	button1_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Continue", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
-	button1_continue->state = GuiControlState::NONE;
-	button2_exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Exit", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
-	button2_exit->state = GuiControlState::NONE;
+	//uint w, h;
+	//app->win->GetWindowSize(w, h);
+	//button1_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Continue", { (int)w - 1820, (int)h - 300, 100, 20 }, this);
+	//button1_continue->state = GuiControlState::NONE;
+	//button2_exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Exit", { (int)w - 1820, (int)h - 250, 100, 20 }, this);
+	//button2_exit->state = GuiControlState::NONE;
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
@@ -422,21 +420,21 @@ bool Scene::Update(float dt)
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
-		if (player->playerState == player->PlayerState::PAUSE)
-		{
-			player->playerState = player->playerPrevState;
+		//if (player->playerState == player->PlayerState::PAUSE)
+		//{
+		//	player->playerState = player->playerPrevState;
 
-			button1_continue->state = GuiControlState::NONE;
-			button2_exit->state = GuiControlState::NONE;
-		}
-		else
-		{
-			// Save previous state to go back
-			player->playerPrevState = player->playerState;
-			player->playerState = player->PlayerState::PAUSE;
-			button1_continue->state = GuiControlState::NORMAL;
-			button2_exit->state = GuiControlState::NORMAL;			
-		}
+		//	button1_continue->state = GuiControlState::NONE;
+		//	button2_exit->state = GuiControlState::NONE;
+		//}
+		//else
+		//{
+		//	// Save previous state to go back
+		//	player->playerPrevState = player->playerState;
+		//	player->playerState = player->PlayerState::PAUSE;
+		//	button1_continue->state = GuiControlState::NORMAL;
+		//	button2_exit->state = GuiControlState::NORMAL;			
+		//}
 	}
 
 	if(player->playerState == player->PAUSE) app->guiManager->Draw();

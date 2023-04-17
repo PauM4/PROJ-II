@@ -216,6 +216,7 @@ bool Map::CleanUp()
 
     while (imageLayerItem != NULL)
     {
+        app->tex->UnLoad(imageLayerItem->data->texture);
         RELEASE(imageLayerItem->data);
         //mapData.imageLayers.Del(imageLayerItem);
         imageLayerItem = imageLayerItem->next;
@@ -228,12 +229,14 @@ bool Map::CleanUp()
 
     while (colliderItem != NULL)
     {
-        app->physics->world->DestroyBody(colliderItem->data->body);
+        //app->physics->world->DestroyBody(colliderItem->data->body);
         RELEASE(colliderItem->data);
         //mapData.collisions.Del(colliderItem);
         colliderItem = colliderItem->next;
     }
     mapData.collisions.Clear();
+
+    
 
     return true;
 }

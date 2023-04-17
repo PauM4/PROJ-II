@@ -12,7 +12,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	canClick = true;
 	drawBasic = false;
 
-	audioFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	//audioFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 }
 
 GuiButton::~GuiButton()

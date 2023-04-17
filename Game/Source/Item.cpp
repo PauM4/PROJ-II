@@ -46,5 +46,12 @@ bool Item::PostUpdate()
 
 bool Item::CleanUp()
 {
+	app->tex->UnLoad(texture);
+
+	if (pbody != NULL)
+	{
+		pbody->body->GetWorld()->DestroyBody(pbody->body);
+	}
+
 	return true;
 }
