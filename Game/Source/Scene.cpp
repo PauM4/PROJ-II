@@ -223,6 +223,21 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 
 	switch (control->id)
 	{
+		// Option 1
+	case 12:
+		app->scene->player->a1 = true;
+		break;
+		// Option 2
+	case 13:
+		app->scene->player->a2 = true;
+		break;
+		// Option 3
+	case 14:
+		app->scene->player->a3 = true;
+		break;
+		// Option 4
+	case 15:
+		app->scene->player->a4 = true;
 	default:
 		break;
 	}
@@ -729,6 +744,10 @@ void Scene::CreateDialogue()
 	//Root
 	auto fristNodeG = std::make_shared<DialogueNode>();
 	fristNodeG->SetText("Who are you? And how dare you barge into my home uninvited? I won't tolerate any nonsense or trouble.If you have something to say, say it quicklyand leave.");
+	fristNodeG->AddChild(firstOption1G);
+	fristNodeG->AddChild(firstOption2G);
+	fristNodeG->AddChild(firstOption3G);
+	fristNodeG->AddChild(firstOption4G);
 	fristNodeG->ActivateNode();
 
 	//Tree

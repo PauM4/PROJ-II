@@ -64,7 +64,7 @@ bool UIModule::Start()
 	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, app->scene);
 	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "", { 1000, 900, 800, 30 }, app->scene);
 	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "", { 1000, 950, 800, 30 }, app->scene);
-	dialog_text_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "", { 100, 600, 1700, 250 }, this);
+	dialog_text_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "", { 100, 700, 1700, 150 }, this);
 
 	// When creating a new button, iniciate it in NONE state
 
@@ -545,7 +545,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	// Dialogue text block
 	SDL_Rect rect = { 0 , 0, 800, 400 };
 	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 1700);
-	app->render->DrawTexture(textDialogue, posX - 850, posY + 120, NULL);
+	app->render->DrawTexture(textDialogue, posX - 850, posY + 220, NULL);
 
 	// Change options buttons text
 	SDL_Rect rectO1 = { 0, 0, 800, 30 };
