@@ -39,34 +39,34 @@ bool SceneManager::PreUpdate()
 	if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) && currentScene->active == true)
 	{
 		app->sceneManager->isBattle = false;
-		scene = SCENE;
+		scene = GameScene::SCENE;
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) && currentScene->active == true)
 	{
 		app->sceneManager->isBattle = true;
-		scene = BATTLE;
+		scene = GameScene::BATTLE;
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) && currentScene->active == true)
 	{
 		app->sceneManager->isBattle = false;
-		scene = INTRO;
+		scene = GameScene::INTRO;
 		intro_timer.Start();
 	}
 	// If click key 4 or (we are at sceneIntro and time is >= 3), change scene to MainMenu
 	if ((app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN || (currentScene == (Module*)app->sceneIntro && intro_timer.ReadSec() >= 5)) && currentScene->active == true)
 	{
 		app->sceneManager->isBattle = false;
-		scene = MAIN_MENU;
+		scene = GameScene::MAIN_MENU;
 	}
 
 	switch (scene) {
-	case INTRO:
+	case GameScene::INTRO:
 		break;
-	case MAIN_MENU:
+	case GameScene::MAIN_MENU:
 		break;
-	case SCENE:
+	case GameScene::SCENE:
 		break; 
-	case GAME_OVER:
+	case GameScene::GAME_OVER:
 		break; 
 	default:
 		break; 
@@ -80,7 +80,7 @@ bool SceneManager::Update(float dt)
 	bool ret = true;
 
 	switch (scene) {
-	case INTRO:
+	case GameScene::INTRO:
 		if (currentScene != (Module*)app->sceneIntro) {
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneIntro, 20)) {
 				currentScene = (Module*)app->sceneIntro;
@@ -89,7 +89,7 @@ bool SceneManager::Update(float dt)
 			intro_timer.Start();
 		}
 		break;
-	case MAIN_MENU:
+	case GameScene::MAIN_MENU:
 		if (currentScene != (Module*)app->sceneMainMenu) {
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneMainMenu, 20)) {
 				currentScene = (Module*)app->sceneMainMenu;
@@ -97,7 +97,7 @@ bool SceneManager::Update(float dt)
 			}
 		}
 		break;
-	case SCENE:
+	case GameScene::SCENE:
 		if (currentScene == nullptr) {
 			currentScene = (Module*)app->scene;
 			currentScene->Enable(); 
@@ -110,7 +110,7 @@ bool SceneManager::Update(float dt)
 			}
 		}
 		break;
-	case BATTLE:
+	case GameScene::BATTLE:
 		if (currentScene != (Module*)app->sceneBattle) {
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneBattle, 20)) {
 				currentScene = (Module*)app->sceneBattle;

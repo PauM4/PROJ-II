@@ -5,7 +5,8 @@
 #include "GuiManager.h"
 #include "GuiButton.h"
 #include "SceneManager.h"
-
+#include <vector>
+#include <string>
 
 struct SDL_Texture;
 
@@ -51,6 +52,8 @@ public:
 	// Change buttons state depending on the scene
 	bool ChangeButtonState(int& currentMenuType);
 
+	void PrintDialogue(std::vector<std::string> dialogue);
+
 
 public:
 
@@ -82,6 +85,7 @@ public:
 	GuiButton* dialog_option2_button;
 	GuiButton* dialog_option3_button;
 	GuiButton* dialog_option4_button;
+	GuiButton* dialog_text_button;
 
 	bool quitButtonBool;
 

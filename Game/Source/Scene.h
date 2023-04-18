@@ -6,7 +6,7 @@
 #include "UIModule.h"
 
 #include "GuiButton.h"
-#include "Item.h"
+#include "Door.h"
 #include "Npc.h"
 #include "DialogueTree.h"
 #include "UriBehaviorTree.h"
@@ -50,6 +50,8 @@ public:
 
 	void UpdateDialogueTree(int opt);
 
+	std::vector<std::string> GetDialogue() { return dialogue; }
+
 	std::string LastTextNPC(ColliderType NPC);
 	std::string LastTextAngryVillager(std::string);
 	std::string LastTextTalismanVillager(std::string);
@@ -63,11 +65,13 @@ private:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
 
+	void AppearDialogue();
+
 public:
 
 	Player* player;
 	Npc* npc1;
-	//Item* item1;
+	Door* door1;
 
 private:
 

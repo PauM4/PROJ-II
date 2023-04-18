@@ -4,6 +4,7 @@
 #include "Audio.h"
 #include "Log.h"
 #include "GuiManager.h"
+#include "Fonts.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -78,6 +79,7 @@ bool GuiButton::Draw(Render* render)
 		break;
 	}
 
+	/*app->fonts->LoadRenderedParagraph(bounds, app->fonts->gameFont, text.GetString(), { 255,255,255,255 }, bounds.w - 10);*/
 	app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });
 
 	return false;

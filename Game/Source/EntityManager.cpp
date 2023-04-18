@@ -6,6 +6,8 @@
 #include "Timmy.h"
 #include "Npc.h"
 #include "Bunny.h"
+#include "Item.h"
+#include "Door.h"
 #include "Defs.h"
 #include "Enemy_AngryVillager.h"
 #include "Log.h"
@@ -104,6 +106,10 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 	case EntityType::ITEM:
 		entity = new Item();
+		break;
+
+	case EntityType::DOOR:
+		entity = new Door();
 		break;
 
 	case EntityType::ANGRYVILLAGER:
