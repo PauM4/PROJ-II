@@ -156,9 +156,10 @@ bool SceneBattle::Update(float dt)
 
 	if (endturnpressed == true) {
 
-		turnstart = false;
+		
 		atack = false;
 		move = false;
+		turnstart = false;
 		endturnpressed = false;
 
 	}
@@ -190,7 +191,7 @@ bool SceneBattle::PostUpdate()
 	
 
 
-	if (turnstart == false) {
+	if (turnstart == false ) {
 		
 		GetNext();
 		origin = characterTurn->tilePos;
@@ -318,15 +319,20 @@ bool SceneBattle::PostUpdate()
 		pathIndex = 1;
 		app->pathfinding->ClearLastPath();
 		
-		if (characterTurn->tilePos == destination) {
-			turnstart = false;
-			move = false;
-		}
+		
 	}
 
 	if (length > 1) {
 
 		Move(characterTurn, pathIndex, length);
+	}
+	else
+	{
+		if (characterTurn->tilePos == destination) {
+			
+			turnstart = false;
+
+		}
 	}
 
 
