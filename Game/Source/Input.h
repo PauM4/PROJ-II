@@ -7,8 +7,13 @@
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 //#define LAST_KEYS_PRESSED_BUFFER 50
+#define MAX_KEYS 300
+#define MAX_PADS 4
 
 struct SDL_Rect;
+
+struct _SDL_GameController;
+struct _SDL_Haptic;
 
 enum EventWindow
 {
@@ -24,6 +29,19 @@ enum KeyState
 	KEY_DOWN,
 	KEY_REPEAT,
 	KEY_UP
+};
+
+struct GamePad {
+	//Input data
+	bool a, b, x, y, r1, l1, l2, r2;
+	bool left, right, down, up, start;
+	float left_x, left_y, right_x, right_y, left_dz, right_dz;
+
+	//Controller data
+	bool enabled;
+	int index;
+	_SDL_GameController* controller;
+	_SDL_Haptic* haptic;
 };
 
 class Input : public Module
@@ -80,6 +98,13 @@ public:
 
 	int GetWorldMouseYRelativeToPlayer(int playerPosY) const;
 
+	void DeviceConnection(int index);
+
+	void DeviceRemoval(int index);
+
+	void UpdateGamepadInput();
+
+
 private:
 	bool windowEvents[WE_COUNT];
 	KeyState*	keyboard;
@@ -88,6 +113,8 @@ private:
 	int mouseMotionY;
 	int mouseX;
 	int mouseY;
+public: 
+	GamePad pads[MAX_PADS];
 };
 
 #endif // __INPUT_H__

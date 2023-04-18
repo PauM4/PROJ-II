@@ -148,7 +148,7 @@ bool Player::Update(float dt)
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pads[0].a)
 	{
 		InteractWithEntities();
 	}
@@ -323,7 +323,7 @@ void Player::Movement()
 //This function checks if the player is holding down the left shift key to sprint. If the key is being held down, the function increases the player's velocity and sets the animation speed to a faster value
 bool Player::SprintMovement()
 {
-	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->pads[0].r2)
 	{
 		vel *= 2;
 
@@ -348,12 +348,12 @@ bool Player::SprintMovement()
 //Handles the player vertical movement.
 bool Player::VerticalMovement()
 {
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->pads[0].up || app->input->pads[0].left_y < 0.0f) {
 		vel.y = -speed;
 		currentAnimation = &walkUpAnim;
 		return true;
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || app->input->pads[0].down || app->input->pads[0].left_y > 0.0f) {
 		vel.y = speed;
 		currentAnimation = &walkDownAnim;
 		return true;
@@ -365,13 +365,13 @@ bool Player::VerticalMovement()
 //Handles the player horizontal movement.
 bool Player::HorizontalMovement()
 {
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->pads[0].left || app->input->pads[0].left_x < 0.0f)
 	{
 		vel.x = -speed;
 		currentAnimation = &walkLeftAnim;
 		return true;
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->pads[0].right || app->input->pads[0].left_x > 0.0f)
 	{
 		vel.x = speed;
 		currentAnimation = &walkRightAnim;

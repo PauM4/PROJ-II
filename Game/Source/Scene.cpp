@@ -157,7 +157,7 @@ bool Scene::Update(float dt)
 	GodMode();
 
 	// Menu appear
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->pads[0].start)
 	{
 		// If player is in pause, close it
 		if (player->playerState == player->PlayerState::PAUSE)

@@ -7,7 +7,7 @@
 
 #include "SDL/include/SDL.h"
 
-#define MAX_KEYS 300
+
 
 Input::Input(bool isActive) : Module(isActive)
 {
@@ -16,6 +16,7 @@ Input::Input(bool isActive) : Module(isActive)
 	keyboard = new KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(KeyState) * MAX_KEYS);
 	memset(mouseButtons, KEY_IDLE, sizeof(KeyState) * NUM_MOUSE_BUTTONS);
+	memset(&pads[0], 0, sizeof(GamePad) * MAX_PADS);
 }
 
 // Destructor
@@ -34,6 +35,17 @@ bool Input::Awake(pugi::xml_node& config)
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
+	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
+	{
+		LOG("SDL_INIT_GAMECONTROLLER could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
+
+	if (SDL_InitSubSystem(SDL_INIT_HAPTIC) < 0)
+	{
+		LOG("SDL_INIT_HAPTIC could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 
@@ -109,6 +121,13 @@ bool Input::PreUpdate()
 				}
 			break;
 
+			case SDL_CONTROLLERDEVICEADDED:
+				DeviceConnection(event.cdevice.which);
+			break;
+			case SDL_CONTROLLERDEVICEREMOVED:
+				DeviceRemoval(event.cdevice.which);
+			break;
+
 			case SDL_MOUSEBUTTONDOWN:
 				mouseButtons[event.button.button - 1] = KEY_DOWN;
 				//LOG("Mouse button %d down", event.button.button-1);
@@ -127,8 +146,10 @@ bool Input::PreUpdate()
 				mouseY = event.motion.y / scale;
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
+			
 		}
 	}
+	UpdateGamepadInput();
 
 	return true;
 }
@@ -191,4 +212,81 @@ int Input::GetWorldMouseYRelativeToPlayer(int playerPosY) const
 	}
 
 	return mousePosY;
+}
+
+void Input::DeviceConnection(int index) {
+	if (SDL_IsGameController(index))
+	{
+		for (int i = 0; i < MAX_PADS; ++i)
+		{
+			GamePad& pad = pads[i];
+
+			if (pad.enabled == false)
+			{
+				if (pad.controller = SDL_GameControllerOpen(index))
+				{
+					LOG("Found a gamepad with id %i named %s", i, SDL_GameControllerName(pad.controller));
+					pad.enabled = true;
+					pad.left_dz = pad.right_dz = 0.1f;
+					pad.haptic = SDL_HapticOpen(index);
+					if (pad.haptic != nullptr) LOG("... gamepad has force feedback capabilities");
+					pad.index = SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(pad.controller));
+				}
+			}
+		}
+	}
+}
+
+void Input::DeviceRemoval(int index) {
+	for (int i = 0; i < MAX_PADS; ++i)
+	{
+		GamePad& pad = pads[i];
+		if (pad.enabled && pad.index == index)
+		{
+			SDL_HapticClose(pad.haptic);
+			SDL_GameControllerClose(pad.controller);
+			memset(&pad, 0, sizeof(GamePad));
+		}
+	}
+}
+
+void Input::UpdateGamepadInput()
+{
+	// Iterate through all active gamepads and update all input data
+	for (int i = 0; i < MAX_PADS; ++i)
+	{
+		GamePad& pad = pads[i];
+
+		if (pad.enabled == true)
+		{
+			pad.a = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_A) == 1;
+			pad.b = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_B) == 1;
+			pad.x = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_X) == 1;
+			pad.y = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_Y) == 1;
+			pad.left = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_DPAD_LEFT) == 1;
+			pad.right = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == 1;
+			pad.down = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_DPAD_DOWN) == 1;
+			pad.up = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_DPAD_UP) == 1;
+			pad.start = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_START) == 1;
+
+			pad.r1 = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) == 1;
+			pad.l1 = SDL_GameControllerGetButton(pad.controller, SDL_CONTROLLER_BUTTON_LEFTSHOULDER) == 1;
+
+
+			pad.l2 = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT)) / 32767.0f;
+			pad.r2 = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT)) / 32767.0f;
+
+			pad.left_x = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_LEFTX)) / 32767.0f;
+			pad.left_y = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_LEFTY)) / 32767.0f;
+			pad.right_x = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_RIGHTX)) / 32767.0f;
+			pad.right_y = float(SDL_GameControllerGetAxis(pad.controller, SDL_CONTROLLER_AXIS_RIGHTY)) / 32767.0f;
+
+			// Apply deadzone. All values below the deadzone will be discarded
+			pad.left_x = (fabsf(pad.left_x) > pad.left_dz) ? pad.left_x : 0.0f;
+			pad.left_y = (fabsf(pad.left_y) > pad.left_dz) ? pad.left_y : 0.0f;
+			pad.right_x = (fabsf(pad.right_x) > pad.right_dz) ? pad.right_x : 0.0f;
+			pad.right_y = (fabsf(pad.right_y) > pad.right_dz) ? pad.right_y : 0.0f;
+
+		}
+	}
 }

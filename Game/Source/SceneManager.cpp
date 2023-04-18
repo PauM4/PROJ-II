@@ -27,7 +27,7 @@ bool SceneManager::Start()
 
 	skipIntroScene = false;
 
-	scene = GameScene::SCENE;
+	scene = GameScene::INTRO;
 
 	return ret;
 }
@@ -61,6 +61,10 @@ bool SceneManager::PreUpdate()
 
 	switch (scene) {
 	case GameScene::INTRO:
+		if ((app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && currentScene->active == true)
+		{
+			scene = MAIN_MENU; 
+		}
 		break;
 	case GameScene::MAIN_MENU:
 		break;
@@ -81,7 +85,12 @@ bool SceneManager::Update(float dt)
 
 	switch (scene) {
 	case GameScene::INTRO:
-		if (currentScene != (Module*)app->sceneIntro) {
+		if (currentScene == nullptr) {
+			currentScene = (Module*)app->sceneIntro;
+			currentScene->Enable();
+			LOG("SCENE_INTRO");
+		}
+		else if (currentScene != (Module*)app->sceneIntro) {
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneIntro, 20)) {
 				currentScene = (Module*)app->sceneIntro;
 				LOG("SCENE_INTRO");
@@ -98,12 +107,7 @@ bool SceneManager::Update(float dt)
 		}
 		break;
 	case GameScene::SCENE:
-		if (currentScene == nullptr) {
-			currentScene = (Module*)app->scene;
-			currentScene->Enable(); 
-			LOG("SCENE");
-		}
-		else if(currentScene != (Module*)app->scene) {
+		if(currentScene != (Module*)app->scene) {
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->scene, 20)) {
 				currentScene = (Module*)app->scene;
 				LOG("SCENE");

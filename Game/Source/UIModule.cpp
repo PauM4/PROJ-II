@@ -125,11 +125,13 @@ bool UIModule::PostUpdate()
 	bool ret = true;
 
 	app->guiManager->Draw();
-
-	if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT)
-	{
-		PrintDialogue(app->scene->GetDialogue());
+	if (app->scene->active) {
+		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT)
+		{
+			PrintDialogue(app->scene->GetDialogue());
+		}
 	}
+	
 
 	return ret;
 }
