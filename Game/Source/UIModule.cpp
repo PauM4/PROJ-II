@@ -130,6 +130,11 @@ bool UIModule::PostUpdate()
 		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT)
 		{
 			PrintDialogue(app->scene->GetDialogue());
+			if (app->scene->player->dialogueActivate)
+			{
+				app->scene->AppearDialogue();
+				app->scene->player->dialogueActivate = false;
+			}
 		}
 	}
 	
@@ -546,4 +551,12 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 255,255,255,255 }, rectO4.w);
 	app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
 
+	// IMPORTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANT
+	// TO DO Gestionar Memory Leaks 
+
+	app->tex->UnLoad(textDialogue);
+	app->tex->UnLoad(textOption1);
+	app->tex->UnLoad(textOption2);
+	app->tex->UnLoad(textOption3);
+	app->tex->UnLoad(textOption4);
 }

@@ -82,6 +82,9 @@ public:
 
 	transformPosition teleport;
 
+	// Bool to print once the dialogues
+	bool dialogueActivate;
+
 private:
 
 	PhysBody* pbody;
@@ -98,6 +101,8 @@ private:
 	Animation idleAnim;
 
 	bool godMode;
+
+
 
 
 };

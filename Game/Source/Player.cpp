@@ -400,6 +400,8 @@ void Player::InteractWithEntities()
 				playerPrevState = playerState;
 				playerState = NPC_INTERACT;
 				StopVelocity();
+
+				dialogueActivate = true;
 			}
 		}
 
