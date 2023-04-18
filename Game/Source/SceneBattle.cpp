@@ -69,10 +69,10 @@ bool SceneBattle::Start()
 {
 	//Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
-	move = false;
+	move = true;
 	originSelected = false;
 	pathIndex = 1;
-	turnstart = false;
+	turnstart = true;
 	pathIndex = 0;
 	
 	app->entityManager->Start(); 
@@ -97,6 +97,9 @@ bool SceneBattle::Start()
 
 	MakeCombatMap();
 
+	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
+	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
+	villager->tilePos = app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
 	/*timmy->position = iPoint(670, 420);*/
 	allentities.Add(timmy);
@@ -110,6 +113,7 @@ bool SceneBattle::Start()
 	app->uiModule->currentMenuType = COMBAT;
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	origin = characterTurn->tilePos;
 
 	return true;
 }
@@ -126,21 +130,21 @@ bool SceneBattle::PreUpdate()
 bool SceneBattle::Update(float dt)
 {
 
-	if (turnstart == true) {
-		//if user selects attack
-		CreateArea(characterTurn,characterTurn->AttArea, 0);
-		Combat(characterTurn, targets, 1);
-		turnstart = false;
-		//if user selects ab1
-		CreateArea(characterTurn,characterTurn->Ab1Area, characterTurn->Ab1RangeType);
-		Combat(characterTurn, targets, 2);
-		turnstart = false;
+	//if (turnstart == true) {
+	//	//if user selects attack
+	//	CreateArea(characterTurn,characterTurn->AttArea, 0);
+	//	Combat(characterTurn, targets, 1);
+	//	turnstart = false;
+	//	//if user selects ab1
+	//	CreateArea(characterTurn,characterTurn->Ab1Area, characterTurn->Ab1RangeType);
+	//	Combat(characterTurn, targets, 2);
+	//	turnstart = false;
 
-		//if user selects ab2
-		CreateArea(characterTurn,characterTurn->Ab2Area, characterTurn->Ab2RangeType);
-		Combat(characterTurn, targets, 3);
-		turnstart = false;
-	}
+	//	//if user selects ab2
+	//	CreateArea(characterTurn,characterTurn->Ab2Area, characterTurn->Ab2RangeType);
+	//	Combat(characterTurn, targets, 3);
+	//	turnstart = false;
+	//}
 
 	app->map->Draw();
 
@@ -155,12 +159,36 @@ bool SceneBattle::PostUpdate()
 	
 	app->guiManager->Draw();
 
-
+	
+	
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
 	/*timmy->position = app->map->MapToWorld(timmy->tilePos.x, timmy->tilePos.y);*/
+
+
+	
+
+	
+
+
+	if (turnstart == false) {
+		move = true;
+		GetNext();
+		origin = characterTurn->tilePos;
+		
+		turnstart = true;
+		
+	}
+
+	if (app->pathfinding->IsWalkable(origin)) {
+		originSelected = true;
+		
+
+	}
+
+	app->pathfinding->ClearLastPath();
 	
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
@@ -187,12 +215,13 @@ bool SceneBattle::PostUpdate()
 					destination.y = mouseTile.y;
 					originSelected = false;
 					move = false;
+					
 				}
 				else {
 					app->pathfinding->ClearLastPath();
 				}
 			}
-			else if(combatMap[mouseTile.x ][ mouseTile.y ].character != false &&length == 1)
+	/*		else if(combatMap[mouseTile.x ][ mouseTile.y ].character != false &&length == 1)
 			{
 					origin = mouseTile;
 					if (app->pathfinding->IsWalkable(origin)) {
@@ -202,10 +231,10 @@ bool SceneBattle::PostUpdate()
 					}
 					app->pathfinding->ClearLastPath();
 				
-			}
+			}*/
 			else if (combatMap[mouseTile.x][mouseTile.y].enemy == true && atack == true) {
 
-				Combat(characterTurn, targets, 2);
+				
 
 
 			}
@@ -271,12 +300,17 @@ bool SceneBattle::PostUpdate()
 		pathIndex = 1;
 		app->pathfinding->ClearLastPath();
 		
+		if (characterTurn->tilePos == destination) {
+			turnstart = false;
+			move = false;
+		}
 	}
 
 	if (length > 1) {
 
 		Move(characterTurn, pathIndex, length);
 	}
+
 
 
 	
@@ -559,12 +593,12 @@ bool SceneBattle::GetTurns() {
 		characterTurn = allentities.At(2)->data;
 		turnqueue.Add(allentities.At(2)->data);
 	}
-	if (allentities.At(1)->data->speed > allentities.At(2)->data->speed)
+	if (allentities.At(1)->data->speed >= allentities.At(2)->data->speed)
 	{
 		turnqueue.Add(allentities.At(1)->data);
 		turnqueue.Add(allentities.At(2)->data);
 	}
-	if (allentities.At(2)->data->speed > allentities.At(1)->data->speed)
+	if (allentities.At(2)->data->speed >= allentities.At(1)->data->speed)
 	{
 		turnqueue.Add(allentities.At(2)->data);
 		turnqueue.Add(allentities.At(1)->data);
