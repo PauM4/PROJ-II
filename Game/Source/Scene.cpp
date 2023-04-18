@@ -228,9 +228,30 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
+	//switch (control->id)
+	//{
+	//default:
+	//	break;
+	//}
+
+		// Dialog Options Switch
 	switch (control->id)
 	{
-	default:
+		// Option 1
+	case 12:
+		app->scene->player->a1 = true;
+		break;
+		// Option 2
+	case 13:
+		app->scene->player->a2 = true;
+		break;
+		// Option 3
+	case 14:
+		app->scene->player->a3 = true;
+		break;
+		// Option 4
+	case 15:
+		app->scene->player->a4 = true;
 		break;
 	}
 	return true;

@@ -85,6 +85,8 @@ public:
 	// Bool to print once the dialogues
 	bool dialogueActivate;
 
+	bool a1, a2, a3, a4;
+
 private:
 
 	PhysBody* pbody;

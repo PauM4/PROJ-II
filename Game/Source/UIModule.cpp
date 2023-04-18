@@ -60,10 +60,10 @@ bool UIModule::Start()
 	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 830, 100, 20 }, this);
 	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 855, 100, 20 }, this);
 
-	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, this);
-	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, this);
-	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "", { 1000, 900, 800, 30 }, this);
-	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "", { 1000, 950, 800, 30 }, this);
+	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, app->scene);
+	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, app->scene);
+	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "", { 1000, 900, 800, 30 }, app->scene);
+	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "", { 1000, 950, 800, 30 }, app->scene);
 	dialog_text_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Text", { 100, 600, 1700, 250 }, this);
 
 	// When creating a new button, iniciate it in NONE state
@@ -318,15 +318,19 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Option 1
 	case 12:
+		std::cout << "a"<<std::endl;
 		break;
 		// Option 2
 	case 13:
+		std::cout << "a" << std::endl;
 		break;
 		// Option 3
 	case 14:
+		std::cout << "a" << std::endl;
 		break;
 		// Option 4
 	case 15:
+		std::cout << "a" << std::endl;
 		break;
 	}
 
@@ -542,21 +546,43 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Rect rectO3 = { 0, 0, 800, 30 };
 	SDL_Rect rectO4 = { 0, 0, 800, 30 };
 
-	SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 255,255,255,255 }, rectO1.w);
-	app->render->DrawTexture(textOption1, posX - 860, posY + 405, NULL);
-	SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 255,255,255,255 }, rectO2.w);
-	app->render->DrawTexture(textOption2, posX - 860, posY + 455, NULL);
-	SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 255,255,255,255 }, rectO3.w);
-	app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
-	SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 255,255,255,255 }, rectO4.w);
-	app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
+	
 
-	// IMPORTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANT
-	// TO DO Gestionar Memory Leaks 
+	if (!(dialogue.size() <= 1))
+	{
+		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 255,255,255,255 }, rectO1.w);
+		app->render->DrawTexture(textOption1, posX - 860, posY + 405, NULL);
+		SDL_DestroyTexture(textOption1);
+	}
 
-	app->tex->UnLoad(textDialogue);
-	app->tex->UnLoad(textOption1);
-	app->tex->UnLoad(textOption2);
-	app->tex->UnLoad(textOption3);
-	app->tex->UnLoad(textOption4);
+	if (!(dialogue.size() <= 2))
+	{
+		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 255,255,255,255 }, rectO2.w);
+		app->render->DrawTexture(textOption2, posX - 860, posY + 455, NULL);
+		SDL_DestroyTexture(textOption2);
+	}
+
+	if (!(dialogue.size() <= 3))
+	{
+		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 255,255,255,255 }, rectO3.w);
+		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
+		SDL_DestroyTexture(textOption3);
+	}
+
+	if (!(dialogue.size() <= 3))
+	{
+		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 255,255,255,255 }, rectO4.w);
+		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
+		SDL_DestroyTexture(textOption4);
+	}
+
+
+	SDL_DestroyTexture(textDialogue);
+
+	
+
+	
+
+
+
 }

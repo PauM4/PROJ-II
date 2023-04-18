@@ -6,6 +6,7 @@
 #include "Log.h"
 
 #include<string.h>
+#include<SDL_ttf/include/SDL_ttf.h>
 
 Fonts::Fonts(bool isActive) : Module(isActive)
 {
@@ -38,9 +39,10 @@ bool Fonts::Start() {
 
 bool Fonts::CleanUp()
 {
-
+	
 	UnloadAllTTF();
 	TTF_Quit();
+	
 
 	return true;
 }
@@ -276,9 +278,11 @@ SDL_Texture* Fonts::LoadRenderedParagraph(SDL_Rect& rect, int font_id, const cha
 		}
 
 		SDL_FreeSurface(surface);
+
 	}
 	return tex;
 }
+
 
 bool Fonts::DrawText(const char* text, int posx, int posy, int w, int h, SDL_Color color, int font_id) {
 	
