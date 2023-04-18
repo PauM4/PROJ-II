@@ -7,6 +7,7 @@
 #include "UIModule.h"
 #include "SceneManager.h"
 #include "Fonts.h"
+#include "SceneBattle.h"
 #include <iostream>
 
 #include "Defs.h"
@@ -294,15 +295,41 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Attack
 	case 16:
+		app->sceneBattle->attackpressed = true;
+		app->sceneBattle->abiltypressed = false;
+
+		app->sceneBattle->movepressed = false;
+
+		app->sceneBattle->endturnpressed = false;
+
 		break;
 		// Ability
 	case 17:
+		app->sceneBattle->attackpressed = false;
+		app->sceneBattle->abiltypressed = true;
+
+		app->sceneBattle->movepressed = false;
+
+		app->sceneBattle->endturnpressed = false;
 		break;
 		// Move
 	case 18:
+
+		app->sceneBattle->attackpressed = false;
+		app->sceneBattle->abiltypressed = false;
+
+		app->sceneBattle->movepressed = true;
+
+		app->sceneBattle->endturnpressed = false;
 		break;
 		// End turn
 	case 19:
+		app->sceneBattle->attackpressed = false;
+		app->sceneBattle->abiltypressed = false;
+
+		app->sceneBattle->movepressed = false;
+
+		app->sceneBattle->endturnpressed = true;
 		break;
 	}
 

@@ -69,11 +69,16 @@ bool SceneBattle::Start()
 {
 	//Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
-	move = true;
+	move = false;
 	originSelected = false;
 	pathIndex = 1;
 	turnstart = true;
 	pathIndex = 0;
+
+	 movepressed = false;
+	 attackpressed = false;
+	 abiltypressed = false;
+	 endturnpressed = false;
 	
 	app->entityManager->Start(); 
 	//Load combat map
@@ -145,6 +150,33 @@ bool SceneBattle::Update(float dt)
 	//	Combat(characterTurn, targets, 3);
 	//	turnstart = false;
 	//}
+	if (movepressed == true) {
+
+		move = true;
+		movepressed = false;
+		atack = false;
+	}
+
+	if (attackpressed == true) {
+
+		targets.Clear();
+		DestroyListArea();
+		CreateArea(characterTurn, characterTurn->AttArea, 1);
+		GetTargets();
+
+		atack = true;
+		move = false;
+		attackpressed = false;
+	}
+
+	if (endturnpressed == true) {
+
+		turnstart = false;
+		atack = false;
+		move = false;
+		endturnpressed = false;
+
+	}
 
 	app->map->Draw();
 
@@ -168,13 +200,13 @@ bool SceneBattle::PostUpdate()
 	/*timmy->position = app->map->MapToWorld(timmy->tilePos.x, timmy->tilePos.y);*/
 
 
-	
+	LOG("Vida enemigo: %d", villager->health);
 
 	
 
 
 	if (turnstart == false) {
-		move = true;
+		
 		GetNext();
 		origin = characterTurn->tilePos;
 		
@@ -205,39 +237,34 @@ bool SceneBattle::PostUpdate()
 
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		atack = false;
 		
-			if (originSelected == true && length==1)
-			{
-				if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x ][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
-					length=app->pathfinding->CreatePath(origin, mouseTile);
-					destination.x = mouseTile.x;
-					destination.y = mouseTile.y;
-					originSelected = false;
-					move = false;
-					
-				}
-				else {
-					app->pathfinding->ClearLastPath();
-				}
-			}
-	/*		else if(combatMap[mouseTile.x ][ mouseTile.y ].character != false &&length == 1)
-			{
-					origin = mouseTile;
-					if (app->pathfinding->IsWalkable(origin)) {
-						originSelected = true;
-						move = true;
-						characterTurn = combatMap[mouseTile.x][mouseTile.y].characterType;
-					}
-					app->pathfinding->ClearLastPath();
-				
-			}*/
-			else if (combatMap[mouseTile.x][mouseTile.y].enemy == true && atack == true) {
 
-				
-
+		if (originSelected == true && length == 1 && move == true)
+		{
+			if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
+				length = app->pathfinding->CreatePath(origin, mouseTile);
+				destination.x = mouseTile.x;
+				destination.y = mouseTile.y;
+				originSelected = false;
+				move = false;
 
 			}
+			else {
+				app->pathfinding->ClearLastPath();
+			}
+		}
+		/*		else if(combatMap[mouseTile.x ][ mouseTile.y ].character != false &&length == 1)
+				{
+						origin = mouseTile;
+						if (app->pathfinding->IsWalkable(origin)) {
+							originSelected = true;
+							move = true;
+							characterTurn = combatMap[mouseTile.x][mouseTile.y].characterType;
+						}
+						app->pathfinding->ClearLastPath();
+
+				}*/
+		
 	}
 
 
@@ -261,15 +288,8 @@ bool SceneBattle::PostUpdate()
 
 	}
 
-	
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-		targets.Clear();
-		DestroyListArea();
-		CreateArea(characterTurn, 3, 3);
-		GetTargets();
 
-		atack = true;
-	}
+	
 
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
@@ -288,6 +308,19 @@ bool SceneBattle::PostUpdate()
 
 		DisplayArea(1);
 		DisplayEnemys();
+
+		for (int i = 0; i < targets.Count(); i++) {
+			
+
+			if (targets.At(i)->data->tilePos == mouseTile) {
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+
+					Combat(characterTurn, targets, 1);
+					atack = false;
+					turnstart = false;
+				}
+			}
+		}
 	}
 
 
@@ -314,7 +347,7 @@ bool SceneBattle::PostUpdate()
 
 
 	
-	if (move == true) {
+	if (move == true ) {
 		int j = 0;
 		int i = 0;
 		iPoint nexTile;
@@ -582,27 +615,54 @@ bool SceneBattle::GetTurns() {
 	{
 		characterTurn = allentities.At(0)->data;
 		turnqueue.Add(allentities.At(0)->data);
+
+		if (allentities.At(1)->data->speed >= allentities.At(2)->data->speed)
+		{
+			turnqueue.Add(allentities.At(1)->data);
+			turnqueue.Add(allentities.At(2)->data);
+		}
+		else 
+		{
+			turnqueue.Add(allentities.At(2)->data);
+			turnqueue.Add(allentities.At(1)->data);
+		}
 	}
-	if (allentities.At(1)->data->speed >= allentities.At(0)->data->speed && allentities.At(1)->data->speed >= allentities.At(2)->data->speed)
+	else if (allentities.At(1)->data->speed > allentities.At(0)->data->speed && allentities.At(1)->data->speed >= allentities.At(2)->data->speed)
 	{
 		characterTurn = allentities.At(1)->data;
 		turnqueue.Add(allentities.At(1)->data);
+
+		if (allentities.At(0)->data->speed >= allentities.At(2)->data->speed)
+		{
+			turnqueue.Add(allentities.At(0)->data);
+			turnqueue.Add(allentities.At(2)->data);
+		}
+		else
+		{
+			turnqueue.Add(allentities.At(2)->data);
+			turnqueue.Add(allentities.At(0)->data);
+		}
 	}
-	if (allentities.At(2)->data->speed >= allentities.At(0)->data->speed && allentities.At(2)->data->speed >= allentities.At(1)->data->speed)
+	else if (allentities.At(2)->data->speed > allentities.At(0)->data->speed && allentities.At(2)->data->speed > allentities.At(1)->data->speed)
 	{
 		characterTurn = allentities.At(2)->data;
 		turnqueue.Add(allentities.At(2)->data);
+
+		if (allentities.At(0)->data->speed >= allentities.At(1)->data->speed)
+		{
+			turnqueue.Add(allentities.At(0)->data);
+			turnqueue.Add(allentities.At(1)->data);
+		}
+		else {
+			turnqueue.Add(allentities.At(1)->data);
+			turnqueue.Add(allentities.At(0)->data);
+
+		}
+
+
 	}
-	if (allentities.At(1)->data->speed >= allentities.At(2)->data->speed)
-	{
-		turnqueue.Add(allentities.At(1)->data);
-		turnqueue.Add(allentities.At(2)->data);
-	}
-	if (allentities.At(2)->data->speed >= allentities.At(1)->data->speed)
-	{
-		turnqueue.Add(allentities.At(2)->data);
-		turnqueue.Add(allentities.At(1)->data);
-	}
+
+
 	return true;
 }
 
@@ -749,13 +809,13 @@ bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
 
 	//id = 1 --> attack
 	if (id == 1) {
-		for (int i = 0; i++; i > target.Count()) {
+		for (int i = 0;  i < target.Count(); i++) {
 			target.At(i)->data->TakeDamage(inturn->Attack());
 		}
 	}
 	//id = 2 --> ability 1
 	if (id == 2) {
-		for (int i = 0; i++; i > target.Count()) {
+		for (int i = 0; i < target.Count(); i++) {
 			if (inturn->Ab1Type != 3) {
 				target.At(i)->data->TakeDamage(inturn->Ability(1));
 			}
@@ -766,7 +826,7 @@ bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
 	}
 	//id = 3 --> ability 2
 	if (id == 3) {
-		for (int i = 0; i++; i > target.Count()) {
+		for (int i = 0; i < target.Count(); i++) {
 			if (inturn->Ab1Type != 3) {
 				target.At(i)->data->TakeDamage(inturn->Ability(2));
 			}

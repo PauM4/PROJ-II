@@ -99,7 +99,10 @@ public:
 public:
 
 	TileData combatMap[16][9];
-	
+	bool movepressed;
+	bool attackpressed;
+	bool abiltypressed;
+	bool endturnpressed;
 
 private:;
 
@@ -124,6 +127,7 @@ private:;
 
 	DynArray<iPoint> path;
 	iPoint pos;
+	iPoint mouseTile;
 	
 	List<TileData*> area;
 
@@ -140,6 +144,7 @@ private:;
 	Bunny* bunny;
 	Enemy_AngryVillager* villager;
 	
+
 };
 
 #endif // __SCENE_BATTLE_H__
