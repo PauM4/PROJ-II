@@ -119,6 +119,8 @@ int Enemy_AngryVillager::Ability(int id)
 
 void Enemy_AngryVillager::Movement()
 {
+	
+
 
 }
 

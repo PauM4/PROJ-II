@@ -228,7 +228,7 @@ bool SceneBattle::PostUpdate()
 
 	
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-
+		targets.Clear();
 		DestroyListArea();
 		CreateArea(characterTurn, 3, 3);
 
@@ -241,8 +241,12 @@ bool SceneBattle::PostUpdate()
 		DisplayArea(1);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+
+		targets.Clear();
 		DestroyListArea();
 		CreateArea(characterTurn, 3, 2);
+
+		GetTargets(area);
 
 		atack = true;
 	}
@@ -251,6 +255,7 @@ bool SceneBattle::PostUpdate()
 
 
 		DisplayArea(1);
+		DispalyEnemys(area);
 	}
 
 
@@ -487,6 +492,55 @@ bool SceneBattle::MakeCombatMap() {
 
 	return ret;
 }
+
+bool SceneBattle:: GetTargets(List<TileData*>area){
+
+
+	ListItem<TileData*>* tileListItem;
+	tileListItem = area.start;
+
+
+	while (tileListItem != NULL) {
+
+
+		iPoint pos = iPoint(tileListItem->data->x, tileListItem->data->y);
+		
+		if (combatMap[pos.x][pos.y].enemy == true) {
+
+			targets.Add(combatMap[pos.x][pos.y].characterType);
+
+		}
+
+		tileListItem = tileListItem->next;
+	}
+
+	return true;
+}
+
+bool SceneBattle::DispalyEnemys(List<TileData*>area) {
+
+	ListItem<TileData*>* tileListItem;
+	tileListItem = area.start;
+
+	
+	while (tileListItem != NULL) {
+
+
+		iPoint posi = iPoint(tileListItem->data->x, tileListItem->data->y);
+
+		if (combatMap[posi.x][posi.y].enemy == true) {
+
+			iPoint pos = app->map->MapToWorld(posi.x, posi.y);
+			app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 250, 0, 0, 100);
+
+		}
+
+		tileListItem = tileListItem->next;
+	}
+
+	return true;
+}
+
 bool SceneBattle::GetTurns() {
 	if (allentities.At(0)->data->speed >= allentities.At(1)->data->speed && allentities.At(0)->data->speed >= allentities.At(2)->data->speed)
 	{

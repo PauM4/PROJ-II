@@ -83,6 +83,10 @@ public:
 	// Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
 	bool Combat(Entity* inturn, List<Entity*> target, int id);
 
+	bool GetTargets( List<TileData*> area);
+
+	bool DispalyEnemys(List<TileData*> area);
+
 	bool GetTurns();
 
 	bool GetNext();
