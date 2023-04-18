@@ -203,6 +203,12 @@ bool SceneBattle::PostUpdate()
 					app->pathfinding->ClearLastPath();
 				
 			}
+			else if (combatMap[mouseTile.x][mouseTile.y].enemy == true && atack == true) {
+
+				Combat(characterTurn, targets, 2);
+
+
+			}
 	}
 
 
@@ -231,23 +237,20 @@ bool SceneBattle::PostUpdate()
 		targets.Clear();
 		DestroyListArea();
 		CreateArea(characterTurn, 3, 3);
+		GetTargets();
 
 		atack = true;
 	}
 
-	if (atack ==true) {
-		
-		
-		DisplayArea(1);
-	}
+
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 
 		targets.Clear();
 		DestroyListArea();
 		CreateArea(characterTurn, 3, 2);
 
-		GetTargets(area);
-
+		GetTargets();
+		
 		atack = true;
 	}
 
@@ -255,7 +258,7 @@ bool SceneBattle::PostUpdate()
 
 
 		DisplayArea(1);
-		DisplayEnemys(targets);
+		DisplayEnemys();
 	}
 
 
@@ -497,7 +500,7 @@ bool SceneBattle::MakeCombatMap() {
 	return ret;
 }
 
-bool SceneBattle:: GetTargets(List<TileData*>area){
+bool SceneBattle:: GetTargets(){
 
 
 	ListItem<TileData*>* tileListItem;
@@ -521,27 +524,21 @@ bool SceneBattle:: GetTargets(List<TileData*>area){
 	return true;
 }
 
-bool SceneBattle::DisplayEnemys(List<Entity*>list) {
+bool SceneBattle::DisplayEnemys() {
+
+
 
 	ListItem<Entity*>* entitylist;
 	entitylist = targets.start;
 
-	
 	while (entitylist != NULL) {
+		iPoint pos = iPoint(entitylist->data->position.x, entitylist->data->position.y);
 
+		app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 250, 0, 0, 100);
 
-		iPoint posi = iPoint{ entitylist->data->position.x, entitylist->data->position.y };
-
-		if (combatMap[posi.x][posi.y].enemy == true) {
-
-			
-			app->render->DrawRectangle({ posi.x,posi.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 250, 0, 0, 100);
-
-		}
-		
-			entitylist = entitylist->next;
-		
+		entitylist = entitylist->next;
 	}
+
 
 	return true;
 }
