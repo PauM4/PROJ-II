@@ -64,7 +64,7 @@ bool UIModule::Start()
 	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, app->scene);
 	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "", { 1000, 900, 800, 30 }, app->scene);
 	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "", { 1000, 950, 800, 30 }, app->scene);
-	dialog_text_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Text", { 100, 600, 1700, 250 }, this);
+	dialog_text_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "", { 100, 600, 1700, 250 }, this);
 
 	// When creating a new button, iniciate it in NONE state
 
@@ -135,6 +135,13 @@ bool UIModule::PostUpdate()
 				app->scene->AppearDialogue();
 				app->scene->player->dialogueActivate = false;
 			}
+		}
+		else
+		{
+			// Tell to UIModule which currentMenuType
+			app->uiModule->currentMenuType = DISABLED;
+			// Call this function only when buttons change
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 		}
 	}
 	
@@ -538,7 +545,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	// Dialogue text block
 	SDL_Rect rect = { 0 , 0, 800, 400 };
 	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 1700);
-	app->render->DrawTexture(textDialogue, posX, posY, NULL);
+	app->render->DrawTexture(textDialogue, posX - 850, posY + 120, NULL);
 
 	// Change options buttons text
 	SDL_Rect rectO1 = { 0, 0, 800, 30 };
@@ -547,18 +554,18 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Rect rectO4 = { 0, 0, 800, 30 };
 
 	
-
+	// Check if there's dialogue available
 	if (!(dialogue.size() <= 1))
 	{
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 255,255,255,255 }, rectO1.w);
-		app->render->DrawTexture(textOption1, posX - 860, posY + 405, NULL);
+		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
 		SDL_DestroyTexture(textOption1);
 	}
 
 	if (!(dialogue.size() <= 2))
 	{
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 255,255,255,255 }, rectO2.w);
-		app->render->DrawTexture(textOption2, posX - 860, posY + 455, NULL);
+		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
 		SDL_DestroyTexture(textOption2);
 	}
 
