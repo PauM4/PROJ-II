@@ -122,15 +122,6 @@ bool Scene::Update(float dt)
 	//	//Prueba();
 	//}
 
-
-	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		// Tell to UIModule which currentMenuType
-		app->uiModule->currentMenuType = DIALOG;
-		// Call this function only when buttons change
-		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-	}
-
 	Camera();
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
@@ -204,13 +195,13 @@ void Scene::AppearDialogue()
 		}
 
 	}
-	//else if(player->playerPrevState == player->PlayerState::NPC_INTERACT)
-	//{
-	//	// Tell to UIModule which currentMenuType
-	//	app->uiModule->currentMenuType = DISABLED;
-	//	// Call this function only when buttons change
-	//	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-	//}
+	else if(player->playerPrevState == player->PlayerState::NPC_INTERACT)
+	{
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = DISABLED;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	}
 }
 
 // Called each loop iteration
@@ -222,16 +213,13 @@ bool Scene::PostUpdate()
 		ret = false;
 
 
-	// Draw GUI
-	app->guiManager->Draw();
-
 	// When exit button click, close app
 	if (exitButtonBool == true)
 	{
 		return false;
 	}
 
-	AppearDialogue();
+	
 
 	return ret;
 }
@@ -621,7 +609,8 @@ void Scene::CreateDialogue()
 	firstOption2TV->AddChild(tVillagerToOption2);
 
 	auto firstOption3TV = std::make_shared<DialogueNode>();
-	firstOption3TV->SetText("Why didn't you watch where you were going? You should be more careful with your belongings. I'll help you this time, but you need to take better care of your things.");
+	firstOption3TV->SetText("Don't you watch where you go? I'll help you this time. Take better care of your things.");
+	//firstOption3TV->SetText("Why didn't you watch where you were going? You should be more careful with your belongings. I'll help you this time, but you need to take better care of your things.");
 	firstOption3TV->AddChild(tVillagerToOption3);
 
 	auto firstOption4TV = std::make_shared<DialogueNode>();

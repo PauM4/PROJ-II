@@ -125,6 +125,7 @@ bool UIModule::PostUpdate()
 	bool ret = true;
 
 	app->guiManager->Draw();
+
 	if (app->scene->active) {
 		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT)
 		{
@@ -141,6 +142,7 @@ bool UIModule::PostUpdate()
 bool UIModule::CleanUp()
 {
 	LOG("Freeing UIModule");
+	app->guiManager->guiControlsList.Clear();
 
 	return true;
 }
@@ -520,24 +522,28 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 {
+
+	int posX = app->scene->player->position.x;
+	int posY = app->scene->player->position.y;
+
 	// Dialogue text block
-	SDL_Rect rect = { app->scene->player->position.x , app->scene->player->position.y, 800, 400 };
-	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 270);
-	app->render->DrawTexture(textDialogue, app->scene->player->position.x, app->scene->player->position.y, NULL);
+	SDL_Rect rect = { 0 , 0, 800, 400 };
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 1700);
+	app->render->DrawTexture(textDialogue, posX, posY, NULL);
 
 	// Change options buttons text
-	SDL_Rect rectO1 = { 100, 900, 800, 30 };
-	SDL_Rect rectO2 = { 100, 950, 800, 30 };
-	SDL_Rect rectO3 = { 1000, 900, 800, 30 };
-	SDL_Rect rectO4 = { 1000, 950, 800, 30 };
+	SDL_Rect rectO1 = { 0, 0, 800, 30 };
+	SDL_Rect rectO2 = { 0, 0, 800, 30 };
+	SDL_Rect rectO3 = { 0, 0, 800, 30 };
+	SDL_Rect rectO4 = { 0, 0, 800, 30 };
 
-	SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO1.w);
-	app->render->DrawTexture(textOption1, rectO1.x, rectO1.h, NULL);
-	SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO2.w);
-	app->render->DrawTexture(textOption1, rectO2.x, rectO2.h, NULL);
-	SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO3.w);
-	app->render->DrawTexture(textOption1, rectO3.x, rectO3.h, NULL);
-	SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO4.w);
-	app->render->DrawTexture(textOption1, rectO4.x, rectO4.h, NULL);
+	SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 255,255,255,255 }, rectO1.w);
+	app->render->DrawTexture(textOption1, posX - 860, posY + 405, NULL);
+	SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 255,255,255,255 }, rectO2.w);
+	app->render->DrawTexture(textOption2, posX - 860, posY + 455, NULL);
+	SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 255,255,255,255 }, rectO3.w);
+	app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
+	SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 255,255,255,255 }, rectO4.w);
+	app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
 
 }
