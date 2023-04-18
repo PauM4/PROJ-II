@@ -255,7 +255,7 @@ bool SceneBattle::PostUpdate()
 
 
 		DisplayArea(1);
-		DispalyEnemys(area);
+		DisplayEnemys(targets);
 	}
 
 
@@ -369,6 +369,7 @@ bool SceneBattle::PostUpdate()
 				combatMap[i][j].characterType = nullptr;
 				combatMap[i][j].character = false;
 				combatMap[i][j].inRange = false;
+				combatMap[i][j].enemy = false;
 				
 				
 			}
@@ -408,7 +409,10 @@ bool SceneBattle::PostUpdate()
 	app->render->DrawRectangle({ int(timmy->position.x)+35, int(timmy->position.y)+35, 50, 50 }, 250, 0, 0, 250, true);
 
 	
+	
 
+		
+	
 	return ret;
 }
 
@@ -517,25 +521,26 @@ bool SceneBattle:: GetTargets(List<TileData*>area){
 	return true;
 }
 
-bool SceneBattle::DispalyEnemys(List<TileData*>area) {
+bool SceneBattle::DisplayEnemys(List<Entity*>list) {
 
-	ListItem<TileData*>* tileListItem;
-	tileListItem = area.start;
+	ListItem<Entity*>* entitylist;
+	entitylist = targets.start;
 
 	
-	while (tileListItem != NULL) {
+	while (entitylist != NULL) {
 
 
-		iPoint posi = iPoint(tileListItem->data->x, tileListItem->data->y);
+		iPoint posi = iPoint{ entitylist->data->position.x, entitylist->data->position.y };
 
 		if (combatMap[posi.x][posi.y].enemy == true) {
 
-			iPoint pos = app->map->MapToWorld(posi.x, posi.y);
-			app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 250, 0, 0, 100);
+			
+			app->render->DrawRectangle({ posi.x,posi.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 250, 0, 0, 100);
 
 		}
-
-		tileListItem = tileListItem->next;
+		
+			entitylist = entitylist->next;
+		
 	}
 
 	return true;
@@ -654,7 +659,7 @@ bool SceneBattle::CreateArea(Entity*character, int range, int type) {
 					area.Add(&combatMap[j][i]);
 
 				}
-				LOG("CombatMap[i][j]: %d", int(combatMap[j][i].type));
+				
 			}
 		}
 		break;

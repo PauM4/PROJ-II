@@ -85,7 +85,7 @@ public:
 
 	bool GetTargets( List<TileData*> area);
 
-	bool DispalyEnemys(List<TileData*> area);
+	bool DisplayEnemys(List<Entity*> list);
 
 	bool GetTurns();
 
