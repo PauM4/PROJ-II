@@ -124,6 +124,14 @@ bool Scene::Update(float dt)
 	//}
 
 
+	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = DIALOG;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	}
+
 	Camera();
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
@@ -148,12 +156,6 @@ bool Scene::Update(float dt)
 		app->render->camera.x -= ceil(speed);
 
 	GodMode();
-	
-	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		app->uiModule->currentMenuType = DIALOG;
-		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);		
-	}
 
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
@@ -180,10 +182,36 @@ bool Scene::Update(float dt)
 		}
 	}
 
+
 	// Draw map
 	app->map->Draw();
 
+	
 	return true;
+}
+
+void Scene::AppearDialogue()
+{
+	if (player->playerState == player->PlayerState::NPC_INTERACT)
+	{
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = DIALOG;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+		for (auto& e : dialogue)
+		{
+			std::cout << e << std::endl;
+		}
+
+	}
+	//else if(player->playerPrevState == player->PlayerState::NPC_INTERACT)
+	//{
+	//	// Tell to UIModule which currentMenuType
+	//	app->uiModule->currentMenuType = DISABLED;
+	//	// Call this function only when buttons change
+	//	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	//}
 }
 
 // Called each loop iteration
@@ -204,6 +232,7 @@ bool Scene::PostUpdate()
 		return false;
 	}
 
+	AppearDialogue();
 
 	return ret;
 }
@@ -743,3 +772,4 @@ bool Scene::SaveState(pugi::xml_node& data)
 
 	return true;
 }
+

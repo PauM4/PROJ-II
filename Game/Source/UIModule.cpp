@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "UIModule.h"
 #include "SceneManager.h"
+#include "Fonts.h"
 #include <iostream>
 
 #include "Defs.h"
@@ -59,10 +60,11 @@ bool UIModule::Start()
 	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 830, 100, 20 }, this);
 	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 855, 100, 20 }, this);
 
-	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "Option 1", { 1580, 850, 100, 20 }, this);
-	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "Option 2", { 1580, 885, 100, 20 }, this);
-	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "Option 3", { 1580, 920, 100, 20 }, this);
-	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "Option 4", { 1580, 955, 100, 20 }, this);
+	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, this);
+	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, this);
+	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "", { 1000, 900, 800, 30 }, this);
+	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "", { 1000, 950, 800, 30 }, this);
+	dialog_text_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Text", { 100, 600, 1700, 250 }, this);
 
 	// When creating a new button, iniciate it in NONE state
 
@@ -91,6 +93,7 @@ bool UIModule::Start()
 	dialog_option2_button->state = GuiControlState::NONE;
 	dialog_option3_button->state = GuiControlState::NONE;
 	dialog_option4_button->state = GuiControlState::NONE;
+	dialog_text_button->state = GuiControlState::NONE;
 
 	quitButtonBool = false;
 
@@ -122,6 +125,11 @@ bool UIModule::PostUpdate()
 	bool ret = true;
 
 	app->guiManager->Draw();
+
+	if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT)
+	{
+		PrintDialogue(app->scene->GetDialogue());
+	}
 
 	return ret;
 }
@@ -353,6 +361,7 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option2_button->state = GuiControlState::NONE;
 		dialog_option3_button->state = GuiControlState::NONE;
 		dialog_option4_button->state = GuiControlState::NONE;
+		dialog_text_button->state = GuiControlState::NONE;
 
 		break;
 	case PAUSE:
@@ -386,6 +395,7 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option2_button->state = GuiControlState::NONE;
 		dialog_option3_button->state = GuiControlState::NONE;
 		dialog_option4_button->state = GuiControlState::NONE;
+		dialog_text_button->state = GuiControlState::NONE;
 
 		// Disable other menus buttons:
 
@@ -397,6 +407,7 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option2_button->state = GuiControlState::NORMAL;
 		dialog_option3_button->state = GuiControlState::NORMAL;
 		dialog_option4_button->state = GuiControlState::NORMAL;
+		dialog_text_button->state = GuiControlState::NORMAL;
 
 		// Disable all main menu buttons
 		mainmenu_play_button->state = GuiControlState::NONE;
@@ -455,6 +466,7 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option2_button->state = GuiControlState::NONE;
 		dialog_option3_button->state = GuiControlState::NONE;
 		dialog_option4_button->state = GuiControlState::NONE;
+		dialog_text_button->state = GuiControlState::NONE;
 
 		// Disable other menus buttons:
 
@@ -493,6 +505,7 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option2_button->state = GuiControlState::NONE;
 		dialog_option3_button->state = GuiControlState::NONE;
 		dialog_option4_button->state = GuiControlState::NONE;
+		dialog_text_button->state = GuiControlState::NONE;
 
 		// Disable other menus buttons:
 
@@ -500,4 +513,29 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 	}
 
 	return true;
+}
+
+
+void UIModule::PrintDialogue(std::vector<std::string> dialogue)
+{
+	// Dialogue text block
+	SDL_Rect rect = { app->scene->player->position.x , app->scene->player->position.y, 800, 400 };
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 270);
+	app->render->DrawTexture(textDialogue, app->scene->player->position.x, app->scene->player->position.y, NULL);
+
+	// Change options buttons text
+	SDL_Rect rectO1 = { 100, 900, 800, 30 };
+	SDL_Rect rectO2 = { 100, 950, 800, 30 };
+	SDL_Rect rectO3 = { 1000, 900, 800, 30 };
+	SDL_Rect rectO4 = { 1000, 950, 800, 30 };
+
+	SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO1.w);
+	app->render->DrawTexture(textOption1, rectO1.x, rectO1.h, NULL);
+	SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO2.w);
+	app->render->DrawTexture(textOption1, rectO2.x, rectO2.h, NULL);
+	SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO3.w);
+	app->render->DrawTexture(textOption1, rectO3.x, rectO3.h, NULL);
+	SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO4.w);
+	app->render->DrawTexture(textOption1, rectO4.x, rectO4.h, NULL);
+
 }

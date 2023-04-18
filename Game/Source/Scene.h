@@ -50,6 +50,8 @@ public:
 
 	void UpdateDialogueTree(int opt);
 
+	std::vector<std::string> GetDialogue() { return dialogue; }
+
 	std::string LastTextNPC(ColliderType NPC);
 	std::string LastTextAngryVillager(std::string);
 	std::string LastTextTalismanVillager(std::string);
@@ -62,6 +64,8 @@ private:
 	void GodMode();
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
+
+	void AppearDialogue();
 
 public:
 
