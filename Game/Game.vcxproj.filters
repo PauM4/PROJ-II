@@ -63,6 +63,9 @@
     <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\UIModule.cpp" />
+    <ClCompile Include="Source\Door.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -162,6 +165,9 @@
     <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\UIModule.h" />
+    <ClInclude Include="Source\Door.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

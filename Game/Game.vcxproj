@@ -99,6 +99,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Bunny.cpp" />
+    <ClCompile Include="Source\Door.cpp" />
     <ClCompile Include="Source\Enemy_AngryVillager.cpp" />
     <ClCompile Include="Source\Enemy_CorruptedSprout.cpp" />
     <ClCompile Include="Source\Enemy_LRRH.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Bunny.h" />
     <ClInclude Include="Source\DialogueTree.h" />
+    <ClInclude Include="Source\Door.h" />
     <ClInclude Include="Source\Enemy_AngryVillager.h" />
     <ClInclude Include="Source\Enemy_CorruptedSprout.h" />
     <ClInclude Include="Source\Enemy_LRRH.h" />

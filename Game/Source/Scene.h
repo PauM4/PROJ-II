@@ -6,7 +6,7 @@
 #include "UIModule.h"
 
 #include "GuiButton.h"
-#include "Item.h"
+#include "Door.h"
 #include "Npc.h"
 #include "DialogueTree.h"
 #include "UriBehaviorTree.h"
@@ -67,7 +67,7 @@ public:
 
 	Player* player;
 	Npc* npc1;
-	//Item* item1;
+	Door* door1;
 
 private:
 

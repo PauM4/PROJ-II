@@ -23,8 +23,8 @@
 
 	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
 		<player x="1954" y="1667" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
-		<!--<item x="0" y="0" texturepath="Assets/Textures/.png"/> -->
-    <npc npcTexturePath ="Assets/Characters/npc.png"/>
+		<npc npcTexturePath ="Assets/Characters/npc.png"/>
+		<door x="2218" y="2414" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0"/>
 
 	</scene>
 

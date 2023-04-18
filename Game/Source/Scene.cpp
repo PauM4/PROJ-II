@@ -10,8 +10,6 @@
 #include "PathFinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
-#include "Item.h"
-
 
 #include "Defs.h"
 #include "Log.h"
@@ -44,7 +42,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
 	npc1->parameters = config.child("npc");
 
-	//item1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	door1 = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);
+	door1->parameters = config.child("door");
 
 	app->entityManager->Awake(config);
 

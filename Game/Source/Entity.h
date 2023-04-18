@@ -32,6 +32,7 @@ enum class EntityType
 	PLAYER,
 	NPC,
 	ITEM,
+	DOOR,
 
 	//Enemies
 	LRRH,
