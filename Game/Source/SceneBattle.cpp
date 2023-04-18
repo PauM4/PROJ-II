@@ -135,21 +135,6 @@ bool SceneBattle::PreUpdate()
 bool SceneBattle::Update(float dt)
 {
 
-	//if (turnstart == true) {
-	//	//if user selects attack
-	//	CreateArea(characterTurn,characterTurn->AttArea, 0);
-	//	Combat(characterTurn, targets, 1);
-	//	turnstart = false;
-	//	//if user selects ab1
-	//	CreateArea(characterTurn,characterTurn->Ab1Area, characterTurn->Ab1RangeType);
-	//	Combat(characterTurn, targets, 2);
-	//	turnstart = false;
-
-	//	//if user selects ab2
-	//	CreateArea(characterTurn,characterTurn->Ab2Area, characterTurn->Ab2RangeType);
-	//	Combat(characterTurn, targets, 3);
-	//	turnstart = false;
-	//}
 	if (movepressed == true) {
 
 		move = true;
@@ -197,7 +182,7 @@ bool SceneBattle::PostUpdate()
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
-	/*timmy->position = app->map->MapToWorld(timmy->tilePos.x, timmy->tilePos.y);*/
+	
 
 
 	LOG("Vida enemigo: %d", villager->health);
