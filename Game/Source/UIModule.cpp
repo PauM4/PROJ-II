@@ -57,6 +57,11 @@ bool UIModule::Start()
 	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "Back to Menu", { 1620, 220, 120,30 }, this);
 	pausemenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "Quit", { 1620, 255, 120, 30 }, this);
 
+	pausemenuCombat_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, "Resume", { 1620, 80, 120,30 }, this);
+	pausemenuCombat_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Options", { 1620, 115, 120,30 }, this);
+	pausemenuCombat_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Return", { 1620, 80, 120,30 }, this);
+	pausemenuCombat_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Quit", { 1620, 255, 120, 30 }, this);
+
 	combat_attack_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 30 }, this);
 	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "Ability", { 100, 815, 100, 30 }, this);
 	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 850, 100, 30 }, this);
@@ -96,6 +101,13 @@ bool UIModule::Start()
 	dialog_option3_button->state = GuiControlState::NONE;
 	dialog_option4_button->state = GuiControlState::NONE;
 	dialog_text_button->state = GuiControlState::NONE;
+
+	pausemenuCombat_resume_button->state = GuiControlState::NONE;
+	pausemenuCombat_options_button->state = GuiControlState::NONE;
+	pausemenuCombat_return_button->state = GuiControlState::NONE;
+	pausemenuCombat_quit_button->state = GuiControlState::NONE;
+
+
 
 	quitButtonBool = false;
 	continueBool = false;
@@ -297,6 +309,39 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		//Quit the game
 	case 11:
 		quitButtonBool = true;
+		break;
+	}
+
+	// Pause Menu COMBAT Switch
+	switch (control->id)
+	{
+		// Resume
+	case 100:
+		pausemenuCombat_resume_button->state = GuiControlState::NONE;
+		pausemenuCombat_options_button->state = GuiControlState::NONE;
+		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+
+		break;
+		// Options
+	case 101:
+		pausemenuCombat_return_button->state = GuiControlState::NORMAL;
+
+		pausemenuCombat_resume_button->state = GuiControlState::NONE;
+		pausemenuCombat_options_button->state = GuiControlState::NONE;
+		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+
+		break;
+		// Return pressed --> return from options to pause menu
+	case 23:
+		pausemenu_resume_button->state = GuiControlState::NORMAL;
+		pausemenu_save_button->state = GuiControlState::NORMAL;
+		pausemenu_options_button->state = GuiControlState::NORMAL;
+		pausemenu_load_button->state = GuiControlState::NORMAL;
+		pausemenu_backtomain_button->state = GuiControlState::NORMAL;
+		pausemenu_quit_button->state = GuiControlState::NORMAL;
+
+		pausemenu_return_button->state = GuiControlState::NONE;
 		break;
 	}
 

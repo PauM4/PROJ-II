@@ -121,6 +121,9 @@ bool SceneBattle::Start()
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 	origin = characterTurn->tilePos;
 
+	// UI Things
+	isPaused = false;
+
 	return true;
 }
 
@@ -135,6 +138,29 @@ bool SceneBattle::PreUpdate()
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
+
+	// Menu appear
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->pads[0].start)
+	{
+		// If player is in pause, close it
+		if (!isPaused)
+		{
+			app->uiModule->currentMenuType = COMBAT;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			isPaused = true;
+		}
+		// If player is NOT in pause, open it
+		else
+		{
+			app->uiModule->currentMenuType = COMBAT_PAUSE;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			isPaused = false;
+		}
+	}
 
 	if (movepressed == true) {
 
