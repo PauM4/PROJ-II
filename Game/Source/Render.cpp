@@ -54,7 +54,7 @@ bool Render::Awake(pugi::xml_node& config)
 	TTF_Init();
 
 	//load a font into memory
-	font = TTF_OpenFont("Assets/Fonts/arial/arial.ttf", 25);
+	font = TTF_OpenFont("Assets/Fonts/JustAnotherHand.ttf", 25);
 
 	return ret;
 }

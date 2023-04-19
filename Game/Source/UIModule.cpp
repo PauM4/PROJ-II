@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "Fonts.h"
 #include "SceneBattle.h"
+#include "SceneMainMenu.h"
 #include <iostream>
 
 #include "Defs.h"
@@ -40,26 +41,26 @@ bool UIModule::Start()
 	app->win->GetWindowSize(w, h);
 
 
-	mainmenu_play_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 1060, 80, 100, 20 }, this);
-	mainmenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 1060, 105, 100, 20 }, this);
-	mainmenu_credits_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { 1060, 130, 100, 20 }, this);
-	mainmenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { 1060, 155, 100, 20 }, this);
-	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { 1060, 105, 100, 20 }, this);
-	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { 1060, 130, 100, 20 }, this);
-	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { 1060, 155, 100, 20 }, this);
+	mainmenu_play_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 920, 80, 120,30 }, this);
+	mainmenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 920, 115, 120,30 }, this);
+	mainmenu_credits_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { 920, 150, 120,30 }, this);
+	mainmenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { 920, 185, 120, 30 }, this);
+	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { 920, 115, 120,30 }, this);
+	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { 920, 150, 120,30 }, this);
+	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { 920, 925, 120,30 }, this);
 
-	pausemenu_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, "Resume", { 1620, 80, 100, 20 }, this);
-	pausemenu_save_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Save", { 1620, 105, 100, 20 }, this);
-	pausemenu_load_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Load", { 1620, 130, 100, 20 }, this);
-	pausemenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Options", { 1620, 155, 100, 20 }, this);
-	pausemenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, "Return", { 1620, 80, 100, 20 }, this);
-	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "Back to Menu", { 1620, 180, 100, 20 }, this);
-	pausemenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "Quit", { 1620, 205, 100, 20 }, this);
+	pausemenu_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, "Resume", { 1620, 80, 120,30 }, this);
+	pausemenu_save_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Save", { 1620, 115, 120,30 }, this);
+	pausemenu_load_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Load", { 1620, 150, 120,30 }, this);
+	pausemenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Options", { 1620, 185, 120,30 }, this);
+	pausemenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, "Return", { 1620, 80, 120,30 }, this);
+	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "Back to Menu", { 1620, 220, 120,30 }, this);
+	pausemenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "Quit", { 1620, 255, 120, 30 }, this);
 
-	combat_attack_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 20 }, this);
-	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "Ability", { 100, 805, 100, 20 }, this);
-	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 830, 100, 20 }, this);
-	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 855, 100, 20 }, this);
+	combat_attack_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 30 }, this);
+	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "Ability", { 100, 815, 100, 30 }, this);
+	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 850, 100, 30 }, this);
+	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 885, 100, 30 }, this);
 
 	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, app->scene);
 	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, app->scene);
@@ -191,7 +192,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_newGame_button->state = GuiControlState::NONE;
 
-
 		break;
 
 		// When credits pressed, appear image with credits and return button
@@ -204,6 +204,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_quit_button->state = GuiControlState::NONE;
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_newGame_button->state = GuiControlState::NONE;
+
+		app->sceneMainMenu->optionsOpen = true;
 		break;
 		// When quit pressed, quit the game
 	case 4:
@@ -212,10 +214,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// New Game. Start the game with all original config.xml info
 	case 5:
-
-		app->scene->player->position.x = app->scene->player->parameters.attribute("x").as_int();
-		app->scene->player->position.y = app->scene->player->parameters.attribute("y").as_int();
-
+		app->scene->isNewGame = true;
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;
 		break;
@@ -236,6 +235,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_credits_button->state = GuiControlState::NORMAL;
 		mainmenu_options_button->state = GuiControlState::NORMAL;
 		mainmenu_quit_button->state = GuiControlState::NORMAL;
+
+		app->sceneMainMenu->optionsOpen = false;
 		break;
 	}
 

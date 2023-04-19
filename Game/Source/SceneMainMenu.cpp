@@ -32,6 +32,7 @@ bool SceneMainMenu::Awake(pugi::xml_node& config)
 bool SceneMainMenu::Start()
 {	
 	mainMenu_image = app->tex->Load("Assets/UI/A_MainMenuBackground_SceneMainMenu.png");
+	credits_image = app->tex->Load("Assets/UI/A_Credits_MainMenu.png");
 
 	w = app->win->width;
 	h = app->win->height;
@@ -43,6 +44,8 @@ bool SceneMainMenu::Start()
 	app->uiModule->currentMenuType = MAIN;
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+	optionsOpen = false;
 
 	return true;
 }
@@ -68,6 +71,11 @@ bool SceneMainMenu::PostUpdate()
 
 	app->render->DrawTexture(mainMenu_image, 0, 0, NULL);
 
+	if (optionsOpen)
+	{
+		app->render->DrawTexture(app->sceneMainMenu->credits_image, 0, 0, NULL);
+	}
+
 
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -82,6 +90,7 @@ bool SceneMainMenu::CleanUp()
 {
 	LOG("Freeing sceneMainMenu");	
 	app->tex->UnLoad(mainMenu_image);
+	app->tex->UnLoad(credits_image);
 
 	return true;
 }

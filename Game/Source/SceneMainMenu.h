@@ -36,6 +36,9 @@ public:
 public:
 	
 	SDL_Texture* mainMenu_image;
+	SDL_Texture* credits_image;
+
+	bool optionsOpen;
 
 	// Window width and height
 	int w, h;

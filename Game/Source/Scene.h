@@ -73,6 +73,14 @@ public:
 	Npc* npc1;
 	List<Door*> doors;
 
+
+	// Load things
+	int loadPlayerPosX;
+	int loadPlayerPosY;
+
+	// New Game things
+	bool isNewGame;
+
 private:
 
 	SString mapName;
@@ -99,6 +107,7 @@ private:
 	int pruebaj = 0;
 
 	bool godMode;
+
 
 };
 

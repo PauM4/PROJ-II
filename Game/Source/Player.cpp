@@ -54,9 +54,22 @@ bool Player::Awake() {
 	walkLeftAnim.speed = 0.30f;
 
 	
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
+
 	texturePath = parameters.attribute("texturepath").as_string();
+
+	//If Continue pressed:
+	if (!app->scene->isNewGame)
+	{
+		position.x = app->scene->loadPlayerPosX;
+		position.y = app->scene->loadPlayerPosY;
+		app->scene->isNewGame = false;
+	}
+	else
+	{
+		position.x = parameters.attribute("x").as_int();
+		position.y = parameters.attribute("y").as_int();
+	}
+	
 	
 	speed = 350;
 	vel = b2Vec2(0, 0);
@@ -71,8 +84,6 @@ bool Player::Start() {
 
 	texture = app->tex->Load(texturePath);
 	currentAnimation = &idleAnim;
-
-	transformPosition teleport;
 
 	pbody = app->physics->CreateRectangle(position.x,position.y,70,70, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
@@ -90,7 +101,6 @@ bool Player::Start() {
 	lastCollision = ColliderType::UNKNOWN;
 
 	godMode = false;
-	
 
 	return true;
 }
