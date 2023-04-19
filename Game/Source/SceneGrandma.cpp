@@ -29,6 +29,8 @@ bool SceneGrandma::Awake(pugi::xml_node& config)
 	LOG("Loading SceneIntro");
 	bool ret = true;
 
+	app->physics->Enable();
+
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 
@@ -109,6 +111,7 @@ bool SceneGrandma::CleanUp()
 
 	app->map->CleanUp();
 	app->entityManager->CleanUp();
+	app->physics->Disable();
 
 	return true;
 }

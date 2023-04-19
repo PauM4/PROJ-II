@@ -32,6 +32,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 	
+	app->physics->Enable();
 
 	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
 	npc1->parameters = config.child("npc");
@@ -60,6 +61,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	app->entityManager->Start();
+
 	//Fonts initialize
 	char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
 
@@ -256,7 +258,8 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 	app->fonts->UnLoad(font);
 	app->map->CleanUp(); 
-	app->entityManager->CleanUp(); 	
+	app->entityManager->CleanUp(); 
+	app->physics->Disable();
 	
 
 	return true;
