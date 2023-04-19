@@ -48,6 +48,36 @@ bool Bunny::Awake()
 	movement = stats.attribute("movement").as_int();
 	isEnemy = false;
 
+	idleAnim.PushBack({ 0, 0, 140, 140 });
+	idleAnim.loop = true;
+
+	for (int i = 0; i < 4; i++) //penutlima:cabezon
+	{
+		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
+	}
+	walkDownAnim.loop = true;
+	walkDownAnim.speed = 0.15f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		walkUpAnim.PushBack({ (i * 150), 600, 150, 150 });
+	}
+	walkUpAnim.loop = true;
+	walkUpAnim.speed = 0.15f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		walkRightAnim.PushBack({ (i * 150), 450, 150, 150 });
+	}
+	walkRightAnim.loop = true;
+	walkRightAnim.speed = 0.15f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		walkLeftAnim.PushBack({ (i * 150), 300, 150, 150 });
+	}
+	walkLeftAnim.loop = true;
+	walkLeftAnim.speed = 0.15f;
 	return true;
 }
 

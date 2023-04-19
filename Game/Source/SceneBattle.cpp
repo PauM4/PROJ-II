@@ -98,6 +98,7 @@ bool SceneBattle::Start()
 	moveanim = false;
 	mouseTileTex = app->tex->Load("Assets/Maps/Scenes/Path.png");
 	timmytexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
+	bunnytexture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
 	MakeCombatMap();
@@ -526,7 +527,9 @@ bool SceneBattle::PostUpdate()
 	
 	
 	if (characterTurn->id == 1) {
-
+		bunny->currentAnimation = &bunny->idleAnim;
+		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
 		if (moveanim == false) {
 			timmy->currentAnimation = &timmy->idleAnim;
 			SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
@@ -568,9 +571,44 @@ bool SceneBattle::PostUpdate()
 	if (characterTurn->id == 2) {
 
 		timmy->currentAnimation = &timmy->idleAnim;
-		SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
-	
+		SDL_Rect recta = timmy->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recta);
+		if (moveanim == false) {
+			bunny->currentAnimation = &bunny->idleAnim;
+			SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &rect);
+		}
+		if (moveanim == true) {
+			if (xDir == 1) {
+				bunny->currentAnimation = &bunny->walkRightAnim;
+				SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &rect);
+				bunny->currentAnimation->Update();
+			}
+			if (xDir == -1) {
+				bunny->currentAnimation = &bunny->walkLeftAnim;
+				SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &rect);
+				bunny->currentAnimation->Update();
+			}
+			if (yDir == 1) {
+				bunny->currentAnimation = &bunny->walkDownAnim;
+				SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &rect);
+				bunny->currentAnimation->Update();
+			}
+			if (yDir == -1) {
+				bunny->currentAnimation = &bunny->walkUpAnim;
+				SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &rect);
+				bunny->currentAnimation->Update();
+			}
+			if (xDir == 0 || yDir == 0) {
+				SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &rect);
+				bunny->currentAnimation->Update();
+			}
+		}
 
 	}
 	
@@ -579,7 +617,10 @@ bool SceneBattle::PostUpdate()
 		timmy->currentAnimation = &timmy->idleAnim;
 		SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
+		bunny->currentAnimation = &bunny->idleAnim;
 
+		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
 
 	}
 	

@@ -55,28 +55,28 @@ bool Timmy::Awake()
 		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
 	}
 	walkDownAnim.loop = true;
-	walkDownAnim.speed = 0.30f;
+	walkDownAnim.speed = 0.15f;
 
 	for (int i = 0; i < 10; i++)
 	{
 		walkUpAnim.PushBack({ (i * 150), 600, 150, 150 });
 	}
 	walkUpAnim.loop = true;
-	walkUpAnim.speed = 0.30f;
+	walkUpAnim.speed = 0.15f;
 
 	for (int i = 0; i < 10; i++)
 	{
 		walkRightAnim.PushBack({ (i * 150), 450, 150, 150 });
 	}
 	walkRightAnim.loop = true;
-	walkRightAnim.speed = 0.30f;
+	walkRightAnim.speed = 0.15f;
 
 	for (int i = 0; i < 10; i++)
 	{
 		walkLeftAnim.PushBack({ (i * 150), 300, 150, 150 });
 	}
 	walkLeftAnim.loop = true;
-	walkLeftAnim.speed = 0.30f;
+	walkLeftAnim.speed = 0.15f;
 
 
 	position.x = parameters.attribute("x").as_int();
