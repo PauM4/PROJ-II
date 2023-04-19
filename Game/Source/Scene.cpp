@@ -687,7 +687,7 @@ void Scene::CreateDialogue()
 
 	//Root
 	auto firstNodeLR = std::make_shared<DialogueNode>();
-	firstNodeLR->SetText("-Who...are...you?- Little Red's voice is raspy and distorted, as if coming from a deep, dark place. -What...do...you...want?- Her eyes narrow and she grips her longbow tighter, a low growl emanating from her throat. -If...you're...here...to...kill...me...just...get...it...over...with-. Suddenly, a strange, otherworldly sound fills the room, like the creaking of a thousand dead branches. -I...won't...go...down...without...a...fight.-");
+	firstNodeLR->SetText("Who...are...you? What...do...you...want? If...you're...here...to...kill...me...just...get...it...over...with. I...won't...go...down...without...a...fight.-");
 	firstNodeLR->AddChild(firstOption1LR);
 	firstNodeLR->AddChild(firstOption2LR);
 	firstNodeLR->AddChild(firstOption3LR);
@@ -717,19 +717,19 @@ void Scene::CreateDialogue()
 
 	//2nd Level
 	auto gToOption1 = std::make_shared<DialogueNode>();
-	gToOption1->SetText("Little Red Riding Hood is my granddaughter, and she's currently in her house. Please be gentle with her, though. She's lost her way and needs our help to find her path back home.");
+	gToOption1->SetText("Little Red Riding Hood is my granddaughter, and she's currently in my house. Please be gentle with her, though. She's lost her way and needs our help to find her path back home.");
 	gToOption1->AddChild(secondOption1G);
 
 	auto gToOption2 = std::make_shared<DialogueNode>();
-	gToOption2->SetText("I will not tolerate that kind of rude behavior in my home. If you have business with Little Red Riding Hood, you will address me with respect. And yes, I know where she is. She is in her house, safe and sound. But I must warn you, if you have any ill intentions towards her, you will answer to me. So please be mindful of her state of mind. She's lost and needs our love and guidance to find her way back on track.");
+	gToOption2->SetText("I will not tolerate that kind of rude behavior. If you have business with Little Red Riding Hood, you will address me with respect. And yes, I know where she is. She is in my house, safe and sound. But I must warn you, if you have any ill intentions towards her, you will answer to me. So please be mindful of her state of mind. She's lost and needs our love and guidance to find her way back on track.");
 	gToOption2->AddChild(secondOption2G);
 
 	auto gToOption3 = std::make_shared<DialogueNode>();
-	gToOption3->SetText("Little Red Riding Hood is my granddaughter, and she's currently staying in her house. Please be gentle with her, though. She's lost and needs our love and guidance to find her way back on track");
+	gToOption3->SetText("Little Red Riding Hood is my granddaughter, and she's currently staying in my house. Please be gentle with her, though. She's lost and needs our love and guidance to find her way back on track");
 	gToOption3->AddChild(secondOption3G);
 
 	auto gToOption4 = std::make_shared<DialogueNode>();
-	gToOption4->SetText("Please don't be afraid, dear. Little Red Riding Hood is in her house. If you come across my granddaughter, show her kindness. She's lost her way and needs our help to find the path back to the light.");
+	gToOption4->SetText("Please don't be afraid, dear. Little Red Riding Hood is in my house. If you come across my granddaughter, show her kindness. She's lost her way and needs our help to find the path back to the light.");
 	gToOption4->AddChild(secondOption4G);
 
 
@@ -743,7 +743,7 @@ void Scene::CreateDialogue()
 	firstOption2G->AddChild(gToOption2);
 
 	auto firstOption3G = std::make_shared<DialogueNode>();
-	firstOption3G->SetText("Uh, sorry, I didn't mean to barge in or anything. I was just looking for someone to help LRRH, you know? She's in trouble and stuff. Needs our help or whatever. yawns");
+	firstOption3G->SetText("Uh, sorry, I didn't mean to barge in or anything. I was just looking for someone to help Little Red Hood, you know? She's in trouble and stuff. Needs our help or whatever. yawns");
 	firstOption3G->AddChild(gToOption3);
 
 	auto firstOption4G = std::make_shared<DialogueNode>();
