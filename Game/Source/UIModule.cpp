@@ -61,11 +61,11 @@ bool UIModule::Start()
 	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 830, 100, 20 }, this);
 	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 855, 100, 20 }, this);
 
-	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, this);
-	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, this);
-	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "", { 1000, 900, 800, 30 }, this);
-	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "", { 1000, 950, 800, 30 }, this);
-	dialog_text_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Text", { 100, 600, 1700, 250 }, this);
+	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, app->scene);
+	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, app->scene);
+	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "", { 1000, 900, 800, 30 }, app->scene);
+	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "", { 1000, 950, 800, 30 }, app->scene);
+	dialog_text_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "", { 100, 700, 1700, 150 }, this);
 
 	// When creating a new button, iniciate it in NONE state
 
@@ -126,10 +126,23 @@ bool UIModule::PostUpdate()
 	bool ret = true;
 
 	app->guiManager->Draw();
+
 	if (app->scene->active) {
 		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT)
 		{
 			PrintDialogue(app->scene->GetDialogue());
+			if (app->scene->player->dialogueActivate)
+			{
+				app->scene->AppearDialogue();
+				app->scene->player->dialogueActivate = false;
+			}
+		}
+		else
+		{
+			// Tell to UIModule which currentMenuType
+			app->uiModule->currentMenuType = DISABLED;
+			// Call this function only when buttons change
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 		}
 	}
 	
@@ -142,6 +155,7 @@ bool UIModule::PostUpdate()
 bool UIModule::CleanUp()
 {
 	LOG("Freeing UIModule");
+	app->guiManager->guiControlsList.Clear();
 
 	return true;
 }
@@ -338,15 +352,19 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Option 1
 	case 12:
+		std::cout << "a"<<std::endl;
 		break;
 		// Option 2
 	case 13:
+		std::cout << "a" << std::endl;
 		break;
 		// Option 3
 	case 14:
+		std::cout << "a" << std::endl;
 		break;
 		// Option 4
 	case 15:
+		std::cout << "a" << std::endl;
 		break;
 	}
 
@@ -547,24 +565,74 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 {
+
+	int posX = app->scene->player->position.x;
+	int posY = app->scene->player->position.y;
+
 	// Dialogue text block
-	SDL_Rect rect = { app->scene->player->position.x , app->scene->player->position.y, 800, 400 };
-	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 270);
-	app->render->DrawTexture(textDialogue, app->scene->player->position.x, app->scene->player->position.y, NULL);
+	SDL_Rect rect = { 0 , 0, 800, 400 };
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 1700);
+	app->render->DrawTexture(textDialogue, posX - 850, posY + 220, NULL);
 
 	// Change options buttons text
-	SDL_Rect rectO1 = { 100, 900, 800, 30 };
-	SDL_Rect rectO2 = { 100, 950, 800, 30 };
-	SDL_Rect rectO3 = { 1000, 900, 800, 30 };
-	SDL_Rect rectO4 = { 1000, 950, 800, 30 };
+	SDL_Rect rectO1 = { 0, 0, 800, 30 };
+	SDL_Rect rectO2 = { 0, 0, 800, 30 };
+	SDL_Rect rectO3 = { 0, 0, 800, 30 };
+	SDL_Rect rectO4 = { 0, 0, 800, 30 };
 
-	SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO1.w);
-	app->render->DrawTexture(textOption1, rectO1.x, rectO1.h, NULL);
-	SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO2.w);
-	app->render->DrawTexture(textOption1, rectO2.x, rectO2.h, NULL);
-	SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO3.w);
-	app->render->DrawTexture(textOption1, rectO3.x, rectO3.h, NULL);
-	SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, rectO4.w);
-	app->render->DrawTexture(textOption1, rectO4.x, rectO4.h, NULL);
+	
+	// Check if there's dialogue available
+	if (!(dialogue.size() <= 1))
+	{
+		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 255,255,255,255 }, rectO1.w);
+		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
+		SDL_DestroyTexture(textOption1);
+	}
+	else
+	{
+		dialog_option1_button->state = GuiControlState::NONE;
+	}
+
+	if (!(dialogue.size() <= 2))
+	{
+		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 255,255,255,255 }, rectO2.w);
+		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
+		SDL_DestroyTexture(textOption2);
+	}
+	else
+	{
+		dialog_option2_button->state = GuiControlState::NONE;
+	}
+
+	if (!(dialogue.size() <= 3))
+	{
+		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 255,255,255,255 }, rectO3.w);
+		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
+		SDL_DestroyTexture(textOption3);
+	}
+	else
+	{
+		dialog_option3_button->state = GuiControlState::NONE;
+	}
+
+	if (!(dialogue.size() <= 3))
+	{
+		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 255,255,255,255 }, rectO4.w);
+		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
+		SDL_DestroyTexture(textOption4);
+	}
+	else
+	{
+		dialog_option4_button->state = GuiControlState::NONE;
+	}
+
+
+	SDL_DestroyTexture(textDialogue);
+
+	
+
+	
+
+
 
 }
