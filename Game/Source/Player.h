@@ -43,10 +43,10 @@ public:
 private:
 	void TriggerDialogueTree(ColliderType NPC);
 	void InteractWithTree();
-	void Movement();
-	bool VerticalMovement();
-	bool HorizontalMovement();
-	bool SprintMovement();
+	void Movement(float dt);
+	bool VerticalMovement(float dt);
+	bool HorizontalMovement(float dt);
+	bool SprintMovement(float dt);
 	void InteractWithEntities();
 	void StopVelocity();
 	void GodMode();
@@ -77,10 +77,15 @@ public:
 	int playerPrevState;
 
 	ColliderType lastCollision;
-	int speed;
+	float speed;
 	b2Vec2 vel;
 
 	transformPosition teleport;
+
+	// Bool to print once the dialogues
+	bool dialogueActivate;
+
+	bool a1, a2, a3, a4;
 
 private:
 
@@ -98,6 +103,8 @@ private:
 	Animation idleAnim;
 
 	bool godMode;
+
+
 
 
 };

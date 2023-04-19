@@ -174,11 +174,6 @@ bool SceneBattle::PostUpdate()
 {
 	bool ret = true;
 
-	
-	app->guiManager->Draw();
-
-	
-	
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);

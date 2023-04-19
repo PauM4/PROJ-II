@@ -58,7 +58,7 @@ bool Player::Awake() {
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 	
-	speed = 10;
+	speed = 350;
 	vel = b2Vec2(0, 0);
 
 	return true;
@@ -144,7 +144,7 @@ bool Player::Update(float dt)
 	//Movement
 	if (!movementRestringed)
 	{
-		Movement();
+		Movement(dt);
 	}
 
 
@@ -253,7 +253,7 @@ void Player::GodMode()
 //This function checks for input from the player's keyboard and updates the dialogue tree in the game's scene accordingly. The function checks if any button is being pressed, and if so, it calls the UpdateDialogueTree() function in the scene and passes it an integer value from 1 to 4, depending on which button was pressed.
 void Player::InteractWithTree()
 {
-	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
+	/*if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
 	{
 		app->scene->UpdateDialogueTree(1);
 	}
@@ -268,6 +268,27 @@ void Player::InteractWithTree()
 	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
 		app->scene->UpdateDialogueTree(4);
+	}*/
+
+	if (a1)
+	{
+		app->scene->UpdateDialogueTree(1);
+		a1 = false;
+	}
+	else if (a2)
+	{
+		app->scene->UpdateDialogueTree(2);
+		a2 = false;
+	}
+	else if (a3)
+	{
+		app->scene->UpdateDialogueTree(3);
+		a3 = false;
+	}
+	else if (a4)
+	{
+		app->scene->UpdateDialogueTree(4);
+		a4 = false;
 	}
 
 
@@ -296,15 +317,15 @@ void Player::TriggerDialogueTree(ColliderType NPC)
 }
 
 //This function handles the player's movement in the game. The function also sets the player's animation based on their direction of movement.
-void Player::Movement()
+void Player::Movement(float dt)
 {
 	vel = b2Vec2(0, 0);
 
 	bool isMovingH, isMovingV;
 
-	isMovingH = HorizontalMovement();
-	isMovingV = VerticalMovement();
-	bool isRunning = SprintMovement();
+	isMovingH = HorizontalMovement(dt);
+	isMovingV = VerticalMovement(dt);
+	bool isRunning = SprintMovement(dt);
 
 
 	if (!isMovingH && !isMovingV)
@@ -313,7 +334,7 @@ void Player::Movement()
 	if (godMode)
 	{
 		if(!isRunning)
-		vel *= 2;
+		vel *= 1.5;
 	}
 
 	pbody->body->SetLinearVelocity(vel);
@@ -321,11 +342,11 @@ void Player::Movement()
 }
 
 //This function checks if the player is holding down the left shift key to sprint. If the key is being held down, the function increases the player's velocity and sets the animation speed to a faster value
-bool Player::SprintMovement()
+bool Player::SprintMovement(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->pads[0].r2)
 	{
-		vel *= 2;
+		vel *= 1.5;
 
 		walkDownAnim.speed = 0.45f;
 		walkUpAnim.speed = 0.45f;
@@ -346,15 +367,15 @@ bool Player::SprintMovement()
 }
 
 //Handles the player vertical movement.
-bool Player::VerticalMovement()
+bool Player::VerticalMovement(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->pads[0].up || app->input->pads[0].left_y < 0.0f) {
-		vel.y = -speed;
+		vel.y = -speed * dt;
 		currentAnimation = &walkUpAnim;
 		return true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || app->input->pads[0].down || app->input->pads[0].left_y > 0.0f) {
-		vel.y = speed;
+		vel.y = speed * dt;
 		currentAnimation = &walkDownAnim;
 		return true;
 	}
@@ -363,17 +384,17 @@ bool Player::VerticalMovement()
 }
 
 //Handles the player horizontal movement.
-bool Player::HorizontalMovement()
+bool Player::HorizontalMovement(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->pads[0].left || app->input->pads[0].left_x < 0.0f)
 	{
-		vel.x = -speed;
+		vel.x = -speed * dt;
 		currentAnimation = &walkLeftAnim;
 		return true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->pads[0].right || app->input->pads[0].left_x > 0.0f)
 	{
-		vel.x = speed;
+		vel.x = speed * dt;
 		currentAnimation = &walkRightAnim;
 		return true;
 	}
@@ -400,6 +421,8 @@ void Player::InteractWithEntities()
 				playerPrevState = playerState;
 				playerState = NPC_INTERACT;
 				StopVelocity();
+
+				dialogueActivate = true;
 			}
 		}
 

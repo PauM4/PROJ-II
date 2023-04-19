@@ -57,6 +57,7 @@ public:
 	std::string LastTextTalismanVillager(std::string);
 	std::string LastTextGrandmaVillager(std::string);
 	std::string LastTextLittleRedVillager(std::string);
+	void AppearDialogue();
 
 private:
 
@@ -65,7 +66,6 @@ private:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
 
-	void AppearDialogue();
 
 public:
 
