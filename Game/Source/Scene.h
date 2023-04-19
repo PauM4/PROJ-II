@@ -73,6 +73,11 @@ public:
 	Npc* npc1;
 	Door* door1;
 
+
+	// Load things
+	int loadPlayerPosX;
+	int loadPlayerPosY;
+
 private:
 
 	SString mapName;
@@ -99,6 +104,7 @@ private:
 	int pruebaj = 0;
 
 	bool godMode;
+
 
 };
 

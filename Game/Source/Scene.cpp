@@ -758,7 +758,9 @@ void Scene::CreateDialogue()
 }
 bool Scene::LoadState(pugi::xml_node& data)
 {
-	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+	loadPlayerPosX = data.child("player").attribute("x").as_int();
+	loadPlayerPosY = data.child("player").attribute("y").as_int();
+	//player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
 	return true;
 }

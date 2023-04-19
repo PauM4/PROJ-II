@@ -72,8 +72,6 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 	currentAnimation = &idleAnim;
 
-	transformPosition teleport;
-
 	pbody = app->physics->CreateRectangle(position.x,position.y,70,70, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
 	pbody->listener = this;
@@ -91,6 +89,8 @@ bool Player::Start() {
 
 	godMode = false;
 	
+	position.x = app->scene->loadPlayerPosX;
+	position.y = app->scene->loadPlayerPosY;
 
 	return true;
 }
