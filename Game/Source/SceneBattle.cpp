@@ -74,7 +74,7 @@ bool SceneBattle::Start()
 	pathIndex = 1;
 	turnstart = true;
 	pathIndex = 0;
-
+	destination = iPoint(0, 0);
 	 movepressed = false;
 	 attackpressed = false;
 	 abiltypressed = false;
@@ -330,6 +330,8 @@ bool SceneBattle::PostUpdate()
 	{
 		if (characterTurn->tilePos == destination) {
 			
+			move = false;
+			destination = iPoint(0, 0);
 			turnstart = false;
 
 		}
@@ -844,6 +846,7 @@ void SceneBattle::DestroyListArea()
 bool SceneBattle::CleanUp()
 {
 	LOG("Freeing sceneBattle");
+	allentities.Clear();
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
 	return true;

@@ -139,6 +139,7 @@ private:;
 	bool move;
 	bool atack;
 	bool turnstart;
+	bool indestination;
 	
 	Timmy* timmy;
 	Bunny* bunny;
