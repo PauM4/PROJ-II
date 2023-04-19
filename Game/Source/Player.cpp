@@ -619,6 +619,7 @@ void Player::StopVelocity()
 	vel = b2Vec2(0, 0);
 	pbody->body->SetLinearVelocity(vel);
 	currentAnimation = &idleAnim;
+	bunnyCurrentAnimation = &bunnyIdleAnim;
 }
 
 void Player::ChangePosition(int x, int y)
