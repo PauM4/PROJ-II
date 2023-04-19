@@ -89,6 +89,8 @@ public:
 
 	bool quitButtonBool;
 
+	bool continueBool;
+
 
 private:
 

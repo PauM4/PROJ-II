@@ -98,6 +98,7 @@ bool UIModule::Start()
 	dialog_text_button->state = GuiControlState::NONE;
 
 	quitButtonBool = false;
+	continueBool = false;
 
 	return true;
 }
@@ -220,9 +221,10 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// When continue pressed, go to gameplay
 	case 6:
-		app->LoadGameRequest();
+		continueBool = true;
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;
+		/*app->LoadGameRequest();*/
 		break;
 
 		// When button Return Is Pressed, show the Main Menu buttons

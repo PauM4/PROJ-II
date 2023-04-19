@@ -101,6 +101,13 @@ bool Player::Start() {
 	lastCollision = ColliderType::UNKNOWN;
 
 	godMode = false;
+	
+	if (app->uiModule->continueBool)
+	{
+		app->LoadGameRequest();
+	}
+
+
 
 	return true;
 }
