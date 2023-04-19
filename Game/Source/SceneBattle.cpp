@@ -173,6 +173,7 @@ bool SceneBattle::Update(float dt)
 			CreateArea(characterTurn->AttArea, 2, characterTurn->tilePos);
 			GetTargets();
 			ability = true;
+			atack = false;
 			move = false;
 		}
 		attackpressed = false;
