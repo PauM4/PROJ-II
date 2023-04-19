@@ -121,6 +121,11 @@ bool SceneBattle::Start()
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 	origin = characterTurn->tilePos;
 
+	targets.Clear();
+	DestroyListArea();
+	CreateArea(characterTurn->AttArea, 1, characterTurn->tilePos);
+	GetTargets();
+
 	return true;
 }
 
@@ -138,32 +143,50 @@ bool SceneBattle::Update(float dt)
 
 	if (movepressed == true) {
 
+		if (characterTurn->stamina >= 3) {
 
-		arealist.Clear();
-		move = true;
-
+			move = true;
+			ability = false;
+			atack = false;
+		}
 		movepressed = false;
-		atack = false;
 	}
 
 	if (attackpressed == true) {
 
-		targets.Clear();
-		DestroyListArea();
-		CreateArea(characterTurn->AttArea, 1, characterTurn->tilePos);
-		GetTargets();
-
-		atack = true;
-		move = false;
+		if (characterTurn->stamina >= 5) {
+			targets.Clear();
+			DestroyListArea();
+			CreateArea(characterTurn->AttArea, 1, characterTurn->tilePos);
+			GetTargets();
+			atack = true;
+			move = false;
+			ability = false;
+		}
 		attackpressed = false;
+	}
+
+	if (abiltypressed == true) {
+		if (characterTurn->stamina >= 10) {
+			targets.Clear();
+			DestroyListArea();
+			CreateArea(characterTurn->AttArea, 2, characterTurn->tilePos);
+			GetTargets();
+			ability = true;
+			move = false;
+		}
+		attackpressed = false;
+
 	}
 
 	if (endturnpressed == true) {
 
 		
 		atack = false;
+		ability = false;
 		move = false;
 		turnstart = false;
+		characterTurn->GainStamina(10);
 		endturnpressed = false;
 
 	}
@@ -177,31 +200,51 @@ bool SceneBattle::Update(float dt)
 bool SceneBattle::PostUpdate()
 {
 	bool ret = true;
-
+	
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
+
+	if (timmy->health <= 0) {
+
+		timmy->isAlive = false;
+
+	}
 	
+	if (bunny->health <= 0) {
 
-
-	LOG("Vida enemigo: %d", villager->health);
-
+		bunny->isAlive = false;
 	
+	}
+	if (villager->health <= 0) {
+
+		villager->isAlive = false;
+
+	}
+
+	if (characterTurn->isAlive == false) {
+		turnstart = false;
+
+	}
+
 
 
 	if (turnstart == false ) {
 		
+		
+		moveenemy = false;
 		GetNext();
 		origin = characterTurn->tilePos;
 		if (characterTurn->isEnemy == true) {
-			
-			DestroyListArea();
-			CreateArea(3, 2, characterTurn->tilePos);
 
+			targets.Clear();
+			DestroyListArea();
+			CreateArea(characterTurn->AttArea, 1, characterTurn->tilePos);
 			GetTargets();
 			moveenemy = true;
 		}
+		
 		turnstart = true;
 		moveanim = false;
 	}
@@ -240,6 +283,7 @@ bool SceneBattle::PostUpdate()
 				originSelected = false;
 				move = false;
 				moveanim = true;
+				characterTurn->UseStamina(3);
 
 			}
 			else {
@@ -287,13 +331,7 @@ bool SceneBattle::PostUpdate()
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 
-		targets.Clear();
-		DestroyListArea();
-		CreateArea( 3, 2, characterTurn->tilePos);
-
-		GetTargets();
-		
-		atack = true;
+		timmy->health = 0;
 	}
 
 	if (atack == true) {
@@ -308,8 +346,29 @@ bool SceneBattle::PostUpdate()
 			if (targets.At(i)->data->tilePos == mouseTile) {
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
 
-					Combat(characterTurn, targets, 1);
+					targets.At(i)->data->health = targets.At(i)->data->health - (characterTurn->attack - targets.At(i)->data->defense);
 					atack = false;
+					characterTurn->UseStamina(5);
+					turnstart = false;
+				}
+			}
+		}
+	}
+	if (ability == true) {
+
+
+		DisplayArea(2);
+		DisplayEnemys();
+
+		for (int i = 0; i < targets.Count(); i++) {
+
+
+			if (targets.At(i)->data->tilePos == mouseTile) {
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+
+					targets.At(i)->data->health = targets.At(i)->data->health - (characterTurn->Ab1Power - targets.At(i)->data->defense);
+					ability = false;
+					characterTurn->UseStamina(10);
 					turnstart = false;
 				}
 			}
@@ -371,7 +430,7 @@ bool SceneBattle::PostUpdate()
 				 nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
 				 combatMap[nexTile.x][nexTile.y].inRange = true;
 				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
-			
+				
 			}
 	
 		}
@@ -431,7 +490,8 @@ bool SceneBattle::PostUpdate()
 		
 
 	}
-	else
+	
+	if(move==false)
 	{
 		for (int i = 0; i < 16; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -463,49 +523,88 @@ bool SceneBattle::PostUpdate()
 	}
 
 	if (moveenemy == true) {
+		if (characterTurn->stamina >= 3) {
+			ListItem<Entity*>* entitylist;
+			entitylist = targets.start;
+			if (entitylist != NULL) {
 
 
+
+
+				/*Combat(characterTurn, targets, 1);*/
+
+
+				targets.At(0)->data->health = targets.At(0)->data->health - (characterTurn->attack - targets.At(0)->data->defense);
+
+				targets.Clear();
+				characterTurn->UseStamina(5);
+				turnstart = false;
+				atack = false;
+				moveenemy = false;
+
+
+
+			}
+		}
 		
-		auto testIfEnemyClose = ChekRangeEnemy();
-		villager->isEnemyTooClose->SetCondition(false);
-		villager->inRangeChecker->SetCondition(testIfEnemyClose);
-		villager->behaviorTree->Run();
 
-		for (int i = 0; i < 16; i++) {
-			for (int j = 0; j < 9; j++) {
-				if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
-					iPoint pos = iPoint(i, j);
-					CreateArea(characterTurn->AttArea, 1, pos);
-					for (int i = 0; i < area.Count(); i++) {
+		if (moveenemy == true && characterTurn->stamina>=5) {
 
-						if (area.At(i)->data->character == true) {
+			move = true;
+			for (int i = 0; i < 16; i++) {
+				for (int j = 0; j < 9; j++) {
 
-							length = app->pathfinding->CreatePath(origin, pos);
-							destination.x = pos.x;
-							destination.y = pos.y;
-							originSelected = false;
-							
-							moveenemy = false;
+					if(moveenemy==true){
+						if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
+							iPoint pos = iPoint(i, j);
 
+							if (app->pathfinding->IsWalkable(pos)) {
+								CreateArea(characterTurn->AttArea, 1, pos);
+								for (int i = 0; i < area.Count(); i++) {
+
+									if (area.At(i)->data->character == true) {
+
+										length = app->pathfinding->CreatePath(origin, pos);
+										destination.x = pos.x;
+										destination.y = pos.y;
+										originSelected = false;
+										moveenemy = false;
+										i = area.Count();
+
+									}
+
+								}
+							}
 						}
-
+						/*	if (app->pathfinding->IsWalkable(pos)) {
+								pos = app->map->MapToWorld(pos.x, pos.y);
+								app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+							}*/
 					}
-				/*	if (app->pathfinding->IsWalkable(pos)) {
-						pos = app->map->MapToWorld(pos.x, pos.y);
-						app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
-					}*/
+
 				}
 
 			}
 
 		}
+		else {
+
+			characterTurn->stamina += 10;
+		}
 
 
 	}
 
+	std::cout << "Stamina Timmy: " << timmy->stamina << std::endl;
+
+	std::cout << "Stamina Bunny: " << bunny->stamina << std::endl;
+
+	std::cout << "Stamina Villager: " << villager->stamina << std::endl;
+
 	//std::cout << "Vida Timmy: " << timmy->health<< std::endl;
 	//std::cout << "Vida Bunny: " << bunny->health << std::endl;
 	//std::cout << "Vida Villager: " << villager->health << std::endl;
+	//std::cout << "Atakk Villager: " << villager->attack << std::endl;
 
 	combatMap[villager->tilePos.x][villager->tilePos.y].enemy = true;
 	combatMap[villager->tilePos.x][villager->tilePos.y].characterType = villager;
@@ -515,16 +614,16 @@ bool SceneBattle::PostUpdate()
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
 
-	app->render->DrawRectangle({ int(bunny->position.x)+35, int(bunny->position.y)+35, 50, 50 }, 0, 0, 250, 250, true);
+	
 
 	
 	combatMap[timmy->tilePos.x][timmy->tilePos.y ].character = true;
 	combatMap[timmy->tilePos.x][timmy->tilePos.y].characterType = timmy;
 	
-	app->render->DrawRectangle({ int(timmy->position.x)+35, int(timmy->position.y)+35, 50, 50 }, 250, 0, 0, 250, true);
-
-
 	
+
+
+
 	
 	if (characterTurn->id == 1) {
 		bunny->currentAnimation = &bunny->idleAnim;
@@ -711,14 +810,14 @@ bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 	}
 	if (dist.x == 0 && dist.y == 0) {
 		pathIndex++;
-
+		
 	}
 	else if (abs(dist.x) > 0) {
-		vel.x = 10 * xDir;
+		vel.x = 5 * xDir;
 
 	}
 	else if (abs(dist.y) > 0) {
-		vel.y = 10 * yDir;
+		vel.y = 5 * yDir;
 
 	}
 
@@ -761,9 +860,18 @@ bool SceneBattle:: GetTargets(){
 
 		iPoint pos = iPoint(tileListItem->data->x, tileListItem->data->y);
 		
-		if (combatMap[pos.x][pos.y].enemy == true) {
+		if (combatMap[pos.x][pos.y].enemy == true && characterTurn->isEnemy==false) {
 
 			targets.Add(combatMap[pos.x][pos.y].characterType);
+			
+			std::cout << "posicion: " << pos.x << "x "<< pos.y <<"y" << std::endl;
+
+		}
+		else if (combatMap[pos.x][pos.y].character == true && characterTurn->isEnemy == true) {
+
+			targets.Add(combatMap[pos.x][pos.y].characterType);
+
+			std::cout << "posicion: " << pos.x << "x " << pos.y << "y" << std::endl;
 
 		}
 

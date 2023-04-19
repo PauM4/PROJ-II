@@ -143,6 +143,29 @@ public:
 		return true;
 	};
 
+	bool UseStamina(uint value) {
+
+		stamina -= value;
+
+		if (stamina < 0) {
+
+			stamina = 0;
+		}
+
+		return true;
+	}
+	bool GainStamina(uint value) {
+
+		stamina += value;
+
+		if (stamina > 15) {
+
+			stamina = 15;
+		}
+
+		return true;
+	}
+
 public:
 
 	SString name;

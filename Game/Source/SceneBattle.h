@@ -146,8 +146,11 @@ private:;
 	bool move;
 	bool moveenemy;
 	bool atack;
+	bool ability;
 	bool turnstart;
 	bool moveanim;
+
+	uint value;
 
 	Timmy* timmy;
 	Bunny* bunny;
