@@ -58,7 +58,18 @@ bool SceneGrandma::Start()
 	// Call this function only when scene is changed
 	//app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
-	app->map->Load(mapName, mapFolder);
+	bool retLoad = app->map->Load(mapName, mapFolder);
+
+	if (retLoad) {
+		int w, h;
+		uchar* data = NULL;
+
+		//bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		//if(retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+
+	}
 
 	return true;
 }
@@ -72,7 +83,8 @@ bool SceneGrandma::PreUpdate()
 // Called each loop iteration
 bool SceneGrandma::Update(float dt)
 {
-
+	//Follow player
+	app->render->FollowObject((-1)*player->position.x, (-1) * player->position.y, app->render->camera.w/2, app->render->camera.h / 2);
 
 	app->map->Draw();
 
@@ -94,6 +106,9 @@ bool SceneGrandma::PostUpdate()
 bool SceneGrandma::CleanUp()
 {
 	LOG("Freeing sceneIntro");
+
+	app->map->CleanUp();
+	app->entityManager->CleanUp();
 
 	return true;
 }

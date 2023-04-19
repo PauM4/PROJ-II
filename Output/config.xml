@@ -32,14 +32,12 @@
 
 	</scene>
 
-	<sceneGrandma name="Assets/Maps/World_01/grandmas.tmx" path="Assets/Maps/World_01/">
-		<player x="121" y="600" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
+	<sceneGrandma name="Assets/Maps/World_01/town_house.tmx" path="Assets/Maps/World_01/">
+		<player x="532" y="882" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
 		
 		<!-- Door to tutorial house-->
-		<door x="8" y="600" width="95" height="58" nextScene="3" nextPlayerX="0" nextPlayerY="0"/>
+		<door x="480" y="1030" width="58" height="95" nextScene="3" nextPlayerX="0" nextPlayerY="0"/>
 		
-
-
 	</sceneGrandma>
 
 	<sceneBattle name="Assets/Maps/World_01/test.tmx" path="Assets/Maps/World_01/">
@@ -49,7 +47,9 @@
 
 		
 	</sceneBattle>
+	
 	<timmy level="1" health= "20" maxHealth = "20" defense  =  "3" magic  =  "1" stamina  =  "15" maxStamina  =  "15" speed  =  "7" attack  =  "10" AttArea  =  "2" Ab1Type  =  "1" Ab1Area  =  "4" Ab1RangeType  =  "1" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "3"/>
 	<bunny level="1" health= "21" maxHealth = "21" defense  =  "1" magic  =  "7" stamina  =  "15" maxStamina  =  "15" speed  =  "8" attack  =  "8" AttArea  =  "3" Ab1Type  =  "1" Ab1Area  =  "4" Ab1RangeType  =  "1" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "4"/>
     <enemy_angryVillager level="1" health= "40" maxHealth = "40" defense  =  "3" magic  =  "5" stamina  =  "15" maxStamina  =  "15" speed  =  "7" attack  =  "8" AttArea  =  "4" Ab1Type  =  "3" Ab1Area  =  "1" Ab1RangeType  =  "3" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "2"/>
+
 </config>

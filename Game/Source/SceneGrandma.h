@@ -4,8 +4,9 @@
 #include "Module.h"
 #include "Player.h"
 #include "Door.h"
-#include "UIModule.h"
+#include "Npc.h"
 
+#include "UIModule.h"
 #include "GuiButton.h"
 #include "DialogueTree.h"
 #include "UriBehaviorTree.h"
@@ -50,7 +51,6 @@ private:
 
 	SString mapName;
 	SString mapFolder;
-
 };
 
 #endif // __SCENEGRANDMA_H__

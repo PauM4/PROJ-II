@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="120" tileheight="120" infinite="0" nextlayerid="5" nextobjectid="13">
  <imagelayer id="2" name="BG">
-  <image source="grandmas.png" width="1680" height="1080"/>
+  <image source="Assets/Maps/World_01/grandmas.png"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
  </imagelayer>
  <objectgroup color="#ff0000" id="3" name="Collisions">
+  <properties>
+   <property name="ColType" type="int" value="0"/>
+  </properties>
   <object id="2" x="600" y="720" width="120" height="240"/>
   <object id="3" x="120" y="960" width="1440" height="120"/>
   <object id="5" x="120" y="240" width="1440" height="120"/>
