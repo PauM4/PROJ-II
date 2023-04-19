@@ -9,6 +9,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "SceneBattle.h"
 
 
 Enemy_AngryVillager::Enemy_AngryVillager() : Entity(EntityType::ANGRYVILLAGER) {
@@ -127,13 +128,34 @@ void Enemy_AngryVillager::Movement()
 
 NodeStatus Enemy_AngryVillager::GetCloser::Run() {
 	// implementacion detallada del nodo
+
+
 	return NodeStatus::Success;
 }
 
 NodeStatus Enemy_AngryVillager::Shoot::Run() {
 	// implementacion detallada del nodo
+
+
 	return NodeStatus::Success;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 NodeStatus Enemy_AngryVillager::MoveAway::Run() {
 	// implementacion detallada del nodo

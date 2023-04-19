@@ -149,7 +149,7 @@ bool SceneBattle::Update(float dt)
 
 		targets.Clear();
 		DestroyListArea();
-		CreateArea(characterTurn, characterTurn->AttArea, 1, characterTurn->tilePos);
+		CreateArea(characterTurn->AttArea, 1, characterTurn->tilePos);
 		GetTargets();
 
 		atack = true;
@@ -193,7 +193,14 @@ bool SceneBattle::PostUpdate()
 		
 		GetNext();
 		origin = characterTurn->tilePos;
-		
+		if (characterTurn->isEnemy == true) {
+			
+			DestroyListArea();
+			CreateArea(3, 2, characterTurn->tilePos);
+
+			GetTargets();
+			moveenemy = true;
+		}
 		turnstart = true;
 		
 	}
@@ -223,7 +230,7 @@ bool SceneBattle::PostUpdate()
 	{
 		
 
-		if (originSelected == true && length == 1 && move == true)
+		if (originSelected == true && length == 1 && move == true && moveenemy==false)
 		{
 			if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
 				length = app->pathfinding->CreatePath(origin, mouseTile);
@@ -280,7 +287,7 @@ bool SceneBattle::PostUpdate()
 
 		targets.Clear();
 		DestroyListArea();
-		CreateArea(characterTurn, 3, 2, characterTurn->tilePos);
+		CreateArea( 3, 2, characterTurn->tilePos);
 
 		GetTargets();
 		
@@ -290,7 +297,7 @@ bool SceneBattle::PostUpdate()
 	if (atack == true) {
 
 
-		DisplayArea(area,1);
+		DisplayArea(1);
 		DisplayEnemys();
 
 		for (int i = 0; i < targets.Count(); i++) {
@@ -338,7 +345,7 @@ bool SceneBattle::PostUpdate()
 
 
 	
-	if (move == true ) {
+	if (move == true || moveenemy==true) {
 		int j = 0;
 		int i = 0;
 		iPoint nexTile;
@@ -418,7 +425,7 @@ bool SceneBattle::PostUpdate()
 		}
 
 
-		DisplayArea(arealist, 1);
+		
 		
 
 	}
@@ -456,28 +463,35 @@ bool SceneBattle::PostUpdate()
 	if (moveenemy == true) {
 
 
+		
+		auto testIfEnemyClose = ChekRangeEnemy();
+		villager->isEnemyTooClose->SetCondition(false);
+		villager->inRangeChecker->SetCondition(testIfEnemyClose);
+		villager->behaviorTree->Run();
+
 		for (int i = 0; i < 16; i++) {
 			for (int j = 0; j < 9; j++) {
 				if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
 					iPoint pos = iPoint(i, j);
-					CreateArea(characterTurn, characterTurn->AttArea, 1, pos);
+					CreateArea(characterTurn->AttArea, 1, pos);
 					for (int i = 0; i < area.Count(); i++) {
 
 						if (area.At(i)->data->character == true) {
 
-							length = app->pathfinding->CreatePath(origin, mouseTile);
-							destination.x = mouseTile.x;
-							destination.y = mouseTile.y;
+							length = app->pathfinding->CreatePath(origin, pos);
+							destination.x = pos.x;
+							destination.y = pos.y;
 							originSelected = false;
-							move = false;
+							
+							moveenemy = false;
 
 						}
 
 					}
-					if (app->pathfinding->IsWalkable(pos)) {
+				/*	if (app->pathfinding->IsWalkable(pos)) {
 						pos = app->map->MapToWorld(pos.x, pos.y);
 						app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
-					}
+					}*/
 				}
 
 			}
@@ -486,6 +500,10 @@ bool SceneBattle::PostUpdate()
 
 
 	}
+
+	//std::cout << "Vida Timmy: " << timmy->health<< std::endl;
+	//std::cout << "Vida Bunny: " << bunny->health << std::endl;
+	//std::cout << "Vida Villager: " << villager->health << std::endl;
 
 	combatMap[villager->tilePos.x][villager->tilePos.y].enemy = true;
 	combatMap[villager->tilePos.x][villager->tilePos.y].characterType = villager;
@@ -521,6 +539,20 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	}
 	return true;
+}
+
+bool SceneBattle::ChekRangeEnemy() {
+	for (int i = 0; i < targets.Count(); i++) {
+
+		for (int i = 0; i < area.Count(); i++) {
+			if (targets.At(i)->data->tilePos == iPoint(area.At(i)->data->x, area.At(i)->data->y)) {
+
+
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 bool SceneBattle::MoveEnemy() {
@@ -723,7 +755,7 @@ bool SceneBattle::GetNext() {
 	return true;
 
 }
-bool SceneBattle::CreateArea(Entity*character, int range, int type, iPoint posTile) {
+bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
 
 	
 	
@@ -806,7 +838,7 @@ bool SceneBattle::CreateArea(Entity*character, int range, int type, iPoint posTi
 
 }
 
-bool SceneBattle::DisplayArea( List<TileData*>area,int type) {
+bool SceneBattle::DisplayArea(int type) {
 
 	bool ret = true;
 

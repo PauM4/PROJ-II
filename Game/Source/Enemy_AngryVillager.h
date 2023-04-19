@@ -38,6 +38,15 @@ public:
 
 	void Movement() override;
 
+	//Control Flow Nodes
+	std::shared_ptr<SwitchConditionNode> inRangeChecker;
+	std::shared_ptr<SwitchConditionNode> isEnemyTooClose;
+
+
+	//Behavior Tree Node
+	std::unique_ptr<BehaviorTree> behaviorTree;
+
+
 private:
 	SDL_Texture* texture;
 
@@ -66,13 +75,6 @@ private:
 	};
 
 
-	//Control Flow Nodes
-	std::shared_ptr<SwitchConditionNode> inRangeChecker;
-	std::shared_ptr<SwitchConditionNode> isEnemyTooClose;
-
-
-	//Behavior Tree Node
-	std::unique_ptr<BehaviorTree> behaviorTree;
 
 
 
