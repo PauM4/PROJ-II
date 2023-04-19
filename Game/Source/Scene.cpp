@@ -785,4 +785,3 @@ bool Scene::SaveState(pugi::xml_node& data)
 
 	return true;
 }
-

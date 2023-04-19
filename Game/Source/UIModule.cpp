@@ -9,6 +9,9 @@
 #include "Fonts.h"
 #include "SceneBattle.h"
 #include "SceneMainMenu.h"
+#include "Scene.h"
+#include "Player.h"
+#include "Npc.h"
 #include <iostream>
 
 #include "Defs.h"
@@ -96,6 +99,8 @@ bool UIModule::Start()
 	dialog_option3_button->state = GuiControlState::NONE;
 	dialog_option4_button->state = GuiControlState::NONE;
 	dialog_text_button->state = GuiControlState::NONE;
+
+	npcDialogueTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
 
 	quitButtonBool = false;
 	continueBool = false;
@@ -570,13 +575,40 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 1700);
 	app->render->DrawTexture(textDialogue, posX - 850, posY + 220, NULL);
 
+	SDL_Rect angryVillagerRect = { 1198, 212, 416, 705};
+	SDL_Rect talismanVillagerRect = { 1174, 2024, 435, 726};
+	SDL_Rect grandmaRect = { 107, 1958, 457, 748};
+	SDL_Rect lrrhRect = { 176, 1097, 632, 701};
+
+	switch (app->scene->GetPlayerLastCollision())
+	{
+	case ColliderType::ANGRYVILLAGER:
+		// Dibuixar Angry tal
+		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &angryVillagerRect);
+		break;
+
+	case ColliderType::TALISMANVILLAGER:
+		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &talismanVillagerRect);
+		break;
+
+	case ColliderType::GRANDMA:
+		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &grandmaRect);
+		break;
+
+	case ColliderType::LRRH:
+		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &lrrhRect);
+		break;
+
+	default:
+		break;
+	}
+
 	// Change options buttons text
 	SDL_Rect rectO1 = { 0, 0, 800, 30 };
 	SDL_Rect rectO2 = { 0, 0, 800, 30 };
 	SDL_Rect rectO3 = { 0, 0, 800, 30 };
 	SDL_Rect rectO4 = { 0, 0, 800, 30 };
 
-	
 	// Check if there's dialogue available
 	if (!(dialogue.size() <= 1))
 	{
