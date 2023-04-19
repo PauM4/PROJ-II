@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="9" height="9" tilewidth="120" tileheight="120" infinite="0" nextlayerid="5" nextobjectid="8">
+ <imagelayer id="2" name="BG">
+  <image source="Assets/Maps/World_01/house_town.png" width="1080" height="1080"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <objectgroup color="#ff0000" id="3" name="Colliders">
+  <properties>
+   <property name="ColType" type="int" value="0"/>
+  </properties>
+  <object id="1" x="0" y="360" width="120" height="600"/>
+  <object id="2" x="120" y="960" width="360" height="120"/>
+  <object id="3" x="480" y="1080" width="120" height="120"/>
+  <object id="4" x="600" y="960" width="360" height="120"/>
+  <object id="5" x="960" y="360" width="120" height="600"/>
+  <object id="6" x="120" y="240" width="840" height="120"/>
+ </objectgroup>
+ <objectgroup color="#00ff7f" id="4" name="Doors">
+  <properties>
+   <property name="ColType" type="int" value="1"/>
+  </properties>
+  <object id="7" x="480" y="1030" width="120" height="48"/>
+ </objectgroup>
+</map>

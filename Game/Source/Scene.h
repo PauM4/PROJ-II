@@ -3,11 +3,11 @@
 
 #include "Module.h"
 #include "Player.h"
-#include "UIModule.h"
-
-#include "GuiButton.h"
 #include "Door.h"
 #include "Npc.h"
+
+#include "UIModule.h"
+#include "GuiButton.h"
 #include "DialogueTree.h"
 #include "UriBehaviorTree.h"
 #include "Physics.h"

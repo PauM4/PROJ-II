@@ -5,6 +5,7 @@
 #include "Point.h"
 #include "SDL/include/SDL.h"
 #include "List.h"
+#include "Animation.h"
 
 class Timmy : public Entity {
 public:
@@ -34,7 +35,16 @@ private:
 	
 
 public:
+	SDL_Texture* texture;
+	const char* texturePath;
 
+
+	Animation* currentAnimation;
+	Animation walkDownAnim;
+	Animation walkUpAnim;
+	Animation walkRightAnim;
+	Animation walkLeftAnim;
+	Animation idleAnim;
 
 private:
 

@@ -26,7 +26,7 @@ bool Npc::Awake() {
 
 	posTalismanVillager.x = 1920, posTalismanVillager.y = 1408;
 
-	posGrandma.x = 2008, posGrandma.y = 771;
+	posGrandma.x = 260, posGrandma.y = 472;
 
 	posLRRH.x = 2338, posLRRH.y = 771;
 

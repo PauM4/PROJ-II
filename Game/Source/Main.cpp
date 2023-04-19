@@ -107,10 +107,10 @@ int main(int argc, char* args[])
 	}
 
 	LOG("... Bye! :)\n");
-	/*for (int i = 0; i < 100000; i++)
-	{
-		LOG("... Bye! :)\n");
-	}*/
+	//for (int i = 0; i < 100000; i++)
+	//{
+	//	LOG("... Bye! :)\n");
+	//}
 
 	// Dump memory leaks
 	return result;
