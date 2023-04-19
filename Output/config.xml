@@ -24,9 +24,23 @@
 	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
 		<player x="1954" y="1667" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
 		<npc npcTexturePath ="Assets/Characters/npc.png"/>
+		
+		<!-- Door to tutorial house-->
 		<door x="2218" y="2414" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0"/>
+		<door x="1956" y="656" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0"/>
+	
 
 	</scene>
+
+	<sceneGrandma name="Assets/Maps/World_01/grandmas.tmx" path="Assets/Maps/World_01/">
+		<player x="121" y="600" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
+		
+		<!-- Door to tutorial house-->
+		<door x="8" y="600" width="95" height="58" nextScene="3" nextPlayerX="0" nextPlayerY="0"/>
+		
+
+
+	</sceneGrandma>
 
 	<sceneBattle name="Assets/Maps/World_01/test.tmx" path="Assets/Maps/World_01/">
 		<timmy x= "600" y="600" movement= "3"/>

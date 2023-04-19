@@ -7,6 +7,7 @@
 #include "Input.h"
 #include "Scene.h"
 #include "SceneIntro.h"
+#include "SceneGrandma.h"
 #include "FadeToBlack.h"
 
 enum GameScene {
@@ -15,6 +16,7 @@ enum GameScene {
 	MAIN_MENU,
 	SCENE,
 	BATTLE,
+	GRANDMA,
 	GAME_OVER
 };
 

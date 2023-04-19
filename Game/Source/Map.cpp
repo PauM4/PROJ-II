@@ -522,7 +522,7 @@ void Map::CreateColliders(ColData col) {
         collider = app->physics->CreateRectangle(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
         break;
     case (int)ColliderType::DOOR:
-        collider = app->physics->CreateRectangleSensor(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
+        //collider = app->physics->CreateRectangleSensor(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);
         break;
     default:
         collider = app->physics->CreateRectangle(col.x + col.width / 2, col.y + col.height / 2, col.width, col.height, bodyType::STATIC);

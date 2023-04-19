@@ -58,7 +58,7 @@ bool Player::Awake() {
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 	
-	speed = 10;
+	speed = 350;
 	vel = b2Vec2(0, 0);
 
 	return true;
@@ -144,7 +144,7 @@ bool Player::Update(float dt)
 	//Movement
 	if (!movementRestringed)
 	{
-		Movement();
+		Movement(dt);
 	}
 
 
@@ -317,15 +317,15 @@ void Player::TriggerDialogueTree(ColliderType NPC)
 }
 
 //This function handles the player's movement in the game. The function also sets the player's animation based on their direction of movement.
-void Player::Movement()
+void Player::Movement(float dt)
 {
 	vel = b2Vec2(0, 0);
 
 	bool isMovingH, isMovingV;
 
-	isMovingH = HorizontalMovement();
-	isMovingV = VerticalMovement();
-	bool isRunning = SprintMovement();
+	isMovingH = HorizontalMovement(dt);
+	isMovingV = VerticalMovement(dt);
+	bool isRunning = SprintMovement(dt);
 
 
 	if (!isMovingH && !isMovingV)
@@ -334,7 +334,7 @@ void Player::Movement()
 	if (godMode)
 	{
 		if(!isRunning)
-		vel *= 2;
+		vel *= 1.5;
 	}
 
 	pbody->body->SetLinearVelocity(vel);
@@ -342,11 +342,11 @@ void Player::Movement()
 }
 
 //This function checks if the player is holding down the left shift key to sprint. If the key is being held down, the function increases the player's velocity and sets the animation speed to a faster value
-bool Player::SprintMovement()
+bool Player::SprintMovement(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->pads[0].r2)
 	{
-		vel *= 2;
+		vel *= 1.5;
 
 		walkDownAnim.speed = 0.45f;
 		walkUpAnim.speed = 0.45f;
@@ -367,15 +367,15 @@ bool Player::SprintMovement()
 }
 
 //Handles the player vertical movement.
-bool Player::VerticalMovement()
+bool Player::VerticalMovement(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->pads[0].up || app->input->pads[0].left_y < 0.0f) {
-		vel.y = -speed;
+		vel.y = -speed * dt;
 		currentAnimation = &walkUpAnim;
 		return true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || app->input->pads[0].down || app->input->pads[0].left_y > 0.0f) {
-		vel.y = speed;
+		vel.y = speed * dt;
 		currentAnimation = &walkDownAnim;
 		return true;
 	}
@@ -384,17 +384,17 @@ bool Player::VerticalMovement()
 }
 
 //Handles the player horizontal movement.
-bool Player::HorizontalMovement()
+bool Player::HorizontalMovement(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->pads[0].left || app->input->pads[0].left_x < 0.0f)
 	{
-		vel.x = -speed;
+		vel.x = -speed * dt;
 		currentAnimation = &walkLeftAnim;
 		return true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->pads[0].right || app->input->pads[0].left_x > 0.0f)
 	{
-		vel.x = speed;
+		vel.x = speed * dt;
 		currentAnimation = &walkRightAnim;
 		return true;
 	}

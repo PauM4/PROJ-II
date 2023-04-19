@@ -588,12 +588,20 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
 		SDL_DestroyTexture(textOption1);
 	}
+	else
+	{
+		dialog_option1_button->state = GuiControlState::NONE;
+	}
 
 	if (!(dialogue.size() <= 2))
 	{
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 255,255,255,255 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
 		SDL_DestroyTexture(textOption2);
+	}
+	else
+	{
+		dialog_option2_button->state = GuiControlState::NONE;
 	}
 
 	if (!(dialogue.size() <= 3))
@@ -602,12 +610,20 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
 		SDL_DestroyTexture(textOption3);
 	}
+	else
+	{
+		dialog_option3_button->state = GuiControlState::NONE;
+	}
 
 	if (!(dialogue.size() <= 3))
 	{
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 255,255,255,255 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
 		SDL_DestroyTexture(textOption4);
+	}
+	else
+	{
+		dialog_option4_button->state = GuiControlState::NONE;
 	}
 
 

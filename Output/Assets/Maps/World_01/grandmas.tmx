@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="14" height="9" tilewidth="120" tileheight="120" infinite="0" nextlayerid="5" nextobjectid="13">
+ <imagelayer id="2" name="BG">
+  <image source="grandmas.png" width="1680" height="1080"/>
+ </imagelayer>
+ <objectgroup color="#ff0000" id="3" name="Collisions">
+  <object id="2" x="600" y="720" width="120" height="240"/>
+  <object id="3" x="120" y="960" width="1440" height="120"/>
+  <object id="5" x="120" y="240" width="1440" height="120"/>
+  <object id="6" x="0" y="360" width="120" height="240"/>
+  <object id="7" x="0" y="720" width="120" height="240"/>
+  <object id="8" x="960" y="360" width="120" height="120">
+   <properties>
+    <property name="ColType" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="10" x="-120" y="600" width="120" height="120"/>
+  <object id="12" x="1560" y="360" width="120" height="600"/>
+ </objectgroup>
+ <objectgroup color="#00ff00" id="4" name="Doors">
+  <properties>
+   <property name="ColType" type="int" value="1"/>
+  </properties>
+  <object id="9" x="8.30303" y="600" width="59.3939" height="120"/>
+ </objectgroup>
+</map>

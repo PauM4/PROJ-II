@@ -38,12 +38,15 @@ bool Scene::Awake(pugi::xml_node& config)
 		player->parameters = config.child("player");
 	}
 	
-	//L02: DONE 3: Instantiate the player using the entity manager
 	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
 	npc1->parameters = config.child("npc");
 
-	door1 = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);
-	door1->parameters = config.child("door");
+	for (pugi::xml_node doorNode = config.child("door"); doorNode; doorNode = doorNode.next_sibling("door")) {
+		Door* door = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);
+		door->parameters = doorNode;
+
+		doors.Add(door);
+	}
 
 	app->entityManager->Awake(config);
 
