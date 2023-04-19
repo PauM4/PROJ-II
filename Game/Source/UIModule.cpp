@@ -558,38 +558,31 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 255,255,255,255 }, rectO1.w);
-		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
+		app->render->DrawTexture(textOption1, posX - 850, posY + 398, NULL);
 		SDL_DestroyTexture(textOption1);
 	}
 
 	if (!(dialogue.size() <= 2))
 	{
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 255,255,255,255 }, rectO2.w);
-		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
+		app->render->DrawTexture(textOption2, posX - 850, posY + 448, NULL);
 		SDL_DestroyTexture(textOption2);
 	}
 
 	if (!(dialogue.size() <= 3))
 	{
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 255,255,255,255 }, rectO3.w);
-		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
+		app->render->DrawTexture(textOption3, posX + 60, posY + 398, NULL);
 		SDL_DestroyTexture(textOption3);
 	}
 
 	if (!(dialogue.size() <= 3))
 	{
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 255,255,255,255 }, rectO4.w);
-		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
+		app->render->DrawTexture(textOption4, posX + 60, posY + 448, NULL);
 		SDL_DestroyTexture(textOption4);
 	}
 
 
 	SDL_DestroyTexture(textDialogue);
-
-	
-
-	
-
-
-
 }
