@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "Fonts.h"
 #include "SceneBattle.h"
+#include "SceneMainMenu.h"
 #include <iostream>
 
 #include "Defs.h"
@@ -191,7 +192,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_newGame_button->state = GuiControlState::NONE;
 
-
 		break;
 
 		// When credits pressed, appear image with credits and return button
@@ -204,6 +204,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_quit_button->state = GuiControlState::NONE;
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_newGame_button->state = GuiControlState::NONE;
+
+		app->sceneMainMenu->optionsOpen = true;
 		break;
 		// When quit pressed, quit the game
 	case 4:
@@ -236,6 +238,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_credits_button->state = GuiControlState::NORMAL;
 		mainmenu_options_button->state = GuiControlState::NORMAL;
 		mainmenu_quit_button->state = GuiControlState::NORMAL;
+
+		app->sceneMainMenu->optionsOpen = false;
 		break;
 	}
 
