@@ -57,7 +57,7 @@ bool Player::Awake() {
 
 	texturePath = parameters.attribute("texturepath").as_string();
 
-	//If Continue pressed:
+	//If new game pressed:
 	if (!app->scene->isNewGame)
 	{
 		position.x = app->scene->loadPlayerPosX;
