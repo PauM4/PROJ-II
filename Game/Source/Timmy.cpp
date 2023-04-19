@@ -23,7 +23,7 @@ Timmy::~Timmy() {
 
 bool Timmy::Awake()
 {
-	
+	id = 1;
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	level = stats.attribute("level").as_int();
@@ -46,6 +46,41 @@ bool Timmy::Awake()
 	Ab2Power = stats.attribute("Ab2Power").as_int();
 	healingpower = stats.attribute("healingpower").as_int();
 	movement = stats.attribute("movement").as_int();
+
+	idleAnim.PushBack({ 0, 0, 140, 140 });
+	idleAnim.loop = true;
+
+	for (int i = 0; i < 10; i++) //penutlima:cabezon
+	{
+		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
+	}
+	walkDownAnim.loop = true;
+	walkDownAnim.speed = 0.30f;
+
+	for (int i = 0; i < 10; i++)
+	{
+		walkUpAnim.PushBack({ (i * 150), 600, 150, 150 });
+	}
+	walkUpAnim.loop = true;
+	walkUpAnim.speed = 0.30f;
+
+	for (int i = 0; i < 10; i++)
+	{
+		walkRightAnim.PushBack({ (i * 150), 450, 150, 150 });
+	}
+	walkRightAnim.loop = true;
+	walkRightAnim.speed = 0.30f;
+
+	for (int i = 0; i < 10; i++)
+	{
+		walkLeftAnim.PushBack({ (i * 150), 300, 150, 150 });
+	}
+	walkLeftAnim.loop = true;
+	walkLeftAnim.speed = 0.30f;
+
+
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
 	return true;
 }
 

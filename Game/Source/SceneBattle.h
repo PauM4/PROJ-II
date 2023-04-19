@@ -122,6 +122,9 @@ private:;
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
 	SDL_Texture* originTex = nullptr;
+	SDL_Texture* timmytexture = nullptr;
+	SDL_Texture* bunnytexture = nullptr;
+	SDL_Texture* villagertexture = nullptr;
 
 
 	iPoint origin;
@@ -142,12 +145,13 @@ private:;
 	bool moveenemy;
 	bool atack;
 	bool turnstart;
-	bool indestination;
-	
+	bool moveanim;
+
 	Timmy* timmy;
 	Bunny* bunny;
 	Enemy_AngryVillager* villager;
-	
+	int xDir;
+	int yDir;
 
 };
 

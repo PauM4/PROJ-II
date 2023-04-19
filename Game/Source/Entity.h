@@ -200,6 +200,8 @@ public:
 	iPoint tilePos; 
 	bool isEnemy;
 	bool isAlive;
+	//1 if timmy, 2 if bunny, 3 if villager
+	int id;
 };
 
 #endif // __ENTITY_H__

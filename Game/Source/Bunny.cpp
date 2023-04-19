@@ -23,6 +23,7 @@ Bunny::~Bunny() {
 
 bool Bunny::Awake()
 {
+	id = 2;
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	level = stats.attribute("level").as_int();

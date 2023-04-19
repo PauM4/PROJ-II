@@ -95,9 +95,9 @@ bool SceneBattle::Start()
 
 	}
 
-
+	moveanim = false;
 	mouseTileTex = app->tex->Load("Assets/Maps/Scenes/Path.png");
-
+	timmytexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
 	MakeCombatMap();
@@ -195,7 +195,7 @@ bool SceneBattle::PostUpdate()
 		origin = characterTurn->tilePos;
 		
 		turnstart = true;
-		
+		moveanim = false;
 	}
 
 	if (app->pathfinding->IsWalkable(origin)) {
@@ -222,7 +222,6 @@ bool SceneBattle::PostUpdate()
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		
-
 		if (originSelected == true && length == 1 && move == true)
 		{
 			if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
@@ -231,6 +230,7 @@ bool SceneBattle::PostUpdate()
 				destination.y = mouseTile.y;
 				originSelected = false;
 				move = false;
+				moveanim = true;
 
 			}
 			else {
@@ -503,10 +503,66 @@ bool SceneBattle::PostUpdate()
 	
 	app->render->DrawRectangle({ int(timmy->position.x)+35, int(timmy->position.y)+35, 50, 50 }, 250, 0, 0, 250, true);
 
+
 	
+	
+	if (characterTurn->id == 1) {
+
+		if (moveanim == false) {
+			timmy->currentAnimation = &timmy->idleAnim;
+			SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
+		}
+		if (moveanim == true) {
+			if (xDir == 1) {
+				timmy->currentAnimation = &timmy->walkRightAnim;
+				SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
+				timmy->currentAnimation->Update();
+			}
+			if (xDir == -1) {
+				timmy->currentAnimation = &timmy->walkLeftAnim;
+				SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
+				timmy->currentAnimation->Update();
+			}
+			if (yDir == 1) {
+				timmy->currentAnimation = &timmy->walkDownAnim;
+				SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
+				timmy->currentAnimation->Update();
+			}
+			if (yDir == -1) {
+				timmy->currentAnimation = &timmy->walkUpAnim;
+				SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
+				timmy->currentAnimation->Update();
+			}
+			if (xDir == 0 || yDir == 0) {
+				SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
+				timmy->currentAnimation->Update();
+			}
+		}
+
+	}
+	if (characterTurn->id == 2) {
+
+		timmy->currentAnimation = &timmy->idleAnim;
+		SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
 	
 
-		
+	}
+	
+	if (characterTurn->id == 3) {
+
+		timmy->currentAnimation = &timmy->idleAnim;
+		SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
+
+
+	}
 	
 	return ret;
 }
@@ -569,10 +625,16 @@ bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 	LOG(" disY: %d", dist.y);
 
 
-
-	int xDir = (dist.x > 0) ? 1 : -1;
-	int yDir = (dist.y > 0) ? 1 : -1;
-
+	xDir = 0;
+	yDir = 0;
+	xDir = (dist.x > 0) ? 1 : -1;
+	yDir = (dist.y > 0) ? 1 : -1;
+	if (dist.x == 0) {
+		xDir = 0;
+	}
+	if (dist.y == 0) {
+		yDir = 0;
+	}
 	if (dist.x == 0 && dist.y == 0) {
 		pathIndex++;
 
