@@ -761,6 +761,7 @@ void Scene::CreateDialogue()
 
 
 }
+
 bool Scene::LoadState(pugi::xml_node& data)
 {
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
