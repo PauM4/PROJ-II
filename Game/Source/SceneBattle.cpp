@@ -72,8 +72,8 @@ bool SceneBattle::Start()
 	move = false;
 	originSelected = false;
 	pathIndex = 1;
+	length=1;
 	turnstart = true;
-	pathIndex = 0;
 	destination = iPoint(0, 0);
 	 movepressed = false;
 	 attackpressed = false;
@@ -1145,6 +1145,8 @@ bool SceneBattle::CleanUp()
 {
 	LOG("Freeing sceneBattle");
 	allentities.Clear();
+	area.Clear();
+	targets.Clear();
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
 	return true;
