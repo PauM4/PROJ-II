@@ -22,8 +22,13 @@ Player::~Player() {
 
 bool Player::Awake() {
 
-	idleAnim.PushBack({ 0, 0, 140, 140 });
-	idleAnim.loop = true;
+
+	//Timmy Animations
+	idleAnim.PushBack({ 0, 0, 150, 150 });
+	rightIdleAnim.PushBack({ (4 * 150), 450, 150, 150 });
+	leftIdleAnim.PushBack({ (4 * 150), 300, 150, 150 });
+	upIdleAnim.PushBack({ 0, 600, 150, 150 });
+
 
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
@@ -53,9 +58,43 @@ bool Player::Awake() {
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.30f;
 
-	
+	//Bunny Animations
+	bunnyIdleAnim.PushBack({ 0, 0, 140, 140 });
+	bunnyRightIdleAnim.PushBack({ (150), 450, 150, 150 });
+	bunnyLeftIdleAnim.PushBack({ (150), 300, 150, 150 });
+	bunnyUpIdleAnim.PushBack({ 0, 600, 150, 150 });
 
+	for (int i = 0; i < 4; i++) 
+	{
+		bunnyWalkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
+	}
+	bunnyWalkDownAnim.loop = true;
+	bunnyWalkDownAnim.speed = 0.30f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		bunnyWalkUpAnim.PushBack({ (i * 150), 600, 150, 150 });
+	}
+	bunnyWalkUpAnim.loop = true;
+	bunnyWalkUpAnim.speed = 0.30f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		bunnyWalkRightAnim.PushBack({ (i * 150), 450, 150, 150 });
+	}
+	bunnyWalkRightAnim.loop = true;
+	bunnyWalkRightAnim.speed = 0.1f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		bunnyWalkLeftAnim.PushBack({ (i * 150), 300, 150, 150 });
+	}
+	bunnyWalkLeftAnim.loop = true;
+	bunnyWalkLeftAnim.speed = 0.15f;
+
+	//TexturePaths
 	texturePath = parameters.attribute("texturepath").as_string();
+	bunnyTexturePath = parameters.attribute("bunnyTexturepath").as_string();
 
 	//If new game pressed:
 	if (!app->scene->isNewGame)
@@ -83,7 +122,10 @@ bool Player::Start() {
 
 
 	texture = app->tex->Load(texturePath);
+	bunnyTexture = app->tex->Load(bunnyTexturePath);
+
 	currentAnimation = &idleAnim;
+	bunnyCurrentAnimation = &bunnyIdleAnim;
 
 	pbody = app->physics->CreateRectangle(position.x,position.y,70,70, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
@@ -115,6 +157,7 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 	currentAnimation->Update();
+	bunnyCurrentAnimation->Update();
 
 	std::cout << "Player pos X: " << position.x << std::endl;
 	std::cout << "Player pos Y: " << position.y << std::endl;
@@ -191,15 +234,105 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate() {
 
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x - 55, position.y-75, &rect);
-
+	UpdateAndPrintBunnyAnimation();
+	
+	UpdateAndPrintTimmyAnimation();
+	
 	return true;
+}
+
+void Player::UpdateAndPrintTimmyAnimation()
+{
+
+	if (currentAnimation == &walkUpAnim)
+	{
+		lastAnimation = &walkUpAnim;
+	}
+	else if (currentAnimation == &walkDownAnim)
+	{
+		lastAnimation = &walkDownAnim;
+	}
+	else if (currentAnimation == &walkRightAnim)
+	{
+		lastAnimation = &walkRightAnim;
+	}
+	else if (currentAnimation == &walkLeftAnim)
+	{
+		lastAnimation = &walkLeftAnim;
+	}
+	else
+	{
+		if (lastAnimation == &walkUpAnim)
+		{
+			currentAnimation = &upIdleAnim;
+		}
+		else if (lastAnimation == &walkDownAnim)
+		{
+			currentAnimation = &idleAnim;
+		}
+		else if (lastAnimation == &walkRightAnim)
+		{
+			currentAnimation = &rightIdleAnim;
+		}
+		else if (lastAnimation == &walkLeftAnim)
+		{
+			currentAnimation = &leftIdleAnim;
+		}
+	}
+
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x - 55, position.y - 75, &rect);
+
+}
+
+void Player::UpdateAndPrintBunnyAnimation()
+{
+	
+
+	if (bunnyCurrentAnimation == &bunnyWalkUpAnim)
+	{
+		lastBunnyAnimation = &bunnyWalkUpAnim;
+	}
+	else if (bunnyCurrentAnimation == &bunnyWalkDownAnim)
+	{
+		lastBunnyAnimation = &bunnyWalkDownAnim;
+	}
+	else if (bunnyCurrentAnimation == &bunnyWalkRightAnim)
+	{
+		lastBunnyAnimation = &bunnyWalkRightAnim;
+	}
+	else if (bunnyCurrentAnimation == &bunnyWalkLeftAnim)
+	{
+		lastBunnyAnimation = &bunnyWalkLeftAnim;
+	}
+	else
+	{
+		if (lastBunnyAnimation == &bunnyWalkUpAnim)
+		{
+			bunnyCurrentAnimation = &bunnyUpIdleAnim;
+		}
+		else if (lastBunnyAnimation == &bunnyWalkDownAnim)
+		{
+			bunnyCurrentAnimation = &bunnyIdleAnim;
+		}
+		else if (lastBunnyAnimation == &bunnyWalkRightAnim)
+		{
+			bunnyCurrentAnimation = &bunnyRightIdleAnim;
+		}
+		else if (lastBunnyAnimation == &bunnyWalkLeftAnim)
+		{
+			bunnyCurrentAnimation = &bunnyLeftIdleAnim;
+		}
+	}
+
+	SDL_Rect rect2 = bunnyCurrentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(bunnyTexture, position.x - 145, position.y - 115, &rect2);
 }
 
 bool Player::CleanUp()
 {
 	app->tex->UnLoad(texture);
+	app->tex->UnLoad(bunnyTexture);
 
 	if (pbody != NULL)
 	{
@@ -287,25 +420,25 @@ void Player::InteractWithTree()
 		app->scene->UpdateDialogueTree(4);
 	}*/
 
-	if (a1)
+	if (buttonOption1)
 	{
 		app->scene->UpdateDialogueTree(1);
-		a1 = false;
+		buttonOption1 = false;
 	}
-	else if (a2)
+	else if (buttonOption2)
 	{
 		app->scene->UpdateDialogueTree(2);
-		a2 = false;
+		buttonOption2 = false;
 	}
-	else if (a3)
+	else if (buttonOption3)
 	{
 		app->scene->UpdateDialogueTree(3);
-		a3 = false;
+		buttonOption3 = false;
 	}
-	else if (a4)
+	else if (buttonOption4)
 	{
 		app->scene->UpdateDialogueTree(4);
-		a4 = false;
+		buttonOption4 = false;
 	}
 
 
@@ -346,7 +479,12 @@ void Player::Movement(float dt)
 
 
 	if (!isMovingH && !isMovingV)
+	{
 		currentAnimation = &idleAnim;
+		bunnyCurrentAnimation = &bunnyIdleAnim;
+
+	}
+		
 
 	if (godMode)
 	{
@@ -370,6 +508,11 @@ bool Player::SprintMovement(float dt)
 		walkRightAnim.speed = 0.45f;
 		walkLeftAnim.speed = 0.45f;
 
+		bunnyWalkDownAnim.speed = 0.25f;
+		bunnyWalkUpAnim.speed = 0.25f;
+		bunnyWalkRightAnim.speed = 0.25f;
+		bunnyWalkLeftAnim.speed = 0.25f;
+
 		return true;
 	}
 	else
@@ -378,6 +521,11 @@ bool Player::SprintMovement(float dt)
 		walkUpAnim.speed = 0.30f;
 		walkRightAnim.speed = 0.30f;
 		walkLeftAnim.speed = 0.30f;
+
+		bunnyWalkDownAnim.speed = 0.10f;
+		bunnyWalkUpAnim.speed = 0.10f;
+		bunnyWalkRightAnim.speed = 0.10f;
+		bunnyWalkLeftAnim.speed = 0.10f;
 
 		return false;
 	}
@@ -389,11 +537,13 @@ bool Player::VerticalMovement(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->pads[0].up || app->input->pads[0].left_y < 0.0f) {
 		vel.y = -speed * dt;
 		currentAnimation = &walkUpAnim;
+		bunnyCurrentAnimation = &bunnyWalkUpAnim;
 		return true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || app->input->pads[0].down || app->input->pads[0].left_y > 0.0f) {
 		vel.y = speed * dt;
 		currentAnimation = &walkDownAnim;
+		bunnyCurrentAnimation = &bunnyWalkDownAnim;
 		return true;
 	}
 
@@ -407,12 +557,14 @@ bool Player::HorizontalMovement(float dt)
 	{
 		vel.x = -speed * dt;
 		currentAnimation = &walkLeftAnim;
+		bunnyCurrentAnimation = &bunnyWalkLeftAnim;
 		return true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->pads[0].right || app->input->pads[0].left_x > 0.0f)
 	{
 		vel.x = speed * dt;
 		currentAnimation = &walkRightAnim;
+		bunnyCurrentAnimation = &bunnyWalkRightAnim;
 		return true;
 	}
 
@@ -468,6 +620,7 @@ void Player::StopVelocity()
 	pbody->body->SetLinearVelocity(vel);
 	currentAnimation = &idleAnim;
 }
+
 void Player::ChangePosition(int x, int y)
 {
 

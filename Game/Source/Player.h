@@ -50,6 +50,8 @@ private:
 	void InteractWithEntities();
 	void StopVelocity();
 	void GodMode();
+	void UpdateAndPrintBunnyAnimation();
+	void UpdateAndPrintTimmyAnimation();
 
 
 public:
@@ -85,7 +87,7 @@ public:
 	// Bool to print once the dialogues
 	bool dialogueActivate;
 
-	bool a1, a2, a3, a4;
+	bool buttonOption1, buttonOption2, buttonOption3, buttonOption4;
 
 private:
 
@@ -94,13 +96,31 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 
-
 	Animation* currentAnimation;
+	Animation* lastAnimation;
 	Animation walkDownAnim;
 	Animation walkUpAnim;
 	Animation walkRightAnim;
 	Animation walkLeftAnim;
 	Animation idleAnim;
+	Animation rightIdleAnim;
+	Animation leftIdleAnim;
+	Animation upIdleAnim;
+
+	SDL_Texture* bunnyTexture;
+	const char* bunnyTexturePath;
+
+	Animation* bunnyCurrentAnimation;
+	Animation* lastBunnyAnimation;
+	Animation bunnyWalkDownAnim;
+	Animation bunnyWalkUpAnim;
+	Animation bunnyWalkRightAnim;
+	Animation bunnyWalkLeftAnim;
+	Animation bunnyIdleAnim;
+	Animation bunnyRightIdleAnim;
+	Animation bunnyLeftIdleAnim;
+	Animation bunnyUpIdleAnim;
+
 
 	bool godMode;
 

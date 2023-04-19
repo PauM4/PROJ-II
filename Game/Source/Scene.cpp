@@ -230,19 +230,19 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Option 1
 	case 12:
-		app->scene->player->a1 = true;
+		app->scene->player->buttonOption1 = true;
 		break;
 		// Option 2
 	case 13:
-		app->scene->player->a2 = true;
+		app->scene->player->buttonOption2 = true;
 		break;
 		// Option 3
 	case 14:
-		app->scene->player->a3 = true;
+		app->scene->player->buttonOption3 = true;
 		break;
 		// Option 4
 	case 15:
-		app->scene->player->a4 = true;
+		app->scene->player->buttonOption4 = true;
 	default:
 		break;
 	}
