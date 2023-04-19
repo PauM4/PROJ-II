@@ -32,14 +32,15 @@ bool Scene::Awake(pugi::xml_node& config)
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 	
-	
+
+	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
+	npc1->parameters = config.child("npc");
+
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
 	}
-	
-	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
-	npc1->parameters = config.child("npc");
+
 
 	for (pugi::xml_node doorNode = config.child("door"); doorNode; doorNode = doorNode.next_sibling("door")) {
 		Door* door = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);

@@ -22,21 +22,21 @@ bool Npc::Awake() {
 
 	npcTexturePath = parameters.attribute("npcTexturePath").as_string();
 
-	posAngryVillager.x = 1463, posAngryVillager.y = 3592;
+	posAngryVillager.x = 1393, posAngryVillager.y = 3592;
 
 	posTalismanVillager.x = 1920, posTalismanVillager.y = 1408;
 
-	posGrandma.x = 260, posGrandma.y = 472;
+	posGrandma.x = 1800, posGrandma.y = 691;
 
-	posLRRH.x = 2338, posLRRH.y = 771;
+	posLRRH.x = 2138, posLRRH.y = 771;
 
-	angryVillagerAnimation.PushBack({ 586,44,105,174 });
+	angryVillagerAnimation.PushBack({ 284,55,127,189 });
 
-	talismanVillagerAnimation.PushBack({ 586,243, 112, 203 });
+	talismanVillagerAnimation.PushBack({ 280,511, 122, 187 });
 
-	grandmaAnimation.PushBack({ 13,471,123,185 });
+	grandmaAnimation.PushBack({ 12,494,134,191 });
 
-	lrrhAnimation.PushBack({ 17,276,122,179 });
+	lrrhAnimation.PushBack({ 25,276,182,190 });
 
 	return true;
 }
@@ -46,19 +46,19 @@ bool Npc::Start() {
 
 	npcTexture = app->tex->Load(npcTexturePath);
 
-	pbodyAVillager = app->physics->CreateRectangleSensor(posAngryVillager.x, posAngryVillager.y, 130, 150, bodyType::STATIC);
+	pbodyAVillager = app->physics->CreateRectangle(posAngryVillager.x + 40, posAngryVillager.y, 150, 150, bodyType::STATIC);
 	pbodyAVillager->listener = this;				
 	pbodyAVillager->ctype = ColliderType::ANGRYVILLAGER;
 
-	pbodyTLVillager = app->physics->CreateRectangleSensor(posTalismanVillager.x, posTalismanVillager.y, 130, 150, bodyType::STATIC);
+	pbodyTLVillager = app->physics->CreateRectangle(posTalismanVillager.x, posTalismanVillager.y, 110, 150, bodyType::STATIC);
 	pbodyTLVillager->listener = this;				
 	pbodyTLVillager->ctype = ColliderType::TALISMANVILLAGER;
 
-	pbodyGrandma = app->physics->CreateRectangleSensor(posGrandma.x, posGrandma.y, 130, 150, bodyType::STATIC);
+	pbodyGrandma = app->physics->CreateRectangle(posGrandma.x+(134/2)-10, posGrandma.y + (191/2), 150, 150, bodyType::STATIC);
 	pbodyGrandma->listener = this;				
 	pbodyGrandma->ctype = ColliderType::GRANDMA;
 
-	pbodyLRRH = app->physics->CreateRectangleSensor(posLRRH.x, posLRRH.y, 130, 150, bodyType::STATIC);
+	pbodyLRRH = app->physics->CreateRectangle(posLRRH.x+(122/2)-10, posLRRH.y, 150, 150, bodyType::STATIC);
 	pbodyLRRH->listener = this;
 	pbodyLRRH->ctype = ColliderType::LRRH;
 
@@ -75,11 +75,11 @@ bool Npc::PostUpdate()
 {
 	currentAnimation = &angryVillagerAnimation;
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(npcTexture, posAngryVillager.x - 13, posAngryVillager.y - 26, &rect);
+	app->render->DrawTexture(npcTexture, posAngryVillager.x - 13, posAngryVillager.y - 86, &rect);
 
 	currentAnimation = &talismanVillagerAnimation;
 	rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(npcTexture, posTalismanVillager.x - 13, posTalismanVillager.y - 26, &rect);
+	app->render->DrawTexture(npcTexture, posTalismanVillager.x - 60, posTalismanVillager.y - 96, &rect);
 
 	currentAnimation = &grandmaAnimation;
 	rect = currentAnimation->GetCurrentFrame();
