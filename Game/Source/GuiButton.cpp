@@ -73,7 +73,7 @@ bool GuiButton::Draw(Render* render)
 		render->DrawTexture(app->guiManager->buttonNormalTexture, bounds.x, bounds.y, NULL);
 		break;
 	case GuiControlState::FOCUSED:
-		///render->DrawRectangle(bounds, 244, 168, 92, 255, true, false);
+		//render->DrawRectangle(bounds, 244, 168, 92, 255, true, false);
 		render->DrawTexture(app->guiManager->buttonHoverTexture, bounds.x, bounds.y, NULL);
 		break;
 	case GuiControlState::PRESSED:
