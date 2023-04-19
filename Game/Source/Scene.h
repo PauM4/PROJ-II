@@ -78,6 +78,9 @@ public:
 	int loadPlayerPosX;
 	int loadPlayerPosY;
 
+	// New Game things
+	bool isNewGame;
+
 private:
 
 	SString mapName;
