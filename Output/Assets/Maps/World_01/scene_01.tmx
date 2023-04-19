@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="5" nextobjectid="63">
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="5" nextobjectid="64">
  <imagelayer id="2" name="BG">
-  <image source="Assets/Maps/World_01/scene_01.png" width="4000" height="5337"/>
+  <image source="Assets/Maps/World_01/scene_01.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -66,5 +66,6 @@
    <property name="ColType" type="int" value="1"/>
   </properties>
   <object id="62" x="2218.67" y="2414" width="95" height="58"/>
+  <object id="63" x="1956.67" y="656.667" width="87.3333" height="37.3333"/>
  </objectgroup>
 </map>

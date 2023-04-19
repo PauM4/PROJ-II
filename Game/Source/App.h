@@ -18,10 +18,13 @@ class Input;
 class Render;
 class Textures;
 class Audio;
+
+//Scenes
 class SceneIntro;
 class SceneMainMenu;
 class Scene;
 class SceneBattle;
+class SceneGrandma;
 class EntityManager;
 class Map;
 class Fonts;
@@ -99,10 +102,12 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
+	//Scenes
 	Scene* scene;
 	SceneIntro* sceneIntro;
 	SceneMainMenu* sceneMainMenu;
 	SceneBattle* sceneBattle;
+	SceneGrandma* sceneGrandma;
 	EntityManager* entityManager;
 	Map* map;
 	Fonts* fonts; 

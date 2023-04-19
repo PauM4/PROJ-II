@@ -66,6 +66,7 @@
     <ClCompile Include="Source\Door.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneGrandma.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Source\Door.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SceneGrandma.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

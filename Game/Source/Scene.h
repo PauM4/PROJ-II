@@ -71,7 +71,7 @@ public:
 
 	Player* player;
 	Npc* npc1;
-	Door* door1;
+	List<Door*> doors;
 
 private:
 

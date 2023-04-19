@@ -41,11 +41,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	physics = new Physics(true);
 	pathfinding = new PathFinding(true);
 	sceneManager = new SceneManager(true); 
-
+	
+	//Scenes
 	sceneMainMenu = new SceneMainMenu(false);
 	sceneIntro = new SceneIntro(false);
 	scene = new Scene(false);
 	sceneBattle = new SceneBattle(false);
+	sceneGrandma = new SceneGrandma(false);
 
 
 	entityManager = new EntityManager(true);
@@ -70,6 +72,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneMainMenu);
 	AddModule(scene);
 	AddModule(sceneBattle);
+	AddModule(sceneGrandma);
 
 	AddModule(entityManager);
 	AddModule(map);
