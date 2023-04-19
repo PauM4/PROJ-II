@@ -22,8 +22,9 @@
 	</audio>
 
 	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
-		<player x="1954" y="1667" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
-		<npc npcTexturePath ="Assets/Characters/npc.png"/>
+		<player x="1954" y="3592" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"
+															bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
+		<npc npcTexturePath ="Assets/Characters/Characters_popups.png"/>
 		
 		<!-- Door to tutorial house-->
 		<door x="2218" y="2414" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0"/>

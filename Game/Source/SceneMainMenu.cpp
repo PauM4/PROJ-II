@@ -32,6 +32,7 @@ bool SceneMainMenu::Awake(pugi::xml_node& config)
 bool SceneMainMenu::Start()
 {	
 	mainMenu_image = app->tex->Load("Assets/UI/A_MainMenuBackground_SceneMainMenu.png");
+	mainMenuRipped_image = app->tex->Load("Assets/UI/A_MainMenuRipped_SceneManager.png");
 	credits_image = app->tex->Load("Assets/UI/A_Credits_MainMenu.png");
 
 	w = app->win->width;
@@ -41,11 +42,12 @@ bool SceneMainMenu::Start()
 	app->render->camera.y = 0;
 
 	// Tell to UIModule which currentMenuType
-	app->uiModule->currentMenuType = MAIN;
+	app->uiModule->currentMenuType = DISABLED;
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
-	optionsOpen = false;
+	creditsOpen = false;
+	returnPressed = false;
 
 	return true;
 }
@@ -60,6 +62,18 @@ bool SceneMainMenu::PreUpdate()
 bool SceneMainMenu::Update(float dt)
 {
 
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = MAIN;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+		// Add cool audio
+		app->audio->PlayFx(app->guiManager->pressedFxId);
+
+		returnPressed = true;
+	}
 
 	return true;
 }
@@ -69,11 +83,18 @@ bool SceneMainMenu::PostUpdate()
 {
 	bool ret = true;
 
-	app->render->DrawTexture(mainMenu_image, 0, 0, NULL);
-
-	if (optionsOpen)
+	if (returnPressed)
 	{
-		app->render->DrawTexture(app->sceneMainMenu->credits_image, 0, 0, NULL);
+		app->render->DrawTexture(mainMenuRipped_image, 0, 0, NULL);
+	}
+	else
+	{
+		app->render->DrawTexture(mainMenu_image, 0, 0, NULL);
+	}
+
+	if (creditsOpen)
+	{
+		app->render->DrawTexture(credits_image, 0, 0, NULL);
 	}
 
 
@@ -91,6 +112,7 @@ bool SceneMainMenu::CleanUp()
 	LOG("Freeing sceneMainMenu");	
 	app->tex->UnLoad(mainMenu_image);
 	app->tex->UnLoad(credits_image);
+	app->tex->UnLoad(mainMenuRipped_image);
 
 	return true;
 }

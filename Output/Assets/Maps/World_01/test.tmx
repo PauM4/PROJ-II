@@ -10,7 +10,7 @@
   <image source="metaTiles.png" width="360" height="120"/>
  </tileset>
  <imagelayer id="2" name="BG">
-  <image source="Assets\Maps\World_01\/test.png"/>
+  <image source="Assets/Maps/World_01/town_house.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>

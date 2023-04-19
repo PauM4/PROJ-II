@@ -79,7 +79,7 @@ bool SceneBattle::Start()
 	 attackpressed = false;
 	 abiltypressed = false;
 	 endturnpressed = false;
-	
+	 moveenemy = false;
 	app->entityManager->Start(); 
 	//Load combat map
 	/*MakeCombatMap();*/

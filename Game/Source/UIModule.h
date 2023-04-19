@@ -87,7 +87,11 @@ public:
 	GuiButton* dialog_option4_button;
 	GuiButton* dialog_text_button;
 
+	SDL_Texture* npcDialogueTexture;
+
 	bool quitButtonBool;
+
+	bool continueBool;
 
 
 private:

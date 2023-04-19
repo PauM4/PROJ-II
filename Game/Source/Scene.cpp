@@ -32,14 +32,16 @@ bool Scene::Awake(pugi::xml_node& config)
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 	
-	
+	app->physics->Enable();
+
+	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
+	npc1->parameters = config.child("npc");
+
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
 	}
-	
-	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
-	npc1->parameters = config.child("npc");
+
 
 	for (pugi::xml_node doorNode = config.child("door"); doorNode; doorNode = doorNode.next_sibling("door")) {
 		Door* door = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);
@@ -59,6 +61,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	app->entityManager->Start();
+
 	//Fonts initialize
 	char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
 
@@ -230,19 +233,19 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Option 1
 	case 12:
-		app->scene->player->a1 = true;
+		app->scene->player->buttonOption1 = true;
 		break;
 		// Option 2
 	case 13:
-		app->scene->player->a2 = true;
+		app->scene->player->buttonOption2 = true;
 		break;
 		// Option 3
 	case 14:
-		app->scene->player->a3 = true;
+		app->scene->player->buttonOption3 = true;
 		break;
 		// Option 4
 	case 15:
-		app->scene->player->a4 = true;
+		app->scene->player->buttonOption4 = true;
 	default:
 		break;
 	}
@@ -255,7 +258,8 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 	app->fonts->UnLoad(font);
 	app->map->CleanUp(); 
-	app->entityManager->CleanUp(); 	
+	app->entityManager->CleanUp(); 
+	app->physics->Disable();
 	
 
 	return true;
@@ -683,7 +687,7 @@ void Scene::CreateDialogue()
 
 	//Root
 	auto firstNodeLR = std::make_shared<DialogueNode>();
-	firstNodeLR->SetText("-Who...are...you?- Little Red's voice is raspy and distorted, as if coming from a deep, dark place. -What...do...you...want?- Her eyes narrow and she grips her longbow tighter, a low growl emanating from her throat. -If...you're...here...to...kill...me...just...get...it...over...with-. Suddenly, a strange, otherworldly sound fills the room, like the creaking of a thousand dead branches. -I...won't...go...down...without...a...fight.-");
+	firstNodeLR->SetText("Who...are...you? What...do...you...want? If...you're...here...to...kill...me...just...get...it...over...with. I...won't...go...down...without...a...fight.-");
 	firstNodeLR->AddChild(firstOption1LR);
 	firstNodeLR->AddChild(firstOption2LR);
 	firstNodeLR->AddChild(firstOption3LR);
@@ -713,19 +717,19 @@ void Scene::CreateDialogue()
 
 	//2nd Level
 	auto gToOption1 = std::make_shared<DialogueNode>();
-	gToOption1->SetText("Little Red Riding Hood is my granddaughter, and she's currently in her house. Please be gentle with her, though. She's lost her way and needs our help to find her path back home.");
+	gToOption1->SetText("Little Red Riding Hood is my granddaughter, and she's currently in my house. Please be gentle with her, though. She's lost her way and needs our help to find her path back home.");
 	gToOption1->AddChild(secondOption1G);
 
 	auto gToOption2 = std::make_shared<DialogueNode>();
-	gToOption2->SetText("I will not tolerate that kind of rude behavior in my home. If you have business with Little Red Riding Hood, you will address me with respect. And yes, I know where she is. She is in her house, safe and sound. But I must warn you, if you have any ill intentions towards her, you will answer to me. So please be mindful of her state of mind. She's lost and needs our love and guidance to find her way back on track.");
+	gToOption2->SetText("I will not tolerate that kind of rude behavior. If you have business with Little Red Riding Hood, you will address me with respect. And yes, I know where she is. She is in my house, safe and sound. But I must warn you, if you have any ill intentions towards her, you will answer to me. So please be mindful of her state of mind. She's lost and needs our love and guidance to find her way back on track.");
 	gToOption2->AddChild(secondOption2G);
 
 	auto gToOption3 = std::make_shared<DialogueNode>();
-	gToOption3->SetText("Little Red Riding Hood is my granddaughter, and she's currently staying in her house. Please be gentle with her, though. She's lost and needs our love and guidance to find her way back on track");
+	gToOption3->SetText("Little Red Riding Hood is my granddaughter, and she's currently staying in my house. Please be gentle with her, though. She's lost and needs our love and guidance to find her way back on track");
 	gToOption3->AddChild(secondOption3G);
 
 	auto gToOption4 = std::make_shared<DialogueNode>();
-	gToOption4->SetText("Please don't be afraid, dear. Little Red Riding Hood is in her house. If you come across my granddaughter, show her kindness. She's lost her way and needs our help to find the path back to the light.");
+	gToOption4->SetText("Please don't be afraid, dear. Little Red Riding Hood is in my house. If you come across my granddaughter, show her kindness. She's lost her way and needs our help to find the path back to the light.");
 	gToOption4->AddChild(secondOption4G);
 
 
@@ -739,7 +743,7 @@ void Scene::CreateDialogue()
 	firstOption2G->AddChild(gToOption2);
 
 	auto firstOption3G = std::make_shared<DialogueNode>();
-	firstOption3G->SetText("Uh, sorry, I didn't mean to barge in or anything. I was just looking for someone to help LRRH, you know? She's in trouble and stuff. Needs our help or whatever. yawns");
+	firstOption3G->SetText("Uh, sorry, I didn't mean to barge in or anything. I was just looking for someone to help Little Red Hood, you know? She's in trouble and stuff. Needs our help or whatever. yawns");
 	firstOption3G->AddChild(gToOption3);
 
 	auto firstOption4G = std::make_shared<DialogueNode>();
@@ -761,12 +765,13 @@ void Scene::CreateDialogue()
 
 
 }
+
 bool Scene::LoadState(pugi::xml_node& data)
 {
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
-	//player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
 	return true;
 }
@@ -780,4 +785,3 @@ bool Scene::SaveState(pugi::xml_node& data)
 
 	return true;
 }
-

@@ -36,12 +36,16 @@ public:
 public:
 	
 	SDL_Texture* mainMenu_image;
+	SDL_Texture* mainMenuRipped_image;
 	SDL_Texture* credits_image;
 
-	bool optionsOpen;
+	bool creditsOpen;
 
 	// Window width and height
 	int w, h;
+
+	// Bool to transition between ripped and not in main menu
+	bool returnPressed;
 
 private:
 

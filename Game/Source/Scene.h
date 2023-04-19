@@ -59,6 +59,8 @@ public:
 	std::string LastTextLittleRedVillager(std::string);
 	void AppearDialogue();
 
+	ColliderType GetPlayerLastCollision() { return player->lastCollision; }
+
 private:
 
 	void Camera();

@@ -9,6 +9,9 @@
 #include "Fonts.h"
 #include "SceneBattle.h"
 #include "SceneMainMenu.h"
+#include "Scene.h"
+#include "Player.h"
+#include "Npc.h"
 #include <iostream>
 
 #include "Defs.h"
@@ -41,14 +44,14 @@ bool UIModule::Start()
 	app->win->GetWindowSize(w, h);
 
 
-	mainmenu_play_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 920, 80, 120,30 }, this);
-	mainmenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 920, 115, 120,30 }, this);
-	mainmenu_credits_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { 920, 150, 120,30 }, this);
-	mainmenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { 920, 185, 120, 30 }, this);
-	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { 920, 115, 120,30 }, this);
-	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { 920, 150, 120,30 }, this);
+	mainmenu_play_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 920, 600, 120,30 }, this);
+	mainmenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 920, 640, 120,30 }, this);
+	mainmenu_credits_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { 920, 680, 120,30 }, this);
+	mainmenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { 920, 720, 120, 30 }, this);
+	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { 920, 640, 120,30 }, this);
+	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { 920, 680, 120,30 }, this);
 	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { 920, 925, 120,30 }, this);
-
+	//2049, 1794
 	pausemenu_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, "Resume", { 1620, 80, 120,30 }, this);
 	pausemenu_save_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Save", { 1620, 115, 120,30 }, this);
 	pausemenu_load_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Load", { 1620, 150, 120,30 }, this);
@@ -97,7 +100,10 @@ bool UIModule::Start()
 	dialog_option4_button->state = GuiControlState::NONE;
 	dialog_text_button->state = GuiControlState::NONE;
 
+	npcDialogueTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
+
 	quitButtonBool = false;
+	continueBool = false;
 
 	return true;
 }
@@ -137,13 +143,6 @@ bool UIModule::PostUpdate()
 				app->scene->AppearDialogue();
 				app->scene->player->dialogueActivate = false;
 			}
-		}
-		else
-		{
-			// Tell to UIModule which currentMenuType
-			app->uiModule->currentMenuType = DISABLED;
-			// Call this function only when buttons change
-			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 		}
 	}
 	
@@ -205,7 +204,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_newGame_button->state = GuiControlState::NONE;
 
-		app->sceneMainMenu->optionsOpen = true;
+		app->sceneMainMenu->creditsOpen = true;
 		break;
 		// When quit pressed, quit the game
 	case 4:
@@ -220,9 +219,10 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// When continue pressed, go to gameplay
 	case 6:
-		app->LoadGameRequest();
+		continueBool = true;
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;
+		/*app->LoadGameRequest();*/
 		break;
 
 		// When button Return Is Pressed, show the Main Menu buttons
@@ -236,7 +236,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_options_button->state = GuiControlState::NORMAL;
 		mainmenu_quit_button->state = GuiControlState::NORMAL;
 
-		app->sceneMainMenu->optionsOpen = false;
+		app->sceneMainMenu->creditsOpen = false;
 		break;
 	}
 
@@ -575,13 +575,40 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 1700);
 	app->render->DrawTexture(textDialogue, posX - 850, posY + 220, NULL);
 
+	SDL_Rect angryVillagerRect = { 1198, 212, 416, 705};
+	SDL_Rect talismanVillagerRect = { 1174, 2024, 435, 726};
+	SDL_Rect grandmaRect = { 107, 1958, 457, 748};
+	SDL_Rect lrrhRect = { 176, 1097, 632, 701};
+
+	switch (app->scene->GetPlayerLastCollision())
+	{
+	case ColliderType::ANGRYVILLAGER:
+		// Dibuixar Angry tal
+		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &angryVillagerRect);
+		break;
+
+	case ColliderType::TALISMANVILLAGER:
+		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &talismanVillagerRect);
+		break;
+
+	case ColliderType::GRANDMA:
+		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &grandmaRect);
+		break;
+
+	case ColliderType::LRRH:
+		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &lrrhRect);
+		break;
+
+	default:
+		break;
+	}
+
 	// Change options buttons text
 	SDL_Rect rectO1 = { 0, 0, 800, 30 };
 	SDL_Rect rectO2 = { 0, 0, 800, 30 };
 	SDL_Rect rectO3 = { 0, 0, 800, 30 };
 	SDL_Rect rectO4 = { 0, 0, 800, 30 };
 
-	
 	// Check if there's dialogue available
 	if (!(dialogue.size() <= 1))
 	{

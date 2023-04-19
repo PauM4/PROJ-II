@@ -70,15 +70,15 @@ bool GuiButton::Draw(Render* render)
 		break;
 	case GuiControlState::NORMAL:
 		//render->DrawRectangle(bounds, 128, 64, 0, 255, true, false);
-		render->DrawTexture(app->guiManager->buttonNormalTexture, bounds.x, bounds.y, NULL);
+		render->DrawTexture(app->guiManager->buttonNormalTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	case GuiControlState::FOCUSED:
 		//render->DrawRectangle(bounds, 244, 168, 92, 255, true, false);
-		render->DrawTexture(app->guiManager->buttonHoverTexture, bounds.x, bounds.y, NULL);
+		render->DrawTexture(app->guiManager->buttonHoverTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	case GuiControlState::PRESSED:
 		//render->DrawRectangle(bounds, 52, 26, 0, 255, true, false);
-		render->DrawTexture(app->guiManager->buttonPressedTexture, bounds.x, bounds.y, NULL);
+		render->DrawTexture(app->guiManager->buttonPressedTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	}
 

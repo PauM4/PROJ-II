@@ -31,7 +31,7 @@ public:
 
 public:
 
-private:
+	// TOT AIXO ABANS ESTAVA A PRIVATE :)
 	
 	Animation* currentAnimation;
 
