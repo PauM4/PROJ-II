@@ -313,7 +313,7 @@ bool App::DoUpdate()
 			continue;
 		}
 
-		ret = item->data->Update(dt);
+		ret = item->data->Update(dt/1000);
 	}
 
 	return ret;
