@@ -137,7 +137,10 @@ bool SceneBattle::Update(float dt)
 
 	if (movepressed == true) {
 
+
+		arealist.Clear();
 		move = true;
+
 		movepressed = false;
 		atack = false;
 	}
@@ -146,7 +149,7 @@ bool SceneBattle::Update(float dt)
 
 		targets.Clear();
 		DestroyListArea();
-		CreateArea(characterTurn, characterTurn->AttArea, 1);
+		CreateArea(characterTurn, characterTurn->AttArea, 1, characterTurn->tilePos);
 		GetTargets();
 
 		atack = true;
@@ -277,7 +280,7 @@ bool SceneBattle::PostUpdate()
 
 		targets.Clear();
 		DestroyListArea();
-		CreateArea(characterTurn, 3, 2);
+		CreateArea(characterTurn, 3, 2, characterTurn->tilePos);
 
 		GetTargets();
 		
@@ -287,7 +290,7 @@ bool SceneBattle::PostUpdate()
 	if (atack == true) {
 
 
-		DisplayArea(1);
+		DisplayArea(area,1);
 		DisplayEnemys();
 
 		for (int i = 0; i < targets.Count(); i++) {
@@ -346,19 +349,19 @@ bool SceneBattle::PostUpdate()
 				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
 				
 				combatMap[nexTile.x][nexTile.y].inRange = true;
-				/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+				/*arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
 				  
 				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
 				 combatMap[nexTile.x ][nexTile.y].inRange = true;
-				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
+				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 
 				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
 				 combatMap[nexTile.x][nexTile.y].inRange = true;
-				 /*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
+				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 
 				 nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
 				 combatMap[nexTile.x][nexTile.y].inRange = true;
-				 /*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
+				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 			
 			}
 	
@@ -415,7 +418,7 @@ bool SceneBattle::PostUpdate()
 		}
 
 
-		/*DisplayArea(arealist, 0);*/
+		DisplayArea(arealist, 1);
 		
 
 	}
@@ -447,6 +450,40 @@ bool SceneBattle::PostUpdate()
 			}
 
 		}
+
+	}
+
+	if (moveenemy == true) {
+
+
+		for (int i = 0; i < 16; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
+					iPoint pos = iPoint(i, j);
+					CreateArea(characterTurn, characterTurn->AttArea, 1, pos);
+					for (int i = 0; i < area.Count(); i++) {
+
+						if (area.At(i)->data->character == true) {
+
+							length = app->pathfinding->CreatePath(origin, mouseTile);
+							destination.x = mouseTile.x;
+							destination.y = mouseTile.y;
+							originSelected = false;
+							move = false;
+
+						}
+
+					}
+					if (app->pathfinding->IsWalkable(pos)) {
+						pos = app->map->MapToWorld(pos.x, pos.y);
+						app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+					}
+				}
+
+			}
+
+		}
+
 
 	}
 
@@ -486,6 +523,27 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
+bool SceneBattle::MoveEnemy() {
+
+
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < 9; j++) {
+			if (combatMap[i][j].character == true ) {
+				iPoint pos = iPoint(i, j);
+				if (app->pathfinding->IsWalkable(pos)) {
+
+					pos = app->map->MapToWorld(pos.x, pos.y);
+					app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+				}
+			}
+
+		}
+
+	}
+
+	return true;
+
+}
 bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 
 	iPoint dist;
@@ -665,10 +723,10 @@ bool SceneBattle::GetNext() {
 	return true;
 
 }
-bool SceneBattle::CreateArea(Entity*character, int range, int type) {
+bool SceneBattle::CreateArea(Entity*character, int range, int type, iPoint posTile) {
 
 	
-	iPoint posTile = character->tilePos;
+	
 	
 	switch (type) {
 
@@ -748,7 +806,7 @@ bool SceneBattle::CreateArea(Entity*character, int range, int type) {
 
 }
 
-bool SceneBattle::DisplayArea( int type) {
+bool SceneBattle::DisplayArea( List<TileData*>area,int type) {
 
 	bool ret = true;
 
