@@ -366,7 +366,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		app->sceneManager->scene = MAIN_MENU;
 
 		// Tell to UIModule which currentMenuType
-		app->uiModule->currentMenuType = MAIN;
+		app->uiModule->currentMenuType = DISABLED;
 		// Call this function only when buttons change
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 		break;
