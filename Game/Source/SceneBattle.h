@@ -102,6 +102,9 @@ public:
 
 public:
 
+	// UI Things
+	bool isPaused;
+
 	TileDataa combatMap[16][9];
 	bool movepressed;
 	bool attackpressed;

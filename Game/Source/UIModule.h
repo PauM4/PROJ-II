@@ -14,6 +14,7 @@ enum CurrentMenuType
 {
 	MAIN,
 	PAUSE,
+	COMBAT_PAUSE,
 	DIALOG,
 	COMBAT,
 	DISABLED
@@ -75,6 +76,12 @@ public:
 	GuiButton* pausemenu_load_button;
 	GuiButton* pausemenu_backtomain_button;
 	GuiButton* pausemenu_quit_button;
+
+	GuiButton* pausemenuCombat_resume_button;
+	GuiButton* pausemenuCombat_options_button;
+	GuiButton* pausemenuCombat_backtomain_button;
+	GuiButton* pausemenuCombat_return_button;
+	GuiButton* pausemenuCombat_quit_button;
 
 	GuiButton* combat_attack_button;
 	GuiButton* combat_ability_button;
