@@ -105,6 +105,8 @@ bool Scene::Start()
 
 	godMode = false;
 
+	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav");
+
 	return true;
 }
 

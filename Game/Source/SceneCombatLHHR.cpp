@@ -132,6 +132,8 @@ bool SceneCombatLHHR::Start()
 	CreateArea(characterTurn->AttArea, 1, characterTurn->tilePos);
 	GetTargets();
 
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.wav");
+
 	return true;
 }
 

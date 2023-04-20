@@ -11,7 +11,11 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
+<<<<<<< Updated upstream
 		<player x="3743" y="967" x="3743" y="892" />
+=======
+		<player x="1991" y="904" x="1991" y="829" />
+>>>>>>> Stashed changes
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -22,6 +26,10 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
+<<<<<<< Updated upstream
 		<camera x="-2032" y="-387" />
+=======
+		<camera x="-1221" y="-447" />
+>>>>>>> Stashed changes
 	</renderer>
 </save_state>
