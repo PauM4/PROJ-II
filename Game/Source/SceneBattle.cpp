@@ -627,8 +627,6 @@ bool SceneBattle::PostUpdate()
 
 	std::cout << "Stamina Timmy: " << timmy->stamina << std::endl;
 
-	//app->fonts->DrawText("STAMINA: ", 200, 200, 200, 200, {255,255,255}, app->fonts->gameFont);
-
 	std::cout << "Stamina Bunny: " << bunny->stamina << std::endl;
 
 	std::cout << "Stamina Villager: " << villager->stamina << std::endl;

@@ -159,9 +159,57 @@ bool UIModule::PostUpdate()
 		}
 	}
 
-	if (app->sceneManager->currentScene == app->sceneBattle)
+
+	// COMBAT UI
+	if (app->sceneManager->currentScene == app->sceneBattle && app->sceneBattle->active)
 	{
-		app->fonts->DrawText("STAMINA: ", 200, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		// Timmy stats:
+		uint timmyStamina = app->sceneBattle->timmy->stamina;
+		std::string timmyStaminaString = std::to_string(timmyStamina);
+		const char* timmyStaminaChar = timmyStaminaString.c_str();
+
+		uint timmyHP = app->sceneBattle->timmy->health;
+		std::string timmyHPString = std::to_string(timmyHP);
+		const char* timmyHpChar = timmyHPString.c_str();
+
+
+		app->fonts->DrawText("--- TIMMY ---", 80, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 80, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(timmyHpChar, 200, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 80, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(timmyStaminaChar, 200, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+		// Bunny stats:
+		uint bunnyStamina = app->sceneBattle->bunny->stamina;
+		std::string bunnyStaminaString = std::to_string(bunnyStamina);
+		const char* bunnyStaminaChar = bunnyStaminaString.c_str();
+
+		uint bunnyHP = app->sceneBattle->bunny->health;
+		std::string bunnyHPString = std::to_string(bunnyHP);
+		const char* bunnyHpChar = bunnyHPString.c_str();
+
+		app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(bunnyHpChar, 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(bunnyStaminaChar, 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+		// Villager stats:
+		uint villagerStamina = app->sceneBattle->villager->stamina;
+		std::string villagerStaminaString = std::to_string(villagerStamina);
+		const char* villagerStaminaChar = villagerStaminaString.c_str();
+
+		uint villagerHP = app->sceneBattle->villager->health;
+		std::string villagerHPString = std::to_string(villagerHP);
+		const char* villagerHpChar = villagerHPString.c_str();
+
+		int w_window = app->win->width;
+
+		app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	}
 	
 
@@ -816,4 +864,10 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 
 
+}
+
+const char* uintToCChar(uint myuInt)
+{
+	std::string myString = std::to_string(myuInt);
+	return myString.c_str();
 }
