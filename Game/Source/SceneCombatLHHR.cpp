@@ -82,7 +82,9 @@ bool SceneCombatLHHR::Start()
 	 moveenemy = false;
 	app->entityManager->Start(); 
 	//Load combat map
-	/*MakeCombatMap();*/
+
+
+	MakeCombatMap();
 
 	if (retLoad) {
 		int w, h;
@@ -95,20 +97,23 @@ bool SceneCombatLHHR::Start()
 
 	}
 
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+
 	moveanim = false;
 	mouseTileTex = app->tex->Load("Assets/Maps/Scenes/Path.png");
 	timmytexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	bunnytexture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
+	villagertexture = app->tex->Load("Assets/Characters/F_sprites_angry_Villager.png");
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
-	MakeCombatMap();
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+	
+	
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	villager->tilePos = app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
-	/*timmy->position = iPoint(670, 420);*/
+
 	allentities.Add(timmy);
 	allentities.Add(bunny);
 	allentities.Add(villager);
@@ -119,6 +124,7 @@ bool SceneCombatLHHR::Start()
 	app->uiModule->currentMenuType = COMBAT;
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 	origin = characterTurn->tilePos;
 
 	targets.Clear();
@@ -140,6 +146,30 @@ bool SceneCombatLHHR::PreUpdate()
 // Called each loop iteration
 bool SceneCombatLHHR::Update(float dt)
 {
+
+
+	// Menu appear
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		// If player is in pause, close it
+		if (!isPaused)
+		{
+			app->uiModule->currentMenuType = COMBAT;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			isPaused = true;
+		}
+		// If player is NOT in pause, open it
+		else
+		{
+			app->uiModule->currentMenuType = COMBAT_PAUSE;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			isPaused = false;
+		}
+	}
 
 	if (movepressed == true) {
 
@@ -170,19 +200,20 @@ bool SceneCombatLHHR::Update(float dt)
 		if (characterTurn->stamina >= 10) {
 			targets.Clear();
 			DestroyListArea();
-			CreateArea(characterTurn->AttArea, 2, characterTurn->tilePos);
+			CreateArea(characterTurn->Ab1Area, 2, characterTurn->tilePos);
 			GetTargets();
 			ability = true;
 			atack = false;
 			move = false;
+			attackpressed = false;
 		}
-		attackpressed = false;
 
+		attackpressed = false;
 	}
 
 	if (endturnpressed == true) {
 
-		
+
 		atack = false;
 		ability = false;
 		move = false;
@@ -201,10 +232,10 @@ bool SceneCombatLHHR::Update(float dt)
 bool SceneCombatLHHR::PostUpdate()
 {
 	bool ret = true;
-	
-	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
+
+	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
-	villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
+	villager->tilePos = app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
 
 	if (timmy->health <= 0) {
@@ -212,14 +243,15 @@ bool SceneCombatLHHR::PostUpdate()
 		timmy->isAlive = false;
 
 	}
-	
+
 	if (bunny->health <= 0) {
 
 		bunny->isAlive = false;
-	
+
 	}
 	if (villager->health <= 0) {
 
+		villager->health = 0;
 		villager->isAlive = false;
 
 	}
@@ -231,11 +263,13 @@ bool SceneCombatLHHR::PostUpdate()
 
 
 
-	if (turnstart == false ) {
-		
-		
+	if (turnstart == false) {
+
+
+
 		moveenemy = false;
 		GetNext();
+
 		origin = characterTurn->tilePos;
 		if (characterTurn->isEnemy == true) {
 
@@ -245,37 +279,37 @@ bool SceneCombatLHHR::PostUpdate()
 			GetTargets();
 			moveenemy = true;
 		}
-		
+		ability = false;
 		turnstart = true;
 		moveanim = false;
 	}
 
 	if (app->pathfinding->IsWalkable(origin)) {
 		originSelected = true;
-		
+
 
 	}
 
 	app->pathfinding->ClearLastPath();
-	
+
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
 	iPoint mouseTile = iPoint(0, 0);
 
-	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x,mouseY - app->render->camera.y);
+	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x, mouseY - app->render->camera.y);
 	LOG("%d %d", mouseTile.x, mouseTile.y);
 	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
-	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x][mouseTile.y].character!=false && move == false) {
+	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x][mouseTile.y].character != false && move == false) {
 		app->render->DrawRectangle({ highlightedTileWorld.x, highlightedTileWorld.y, 120, 120 }, 0, 143, 57, 100, true);
-		
+
 	}
 
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		
 
-		if (originSelected == true && length == 1 && move == true && moveenemy==false)
+
+		if (originSelected == true && length == 1 && move == true && moveenemy == false)
 		{
 			if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
 				length = app->pathfinding->CreatePath(origin, mouseTile);
@@ -302,32 +336,32 @@ bool SceneCombatLHHR::PostUpdate()
 						app->pathfinding->ClearLastPath();
 
 				}*/
-		
+
 	}
 
 
-   const DynArray<iPoint>* lastpath = app->pathfinding->GetLastPath();
+	const DynArray<iPoint>* lastpath = app->pathfinding->GetLastPath();
 	for (uint i = 0; i < lastpath->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(lastpath->At(i)->x, lastpath->At(i)->y);
 
-		    LOG("posTileY= %d", lastpath->At(i)->y);
-		
-			app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
-		
+		LOG("posTileY= %d", lastpath->At(i)->y);
+
+		app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+
 	}
 
 	// L12: Debug pathfinding
 	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
 	if (app->pathfinding->IsWalkable(origin) && originSelected == true) {
 
-	  app->render->DrawRectangle({ originScreen.x, originScreen.y, 120, 120 }, 250, 0, 0, 100, true);
-	  app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
+		app->render->DrawRectangle({ originScreen.x, originScreen.y, 120, 120 }, 250, 0, 0, 100, true);
+		app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
 
 	}
 
 
-	
+
 
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
@@ -342,7 +376,7 @@ bool SceneCombatLHHR::PostUpdate()
 		DisplayEnemys();
 
 		for (int i = 0; i < targets.Count(); i++) {
-			
+
 
 			if (targets.At(i)->data->tilePos == mouseTile) {
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
@@ -371,6 +405,7 @@ bool SceneCombatLHHR::PostUpdate()
 					ability = false;
 					characterTurn->UseStamina(10);
 					turnstart = false;
+					i = targets.Count();
 				}
 			}
 		}
@@ -385,18 +420,18 @@ bool SceneCombatLHHR::PostUpdate()
 		length = 1;
 		pathIndex = 1;
 		app->pathfinding->ClearLastPath();
-		
-		
+
+
 	}
 
 	if (length > 1) {
 
-		Move(characterTurn, pathIndex, length);
+		Move(pathIndex, length);
 	}
 	else
 	{
 		if (characterTurn->tilePos == destination) {
-			
+
 			move = false;
 			destination = iPoint(0, 0);
 			turnstart = false;
@@ -406,34 +441,34 @@ bool SceneCombatLHHR::PostUpdate()
 
 
 
-	
-	if (move == true || moveenemy==true) {
+
+	if (move == true || moveenemy == true) {
 		int j = 0;
 		int i = 0;
 		iPoint nexTile;
 		iPoint pos;
-		for (i = 0; i < characterTurn->movement; i++ ) {
-			for ( j = 0 ; j < characterTurn->movement-i; j++) {
+		for (i = 0; i < characterTurn->movement; i++) {
+			for (j = 0; j < characterTurn->movement - i; j++) {
 
 				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
-				
+
 				combatMap[nexTile.x][nexTile.y].inRange = true;
 				/*arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
-				  
-				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
-				 combatMap[nexTile.x ][nexTile.y].inRange = true;
+
+				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
+				combatMap[nexTile.x][nexTile.y].inRange = true;
 				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 
-				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
-				 combatMap[nexTile.x][nexTile.y].inRange = true;
+				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
+				combatMap[nexTile.x][nexTile.y].inRange = true;
 				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 
-				 nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
-				 combatMap[nexTile.x][nexTile.y].inRange = true;
+				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
+				combatMap[nexTile.x][nexTile.y].inRange = true;
 				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
-				
+
 			}
-	
+
 		}
 
 		for (i = 0; i < characterTurn->movement; i++) {
@@ -476,7 +511,7 @@ bool SceneCombatLHHR::PostUpdate()
 					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
 					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
-					app->pathfinding->IsWalkable(nexTile)==false) {
+					app->pathfinding->IsWalkable(nexTile) == false) {
 
 					combatMap[nexTile.x][nexTile.y].inRange = false;
 					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
@@ -487,12 +522,12 @@ bool SceneCombatLHHR::PostUpdate()
 		}
 
 
-		
-		
+
+
 
 	}
-	
-	if(move==false)
+
+	if (move == false)
 	{
 		for (int i = 0; i < 16; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -501,8 +536,8 @@ bool SceneCombatLHHR::PostUpdate()
 				combatMap[i][j].character = false;
 				combatMap[i][j].inRange = false;
 				combatMap[i][j].enemy = false;
-				
-				
+
+
 			}
 		}
 
@@ -511,11 +546,11 @@ bool SceneCombatLHHR::PostUpdate()
 
 	for (int i = 0; i < 16; i++) {
 		for (int j = 0; j < 9; j++) {
-			if (combatMap[i][j].inRange==true && combatMap[i][j].character == false && atack==false) {
+			if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
 				iPoint pos = iPoint(i, j);
 				if (app->pathfinding->IsWalkable(pos)) {
 					pos = app->map->MapToWorld(pos.x, pos.y);
-				   app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+					app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
 				}
 			}
 
@@ -524,38 +559,42 @@ bool SceneCombatLHHR::PostUpdate()
 	}
 
 	if (moveenemy == true) {
-		if (characterTurn->stamina >= 3) {
+		if (characterTurn->stamina >= 5) {
 			ListItem<Entity*>* entitylist;
 			entitylist = targets.start;
-			if (entitylist != NULL) {
+
+			while (entitylist != NULL && moveenemy == true) {
 
 
 
 
 				/*Combat(characterTurn, targets, 1);*/
 
+				if (entitylist->data->isAlive == true) {
+					entitylist->data->health = entitylist->data->health - (characterTurn->attack - entitylist->data->defense);
+					targets.Clear();
+					characterTurn->UseStamina(5);
+					turnstart = false;
+					atack = false;
+					moveenemy = false;
 
-				targets.At(0)->data->health = targets.At(0)->data->health - (characterTurn->attack - targets.At(0)->data->defense);
+				}
 
-				targets.Clear();
-				characterTurn->UseStamina(5);
-				turnstart = false;
-				atack = false;
-				moveenemy = false;
-
-
+				entitylist = entitylist->next;
 
 			}
+
 		}
-		
 
-		if (moveenemy == true && characterTurn->stamina>=5) {
 
+		if (moveenemy == true && characterTurn->stamina >= 3) {
+
+			moveanim = true;
 			move = true;
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 9; j++) {
 
-					if(moveenemy==true){
+					if (moveenemy == true) {
 						if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
 							iPoint pos = iPoint(i, j);
 
@@ -570,6 +609,7 @@ bool SceneCombatLHHR::PostUpdate()
 										destination.y = pos.y;
 										originSelected = false;
 										moveenemy = false;
+										characterTurn->UseStamina(3);
 										i = area.Count();
 
 									}
@@ -588,7 +628,7 @@ bool SceneCombatLHHR::PostUpdate()
 			}
 
 		}
-		else {
+		else if (moveenemy == true) {
 
 			characterTurn->stamina += 10;
 		}
@@ -596,16 +636,7 @@ bool SceneCombatLHHR::PostUpdate()
 
 	}
 
-	std::cout << "Stamina Timmy: " << timmy->stamina << std::endl;
 
-	std::cout << "Stamina Bunny: " << bunny->stamina << std::endl;
-
-	std::cout << "Stamina Villager: " << villager->stamina << std::endl;
-
-	//std::cout << "Vida Timmy: " << timmy->health<< std::endl;
-	//std::cout << "Vida Bunny: " << bunny->health << std::endl;
-	//std::cout << "Vida Villager: " << villager->health << std::endl;
-	//std::cout << "Atakk Villager: " << villager->attack << std::endl;
 
 	combatMap[villager->tilePos.x][villager->tilePos.y].enemy = true;
 	combatMap[villager->tilePos.x][villager->tilePos.y].characterType = villager;
@@ -615,21 +646,23 @@ bool SceneCombatLHHR::PostUpdate()
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
 
-	
 
-	
-	combatMap[timmy->tilePos.x][timmy->tilePos.y ].character = true;
+
+
+	combatMap[timmy->tilePos.x][timmy->tilePos.y].character = true;
 	combatMap[timmy->tilePos.x][timmy->tilePos.y].characterType = timmy;
-	
-	
 
 
 
-	
+
+
+
 	if (characterTurn->id == 1) {
 		bunny->currentAnimation = &bunny->idleAnim;
 		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
+		SDL_Rect recti = villager->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &recti);
 		if (moveanim == false) {
 			timmy->currentAnimation = &timmy->idleAnim;
 			SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
@@ -673,6 +706,9 @@ bool SceneCombatLHHR::PostUpdate()
 		timmy->currentAnimation = &timmy->idleAnim;
 		SDL_Rect recta = timmy->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recta);
+		villager->currentAnimation = &villager->idleAnim;
+		SDL_Rect recti = villager->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &recti);
 		if (moveanim == false) {
 			bunny->currentAnimation = &bunny->idleAnim;
 			SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
@@ -711,17 +747,53 @@ bool SceneCombatLHHR::PostUpdate()
 		}
 
 	}
-	
+
 	if (characterTurn->id == 3) {
 
 		timmy->currentAnimation = &timmy->idleAnim;
-		SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
-		bunny->currentAnimation = &bunny->idleAnim;
+		SDL_Rect recti = timmy->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recti);
 
+		bunny->currentAnimation = &bunny->idleAnim;
 		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
 
+		if (moveanim == false) {
+			villager->currentAnimation = &villager->idleAnim;
+			SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+		}
+		if (moveanim == true) {
+			if (xDir == 1) {
+				villager->currentAnimation = &villager->walkRightAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (xDir == -1) {
+				villager->currentAnimation = &villager->walkLeftAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (yDir == 1) {
+				villager->currentAnimation = &villager->walkDownAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (yDir == -1) {
+				villager->currentAnimation = &villager->walkUpAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (xDir == 0 || yDir == 0) {
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+		}
 	}
 	
 	return ret;
@@ -764,6 +836,7 @@ bool SceneCombatLHHR::MoveEnemy() {
 
 					pos = app->map->MapToWorld(pos.x, pos.y);
 					app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+					moveanim = true;
 				}
 			}
 
@@ -774,7 +847,7 @@ bool SceneCombatLHHR::MoveEnemy() {
 	return true;
 
 }
-bool SceneCombatLHHR::Move(Entity * character, int pathindex,int length) {
+bool SceneCombatLHHR::Move(int pathindex, int length) {
 
 	iPoint dist;
 	fPoint pixelPosition;
@@ -793,9 +866,9 @@ bool SceneCombatLHHR::Move(Entity * character, int pathindex,int length) {
 	LOG(" NextposX: %d", nextpos.x);
 	LOG(" NextposY: %d", nextpos.y);
 
-	dist.x = pixelPosition.x - character->position.x;
+	dist.x = pixelPosition.x - characterTurn->position.x;
 	LOG(" disX: %d", dist.x);
-	dist.y = pixelPosition.y - character->position.y;
+	dist.y = pixelPosition.y - characterTurn->position.y;
 	LOG(" disY: %d", dist.y);
 
 
@@ -811,7 +884,7 @@ bool SceneCombatLHHR::Move(Entity * character, int pathindex,int length) {
 	}
 	if (dist.x == 0 && dist.y == 0) {
 		pathIndex++;
-		
+
 	}
 	else if (abs(dist.x) > 0) {
 		vel.x = 5 * xDir;
@@ -822,8 +895,8 @@ bool SceneCombatLHHR::Move(Entity * character, int pathindex,int length) {
 
 	}
 
-	character->position.x = character->position.x + vel.x;
-	character->position.y = character->position.y + vel.y;
+	characterTurn->position.x = characterTurn->position.x + vel.x;
+	characterTurn->position.y = characterTurn->position.y + vel.y;
 
 	return true;
 }
@@ -1146,9 +1219,10 @@ bool SceneCombatLHHR::CleanUp()
 	LOG("Freeing SceneCombatLHHR");
 	allentities.Clear();
 	area.Clear();
+	turnqueue.Clear();
 	targets.Clear();
+	app->pathfinding->ClearLastPath();
 	app->map->CleanUp();
-	app->entityManager->CleanUp(); 
-	app->physics->Disable(); 
+	app->entityManager->CleanUp();
 	return true;
 }

@@ -57,7 +57,6 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
-	bool Move(TileDataa* tile);
 
 	// Called before quitting
 	bool CleanUp();
@@ -71,7 +70,6 @@ public:
 
 	bool Move( int pathindex, int length);
 
-	bool Move();
 
 	// Loads combat map from Map module using GID tile metadata
 	bool MakeCombatMap();

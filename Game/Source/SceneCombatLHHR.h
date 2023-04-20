@@ -57,7 +57,6 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
-	bool Move(TileData* tile);
 
 	// Called before quitting
 	bool CleanUp();
@@ -69,9 +68,8 @@ public:
 
 	bool MoveEnemy();
 
-	bool Move(Entity* character, int pathindex, int length);
+	bool Move(int pathindex, int length);
 
-	bool Move();
 
 	// Loads combat map from Map module using GID tile metadata
 	bool MakeCombatMap();
@@ -101,6 +99,9 @@ public:
 
 
 public:
+
+	// UI Things
+	bool isPaused;
 
 	TileData combatMap[16][9];
 	bool movepressed;
@@ -152,11 +153,13 @@ private:;
 
 	uint value;
 
+	int xDir;
+	int yDir;
+public:
 	Timmy* timmy;
 	Bunny* bunny;
 	Enemy_AngryVillager* villager;
-	int xDir;
-	int yDir;
+
 
 };
 

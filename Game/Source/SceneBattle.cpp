@@ -86,8 +86,6 @@ bool SceneBattle::Start()
 
 	MakeCombatMap();
 
-	
-
 	if (retLoad) {
 		int w, h;
 		uchar* data = NULL;
@@ -115,7 +113,7 @@ bool SceneBattle::Start()
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	villager->tilePos = app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
-	/*timmy->position = iPoint(670, 420);*/
+	
 	allentities.Add(timmy);
 	allentities.Add(bunny);
 	allentities.Add(villager);
