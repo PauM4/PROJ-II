@@ -293,6 +293,8 @@ bool Fonts::DrawText(const char* text, int posx, int posy, int w, int h, SDL_Col
 
 	result = app->render->DrawTexture(texture, posx, posy);
 
+	SDL_DestroyTexture(texture);
+
 	if (result != 0)
 	{
 		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
