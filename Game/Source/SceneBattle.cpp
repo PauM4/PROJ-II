@@ -86,6 +86,8 @@ bool SceneBattle::Start()
 
 	MakeCombatMap();
 
+	
+
 	if (retLoad) {
 		int w, h;
 		uchar* data = NULL;
@@ -639,21 +641,12 @@ bool SceneBattle::PostUpdate()
 
 	}
 
-	std::cout << "Stamina Timmy: " << timmy->stamina << std::endl;
 
-	std::cout << "Stamina Bunny: " << bunny->stamina << std::endl;
-
-	std::cout << "Stamina Villager: " << villager->stamina << std::endl;
-
-	//std::cout << "Vida Timmy: " << timmy->health<< std::endl;
-	//std::cout << "Vida Bunny: " << bunny->health << std::endl;
-	//std::cout << "Vida Villager: " << villager->health << std::endl;
-	//std::cout << "Atakk Villager: " << villager->attack << std::endl;
 
 	combatMap[villager->tilePos.x][villager->tilePos.y].enemy = true;
 	combatMap[villager->tilePos.x][villager->tilePos.y].characterType = villager;
 
-	app->render->DrawRectangle({ int(villager->position.x) + 35, int(villager->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
+	
 
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
@@ -1233,7 +1226,7 @@ bool SceneBattle::CleanUp()
 	area.Clear();
 	turnqueue.Clear();
 	targets.Clear();
-	app->pathfinding->CleanUp();
+	app->pathfinding->ClearLastPath();
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
 	return true;
