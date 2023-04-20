@@ -159,9 +159,6 @@ bool Player::Update(float dt)
 	currentAnimation->Update();
 	bunnyCurrentAnimation->Update();
 
-	std::cout << "Player pos X: " << position.x << std::endl;
-	std::cout << "Player pos Y: " << position.y << std::endl;
-
 	switch (playerState)
 	{
 	case PAUSE:
