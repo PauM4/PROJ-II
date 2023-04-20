@@ -117,6 +117,7 @@ bool SceneCombatLHHR::Start()
 	timmytexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	bunnytexture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
 	LRRHtexture = app->tex->Load("Assets/Characters/F_sprites_lrrh.png");
+	sprouttexture = app->tex->Load("Assets/Characters/F_sprites_esbirro.png");
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 	winScreen = app->tex->Load("Assets/UI/Win_screen.png");
 	loseScreen = app->tex->Load("Assets/UI/lose_screen.png");
@@ -297,7 +298,7 @@ bool SceneCombatLHHR::PostUpdate()
 	app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-
+	app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 440, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	// Villager stats:
 	uint sproutStamina = sprout->stamina;
 	std::string sproutStaminaString = std::to_string(sproutStamina);
@@ -312,7 +313,26 @@ bool SceneCombatLHHR::PostUpdate()
 	app->fonts->DrawText(sproutHpChar, 1810, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	app->fonts->DrawText("- Stamina: ", 1690, 360, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	app->fonts->DrawText(sproutHpChar, 1810, 360, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	if (turnqueue.At(1)->data->id == 1) {
 
+		app->fonts->DrawText("TIMMY", 1690, 480, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	}
+	if (turnqueue.At(1)->data->id == 2) {
+
+		app->fonts->DrawText("BUNNY", 1690, 480, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	}
+	if (turnqueue.At(1)->data->id == 4) {
+
+		app->fonts->DrawText("RED  HOOD", 1690, 480, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	}
+	if (turnqueue.At(1)->data->id == 5) {
+
+		app->fonts->DrawText("SPROUT", 1690, 480, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	}
 	// End of Stats UI
 
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
@@ -802,13 +822,9 @@ bool SceneCombatLHHR::PostUpdate()
 	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].enemy = true;
 	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].characterType = LRRH;
 
-	app->render->DrawRectangle({ int(LRRH->position.x) + 35, int(LRRH->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
-
-
 	combatMap[sprout->tilePos.x][sprout->tilePos.y].enemy = true;
 	combatMap[sprout->tilePos.x][sprout->tilePos.y].characterType = sprout;
 
-	app->render->DrawRectangle({ int(sprout->position.x) + 35, int(sprout->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 
 	if (bunny->isAlive == true) {
 		combatMap[bunny->tilePos.x][bunny->tilePos.y].dead = false;
@@ -842,8 +858,15 @@ bool SceneCombatLHHR::PostUpdate()
 		bunny->currentAnimation = &bunny->idleAnim;
 		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
+
+		LRRH->currentAnimation = &LRRH->idleAnim;
 		SDL_Rect recti = LRRH->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(LRRHtexture, LRRH->position.x - 13, LRRH->position.y - 35, &recti);
+
+		sprout->currentAnimation = &sprout->idleAnim;
+		SDL_Rect recto = sprout->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(sprouttexture, sprout->position.x - 13, sprout->position.y - 35, &recto);
+
 		if (moveanim == false) {
 			timmy->currentAnimation = &timmy->idleAnim;
 			SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
@@ -888,8 +911,14 @@ bool SceneCombatLHHR::PostUpdate()
 		SDL_Rect recta = timmy->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recta);
 		LRRH->currentAnimation = &LRRH->idleAnim;
+
 		SDL_Rect recti = LRRH->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(LRRHtexture, LRRH->position.x - 13, LRRH->position.y - 35, &recti);
+		sprout->currentAnimation = &sprout->idleAnim;
+
+		SDL_Rect recto = sprout->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(sprouttexture, sprout->position.x - 13, sprout->position.y - 35, &recto);
+
 		if (moveanim == false) {
 			bunny->currentAnimation = &bunny->idleAnim;
 			SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
@@ -939,6 +968,10 @@ bool SceneCombatLHHR::PostUpdate()
 		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
 
+		sprout->currentAnimation = &sprout->idleAnim;
+		SDL_Rect recto = sprout->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(sprouttexture, sprout->position.x - 13, sprout->position.y - 35, &recto);
+
 		if (moveanim == false) {
 			LRRH->currentAnimation = &LRRH->idleAnim;
 			SDL_Rect rect = LRRH->currentAnimation->GetCurrentFrame();
@@ -973,6 +1006,57 @@ bool SceneCombatLHHR::PostUpdate()
 				SDL_Rect rect = LRRH->currentAnimation->GetCurrentFrame();
 				app->render->DrawTexture(LRRHtexture, LRRH->position.x - 13, LRRH->position.y - 35, &rect);
 				LRRH->currentAnimation->Update();
+			}
+		}
+	}
+	if (characterTurn->id == 5) {
+
+		timmy->currentAnimation = &timmy->idleAnim;
+		SDL_Rect recti = timmy->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recti);
+
+		bunny->currentAnimation = &bunny->idleAnim;
+		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
+
+		LRRH->currentAnimation = &LRRH->idleAnim;
+		SDL_Rect rect = LRRH->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(LRRHtexture, LRRH->position.x - 13, LRRH->position.y - 35, &rect);
+
+		if (moveanim == false) {
+			sprout->currentAnimation = &sprout->idleAnim;
+			SDL_Rect rect = sprout->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(sprouttexture, sprout->position.x - 13, sprout->position.y - 35, &rect);
+		}
+		if (moveanim == true) {
+			if (xDir == 1) {
+				sprout->currentAnimation = &sprout->walkRightAnim;
+				SDL_Rect rect = sprout->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(sprouttexture, sprout->position.x - 13, sprout->position.y - 35, &rect);
+				sprout->currentAnimation->Update();
+			}
+			if (xDir == -1) {
+				sprout->currentAnimation = &sprout->walkLeftAnim;
+				SDL_Rect rect = sprout->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(sprouttexture, sprout->position.x - 13, sprout->position.y - 35, &rect);
+				sprout->currentAnimation->Update();
+			}
+			if (yDir == 1) {
+				sprout->currentAnimation = &sprout->walkDownAnim;
+				SDL_Rect rect = sprout->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(sprouttexture, sprout->position.x - 13, sprout->position.y - 35, &rect);
+				sprout->currentAnimation->Update();
+			}
+			if (yDir == -1) {
+				sprout->currentAnimation = &sprout->walkUpAnim;
+				SDL_Rect rect = sprout->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(sprouttexture, sprout->position.x - 13, sprout->position.y - 35, &rect);
+				sprout->currentAnimation->Update();
+			}
+			if (xDir == 0 || yDir == 0) {
+				SDL_Rect rect = sprout->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(sprouttexture, sprout->position.x - 13, sprout->position.y - 35, &rect);
+				sprout->currentAnimation->Update();
 			}
 		}
 	}

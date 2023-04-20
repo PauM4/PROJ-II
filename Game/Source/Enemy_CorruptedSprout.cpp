@@ -61,6 +61,47 @@ bool Enemy_CorruptedSprout::Awake()
 	healingpower = stats.attribute("healingpower").as_int();
 	movement = stats.attribute("movement").as_int();
 	isEnemy = true;
+
+	idleAnim.PushBack({ 0, 0, 140, 140 });
+	idleAnim.loop = true;
+	takedmgAnim.PushBack({ 150, 0, 140, 140 });
+	takedmgAnim.PushBack({ 150, 0, 140, 140 });
+	takedmgAnim.PushBack({ 150, 0, 140, 140 });
+	takedmgAnim.PushBack({ 150, 0, 140, 140 });
+	takedmgAnim.loop = false;
+	takedmgAnim.speed = 0.20f;
+
+	for (int i = 0; i < 4; i++) //penutlima:cabezon
+	{
+		walkDownAnim.PushBack({ (3 * 150), 150, 150, 150 });
+	}
+	walkDownAnim.loop = true;
+	walkDownAnim.pingpong = true;
+	walkDownAnim.speed = 0.20f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		walkUpAnim.PushBack({ (3 * 150), 150, 150, 150 });
+	}
+	walkUpAnim.loop = true;
+	walkUpAnim.pingpong = true;
+	walkUpAnim.speed = 0.20f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		walkRightAnim.PushBack({ (3 * 150), 150, 150, 150 });
+	}
+	walkRightAnim.loop = true;
+	walkRightAnim.pingpong = true;
+	walkRightAnim.speed = 0.20f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		walkLeftAnim.PushBack({ (3 * 150), 150, 150, 150 });
+	}
+	walkLeftAnim.loop = true;
+	walkLeftAnim.pingpong = true;
+	walkLeftAnim.speed = 0.20f;
 	return true;
 }
 

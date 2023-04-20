@@ -131,6 +131,7 @@ private:;
 	SDL_Texture* timmytexture = nullptr;
 	SDL_Texture* bunnytexture = nullptr;
 	SDL_Texture* LRRHtexture = nullptr;
+	SDL_Texture* sprouttexture = nullptr;
 
 	SDL_Texture* winScreen = nullptr;
 	SDL_Texture* loseScreen = nullptr;
