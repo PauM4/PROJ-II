@@ -785,10 +785,6 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 	// Draw options text image
 	SDL_Rect optionRect = { 18, 238, 939, 69 };
-	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
-	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
-	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
-	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 	// Dialogue text block
 	SDL_Rect rect = { 0 , 0, 800, 400 };
@@ -804,6 +800,9 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	// Check if there's dialogue available
 	if (!(dialogue.size() <= 1))
 	{
+		// Draw options text iamge
+		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 255,255,255,255 }, rectO1.w);
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
 		SDL_DestroyTexture(textOption1);
@@ -815,6 +814,9 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 	if (!(dialogue.size() <= 2))
 	{
+		// Draw options text iamge
+		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 255,255,255,255 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
 		SDL_DestroyTexture(textOption2);
@@ -826,6 +828,9 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 	if (!(dialogue.size() <= 3))
 	{
+		// Draw options text iamge
+		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 255,255,255,255 }, rectO3.w);
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
 		SDL_DestroyTexture(textOption3);
@@ -835,8 +840,11 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		dialog_option3_button->state = GuiControlState::NONE;
 	}
 
-	if (!(dialogue.size() <= 3))
+	if (!(dialogue.size() <= 4))
 	{
+		// Draw options text iamge
+		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 255,255,255,255 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
 		SDL_DestroyTexture(textOption4);
