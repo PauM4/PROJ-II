@@ -48,6 +48,10 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 		LRRH = (Enemy_LRRH*)app->entityManager->CreateEntity(EntityType::LRRH);
 		LRRH->parameters = config.child("lrrh");
 	}  
+	if (config.child("sprout")) {
+		sprout = (Enemy_CorruptedSprout*)app->entityManager->CreateEntity(EntityType::CORRUPTEDSPROUT);
+		sprout->parameters = config.child("sprout");
+	}
 	//This reads stats from xml
 	if (config.parent().child("timmy")) {
 		timmy->stats = config.parent().child("timmy");
@@ -57,6 +61,9 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 	}
 	if (config.parent().child("lrrh")) {
 		LRRH->stats = config.parent().child("lrrh");
+	}
+	if (config.parent().child("sprout")) {
+		sprout->stats = config.parent().child("sprout");
 	}
 	app->entityManager->Awake(config);
 	

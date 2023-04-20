@@ -11,6 +11,7 @@
 #include "Defs.h"
 #include "Enemy_AngryVillager.h"
 #include "Enemy_LRRH.h"
+#include "Enemy_CorruptedSprout.h"
 #include "Log.h"
 
 EntityManager::EntityManager(bool isActive) : Module(isActive)
@@ -119,6 +120,10 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 	case EntityType::LRRH:
 		entity = new Enemy_LRRH();
+		break;
+
+	case EntityType::CORRUPTEDSPROUT:
+		entity = new Enemy_CorruptedSprout();
 		break;
 	default: break;
 	}

@@ -6,6 +6,7 @@
 #include "Timmy.h"
 #include "Bunny.h"
 #include "Enemy_LRRH.h"
+#include "Enemy_CorruptedSprout.h"
 #include "Entity.h"
 #include "GuiButton.h"
 #include "List.h"
@@ -163,7 +164,7 @@ public:
 	Timmy* timmy;
 	Bunny* bunny;
 	Enemy_LRRH* LRRH;
-	
+	Enemy_CorruptedSprout* sprout;
 
 };
 
