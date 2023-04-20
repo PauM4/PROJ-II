@@ -267,7 +267,7 @@ bool SceneCombatLHHR::PostUpdate()
 
 	if (turnstart == false) {
 
-
+		app->pathfinding->ClearLastPath();
 
 		moveenemy = false;
 		GetNext();
@@ -653,7 +653,7 @@ bool SceneCombatLHHR::PostUpdate()
 	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].enemy = true;
 	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].characterType = LRRH;
 
-	
+	app->render->DrawRectangle({ int(LRRH->position.x) + 35, int(LRRH->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 
 	if (bunny->isAlive == true) {
 		combatMap[bunny->tilePos.x][bunny->tilePos.y].dead = false;
@@ -1144,7 +1144,32 @@ bool SceneCombatLHHR::CreateArea(int range, int type, iPoint posTile) {
 			}
 		}
 		break;
+	case 4:
+		//LRRH attack area
+
+		for (int i = -1; i < 2; i++) {
+
+			for (int j = 0; j < 8; i++) {
+				if (combatMap[posTile.x + j][posTile.y+i].type == TILE_TYPEE::FLOOR) {
+					area.Add(&combatMap[posTile.x + i][posTile.y]);
+				}
+				if (combatMap[posTile.x - j][posTile.y].type == TILE_TYPEE::FLOOR) {
+					area.Add(&combatMap[posTile.x - i][posTile.y]);
+				}
+				if (combatMap[posTile.x][posTile.y + i].type == TILE_TYPEE::FLOOR) {
+					area.Add(&combatMap[posTile.x][posTile.y + i]);
+				}
+				if (combatMap[posTile.x][posTile.y - i].type == TILE_TYPEE::FLOOR) {
+					area.Add(&combatMap[posTile.x][posTile.y - i]);
+				}
+			}
+
+
+
+
+		}
 	}
+
 
 	return true;
 
