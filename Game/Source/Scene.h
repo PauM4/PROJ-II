@@ -83,6 +83,8 @@ public:
 	// New Game things
 	bool isNewGame;
 
+	SDL_Texture* npcPopUpTexture;
+
 private:
 
 	SString mapName;

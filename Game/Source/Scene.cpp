@@ -54,6 +54,8 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	CreateDialogue(); //3MB
 
+	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
+
 	return ret;
 }
 
@@ -61,11 +63,12 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	app->entityManager->Start();
+	
 
 	//Fonts initialize
-	char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
+	//char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
 
-	font = app->fonts->Load("Assets/Fonts/GameFont.png", lookUpTable, 1);
+	//font = app->fonts->Load("Assets/Fonts/GameFont.png", lookUpTable, 1);
 
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
@@ -268,10 +271,11 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-	app->fonts->UnLoad(font);
+	//app->fonts->Unload(font);
 	app->map->CleanUp(); 
 	app->entityManager->CleanUp(); 
 	app->physics->Disable();
+	app->tex->UnLoad(npcPopUpTexture);
 	
 
 	return true;

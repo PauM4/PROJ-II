@@ -501,7 +501,7 @@ bool Player::SprintMovement(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->pad->r2)
 	{
-		vel *= 1.5*5;
+		vel *= 1.5;
 
 		walkDownAnim.speed = 0.45f;
 		walkUpAnim.speed = 0.45f;
