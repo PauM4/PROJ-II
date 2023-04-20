@@ -292,7 +292,23 @@ bool SceneBattle::PostUpdate()
 	app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, {255,255,255}, app->fonts->gameFont);
+	if (turnqueue.At(1)->data->id == 1) {
+
+		app->fonts->DrawText("TIMMY", 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	}
+	if (turnqueue.At(1)->data->id == 2) {
+
+		app->fonts->DrawText("BUNNY", 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	}
+	if (turnqueue.At(1)->data->id == 3) {
+
+		app->fonts->DrawText("VILLAGER", 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	}
+
 
 	// End of Stats UI
 
