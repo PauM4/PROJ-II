@@ -15,7 +15,27 @@ Timmy and the Corrupted Dreamland is a turn-based combat RPG video game, set in 
  
 ## Controls
 
- - {ControlsScheme}
+ - ENTER:
+  - Skip to MainMenu (form Logo Scene)
+  - Go to Main Menu (Main Menu Scene)
+ - Left Mouse Click --> Interact with buttons
+ 
+**PLAYER**
+ - W --> Up
+ - A --> Down
+ - S --> Left
+ - D --> Right
+ - E --> Interact with NPC
+ - Shift --> Sprint
+ - F5 --> Save Game
+ - F6 --> Load Game
+ 
+**DEBUG**
+ - 1 --> Scene to Map
+ - 2 --> Scene to Combat
+ - 3 --> Scene to Intro
+ - 4 --> Scene to Main Menu
+ - F10 --> God Mode
 
 ## Developers
 

@@ -42,6 +42,7 @@ Enemy_LRRH::Enemy_LRRH() : Entity(EntityType::LRRH){
 
 	//Behavior Tree Node
 	behaviorTree = std::make_unique<BehaviorTree>(isEnemyTooClose);
+	isAlive = true;
 }
 
 bool Enemy_LRRH::Awake()
