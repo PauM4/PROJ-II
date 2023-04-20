@@ -50,7 +50,7 @@ bool SceneManager::PreUpdate()
 	{
 		app->sceneManager->isBattle = false;
 		scene = GameScene::INTRO;
-		//intro_timer.Start();
+		intro_timer.Start();
 	}
 	// If click key 4 or (we are at sceneIntro and time is >= 3), change scene to MainMenu
 	if ((app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN || (currentScene == (Module*)app->sceneIntro && intro_timer.ReadSec() >= 5)) && currentScene->active == true)

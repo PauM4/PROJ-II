@@ -65,11 +65,6 @@ bool Scene::Start()
 	app->entityManager->Start();
 	
 
-	//Fonts initialize
-	//char lookUpTable[] = { " !�#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[�]^_�abcdefghijklmnopqrstuvwxyz{|}~" };
-
-	//font = app->fonts->Load("Assets/Fonts/GameFont.png", lookUpTable, 1);
-
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
 
@@ -103,8 +98,7 @@ bool Scene::Start()
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 	
-	//dialogue = angryVillagerTreePT->Run(); //dialogo tipo 2
-	dialogue = talismanVillagerTree->Run();
+	dialogue.push_back("");
 
 	godMode = false;
 
