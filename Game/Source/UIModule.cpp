@@ -783,9 +783,6 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
 	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
-	// Draw options text image
-	SDL_Rect optionRect = { 18, 238, 939, 69 };
-
 	// Dialogue text block
 	SDL_Rect rect = { 0 , 0, 800, 400 };
 	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 1700);
@@ -796,6 +793,8 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Rect rectO2 = { 0, 0, 800, 30 };
 	SDL_Rect rectO3 = { 0, 0, 800, 30 };
 	SDL_Rect rectO4 = { 0, 0, 800, 30 };
+
+	SDL_Rect optionRect = { 18, 238, 939, 69 };
 
 	// Check if there's dialogue available
 	if (!(dialogue.size() <= 1))
