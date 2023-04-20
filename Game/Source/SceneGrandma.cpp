@@ -73,6 +73,11 @@ bool SceneGrandma::Start()
 
 	}
 
+	// Tell to UIModule which currentMenuType
+	app->uiModule->currentMenuType = DISABLED;
+	// Call this function only when buttons change
+	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 	return true;
 }
 
@@ -85,6 +90,30 @@ bool SceneGrandma::PreUpdate()
 // Called each loop iteration
 bool SceneGrandma::Update(float dt)
 {
+
+	// Menu appear
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
+	{
+		// If player is in pause, close it
+		if (!isPaused)
+		{
+			app->uiModule->currentMenuType = DISABLED;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			isPaused = true;
+		}
+		// If player is NOT in pause, open it
+		else
+		{
+			app->uiModule->currentMenuType = PAUSE;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			isPaused = false;
+		}
+	}
+
 	//Follow player
 	app->render->FollowObject((-1)*player->position.x, (-1) * player->position.y, app->render->camera.w/2, app->render->camera.h / 2);
 

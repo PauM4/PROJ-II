@@ -208,7 +208,7 @@ bool Player::Update(float dt)
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pads[0].a)
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
 	{
 		InteractWithEntities();
 	}
@@ -499,7 +499,7 @@ void Player::Movement(float dt)
 //This function checks if the player is holding down the left shift key to sprint. If the key is being held down, the function increases the player's velocity and sets the animation speed to a faster value
 bool Player::SprintMovement(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->pads[0].r2)
+	if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->pad->r2)
 	{
 		vel *= 1.5;
 
@@ -534,13 +534,13 @@ bool Player::SprintMovement(float dt)
 //Handles the player vertical movement.
 bool Player::VerticalMovement(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->pads[0].up || app->input->pads[0].left_y < 0.0f) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT || app->input->pad->left_y < -0.5) {
 		vel.y = -speed * dt;
 		currentAnimation = &walkUpAnim;
 		bunnyCurrentAnimation = &bunnyWalkUpAnim;
 		return true;
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || app->input->pads[0].down || app->input->pads[0].left_y > 0.0f) {
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_REPEAT || app->input->pad->left_y > 0.5) {
 		vel.y = speed * dt;
 		currentAnimation = &walkDownAnim;
 		bunnyCurrentAnimation = &bunnyWalkDownAnim;
@@ -553,14 +553,14 @@ bool Player::VerticalMovement(float dt)
 //Handles the player horizontal movement.
 bool Player::HorizontalMovement(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->pads[0].left || app->input->pads[0].left_x < 0.0f)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_REPEAT || app->input->pad->left_x < -0.5)
 	{
 		vel.x = -speed * dt;
 		currentAnimation = &walkLeftAnim;
 		bunnyCurrentAnimation = &bunnyWalkLeftAnim;
 		return true;
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->pads[0].right || app->input->pads[0].left_x > 0.0f)
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_REPEAT || app->input->pad->left_x > 0.5)
 	{
 		vel.x = speed * dt;
 		currentAnimation = &walkRightAnim;
