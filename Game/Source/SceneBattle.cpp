@@ -84,6 +84,9 @@ bool SceneBattle::Start()
 	awchanim2 = false;
 	awchanim3 = false;
 
+	win = false;
+	lose = false;
+
 	app->entityManager->Start(); 
 	//Load combat map
 	
@@ -111,7 +114,8 @@ bool SceneBattle::Start()
 	villagertexture = app->tex->Load("Assets/Characters/F_sprites_angry_Villager.png"); 
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
-	
+	winScreen = app->tex->Load("Assets/UI/Win_screen.png");
+	loseScreen = app->tex->Load("Assets/UI/lose_screen.png");
 
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
@@ -309,20 +313,18 @@ bool SceneBattle::PostUpdate()
 		bunny->takedmgAnim.Reset();
 
 	}
+	
+	if (bunny->health <= 0 && timmy->health <= 0) lose = true;
+
 	if (villager->health <= 0) {
 
 		villager->health = 0;
 		villager->isAlive = false;
 		villager->takedmgAnim.Reset();
+		
+		win = true;
 
 	}
-
-	if (characterTurn->isAlive == false) {
-		turnstart = false;
-
-	}
-
-
 
 	if (turnstart == false ) {
 		
@@ -921,6 +923,24 @@ bool SceneBattle::PostUpdate()
 			awchanim3 = false;
 		}
 	}
+
+	//Print win/lose screen
+	if (win) {
+		app->render->DrawTexture(winScreen, 0, 0);
+
+	}
+	if (lose) {
+		app->render->DrawTexture(loseScreen, 0, 0);
+	}
+
+	if ((win || lose) && app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
+
+
+	if (characterTurn->isAlive == false) {
+		turnstart = false;
+
+	}
+
 	return ret;
 }
 
@@ -1349,5 +1369,16 @@ bool SceneBattle::CleanUp()
 	app->pathfinding->ClearLastPath();
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
+
+	//Unload textures
+	app->tex->UnLoad(mouseTileTex);
+	app->tex->UnLoad(originTex);
+	app->tex->UnLoad(timmytexture);
+	app->tex->UnLoad(bunnytexture);
+	app->tex->UnLoad(villagertexture);
+
+	app->tex->UnLoad(winScreen);
+	app->tex->UnLoad(loseScreen);
+
 	return true;
 }

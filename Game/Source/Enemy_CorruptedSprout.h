@@ -2,10 +2,10 @@
 #include "Entity.h"
 #include "Pathfinding.h"
 #include "UriBehaviorTree.h"
-
+#include "Animation.h"
 class Enemy_CorruptedSprout : public Entity {
 public:
-	Enemy_CorruptedSprout(iPoint pos);
+	Enemy_CorruptedSprout();
 
 	bool Awake() override;
 
@@ -37,7 +37,15 @@ public:
 private:
 	SDL_Texture* texture;
 
+public:
 
+	Animation* currentAnimation;
+	Animation walkDownAnim;
+	Animation walkUpAnim;
+	Animation walkRightAnim;
+	Animation walkLeftAnim;
+	Animation idleAnim;
+	Animation takedmgAnim;
 
 //Nodes
 private:
