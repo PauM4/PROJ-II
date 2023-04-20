@@ -51,7 +51,7 @@
 		
 	</sceneBattle>
 	
-	<scenecombatLHHR name="Assets/Maps/World_01/grandmas.tmx" path="Assets/Maps/World_01/">
+	<scenecombatLHHR name="Assets/Maps/World_01/LRH.tmx" path="Assets/Maps/World_01/">
 		<timmy x= "360" y="480" movement= "3"/>
 		<bunny x= "360" y="360" movement= "2"/>
 		<enemy_angryVillager x="1200" y="240" movement="5"/>
