@@ -10,6 +10,7 @@
 #include "Door.h"
 #include "Defs.h"
 #include "Enemy_AngryVillager.h"
+#include "Enemy_LRRH.h"
 #include "Log.h"
 
 EntityManager::EntityManager(bool isActive) : Module(isActive)
@@ -114,6 +115,10 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 	case EntityType::ANGRYVILLAGER:
 		entity = new Enemy_AngryVillager();
+		break;
+
+	case EntityType::LRRH:
+		entity = new Enemy_LRRH();
 		break;
 	default: break;
 	}

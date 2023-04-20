@@ -2,10 +2,11 @@
 #include "Entity.h"
 #include "Pathfinding.h"
 #include "UriBehaviorTree.h"
+#include "Animation.h"
 
 class Enemy_LRRH : public Entity {
 public:
-	Enemy_LRRH(iPoint pos);
+	Enemy_LRRH();
 
 	bool Awake() override; 
 
@@ -35,6 +36,15 @@ public:
 	void Movement() override; 
 private: 
 	SDL_Texture* texture;
+
+public: 
+
+	Animation* currentAnimation;
+	Animation walkDownAnim;
+	Animation walkUpAnim;
+	Animation walkRightAnim;
+	Animation walkLeftAnim;
+	Animation idleAnim;
 
 private:
 
