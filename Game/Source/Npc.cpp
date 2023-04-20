@@ -26,9 +26,9 @@ bool Npc::Awake() {
 
 	posTalismanVillager.x = 1920, posTalismanVillager.y = 1408;
 
-	posGrandma.x = 1800, posGrandma.y = 691;
+	posGrandma.x = 1800, posGrandma.y = 831;
 
-	posLRRH.x = 2138, posLRRH.y = 771;
+	posLRRH.x = 3420, posLRRH.y = 721;
 
 	angryVillagerAnimation.PushBack({ 284,55,127,189 });
 
@@ -58,7 +58,7 @@ bool Npc::Start() {
 	pbodyGrandma->listener = this;				
 	pbodyGrandma->ctype = ColliderType::GRANDMA;
 
-	pbodyLRRH = app->physics->CreateRectangle(posLRRH.x+(122/2)-10, posLRRH.y, 150, 150, bodyType::STATIC);
+	pbodyLRRH = app->physics->CreateRectangle(posLRRH.x+(122/2)-10, posLRRH.y+15, 150, 180, bodyType::STATIC);
 	pbodyLRRH->listener = this;
 	pbodyLRRH->ctype = ColliderType::LRRH;
 
@@ -87,7 +87,7 @@ bool Npc::PostUpdate()
 
 	currentAnimation = &lrrhAnimation;
 	rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(npcTexture, posLRRH.x - 13, posLRRH.y - 26, &rect);
+	app->render->DrawTexture(npcTexture, posLRRH.x - 23, posLRRH.y-90, &rect);
 
 	
 

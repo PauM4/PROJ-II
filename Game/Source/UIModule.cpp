@@ -113,9 +113,6 @@ bool UIModule::Start()
 	pausemenuCombat_return_button->state = GuiControlState::NONE;
 	pausemenuCombat_quit_button->state = GuiControlState::NONE;
 
-
-	npcDialogueTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
-
 	doorPlayerPosition = false;
 
 	quitButtonBool = false;
@@ -869,19 +866,19 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	{
 	case ColliderType::ANGRYVILLAGER:
 		// Dibuixar Angry tal
-		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &angryVillagerRect);
+		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &angryVillagerRect);
 		break;
 
 	case ColliderType::TALISMANVILLAGER:
-		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &talismanVillagerRect);
+		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &talismanVillagerRect);
 		break;
 
 	case ColliderType::GRANDMA:
-		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &grandmaRect);
+		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &grandmaRect);
 		break;
 
 	case ColliderType::LRRH:
-		app->render->DrawTexture(npcDialogueTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &lrrhRect);
+		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &lrrhRect);
 		break;
 
 	default:

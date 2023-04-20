@@ -140,6 +140,7 @@ bool App::Awake()
 			if (item->data->active == true) {
 				pugi::xml_node node = configNode.child(item->data->name.GetString());
 				ret = item->data->Awake(node);
+				std::cout << "Awake: " << item->data->name.GetString() << " " << ret << std::endl;
 			}
 			item = item->next;
 		}
@@ -167,6 +168,7 @@ bool App::Start()
 	{
 		if (item->data->active == true) {
 			ret = item->data->Start();
+			std::cout << "Start: " << item->data->name.GetString() << " " << ret << std::endl;
 		}
 		item = item->next;
 	}
