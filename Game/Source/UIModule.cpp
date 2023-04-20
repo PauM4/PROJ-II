@@ -48,7 +48,7 @@ bool UIModule::Start()
 	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { 920, 640, 120,30 }, this);
 	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { 920, 680, 120,30 }, this);
 	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { 920, 925, 120,30 }, this);
-	//2049, 1794
+
 	pausemenu_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, "Resume", { 1620, 80, 120,30 }, this);
 	pausemenu_save_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Save", { 1620, 115, 120,30 }, this);
 	pausemenu_load_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Load", { 1620, 150, 120,30 }, this);
@@ -59,6 +59,7 @@ bool UIModule::Start()
 
 	pausemenuCombat_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, "Resume", { 1620, 80, 120,30 }, this);
 	pausemenuCombat_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Options", { 1620, 115, 120,30 }, this);
+	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Back to Menu", { 1620, 150, 120,30 }, this);
 	pausemenuCombat_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Return", { 1620, 80, 120,30 }, this);
 	pausemenuCombat_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Quit", { 1620, 255, 120, 30 }, this);
 
@@ -104,6 +105,7 @@ bool UIModule::Start()
 
 	pausemenuCombat_resume_button->state = GuiControlState::NONE;
 	pausemenuCombat_options_button->state = GuiControlState::NONE;
+	pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 	pausemenuCombat_return_button->state = GuiControlState::NONE;
 	pausemenuCombat_quit_button->state = GuiControlState::NONE;
 
@@ -320,28 +322,49 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		pausemenuCombat_resume_button->state = GuiControlState::NONE;
 		pausemenuCombat_options_button->state = GuiControlState::NONE;
 		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 		pausemenuCombat_return_button->state = GuiControlState::NONE;
+
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = COMBAT;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 		break;
 		// Options
 	case 101:
 		pausemenuCombat_return_button->state = GuiControlState::NORMAL;
 
+		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 		pausemenuCombat_resume_button->state = GuiControlState::NONE;
 		pausemenuCombat_options_button->state = GuiControlState::NONE;
 		pausemenuCombat_quit_button->state = GuiControlState::NONE;
 
 		break;
 		// Return pressed --> return from options to pause menu
-	case 23:
-		pausemenu_resume_button->state = GuiControlState::NORMAL;
-		pausemenu_save_button->state = GuiControlState::NORMAL;
-		pausemenu_options_button->state = GuiControlState::NORMAL;
-		pausemenu_load_button->state = GuiControlState::NORMAL;
-		pausemenu_backtomain_button->state = GuiControlState::NORMAL;
-		pausemenu_quit_button->state = GuiControlState::NORMAL;
+	case 102:
+		pausemenuCombat_resume_button->state = GuiControlState::NORMAL;
+		pausemenuCombat_options_button->state = GuiControlState::NORMAL;
+		pausemenuCombat_quit_button->state = GuiControlState::NORMAL;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NORMAL;
 
-		pausemenu_return_button->state = GuiControlState::NONE;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+		break;
+
+		// Quit game
+	case 103:
+		quitButtonBool = true;
+		break;
+
+		// Back to main menu
+	case 104:
+		app->sceneManager->isBattle = false;
+		app->sceneManager->scene = MAIN_MENU;
+
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = MAIN;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 		break;
 	}
 
@@ -451,6 +474,13 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option4_button->state = GuiControlState::NONE;
 		dialog_text_button->state = GuiControlState::NONE;
 
+		// Disable all combat pause buttons
+		pausemenuCombat_resume_button->state = GuiControlState::NONE;
+		pausemenuCombat_options_button->state = GuiControlState::NONE;
+		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
+
 		break;
 	case PAUSE:
 
@@ -485,9 +515,59 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option4_button->state = GuiControlState::NONE;
 		dialog_text_button->state = GuiControlState::NONE;
 
+		// Disable all combat pause buttons
+		pausemenuCombat_resume_button->state = GuiControlState::NONE;
+		pausemenuCombat_options_button->state = GuiControlState::NONE;
+		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
+
 		// Disable other menus buttons:
 
 		break;
+
+	case COMBAT_PAUSE:
+
+		// Enable all combat pause buttons
+		pausemenuCombat_resume_button->state = GuiControlState::NORMAL;
+		pausemenuCombat_options_button->state = GuiControlState::NORMAL;
+		pausemenuCombat_quit_button->state = GuiControlState::NORMAL;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NORMAL;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+
+		// Disable all main menu buttons
+		mainmenu_play_button->state = GuiControlState::NONE;
+		mainmenu_options_button->state = GuiControlState::NONE;
+		mainmenu_credits_button->state = GuiControlState::NONE;
+		mainmenu_quit_button->state = GuiControlState::NONE;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_return_button->state = GuiControlState::NONE;
+
+		// Disable all pause menu buttons
+		pausemenu_resume_button->state = GuiControlState::NONE;
+		pausemenu_save_button->state = GuiControlState::NONE;
+		pausemenu_load_button->state = GuiControlState::NONE;
+		pausemenu_options_button->state = GuiControlState::NONE;
+		pausemenu_return_button->state = GuiControlState::NONE;
+		pausemenu_backtomain_button->state = GuiControlState::NONE;
+		pausemenu_quit_button->state = GuiControlState::NONE;
+
+		// Disable all combat buttons
+		combat_attack_button->state = GuiControlState::NONE;
+		combat_ability_button->state = GuiControlState::NONE;
+		combat_move_button->state = GuiControlState::NONE;
+		combat_endTurn_button->state = GuiControlState::NONE;
+
+		// Disable all dialog buttons
+		dialog_option1_button->state = GuiControlState::NONE;
+		dialog_option2_button->state = GuiControlState::NONE;
+		dialog_option3_button->state = GuiControlState::NONE;
+		dialog_option4_button->state = GuiControlState::NONE;
+		dialog_text_button->state = GuiControlState::NONE;
+
+		break;
+
 	case DIALOG:
 		// Activate dialog buttonts
 		// Maybe there would be another switch for each dialog, idk how it will work
@@ -520,6 +600,14 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		combat_ability_button->state = GuiControlState::NONE;
 		combat_move_button->state = GuiControlState::NONE;
 		combat_endTurn_button->state = GuiControlState::NONE;
+
+		// Disable all combat pause buttons
+		pausemenuCombat_resume_button->state = GuiControlState::NONE;
+		pausemenuCombat_options_button->state = GuiControlState::NONE;
+		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
+
 
 		// Disable other menus buttons:
 
@@ -555,6 +643,14 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option3_button->state = GuiControlState::NONE;
 		dialog_option4_button->state = GuiControlState::NONE;
 		dialog_text_button->state = GuiControlState::NONE;
+
+		// Disable all combat pause buttons
+		pausemenuCombat_resume_button->state = GuiControlState::NONE;
+		pausemenuCombat_options_button->state = GuiControlState::NONE;
+		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
+
 
 		// Disable other menus buttons:
 
@@ -594,6 +690,14 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option3_button->state = GuiControlState::NONE;
 		dialog_option4_button->state = GuiControlState::NONE;
 		dialog_text_button->state = GuiControlState::NONE;
+
+		// Disable all combat pause buttons
+		pausemenuCombat_resume_button->state = GuiControlState::NONE;
+		pausemenuCombat_options_button->state = GuiControlState::NONE;
+		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
+
 
 		// Disable other menus buttons:
 

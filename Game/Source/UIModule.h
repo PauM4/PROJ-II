@@ -79,6 +79,7 @@ public:
 
 	GuiButton* pausemenuCombat_resume_button;
 	GuiButton* pausemenuCombat_options_button;
+	GuiButton* pausemenuCombat_backtomain_button;
 	GuiButton* pausemenuCombat_return_button;
 	GuiButton* pausemenuCombat_quit_button;
 
