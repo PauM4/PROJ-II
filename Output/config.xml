@@ -22,7 +22,7 @@
 	</audio>
 
 	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
-		<player x="1954" y="3592" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"
+		<player x="1868" y="5608" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"
 															bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
 		<npc npcTexturePath ="Assets/Characters/Characters_popups.png"/>
 		

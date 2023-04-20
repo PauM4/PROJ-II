@@ -82,6 +82,12 @@ bool Scene::Start()
 
 	}
 
+	if (isNewGame)
+	{
+		player->ChangePosition(1868, 5608);
+		isNewGame = false;
+	}
+
 	pauseMenuActive = false;
 	exitButtonBool = false;
 

@@ -83,7 +83,7 @@ bool GuiButton::Draw(Render* render)
 	}
 
 	/*app->fonts->LoadRenderedParagraph(bounds, app->fonts->gameFont, text.GetString(), { 255,255,255,255 }, bounds.w - 10);*/
-	app->fonts->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 }, app->fonts->gameFont, true);
+	app->fonts->DrawText(text.GetString(), bounds.x + bounds.w / 4, bounds.y, bounds.w, bounds.h, { 255,255,255 }, app->fonts->gameFont, true);
 
 	return false;
 }
