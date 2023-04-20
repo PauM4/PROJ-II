@@ -538,8 +538,7 @@ bool SceneCombatLHHR::PostUpdate()
 				combatMap[i][j].character = false;
 				combatMap[i][j].inRange = false;
 				combatMap[i][j].enemy = false;
-
-
+				combatMap[i][j].dead = false;
 			}
 		}
 
@@ -615,7 +614,7 @@ bool SceneCombatLHHR::PostUpdate()
 								CreateArea(LRRH->AttArea, 1, pos);
 								for (int i = 0; i < area.Count(); i++) {
 
-									if (area.At(i)->data->character == true) {
+									if (area.At(i)->data->character == true && area.At(i)->data->dead == false) {
 
 										length = app->pathfinding->CreatePath(origin, pos);
 										destination.x = pos.x;
@@ -654,13 +653,27 @@ bool SceneCombatLHHR::PostUpdate()
 	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].enemy = true;
 	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].characterType = LRRH;
 
-	app->render->DrawRectangle({ int(LRRH->position.x) + 35, int(LRRH->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
+	
+
+	if (bunny->isAlive == true) {
+		combatMap[bunny->tilePos.x][bunny->tilePos.y].dead = false;
+	}
+	else {
+
+		combatMap[bunny->tilePos.x][bunny->tilePos.y].dead = true;
+	}
 
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
 
 
+	if (timmy->isAlive == true) {
+		combatMap[timmy->tilePos.x][timmy->tilePos.y].dead = false;
+	}
+	else {
 
+		combatMap[timmy->tilePos.x][timmy->tilePos.y].dead = true;
+	}
 
 	combatMap[timmy->tilePos.x][timmy->tilePos.y].character = true;
 	combatMap[timmy->tilePos.x][timmy->tilePos.y].characterType = timmy;

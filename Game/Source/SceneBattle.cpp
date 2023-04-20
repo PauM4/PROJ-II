@@ -541,6 +541,7 @@ bool SceneBattle::PostUpdate()
 				combatMap[i][j].character = false;
 				combatMap[i][j].inRange = false;
 				combatMap[i][j].enemy = false;
+				combatMap[i][j].dead = false;
 				
 				
 			}
@@ -607,7 +608,7 @@ bool SceneBattle::PostUpdate()
 								CreateArea(characterTurn->AttArea, 1, pos);
 								for (int i = 0; i < area.Count(); i++) {
 
-									if (area.At(i)->data->character == true) {
+									if (area.At(i)->data->character == true&& area.At(i)->data->dead==false) {
 
 										length = app->pathfinding->CreatePath(origin, pos);
 										destination.x = pos.x;
@@ -646,13 +647,25 @@ bool SceneBattle::PostUpdate()
 	combatMap[villager->tilePos.x][villager->tilePos.y].enemy = true;
 	combatMap[villager->tilePos.x][villager->tilePos.y].characterType = villager;
 
-	
+	if (bunny->isAlive == true) {
+		combatMap[bunny->tilePos.x][bunny->tilePos.y].dead = false;
+	}
+	else {
+
+		combatMap[bunny->tilePos.x][bunny->tilePos.y].dead = true;
+	}
 
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
 
 	
+	if (timmy->isAlive == true) {
+		combatMap[timmy->tilePos.x][timmy->tilePos.y].dead = false;
+	}
+	else {
 
+		combatMap[timmy->tilePos.x][timmy->tilePos.y].dead = true;
+	}
 	
 	combatMap[timmy->tilePos.x][timmy->tilePos.y ].character = true;
 	combatMap[timmy->tilePos.x][timmy->tilePos.y].characterType = timmy;

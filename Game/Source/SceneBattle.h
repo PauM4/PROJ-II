@@ -29,6 +29,7 @@ struct TileDataa
 	bool character;
 	bool inRange;
 	bool enemy;
+	bool dead;
 	Entity* characterType;
 	TILE_TYPE type;
 };

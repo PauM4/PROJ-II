@@ -506,6 +506,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 
 		app->sceneBattle->endturnpressed = false;
 
+
 		app->sceneCombatLHHR->attackpressed = false;
 		app->sceneCombatLHHR->abiltypressed = true;
 
