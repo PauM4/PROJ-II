@@ -82,7 +82,9 @@ bool SceneBattle::Start()
 	 moveenemy = false;
 	app->entityManager->Start(); 
 	//Load combat map
-	/*MakeCombatMap();*/
+	
+
+	MakeCombatMap();
 
 	if (retLoad) {
 		int w, h;
@@ -95,13 +97,17 @@ bool SceneBattle::Start()
 
 	}
 
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+
 	moveanim = false;
 	mouseTileTex = app->tex->Load("Assets/Maps/Scenes/Path.png");
 	timmytexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	bunnytexture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
+	villagertexture = app->tex->Load("Assets/Characters/F_sprites_angry_Villager.png"); 
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
-	MakeCombatMap();
+	
 
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
@@ -112,13 +118,13 @@ bool SceneBattle::Start()
 	allentities.Add(bunny);
 	allentities.Add(villager);
 	GetTurns();
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+	
 
 	// Tell to UIModule which currentMenuType
 	app->uiModule->currentMenuType = COMBAT;
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 	origin = characterTurn->tilePos;
 
 	targets.Clear();
@@ -142,6 +148,8 @@ bool SceneBattle::PreUpdate()
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
+
+	
 
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
@@ -259,8 +267,10 @@ bool SceneBattle::PostUpdate()
 	if (turnstart == false ) {
 		
 		
+		
 		moveenemy = false;
 		GetNext();
+		
 		origin = characterTurn->tilePos;
 		if (characterTurn->isEnemy == true) {
 
@@ -416,7 +426,7 @@ bool SceneBattle::PostUpdate()
 
 	if (length > 1) {
 
-		Move(characterTurn, pathIndex, length);
+		Move( pathIndex, length);
 	}
 	else
 	{
@@ -549,7 +559,7 @@ bool SceneBattle::PostUpdate()
 	}
 
 	if (moveenemy == true) {
-		if (characterTurn->stamina >= 3) {
+		if (characterTurn->stamina >= 5) {
 			ListItem<Entity*>* entitylist;
 			entitylist = targets.start;
 			if (entitylist != NULL) {
@@ -574,8 +584,9 @@ bool SceneBattle::PostUpdate()
 		}
 		
 
-		if (moveenemy == true && characterTurn->stamina>=5) {
+		if (moveenemy == true && characterTurn->stamina>=3) {
 
+			moveanim = true;
 			move = true;
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 9; j++) {
@@ -595,6 +606,7 @@ bool SceneBattle::PostUpdate()
 										destination.y = pos.y;
 										originSelected = false;
 										moveenemy = false;
+										characterTurn->UseStamina(3);
 										i = area.Count();
 
 									}
@@ -613,7 +625,7 @@ bool SceneBattle::PostUpdate()
 			}
 
 		}
-		else {
+		else if(moveenemy == true) {
 
 			characterTurn->stamina += 10;
 		}
@@ -622,8 +634,6 @@ bool SceneBattle::PostUpdate()
 	}
 
 	std::cout << "Stamina Timmy: " << timmy->stamina << std::endl;
-
-	//app->fonts->DrawText("STAMINA: ", 200, 200, 200, 200, {255,255,255}, app->fonts->gameFont);
 
 	std::cout << "Stamina Bunny: " << bunny->stamina << std::endl;
 
@@ -657,6 +667,8 @@ bool SceneBattle::PostUpdate()
 		bunny->currentAnimation = &bunny->idleAnim;
 		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
+		SDL_Rect recti = villager->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &recti);
 		if (moveanim == false) {
 			timmy->currentAnimation = &timmy->idleAnim;
 			SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
@@ -700,6 +712,9 @@ bool SceneBattle::PostUpdate()
 		timmy->currentAnimation = &timmy->idleAnim;
 		SDL_Rect recta = timmy->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recta);
+		villager->currentAnimation = &villager->idleAnim;
+		SDL_Rect recti = villager->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &recti);
 		if (moveanim == false) {
 			bunny->currentAnimation = &bunny->idleAnim;
 			SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
@@ -742,13 +757,49 @@ bool SceneBattle::PostUpdate()
 	if (characterTurn->id == 3) {
 
 		timmy->currentAnimation = &timmy->idleAnim;
-		SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
-		bunny->currentAnimation = &bunny->idleAnim;
+		SDL_Rect recti = timmy->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recti);
 
+		bunny->currentAnimation = &bunny->idleAnim;
 		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
 
+		if (moveanim == false) {
+			villager->currentAnimation = &villager->idleAnim;
+			SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+		}
+		if (moveanim == true) {
+			if (xDir == 1) {
+				villager->currentAnimation = &villager->walkRightAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (xDir == -1) {
+				villager->currentAnimation = &villager->walkLeftAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (yDir == 1) {
+				villager->currentAnimation = &villager->walkDownAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (yDir == -1) {
+				villager->currentAnimation = &villager->walkUpAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (xDir == 0 || yDir == 0) {
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+		}
 	}
 	
 	return ret;
@@ -791,6 +842,7 @@ bool SceneBattle::MoveEnemy() {
 
 					pos = app->map->MapToWorld(pos.x, pos.y);
 					app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+					moveanim = true;
 				}
 			}
 
@@ -801,7 +853,7 @@ bool SceneBattle::MoveEnemy() {
 	return true;
 
 }
-bool SceneBattle::Move(Entity * character, int pathindex,int length) {
+bool SceneBattle::Move( int pathindex,int length) {
 
 	iPoint dist;
 	fPoint pixelPosition;
@@ -820,9 +872,9 @@ bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 	LOG(" NextposX: %d", nextpos.x);
 	LOG(" NextposY: %d", nextpos.y);
 
-	dist.x = pixelPosition.x - character->position.x;
+	dist.x = pixelPosition.x - characterTurn->position.x;
 	LOG(" disX: %d", dist.x);
-	dist.y = pixelPosition.y - character->position.y;
+	dist.y = pixelPosition.y - characterTurn->position.y;
 	LOG(" disY: %d", dist.y);
 
 
@@ -849,8 +901,8 @@ bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 
 	}
 
-	character->position.x = character->position.x + vel.x;
-	character->position.y = character->position.y + vel.y;
+	characterTurn->position.x = characterTurn->position.x + vel.x;
+	characterTurn->position.y = characterTurn->position.y + vel.y;
 
 	return true;
 }
@@ -1173,7 +1225,9 @@ bool SceneBattle::CleanUp()
 	LOG("Freeing sceneBattle");
 	allentities.Clear();
 	area.Clear();
+	turnqueue.Clear();
 	targets.Clear();
+	
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
 	return true;

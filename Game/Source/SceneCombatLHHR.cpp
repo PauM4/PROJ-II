@@ -102,7 +102,8 @@ bool SceneCombatLHHR::Start()
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
 	MakeCombatMap();
-
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	villager->tilePos = app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
@@ -112,8 +113,7 @@ bool SceneCombatLHHR::Start()
 	allentities.Add(bunny);
 	allentities.Add(villager);
 	GetTurns();
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+
 
 	// Tell to UIModule which currentMenuType
 	app->uiModule->currentMenuType = COMBAT;

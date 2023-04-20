@@ -47,6 +47,9 @@ public:
 	Player* player;
 	Door* door;
 
+	// UI Things
+	bool isPaused;
+
 private:
 
 	SString mapName;

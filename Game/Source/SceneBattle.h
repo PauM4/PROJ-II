@@ -69,7 +69,7 @@ public:
 
 	bool MoveEnemy();
 
-	bool Move(Entity* character, int pathindex, int length);
+	bool Move( int pathindex, int length);
 
 	bool Move();
 
@@ -96,9 +96,6 @@ public:
 	bool GetNext();
 	
 	void DestroyListArea();
-
-
-
 
 public:
 
@@ -155,9 +152,14 @@ private:;
 
 	uint value;
 
+public:
+
 	Timmy* timmy;
 	Bunny* bunny;
 	Enemy_AngryVillager* villager;
+
+private: 
+
 	int xDir;
 	int yDir;
 

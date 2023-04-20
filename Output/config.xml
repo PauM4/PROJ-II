@@ -27,16 +27,18 @@
 		<npc npcTexturePath ="Assets/Characters/Characters_popups.png"/>
 		
 		<!-- Door to tutorial house-->
-		<door x="2218" y="2414" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0"/>
-		<door x="1956" y="656" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0"/>
-	
+		<door x="2213" y="2511" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0"/>
+		<!-- Door to Grandmas-->
+		<door x="1967" y="781" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0"/>
+		<!-- Door to Boos fight-->
+		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="0" nextPlayerY="0"/>
 
 	</scene>
 
 	<sceneGrandma name="Assets/Maps/World_01/town_house.tmx" path="Assets/Maps/World_01/">
 		<player x="532" y="882" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
 		
-		<!-- Door to tutorial house-->
+		<!-- Door to Scene-->
 		<door x="480" y="1030" width="58" height="95" nextScene="3" nextPlayerX="0" nextPlayerY="0"/>
 		
 	</sceneGrandma>
