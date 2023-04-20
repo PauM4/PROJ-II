@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "Fonts.h"
 #include "SceneBattle.h"
+#include "SceneCombatLHHR.h"
 #include "SceneMainMenu.h"
 #include "Scene.h"
 #include "Player.h"
@@ -214,6 +215,57 @@ bool UIModule::PostUpdate()
 		app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	}
 	
+	// COMBAT UI
+	if (app->sceneManager->currentScene == app->sceneCombatLHHR && app->sceneCombatLHHR->active)
+	{
+		// Timmy stats:
+		uint timmyStamina = app->sceneCombatLHHR->timmy->stamina;
+		std::string timmyStaminaString = std::to_string(timmyStamina);
+		const char* timmyStaminaChar = timmyStaminaString.c_str();
+
+		uint timmyHP = app->sceneCombatLHHR->timmy->health;
+		std::string timmyHPString = std::to_string(timmyHP);
+		const char* timmyHpChar = timmyHPString.c_str();
+
+
+		app->fonts->DrawText("--- TIMMY ---", 80, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 80, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(timmyHpChar, 200, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 80, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(timmyStaminaChar, 200, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+		// Bunny stats:
+		uint bunnyStamina = app->sceneCombatLHHR->bunny->stamina;
+		std::string bunnyStaminaString = std::to_string(bunnyStamina);
+		const char* bunnyStaminaChar = bunnyStaminaString.c_str();
+
+		uint bunnyHP = app->sceneCombatLHHR->bunny->health;
+		std::string bunnyHPString = std::to_string(bunnyHP);
+		const char* bunnyHpChar = bunnyHPString.c_str();
+
+		app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(bunnyHpChar, 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(bunnyStaminaChar, 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+		// Villager stats:
+		uint LRRHStamina = app->sceneCombatLHHR->LRRH->stamina;
+		std::string LRRHStaminaString = std::to_string(LRRHStamina);
+		const char* LRRHrStaminaChar = LRRHStaminaString.c_str();
+
+		uint LRRH_HP = app->sceneCombatLHHR->LRRH->health;
+		std::string LRRH_HPString = std::to_string(LRRH_HP);
+		const char* LRRH_HpChar = LRRH_HPString.c_str();
+
+		int w_window = app->win->width;
+
+		app->fonts->DrawText("--- LittleRideRedHody ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(LRRH_HpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(LRRHrStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	}
 
 	return ret;
 }
@@ -439,6 +491,14 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 
 		app->sceneBattle->endturnpressed = false;
 
+
+		app->sceneCombatLHHR->attackpressed = true;
+		app->sceneCombatLHHR->abiltypressed = false;
+
+		app->sceneCombatLHHR->movepressed = false;
+
+		app->sceneCombatLHHR->endturnpressed = false;
+
 		break;
 		// Ability
 	case 17:
@@ -448,6 +508,13 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		app->sceneBattle->movepressed = false;
 
 		app->sceneBattle->endturnpressed = false;
+
+		app->sceneCombatLHHR->attackpressed = false;
+		app->sceneCombatLHHR->abiltypressed = true;
+
+		app->sceneCombatLHHR->movepressed = false;
+
+		app->sceneCombatLHHR->endturnpressed = false;
 		break;
 		// Move
 	case 18:
@@ -458,6 +525,13 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		app->sceneBattle->movepressed = true;
 
 		app->sceneBattle->endturnpressed = false;
+
+		app->sceneCombatLHHR->attackpressed = false;
+		app->sceneCombatLHHR->abiltypressed = false;
+
+		app->sceneCombatLHHR->movepressed = true;
+
+		app->sceneCombatLHHR->endturnpressed = false;
 		break;
 		// End turn
 	case 19:
@@ -467,6 +541,14 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		app->sceneBattle->movepressed = false;
 
 		app->sceneBattle->endturnpressed = true;
+
+
+		app->sceneCombatLHHR->attackpressed = false;
+		app->sceneCombatLHHR->abiltypressed = false;
+
+		app->sceneCombatLHHR->movepressed = false;
+
+		app->sceneCombatLHHR->endturnpressed = true;
 		break;
 	}
 

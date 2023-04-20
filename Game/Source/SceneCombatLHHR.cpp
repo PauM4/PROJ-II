@@ -527,7 +527,7 @@ bool SceneCombatLHHR::PostUpdate()
 
 	}
 
-	if (move == false)
+	if (move == false && moveenemy==false)
 	{
 		for (int i = 0; i < 16; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -559,7 +559,18 @@ bool SceneCombatLHHR::PostUpdate()
 	}
 
 	if (moveenemy == true) {
-		if (characterTurn->stamina >= 5) {
+
+	    /*	move = true;
+		moveanim = false;
+	
+
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+
+			atack = true;
+
+		}*/
+
+		if (LRRH->stamina >= 5) {
 			ListItem<Entity*>* entitylist;
 			entitylist = targets.start;
 
@@ -571,9 +582,9 @@ bool SceneCombatLHHR::PostUpdate()
 				/*Combat(characterTurn, targets, 1);*/
 
 				if (entitylist->data->isAlive == true) {
-					entitylist->data->health = entitylist->data->health - (characterTurn->attack - entitylist->data->defense);
+					entitylist->data->health = entitylist->data->health - (LRRH->attack - entitylist->data->defense);
 					targets.Clear();
-					characterTurn->UseStamina(5);
+					LRRH->UseStamina(5);
 					turnstart = false;
 					atack = false;
 					moveenemy = false;
@@ -587,7 +598,7 @@ bool SceneCombatLHHR::PostUpdate()
 		}
 
 
-		if (moveenemy == true && characterTurn->stamina >= 3) {
+		if (moveenemy == true && LRRH->stamina >= 3) {
 
 			moveanim = true;
 			move = true;
@@ -599,7 +610,7 @@ bool SceneCombatLHHR::PostUpdate()
 							iPoint pos = iPoint(i, j);
 
 							if (app->pathfinding->IsWalkable(pos)) {
-								CreateArea(characterTurn->AttArea, 1, pos);
+								CreateArea(LRRH->AttArea, 1, pos);
 								for (int i = 0; i < area.Count(); i++) {
 
 									if (area.At(i)->data->character == true) {
@@ -626,12 +637,12 @@ bool SceneCombatLHHR::PostUpdate()
 				}
 
 			}
-
-		}
+		} 
 		else if (moveenemy == true) {
 
-			characterTurn->stamina += 10;
-		}
+			LRRH->GainStamina(10);
+			moveenemy = false;
+		 }
 
 
 	}
@@ -748,7 +759,7 @@ bool SceneCombatLHHR::PostUpdate()
 
 	}
 
-	if (characterTurn->id == 3) {
+	if (characterTurn->id == 4) {
 
 		timmy->currentAnimation = &timmy->idleAnim;
 		SDL_Rect recti = timmy->currentAnimation->GetCurrentFrame();
