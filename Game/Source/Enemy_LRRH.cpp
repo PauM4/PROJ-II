@@ -10,20 +10,9 @@
 #include "Physics.h"
 
 
-Enemy_LRRH::Enemy_LRRH(iPoint pos) : Entity(EntityType::LRRH){
+Enemy_LRRH::Enemy_LRRH() : Entity(EntityType::LRRH){
 	//texture = app->tex->Load("");
-
-	level = 6; 
-	health = 25;
-	maxHealth = 25;
-	attack = 13;
-	defense = 7; 
-	magic = 0;
-	resistance = 4;
-	speed = 13;
-	skill = 15; 
-	stamina = 15;
-	maxStamina = 15;
+	name.Create("lrrh");
 
 	//Behavior Tree
 	//Action Nodes
@@ -57,6 +46,61 @@ Enemy_LRRH::Enemy_LRRH(iPoint pos) : Entity(EntityType::LRRH){
 
 bool Enemy_LRRH::Awake()
 {
+	id = 4;
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
+	level = stats.attribute("level").as_int();
+	health = stats.attribute("health").as_int();
+	maxHealth = stats.attribute("maxHealth").as_int();
+	defense = stats.attribute("defense").as_int();
+	magic = stats.attribute("magic").as_int();
+	stamina = stats.attribute("stamina").as_int();
+	maxStamina = stats.attribute("maxStamina").as_int();
+	speed = stats.attribute("speed").as_int();
+	attack = stats.attribute("attack").as_int();
+	AttArea = stats.attribute("AttArea").as_int();
+	Ab1Type = stats.attribute("Ab1Type").as_int();
+	Ab1Area = stats.attribute("Ab1Area").as_int();
+	Ab1RangeType = stats.attribute("Ab1RangeType").as_int();
+	Ab1Power = stats.attribute("Ab1Power").as_int();
+	Ab2Type = stats.attribute("Ab2Type").as_int();
+	Ab2Area = stats.attribute("Ab2Area").as_int();
+	Ab2RangeType = stats.attribute("Ab2RangeType").as_int();
+	Ab2Power = stats.attribute("Ab2Power").as_int();
+	healingpower = stats.attribute("healingpower").as_int();
+	movement = stats.attribute("movement").as_int();
+	isEnemy = true;
+
+	idleAnim.PushBack({ 0, 0, 140, 140 });
+	idleAnim.loop = true;
+
+	for (int i = 0; i < 10; i++) //penutlima:cabezon
+	{
+		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
+	}
+	walkDownAnim.loop = true;
+	walkDownAnim.speed = 0.15f;
+
+	for (int i = 0; i < 10; i++)
+	{
+		walkUpAnim.PushBack({ (i * 150), 600, 150, 150 });
+	}
+	walkUpAnim.loop = true;
+	walkUpAnim.speed = 0.15f;
+
+	for (int i = 0; i < 10; i++)
+	{
+		walkRightAnim.PushBack({ (i * 150), 450, 150, 150 });
+	}
+	walkRightAnim.loop = true;
+	walkRightAnim.speed = 0.15f;
+
+	for (int i = 0; i < 10; i++)
+	{
+		walkLeftAnim.PushBack({ (i * 150), 300, 150, 150 });
+	}
+	walkLeftAnim.loop = true;
+	walkLeftAnim.speed = 0.15f;
 	return true;
 }
 

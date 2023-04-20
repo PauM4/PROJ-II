@@ -44,10 +44,10 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 		bunny = (Bunny*)app->entityManager->CreateEntity(EntityType::BUNNY);
 		bunny->parameters = config.child("bunny");
 	}
-	if (config.child("enemy_angryVillager")) {
-		villager = (Enemy_AngryVillager*)app->entityManager->CreateEntity(EntityType::ANGRYVILLAGER);
-		villager->parameters = config.child("enemy_angryVillager");
-	}
+	if (config.child("lrrh")) {
+		LRRH = (Enemy_LRRH*)app->entityManager->CreateEntity(EntityType::LRRH);
+		LRRH->parameters = config.child("lrrh");
+	}  
 	//This reads stats from xml
 	if (config.parent().child("timmy")) {
 		timmy->stats = config.parent().child("timmy");
@@ -55,8 +55,8 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 	if (config.parent().child("bunny")) {
 		bunny->stats = config.parent().child("bunny");
 	}
-	if (config.parent().child("enemy_angryVillager")) {
-		villager->stats = config.parent().child("enemy_angryVillager");
+	if (config.parent().child("lrrh")) {
+		LRRH->stats = config.parent().child("lrrh");
 	}
 	app->entityManager->Awake(config);
 	
@@ -111,12 +111,12 @@ bool SceneCombatLHHR::Start()
 	
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
-	villager->tilePos = app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
+	LRRH->tilePos = app->map->WorldToMap(LRRH->position.x - app->render->camera.x, LRRH->position.y - app->render->camera.y);
 
 
 	allentities.Add(timmy);
 	allentities.Add(bunny);
-	allentities.Add(villager);
+	allentities.Add(LRRH);
 	GetTurns();
 
 
@@ -235,9 +235,9 @@ bool SceneCombatLHHR::PostUpdate()
 
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
-	villager->tilePos = app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
+	LRRH->tilePos= app->map->WorldToMap(LRRH->position.x - app->render->camera.x, LRRH->position.y - app->render->camera.y);
 
-
+	LRRH->speed;
 	if (timmy->health <= 0) {
 
 		timmy->isAlive = false;
@@ -249,10 +249,10 @@ bool SceneCombatLHHR::PostUpdate()
 		bunny->isAlive = false;
 
 	}
-	if (villager->health <= 0) {
+	if (LRRH->health <= 0) {
 
-		villager->health = 0;
-		villager->isAlive = false;
+		LRRH->health = 0;
+		LRRH->isAlive = false;
 
 	}
 
@@ -638,10 +638,10 @@ bool SceneCombatLHHR::PostUpdate()
 
 
 
-	combatMap[villager->tilePos.x][villager->tilePos.y].enemy = true;
-	combatMap[villager->tilePos.x][villager->tilePos.y].characterType = villager;
+	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].enemy = true;
+	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].characterType = LRRH;
 
-	app->render->DrawRectangle({ int(villager->position.x) + 35, int(villager->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
+	app->render->DrawRectangle({ int(LRRH->position.x) + 35, int(LRRH->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
