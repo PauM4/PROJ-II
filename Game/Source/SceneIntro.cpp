@@ -44,6 +44,8 @@ bool SceneIntro::Start()
 	// Call this function only when scene is changed
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
+	app->audio->PlayMusic("Assets/Sounds/Music/intro_audio.ogg", 0);
+
 	return true;
 }
 

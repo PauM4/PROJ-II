@@ -46,6 +46,8 @@ bool SceneMainMenu::Start()
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
+	app->audio->PlayMusic("Assets/Sounds/Music/music_titleScreen.wav");
+
 	creditsOpen = false;
 	returnPressed = false;
 
