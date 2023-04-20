@@ -304,8 +304,8 @@ void Render::FollowObjectRespectBoundaries(int posX, int posY, int offsetX, int 
 	camera.x = posX + offsetX;
 	camera.y = posY + offsetY;
 	
-	camera.x = clamp(camera.x, -2032, -18); //max y min hardcodeados
-	camera.y = clamp(camera.y, -4274, -16);
+	camera.x = clamp(camera.x, -2532, -18); //max y min hardcodeados
+	camera.y = clamp(camera.y, -4974, -16);
 }
 
 void Render::GodMode()
