@@ -127,7 +127,7 @@ private:;
 	SDL_Texture* originTex = nullptr;
 	SDL_Texture* timmytexture = nullptr;
 	SDL_Texture* bunnytexture = nullptr;
-	SDL_Texture* villagertexture = nullptr;
+	SDL_Texture* LRRHtexture = nullptr;
 
 
 	iPoint origin;
