@@ -790,8 +790,18 @@ bool Scene::SaveState(pugi::xml_node& data)
 {
 	pugi::xml_node playerNode = data.append_child("player");
 
+	// If door, save mes lluny
+	if (app->uiModule->doorPlayerPosition)
+	{
+		playerNode.append_attribute("x") = player->position.x;
+		playerNode.append_attribute("y") = player->position.y + 75;
+		app->uiModule->doorPlayerPosition = false;
+	}
+
 	playerNode.append_attribute("x") = player->position.x;
 	playerNode.append_attribute("y") = player->position.y;
+
+	
 
 	return true;
 }

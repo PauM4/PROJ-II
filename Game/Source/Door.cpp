@@ -79,6 +79,7 @@ void Door::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::PLAYER:
 		LOG("Collision door/player");
 
+		app->uiModule->doorPlayerPosition = true;
 		app->SaveGameRequest();
 
 		app->sceneManager->LoadScene((GameScene)nextScene);

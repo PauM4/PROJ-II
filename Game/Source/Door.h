@@ -30,7 +30,6 @@ public:
 
 public:
 
-
 private:
 	
 	bool godMode;
@@ -42,6 +41,7 @@ private:
 	PhysBody* pbody;
 
 	int nextScene;
+
 
 	int width, height;
 	int nextX, nextY;

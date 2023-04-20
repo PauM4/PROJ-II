@@ -100,6 +100,9 @@ public:
 
 	bool continueBool;
 
+	// UI Things
+	bool doorPlayerPosition;
+
 
 private:
 

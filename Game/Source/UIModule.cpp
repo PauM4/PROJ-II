@@ -115,6 +115,8 @@ bool UIModule::Start()
 
 	npcDialogueTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
 
+	doorPlayerPosition = false;
+
 	quitButtonBool = false;
 	continueBool = false;
 
