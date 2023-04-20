@@ -74,6 +74,13 @@ bool Enemy_LRRH::Awake()
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
 
+	takedmgAnim.PushBack({ 0, 150, 140, 140 });
+	takedmgAnim.PushBack({ 0, 150, 140, 140 });
+	takedmgAnim.PushBack({ 0, 150, 140, 140 });
+	takedmgAnim.PushBack({ 0, 150, 140, 140 });
+	takedmgAnim.loop = false;
+	takedmgAnim.speed = 0.10f;
+
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
 		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });

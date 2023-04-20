@@ -147,6 +147,9 @@ private:;
 	bool ability;
 	bool turnstart;
 	bool moveanim;
+	bool awchanim1;
+	bool awchanim2;
+	bool awchanim3;
 
 	uint value;
 
