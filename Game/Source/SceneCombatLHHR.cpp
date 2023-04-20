@@ -199,6 +199,7 @@ bool SceneCombatLHHR::Update(float dt)
 	}
 
 	if (abiltypressed == true) {
+
 		if (characterTurn->stamina >= 10) {
 			targets.Clear();
 			DestroyListArea();
@@ -323,6 +324,7 @@ bool SceneCombatLHHR::PostUpdate()
 	if (turnstart == false) {
 
 		app->pathfinding->ClearLastPath();
+		length = 1;
 
 		moveenemy = false;
 		GetNext();
@@ -684,16 +686,43 @@ bool SceneCombatLHHR::PostUpdate()
 								}
 							}
 						}
-						/*	if (app->pathfinding->IsWalkable(pos)) {
-								pos = app->map->MapToWorld(pos.x, pos.y);
-								app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
-							}*/
+						
 					}
 
 				}
 
 			}
 		} 
+		if(moveenemy == true && LRRH->stamina >= 3) {
+
+			moveanim = true;
+			
+
+
+					if (moveenemy == true) {
+						
+							iPoint pos = iPoint(LRRH->tilePos.x - 3, LRRH->tilePos.y);
+							
+							if (app->pathfinding->IsWalkable(pos)) {
+								
+
+										length = app->pathfinding->CreatePath(origin, pos);
+										destination.x = pos.x;
+										destination.y = pos.y;
+										originSelected = false;
+										moveenemy = false;
+										characterTurn->UseStamina(3);
+	
+								
+							}
+						
+					
+					}
+
+				
+
+			
+		}
 		else if (moveenemy == true) {
 
 			LRRH->GainStamina(10);
@@ -1202,27 +1231,27 @@ bool SceneCombatLHHR::CreateArea(int range, int type, iPoint posTile) {
 	case 4:
 		//LRRH attack area
 
-		for (int i = -1; i < 2; i++) {
+		//for (int i = -1; i < 2; i++) {
 
-			for (int j = 0; j < 8; i++) {
-				if (combatMap[posTile.x + j][posTile.y+i].type == TILE_TYPEE::FLOOR) {
-					area.Add(&combatMap[posTile.x + i][posTile.y]);
-				}
-				if (combatMap[posTile.x - j][posTile.y].type == TILE_TYPEE::FLOOR) {
-					area.Add(&combatMap[posTile.x - i][posTile.y]);
-				}
-				if (combatMap[posTile.x][posTile.y + i].type == TILE_TYPEE::FLOOR) {
-					area.Add(&combatMap[posTile.x][posTile.y + i]);
-				}
-				if (combatMap[posTile.x][posTile.y - i].type == TILE_TYPEE::FLOOR) {
-					area.Add(&combatMap[posTile.x][posTile.y - i]);
-				}
-			}
+		//	for (int j = 0; j < 8; i++) {
 
+		//		if (posTile.x - j <2  && posTile.y + i < 9 && combatMap[posTile.x + j][posTile.y+i].type == TILE_TYPEE::FLOOR) {
+		//			area.Add(&combatMap[posTile.x + i][posTile.y+i]);
+		//		}
+		//		if (posTile.x - j < 2 && posTile.y + i > 9 && combatMap[posTile.x - j][posTile.y+i].type == TILE_TYPEE::FLOOR) {
+		//			area.Add(&combatMap[posTile.x - j][posTile.y+i]);
+		//		}
+		//		if (posTile.x+i >14 && posTile.y + j>6 && combatMap[posTile.x+i][posTile.y + j].type == TILE_TYPEE::FLOOR) {
+		//			area.Add(&combatMap[posTile.x+i][posTile.y + i]);
+		//		}
+		//		if (posTile.x + i > 14 && posTile.y - j < 2 && combatMap[posTile.x+i][posTile.y - j].type == TILE_TYPEE::FLOOR) {
+		//			area.Add(&combatMap[posTile.x+i][posTile.y - j]);
+		//		}
+		//	}
 
+		//}
 
-
-		}
+		break;
 	}
 
 
