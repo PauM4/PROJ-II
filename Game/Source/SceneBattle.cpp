@@ -75,11 +75,15 @@ bool SceneBattle::Start()
 	length=1;
 	turnstart = true;
 	destination = iPoint(0, 0);
-	 movepressed = false;
-	 attackpressed = false;
-	 abiltypressed = false;
-	 endturnpressed = false;
-	 moveenemy = false;
+	movepressed = false;
+	attackpressed = false;
+	abiltypressed = false;
+	endturnpressed = false;
+	moveenemy = false;
+	awchanim1 = false;
+	awchanim2 = false;
+	awchanim3 = false;
+
 	app->entityManager->Start(); 
 	//Load combat map
 	
@@ -246,18 +250,20 @@ bool SceneBattle::PostUpdate()
 	if (timmy->health <= 0) {
 
 		timmy->isAlive = false;
-
+		timmy->takedmgAnim.Reset();
 	}
 	
 	if (bunny->health <= 0) {
 
 		bunny->isAlive = false;
-	
+		bunny->takedmgAnim.Reset();
+
 	}
 	if (villager->health <= 0) {
 
 		villager->health = 0;
 		villager->isAlive = false;
+		villager->takedmgAnim.Reset();
 
 	}
 
@@ -390,6 +396,12 @@ bool SceneBattle::PostUpdate()
 					atack = false;
 					characterTurn->UseStamina(5);
 					turnstart = false;
+					villager->takedmgAnim.Reset();
+					if (targets.At(i)->data->id == 3)
+					{
+						awchanim3 = true;
+						villager->takedmgAnim.Reset();
+					}
 				}
 			}
 		}
@@ -410,6 +422,11 @@ bool SceneBattle::PostUpdate()
 					ability = false;
 					characterTurn->UseStamina(10);
 					turnstart = false;
+					if (targets.At(i)->data->id == 3)
+					{
+						awchanim3 = true;
+						villager->takedmgAnim.Reset();
+					}
 					i = targets.Count();
 				}
 			}
@@ -583,7 +600,16 @@ bool SceneBattle::PostUpdate()
 					turnstart = false;
 					atack = false;
 					moveenemy = false;
-
+					if (entitylist->data->id == 1)
+					{
+						awchanim1 = true;
+						timmy->takedmgAnim.Reset();
+					}
+					if (entitylist->data->id == 2)
+					{
+						awchanim2 = true;
+						bunny->takedmgAnim.Reset();
+					}
 				}
 			
 				entitylist = entitylist->next;
@@ -673,14 +699,19 @@ bool SceneBattle::PostUpdate()
 	
 
 
-
 	
 	if (characterTurn->id == 1) {
-		bunny->currentAnimation = &bunny->idleAnim;
-		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
-		SDL_Rect recti = villager->currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &recti);
+		
+		if (awchanim2 == false) {
+			bunny->currentAnimation = &bunny->idleAnim;
+			SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
+		}
+		if (awchanim3 == false) {
+			villager->currentAnimation = &villager->idleAnim;
+			SDL_Rect recti = villager->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &recti);
+		}
 		if (moveanim == false) {
 			timmy->currentAnimation = &timmy->idleAnim;
 			SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
@@ -813,7 +844,33 @@ bool SceneBattle::PostUpdate()
 			}
 		}
 	}
-	
+	if (awchanim1 == true) {
+		timmy->currentAnimation = &timmy->takedmgAnim;
+		SDL_Rect recti = timmy->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recti);
+		timmy->currentAnimation->Update();
+		if (timmy->currentAnimation->HasFinished() == true) {
+			awchanim1 = false;
+		}
+	}
+	if (awchanim2 == true) {
+		bunny->currentAnimation = &bunny->takedmgAnim;
+		SDL_Rect recti = bunny->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recti);
+		bunny->currentAnimation->Update();
+		if (bunny->currentAnimation->HasFinished() == true) {
+			awchanim2 = false;
+		}
+	}
+	if (awchanim3 == true) {
+		villager->currentAnimation = &villager->takedmgAnim;
+		SDL_Rect recti = villager->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &recti);
+		villager->currentAnimation->Update();
+		if (villager->currentAnimation->HasFinished() == true) {
+			awchanim3 = false;
+		}
+	}
 	return ret;
 }
 

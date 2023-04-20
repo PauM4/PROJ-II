@@ -58,7 +58,7 @@ public:
 	Animation walkRightAnim;
 	Animation walkLeftAnim;
 	Animation idleAnim;
-
+	Animation takedmgAnim;
 private:
 
 	//Action Nodes
