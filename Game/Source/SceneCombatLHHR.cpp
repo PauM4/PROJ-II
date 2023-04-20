@@ -711,8 +711,6 @@ bool SceneCombatLHHR::PostUpdate()
 
 			moveanim = true;
 			
-
-
 					if (moveenemy == true) {
 						
 							iPoint pos = iPoint(LRRH->tilePos.x - 3, LRRH->tilePos.y);
