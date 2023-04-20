@@ -123,12 +123,13 @@ bool SceneCombatLHHR::Start()
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	LRRH->tilePos = app->map->WorldToMap(LRRH->position.x - app->render->camera.x, LRRH->position.y - app->render->camera.y);
-
+	sprout->tilePos = app->map->WorldToMap(sprout->position.x - app->render->camera.x, sprout->position.y - app->render->camera.y);
 
 	allentities.Add(timmy);
 	allentities.Add(bunny);
 	allentities.Add(LRRH);
 	GetTurns();
+
 
 
 	// Tell to UIModule which currentMenuType
@@ -301,10 +302,8 @@ bool SceneCombatLHHR::PostUpdate()
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	LRRH->tilePos = app->map->WorldToMap(LRRH->position.x - app->render->camera.x, LRRH->position.y - app->render->camera.y);
-
-	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
-	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
-	LRRH->tilePos= app->map->WorldToMap(LRRH->position.x - app->render->camera.x, LRRH->position.y - app->render->camera.y);
+	sprout->tilePos = app->map->WorldToMap(sprout->position.x - app->render->camera.x, sprout->position.y - app->render->camera.y);
+	
 
 	LRRH->speed;
 	if (timmy->health <= 0) {
@@ -642,21 +641,18 @@ bool SceneCombatLHHR::PostUpdate()
 
 		}*/
 
-		if (LRRH->stamina >= 5) {
+		if (characterTurn->stamina >= 5 && length==1) {
 			ListItem<Entity*>* entitylist;
 			entitylist = targets.start;
 
 			while (entitylist != NULL && moveenemy == true) {
 
-
-
-
 				/*Combat(characterTurn, targets, 1);*/
 
 				if (entitylist->data->isAlive == true) {
-					entitylist->data->health = entitylist->data->health - (LRRH->attack - entitylist->data->defense);
+					entitylist->data->health = entitylist->data->health - (characterTurn->attack - entitylist->data->defense);
 					targets.Clear();
-					LRRH->UseStamina(5);
+					characterTurn->UseStamina(5);
 					turnstart = false;
 					atack = false;
 					moveenemy = false;
@@ -670,7 +666,7 @@ bool SceneCombatLHHR::PostUpdate()
 		}
 
 
-		if (moveenemy == true && LRRH->stamina >= 3) {
+		if (moveenemy == true && characterTurn->stamina >= 3) {
 
 			moveanim = true;
 			move = true;
@@ -707,13 +703,13 @@ bool SceneCombatLHHR::PostUpdate()
 
 			}
 		} 
-		if(moveenemy == true && LRRH->stamina >= 3) {
+		if(moveenemy == true && characterTurn->stamina >= 3) {
 
 			moveanim = true;
 			
 					if (moveenemy == true) {
 						
-							iPoint pos = iPoint(LRRH->tilePos.x - 3, LRRH->tilePos.y);
+							iPoint pos = iPoint(characterTurn->tilePos.x - 3, characterTurn->tilePos.y);
 							
 							if (app->pathfinding->IsWalkable(pos)) {
 								
@@ -737,7 +733,7 @@ bool SceneCombatLHHR::PostUpdate()
 		}
 		else if (moveenemy == true) {
 
-			LRRH->GainStamina(10);
+			characterTurn->GainStamina(10);
 			moveenemy = false;
 		 }
 
@@ -750,6 +746,12 @@ bool SceneCombatLHHR::PostUpdate()
 	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].characterType = LRRH;
 
 	app->render->DrawRectangle({ int(LRRH->position.x) + 35, int(LRRH->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
+
+
+	combatMap[sprout->tilePos.x][sprout->tilePos.y].enemy = true;
+	combatMap[sprout->tilePos.x][sprout->tilePos.y].characterType = LRRH;
+
+	app->render->DrawRectangle({ int(sprout->position.x) + 35, int(sprout->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 
 	if (bunny->isAlive == true) {
 		combatMap[bunny->tilePos.x][bunny->tilePos.y].dead = false;
@@ -930,10 +932,7 @@ bool SceneCombatLHHR::PostUpdate()
 	if ((win || lose) && app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
 
 
-	if (characterTurn->isAlive == false) {
-		turnstart = false;
 
-	}
 	
 	return ret;
 }
@@ -1165,6 +1164,8 @@ bool SceneCombatLHHR::GetTurns() {
 
 	}
 
+	turnqueue.Add(sprout);
+
 
 	return true;
 }
@@ -1175,7 +1176,8 @@ bool SceneCombatLHHR::GetNext() {
 	temp = turnqueue.At(0)->data;
 	turnqueue.At(0)->data = turnqueue.At(1)->data;
 	turnqueue.At(1)->data = turnqueue.At(2)->data;
-	turnqueue.At(2)->data = temp;
+	turnqueue.At(2)->data = turnqueue.At(3)->data;
+	turnqueue.At(3)->data = temp;
 	characterTurn = turnqueue.At(0)->data;
 	return true;
 

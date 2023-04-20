@@ -55,7 +55,7 @@
 		<timmy x= "360" y="480" movement= "3"/>
 		<bunny x= "360" y="360" movement= "2"/>
 		<lrrh x="1320" y="480" movement ="5"/>
-		<sprout x="1320" y="600" movement ="6"/>
+		<sprout x="1320" y="360" movement ="6"/>
 		
 	</scenecombatLHHR>
 	

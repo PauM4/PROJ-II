@@ -31,6 +31,7 @@ Enemy_CorruptedSprout::Enemy_CorruptedSprout() : Entity(EntityType::CORRUPTEDSPR
 	//Behavior Tree Node
 	behaviorTree = std::make_unique<BehaviorTree>(inRangeChecker);
 	behaviorTree->SetDebugEnabled(true);
+	isAlive = true;
 
 }
 
@@ -59,7 +60,7 @@ bool Enemy_CorruptedSprout::Awake()
 	Ab2Power = stats.attribute("Ab2Power").as_int();
 	healingpower = stats.attribute("healingpower").as_int();
 	movement = stats.attribute("movement").as_int();
-
+	isEnemy = true;
 	return true;
 }
 
