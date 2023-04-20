@@ -123,6 +123,7 @@ bool SceneBattle::Start()
 	app->uiModule->currentMenuType = COMBAT;
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 	origin = characterTurn->tilePos;
 
 	targets.Clear();
@@ -146,6 +147,8 @@ bool SceneBattle::PreUpdate()
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
+
+	
 
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->pads[0].start)
@@ -263,8 +266,10 @@ bool SceneBattle::PostUpdate()
 	if (turnstart == false ) {
 		
 		
+		
 		moveenemy = false;
 		GetNext();
+		
 		origin = characterTurn->tilePos;
 		if (characterTurn->isEnemy == true) {
 
@@ -420,7 +425,7 @@ bool SceneBattle::PostUpdate()
 
 	if (length > 1) {
 
-		Move(characterTurn, pathIndex, length);
+		Move( pathIndex, length);
 	}
 	else
 	{
@@ -553,7 +558,7 @@ bool SceneBattle::PostUpdate()
 	}
 
 	if (moveenemy == true) {
-		if (characterTurn->stamina >= 3) {
+		if (characterTurn->stamina >= 5) {
 			ListItem<Entity*>* entitylist;
 			entitylist = targets.start;
 			if (entitylist != NULL) {
@@ -578,7 +583,7 @@ bool SceneBattle::PostUpdate()
 		}
 		
 
-		if (moveenemy == true && characterTurn->stamina>=5) {
+		if (moveenemy == true && characterTurn->stamina>=3) {
 
 			move = true;
 			for (int i = 0; i < 16; i++) {
@@ -599,6 +604,7 @@ bool SceneBattle::PostUpdate()
 										destination.y = pos.y;
 										originSelected = false;
 										moveenemy = false;
+										characterTurn->UseStamina(3);
 										i = area.Count();
 
 									}
@@ -805,7 +811,7 @@ bool SceneBattle::MoveEnemy() {
 	return true;
 
 }
-bool SceneBattle::Move(Entity * character, int pathindex,int length) {
+bool SceneBattle::Move( int pathindex,int length) {
 
 	iPoint dist;
 	fPoint pixelPosition;
@@ -824,9 +830,9 @@ bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 	LOG(" NextposX: %d", nextpos.x);
 	LOG(" NextposY: %d", nextpos.y);
 
-	dist.x = pixelPosition.x - character->position.x;
+	dist.x = pixelPosition.x - characterTurn->position.x;
 	LOG(" disX: %d", dist.x);
-	dist.y = pixelPosition.y - character->position.y;
+	dist.y = pixelPosition.y - characterTurn->position.y;
 	LOG(" disY: %d", dist.y);
 
 
@@ -853,8 +859,8 @@ bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 
 	}
 
-	character->position.x = character->position.x + vel.x;
-	character->position.y = character->position.y + vel.y;
+	characterTurn->position.x = characterTurn->position.x + vel.x;
+	characterTurn->position.y = characterTurn->position.y + vel.y;
 
 	return true;
 }
@@ -1177,6 +1183,7 @@ bool SceneBattle::CleanUp()
 	LOG("Freeing sceneBattle");
 	allentities.Clear();
 	area.Clear();
+	turnqueue.Clear();
 	targets.Clear();
 	
 	app->map->CleanUp();
