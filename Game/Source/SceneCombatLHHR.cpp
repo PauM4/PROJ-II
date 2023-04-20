@@ -88,6 +88,7 @@ bool SceneCombatLHHR::Start()
 	 endturnpressed = false;
 	 moveenemy = false;
 	app->entityManager->Start(); 
+	godmode = false;
 
 	win = false;
 	lose = false;
@@ -220,10 +221,10 @@ bool SceneCombatLHHR::Update(float dt)
 			ability = true;
 			atack = false;
 			move = false;
-			attackpressed = false;
+			abiltypressed = false;
 		}
 
-		attackpressed = false;
+		abiltypressed = false;
 	}
 
 	if (endturnpressed == true) {
@@ -297,6 +298,21 @@ bool SceneCombatLHHR::PostUpdate()
 	app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
+	// Villager stats:
+	uint sproutStamina = sprout->stamina;
+	std::string sproutStaminaString = std::to_string(sproutStamina);
+	const char* sproutStaminaChar = sproutStaminaString.c_str();
+
+	uint sproutHP = sprout->health;
+	std::string sproutHPString = std::to_string(sproutHP);
+	const char* sproutHpChar = sproutHPString.c_str();
+
+	app->fonts->DrawText("--- Sprout ---", 1690, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- HP: ", 1690, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(sproutHpChar, 1810, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- Stamina: ", 1690, 360, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(sproutHpChar, 1810, 360, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
 	// End of Stats UI
 
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
@@ -305,7 +321,27 @@ bool SceneCombatLHHR::PostUpdate()
 	sprout->tilePos = app->map->WorldToMap(sprout->position.x - app->render->camera.x, sprout->position.y - app->render->camera.y);
 	
 
-	LRRH->speed;
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godmode)
+		{
+			godmode = false;
+		}
+		else
+		{
+			godmode = true;
+		}
+	}
+
+	if (godmode == true) {
+
+		bunny->health = bunny->maxHealth;
+		timmy->health = timmy->maxHealth;
+		bunny->stamina = bunny->maxStamina;
+		timmy->stamina = timmy->maxStamina;
+	}
+
+	
 	if (timmy->health <= 0) {
 
 		timmy->isAlive = false;
@@ -323,9 +359,29 @@ bool SceneCombatLHHR::PostUpdate()
 		LRRH->isAlive = false;
 
 	}
+	if (sprout->health <= 0) {
+
+		sprout->health = 0;
+		sprout->isAlive = false;
+
+	}
 
 	//if (LRRH->health <= 0 && timmy->health <= 0) win = true;
 	if (bunny->health <= 0 && timmy->health <= 0) lose = true;
+
+	if (LRRH->health <= 0 ) {
+
+		LRRH->health = 0;
+		LRRH->isAlive = false;
+		LRRH->takedmgAnim.Reset();
+
+		sprout->health = 0;
+		sprout->isAlive = false;
+		sprout->takedmgAnim.Reset();
+
+		win = true;
+
+	}
 
 	if (characterTurn->isAlive == false) {
 		turnstart = false;
@@ -351,6 +407,7 @@ bool SceneCombatLHHR::PostUpdate()
 			GetTargets();
 			moveenemy = true;
 		}
+		
 		ability = false;
 		turnstart = true;
 		moveanim = false;
@@ -749,7 +806,7 @@ bool SceneCombatLHHR::PostUpdate()
 
 
 	combatMap[sprout->tilePos.x][sprout->tilePos.y].enemy = true;
-	combatMap[sprout->tilePos.x][sprout->tilePos.y].characterType = LRRH;
+	combatMap[sprout->tilePos.x][sprout->tilePos.y].characterType = sprout;
 
 	app->render->DrawRectangle({ int(sprout->position.x) + 35, int(sprout->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 

@@ -79,6 +79,7 @@ bool SceneBattle::Start()
 	attackpressed = false;
 	abiltypressed = false;
 	endturnpressed = false;
+	godmode = false;
 	moveenemy = false;
 	awchanim1 = false;
 	awchanim2 = false;
@@ -218,10 +219,10 @@ bool SceneBattle::Update(float dt)
 			ability = true;
 			atack = false;
 			move = false;
-			attackpressed = false;
+			abiltypressed = false;
 		}
 		
-		attackpressed = false;
+		abiltypressed = false;
 	}
 
 	if (endturnpressed == true) {
@@ -300,6 +301,26 @@ bool SceneBattle::PostUpdate()
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
+
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godmode)
+		{
+			godmode = false;
+		}
+		else
+		{
+			godmode = true;
+		}
+	}
+
+	if (godmode == true) {
+
+		bunny->health = bunny->maxHealth;
+		timmy->health = timmy->maxHealth;
+		bunny->stamina = bunny->maxStamina;
+		timmy->stamina = timmy->maxStamina;
+	}
 
 	if (timmy->health <= 0) {
 

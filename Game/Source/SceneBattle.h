@@ -106,7 +106,7 @@ public:
 	bool attackpressed;
 	bool abiltypressed;
 	bool endturnpressed;
-
+	bool godmode;
 	bool win, lose;
 
 private:

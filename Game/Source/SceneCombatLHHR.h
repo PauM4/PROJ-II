@@ -155,6 +155,7 @@ private:;
 	bool ability;
 	bool turnstart;
 	bool moveanim;
+	bool godmode;
 
 	uint value;
 
