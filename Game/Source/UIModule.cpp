@@ -158,6 +158,11 @@ bool UIModule::PostUpdate()
 			}
 		}
 	}
+
+	if (app->sceneManager->currentScene == app->sceneBattle)
+	{
+		app->fonts->DrawText("STAMINA: ", 200, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	}
 	
 
 	return ret;
