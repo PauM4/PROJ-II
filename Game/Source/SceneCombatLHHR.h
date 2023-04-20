@@ -110,6 +110,8 @@ public:
 	bool abiltypressed;
 	bool endturnpressed;
 
+	bool win, lose;
+
 private:;
 
 	SString mapName;
@@ -123,13 +125,14 @@ private:;
 	List<Entity*> targets;
 	List<TileData*> arealist;
 
-	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
 	SDL_Texture* originTex = nullptr;
 	SDL_Texture* timmytexture = nullptr;
 	SDL_Texture* bunnytexture = nullptr;
 	SDL_Texture* LRRHtexture = nullptr;
 
+	SDL_Texture* winScreen = nullptr;
+	SDL_Texture* loseScreen = nullptr;
 
 	iPoint origin;
 	bool originSelected = false;

@@ -81,6 +81,10 @@ bool SceneCombatLHHR::Start()
 	 endturnpressed = false;
 	 moveenemy = false;
 	app->entityManager->Start(); 
+
+	win = false;
+	lose = false;
+
 	//Load combat map
 
 
@@ -107,7 +111,8 @@ bool SceneCombatLHHR::Start()
 	LRRHtexture = app->tex->Load("Assets/Characters/F_sprites_angry_LRRH.png");
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
-	
+	winScreen = app->tex->Load("Assets/UI/Win_screen.png");
+	loseScreen = app->tex->Load("Assets/UI/lose_screen.png");
 	
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
@@ -257,6 +262,9 @@ bool SceneCombatLHHR::PostUpdate()
 		LRRH->isAlive = false;
 
 	}
+
+	//if (LRRH->health <= 0 && timmy->health <= 0) win = true;
+	if (bunny->health <= 0 && timmy->health <= 0) lose = true;
 
 	if (characterTurn->isAlive == false) {
 		turnstart = false;
@@ -821,6 +829,23 @@ bool SceneCombatLHHR::PostUpdate()
 			}
 		}
 	}
+
+	//Print win/lose screen
+	if (win) {
+		app->render->DrawTexture(winScreen, 0, 0);
+
+	}
+	if (lose) {
+		app->render->DrawTexture(loseScreen, 0, 0);
+	}
+
+	if ((win || lose) && app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
+
+
+	if (characterTurn->isAlive == false) {
+		turnstart = false;
+
+	}
 	
 	return ret;
 }
@@ -1250,5 +1275,16 @@ bool SceneCombatLHHR::CleanUp()
 	app->pathfinding->ClearLastPath();
 	app->map->CleanUp();
 	app->entityManager->CleanUp();
+
+	//Unload textures
+	app->tex->UnLoad(mouseTileTex);
+	app->tex->UnLoad(originTex);
+	app->tex->UnLoad(timmytexture);
+	app->tex->UnLoad(bunnytexture);
+	app->tex->UnLoad(LRRHtexture);
+
+	app->tex->UnLoad(winScreen);
+	app->tex->UnLoad(loseScreen);
+
 	return true;
 }
