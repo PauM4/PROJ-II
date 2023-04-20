@@ -34,7 +34,7 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
-	
+	app->physics->Enable(); 
 	//This reads some parameters from xml
 	if (config.child("timmy")) {
 		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
@@ -1149,5 +1149,6 @@ bool SceneCombatLHHR::CleanUp()
 	targets.Clear();
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
+	app->physics->Disable(); 
 	return true;
 }
