@@ -194,7 +194,7 @@ public:
 
 	//Character Stats
 	uint level;
-	uint health;
+	int health;
 	uint maxHealth;
 	uint defense;
 	uint magic;

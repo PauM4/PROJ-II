@@ -208,9 +208,10 @@ bool SceneBattle::Update(float dt)
 			ability = true;
 			atack = false;
 			move = false;
+			attackpressed = false;
 		}
+		
 		attackpressed = false;
-
 	}
 
 	if (endturnpressed == true) {
@@ -253,6 +254,7 @@ bool SceneBattle::PostUpdate()
 	}
 	if (villager->health <= 0) {
 
+		villager->health = 0;
 		villager->isAlive = false;
 
 	}
@@ -280,7 +282,7 @@ bool SceneBattle::PostUpdate()
 			GetTargets();
 			moveenemy = true;
 		}
-		
+		ability = false;
 		turnstart = true;
 		moveanim = false;
 	}
@@ -1231,7 +1233,7 @@ bool SceneBattle::CleanUp()
 	area.Clear();
 	turnqueue.Clear();
 	targets.Clear();
-	
+	app->pathfinding->CleanUp();
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
 	return true;
