@@ -240,6 +240,61 @@ bool SceneCombatLHHR::PostUpdate()
 {
 	bool ret = true;
 
+	// UI Stats for Battle
+	// UI Stats for Battle
+	// Timmy stats:
+	uint timmyStamina = timmy->stamina;
+	std::string timmyStaminaString = std::to_string(timmyStamina);
+	const char* timmyStaminaChar = timmyStaminaString.c_str();
+
+	uint timmyHP = timmy->health;
+	std::string timmyHPString = std::to_string(timmyHP);
+	const char* timmyHpChar = timmyHPString.c_str();
+
+	app->fonts->DrawText("--- TIMMY ---", 80, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- HP: ", 80, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(timmyHpChar, 200, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- Stamina: ", 80, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(timmyStaminaChar, 200, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	// Bunny stats:
+	uint bunnyStamina = bunny->stamina;
+	std::string bunnyStaminaString = std::to_string(bunnyStamina);
+	const char* bunnyStaminaChar = bunnyStaminaString.c_str();
+
+	uint bunnyHP = bunny->health;
+	std::string bunnyHPString = std::to_string(bunnyHP);
+	const char* bunnyHpChar = bunnyHPString.c_str();
+
+	app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(bunnyHpChar, 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(bunnyStaminaChar, 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	// Villager stats:
+	uint villagerStamina = LRRH->stamina;
+	std::string villagerStaminaString = std::to_string(villagerStamina);
+	const char* villagerStaminaChar = villagerStaminaString.c_str();
+
+	uint villagerHP = LRRH->health;
+	std::string villagerHPString = std::to_string(villagerHP);
+	const char* villagerHpChar = villagerHPString.c_str();
+
+	int w_window = app->win->width;
+
+	app->fonts->DrawText("--- LRRH ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	// End of Stats UI
+
+	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
+	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
+	LRRH->tilePos = app->map->WorldToMap(LRRH->position.x - app->render->camera.x, LRRH->position.y - app->render->camera.y);
+
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
 	LRRH->tilePos= app->map->WorldToMap(LRRH->position.x - app->render->camera.x, LRRH->position.y - app->render->camera.y);
@@ -275,7 +330,7 @@ bool SceneCombatLHHR::PostUpdate()
 
 	if (turnstart == false) {
 
-
+		app->pathfinding->ClearLastPath();
 
 		moveenemy = false;
 		GetNext();
@@ -661,7 +716,7 @@ bool SceneCombatLHHR::PostUpdate()
 	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].enemy = true;
 	combatMap[LRRH->tilePos.x][LRRH->tilePos.y].characterType = LRRH;
 
-	
+	app->render->DrawRectangle({ int(LRRH->position.x) + 35, int(LRRH->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 
 	if (bunny->isAlive == true) {
 		combatMap[bunny->tilePos.x][bunny->tilePos.y].dead = false;
@@ -1169,7 +1224,32 @@ bool SceneCombatLHHR::CreateArea(int range, int type, iPoint posTile) {
 			}
 		}
 		break;
+	case 4:
+		//LRRH attack area
+
+		for (int i = -1; i < 2; i++) {
+
+			for (int j = 0; j < 8; i++) {
+				if (combatMap[posTile.x + j][posTile.y+i].type == TILE_TYPEE::FLOOR) {
+					area.Add(&combatMap[posTile.x + i][posTile.y]);
+				}
+				if (combatMap[posTile.x - j][posTile.y].type == TILE_TYPEE::FLOOR) {
+					area.Add(&combatMap[posTile.x - i][posTile.y]);
+				}
+				if (combatMap[posTile.x][posTile.y + i].type == TILE_TYPEE::FLOOR) {
+					area.Add(&combatMap[posTile.x][posTile.y + i]);
+				}
+				if (combatMap[posTile.x][posTile.y - i].type == TILE_TYPEE::FLOOR) {
+					area.Add(&combatMap[posTile.x][posTile.y - i]);
+				}
+			}
+
+
+
+
+		}
 	}
+
 
 	return true;
 
