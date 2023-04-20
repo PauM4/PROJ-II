@@ -6,7 +6,7 @@ Timmy and the Corrupted Dreamland is a turn-based combat RPG video game, set in 
 
 ## Key Features
 
-  - Tactival turn based combat system
+  - Tactical turn based combat system
   - Enemies respond to the player's actions by following an AI
   - Interaction with NPCs through a dialogue system using a behavior tree
   - Possibility of knowing an alternative history of the classic stories
