@@ -97,9 +97,6 @@ public:
 	
 	void DestroyListArea();
 
-
-
-
 public:
 
 	// UI Things
@@ -155,9 +152,14 @@ private:;
 
 	uint value;
 
+public:
+
 	Timmy* timmy;
 	Bunny* bunny;
 	Enemy_AngryVillager* villager;
+
+private: 
+
 	int xDir;
 	int yDir;
 
