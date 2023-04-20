@@ -202,7 +202,7 @@ bool SceneBattle::Update(float dt)
 		if (characterTurn->stamina >= 10) {
 			targets.Clear();
 			DestroyListArea();
-			CreateArea(characterTurn->AttArea, 2, characterTurn->tilePos);
+			CreateArea(characterTurn->Ab1Area, 2, characterTurn->tilePos);
 			GetTargets();
 			ability = true;
 			atack = false;
@@ -405,6 +405,7 @@ bool SceneBattle::PostUpdate()
 					ability = false;
 					characterTurn->UseStamina(10);
 					turnstart = false;
+					i = targets.Count();
 				}
 			}
 		}
@@ -561,25 +562,28 @@ bool SceneBattle::PostUpdate()
 		if (characterTurn->stamina >= 5) {
 			ListItem<Entity*>* entitylist;
 			entitylist = targets.start;
-			if (entitylist != NULL) {
+
+			while (entitylist != NULL && moveenemy == true) {
 
 
 
 
 				/*Combat(characterTurn, targets, 1);*/
+				
+				if (entitylist->data->isAlive == true) {
+					entitylist->data->health = entitylist->data->health - (characterTurn->attack - entitylist->data->defense);
+					targets.Clear();
+					characterTurn->UseStamina(5);
+					turnstart = false;
+					atack = false;
+					moveenemy = false;
 
-
-				targets.At(0)->data->health = targets.At(0)->data->health - (characterTurn->attack - targets.At(0)->data->defense);
-
-				targets.Clear();
-				characterTurn->UseStamina(5);
-				turnstart = false;
-				atack = false;
-				moveenemy = false;
-
-
+				}
+			
+				entitylist = entitylist->next;
 
 			}
+			
 		}
 		
 
