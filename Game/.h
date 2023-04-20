@@ -1,5 +1,6 @@
-#ifndef __SCENE_BATTLE_H__
-#define __SCENE_BATTLE_H__
+#pragma once
+#ifndef __SCENE_COMBAT_LHHR_H__
+#define __SCENE_COMBAT_LHHR_H__
 
 #include "Module.h"
 #include "Player.h"
@@ -16,13 +17,13 @@ struct SDL_Texture;
 
 enum class TILE_TYPE {
 	UNKNOWN = -1,
-	BARRIER =4,
-	FLOOR=2,
-	HALF_BARRIER=3,
+	BARRIER = 4,
+	FLOOR = 2,
+	HALF_BARRIER = 3,
 	MUD
 };
 
-struct TileDataa
+struct TileData
 {
 	int x;
 	int y;
@@ -33,14 +34,14 @@ struct TileDataa
 	TILE_TYPE type;
 };
 
-class SceneBattle : public Module
+class SceneCombatLHHR : public Module
 {
 public:
 
-	SceneBattle(bool isActive);
+	SceneCombatLHHR(bool isActive);
 
 	// Destructor
-	virtual ~SceneBattle();
+	virtual ~SceneCombatLHHR();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -57,7 +58,7 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
-	bool Move(TileDataa* tile);
+	bool Move(TileData* tile);
 
 	// Called before quitting
 	bool CleanUp();
@@ -77,9 +78,9 @@ public:
 	bool MakeCombatMap();
 
 	// Creates area of an attack or ability, type is 0 if atack, 1 if lineal, 2 if "circular", 3 if global
-	bool CreateArea(int range, int type,iPoint posTile);
+	bool CreateArea(int range, int type, iPoint posTile);
 
-	
+
 
 	// Draws an area of attack/ability/movement from an ally
 	bool DisplayArea(int type);
@@ -94,7 +95,7 @@ public:
 	bool GetTurns();
 
 	bool GetNext();
-	
+
 	void DestroyListArea();
 
 
@@ -102,7 +103,7 @@ public:
 
 public:
 
-	TileDataa combatMap[16][9];
+	TileData combatMap[16][9];
 	bool movepressed;
 	bool attackpressed;
 	bool abiltypressed;
@@ -110,53 +111,53 @@ public:
 
 private:;
 
-	SString mapName;
-	SString mapFolder;
+	   SString mapName;
+	   SString mapFolder;
 
-	TileDataa* selectedtile;
+	   TileData* selectedtile;
 
-	Entity* characterTurn;
-	List<Entity*> turnqueue;
-	List<Entity*> allentities;
-	List<Entity*> targets;
-	List<TileDataa*> arealist;
+	   Entity* characterTurn;
+	   List<Entity*> turnqueue;
+	   List<Entity*> allentities;
+	   List<Entity*> targets;
+	   List<TileData*> arealist;
 
-	SDL_Texture* img;
-	SDL_Texture* mouseTileTex = nullptr;
-	SDL_Texture* originTex = nullptr;
-	SDL_Texture* timmytexture = nullptr;
-	SDL_Texture* bunnytexture = nullptr;
-	SDL_Texture* villagertexture = nullptr;
+	   SDL_Texture* img;
+	   SDL_Texture* mouseTileTex = nullptr;
+	   SDL_Texture* originTex = nullptr;
+	   SDL_Texture* timmytexture = nullptr;
+	   SDL_Texture* bunnytexture = nullptr;
+	   SDL_Texture* villagertexture = nullptr;
 
 
-	iPoint origin;
-	bool originSelected = false;
+	   iPoint origin;
+	   bool originSelected = false;
 
-	DynArray<iPoint> path;
-	iPoint pos;
-	iPoint mouseTile;
-	
-	List<TileDataa*> area;
+	   DynArray<iPoint> path;
+	   iPoint pos;
+	   iPoint mouseTile;
 
-	int  length;
+	   List<TileData*> area;
 
-    iPoint nextpos;
-	int pathIndex;
-	iPoint destination;
-	bool move;
-	bool moveenemy;
-	bool atack;
-	bool ability;
-	bool turnstart;
-	bool moveanim;
+	   int  length;
 
-	uint value;
+	   iPoint nextpos;
+	   int pathIndex;
+	   iPoint destination;
+	   bool move;
+	   bool moveenemy;
+	   bool atack;
+	   bool ability;
+	   bool turnstart;
+	   bool moveanim;
 
-	Timmy* timmy;
-	Bunny* bunny;
-	Enemy_AngryVillager* villager;
-	int xDir;
-	int yDir;
+	   uint value;
+
+	   Timmy* timmy;
+	   Bunny* bunny;
+	   Enemy_AngryVillager* villager;
+	   int xDir;
+	   int yDir;
 
 };
 

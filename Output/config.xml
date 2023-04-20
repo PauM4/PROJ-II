@@ -49,6 +49,13 @@
 		
 	</sceneBattle>
 	
+	<scenecombatLHHR name="Assets/Maps/World_01/grandmas.tmx" path="Assets/Maps/World_01/">
+		<timmy x= "600" y="600" movement= "3"/>
+		<bunny x= "600" y="720" movement= "2"/>
+		<enemy_angryVillager x="1200" y="600" movement="5"/>
+		
+	</scenecombatLHHR>
+	
 	<timmy level="1" health= "20" maxHealth = "20" defense  =  "3" magic  =  "1" stamina  =  "15" maxStamina  =  "15" speed  =  "7" attack  =  "10" AttArea  =  "2" Ab1Type  =  "1" Ab1Area  =  "18" Ab1RangeType  =  "1" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "3"/>
 	<bunny level="1" health= "21" maxHealth = "21" defense  =  "1" magic  =  "7" stamina  =  "15" maxStamina  =  "15" speed  =  "8" attack  =  "8" AttArea  =  "3" Ab1Type  =  "1" Ab1Area  =  "20" Ab1RangeType  =  "1" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "4"/>
     <enemy_angryVillager level="1" health= "40" maxHealth = "40" defense  =  "4" magic  =  "5" stamina  =  "15" maxStamina  =  "15" speed  =  "7" attack  =  "8" AttArea  =  "4" Ab1Type  =  "3" Ab1Area  =  "1" Ab1RangeType  =  "3" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "4"/>

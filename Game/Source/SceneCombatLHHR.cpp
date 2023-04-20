@@ -4,7 +4,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
-#include "SceneBattle.h"
+#include "SceneCombatLHHR.h"
 #include "EntityManager.h"
 #include "Entity.h"
 #include "Map.h"
@@ -17,17 +17,17 @@
 #include "Defs.h"
 #include "Log.h"
 
-SceneBattle::SceneBattle(bool isActive) : Module(isActive)
+SceneCombatLHHR::SceneCombatLHHR(bool isActive) : Module(isActive)
 {
-	name.Create("sceneBattle");
+	name.Create("scenecombatLHHR");
 }
 
 // Destructor
-SceneBattle::~SceneBattle()
+SceneCombatLHHR::~SceneCombatLHHR()
 {}
 
 // Called before render is available
-bool SceneBattle::Awake(pugi::xml_node& config)
+bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
@@ -65,7 +65,7 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 
 
 // Called before the first frame
-bool SceneBattle::Start()
+bool SceneCombatLHHR::Start()
 {
 	//Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
@@ -131,14 +131,14 @@ bool SceneBattle::Start()
 
 
 // Called each loop iteration
-bool SceneBattle::PreUpdate()
+bool SceneCombatLHHR::PreUpdate()
 {
 	bool ret = true;
 	return true;
 }
 
 // Called each loop iteration
-bool SceneBattle::Update(float dt)
+bool SceneCombatLHHR::Update(float dt)
 {
 
 	if (movepressed == true) {
@@ -198,7 +198,7 @@ bool SceneBattle::Update(float dt)
 }
 
 // Called each loop iteration
-bool SceneBattle::PostUpdate()
+bool SceneCombatLHHR::PostUpdate()
 {
 	bool ret = true;
 	
@@ -727,7 +727,7 @@ bool SceneBattle::PostUpdate()
 	return ret;
 }
 
-bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
+bool SceneCombatLHHR::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
@@ -739,7 +739,7 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
-bool SceneBattle::ChekRangeEnemy() {
+bool SceneCombatLHHR::ChekRangeEnemy() {
 	for (int i = 0; i < targets.Count(); i++) {
 
 		for (int i = 0; i < area.Count(); i++) {
@@ -753,7 +753,7 @@ bool SceneBattle::ChekRangeEnemy() {
 	return false;
 }
 
-bool SceneBattle::MoveEnemy() {
+bool SceneCombatLHHR::MoveEnemy() {
 
 
 	for (int i = 0; i < 16; i++) {
@@ -774,7 +774,7 @@ bool SceneBattle::MoveEnemy() {
 	return true;
 
 }
-bool SceneBattle::Move(Entity * character, int pathindex,int length) {
+bool SceneCombatLHHR::Move(Entity * character, int pathindex,int length) {
 
 	iPoint dist;
 	fPoint pixelPosition;
@@ -829,7 +829,7 @@ bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 }
 
 // Loads combat map from Map module using GID tile metadata
-bool SceneBattle::MakeCombatMap() {
+bool SceneCombatLHHR::MakeCombatMap() {
 	
 	bool ret = true;
 
@@ -842,17 +842,17 @@ bool SceneBattle::MakeCombatMap() {
 			combatMap[i][j].enemy = false;
 			combatMap[i][j].characterType = nullptr;
 			combatMap[i][j].inRange = false;
-			combatMap[i][j].type = (TILE_TYPE)app->map->metadataLayer[i][j];
+			combatMap[i][j].type = (TILE_TYPEE)app->map->metadataLayer[i][j];
 		}
 	}
 
 	return ret;
 }
 
-bool SceneBattle:: GetTargets(){
+bool SceneCombatLHHR:: GetTargets(){
 
 
-	ListItem<TileDataa*>* tileListItem;
+	ListItem<TileData*>* tileListItem;
 	tileListItem = area.start;
 
 
@@ -882,7 +882,7 @@ bool SceneBattle:: GetTargets(){
 	return true;
 }
 
-bool SceneBattle::DisplayEnemys() {
+bool SceneCombatLHHR::DisplayEnemys() {
 
 
 
@@ -901,7 +901,7 @@ bool SceneBattle::DisplayEnemys() {
 	return true;
 }
 
-bool SceneBattle::GetTurns() {
+bool SceneCombatLHHR::GetTurns() {
 	if (allentities.At(0)->data->speed >= allentities.At(1)->data->speed && allentities.At(0)->data->speed >= allentities.At(2)->data->speed)
 	{
 		characterTurn = allentities.At(0)->data;
@@ -957,7 +957,7 @@ bool SceneBattle::GetTurns() {
 	return true;
 }
 
-bool SceneBattle::GetNext() {
+bool SceneCombatLHHR::GetNext() {
 
 	Entity* temp;
 	temp = turnqueue.At(0)->data;
@@ -968,7 +968,7 @@ bool SceneBattle::GetNext() {
 	return true;
 
 }
-bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
+bool SceneCombatLHHR::CreateArea(int range, int type, iPoint posTile) {
 
 	
 	
@@ -977,33 +977,33 @@ bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
 
 	case 0:
 		//attack
-		if (combatMap[posTile.x + 1][posTile.y].type == TILE_TYPE::FLOOR) {
+		if (combatMap[posTile.x + 1][posTile.y].type == TILE_TYPEE::FLOOR) {
 			
 			area.Add(&combatMap[posTile.x + 1][posTile.y]);
 		}
-		if (combatMap[posTile.x - 1][posTile.y].type == TILE_TYPE::FLOOR) {
+		if (combatMap[posTile.x - 1][posTile.y].type == TILE_TYPEE::FLOOR) {
 			area.Add(&combatMap[posTile.x - 1][posTile.y]);
 		}
-		if (combatMap[posTile.x][posTile.y + 1].type == TILE_TYPE::FLOOR) {
+		if (combatMap[posTile.x][posTile.y + 1].type == TILE_TYPEE::FLOOR) {
 			area.Add(&combatMap[posTile.x][posTile.y + 1]);
 		}
-		if (combatMap[posTile.x][posTile.y-1].type == TILE_TYPE::FLOOR) {
+		if (combatMap[posTile.x][posTile.y-1].type == TILE_TYPEE::FLOOR) {
 			area.Add(&combatMap[posTile.x][posTile.y - 1]);
 		}
 		break;
 	case 1:
 		//lineal
 		for (int i = 1; i <= range; i++) {
-			if (combatMap[posTile.x + i][posTile.y].type == TILE_TYPE::FLOOR) {
+			if (combatMap[posTile.x + i][posTile.y].type == TILE_TYPEE::FLOOR) {
 				area.Add(&combatMap[posTile.x + i][posTile.y]);
 			}
-			if (combatMap[posTile.x - i][posTile.y].type == TILE_TYPE::FLOOR) {
+			if (combatMap[posTile.x - i][posTile.y].type == TILE_TYPEE::FLOOR) {
 				area.Add(&combatMap[posTile.x - i][posTile.y]);
 			}
-			if (combatMap[posTile.x][posTile.y + i].type == TILE_TYPE::FLOOR) {
+			if (combatMap[posTile.x][posTile.y + i].type == TILE_TYPEE::FLOOR) {
 				area.Add(&combatMap[posTile.x][posTile.y + i]);
 			}
-			if (combatMap[posTile.x][posTile.y - i].type == TILE_TYPE::FLOOR) {
+			if (combatMap[posTile.x][posTile.y - i].type == TILE_TYPEE::FLOOR) {
 				area.Add(&combatMap[posTile.x][posTile.y - i]);
 			}
 		}
@@ -1014,16 +1014,16 @@ bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
 		int j;
 		for (i = 0; i <=range; i++) {
 			for (j = 0; j <= range - i; j++) {
-				if (combatMap[posTile.x+j][posTile.y +i].type == TILE_TYPE::FLOOR) {
+				if (combatMap[posTile.x+j][posTile.y +i].type == TILE_TYPEE::FLOOR) {
 					area.Add(&combatMap[posTile.x + j][posTile.y + i]);
 				}
-				if (combatMap[posTile.x - j][posTile.y + i].type == TILE_TYPE::FLOOR) {
+				if (combatMap[posTile.x - j][posTile.y + i].type == TILE_TYPEE::FLOOR) {
 					area.Add(&combatMap[posTile.x - j][posTile.y + i]);
 				}
-				if (combatMap[posTile.x - j][posTile.y - i].type == TILE_TYPE::FLOOR) {
+				if (combatMap[posTile.x - j][posTile.y - i].type == TILE_TYPEE::FLOOR) {
 					area.Add(&combatMap[posTile.x - j][posTile.y - i]);
 				}
-				if (combatMap[posTile.x + j][posTile.y - i].type == TILE_TYPE::FLOOR) {
+				if (combatMap[posTile.x + j][posTile.y - i].type == TILE_TYPEE::FLOOR) {
 					area.Add(&combatMap[posTile.x + j][posTile.y - i]);
 				}
 			}
@@ -1036,7 +1036,7 @@ bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
 		for (int i = 0; i < COMBAT_MAP_HEIGHT; i++) {
 			for (int j = 0; j < COMBAT_MAP_WIDTH; j++) {
 				iPoint pos= iPoint(i,j);
-				if (combatMap[j][i].type == TILE_TYPE::FLOOR) {
+				if (combatMap[j][i].type == TILE_TYPEE::FLOOR) {
 				
 					area.Add(&combatMap[j][i]);
 
@@ -1051,11 +1051,11 @@ bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
 
 }
 
-bool SceneBattle::DisplayArea(int type) {
+bool SceneCombatLHHR::DisplayArea(int type) {
 
 	bool ret = true;
 
-	ListItem<TileDataa*>*tileListItem;
+	ListItem<TileData*>*tileListItem;
 	tileListItem = area.start;
 
 	uint color[3];
@@ -1094,7 +1094,7 @@ bool SceneBattle::DisplayArea(int type) {
 }
 
 // Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
-bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
+bool SceneCombatLHHR::Combat(Entity* inturn, List<Entity*> target, int id) {
 	
 	bool ret = true;
 
@@ -1128,9 +1128,9 @@ bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
 	}
 	return ret;
 }
-void SceneBattle::DestroyListArea()
+void SceneCombatLHHR::DestroyListArea()
 {
-	//ListItem<TileDataa*>* item;
+	//ListItem<TileData*>* item;
 	//int i = 0;
 	//for (item = area.start; item != NULL; item = item->next)
 	//{
@@ -1141,9 +1141,9 @@ void SceneBattle::DestroyListArea()
 	area.Clear();
 }
 //Called before quitting
-bool SceneBattle::CleanUp()
+bool SceneCombatLHHR::CleanUp()
 {
-	LOG("Freeing sceneBattle");
+	LOG("Freeing SceneCombatLHHR");
 	allentities.Clear();
 	area.Clear();
 	targets.Clear();

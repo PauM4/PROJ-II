@@ -67,6 +67,7 @@
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneGrandma.cpp" />
+    <ClCompile Include="Source\SceneCombatLHHR.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -170,6 +171,7 @@
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneGrandma.h" />
+    <ClInclude Include="Source\SceneCombatLHHR.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

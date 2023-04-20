@@ -4,7 +4,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
-#include "SceneBattle.h"
+#include "SceneCOmbatLHHR.h"
 #include "EntityManager.h"
 #include "Entity.h"
 #include "Map.h"
@@ -17,24 +17,24 @@
 #include "Defs.h"
 #include "Log.h"
 
-SceneBattle::SceneBattle(bool isActive) : Module(isActive)
+SceneCombatLHHR::SceneCombatLHHR(bool isActive) : Module(isActive)
 {
-	name.Create("sceneBattle");
+	name.Create("scenecombatLHHR");
 }
 
 // Destructor
-SceneBattle::~SceneBattle()
+SceneCombatLHHR::~SceneCombatLHHR()
 {}
 
 // Called before render is available
-bool SceneBattle::Awake(pugi::xml_node& config)
+bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
 
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
-	
+
 	//This reads some parameters from xml
 	if (config.child("timmy")) {
 		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
@@ -59,28 +59,28 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 		villager->stats = config.parent().child("enemy_angryVillager");
 	}
 	app->entityManager->Awake(config);
-	
+
 	return ret;
 }
 
 
 // Called before the first frame
-bool SceneBattle::Start()
+bool SceneCombatLHHR::Start()
 {
 	//Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
 	move = false;
 	originSelected = false;
 	pathIndex = 1;
-	length=1;
+	length = 1;
 	turnstart = true;
 	destination = iPoint(0, 0);
-	 movepressed = false;
-	 attackpressed = false;
-	 abiltypressed = false;
-	 endturnpressed = false;
-	 moveenemy = false;
-	app->entityManager->Start(); 
+	movepressed = false;
+	attackpressed = false;
+	abiltypressed = false;
+	endturnpressed = false;
+	moveenemy = false;
+	app->entityManager->Start();
 	//Load combat map
 	/*MakeCombatMap();*/
 
@@ -131,14 +131,14 @@ bool SceneBattle::Start()
 
 
 // Called each loop iteration
-bool SceneBattle::PreUpdate()
+bool SceneCombatLHHR::PreUpdate()
 {
 	bool ret = true;
 	return true;
 }
 
 // Called each loop iteration
-bool SceneBattle::Update(float dt)
+bool SceneCombatLHHR::Update(float dt)
 {
 
 	if (movepressed == true) {
@@ -182,7 +182,7 @@ bool SceneBattle::Update(float dt)
 
 	if (endturnpressed == true) {
 
-		
+
 		atack = false;
 		ability = false;
 		move = false;
@@ -198,13 +198,13 @@ bool SceneBattle::Update(float dt)
 }
 
 // Called each loop iteration
-bool SceneBattle::PostUpdate()
+bool SceneCombatLHHR::PostUpdate()
 {
 	bool ret = true;
-	
-	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
+
+	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
-	villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
+	villager->tilePos = app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
 
 	if (timmy->health <= 0) {
@@ -212,11 +212,11 @@ bool SceneBattle::PostUpdate()
 		timmy->isAlive = false;
 
 	}
-	
+
 	if (bunny->health <= 0) {
 
 		bunny->isAlive = false;
-	
+
 	}
 	if (villager->health <= 0) {
 
@@ -231,9 +231,9 @@ bool SceneBattle::PostUpdate()
 
 
 
-	if (turnstart == false ) {
-		
-		
+	if (turnstart == false) {
+
+
 		moveenemy = false;
 		GetNext();
 		origin = characterTurn->tilePos;
@@ -245,37 +245,37 @@ bool SceneBattle::PostUpdate()
 			GetTargets();
 			moveenemy = true;
 		}
-		
+
 		turnstart = true;
 		moveanim = false;
 	}
 
 	if (app->pathfinding->IsWalkable(origin)) {
 		originSelected = true;
-		
+
 
 	}
 
 	app->pathfinding->ClearLastPath();
-	
+
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
 	iPoint mouseTile = iPoint(0, 0);
 
-	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x,mouseY - app->render->camera.y);
+	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x, mouseY - app->render->camera.y);
 	LOG("%d %d", mouseTile.x, mouseTile.y);
 	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
-	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x][mouseTile.y].character!=false && move == false) {
+	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x][mouseTile.y].character != false && move == false) {
 		app->render->DrawRectangle({ highlightedTileWorld.x, highlightedTileWorld.y, 120, 120 }, 0, 143, 57, 100, true);
-		
+
 	}
 
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		
 
-		if (originSelected == true && length == 1 && move == true && moveenemy==false)
+
+		if (originSelected == true && length == 1 && move == true && moveenemy == false)
 		{
 			if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
 				length = app->pathfinding->CreatePath(origin, mouseTile);
@@ -302,32 +302,32 @@ bool SceneBattle::PostUpdate()
 						app->pathfinding->ClearLastPath();
 
 				}*/
-		
+
 	}
 
 
-   const DynArray<iPoint>* lastpath = app->pathfinding->GetLastPath();
+	const DynArray<iPoint>* lastpath = app->pathfinding->GetLastPath();
 	for (uint i = 0; i < lastpath->Count(); ++i)
 	{
 		iPoint pos = app->map->MapToWorld(lastpath->At(i)->x, lastpath->At(i)->y);
 
-		    LOG("posTileY= %d", lastpath->At(i)->y);
-		
-			app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
-		
+		LOG("posTileY= %d", lastpath->At(i)->y);
+
+		app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+
 	}
 
 	// L12: Debug pathfinding
 	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
 	if (app->pathfinding->IsWalkable(origin) && originSelected == true) {
 
-	  app->render->DrawRectangle({ originScreen.x, originScreen.y, 120, 120 }, 250, 0, 0, 100, true);
-	  app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
+		app->render->DrawRectangle({ originScreen.x, originScreen.y, 120, 120 }, 250, 0, 0, 100, true);
+		app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
 
 	}
 
 
-	
+
 
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
@@ -342,7 +342,7 @@ bool SceneBattle::PostUpdate()
 		DisplayEnemys();
 
 		for (int i = 0; i < targets.Count(); i++) {
-			
+
 
 			if (targets.At(i)->data->tilePos == mouseTile) {
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
@@ -385,8 +385,8 @@ bool SceneBattle::PostUpdate()
 		length = 1;
 		pathIndex = 1;
 		app->pathfinding->ClearLastPath();
-		
-		
+
+
 	}
 
 	if (length > 1) {
@@ -396,7 +396,7 @@ bool SceneBattle::PostUpdate()
 	else
 	{
 		if (characterTurn->tilePos == destination) {
-			
+
 			move = false;
 			destination = iPoint(0, 0);
 			turnstart = false;
@@ -406,34 +406,34 @@ bool SceneBattle::PostUpdate()
 
 
 
-	
-	if (move == true || moveenemy==true) {
+
+	if (move == true || moveenemy == true) {
 		int j = 0;
 		int i = 0;
 		iPoint nexTile;
 		iPoint pos;
-		for (i = 0; i < characterTurn->movement; i++ ) {
-			for ( j = 0 ; j < characterTurn->movement-i; j++) {
+		for (i = 0; i < characterTurn->movement; i++) {
+			for (j = 0; j < characterTurn->movement - i; j++) {
 
 				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
-				
+
 				combatMap[nexTile.x][nexTile.y].inRange = true;
 				/*arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
-				  
-				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
-				 combatMap[nexTile.x ][nexTile.y].inRange = true;
+
+				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
+				combatMap[nexTile.x][nexTile.y].inRange = true;
 				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 
-				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
-				 combatMap[nexTile.x][nexTile.y].inRange = true;
+				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
+				combatMap[nexTile.x][nexTile.y].inRange = true;
 				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 
-				 nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
-				 combatMap[nexTile.x][nexTile.y].inRange = true;
+				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
+				combatMap[nexTile.x][nexTile.y].inRange = true;
 				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
-				
+
 			}
-	
+
 		}
 
 		for (i = 0; i < characterTurn->movement; i++) {
@@ -476,7 +476,7 @@ bool SceneBattle::PostUpdate()
 					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
 					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
 					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
-					app->pathfinding->IsWalkable(nexTile)==false) {
+					app->pathfinding->IsWalkable(nexTile) == false) {
 
 					combatMap[nexTile.x][nexTile.y].inRange = false;
 					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
@@ -487,12 +487,12 @@ bool SceneBattle::PostUpdate()
 		}
 
 
-		
-		
+
+
 
 	}
-	
-	if(move==false)
+
+	if (move == false)
 	{
 		for (int i = 0; i < 16; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -501,8 +501,8 @@ bool SceneBattle::PostUpdate()
 				combatMap[i][j].character = false;
 				combatMap[i][j].inRange = false;
 				combatMap[i][j].enemy = false;
-				
-				
+
+
 			}
 		}
 
@@ -511,11 +511,11 @@ bool SceneBattle::PostUpdate()
 
 	for (int i = 0; i < 16; i++) {
 		for (int j = 0; j < 9; j++) {
-			if (combatMap[i][j].inRange==true && combatMap[i][j].character == false && atack==false) {
+			if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
 				iPoint pos = iPoint(i, j);
 				if (app->pathfinding->IsWalkable(pos)) {
 					pos = app->map->MapToWorld(pos.x, pos.y);
-				   app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+					app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
 				}
 			}
 
@@ -547,15 +547,15 @@ bool SceneBattle::PostUpdate()
 
 			}
 		}
-		
 
-		if (moveenemy == true && characterTurn->stamina>=5) {
+
+		if (moveenemy == true && characterTurn->stamina >= 5) {
 
 			move = true;
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 9; j++) {
 
-					if(moveenemy==true){
+					if (moveenemy == true) {
 						if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
 							iPoint pos = iPoint(i, j);
 
@@ -615,17 +615,17 @@ bool SceneBattle::PostUpdate()
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].character = true;
 	combatMap[bunny->tilePos.x][bunny->tilePos.y].characterType = bunny;
 
-	
 
-	
-	combatMap[timmy->tilePos.x][timmy->tilePos.y ].character = true;
+
+
+	combatMap[timmy->tilePos.x][timmy->tilePos.y].character = true;
 	combatMap[timmy->tilePos.x][timmy->tilePos.y].characterType = timmy;
-	
-	
 
 
 
-	
+
+
+
 	if (characterTurn->id == 1) {
 		bunny->currentAnimation = &bunny->idleAnim;
 		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
@@ -711,7 +711,7 @@ bool SceneBattle::PostUpdate()
 		}
 
 	}
-	
+
 	if (characterTurn->id == 3) {
 
 		timmy->currentAnimation = &timmy->idleAnim;
@@ -723,11 +723,11 @@ bool SceneBattle::PostUpdate()
 		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
 
 	}
-	
+
 	return ret;
 }
 
-bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
+bool SceneCombatLHHR::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
@@ -739,7 +739,7 @@ bool SceneBattle::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
-bool SceneBattle::ChekRangeEnemy() {
+bool SceneCombatLHHR::ChekRangeEnemy() {
 	for (int i = 0; i < targets.Count(); i++) {
 
 		for (int i = 0; i < area.Count(); i++) {
@@ -753,12 +753,12 @@ bool SceneBattle::ChekRangeEnemy() {
 	return false;
 }
 
-bool SceneBattle::MoveEnemy() {
+bool SceneCombatLHHR::MoveEnemy() {
 
 
 	for (int i = 0; i < 16; i++) {
 		for (int j = 0; j < 9; j++) {
-			if (combatMap[i][j].character == true ) {
+			if (combatMap[i][j].character == true) {
 				iPoint pos = iPoint(i, j);
 				if (app->pathfinding->IsWalkable(pos)) {
 
@@ -774,7 +774,7 @@ bool SceneBattle::MoveEnemy() {
 	return true;
 
 }
-bool SceneBattle::Move(Entity * character, int pathindex,int length) {
+bool SceneCombatLHHR::Move(Entity* character, int pathindex, int length) {
 
 	iPoint dist;
 	fPoint pixelPosition;
@@ -811,7 +811,7 @@ bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 	}
 	if (dist.x == 0 && dist.y == 0) {
 		pathIndex++;
-		
+
 	}
 	else if (abs(dist.x) > 0) {
 		vel.x = 5 * xDir;
@@ -829,8 +829,8 @@ bool SceneBattle::Move(Entity * character, int pathindex,int length) {
 }
 
 // Loads combat map from Map module using GID tile metadata
-bool SceneBattle::MakeCombatMap() {
-	
+bool SceneCombatLHHR::MakeCombatMap() {
+
 	bool ret = true;
 
 	for (int i = 0; i < 16; i++) {
@@ -849,10 +849,10 @@ bool SceneBattle::MakeCombatMap() {
 	return ret;
 }
 
-bool SceneBattle:: GetTargets(){
+bool SceneCombatLHHR::GetTargets() {
 
 
-	ListItem<TileDataa*>* tileListItem;
+	ListItem<TileData*>* tileListItem;
 	tileListItem = area.start;
 
 
@@ -860,12 +860,12 @@ bool SceneBattle:: GetTargets(){
 
 
 		iPoint pos = iPoint(tileListItem->data->x, tileListItem->data->y);
-		
-		if (combatMap[pos.x][pos.y].enemy == true && characterTurn->isEnemy==false) {
+
+		if (combatMap[pos.x][pos.y].enemy == true && characterTurn->isEnemy == false) {
 
 			targets.Add(combatMap[pos.x][pos.y].characterType);
-			
-			std::cout << "posicion: " << pos.x << "x "<< pos.y <<"y" << std::endl;
+
+			std::cout << "posicion: " << pos.x << "x " << pos.y << "y" << std::endl;
 
 		}
 		else if (combatMap[pos.x][pos.y].character == true && characterTurn->isEnemy == true) {
@@ -882,7 +882,7 @@ bool SceneBattle:: GetTargets(){
 	return true;
 }
 
-bool SceneBattle::DisplayEnemys() {
+bool SceneCombatLHHR::DisplayEnemys() {
 
 
 
@@ -901,7 +901,7 @@ bool SceneBattle::DisplayEnemys() {
 	return true;
 }
 
-bool SceneBattle::GetTurns() {
+bool SceneCombatLHHR::GetTurns() {
 	if (allentities.At(0)->data->speed >= allentities.At(1)->data->speed && allentities.At(0)->data->speed >= allentities.At(2)->data->speed)
 	{
 		characterTurn = allentities.At(0)->data;
@@ -912,7 +912,7 @@ bool SceneBattle::GetTurns() {
 			turnqueue.Add(allentities.At(1)->data);
 			turnqueue.Add(allentities.At(2)->data);
 		}
-		else 
+		else
 		{
 			turnqueue.Add(allentities.At(2)->data);
 			turnqueue.Add(allentities.At(1)->data);
@@ -957,7 +957,7 @@ bool SceneBattle::GetTurns() {
 	return true;
 }
 
-bool SceneBattle::GetNext() {
+bool SceneCombatLHHR::GetNext() {
 
 	Entity* temp;
 	temp = turnqueue.At(0)->data;
@@ -968,17 +968,17 @@ bool SceneBattle::GetNext() {
 	return true;
 
 }
-bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
+bool SceneCombatLHHR::CreateArea(int range, int type, iPoint posTile) {
 
-	
-	
-	
+
+
+
 	switch (type) {
 
 	case 0:
 		//attack
 		if (combatMap[posTile.x + 1][posTile.y].type == TILE_TYPE::FLOOR) {
-			
+
 			area.Add(&combatMap[posTile.x + 1][posTile.y]);
 		}
 		if (combatMap[posTile.x - 1][posTile.y].type == TILE_TYPE::FLOOR) {
@@ -987,7 +987,7 @@ bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
 		if (combatMap[posTile.x][posTile.y + 1].type == TILE_TYPE::FLOOR) {
 			area.Add(&combatMap[posTile.x][posTile.y + 1]);
 		}
-		if (combatMap[posTile.x][posTile.y-1].type == TILE_TYPE::FLOOR) {
+		if (combatMap[posTile.x][posTile.y - 1].type == TILE_TYPE::FLOOR) {
 			area.Add(&combatMap[posTile.x][posTile.y - 1]);
 		}
 		break;
@@ -1012,9 +1012,9 @@ bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
 		//circular
 		int i;
 		int j;
-		for (i = 0; i <=range; i++) {
+		for (i = 0; i <= range; i++) {
 			for (j = 0; j <= range - i; j++) {
-				if (combatMap[posTile.x+j][posTile.y +i].type == TILE_TYPE::FLOOR) {
+				if (combatMap[posTile.x + j][posTile.y + i].type == TILE_TYPE::FLOOR) {
 					area.Add(&combatMap[posTile.x + j][posTile.y + i]);
 				}
 				if (combatMap[posTile.x - j][posTile.y + i].type == TILE_TYPE::FLOOR) {
@@ -1035,13 +1035,13 @@ bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
 		//global
 		for (int i = 0; i < COMBAT_MAP_HEIGHT; i++) {
 			for (int j = 0; j < COMBAT_MAP_WIDTH; j++) {
-				iPoint pos= iPoint(i,j);
+				iPoint pos = iPoint(i, j);
 				if (combatMap[j][i].type == TILE_TYPE::FLOOR) {
-				
+
 					area.Add(&combatMap[j][i]);
 
 				}
-				
+
 			}
 		}
 		break;
@@ -1051,11 +1051,11 @@ bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
 
 }
 
-bool SceneBattle::DisplayArea(int type) {
+bool SceneCombatLHHR::DisplayArea(int type) {
 
 	bool ret = true;
 
-	ListItem<TileDataa*>*tileListItem;
+	ListItem<TileData*>* tileListItem;
 	tileListItem = area.start;
 
 	uint color[3];
@@ -1083,7 +1083,7 @@ bool SceneBattle::DisplayArea(int type) {
 
 	while (tileListItem != NULL) {
 
-		
+
 		iPoint pos = app->map->MapToWorld(tileListItem->data->x, tileListItem->data->y);
 		app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 0, 0, 250, 100);
 
@@ -1094,13 +1094,13 @@ bool SceneBattle::DisplayArea(int type) {
 }
 
 // Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
-bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
-	
+bool SceneCombatLHHR::Combat(Entity* inturn, List<Entity*> target, int id) {
+
 	bool ret = true;
 
 	//id = 1 --> attack
 	if (id == 1) {
-		for (int i = 0;  i < target.Count(); i++) {
+		for (int i = 0; i < target.Count(); i++) {
 			target.At(i)->data->TakeDamage(inturn->Attack());
 		}
 	}
@@ -1128,9 +1128,9 @@ bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
 	}
 	return ret;
 }
-void SceneBattle::DestroyListArea()
+void SceneCombatLHHR::DestroyListArea()
 {
-	//ListItem<TileDataa*>* item;
+	//ListItem<TileData*>* item;
 	//int i = 0;
 	//for (item = area.start; item != NULL; item = item->next)
 	//{
@@ -1141,13 +1141,13 @@ void SceneBattle::DestroyListArea()
 	area.Clear();
 }
 //Called before quitting
-bool SceneBattle::CleanUp()
+bool SceneCombatLHHR::CleanUp()
 {
-	LOG("Freeing sceneBattle");
+	LOG("Freeing SceneCombatLHHR");
 	allentities.Clear();
 	area.Clear();
 	targets.Clear();
 	app->map->CleanUp();
-	app->entityManager->CleanUp(); 
+	app->entityManager->CleanUp();
 	return true;
 }

@@ -7,6 +7,7 @@
 #include "SceneIntro.h"
 #include "SceneMainMenu.h"
 #include "Scene.h"
+#include "SceneCombatLHHR.h"
 #include "SceneBattle.h"
 #include "EntityManager.h"
 #include "Map.h"
@@ -46,6 +47,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	sceneMainMenu = new SceneMainMenu(false);
 	sceneIntro = new SceneIntro(false);
 	scene = new Scene(false);
+	sceneCombatLHHR = new SceneCombatLHHR(false);
 	sceneBattle = new SceneBattle(false);
 	sceneGrandma = new SceneGrandma(false);
 
@@ -71,6 +73,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneIntro);
 	AddModule(sceneMainMenu);
 	AddModule(scene);
+	AddModule(sceneCombatLHHR);
 	AddModule(sceneBattle);
 	AddModule(sceneGrandma);
 

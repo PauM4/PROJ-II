@@ -23,6 +23,7 @@ class Audio;
 class SceneIntro;
 class SceneMainMenu;
 class Scene;
+class SceneCombatLHHR;
 class SceneBattle;
 class SceneGrandma;
 class EntityManager;
@@ -30,7 +31,6 @@ class Map;
 class Fonts;
 class FadeToBlack;
 class SceneManager;
-
 //L07 DONE 2: Add Physics module
 class Physics;
 class PathFinding;
@@ -106,6 +106,7 @@ public:
 	Scene* scene;
 	SceneIntro* sceneIntro;
 	SceneMainMenu* sceneMainMenu;
+	SceneCombatLHHR* sceneCombatLHHR;
 	SceneBattle* sceneBattle;
 	SceneGrandma* sceneGrandma;
 	EntityManager* entityManager;

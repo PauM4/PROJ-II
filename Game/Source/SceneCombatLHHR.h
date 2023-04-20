@@ -1,5 +1,5 @@
-#ifndef __SCENE_BATTLE_H__
-#define __SCENE_BATTLE_H__
+#ifndef __SCENE_COMBAT_LHHR_H__
+#define __SCENE_COMBAT_LHHR_H__
 
 #include "Module.h"
 #include "Player.h"
@@ -14,7 +14,7 @@
 
 struct SDL_Texture;
 
-enum class TILE_TYPE {
+enum class TILE_TYPEE {
 	UNKNOWN = -1,
 	BARRIER =4,
 	FLOOR=2,
@@ -22,7 +22,7 @@ enum class TILE_TYPE {
 	MUD
 };
 
-struct TileDataa
+struct TileData
 {
 	int x;
 	int y;
@@ -30,17 +30,17 @@ struct TileDataa
 	bool inRange;
 	bool enemy;
 	Entity* characterType;
-	TILE_TYPE type;
+	TILE_TYPEE type;
 };
 
-class SceneBattle : public Module
+class SceneCombatLHHR : public Module
 {
 public:
 
-	SceneBattle(bool isActive);
+	SceneCombatLHHR(bool isActive);
 
 	// Destructor
-	virtual ~SceneBattle();
+	virtual ~SceneCombatLHHR();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -57,7 +57,7 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
-	bool Move(TileDataa* tile);
+	bool Move(TileData* tile);
 
 	// Called before quitting
 	bool CleanUp();
@@ -102,7 +102,7 @@ public:
 
 public:
 
-	TileDataa combatMap[16][9];
+	TileData combatMap[16][9];
 	bool movepressed;
 	bool attackpressed;
 	bool abiltypressed;
@@ -113,13 +113,13 @@ private:;
 	SString mapName;
 	SString mapFolder;
 
-	TileDataa* selectedtile;
+	TileData* selectedtile;
 
 	Entity* characterTurn;
 	List<Entity*> turnqueue;
 	List<Entity*> allentities;
 	List<Entity*> targets;
-	List<TileDataa*> arealist;
+	List<TileData*> arealist;
 
 	SDL_Texture* img;
 	SDL_Texture* mouseTileTex = nullptr;
@@ -136,7 +136,7 @@ private:;
 	iPoint pos;
 	iPoint mouseTile;
 	
-	List<TileDataa*> area;
+	List<TileData*> area;
 
 	int  length;
 

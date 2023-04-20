@@ -119,6 +119,14 @@ bool SceneManager::Update(float dt)
 			}
 		}
 		break;
+	case GameScene::COMBATLHHR:
+		if (currentScene != (Module*)app->sceneCombatLHHR) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneCombatLHHR, 20)) {
+				currentScene = (Module*)app->sceneCombatLHHR;
+				LOG("SCENE_BATTLE");
+			}
+		}
+		break;
 	case GameScene::BATTLE:
 		if (currentScene != (Module*)app->sceneBattle) {
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneBattle, 20)) {
