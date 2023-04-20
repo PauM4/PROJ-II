@@ -44,9 +44,9 @@
 	</sceneGrandma>
 
 	<sceneBattle name="Assets/Maps/World_01/test.tmx" path="Assets/Maps/World_01/">
-		<timmy x= "600" y="600" movement= "3"/>
-		<bunny x= "600" y="720" movement= "2"/>
-		<enemy_angryVillager x="1200" y="600" movement="5"/>
+		<timmy x= "840" y="720" movement= "3"/>
+		<bunny x= "960" y="720" movement= "2"/>
+		<enemy_angryVillager x="840" y="240" movement="5"/>
 
 		
 	</sceneBattle>

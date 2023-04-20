@@ -567,10 +567,10 @@ void Scene::CreateDialogue()
 	secondOption2PT->SetText("Yawn and stretch, showing disinterest while saying, -Okay...sure.-");
 
 	auto secondOption3PT = std::make_shared<DialogueNode>();
-	secondOption3PT->SetText("What a bunch of cowards! You're all hiding in your homes while someone is out there killing innocent animals. You should be ashamed of yourselves. I'll take care of her myself.");
+	secondOption3PT->SetText("What a bunch of cowards! You're all hiding in your homes! . I'll take care of her myself.");
 
 	auto secondOption4PT = std::make_shared<DialogueNode>();
-	secondOption4PT->SetText("Tremble and stutter, - L - Little Red ? Killing animals ? That's terrifying... I-I'll try to talk to her.");
+	secondOption4PT->SetText("L - Little Red ? Killing animals ? That's terrifying... I-I'll try to talk to her.");
 
 	//2nd level
 	auto AVillagerToOptionPT = std::make_shared<DialogueNode>();
@@ -590,7 +590,7 @@ void Scene::CreateDialogue()
 	firstOption2PT->AddChild(AVillagerToOptionPT);
 
 	auto firstOption3PT = std::make_shared<DialogueNode>();
-	firstOption3PT->SetText("Just tell me what I need to know. I'll take care of it myself since it seems like nobody here can handle it.");
+	firstOption3PT->SetText("Just tell me what I need to know. I'll take care of it myself!");
 	firstOption3PT->AddChild(AVillagerToOptionPT);
 
 	auto firstOption4PT = std::make_shared<DialogueNode>();
@@ -750,15 +750,15 @@ void Scene::CreateDialogue()
 	firstOption1G->AddChild(gToOption1);
 
 	auto firstOption2G = std::make_shared<DialogueNode>();
-	firstOption2G->SetText("Why do you care who I am? I have business with Little Red Riding Hood, and I need to find her now.");
+	firstOption2G->SetText("Why do you care who I am? I have business with Little Red Riding Hood, I need to find her.");
 	firstOption2G->AddChild(gToOption2);
 
 	auto firstOption3G = std::make_shared<DialogueNode>();
-	firstOption3G->SetText("Uh, sorry, I didn't mean to barge in or anything. I was just looking for someone to help Little Red Hood, you know? She's in trouble and stuff. Needs our help or whatever. yawns");
+	firstOption3G->SetText("Do you know where Little Red Hood is? She's in trouble and stuff. Needs our help or whatever.");
 	firstOption3G->AddChild(gToOption3);
 
 	auto firstOption4G = std::make_shared<DialogueNode>();
-	firstOption4G->SetText("Timmy nervously stammers and says: -I'm sorry, I didn't mean to bother you.I'm just a bit lost and scared. I heard that Little Red Riding Hood might be in trouble, and I was hoping you could help me find her. Please, can you tell me where she is?");
+	firstOption4G->SetText("I'm sorry, I didn't mean to bother you. I heard that Little Red Riding Hood might be in trouble.");
 	firstOption4G->AddChild(gToOption4);
 
 	//Root
