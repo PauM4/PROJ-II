@@ -1233,7 +1233,6 @@ bool SceneBattle::CleanUp()
 	area.Clear();
 	turnqueue.Clear();
 	targets.Clear();
-	app->pathfinding->CleanUp();
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
 	return true;
