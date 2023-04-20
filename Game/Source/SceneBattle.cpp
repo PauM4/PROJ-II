@@ -144,7 +144,7 @@ bool SceneBattle::Update(float dt)
 {
 
 	// Menu appear
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->pads[0].start)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		// If player is in pause, close it
 		if (!isPaused)
