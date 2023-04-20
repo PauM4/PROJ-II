@@ -82,7 +82,9 @@ bool SceneBattle::Start()
 	 moveenemy = false;
 	app->entityManager->Start(); 
 	//Load combat map
-	/*MakeCombatMap();*/
+	
+
+	MakeCombatMap();
 
 	if (retLoad) {
 		int w, h;
@@ -95,13 +97,16 @@ bool SceneBattle::Start()
 
 	}
 
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+
 	moveanim = false;
 	mouseTileTex = app->tex->Load("Assets/Maps/Scenes/Path.png");
 	timmytexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	bunnytexture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
-	MakeCombatMap();
+	
 
 	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x, timmy->position.y - app->render->camera.y);
 	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
@@ -112,8 +117,7 @@ bool SceneBattle::Start()
 	allentities.Add(bunny);
 	allentities.Add(villager);
 	GetTurns();
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+	
 
 	// Tell to UIModule which currentMenuType
 	app->uiModule->currentMenuType = COMBAT;
@@ -588,7 +592,7 @@ bool SceneBattle::PostUpdate()
 			}
 
 		}
-		else {
+		else if(moveenemy == true) {
 
 			characterTurn->stamina += 10;
 		}
@@ -1147,6 +1151,7 @@ bool SceneBattle::CleanUp()
 	allentities.Clear();
 	area.Clear();
 	targets.Clear();
+	
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
 	return true;
