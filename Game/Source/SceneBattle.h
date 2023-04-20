@@ -102,7 +102,10 @@ public:
 
 public:
 
-	TileDataa combatMap[16][9];
+	// UI Things
+	bool isPaused;
+
+	TileData combatMap[16][9];
 	bool movepressed;
 	bool attackpressed;
 	bool abiltypressed;
