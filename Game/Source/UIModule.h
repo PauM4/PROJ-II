@@ -103,7 +103,6 @@ public:
 	// UI Things
 	bool doorPlayerPosition;
 
-
 private:
 
 };

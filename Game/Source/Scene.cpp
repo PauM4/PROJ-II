@@ -55,6 +55,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	CreateDialogue(); //3MB
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
+	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 
 	return ret;
 }
@@ -102,7 +103,7 @@ bool Scene::Start()
 
 	godMode = false;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav");
+	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
 
 	return true;
 }
@@ -192,7 +193,6 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-	
 	return true;
 }
 
@@ -268,7 +268,9 @@ bool Scene::CleanUp()
 	app->map->CleanUp(); 
 	app->entityManager->CleanUp(); 
 	app->physics->Disable();
+
 	app->tex->UnLoad(npcPopUpTexture);
+	app->tex->UnLoad(uiSpriteTexture);
 	
 
 	return true;

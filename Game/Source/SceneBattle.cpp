@@ -142,7 +142,7 @@ bool SceneBattle::Start()
 	// UI Things
 	isPaused = false;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.wav");
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.wav", 0.2f);
 
 	return true;
 }

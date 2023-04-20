@@ -84,6 +84,7 @@ public:
 	bool isNewGame;
 
 	SDL_Texture* npcPopUpTexture;
+	SDL_Texture* uiSpriteTexture;
 
 private:
 

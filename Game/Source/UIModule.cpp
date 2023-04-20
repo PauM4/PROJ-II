@@ -154,63 +154,12 @@ bool UIModule::PostUpdate()
 			if (app->scene->player->dialogueActivate)
 			{
 				app->scene->AppearDialogue();
+
 				app->scene->player->dialogueActivate = false;
 			}
 		}
 	}
 
-
-	// COMBAT UI
-	if (app->sceneManager->currentScene == app->sceneBattle && app->sceneBattle->active)
-	{
-		// Timmy stats:
-		uint timmyStamina = app->sceneBattle->timmy->stamina;
-		std::string timmyStaminaString = std::to_string(timmyStamina);
-		const char* timmyStaminaChar = timmyStaminaString.c_str();
-
-		uint timmyHP = app->sceneBattle->timmy->health;
-		std::string timmyHPString = std::to_string(timmyHP);
-		const char* timmyHpChar = timmyHPString.c_str();
-
-
-		app->fonts->DrawText("--- TIMMY ---", 80, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- HP: ", 80, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(timmyHpChar, 200, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- Stamina: ", 80, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(timmyStaminaChar, 200, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-
-		// Bunny stats:
-		uint bunnyStamina = app->sceneBattle->bunny->stamina;
-		std::string bunnyStaminaString = std::to_string(bunnyStamina);
-		const char* bunnyStaminaChar = bunnyStaminaString.c_str();
-
-		uint bunnyHP = app->sceneBattle->bunny->health;
-		std::string bunnyHPString = std::to_string(bunnyHP);
-		const char* bunnyHpChar = bunnyHPString.c_str();
-
-		app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(bunnyHpChar, 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(bunnyStaminaChar, 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-
-		// Villager stats:
-		uint villagerStamina = app->sceneBattle->villager->stamina;
-		std::string villagerStaminaString = std::to_string(villagerStamina);
-		const char* villagerStaminaChar = villagerStaminaString.c_str();
-
-		uint villagerHP = app->sceneBattle->villager->health;
-		std::string villagerHPString = std::to_string(villagerHP);
-		const char* villagerHpChar = villagerHPString.c_str();
-
-		int w_window = app->win->width;
-
-		app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	}
 
 	return ret;
 }
@@ -801,38 +750,50 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	int posX = app->scene->player->position.x;
 	int posY = app->scene->player->position.y;
 
-	// Dialogue text block
-	SDL_Rect rect = { 0 , 0, 800, 400 };
-	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 1700);
-	app->render->DrawTexture(textDialogue, posX - 850, posY + 220, NULL);
-
-	SDL_Rect angryVillagerRect = { 1198, 212, 416, 705};
-	SDL_Rect talismanVillagerRect = { 1174, 2024, 435, 726};
-	SDL_Rect grandmaRect = { 107, 1958, 457, 748};
-	SDL_Rect lrrhRect = { 176, 1097, 632, 701};
+	// Draw NPC Popup
+	SDL_Rect angryVillagerRect = { 1198, 212, 416, 705 };
+	SDL_Rect talismanVillagerRect = { 1174, 2024, 435, 726 };
+	SDL_Rect grandmaRect = { 107, 1958, 457, 748 };
+	SDL_Rect lrrhRect = { 176, 1097, 632, 701 };
 
 	switch (app->scene->GetPlayerLastCollision())
 	{
 	case ColliderType::ANGRYVILLAGER:
 		// Dibuixar Angry tal
-		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &angryVillagerRect);
+		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 300, &angryVillagerRect);
 		break;
 
 	case ColliderType::TALISMANVILLAGER:
-		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &talismanVillagerRect);
+		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 300, &talismanVillagerRect);
 		break;
 
 	case ColliderType::GRANDMA:
-		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &grandmaRect);
+		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 300, &grandmaRect);
 		break;
 
 	case ColliderType::LRRH:
-		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 200, &lrrhRect);
+		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 300, &lrrhRect);
 		break;
 
 	default:
 		break;
 	}
+
+	// Draw dialogue text image
+	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
+	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+
+	// Draw options text image
+	SDL_Rect optionRect = { 18, 238, 939, 69 };
+	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+
+	// Dialogue text block
+	SDL_Rect rect = { 0 , 0, 800, 400 };
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 255,255,255,255 }, 1700);
+	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);
 
 	// Change options buttons text
 	SDL_Rect rectO1 = { 0, 0, 800, 30 };
@@ -887,12 +848,6 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 
 	SDL_DestroyTexture(textDialogue);
-
-	
-
-	
-
-
 
 }
 

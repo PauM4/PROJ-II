@@ -78,7 +78,7 @@ bool SceneGrandma::Start()
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_grandaHouse.wav");
+	app->audio->PlayMusic("Assets/Sounds/Music/music_grandaHouse.wav", 0.2f);
 
 	return true;
 }
