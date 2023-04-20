@@ -3,6 +3,7 @@
 #include "Pathfinding.h"
 #include "UriBehaviorTree.h"
 #include "SDL/include/SDL.h"
+#include "Animation.h"
 #include "List.h"
 
 class Enemy_AngryVillager : public Entity {
@@ -50,6 +51,13 @@ public:
 private:
 	SDL_Texture* texture;
 
+public:
+	Animation* currentAnimation;
+	Animation walkDownAnim;
+	Animation walkUpAnim;
+	Animation walkRightAnim;
+	Animation walkLeftAnim;
+	Animation idleAnim;
 
 private:
 

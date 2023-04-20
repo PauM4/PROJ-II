@@ -104,6 +104,7 @@ bool SceneBattle::Start()
 	mouseTileTex = app->tex->Load("Assets/Maps/Scenes/Path.png");
 	timmytexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	bunnytexture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
+	villagertexture = app->tex->Load("Assets/Characters/F_sprites_angry_Villager.png"); 
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
 
 	
@@ -585,6 +586,7 @@ bool SceneBattle::PostUpdate()
 
 		if (moveenemy == true && characterTurn->stamina>=3) {
 
+			moveanim = true;
 			move = true;
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 9; j++) {
@@ -665,6 +667,8 @@ bool SceneBattle::PostUpdate()
 		bunny->currentAnimation = &bunny->idleAnim;
 		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
+		SDL_Rect recti = villager->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &recti);
 		if (moveanim == false) {
 			timmy->currentAnimation = &timmy->idleAnim;
 			SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
@@ -708,6 +712,9 @@ bool SceneBattle::PostUpdate()
 		timmy->currentAnimation = &timmy->idleAnim;
 		SDL_Rect recta = timmy->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recta);
+		villager->currentAnimation = &villager->idleAnim;
+		SDL_Rect recti = villager->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &recti);
 		if (moveanim == false) {
 			bunny->currentAnimation = &bunny->idleAnim;
 			SDL_Rect rect = bunny->currentAnimation->GetCurrentFrame();
@@ -750,13 +757,49 @@ bool SceneBattle::PostUpdate()
 	if (characterTurn->id == 3) {
 
 		timmy->currentAnimation = &timmy->idleAnim;
-		SDL_Rect rect = timmy->currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &rect);
-		bunny->currentAnimation = &bunny->idleAnim;
+		SDL_Rect recti = timmy->currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(timmytexture, timmy->position.x - 13, timmy->position.y - 35, &recti);
 
+		bunny->currentAnimation = &bunny->idleAnim;
 		SDL_Rect recta = bunny->currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(bunnytexture, bunny->position.x - 13, bunny->position.y - 35, &recta);
 
+		if (moveanim == false) {
+			villager->currentAnimation = &villager->idleAnim;
+			SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+		}
+		if (moveanim == true) {
+			if (xDir == 1) {
+				villager->currentAnimation = &villager->walkRightAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (xDir == -1) {
+				villager->currentAnimation = &villager->walkLeftAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (yDir == 1) {
+				villager->currentAnimation = &villager->walkDownAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (yDir == -1) {
+				villager->currentAnimation = &villager->walkUpAnim;
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+			if (xDir == 0 || yDir == 0) {
+				SDL_Rect rect = villager->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(villagertexture, villager->position.x - 13, villager->position.y - 35, &rect);
+				villager->currentAnimation->Update();
+			}
+		}
 	}
 	
 	return ret;
@@ -799,6 +842,7 @@ bool SceneBattle::MoveEnemy() {
 
 					pos = app->map->MapToWorld(pos.x, pos.y);
 					app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+					moveanim = true;
 				}
 			}
 
