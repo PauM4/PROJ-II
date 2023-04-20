@@ -115,9 +115,8 @@ bool SceneCombatLHHR::Start()
 	mouseTileTex = app->tex->Load("Assets/Maps/Scenes/Path.png");
 	timmytexture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	bunnytexture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
-	LRRHtexture = app->tex->Load("Assets/Characters/F_sprites_angry_LRRH.png");
+	LRRHtexture = app->tex->Load("Assets/Characters/F_sprites_lrrh.png");
 	originTex = app->tex->Load("Assets/Maps/Scenes/Cruz.png");
-
 	winScreen = app->tex->Load("Assets/UI/Win_screen.png");
 	loseScreen = app->tex->Load("Assets/UI/lose_screen.png");
 	
