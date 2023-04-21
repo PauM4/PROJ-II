@@ -242,6 +242,11 @@ bool SceneCombatLHHR::Update(float dt)
 
 	app->map->Draw();
 
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		return false;
+	}
+
 	return true;
 }
 

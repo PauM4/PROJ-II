@@ -39,10 +39,14 @@ bool SceneGrandma::Awake(pugi::xml_node& config)
 		player->parameters = config.child("player");
 	}
 
+
 	door = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);
 	door->parameters = config.child("door");
 
 	app->entityManager->Awake(config);
+
+	player->position.x = 530;
+	player->position.y = 950;
 
 	return ret;
 }
