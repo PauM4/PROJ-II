@@ -28,6 +28,7 @@ Timmy and the Corrupted Dreamland is a turn-based combat RPG video game, set in 
  - S --> Left
  - D --> Right
  - E --> Interact with NPC
+ - P --> Open Pause Menu
  - Shift --> Sprint
  - F5 --> Save Game
  - F6 --> Load Game
