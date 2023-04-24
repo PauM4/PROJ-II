@@ -499,8 +499,6 @@ void BattleSystem::CheckWinCondition()
 
 }
 
-// ----------------------------------- NEW -------------------------------
-
 bool BattleSystem::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
@@ -528,6 +526,7 @@ bool BattleSystem::OnGuiMouseClickEvent(GuiControl* control)
 
 }
 
+// ----------------------------------- NEW -------------------------------
 
 bool BattleSystem::ChekRangeEnemy() {
 	for (int i = 0; i < targets.Count(); i++) {

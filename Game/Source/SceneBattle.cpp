@@ -377,7 +377,7 @@ bool SceneBattle::PostUpdate()
 	//////	win = true;
 
 	//////}
-//··CheckWinCondition()··//
+	//··CheckWinCondition()··//
 
 	if (turnstart == false ) {
 		
@@ -476,69 +476,66 @@ bool SceneBattle::PostUpdate()
 
 	}
 
-
-	
-
-
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 
 		timmy->health = 0;
 	}
 
-	if (atack == true) {
+
+	//··DoDamageToEnemy(CombatButtons button)··//
+	////////if (atack == true) {
 
 
-		DisplayArea(1);
-		DisplayEnemys();
+	////////	DisplayArea(1);
+	////////	DisplayEnemys();
 
-		for (int i = 0; i < targets.Count(); i++) {
-			
+	////////	for (int i = 0; i < targets.Count(); i++) {
+	////////		
 
-			if (targets.At(i)->data->tilePos == mouseTile) {
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+	////////		if (targets.At(i)->data->tilePos == mouseTile) {
+	////////			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
 
-					targets.At(i)->data->health = targets.At(i)->data->health - (characterTurn->attack - targets.At(i)->data->defense);
-					atack = false;
-					characterTurn->UseStamina(5);
-					turnstart = false;
-					villager->takedmgAnim.Reset();
-					if (targets.At(i)->data->id == 3)
-					{
-						awchanim3 = true;
-						villager->takedmgAnim.Reset();
-					}
-				}
-			}
-		}
-	}
-	if (ability == true) {
-
-
-		DisplayArea(2);
-		DisplayEnemys();
-
-		for (int i = 0; i < targets.Count(); i++) {
+	////////				targets.At(i)->data->health = targets.At(i)->data->health - (characterTurn->attack - targets.At(i)->data->defense);
+	////////				atack = false;
+	////////				characterTurn->UseStamina(5);
+	////////				turnstart = false;
+	////////				villager->takedmgAnim.Reset();
+	////////				if (targets.At(i)->data->id == 3)
+	////////				{
+	////////					awchanim3 = true;
+	////////					villager->takedmgAnim.Reset();
+	////////				}
+	////////			}
+	////////		}
+	////////	}
+	////////}
+	////////if (ability == true) {
 
 
-			if (targets.At(i)->data->tilePos == mouseTile) {
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+	////////	DisplayArea(2);
+	////////	DisplayEnemys();
 
-					targets.At(i)->data->health = targets.At(i)->data->health - (characterTurn->Ab1Power - targets.At(i)->data->defense);
-					ability = false;
-					characterTurn->UseStamina(10);
-					turnstart = false;
-					if (targets.At(i)->data->id == 3)
-					{
-						awchanim3 = true;
-						villager->takedmgAnim.Reset();
-					}
-					i = targets.Count();
-				}
-			}
-		}
-	}
+	////////	for (int i = 0; i < targets.Count(); i++) {
 
 
+	////////		if (targets.At(i)->data->tilePos == mouseTile) {
+	////////			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+
+	////////				targets.At(i)->data->health = targets.At(i)->data->health - (characterTurn->Ab1Power - targets.At(i)->data->defense);
+	////////				ability = false;
+	////////				characterTurn->UseStamina(10);
+	////////				turnstart = false;
+	////////				if (targets.At(i)->data->id == 3)
+	////////				{
+	////////					awchanim3 = true;
+	////////					villager->takedmgAnim.Reset();
+	////////				}
+	////////				i = targets.Count();
+	////////			}
+	////////		}
+	////////	}
+	////////}
+	//··DoDamageToEnemy(CombatButtons button)··//
 
 	if (pathIndex != length) {
 		length = app->pathfinding->CreatePath(origin, destination);
@@ -547,7 +544,6 @@ bool SceneBattle::PostUpdate()
 		length = 1;
 		pathIndex = 1;
 		app->pathfinding->ClearLastPath();
-		
 		
 	}
 
@@ -566,9 +562,6 @@ bool SceneBattle::PostUpdate()
 		}
 	}
 
-
-
-	
 	if (move == true || moveenemy==true) {
 		int j = 0;
 		int i = 0;
