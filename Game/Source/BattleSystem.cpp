@@ -79,7 +79,7 @@ bool BattleSystem::Start()
 	attackpressed = false;
 	abiltypressed = false;
 	endturnpressed = false;
-	godmode = false;
+	godMode = false;
 	moveenemy = false;
 	awchanim1 = false;
 	awchanim2 = false;
@@ -123,6 +123,7 @@ bool BattleSystem::Start()
 	villager->tilePos = app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
 
 
+	//Hacer push de mas iniciativa a menos
 	allentities.Add(timmy);
 	allentities.Add(bunny);
 	allentities.Add(villager);
@@ -169,6 +170,8 @@ bool BattleSystem::PreUpdate()
 	{
 		currentTurn = currentTurn % turnQueue.size();
 		turnEnded = false;
+
+		//cuando acabe el turno: currentTurn++;
 	}
 	
 	
@@ -188,10 +191,40 @@ bool BattleSystem::Update(float dt)
 
 	TriggerButtonPressed(buttonPressed);
 
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godMode)
+		{
+			godMode = false;
+		}
+		else
+		{
+			godMode = true;
+		}
+	}
+
+	if (godMode)
+		GodMode();
+
+	UpdateTilePos();
+
+	CheckWinCondition();
+
+
 
 	app->map->Draw();
 	return true;
 }
+
+void BattleSystem::UpdateTilePos()
+{
+	for (auto& entity : turnQueue)
+	{
+		entity->tilePos = app->map->WorldToMap(entity->position.x - app->render->camera.x, entity->position.y - app->render->camera.y);
+	}
+}
+
+
 
 // Called each loop iteration
 bool BattleSystem::PostUpdate()
@@ -200,37 +233,59 @@ bool BattleSystem::PostUpdate()
 
 	
 
-	
+	UIStatsForBattle();
 	
 	return ret;
 }
 
 // ----------------------------------- NEW -------------------------------
 
-void BattleSystem::ActionFromButton(CombatButtons button)
+void BattleSystem::UIStatsForBattle()
 {
 
-	switch (button)
-	{
-	case CombatButtons::ATTACK:
+	// UI Stats for Battle
+	// Timmy stats:
+	app->fonts->DrawText("--- TIMMY ---", 80, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- HP: ", 80, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(UintToChar(timmy->health), 200, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- Stamina: ", 80, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(UintToChar(timmy->stamina), 200, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
+	// Bunny stats:
+	app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(UintToChar(bunny->health), 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(UintToChar(bunny->stamina), 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
-		actionToDo = Action::ATTACK;
+	// Villager stats:
+	uint villagerStamina = villager->stamina;
+	std::string villagerStaminaString = std::to_string(villagerStamina);
+	const char* villagerStaminaChar = villagerStaminaString.c_str();
 
-		break;
+	uint villagerHP = villager->health;
+	std::string villagerHPString = std::to_string(villagerHP);
+	const char* villagerHpChar = villagerHPString.c_str();
 
-	case CombatButtons::ABILITY:
+	int w_window = app->win->width;
 
-		actionToDo = Action::ABILITY;
+	app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(UintToChar(villager->health), 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(UintToChar(villager->stamina), 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
-		break;
+	app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	int nextTurn = (currentTurn + 1) % turnQueue.size();
+	app->fonts->DrawText(turnQueue.at(nextTurn)->name.GetString(), 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
-	case CombatButtons::MOVE:
+}
 
-		actionToDo = Action::MOVE;
-
-		break;
-	}
+const char* BattleSystem::UintToChar(uint param)
+{
+	std::string timmyStaminaString = std::to_string(param);
+	return timmyStaminaString.c_str();
+	
 }
 
 void BattleSystem::TriggerButtonPressed(CombatButtons button)
@@ -299,6 +354,91 @@ void BattleSystem::TriggerButtonPressed(CombatButtons button)
 	
 }
 
+
+void BattleSystem::ActionFromButton(CombatButtons button)
+{
+
+	switch (button)
+	{
+	case CombatButtons::ATTACK:
+
+		DoDamageToEnemy(button);
+		
+		break;
+
+	case CombatButtons::ABILITY:
+
+		DoDamageToEnemy(button);
+
+		break;
+
+	case CombatButtons::MOVE:
+
+		break;
+	}
+}
+
+void BattleSystem::DoDamageToEnemy(CombatButtons button)
+{
+
+	DisplayArea((int)button);
+	DisplayEnemys();
+
+	for (int i = 0; i < targets.Count(); i++) {
+
+		if (targets.At(i)->data->tilePos == mouseTile) {
+
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+
+				targets.At(i)->data->health = targets.At(i)->data->health - (turnQueue.at(currentTurn)->attack - targets.At(i)->data->defense);
+
+				int stamina = StaminaToTakeAway(button);
+				turnQueue.at(currentTurn)->UseStamina(stamina);
+
+				turnstart = false;
+				villager->takedmgAnim.Reset();
+
+				if (targets.At(i)->data->id == 3)
+				{
+					awchanim3 = true;
+					villager->takedmgAnim.Reset();
+				}
+			}
+		}
+	}
+
+	button = CombatButtons::NONE;
+
+}
+
+int BattleSystem::StaminaToTakeAway(CombatButtons button)
+{
+	int stamina = 0;
+	switch (button)
+	{
+	case CombatButtons::NONE:
+
+		break;
+	case CombatButtons::ATTACK:
+		stamina = staminaToAttack;
+		break;
+	case CombatButtons::ABILITY:
+		stamina = staminaToAbility;
+		break;
+	case CombatButtons::MOVE:
+		stamina = staminaToMove;
+
+		break;
+	case CombatButtons::END:
+
+		break;
+	default:
+		break;
+	}
+
+	return stamina;
+}
+
 void BattleSystem::PauseMenuAppear()
 {
 	// If player is in pause, close it
@@ -321,22 +461,73 @@ void BattleSystem::PauseMenuAppear()
 	}
 }
 
+void BattleSystem::GodMode()
+{
+	bunny->health = bunny->maxHealth;
+	timmy->health = timmy->maxHealth;
+	bunny->stamina = bunny->maxStamina;
+	timmy->stamina = timmy->maxStamina;
+}
 
+void BattleSystem::CheckWinCondition()
+{
 
+	if (timmy->health <= 0) {
 
+		timmy->isAlive = false;
+		timmy->takedmgAnim.Reset();
+	}
 
+	if (bunny->health <= 0) {
 
+		bunny->isAlive = false;
+		bunny->takedmgAnim.Reset();
 
+	}
 
+	if (bunny->health <= 0 && timmy->health <= 0) lose = true;
 
+	if (villager->health <= 0) {
+
+		villager->health = 0;
+		villager->isAlive = false;
+		villager->takedmgAnim.Reset();
+
+		win = true;
+
+	}
+
+}
+
+// ----------------------------------- NEW -------------------------------
 
 bool BattleSystem::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
+	switch (control->id)
+	{
+	case 16:
+		buttonPressed = CombatButtons::ATTACK;
+		break;
 	
+	case 17:
+		buttonPressed = CombatButtons::ABILITY;
+		break;
+
+	case 18:
+		buttonPressed = CombatButtons::MOVE;
+		break;
+
+	case 19:
+		buttonPressed = CombatButtons::END;
+		break;
+	}
+
 	return true;
+
 }
+
 
 bool BattleSystem::ChekRangeEnemy() {
 	for (int i = 0; i < targets.Count(); i++) {
@@ -374,6 +565,7 @@ bool BattleSystem::MoveEnemy() {
 	return true;
 
 }
+
 bool BattleSystem::Move(int pathindex, int length) {
 
 	iPoint dist;
@@ -626,6 +818,8 @@ bool BattleSystem::DisplayArea(int type) {
 	return ret;
 }
 
+
+
 // Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
 bool BattleSystem::Combat(Entity* inturn, List<Entity*> target, int id) {
 
@@ -661,6 +855,7 @@ bool BattleSystem::Combat(Entity* inturn, List<Entity*> target, int id) {
 	}
 	return ret;
 }
+
 void BattleSystem::DestroyListArea()
 {
 	//ListItem<TileDataa*>* item;

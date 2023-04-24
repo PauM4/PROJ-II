@@ -259,121 +259,125 @@ bool SceneBattle::PostUpdate()
 {
 	bool ret = true;
 	
-	// UI Stats for Battle
-	// Timmy stats:
-	uint timmyStamina = timmy->stamina;
-	std::string timmyStaminaString = std::to_string(timmyStamina);
-	const char* timmyStaminaChar = timmyStaminaString.c_str();
+	//··UIStatsForBattle()··//
+	////// UI Stats for Battle
+	////// Timmy stats:
+	////uint timmyStamina = timmy->stamina;
+	////std::string timmyStaminaString = std::to_string(timmyStamina);
+	////const char* timmyStaminaChar = timmyStaminaString.c_str();
 
-	uint timmyHP = timmy->health;
-	std::string timmyHPString = std::to_string(timmyHP);
-	const char* timmyHpChar = timmyHPString.c_str();
+	////uint timmyHP = timmy->health;
+	////std::string timmyHPString = std::to_string(timmyHP);
+	////const char* timmyHpChar = timmyHPString.c_str();
 
-	app->fonts->DrawText("--- TIMMY ---", 80, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- HP: ", 80, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(timmyHpChar, 200, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- Stamina: ", 80, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(timmyStaminaChar, 200, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText("--- TIMMY ---", 80, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText("- HP: ", 80, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText(timmyHpChar, 200, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText("- Stamina: ", 80, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText(timmyStaminaChar, 200, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
-	// Bunny stats:
-	uint bunnyStamina = bunny->stamina;
-	std::string bunnyStaminaString = std::to_string(bunnyStamina);
-	const char* bunnyStaminaChar = bunnyStaminaString.c_str();
+	////// Bunny stats:
+	////uint bunnyStamina = bunny->stamina;
+	////std::string bunnyStaminaString = std::to_string(bunnyStamina);
+	////const char* bunnyStaminaChar = bunnyStaminaString.c_str();
 
-	uint bunnyHP = bunny->health;
-	std::string bunnyHPString = std::to_string(bunnyHP);
-	const char* bunnyHpChar = bunnyHPString.c_str();
+	////uint bunnyHP = bunny->health;
+	////std::string bunnyHPString = std::to_string(bunnyHP);
+	////const char* bunnyHpChar = bunnyHPString.c_str();
 
-	app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(bunnyHpChar, 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(bunnyStaminaChar, 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText(bunnyHpChar, 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText(bunnyStaminaChar, 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
-	// Villager stats:
-	uint villagerStamina = villager->stamina;
-	std::string villagerStaminaString = std::to_string(villagerStamina);
-	const char* villagerStaminaChar = villagerStaminaString.c_str();
+	////// Villager stats:
+	////uint villagerStamina = villager->stamina;
+	////std::string villagerStaminaString = std::to_string(villagerStamina);
+	////const char* villagerStaminaChar = villagerStaminaString.c_str();
 
-	uint villagerHP = villager->health;
-	std::string villagerHPString = std::to_string(villagerHP);
-	const char* villagerHpChar = villagerHPString.c_str();
+	////uint villagerHP = villager->health;
+	////std::string villagerHPString = std::to_string(villagerHP);
+	////const char* villagerHpChar = villagerHPString.c_str();
 
-	int w_window = app->win->width;
+	////int w_window = app->win->width;
 
-	app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, {255,255,255}, app->fonts->gameFont);
-	if (turnqueue.At(1)->data->id == 1) {
+	////app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, {255,255,255}, app->fonts->gameFont);
+	////if (turnqueue.At(1)->data->id == 1) {
 
-		app->fonts->DrawText("TIMMY", 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////	app->fonts->DrawText("TIMMY", 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
-	}
-	if (turnqueue.At(1)->data->id == 2) {
+	////}
+	////if (turnqueue.At(1)->data->id == 2) {
 
-		app->fonts->DrawText("BUNNY", 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////	app->fonts->DrawText("BUNNY", 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
-	}
-	if (turnqueue.At(1)->data->id == 3) {
+	////}
+	////if (turnqueue.At(1)->data->id == 3) {
 
-		app->fonts->DrawText("VILLAGER", 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	////	app->fonts->DrawText("VILLAGER", 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
-	}
+	////}
+	////// End of Stats UI
+	//··UIStatsForBattle()··//
+
+	//··UpdateTilePos()··//
+	////////timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
+	////////bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
+	////////villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
+	//··UpdateTilePos()··//
+
+	//////if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	//////{
+	//////	if (godmode)
+	//////	{
+	//////		godmode = false;
+	//////	}
+	//////	else
+	//////	{
+	//////		godmode = true;
+	//////	}
+	//////}
+
+	//////if (godmode == true) {
+
+	//////	bunny->health = bunny->maxHealth;
+	//////	timmy->health = timmy->maxHealth;
+	//////	bunny->stamina = bunny->maxStamina;
+	//////	timmy->stamina = timmy->maxStamina;
+	//////}
 
 
-	// End of Stats UI
+	//··CheckWinCondition()··//
+	//////if (timmy->health <= 0) {
 
-	timmy->tilePos = app->map->WorldToMap(timmy->position.x - app->render->camera.x , timmy->position.y - app->render->camera.y);
-	bunny->tilePos = app->map->WorldToMap(bunny->position.x - app->render->camera.x, bunny->position.y - app->render->camera.y);
-	villager->tilePos= app->map->WorldToMap(villager->position.x - app->render->camera.x, villager->position.y - app->render->camera.y);
+	//////	timmy->isAlive = false;
+	//////	timmy->takedmgAnim.Reset();
+	//////}
+	//////
+	//////if (bunny->health <= 0) {
 
+	//////	bunny->isAlive = false;
+	//////	bunny->takedmgAnim.Reset();
 
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-	{
-		if (godmode)
-		{
-			godmode = false;
-		}
-		else
-		{
-			godmode = true;
-		}
-	}
+	//////}
+	//////
+	//////if (bunny->health <= 0 && timmy->health <= 0) lose = true;
 
-	if (godmode == true) {
+	//////if (villager->health <= 0) {
 
-		bunny->health = bunny->maxHealth;
-		timmy->health = timmy->maxHealth;
-		bunny->stamina = bunny->maxStamina;
-		timmy->stamina = timmy->maxStamina;
-	}
+	//////	villager->health = 0;
+	//////	villager->isAlive = false;
+	//////	villager->takedmgAnim.Reset();
+	//////	
+	//////	win = true;
 
-	if (timmy->health <= 0) {
-
-		timmy->isAlive = false;
-		timmy->takedmgAnim.Reset();
-	}
-	
-	if (bunny->health <= 0) {
-
-		bunny->isAlive = false;
-		bunny->takedmgAnim.Reset();
-
-	}
-	
-	if (bunny->health <= 0 && timmy->health <= 0) lose = true;
-
-	if (villager->health <= 0) {
-
-		villager->health = 0;
-		villager->isAlive = false;
-		villager->takedmgAnim.Reset();
-		
-		win = true;
-
-	}
+	//////}
+//··CheckWinCondition()··//
 
 	if (turnstart == false ) {
 		
@@ -1224,141 +1228,146 @@ bool SceneBattle::GetTurns() {
 	return true;
 }
 
-bool SceneBattle::GetNext() {
+// --currentTurn = currentTurn % turnQueue.size()--
+//////bool SceneBattle::GetNext() {
+//////
+//////	Entity* temp;
+//////	temp = turnqueue.At(0)->data;
+//////	turnqueue.At(0)->data = turnqueue.At(1)->data;
+//////	turnqueue.At(1)->data = turnqueue.At(2)->data;
+//////	turnqueue.At(2)->data = temp;
+//////	characterTurn = turnqueue.At(0)->data;
+//////	return true;
+//////
+//////}
+// --currentTurn = currentTurn % turnQueue.size()--
 
-	Entity* temp;
-	temp = turnqueue.At(0)->data;
-	turnqueue.At(0)->data = turnqueue.At(1)->data;
-	turnqueue.At(1)->data = turnqueue.At(2)->data;
-	turnqueue.At(2)->data = temp;
-	characterTurn = turnqueue.At(0)->data;
-	return true;
 
-}
-bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
-
-	
-	
-	
-	switch (type) {
-
-	case 0:
-		//attack
-		if (combatMap[posTile.x + 1][posTile.y].type == TILE_TYPE::FLOOR) {
-			
-			area.Add(&combatMap[posTile.x + 1][posTile.y]);
-		}
-		if (combatMap[posTile.x - 1][posTile.y].type == TILE_TYPE::FLOOR) {
-			area.Add(&combatMap[posTile.x - 1][posTile.y]);
-		}
-		if (combatMap[posTile.x][posTile.y + 1].type == TILE_TYPE::FLOOR) {
-			area.Add(&combatMap[posTile.x][posTile.y + 1]);
-		}
-		if (combatMap[posTile.x][posTile.y-1].type == TILE_TYPE::FLOOR) {
-			area.Add(&combatMap[posTile.x][posTile.y - 1]);
-		}
-		break;
-	case 1:
-		//lineal
-		for (int i = 1; i <= range; i++) {
-			if (combatMap[posTile.x + i][posTile.y].type == TILE_TYPE::FLOOR) {
-				area.Add(&combatMap[posTile.x + i][posTile.y]);
-			}
-			if (combatMap[posTile.x - i][posTile.y].type == TILE_TYPE::FLOOR) {
-				area.Add(&combatMap[posTile.x - i][posTile.y]);
-			}
-			if (combatMap[posTile.x][posTile.y + i].type == TILE_TYPE::FLOOR) {
-				area.Add(&combatMap[posTile.x][posTile.y + i]);
-			}
-			if (combatMap[posTile.x][posTile.y - i].type == TILE_TYPE::FLOOR) {
-				area.Add(&combatMap[posTile.x][posTile.y - i]);
-			}
-		}
-		break;
-	case 2:
-		//circular
-		int i;
-		int j;
-		for (i = 0; i <=range; i++) {
-			for (j = 0; j <= range - i; j++) {
-				if (combatMap[posTile.x+j][posTile.y +i].type == TILE_TYPE::FLOOR) {
-					area.Add(&combatMap[posTile.x + j][posTile.y + i]);
-				}
-				if (combatMap[posTile.x - j][posTile.y + i].type == TILE_TYPE::FLOOR) {
-					area.Add(&combatMap[posTile.x - j][posTile.y + i]);
-				}
-				if (combatMap[posTile.x - j][posTile.y - i].type == TILE_TYPE::FLOOR) {
-					area.Add(&combatMap[posTile.x - j][posTile.y - i]);
-				}
-				if (combatMap[posTile.x + j][posTile.y - i].type == TILE_TYPE::FLOOR) {
-					area.Add(&combatMap[posTile.x + j][posTile.y - i]);
-				}
-			}
-
-		}
-
-		break;
-	case 3:
-		//global
-		for (int i = 0; i < COMBAT_MAP_HEIGHT; i++) {
-			for (int j = 0; j < COMBAT_MAP_WIDTH; j++) {
-				iPoint pos= iPoint(i,j);
-				if (combatMap[j][i].type == TILE_TYPE::FLOOR) {
-				
-					area.Add(&combatMap[j][i]);
-
-				}
-				
-			}
-		}
-		break;
-	}
-
-	return true;
-
-}
-
-bool SceneBattle::DisplayArea(int type) {
-
-	bool ret = true;
-
-	ListItem<TileDataa*>*tileListItem;
-	tileListItem = area.start;
-
-	uint color[3];
-
-	switch (type)
-	{
-	case 0:
-		color[0] = 255;
-		color[1] = 0;
-		color[2] = 0;
-		break;
-	case 1:
-		color[0] = 0;
-		color[1] = 255;
-		color[2] = 0;
-		break;
-	case 2:
-		color[0] = 0;
-		color[1] = 0;
-		color[2] = 255;
-		break;
-	default:
-		break;
-	}
-
-	while (tileListItem != NULL) {
-
-		
-		iPoint pos = app->map->MapToWorld(tileListItem->data->x, tileListItem->data->y);
-		app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 0, 0, 250, 100);
-
-		tileListItem = tileListItem->next;
-	}
-
-	return ret;
-}
+//////
+//////bool SceneBattle::CreateArea(int range, int type, iPoint posTile) {
+//////
+//////	
+//////	
+//////	
+//////	switch (type) {
+//////
+//////	case 0:
+//////		//attack
+//////		if (combatMap[posTile.x + 1][posTile.y].type == TILE_TYPE::FLOOR) {
+//////			
+//////			area.Add(&combatMap[posTile.x + 1][posTile.y]);
+//////		}
+//////		if (combatMap[posTile.x - 1][posTile.y].type == TILE_TYPE::FLOOR) {
+//////			area.Add(&combatMap[posTile.x - 1][posTile.y]);
+//////		}
+//////		if (combatMap[posTile.x][posTile.y + 1].type == TILE_TYPE::FLOOR) {
+//////			area.Add(&combatMap[posTile.x][posTile.y + 1]);
+//////		}
+//////		if (combatMap[posTile.x][posTile.y-1].type == TILE_TYPE::FLOOR) {
+//////			area.Add(&combatMap[posTile.x][posTile.y - 1]);
+//////		}
+//////		break;
+//////	case 1:
+//////		//lineal
+//////		for (int i = 1; i <= range; i++) {
+//////			if (combatMap[posTile.x + i][posTile.y].type == TILE_TYPE::FLOOR) {
+//////				area.Add(&combatMap[posTile.x + i][posTile.y]);
+//////			}
+//////			if (combatMap[posTile.x - i][posTile.y].type == TILE_TYPE::FLOOR) {
+//////				area.Add(&combatMap[posTile.x - i][posTile.y]);
+//////			}
+//////			if (combatMap[posTile.x][posTile.y + i].type == TILE_TYPE::FLOOR) {
+//////				area.Add(&combatMap[posTile.x][posTile.y + i]);
+//////			}
+//////			if (combatMap[posTile.x][posTile.y - i].type == TILE_TYPE::FLOOR) {
+//////				area.Add(&combatMap[posTile.x][posTile.y - i]);
+//////			}
+//////		}
+//////		break;
+//////	case 2:
+//////		//circular
+//////		int i;
+//////		int j;
+//////		for (i = 0; i <=range; i++) {
+//////			for (j = 0; j <= range - i; j++) {
+//////				if (combatMap[posTile.x+j][posTile.y +i].type == TILE_TYPE::FLOOR) {
+//////					area.Add(&combatMap[posTile.x + j][posTile.y + i]);
+//////				}
+//////				if (combatMap[posTile.x - j][posTile.y + i].type == TILE_TYPE::FLOOR) {
+//////					area.Add(&combatMap[posTile.x - j][posTile.y + i]);
+//////				}
+//////				if (combatMap[posTile.x - j][posTile.y - i].type == TILE_TYPE::FLOOR) {
+//////					area.Add(&combatMap[posTile.x - j][posTile.y - i]);
+//////				}
+//////				if (combatMap[posTile.x + j][posTile.y - i].type == TILE_TYPE::FLOOR) {
+//////					area.Add(&combatMap[posTile.x + j][posTile.y - i]);
+//////				}
+//////			}
+//////
+//////		}
+//////
+//////		break;
+//////	case 3:
+//////		//global
+//////		for (int i = 0; i < COMBAT_MAP_HEIGHT; i++) {
+//////			for (int j = 0; j < COMBAT_MAP_WIDTH; j++) {
+//////				iPoint pos= iPoint(i,j);
+//////				if (combatMap[j][i].type == TILE_TYPE::FLOOR) {
+//////				
+//////					area.Add(&combatMap[j][i]);
+//////
+//////				}
+//////				
+//////			}
+//////		}
+//////		break;
+//////	}
+//////
+//////	return true;
+//////
+//////}
+//////
+//////bool SceneBattle::DisplayArea(int type) {
+//////
+//////	bool ret = true;
+//////
+//////	ListItem<TileDataa*>*tileListItem;
+//////	tileListItem = area.start;
+//////
+//////	uint color[3];
+//////
+//////	switch (type)
+//////	{
+//////	case 0:
+//////		color[0] = 255;
+//////		color[1] = 0;
+//////		color[2] = 0;
+//////		break;
+//////	case 1:
+//////		color[0] = 0;
+//////		color[1] = 255;
+//////		color[2] = 0;
+//////		break;
+//////	case 2:
+//////		color[0] = 0;
+//////		color[1] = 0;
+//////		color[2] = 255;
+//////		break;
+//////	default:
+//////		break;
+//////	}
+//////
+//////	while (tileListItem != NULL) {
+//////
+//////		
+//////		iPoint pos = app->map->MapToWorld(tileListItem->data->x, tileListItem->data->y);
+//////		app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 0, 0, 250, 100);
+//////
+//////		tileListItem = tileListItem->next;
+//////	}
+//////
+//////	return ret;
+//////}
 
 // Starts combat, id=1 --> attack, id=2 --> ability 1, id=3 --> ability 2
 bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
@@ -1395,6 +1404,7 @@ bool SceneBattle::Combat(Entity* inturn, List<Entity*> target, int id) {
 	}
 	return ret;
 }
+
 void SceneBattle::DestroyListArea()
 {
 	//ListItem<TileDataa*>* item;

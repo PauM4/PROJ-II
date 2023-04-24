@@ -35,20 +35,20 @@ struct TileDataa
 
 enum class CombatButtons
 {
+	NONE,
 	ATTACK,
 	ABILITY,
 	MOVE,
 	END,
-	NONE
 };
 
-enum class Action
-{
-	ATTACK,
-	ABILITY,
-	MOVE,
-
-};
+//enum class Action
+//{
+//	ATTACK,
+//	ABILITY,
+//	MOVE,
+//
+//};
 
 class BattleSystem : public Module
 {
@@ -122,7 +122,7 @@ public:
 	bool attackpressed;
 	bool abiltypressed;
 	bool endturnpressed;
-	bool godmode;
+	bool godMode;
 	bool win, lose;
 
 private:
@@ -204,14 +204,32 @@ private:
 
 public:
 	CombatButtons buttonPressed;
-	Action actionToDo;
+	//Action actionToDo;
 
 private:
 
+	//Update
 	void PauseMenuAppear();
 	void TriggerButtonPressed(CombatButtons button);
 	void ActionFromButton(CombatButtons button);
+	void GodMode();
+	void UpdateTilePos();
+	
+	// Creates area of an attack or ability, type is 0 if atack, 1 if lineal, 2 if "circular", 3 if global
+	bool CreateArea(int range, int type, iPoint posTile);
 
+	// Draws an area of attack/ability/movement from an ally
+	bool DisplayArea(int type);
+
+	void CheckWinCondition();
+
+	void DoDamageToEnemy(CombatButtons button);
+
+	int StaminaToTakeAway(CombatButtons button);
+
+	//PostUpdate
+	void UIStatsForBattle();
+	const char* UintToChar(uint param);
 
 	
 
