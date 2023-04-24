@@ -156,93 +156,100 @@ bool SceneBattle::PreUpdate()
 	return true;
 }
 
+
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
 
 	
+	//··PauseMenuAppear()··
+	////// Menu appear
+	////if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	////{
+	////	// If player is in pause, close it
+	////	if (!isPaused)
+	////	{
+	////		app->uiModule->currentMenuType = COMBAT;
+	////		// Call this function only when scene is changed
+	////		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
-	// Menu appear
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	{
-		// If player is in pause, close it
-		if (!isPaused)
-		{
-			app->uiModule->currentMenuType = COMBAT;
-			// Call this function only when scene is changed
-			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	////		isPaused = true;
+	////	}
+	////	// If player is NOT in pause, open it
+	////	else
+	////	{
+	////		app->uiModule->currentMenuType = COMBAT_PAUSE;
+	////		// Call this function only when scene is changed
+	////		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
-			isPaused = true;
-		}
-		// If player is NOT in pause, open it
-		else
-		{
-			app->uiModule->currentMenuType = COMBAT_PAUSE;
-			// Call this function only when scene is changed
-			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	////		isPaused = false;
+	////	}
+	////}
+	//··PauseMenuAppear()··
 
-			isPaused = false;
-		}
-	}
 
-	if (movepressed == true) {
+	//··ActionFromButton()··
+	//··TriggerButtonPressed()··
+	////if (movepressed == true) {
 
-		if (characterTurn->stamina >= 3) {
+	////	if (characterTurn->stamina >= 3) {
 
-			move = true;
-			ability = false;
-			atack = false;
-		}
-		movepressed = false;
-	}
+	////		move = true;
+	////		ability = false;
+	////		atack = false;
+	////	}
+	////	movepressed = false;
+	////}
 
-	if (attackpressed == true) {
+	////if (attackpressed == true) {
 
-		if (characterTurn->stamina >= 5) {
-			targets.Clear();
-			DestroyListArea();
-			CreateArea(characterTurn->AttArea, 1, characterTurn->tilePos);
-			GetTargets();
-			atack = true;
-			move = false;
-			ability = false;
-		}
-		attackpressed = false;
-	}
+	////	if (characterTurn->stamina >= 5) {
+	////		targets.Clear();
+	////		DestroyListArea();
+	////		CreateArea(characterTurn->AttArea, 1, characterTurn->tilePos);
+	////		GetTargets();
+	////		atack = true;
+	////		move = false;
+	////		ability = false;
+	////	}
+	////	attackpressed = false;
+	////}
 
-	if (abiltypressed == true) {
-		if (characterTurn->stamina >= 10) {
-			targets.Clear();
-			DestroyListArea();
-			CreateArea(characterTurn->Ab1Area, 2, characterTurn->tilePos);
-			GetTargets();
-			ability = true;
-			atack = false;
-			move = false;
-			abiltypressed = false;
-		}
-		
-		abiltypressed = false;
-	}
+	////if (abiltypressed == true) {
+	////	if (characterTurn->stamina >= 10) {
+	////		targets.Clear();
+	////		DestroyListArea();
+	////		CreateArea(characterTurn->Ab1Area, 2, characterTurn->tilePos);
+	////		GetTargets();
+	////		ability = true;
+	////		atack = false;
+	////		move = false;
+	////		abiltypressed = false;
+	////	}
+	////	
+	////	abiltypressed = false;
+	////}
 
-	if (endturnpressed == true) {
+	////if (endturnpressed == true) {
 
-		
-		atack = false;
-		ability = false;
-		move = false;
-		turnstart = false;
-		characterTurn->GainStamina(10);
-		endturnpressed = false;
+	////	
+	////	atack = false;
+	////	ability = false;
+	////	move = false;
+	////	turnstart = false;
+	////	characterTurn->GainStamina(10);
+	////	endturnpressed = false;
 
-	}
+	////}
 
-	app->map->Draw();
+	////app->map->Draw();
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		return false;
-	}
+	////if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	////{
+	////	return false;
+	////}
+	//··ActionFromButton()··
+	//··TriggerButtonPressed()··
 
 	return true;
 }

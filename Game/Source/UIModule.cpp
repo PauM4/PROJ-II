@@ -378,6 +378,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Attack
 	case 16:
+		app->battlesystem->buttonPressed = app->battlesystem->CombatButtons::ATTACK;
+
 		app->sceneBattle->attackpressed = true;
 		app->sceneBattle->abiltypressed = false;
 
@@ -396,6 +398,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// Ability
 	case 17:
+		app->battlesystem->buttonPressed = app->battlesystem->CombatButtons::ABILITY;
+
 		app->sceneBattle->attackpressed = false;
 		app->sceneBattle->abiltypressed = true;
 
@@ -413,6 +417,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// Move
 	case 18:
+		
+		app->battlesystem->buttonPressed = app->battlesystem->CombatButtons::MOVE;
 
 		app->sceneBattle->attackpressed = false;
 		app->sceneBattle->abiltypressed = false;
@@ -428,8 +434,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 
 		app->sceneCombatLHHR->endturnpressed = false;
 		break;
+
 		// End turn
 	case 19:
+		app->battlesystem->buttonPressed = app->battlesystem->CombatButtons::END;
+
 		app->sceneBattle->attackpressed = false;
 		app->sceneBattle->abiltypressed = false;
 
