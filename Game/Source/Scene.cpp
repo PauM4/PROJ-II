@@ -308,34 +308,6 @@ void Scene::Camera()
 
 }
 
-//Returns a string with the last line spoken by the specified NPC. This function delegates the NPC specific behavior to other functions based on the enum passed in.
-std::string Scene::LastTextNPC(ColliderType NPC)
-{
-	std::string auxString;
-	switch (NPC)
-	{
-	case ColliderType::ANGRYVILLAGER:
-		auxString = LastTextAngryVillager(auxString);
-		break;
-	case ColliderType::TALISMANVILLAGER:
-		auxString = LastTextTalismanVillager(auxString);
-		break;
-
-	case ColliderType::GRANDMA:
-		auxString = LastTextGrandmaVillager(auxString);
-		break;
-
-	case ColliderType::LRRH:
-		auxString = LastTextLittleRedVillager(auxString);
-		break;
-	default:
-
-		break;
-	}
-
-	return auxString;
-}
-
 //Return random number between 2 numbers
 int GenerateRandomNumber(int num1, int num2)
 {
@@ -347,73 +319,73 @@ int GenerateRandomNumber(int num1, int num2)
 
 }
 
-//Returns a random string based on a random number generator. This function is used by LastTextNPC() to generate a random line spoken by the Angry Villager NPC.
-std::string Scene::LastTextAngryVillager(std::string lastText)
+//Returns a string with the last line spoken by the specified NPC. Randomized.
+std::string Scene::LastTextNPC(ColliderType NPC)
 {
+	std::string auxString;
 	int index = GenerateRandomNumber(1, 2);
 
-	switch (index)
+	switch (NPC)
 	{
-	case 1:
-		lastText = "What are you waiting?";
+	case ColliderType::ANGRYVILLAGER:
+
+		switch (index)
+		{
+		case 1:
+			auxString = "What are you waiting?";
+			break;
+		case 2:
+			auxString = "Hmm... I'm hungry";
+			break;
+		}
 		break;
-	case 2:
-		lastText = "Hmm... I'm hungry";
+	case ColliderType::TALISMANVILLAGER:
+
+		switch (index)
+		{
+		case 1:
+			auxString = "May God bless you?";
+			break;
+		case 2:
+			auxString = "Look at this beautiful talisman!";
+			break;
+		}
+		break;
+
+	case ColliderType::GRANDMA:
+		
+		switch (index)
+		{
+		case 1:
+			auxString = "The early bird catches the worm.";
+			break;
+		case 2:
+			auxString = "If you don't have anything nice to say, don't say anything at all.";
+			break;
+		}
+
+		break;
+
+	case ColliderType::LRRH:
+		switch (index)
+		{
+		case 1:
+			auxString = "";
+			break;
+		case 2:
+			auxString = "";
+			break;
+		}
+		break;
+	default:
+
 		break;
 	}
 
-	return lastText;
+	return auxString;
 }
 
-//Returns a random string based on a random number generator. This function is used by LastTextNPC() to generate a random line spoken by the Talisman Villager NPC.
-std::string Scene::LastTextTalismanVillager(std::string lastText)
-{
-	int index = GenerateRandomNumber(1, 2);
 
-	switch (index)
-	{
-	case 1:
-		lastText = "May God bless you?";
-		break;
-	case 2:
-		lastText = "Look at this beautiful talisman!";
-		break;
-	}
-	return lastText;
-}
-
-//Returns a random string based on a random number generator. This function is used by LastTextNPC() to generate a random line spoken by the Grandma Villager NPC.
-std::string Scene::LastTextGrandmaVillager(std::string lastText)
-{
-	int index = GenerateRandomNumber(1, 2);
-
-	switch (index)
-	{
-	case 1:
-		lastText = "The early bird catches the worm.";
-		break;
-	case 2:
-		lastText = "If you don't have anything nice to say, don't say anything at all.";
-		break;
-	}
-	return lastText;
-}
-
-//Returns a random string based on a random number generator. This function is used by LastTextNPC() to generate a random line spoken by LRRH.
-std::string Scene::LastTextLittleRedVillager(std::string lastText)
-{
-	
-	int index = GenerateRandomNumber(1, 2);
-
-	switch (index)
-	{
-	case 1:
-		break;
-	case 2:
-		break;
-	}
-	return lastText;
-}
 
 void Scene::Prueba()
 {
