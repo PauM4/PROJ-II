@@ -456,30 +456,32 @@ bool SceneBattle::PostUpdate()
 	}
 
 
-   const DynArray<iPoint>* lastpath = app->pathfinding->GetLastPath();
-	for (uint i = 0; i < lastpath->Count(); ++i)
-	{
-		iPoint pos = app->map->MapToWorld(lastpath->At(i)->x, lastpath->At(i)->y);
+	//··Creo que no sirve para nada, consultar (???????)··//  @xiao
+	//////////  const DynArray<iPoint>* lastpath = app->pathfinding->GetLastPath();
+	//////////for (uint i = 0; i < lastpath->Count(); ++i)
+	//////////{
+	//////////	iPoint pos = app->map->MapToWorld(lastpath->At(i)->x, lastpath->At(i)->y);
 
-		    LOG("posTileY= %d", lastpath->At(i)->y);
-		
-			app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
-		
-	}
+	//////////	    LOG("posTileY= %d", lastpath->At(i)->y);
+	//////////	
+	//////////		app->render->DrawRectangle({ pos.x, pos.y, 120, 120 }, 0, 143, 57, 100, true);
+	//////////	
+	//////////}
 
-	// L12: Debug pathfinding
-	iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
-	if (app->pathfinding->IsWalkable(origin) && originSelected == true) {
+	//////////// L12: Debug pathfinding
+	//////////iPoint originScreen = app->map->MapToWorld(origin.x, origin.y);
+	//////////if (app->pathfinding->IsWalkable(origin) && originSelected == true) {
 
-	  app->render->DrawRectangle({ originScreen.x, originScreen.y, 120, 120 }, 250, 0, 0, 100, true);
-	  app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
+	//////////  app->render->DrawRectangle({ originScreen.x, originScreen.y, 120, 120 }, 250, 0, 0, 100, true);
+	//////////  app->render->DrawTexture(originTex, originScreen.x, originScreen.y);
 
-	}
+	//////////}
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+	//////////if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 
-		timmy->health = 0;
-	}
+	//////////	timmy->health = 0;
+	//////////}
+	//··Creo que no sirve para nada, consultar (???????)··//
 
 
 	//··DoDamageToEnemy(CombatButtons button)··//
@@ -562,90 +564,94 @@ bool SceneBattle::PostUpdate()
 		}
 	}
 
-	if (move == true || moveenemy==true) {
-		int j = 0;
-		int i = 0;
-		iPoint nexTile;
-		iPoint pos;
-		for (i = 0; i < characterTurn->movement; i++ ) {
-			for ( j = 0 ; j < characterTurn->movement-i; j++) {
+	//··UpdateTilesInRange··//
+	////if (move == true || moveenemy==true) {
+	////	int j = 0;
+	////	int i = 0;
+	////	iPoint nexTile;
+	////	iPoint pos;
+	////	for (i = 0; i < characterTurn->movement; i++ ) {
+	////		for ( j = 0 ; j < characterTurn->movement-i; j++) {
 
-				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
-				
-				combatMap[nexTile.x][nexTile.y].inRange = true;
-				/*arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
-				  
-				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
-				 combatMap[nexTile.x ][nexTile.y].inRange = true;
-				/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
+	////			nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
+	////			
+	////			combatMap[nexTile.x][nexTile.y].inRange = true;
+	////			/*arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+	////			  
+	////			 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
+	////			 combatMap[nexTile.x ][nexTile.y].inRange = true;
+	////			/*arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 
-				 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
-				 combatMap[nexTile.x][nexTile.y].inRange = true;
-				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
+	////			 nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
+	////			 combatMap[nexTile.x][nexTile.y].inRange = true;
+	////			/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
 
-				 nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
-				 combatMap[nexTile.x][nexTile.y].inRange = true;
-				/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
-				
-			}
-	
-		}
+	////			 nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
+	////			 combatMap[nexTile.x][nexTile.y].inRange = true;
+	////			/* arealist.Add(&combatMap[nexTile.x][nexTile.y]);*/
+	////			
+	////		}
+	////
+	////	}
+	//··UpdateTilesInRange··//
 
-		for (i = 0; i < characterTurn->movement; i++) {
-			for (j = 0; j < characterTurn->movement - i; j++) {
+		//··Creo que no sirve para nada, consultar (???????)··//  @xiao
+		//////////for (i = 0; i < characterTurn->movement; i++) {
+		//////////	for (j = 0; j < characterTurn->movement - i; j++) {
 
-				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
-				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
-					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
-					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
-					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
-					app->pathfinding->IsWalkable(nexTile) == false) {
+		//////////		nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
+		//////////		if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
+		//////////			combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
+		//////////			combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
+		//////////			combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
+		//////////			app->pathfinding->IsWalkable(nexTile) == false) {
 
-					combatMap[nexTile.x][nexTile.y].inRange = false;
-					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
-				}
-				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
-				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
-					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
-					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
-					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
-					app->pathfinding->IsWalkable(nexTile) == false) {
+		//////////			combatMap[nexTile.x][nexTile.y].inRange = false;
+		//////////			/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+		//////////		}
+		//////////		nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
+		//////////		if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
+		//////////			combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
+		//////////			combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
+		//////////			combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
+		//////////			app->pathfinding->IsWalkable(nexTile) == false) {
 
-					combatMap[nexTile.x][nexTile.y].inRange = false;
-					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
-				}
+		//////////			combatMap[nexTile.x][nexTile.y].inRange = false;
+		//////////			/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+		//////////		}
 
-				nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
-				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
-					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
-					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
-					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
-					app->pathfinding->IsWalkable(nexTile) == false) {
+		//////////		nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
+		//////////		if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
+		//////////			combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
+		//////////			combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
+		//////////			combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
+		//////////			app->pathfinding->IsWalkable(nexTile) == false) {
 
-					combatMap[nexTile.x][nexTile.y].inRange = false;
-					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
-				}
+		//////////			combatMap[nexTile.x][nexTile.y].inRange = false;
+		//////////			/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+		//////////		}
 
-				nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
-				if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
-					combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
-					combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
-					combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
-					app->pathfinding->IsWalkable(nexTile)==false) {
+		//////////		nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
+		//////////		if (combatMap[nexTile.x + 1][nexTile.y].inRange == false &&
+		//////////			combatMap[nexTile.x - 1][nexTile.y].inRange == false &&
+		//////////			combatMap[nexTile.x][nexTile.y + 1].inRange == false &&
+		//////////			combatMap[nexTile.x][nexTile.y - 1].inRange == false ||
+		//////////			app->pathfinding->IsWalkable(nexTile)==false) {
 
-					combatMap[nexTile.x][nexTile.y].inRange = false;
-					/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
-				}
+		//////////			combatMap[nexTile.x][nexTile.y].inRange = false;
+		//////////			/* arealist.Add(&combatMap[nexTile.x ][nexTile.y]);*/
+		//////////		}
 
-			}
+		//////////	}
+		//··Creo que no sirve para nada, consultar (???????)··//  @xiao
 
-		}
+		//////////}
 
 
 		
 		
 
-	}
+	////}
 	
 	if(move==false)
 	{
@@ -970,16 +976,16 @@ bool SceneBattle::PostUpdate()
 		}
 	}
 
-	//Print win/lose screen
-	if (win) {
-		app->render->DrawTexture(winScreen, 0, 0);
+	//////////Print win/lose screen
+	////////if (win) {
+	////////	app->render->DrawTexture(winScreen, 0, 0);
 
-	}
-	if (lose) {
-		app->render->DrawTexture(loseScreen, 0, 0);
-	}
+	////////}
+	////////if (lose) {
+	////////	app->render->DrawTexture(loseScreen, 0, 0);
+	////////}
 
-	if ((win || lose) && app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
+	////////if ((win || lose) && app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
 
 
 	if (characterTurn->isAlive == false) {

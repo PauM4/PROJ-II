@@ -213,7 +213,8 @@ private:
 	void TriggerButtonPressed(CombatButtons button);
 	void ActionFromButton(CombatButtons button);
 	void GodMode();
-	void UpdateTilePos();
+	void UpdateEntitiesTilePos();
+	void UpdateTilesInRange();
 	
 	// Creates area of an attack or ability, type is 0 if atack, 1 if lineal, 2 if "circular", 3 if global
 	bool CreateArea(int range, int type, iPoint posTile);

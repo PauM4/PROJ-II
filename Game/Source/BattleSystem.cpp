@@ -73,7 +73,7 @@ bool BattleSystem::Start()
 	originSelected = false;
 	pathIndex = 1;
 	length = 1;
-	turnstart = true;
+	turnEnded = false;
 	destination = iPoint(0, 0);
 	movepressed = false;
 	attackpressed = false;
@@ -199,28 +199,53 @@ bool BattleSystem::Update(float dt)
 		}
 		else
 		{
-			godMode = true;
+			godMode = false;
 		}
 	}
 
 	if (godMode)
 		GodMode();
 
-	UpdateTilePos();
+	UpdateEntitiesTilePos();
 
 	CheckWinCondition();
 
 
+	if ((win || lose) && app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
 
 	app->map->Draw();
 	return true;
 }
 
-void BattleSystem::UpdateTilePos()
+void BattleSystem::UpdateEntitiesTilePos()
 {
 	for (auto& entity : turnQueue)
 	{
 		entity->tilePos = app->map->WorldToMap(entity->position.x - app->render->camera.x, entity->position.y - app->render->camera.y);
+	}
+}
+
+void BattleSystem::UpdateTilesInRange()
+{
+	int j = 0;
+	int i = 0;
+	iPoint nexTile;
+	iPoint pos;
+	for (i = 0; i < characterTurn->movement; i++) {
+		for (j = 0; j < characterTurn->movement - i; j++) {
+
+			nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y + i);
+			combatMap[nexTile.x][nexTile.y].inRange = true;
+			
+			nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y + i);
+			combatMap[nexTile.x][nexTile.y].inRange = true;
+			
+			nexTile = iPoint(characterTurn->tilePos.x - j, characterTurn->tilePos.y - i);
+			combatMap[nexTile.x][nexTile.y].inRange = true;
+
+			nexTile = iPoint(characterTurn->tilePos.x + j, characterTurn->tilePos.y - i);
+			combatMap[nexTile.x][nexTile.y].inRange = true;
+		}
 	}
 }
 
@@ -234,6 +259,15 @@ bool BattleSystem::PostUpdate()
 	
 
 	UIStatsForBattle();
+
+	//Print win/lose screen
+	if (win) {
+		app->render->DrawTexture(winScreen, 0, 0);
+
+	}
+	if (lose) {
+		app->render->DrawTexture(loseScreen, 0, 0);
+	}
 	
 	return ret;
 }
@@ -331,15 +365,14 @@ void BattleSystem::TriggerButtonPressed(CombatButtons button)
 		{
 			ActionFromButton(button);
 		}
-		
-		button = CombatButtons::NONE;
+		UpdateTilesInRange(); //no estoy seguro si esto va aqui
 
 		break;
 
 	case CombatButtons::END:
 
 	
-		turnstart = false;
+		turnEnded = true;
 		characterTurn->GainStamina(10);
 		endturnpressed = false;
 
@@ -374,6 +407,7 @@ void BattleSystem::ActionFromButton(CombatButtons button)
 
 	case CombatButtons::MOVE:
 
+		button = CombatButtons::NONE;
 		break;
 	}
 }
@@ -395,7 +429,7 @@ void BattleSystem::DoDamageToEnemy(CombatButtons button)
 				int stamina = StaminaToTakeAway(button);
 				turnQueue.at(currentTurn)->UseStamina(stamina);
 
-				turnstart = false;
+				turnEnded = true;
 				villager->takedmgAnim.Reset();
 
 				if (targets.At(i)->data->id == 3)
