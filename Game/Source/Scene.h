@@ -85,6 +85,9 @@ public:
 
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;
+	SDL_Texture* ropeTexture;
+
+	SDL_Rect ropeRect;
 
 private:
 
@@ -112,6 +115,8 @@ private:
 	int pruebaj = 0;
 
 	bool godMode;
+
+
 
 
 };

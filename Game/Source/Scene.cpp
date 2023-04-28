@@ -56,6 +56,8 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
+	ropeTexture = app->tex->Load("Assets/UI/ropeImage.png");
+
 
 	return ret;
 }
@@ -104,6 +106,9 @@ bool Scene::Start()
 	godMode = false;
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
+
+	// Rect for Rope texture
+	ropeRect = { 173, 0, 68, 828 };
 
 	return true;
 }
@@ -189,9 +194,14 @@ bool Scene::Update(float dt)
 		}
 	}
 
-
 	// Draw map
 	app->map->Draw();
+
+	app->render->DrawTexture(ropeTexture, player->position.x - app->win->width / 2 + 1378 , player->position.y - app->win->height / 2  + 49, &ropeRect);
+
+	//int mouseX, mouseY;
+	//app->input->GetMousePosition(mouseX, mouseY);
+	//std::cout << "MouseX: " << mouseX << "MouseY: " << mouseY << std::endl;
 
 	return true;
 }
