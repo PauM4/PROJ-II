@@ -10,9 +10,9 @@
 #include "Physics.h"
 
 
-Enemy_LRRH::Enemy_LRRH() : Entity(EntityType::LRRH){
+Enemy_LRRH::Enemy_LRRH() : Entity(EntityType::ENEMYLRRH){
 	//texture = app->tex->Load("");
-	name.Create("lrrh");
+	name.Create("enemy_lrrh");
 
 	//Behavior Tree
 	//Action Nodes
@@ -28,12 +28,12 @@ Enemy_LRRH::Enemy_LRRH() : Entity(EntityType::LRRH){
 	getCloserChooser = std::make_shared<RandomUniformDistribution>(2);
 	getCloserChooser->AddChild(getCloser);
 	getCloserChooser->AddChild(jumpGetCloser);
-	getCloserChooser->SetNodeName("LRRH: getCloserChooser");
+	getCloserChooser->SetNodeName("ENEMYLRRH: getCloserChooser");
 
 	moveAwayChooser = std::make_shared<RandomUniformDistribution>(2);
 	moveAwayChooser->AddChild(moveAway);
 	moveAwayChooser->AddChild(jumpMoveAway);
-	moveAwayChooser->SetNodeName("LRRH: moveAwayChooser");
+	moveAwayChooser->SetNodeName("ENEMYLRRH: moveAwayChooser");
 
 	inRangeChecker = std::make_shared<SwitchConditionNode>(shoot, getCloserChooser);
 	healthChecker = std::make_shared<SwitchConditionNode>(moveAwayChooser, shoot);

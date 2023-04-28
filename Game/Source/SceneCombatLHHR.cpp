@@ -44,9 +44,9 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 		bunny = (Bunny*)app->entityManager->CreateEntity(EntityType::BUNNY);
 		bunny->parameters = config.child("bunny");
 	}
-	if (config.child("lrrh")) {
-		LRRH = (Enemy_LRRH*)app->entityManager->CreateEntity(EntityType::LRRH);
-		LRRH->parameters = config.child("lrrh");
+	if (config.child("enemy_lrrh")) {
+		LRRH = (Enemy_LRRH*)app->entityManager->CreateEntity(EntityType::ENEMYLRRH);
+		LRRH->parameters = config.child("enemy_lrrh");
 	}  
 	if (config.child("sprout")) {
 		sprout = (Enemy_CorruptedSprout*)app->entityManager->CreateEntity(EntityType::CORRUPTEDSPROUT);
@@ -59,8 +59,8 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 	if (config.parent().child("bunny")) {
 		bunny->stats = config.parent().child("bunny");
 	}
-	if (config.parent().child("lrrh")) {
-		LRRH->stats = config.parent().child("lrrh");
+	if (config.parent().child("enemy_lrrh")) {
+		LRRH->stats = config.parent().child("enemy_lrrh");
 	}
 	if (config.parent().child("sprout")) {
 		sprout->stats = config.parent().child("sprout");

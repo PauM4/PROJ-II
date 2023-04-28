@@ -35,7 +35,7 @@ enum class EntityType
 	DOOR,
 
 	//Enemies
-	LRRH,
+	ENEMYLRRH,
 	ANGRYVILLAGER,
 	CORRUPTEDSPROUT,
 };

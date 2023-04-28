@@ -118,7 +118,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		entity = new Enemy_AngryVillager();
 		break;
 
-	case EntityType::LRRH:
+	case EntityType::ENEMYLRRH:
 		entity = new Enemy_LRRH();
 		break;
 
