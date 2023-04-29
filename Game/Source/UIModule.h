@@ -94,8 +94,6 @@ public:
 	GuiButton* dialog_option4_button;
 	GuiButton* dialog_text_button;
 
-
-
 	bool quitButtonBool;
 
 	bool continueBool;

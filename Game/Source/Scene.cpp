@@ -301,6 +301,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(npcPopUpTexture);
 	app->tex->UnLoad(uiSpriteTexture);
 	app->tex->UnLoad(ropeTexture);
+	app->tex->UnLoad(pressKeyTexture);
 	
 
 	return true;

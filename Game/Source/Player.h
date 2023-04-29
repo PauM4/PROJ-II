@@ -34,7 +34,6 @@ public:
 
 	bool CleanUp();
 
-	// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 	// Magic function that allows the player to teleport :D
@@ -120,6 +119,8 @@ private:
 	Animation bunnyRightIdleAnim;
 	Animation bunnyLeftIdleAnim;
 	Animation bunnyUpIdleAnim;
+
+	SDL_Texture* eKeyTexture;
 
 
 	bool godMode;

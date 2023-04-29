@@ -78,7 +78,6 @@ public:
 	Npc* npc1;
 	List<Door*> doors;
 
-
 	// Load things
 	int loadPlayerPosX;
 	int loadPlayerPosY;
@@ -91,9 +90,9 @@ public:
 
 	SDL_Texture* ropeTexture;
 
+	// Rope minigame
 	Animation pressKeyAnim;
 	SDL_Texture* pressKeyTexture;
-
 	SDL_Rect ropeRect;
 	SDL_Rect keyRect;
 

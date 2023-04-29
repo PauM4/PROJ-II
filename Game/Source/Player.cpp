@@ -109,6 +109,7 @@ bool Player::Awake() {
 		position.y = parameters.attribute("y").as_int();
 	}
 	
+	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
 	
 	speed = 350;
 	vel = b2Vec2(0, 0);
@@ -234,6 +235,9 @@ bool Player::PostUpdate() {
 	UpdateAndPrintBunnyAnimation();
 	
 	UpdateAndPrintTimmyAnimation();
+
+	// Print E key if interaction is available
+	if (itemInteractAvailable || npcInteractAvailable) app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
 	
 	return true;
 }
@@ -324,12 +328,14 @@ void Player::UpdateAndPrintBunnyAnimation()
 
 	SDL_Rect rect2 = bunnyCurrentAnimation->GetCurrentFrame();
 	app->render->DrawTexture(bunnyTexture, position.x - 145, position.y - 115, &rect2);
+
 }
 
 bool Player::CleanUp()
 {
 	app->tex->UnLoad(texture);
 	app->tex->UnLoad(bunnyTexture);
+	app->tex->UnLoad(eKeyTexture);
 
 	if (pbody != NULL)
 	{
@@ -378,7 +384,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			lastCollision = ColliderType::LRRH;
 			break;
 	}
-	
 }
 
 //This function toggles the player's god mode when the F10 key is pressed
