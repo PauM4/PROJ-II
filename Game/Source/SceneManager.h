@@ -14,11 +14,16 @@ enum GameScene {
 	NONE = 0,
 	INTRO,
 	MAIN_MENU,
+	//World_01
 	SCENE,
 	BATTLE,
 	GRANDMA,
 	COMBATLHHR,
-	GAME_OVER
+	GAME_OVER,
+	//World_02
+	W2_SCENE,
+	//World_03
+	W3_SCENE
 };
 
 class SceneManager : public Module {

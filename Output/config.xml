@@ -21,6 +21,8 @@
 
 	</audio>
 
+	<!--SCENES-->
+	<!--World_01-->
 	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
 		<player x="1868" y="5608" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"
 															bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
@@ -35,6 +37,18 @@
 
 	</scene>
 
+	<!--World_02-->
+	
+	<w2_scene name ="Assets/Maps/World_02/scene_01.tmx" path="Assets/Maps/World_02/">
+		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+	</w2_scene>
+
+	<!--World_03-->
+
+	<w3_scene name ="Assets/Maps/World_03/scene_01.tmx" path="Assets/Maps/World_03/">
+		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+	</w3_scene>
+		
 	<sceneGrandma name="Assets/Maps/World_01/town_house.tmx" path="Assets/Maps/World_01/">
 		<player x="532" y="882" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
 

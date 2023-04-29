@@ -26,7 +26,7 @@ W2_Scene::~W2_Scene()
 // Called before render is available
 bool W2_Scene::Awake(pugi::xml_node& config)
 {
-	LOG("Loading Scene");
+	LOG("Loading W2_Scene");
 	bool ret = true;
 
 	mapName = config.attribute("name").as_string();
@@ -34,20 +34,9 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	
 	app->physics->Enable();
 
-	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
-	npc1->parameters = config.child("npc");
-
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
-	}
-
-
-	for (pugi::xml_node doorNode = config.child("door"); doorNode; doorNode = doorNode.next_sibling("door")) {
-		Door* door = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);
-		door->parameters = doorNode;
-
-		doors.Add(door);
 	}
 
 	app->entityManager->Awake(config);
@@ -752,30 +741,30 @@ void W2_Scene::CreateDialogue()
 
 bool W2_Scene::LoadState(pugi::xml_node& data)
 {
-	loadPlayerPosX = data.child("player").attribute("x").as_int();
-	loadPlayerPosY = data.child("player").attribute("y").as_int();
+	//loadPlayerPosX = data.child("player").attribute("x").as_int();
+	//loadPlayerPosY = data.child("player").attribute("y").as_int();
 
-	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+	//player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
 	return true;
 }
 
 bool W2_Scene::SaveState(pugi::xml_node& data)
 {
-	pugi::xml_node playerNode = data.append_child("player");
+	//pugi::xml_node playerNode = data.append_child("player");
 
-	// If door, save mes lluny
-	if (app->uiModule->doorPlayerPosition)
-	{
-		playerNode.append_attribute("x") = player->position.x;
-		playerNode.append_attribute("y") = player->position.y + 75;
-		app->uiModule->doorPlayerPosition = false;
-	}
+	//// If door, save mes lluny
+	//if (app->uiModule->doorPlayerPosition)
+	//{
+	//	playerNode.append_attribute("x") = player->position.x;
+	//	playerNode.append_attribute("y") = player->position.y + 75;
+	//	app->uiModule->doorPlayerPosition = false;
+	//}
 
-	playerNode.append_attribute("x") = player->position.x;
-	playerNode.append_attribute("y") = player->position.y;
+	//playerNode.append_attribute("x") = player->position.x;
+	//playerNode.append_attribute("y") = player->position.y;
 
-	
+	//
 
 	return true;
 }

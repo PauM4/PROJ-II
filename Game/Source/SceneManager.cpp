@@ -66,6 +66,18 @@ bool SceneManager::PreUpdate()
 		scene = GameScene::GRANDMA;
 	}
 
+	if ((app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = false;
+		scene = GameScene::W2_SCENE;
+	}
+
+	if ((app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = false;
+		scene = GameScene::W3_SCENE;
+	}
+
 	switch (scene) {
 	case GameScene::INTRO:
 		if ((app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && currentScene->active == true)
@@ -142,6 +154,22 @@ bool SceneManager::Update(float dt)
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneGrandma, 20)) {
 				currentScene = (Module*)app->sceneGrandma;
 				LOG("SCENE_GRANDMA");
+			}
+		}
+		break;
+	case GameScene::W2_SCENE:
+		if (currentScene != (Module*)app->w2_scene) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->w2_scene, 20)) {
+				currentScene = (Module*)app->w2_scene;
+				LOG("W2_SCENE");
+			}
+		}
+		break;
+	case GameScene::W3_SCENE:
+		if (currentScene != (Module*)app->w3_scene) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->w3_scene, 20)) {
+				currentScene = (Module*)app->w3_scene;
+				LOG("W3_SCENE");
 			}
 		}
 		break;
