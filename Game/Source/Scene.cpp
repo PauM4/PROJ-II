@@ -814,14 +814,14 @@ void Scene::UpdateRopeMinigame(float dt)
 		}
 
 		// To increase difficulty, change divider (5) to smaller num
-		ropeSpeed -= ropeSpeed / 5 * dt;
+		ropeSpeed -= ropeSpeed / 4 * dt;
 
 		// update rope position
 		ropeX = player->position.x - app->win->width / 2 + 1378;
 		ropeY = (player->position.y - app->win->height / 2 + 49) - ropeSpeed;
 
 		// If player reaches ropeSpeedLimt, stop the rope and trigger win consequence
-		if (ropeSpeed >= 550 || app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+		if (ropeSpeed >= ropeSpeedLimit || app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
 		{
 			ropeSpeed = 0;
 
