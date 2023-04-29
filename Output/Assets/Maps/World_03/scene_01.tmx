@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="9" nextobjectid="112">
+ <imagelayer id="2" name="BG">
+  <image source="Mapa_Peter_Concept.png" width="4736" height="6319"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <objectgroup color="#ff0000" id="3" name="Collisions">
+  <properties>
+   <property name="ColType" type="int" value="0"/>
+  </properties>
+  <object id="76" x="1062.67" y="4940" width="1805.33" height="1072"/>
+  <object id="77" x="634.667" y="5916" width="472" height="198.667"/>
+  <object id="78" x="468" y="3845.33" width="182.667" height="2182.67"/>
+  <object id="79" x="610" y="3154" width="1670" height="788"/>
+  <object id="80" x="1790" y="1962" width="206" height="1234"/>
+  <object id="81" x="2156" y="1962" width="252" height="828"/>
+  <object id="82" x="2564" y="1970" width="258" height="814"/>
+  <object id="84" x="2994" y="1954" width="114" height="1232"/>
+  <object id="85" x="2692" y="3154" width="308" height="1112"/>
+  <object id="86" x="2692" y="4450" width="264" height="512"/>
+  <object id="87" x="1980" y="1951" width="1022" height="85"/>
+  <object id="89" x="877" y="3994" width="105" height="206"/>
+  <object id="90" x="982" y="3994" width="76" height="145"/>
+  <object id="91" x="1051" y="3995" width="102" height="202"/>
+  <object id="92" x="1123" y="4705" width="166" height="185"/>
+  <object id="95" x="1881" y="4656" width="316" height="214"/>
+  <object id="96" x="1678.67" y="4033.33" width="111.333" height="210.667"/>
+  <object id="97" x="1852" y="4034.67" width="98" height="204"/>
+  <object id="98" x="1775.33" y="4034.67" width="85.3333" height="138.667"/>
+  <object id="99" x="2394.67" y="1690.67" width="200" height="74.6667"/>
+  <object id="100" x="2573.33" y="877.333" width="89.3333" height="829.333"/>
+  <object id="101" x="1858.67" y="1125.33" width="558.667" height="586.667"/>
+  <object id="102" x="1856" y="852" width="736" height="97.3333"/>
+  <object id="104" x="1757.33" y="865.333" width="101.333" height="322.667"/>
+ </objectgroup>
+ <objectgroup color="#00ff00" id="4" name="Doors">
+  <properties>
+   <property name="ColType" type="int" value="1"/>
+  </properties>
+  <object id="105" x="2413" y="1634" width="159" height="50"/>
+  <object id="106" x="1861" y="956" width="36" height="163"/>
+  <object id="107" x="2037.33" y="2038.67" width="85.3333" height="44"/>
+  <object id="108" x="2452" y="2039.33" width="78" height="49.3333"/>
+  <object id="109" x="2858.67" y="2035.33" width="84" height="48.6667"/>
+  <object id="110" x="1790.5" y="4173" width="59" height="54"/>
+  <object id="111" x="980.5" y="4135.5" width="70" height="50"/>
+ </objectgroup>
+</map>
