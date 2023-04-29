@@ -108,7 +108,7 @@ bool Scene::Start()
 	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
 
 	// Rect for Rope texture
-	ropeRect = { 173, 0, 68, 828 };
+	ropeRect = { 0, 0, 177, 971};
 	ropeSpeed = 0.01f;
 	ropeJump = 20;
 	ropeSpeedLimit = 550;
