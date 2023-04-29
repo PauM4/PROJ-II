@@ -4,7 +4,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
-#include "Scene.h"
+#include "W3_Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "PathFinding.h"
@@ -14,17 +14,17 @@
 #include "Defs.h"
 #include "Log.h"
 
-Scene::Scene(bool isActive) : Module(isActive)
+W3_Scene::W3_Scene(bool isActive) : Module(isActive)
 {
-	name.Create("scene");
+	name.Create("w3_scene");
 }
 
 // Destructor
-Scene::~Scene()
+W3_Scene::~W3_Scene()
 {}
 
 // Called before render is available
-bool Scene::Awake(pugi::xml_node& config)
+bool W3_Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
@@ -61,7 +61,7 @@ bool Scene::Awake(pugi::xml_node& config)
 }
 
 // Called before the first frame
-bool Scene::Start()
+bool W3_Scene::Start()
 {
 	app->entityManager->Start();
 	
@@ -109,7 +109,7 @@ bool Scene::Start()
 }
 
 // Called each loop iteration
-bool Scene::PreUpdate()
+bool W3_Scene::PreUpdate()
 {
 	return true;
 }
@@ -117,7 +117,7 @@ bool Scene::PreUpdate()
 
 
 // Called each loop iteration
-bool Scene::Update(float dt)
+bool W3_Scene::Update(float dt)
 {
 	//if (pruebaj == 0)
 	//{
@@ -196,7 +196,7 @@ bool Scene::Update(float dt)
 	return true;
 }
 
-void Scene::AppearDialogue()
+void W3_Scene::AppearDialogue()
 {
 	if (player->playerState == player->PlayerState::NPC_INTERACT)
 	{
@@ -214,7 +214,7 @@ void Scene::AppearDialogue()
 }
 
 // Called each loop iteration
-bool Scene::PostUpdate()
+bool W3_Scene::PostUpdate()
 {
 	bool ret = true;
 
@@ -233,7 +233,7 @@ bool Scene::PostUpdate()
 	return ret;
 }
 
-bool Scene::OnGuiMouseClickEvent(GuiControl* control)
+bool W3_Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
@@ -261,7 +261,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 }
 
 // Called before quitting
-bool Scene::CleanUp()
+bool W3_Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	//app->fonts->Unload(font);
@@ -277,7 +277,7 @@ bool Scene::CleanUp()
 }
 
 //Toggles god mode on and off when the F10 key is pressed. When god mode is on, the camera follows the player's position without any boundaries.
-void Scene::GodMode()
+void W3_Scene::GodMode()
 {
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
@@ -293,7 +293,7 @@ void Scene::GodMode()
 }
 
 //Updates the camera position based on the player's position. If god mode is on, the camera follows the player's position without any boundaries. If god mode is off, the camera follows the player's position while respecting the game's boundaries.
-void Scene::Camera()
+void W3_Scene::Camera()
 {
 	if (godMode)
 	{
@@ -320,7 +320,7 @@ void Scene::Camera()
 //}
 
 //Returns a string with the last line spoken by the specified NPC. Randomized.
-std::string Scene::LastTextNPC(ColliderType NPC)
+std::string W3_Scene::LastTextNPC(ColliderType NPC)
 {
 	std::string auxString;
 	//int index = GenerateRandomNumber(1, 2);
@@ -388,7 +388,7 @@ std::string Scene::LastTextNPC(ColliderType NPC)
 
 
 
-void Scene::Prueba()
+void W3_Scene::Prueba()
 {
 	for (auto& e : dialogue)
 	{
@@ -399,7 +399,7 @@ void Scene::Prueba()
 }
 
 //Runs a dialogue tree for a specific NPC, identified using a ColliderType enum. This function delegates the NPC specific behavior to other functions based on the enum passed in.
-void Scene::RunDialogueTree(ColliderType NPC)
+void W3_Scene::RunDialogueTree(ColliderType NPC)
 {
 	switch (NPC)
 	{
@@ -448,7 +448,7 @@ void Scene::RunDialogueTree(ColliderType NPC)
 
 //Updates the dialogue tree based on the player's response to a dialogue prompt. The dialogue tree to update is selected based on the type of NPC the player last interacted
 //with, as determined by the player's lastCollision variable. 
-void Scene::UpdateDialogueTree(int option)
+void W3_Scene::UpdateDialogueTree(int option)
 {
 	if (1 >= option <= 4)
 	{
@@ -481,7 +481,7 @@ void Scene::UpdateDialogueTree(int option)
 
 
 //Create Tree Dialogues
-void Scene::CreateDialogue()
+void W3_Scene::CreateDialogue()
 {
 	// - Angry Villager Pre Tutorial
 	//2nd level
@@ -750,7 +750,7 @@ void Scene::CreateDialogue()
 
 }
 
-bool Scene::LoadState(pugi::xml_node& data)
+bool W3_Scene::LoadState(pugi::xml_node& data)
 {
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
@@ -760,7 +760,7 @@ bool Scene::LoadState(pugi::xml_node& data)
 	return true;
 }
 
-bool Scene::SaveState(pugi::xml_node& data)
+bool W3_Scene::SaveState(pugi::xml_node& data)
 {
 	pugi::xml_node playerNode = data.append_child("player");
 

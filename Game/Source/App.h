@@ -19,19 +19,28 @@ class Render;
 class Textures;
 class Audio;
 
-//Scenes
+//-----SCENES-----
 class SceneIntro;
 class SceneMainMenu;
+
+//World_01
 class Scene;
 class SceneCombatLHHR;
 class SceneBattle;
 class SceneGrandma;
+
+//World_02
+class W2_Scene;
+
+//World_03
+class W3_Scene;
+
+//----------
 class EntityManager;
 class Map;
 class Fonts;
 class FadeToBlack;
 class SceneManager;
-//L07 DONE 2: Add Physics module
 class Physics;
 class PathFinding;
 class GuiManager;
@@ -102,13 +111,24 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
-	//Scenes
-	Scene* scene;
+
+	//-----SCENES-----
 	SceneIntro* sceneIntro;
 	SceneMainMenu* sceneMainMenu;
+
+	//World_01
+	Scene* scene;
 	SceneCombatLHHR* sceneCombatLHHR;
 	SceneBattle* sceneBattle;
 	SceneGrandma* sceneGrandma;
+
+	//World_02
+	W2_Scene* w2_scene;
+
+	//World_03
+	W3_Scene* w3_scene;
+
+	//----------
 	EntityManager* entityManager;
 	Map* map;
 	Fonts* fonts; 

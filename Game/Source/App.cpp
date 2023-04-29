@@ -4,11 +4,23 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
+
+//-----SCENES-----
 #include "SceneIntro.h"
 #include "SceneMainMenu.h"
+
+//World_01
 #include "Scene.h"
 #include "SceneCombatLHHR.h"
 #include "SceneBattle.h"
+
+//World_02
+#include "W2_Scene.h"
+
+//World_03
+#include "W3_Scene.h"
+
+//-------------------
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
@@ -42,15 +54,23 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new PathFinding(true);
 	sceneManager = new SceneManager(true); 
 	
-	//Scenes
+	//-----SCENES-----
 	sceneMainMenu = new SceneMainMenu(false);
 	sceneIntro = new SceneIntro(false);
+
+	//World_01
 	scene = new Scene(false);
 	sceneCombatLHHR = new SceneCombatLHHR(false);
 	sceneBattle = new SceneBattle(false);
 	sceneGrandma = new SceneGrandma(false);
 
+	//World_02
+	w2_scene = new W2_Scene(false);
 
+	//World_03
+	w3_scene = new W3_Scene(false);
+
+	//-----------------
 	entityManager = new EntityManager(true);
 	map = new Map(true);
 	guiManager = new GuiManager(true);
@@ -68,14 +88,24 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(pathfinding);
 	AddModule(sceneManager);
-	//Scenes
+
+	//-----SCENES-----
 	AddModule(sceneIntro);
 	AddModule(sceneMainMenu);
+
+	//World_01
 	AddModule(scene);
 	AddModule(sceneCombatLHHR);
 	AddModule(sceneBattle);
 	AddModule(sceneGrandma);
 
+	//World_02
+	AddModule(w2_scene);
+
+	//World_03
+	AddModule(w3_scene);
+
+	//-----------------
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(guiManager);
