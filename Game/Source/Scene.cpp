@@ -109,6 +109,12 @@ bool Scene::Start()
 
 	// Rect for Rope texture
 	ropeRect = { 173, 0, 68, 828 };
+	ropeSpeed = 0.01f;
+	ropeJump = 20;
+	heigthRopeLimit = 650;
+
+	ropeX = player->position.x - app->win->width / 2 + 1378;
+	ropeY = player->position.y - app->win->height / 2 + 49;
 
 	return true;
 }
@@ -197,7 +203,9 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-	app->render->DrawTexture(ropeTexture, player->position.x - app->win->width / 2 + 1378 , player->position.y - app->win->height / 2  + 49, &ropeRect);
+	UpdateRopeMinigame(dt);
+	app->render->DrawTexture(ropeTexture, ropeX, ropeY, &ropeRect);
+
 
 	//int mouseX, mouseY;
 	//app->input->GetMousePosition(mouseX, mouseY);
@@ -281,6 +289,7 @@ bool Scene::CleanUp()
 
 	app->tex->UnLoad(npcPopUpTexture);
 	app->tex->UnLoad(uiSpriteTexture);
+	app->tex->UnLoad(ropeTexture);
 	
 
 	return true;
@@ -787,4 +796,25 @@ bool Scene::SaveState(pugi::xml_node& data)
 	
 
 	return true;
+}
+
+
+// Every time player presses T, rope goes up.
+// Every frame the rope goes down
+// The player has to press the button faster proportionally with how much he has left to reach the goal
+void Scene::UpdateRopeMinigame(float dt)
+{
+
+	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		ropeSpeed += ropeJump;
+	}
+
+	// To increase difficulty, change divider to smaller num
+	ropeSpeed -= ropeSpeed / 3 * dt;
+
+	// update rope position
+	ropeX = player->position.x - app->win->width / 2 + 1378;
+	ropeY = (player->position.y - app->win->height / 2 + 49) - ropeSpeed;
+
 }

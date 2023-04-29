@@ -50,6 +50,8 @@ public:
 
 	void UpdateDialogueTree(int opt);
 
+	void UpdateRopeMinigame(float dt);
+
 	std::vector<std::string> GetDialogue() { return dialogue; }
 
 	std::string LastTextNPC(ColliderType NPC);
@@ -117,8 +119,11 @@ private:
 	bool godMode;
 
 
-
-
+	float ropeSpeed;
+	int ropeJump;
+	int heigthRopeLimit;
+	int ropeX;
+	int ropeY;
 };
 
 #endif // __SCENE_H__
