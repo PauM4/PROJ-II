@@ -11,18 +11,22 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="3743" y="1001" x="3743" y="926" />
+		<player x="1886" y="3650" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
 	<sceneGrandma />
+	<w2_scene />
+	<w3_scene />
 	<entitymanager />
 	<map />
 	<guiManager />
 	<UIModule />
+	<teamManager>
+		<teamMembers istimmy="true" isbunny="true" islrrh="false" />
+	</teamManager>
 	<fadeToBlack />
 	<renderer>
-		<camera x="-2532" y="-431" />
+		<camera x="-926" y="-3155" />
 	</renderer>
-
 </save_state>

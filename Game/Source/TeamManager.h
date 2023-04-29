@@ -51,7 +51,9 @@ public:
 
 
 private:
-	
+
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
 
 public:
 	//List of acquaried playable characters
@@ -64,7 +66,9 @@ public:
 
 	item yoyo;
 	
-
+	bool istimmy = true;
+	bool isbunny = true;
+	bool islrrh = false;
 private:
 
 	
