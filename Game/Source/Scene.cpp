@@ -111,10 +111,12 @@ bool Scene::Start()
 	ropeRect = { 173, 0, 68, 828 };
 	ropeSpeed = 0.01f;
 	ropeJump = 20;
-	heigthRopeLimit = 650;
+	ropeSpeedLimit = 550;
 
 	ropeX = player->position.x - app->win->width / 2 + 1378;
 	ropeY = player->position.y - app->win->height / 2 + 49;
+
+	ropeWin = false;
 
 	return true;
 }
@@ -804,17 +806,35 @@ bool Scene::SaveState(pugi::xml_node& data)
 // The player has to press the button faster proportionally with how much he has left to reach the goal
 void Scene::UpdateRopeMinigame(float dt)
 {
-
-	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	if (!ropeWin)
 	{
-		ropeSpeed += ropeJump;
+		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		{
+			ropeSpeed += ropeJump;
+		}
+
+		// To increase difficulty, change divider (5) to smaller num
+		ropeSpeed -= ropeSpeed / 5 * dt;
+
+		// update rope position
+		ropeX = player->position.x - app->win->width / 2 + 1378;
+		ropeY = (player->position.y - app->win->height / 2 + 49) - ropeSpeed;
+
+		// If player reaches ropeSpeedLimt, stop the rope and trigger win consequence
+		if (ropeSpeed >= 550 || app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+		{
+			ropeSpeed = 0;
+
+			// Win...
+			ropeWin = true;
+		}
+	}
+	else
+	{
+		// update rope position
+		ropeX = player->position.x - app->win->width / 2 + 1378;
+		// ropeY remains the same
 	}
 
-	// To increase difficulty, change divider to smaller num
-	ropeSpeed -= ropeSpeed / 3 * dt;
-
-	// update rope position
-	ropeX = player->position.x - app->win->width / 2 + 1378;
-	ropeY = (player->position.y - app->win->height / 2 + 49) - ropeSpeed;
-
+	std::cout << "Rope Speed " << ropeSpeed << std::endl;
 }

@@ -121,9 +121,10 @@ private:
 
 	float ropeSpeed;
 	int ropeJump;
-	int heigthRopeLimit;
+	int ropeSpeedLimit;
 	int ropeX;
 	int ropeY;
+	bool ropeWin;
 };
 
 #endif // __SCENE_H__
