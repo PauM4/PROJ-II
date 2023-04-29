@@ -30,7 +30,7 @@
 #include "SceneManager.h"
 #include "FadeToBlack.h"
 #include "UIModule.h"
-
+#include "TeamManager.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -76,7 +76,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	guiManager = new GuiManager(true);
 	fonts = new Fonts(true);
 	uiModule = new UIModule(true);
-
+	teamManager = new TeamManager(true);
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -110,7 +110,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(guiManager);
 	AddModule(uiModule);
-
+	AddModule(teamManager);
 	AddModule(fadeToBlack);
 
 	// Render last to swap buffer

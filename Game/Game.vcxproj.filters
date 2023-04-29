@@ -68,8 +68,7 @@
     </ClCompile>
     <ClCompile Include="Source\SceneGrandma.cpp" />
     <ClCompile Include="Source\SceneCombatLHHR.cpp" />
-    <ClCompile Include="Source\W2_Scene.cpp" />
-    <ClCompile Include="Source\W3_Scene.cpp" />
+    <ClCompile Include="Source\TeamManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -174,8 +173,7 @@
     </ClInclude>
     <ClInclude Include="Source\SceneGrandma.h" />
     <ClInclude Include="Source\SceneCombatLHHR.h" />
-    <ClInclude Include="Source\W2_Scene.h" />
-    <ClInclude Include="Source\W3_Scene.h" />
+    <ClInclude Include="Source\TeamManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

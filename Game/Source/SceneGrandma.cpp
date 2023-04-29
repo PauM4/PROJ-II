@@ -10,7 +10,6 @@
 #include "PathFinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
-
 #include "Defs.h"
 #include "Log.h"
 

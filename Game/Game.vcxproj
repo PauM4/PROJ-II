@@ -123,6 +123,7 @@
     <ClCompile Include="Source\SceneGrandma.cpp" />
     <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
+    <ClCompile Include="Source\TeamManager.cpp" />
     <ClCompile Include="Source\Timmy.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Source\SceneGrandma.h" />
     <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
+    <ClInclude Include="Source\TeamManager.h" />
     <ClInclude Include="Source\Timmy.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\PQueue.h" />
