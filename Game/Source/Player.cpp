@@ -160,6 +160,20 @@ bool Player::Update(float dt)
 	currentAnimation->Update();
 	bunnyCurrentAnimation->Update();
 
+
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
+	{
+		InteractWithEntities();
+
+		if (playerState == NPC_INTERACT)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+		}
+
+
+	}
+
+
 	switch (playerState)
 	{
 	case PAUSE:
@@ -206,11 +220,7 @@ bool Player::Update(float dt)
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
-	{
-		InteractWithEntities();
-	}
-
+	
 	GodMode();
 
 
@@ -417,44 +427,34 @@ void Player::GodMode()
 //This function checks for input from the player's keyboard and updates the dialogue tree in the game's scene accordingly. The function checks if any button is being pressed, and if so, it calls the UpdateDialogueTree() function in the scene and passes it an integer value from 1 to 4, depending on which button was pressed.
 void Player::InteractWithTree()
 {
-	/*if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
-	{
-		app->scene->UpdateDialogueTree(1);
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
-	{
-		app->scene->UpdateDialogueTree(2);
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
-	{
-		app->scene->UpdateDialogueTree(3);
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-	{
-		app->scene->UpdateDialogueTree(4);
-	}*/
+
 
 	if (buttonOption1)
 	{
 		app->scene->UpdateDialogueTree(1);
+		app->uiModule->CleaningDialogeOverTime();
 		buttonOption1 = false;
 	}
 	else if (buttonOption2)
 	{
+		app->uiModule->CleaningDialogeOverTime();
 		app->scene->UpdateDialogueTree(2);
 		buttonOption2 = false;
 	}
 	else if (buttonOption3)
 	{
+		app->uiModule->CleaningDialogeOverTime();
 		app->scene->UpdateDialogueTree(3);
 		buttonOption3 = false;
 	}
 	else if (buttonOption4)
 	{
+		app->uiModule->CleaningDialogeOverTime();
 		app->scene->UpdateDialogueTree(4);
 		buttonOption4 = false;
 	}
 
+	
 
 }
 

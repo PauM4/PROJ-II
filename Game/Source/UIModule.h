@@ -7,6 +7,8 @@
 #include "SceneManager.h"
 #include <vector>
 #include <string>
+#include "SDL_Timer.h"
+#include <cassert>
 
 struct SDL_Texture;
 
@@ -55,6 +57,12 @@ public:
 
 	void PrintDialogue(std::vector<std::string> dialogue);
 
+	void CleaningDialogeOverTime();
+
+private:
+
+	std::string DialogueOverTime(std::string dialogue);
+
 
 public:
 
@@ -100,6 +108,13 @@ public:
 
 	// UI Things
 	bool doorPlayerPosition;
+
+	SDL_Timer textDialogueTimer;
+	std::string previousTextDialogue, dialogueOverTime;
+
+	bool dialogueHasChanged;
+	int indexDialogueOverTime;
+	float timeToRefreshDialogue;
 
 private:
 

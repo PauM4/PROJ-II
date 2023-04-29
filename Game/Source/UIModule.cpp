@@ -118,6 +118,11 @@ bool UIModule::Start()
 	quitButtonBool = false;
 	continueBool = false;
 
+	dialogueHasChanged = false;
+	indexDialogueOverTime = 0;
+	timeToRefreshDialogue = 0.01f; 
+
+	
 	return true;
 }
 
@@ -743,6 +748,29 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 	return true;
 }
 
+std::string UIModule::DialogueOverTime(std::string dialogue)
+{
+	std::string aux;
+
+	if (dialogue.size() > 0)
+	{
+		for (int i = 0; i < indexDialogueOverTime-1; i++)
+		{
+			aux.push_back(dialogue.at(i));
+		}
+
+	}
+
+	return aux;
+}
+
+void UIModule::CleaningDialogeOverTime()
+{
+	dialogueHasChanged = true;
+	indexDialogueOverTime = 0;
+	dialogueOverTime.clear();
+	textDialogueTimer.Start(0.05f);
+}
 
 void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 {
@@ -783,10 +811,41 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
 	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
+	//---------------------
 	// Dialogue text block
 	SDL_Rect rect = { 0 , 0, 800, 400 };
-	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 0,0,0 }, 1700);
+
+
+	//Comprobar si el cronómetro para que se printe la siguiente letra ya ha llegado a su fin
+	//15 letras por segundo. A 60 frames/segundo -> 1 letra cada 0.25s;
+	if (indexDialogueOverTime <= dialogue[0].length())
+	{
+		//De haber llegado al final el cronónmetro:
+		//Pedirle a la función que nos dé el trozo que se tiene que pintar en este frame
+		if (textDialogueTimer.Test() == estadoTimerP::FIN)
+		{
+			indexDialogueOverTime++;
+			dialogueOverTime = DialogueOverTime(dialogue[0]);
+			textDialogueTimer.Start(timeToRefreshDialogue);
+		}
+	}
+
+
+	if (indexDialogueOverTime == dialogue[0].length())
+	{
+		std::cout << "Ad";
+	}
+	
+
+	//Printar el textDialogue
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1700);
 	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);
+
+	//Printar el textDialogue -  //COMENTADO DE MOMENTO PARA HACER PRUEBAS
+	/*SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 0,0,0 }, 1700);
+	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);*/
+
+	//--------------------
 
 	// Change options buttons text
 	SDL_Rect rectO1 = { 0, 0, 800, 30 };
