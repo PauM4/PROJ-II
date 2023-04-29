@@ -35,6 +35,7 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
+	void EndContact(PhysBody* physA, PhysBody* physB);
 
 	// Magic function that allows the player to teleport :D
 	void Player::ChangePosition(int x, int y);

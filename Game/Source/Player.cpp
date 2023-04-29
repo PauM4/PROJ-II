@@ -386,6 +386,18 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
+void Player::EndContact(PhysBody* physA, PhysBody* physB)
+{
+	switch (physB->ctype)
+	{
+	case ColliderType::LRRH:
+		npcInteractAvailable = false;
+		break;
+	default:
+		break;
+	}
+}
+
 //This function toggles the player's god mode when the F10 key is pressed
 void Player::GodMode()
 {
