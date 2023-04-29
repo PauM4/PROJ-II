@@ -400,23 +400,6 @@ void Player::GodMode()
 //This function checks for input from the player's keyboard and updates the dialogue tree in the game's scene accordingly. The function checks if any button is being pressed, and if so, it calls the UpdateDialogueTree() function in the scene and passes it an integer value from 1 to 4, depending on which button was pressed.
 void Player::InteractWithTree()
 {
-	/*if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
-	{
-		app->scene->UpdateDialogueTree(1);
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
-	{
-		app->scene->UpdateDialogueTree(2);
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
-	{
-		app->scene->UpdateDialogueTree(3);
-	}
-	else if (app->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
-	{
-		app->scene->UpdateDialogueTree(4);
-	}*/
-
 	if (buttonOption1)
 	{
 		app->scene->UpdateDialogueTree(1);

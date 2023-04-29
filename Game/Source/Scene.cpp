@@ -386,8 +386,6 @@ std::string Scene::LastTextNPC(ColliderType NPC)
 	return auxString;
 }
 
-
-
 void Scene::Prueba()
 {
 	for (auto& e : dialogue)
@@ -748,6 +746,12 @@ void Scene::CreateDialogue()
 	grandmaTree->SetRoot(fristNodeG);
 
 
+	//LittleRedAfterCombat
+	auto fristNodeLRAC = std::make_shared<DialogueNode>();
+	fristNodeLRAC->SetText("I want to join your group to help you. I realize that I have been acting wrongly. The wolf corrupted me with his magic and made me do terrible things. I thought I was protecting the portal, but in reality, I was hurting others. I cannot justify my actions, but I want to make amends and restore peace to the world of dreams. The villagers are right to be angry with me, and I thank you for saving me from corruption and for not allowing me to continue terrorizing the town. I want to join your group to fight together against the wolf and stop his evil plan. Together we can do it.");
+	littleRedACTree = std::make_shared<DialogueTree>();
+	littleRedACTree->SetRoot(fristNodeLRAC);
+
 }
 
 bool Scene::LoadState(pugi::xml_node& data)
@@ -778,4 +782,415 @@ bool Scene::SaveState(pugi::xml_node& data)
 	
 
 	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+//Updates the dialogue tree based on the player's response to a dialogue prompt. The dialogue tree to update is selected based on the type of NPC the player last interacted
+//with, as determined by the player's lastCollision variable. 
+void Scene::UpdateDialogueTree2(int option)
+{
+	if (1 >= option <= 4)
+	{
+		switch (app->scene->player->lastCollision)
+		{
+		case ColliderType::PIGSBEFORECOMBAT:
+			pigsBeforeCombatTree->Update(option);
+			break;
+
+		case ColliderType::PIGSAFTERCOMBAT:
+			pigsAfterCombatTree->Update(option);
+			break;
+
+		case ColliderType::WOLFSINPIGWORLD:
+			wolfTree->Update(option);
+			break;
+		default:
+			break;
+		}
+	}
+
+
+
+}
+
+//Runs a dialogue tree for a specific NPC, identified using a ColliderType enum. This function delegates the NPC specific behavior to other functions based on the enum passed in.
+void Scene::RunDialogueTree2(ColliderType NPC)
+{
+	switch (NPC)
+	{
+	case ColliderType::PIGSBEFORECOMBAT:
+		dialogue2 = pigsBeforeCombatTree->Run();
+
+		if (dialogue2.empty())
+		{
+			//Esto no hará falta porque se desencaderan automáticamente
+		}
+		break;
+	case ColliderType::PIGSAFTERCOMBAT:
+		dialogue2 = pigsAfterCombatTree->Run();
+
+		if (dialogue2.empty())
+		{
+			//Esto no hará falta porque se desencaderan automáticamente
+		}
+		break;
+
+	case ColliderType::WOLFSINPIGWORLD:
+		dialogue2 = wolfTree->Run();
+
+		if (dialogue2.empty())
+		{
+			//Esto no hará falta porque se desencaderan automáticamente
+		}
+		break;
+	default:
+		break;
+	}
+}
+//Create Tree Dialogues
+void Scene::CreateDialogue2()
+{
+	//Wolfs
+	auto firstNodeWolf = std::make_shared<DialogueNode>();
+	firstNodeWolf->SetText("You will pay for this, Timmy. And you, you pathetic pigs, couldn't even defeat him. You're all worthless.");
+
+	wolfTree = std::make_shared<DialogueTree>();
+	wolfTree->SetRoot(firstNodeWolf);
+
+	//PigsAfterCombat:
+	//1rst level
+	auto firstOption1AC = std::make_shared<DialogueNode>();
+	firstOption1AC->SetText("Thank you for your apology. We can work together to stop the wolf and avenge your brother.");
+
+	auto firstOption2AC = std::make_shared<DialogueNode>();
+	firstOption2AC->SetText("You better not betray us again or you'll regret it. But for now, welcome to the team.");
+
+	auto firstOption3AC = std::make_shared<DialogueNode>();
+	firstOption3AC->SetText("I don't know if I can trust you, but I need all the help I can get. Welcome to the group.");
+
+	auto firstOption4AC = std::make_shared<DialogueNode>();
+	firstOption4AC->SetText("Whatever, I don't really care. As long as you don't get in my way, you can join us.");
+
+	auto firstNodePigsAC = std::make_shared<DialogueNode>();
+	firstNodePigsAC->SetText("SmallerMiddle pig: I'm sorry, Timmy. I don't know how we could do such a thing. We were carried away by the darkness. Little pig: (nodding) Yes, I'm so sorry. But now we want to help you. We know we can't bring our brother back to life, but we can help you avenge him.");
+	firstNodePigsAC->AddChild(firstOption1AC);
+	firstNodePigsAC->AddChild(firstOption2AC);
+	firstNodePigsAC->AddChild(firstOption3AC);
+	firstNodePigsAC->AddChild(firstOption4AC);
+
+	pigsAfterCombatTree = std::make_shared<DialogueTree>();
+	pigsAfterCombatTree->SetRoot(firstNodePigsAC);
+
+	//PigsBeforeCombat:
+	//3rd level
+	auto thirdNodePigs = std::make_shared<DialogueNode>();
+	thirdNodePigs->SetText("Little  and Middle pig: We're pigs and we do as we please. What makes you think we care about what you think or try? Get ready.");
+
+
+	auto secondOption1 = std::make_shared<DialogueNode>();
+	secondOption1->SetText("What happened here? The houses are destroyed.");
+	secondOption1->AddChild(thirdNodePigs);
+
+	auto secondOption2 = std::make_shared<DialogueNode>();
+	secondOption2->SetText("How could you do that? You're monsters and you'll be the next ones to become bacon.");
+	secondOption2->AddChild(thirdNodePigs);
+
+	auto secondOption3 = std::make_shared<DialogueNode>();
+	secondOption3->SetText("What guarantees that you won't do the same to us? I'll end you (with a trembling voice).");
+	secondOption3->AddChild(thirdNodePigs);
+
+	auto secondOption4 = std::make_shared<DialogueNode>();
+	secondOption4->SetText("Whatever, let's just move on and get this over with.");
+	secondOption4->AddChild(thirdNodePigs);
+
+	//2nd level
+	auto secondNodePigs = std::make_shared<DialogueNode>();
+	secondNodePigs->SetText("Little  pig: Oh, don't worry about him. He was just an obstacle in our way to freedom. Middle pig: Yeah, after all, we were very hungry.");
+	secondNodePigs->AddChild(secondOption1);
+	secondNodePigs->AddChild(secondOption2);
+	secondNodePigs->AddChild(secondOption3);
+	secondNodePigs->AddChild(secondOption4);
+
+	//1rst level
+	auto firstOption1 = std::make_shared<DialogueNode>();
+	firstOption1->SetText("What happened here? The houses are destroyed.");
+	firstOption1->AddChild(secondNodePigs);
+
+	auto firstOption2 = std::make_shared<DialogueNode>();
+	firstOption2->SetText("What the hell did you do to your older brother, you despicable pigs?");
+	firstOption2->AddChild(secondNodePigs);
+
+	auto firstOption3 = std::make_shared<DialogueNode>();
+	firstOption3->SetText("W-where is your older brother? Will we find him in the portal?");
+	firstOption3->AddChild(secondNodePigs);
+
+	auto firstOption4 = std::make_shared<DialogueNode>();
+	firstOption4->SetText("Fine, fine, I get it, more trouble. Because I can't have a peaceful life.");
+	firstOption4->AddChild(secondNodePigs);
+
+	auto firstNodePigs = std::make_shared<DialogueNode>();
+	firstNodePigs->SetText("Little  pig: (with a sinister smile) Hi, friend. What brings you here?. Middle pig: (laughing) Looks like you arrived at the wrong time.");
+	firstNodePigs->AddChild(firstOption1);
+	firstNodePigs->AddChild(firstOption2);
+	firstNodePigs->AddChild(firstOption3);
+	firstNodePigs->AddChild(firstOption4);
+
+	pigsBeforeCombatTree = std::make_shared<DialogueTree>();
+	pigsBeforeCombatTree->SetRoot(firstNodePigs);
+}
+
+void Scene::AppearDialogue2()
+{
+	if (player->playerState == player->PlayerState::NPC_INTERACT)
+	{
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = DIALOG;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+		for (auto& e : dialogue2)
+		{
+			std::cout << e << std::endl;
+		}
+
+	}
+}
+
+
+//Updates the dialogue tree based on the player's response to a dialogue prompt. The dialogue tree to update is selected based on the type of NPC the player last interacted
+//with, as determined by the player's lastCollision variable. 
+void Scene::UpdateDialogueTree3(int option)
+{
+	if (1 >= option <= 4)
+	{
+		switch (app->scene->player->lastCollision)
+		{
+		case ColliderType::DEADVILLAGER:
+			deadVillagerTree->Update(option);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+
+
+}
+
+//Runs a dialogue tree for a specific NPC, identified using a ColliderType enum. This function delegates the NPC specific behavior to other functions based on the enum passed in.
+void Scene::RunDialogueTree3(ColliderType NPC)
+{
+	switch (NPC)
+	{
+	case ColliderType::DEADVILLAGER:
+		dialogue3 = deadVillagerTree->Run();
+
+		if (dialogue3.empty())
+		{
+			//Esto no hará falta porque cuando se muera ya no tendrá texto y tendriamos que hacer algo para que ya no pueda
+			//interaccionar con el dead villager
+		}
+		break;
+	case ColliderType::SHEEPA:
+		dialogue3 = sheepATree->Run();
+
+		if (dialogue3.empty())
+		{
+			//Esto no deberia tener que estar empty pq no se actualiza y siempre tiene el mismo nodo
+		}
+		break;
+
+	case ColliderType::SHEEPB:
+		dialogue3 = sheepBTree->Run();
+
+		if (dialogue3.empty())
+		{
+			//Esto no deberia tener que estar empty pq no se actualiza y siempre tiene el mismo nodo
+		}
+		break;
+
+	case ColliderType::SHEEPC:
+		dialogue3 = sheepCTree->Run();
+
+		if (dialogue3.empty())
+		{
+			//Esto no deberia tener que estar empty pq no se actualiza y siempre tiene el mismo nodo
+		}
+		break;
+
+	case ColliderType::SHEEPD:
+		dialogue3 = sheepDTree->Run();
+
+		if (dialogue3.empty())
+		{
+			//Esto no deberia tener que estar empty pq no se actualiza y siempre tiene el mismo nodo
+		}
+		break;
+	default:
+		break;
+	}
+}
+//Create Tree Dialogues
+void Scene::CreateDialogue3()
+{
+	//deadVillager
+	auto firstOption1 = std::make_shared<DialogueNode>();
+	firstOption1->SetText("Don't worry, we'll do it. - He says as he approaches the already dead villager and closes his eyes.");
+
+	auto firstOption2 = std::make_shared<DialogueNode>();
+	firstOption2->SetText("We'll crush everything that crosses our path! We'll make the devil himself tremble if necessary!");
+
+	auto firstOption3 = std::make_shared<DialogueNode>();
+	firstOption3->SetText("Save Pedro? What if he hurts us? I don't want to go there! - He says while looking at the rest of the group with terrified eyes.");
+
+	auto firstOption4 = std::make_shared<DialogueNode>();
+	firstOption4->SetText("Meh, we'll save Pedro, I guess. But don't expect us to take it too seriously.");
+
+	auto firstDeadVillagerNode = std::make_shared<DialogueNode>();
+	firstDeadVillagerNode->SetText("Pedro became furious because no one believed his story about the wolf, and when corruption affected him, he became even more dangerous. He became obsessed with the idea that no one believed him and that his honor was tarnished. The corruption in his heart consumed him, and he became a destructive force that threatened the entire town. He wanted to kill everyone in the town, but some managed to escape. The person coughs and pauses to catch their breath before continuing. Pedro's farm is beyond the forest - he says urgently. I don't know what has happened there, but I can feel that something bad has happened. Pedro is under its influence, he is not himself. I beg you to save him, he does not deserve to die like this. The man coughs again and becomes weak. Timmy and his group look at each other, knowing that they have a new important mission: to save Pedro from corruption.");
+	firstDeadVillagerNode->AddChild(firstOption1);
+	firstDeadVillagerNode->AddChild(firstOption2);
+	firstDeadVillagerNode->AddChild(firstOption3);
+	firstDeadVillagerNode->AddChild(firstOption4);
+
+	deadVillagerTree = std::make_shared<DialogueTree>();
+	deadVillagerTree->SetRoot(firstDeadVillagerNode);
+
+
+	//sheeps
+	auto sheepANode = std::make_shared<DialogueNode>();
+	sheepANode->SetText("Path 1 is the right one.");
+	sheepATree = std::make_shared<DialogueTree>();
+	sheepATree->SetRoot(sheepANode);
+
+	
+	auto sheepBNode = std::make_shared<DialogueNode>();
+	sheepBNode->SetText("Path 3 is the right one.");
+	sheepBTree = std::make_shared<DialogueTree>();
+	sheepBTree->SetRoot(sheepBNode);
+
+	
+	auto sheepCNode = std::make_shared<DialogueNode>();
+	sheepCNode->SetText("D says path 2 is the right one.");
+	sheepCTree = std::make_shared<DialogueTree>();
+	sheepCTree->SetRoot(sheepCNode);
+
+
+	auto sheepDNode = std::make_shared<DialogueNode>();
+	sheepDNode->SetText("B and C tell lies.");
+	sheepDTree = std::make_shared<DialogueTree>();
+	sheepDTree->SetRoot(sheepDNode);
+}
+
+void Scene::AppearDialogue3()
+{
+	if (player->playerState == player->PlayerState::NPC_INTERACT)
+	{
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = DIALOG;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+		for (auto& e : dialogue3)
+		{
+			std::cout << e << std::endl;
+		}
+
+	}
+}
+
+
+//Updates the dialogue tree based on the player's response to a dialogue prompt. The dialogue tree to update is selected based on the type of NPC the player last interacted
+//with, as determined by the player's lastCollision variable. 
+void Scene::UpdateDialogueTree4(int option)
+{
+	if (1 >= option <= 4)
+	{
+		switch (app->scene->player->lastCollision)
+		{
+		case ColliderType::WOLFBEFORECOMBAT:
+			wolfBeforeCombatTree->Update(option);
+			break;
+
+		case ColliderType::WOLFAFTERCOMBAT:
+			wolfAfterCombatTree->Update(option);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+
+
+}
+
+//Runs a dialogue tree for a specific NPC, identified using a ColliderType enum. This function delegates the NPC specific behavior to other functions based on the enum passed in.
+void Scene::RunDialogueTree4(ColliderType NPC)
+{
+	switch (NPC)
+	{
+	case ColliderType::WOLFBEFORECOMBAT:
+		dialogue4 = wolfBeforeCombatTree->Run();
+
+		if (dialogue4.empty())
+		{
+			//Esto no hará falta porque cuando se muera ya no tendrá texto y tendriamos que hacer algo para que ya no pueda
+			//interaccionar con el dead villager
+		}
+		break;
+	case ColliderType::WOLFAFTERCOMBAT:
+		dialogue4 = wolfAfterCombatTree->Run();
+
+		if (dialogue4.empty())
+		{
+			//Esto no deberia tener que estar empty pq no se actualiza y siempre tiene el mismo nodo
+		}
+		break;
+
+	default:
+		break;
+	}
+}
+//Create Tree Dialogues
+void Scene::CreateDialogue4()
+{
+
+	auto wolfBeforeCombatNode = std::make_shared<DialogueNode>();
+	wolfBeforeCombatNode->SetText("Well... it seems you've got me, I know you're probably itching to defeat me right now, but let me tell you something, Timmy, I wasn't always like this. There was a time when I was a happy and friendly wolf, living in the forest with my family. But then, something changed in me. I started feeling frustrated because I was always cast as the evil antagonist in stories. I wanted to be the hero, the main character, but I was never allowed to. So, one day I started doing bad things, without really knowing why or having control over myself, things I had never done before. I started stealing and intimidating other animals in the forest out of a need to prove my strength. I think I believed that this way, I would finally get the respect I so desperately wanted. But I was wrong. The more evil I became, the more alone I felt and the less control I had over myself. Nobody wanted to be around me, and my family distanced themselves from me. I had become a lonely and sad wolf. Sometimes I feel like I'm not myself anymore, like something takes over me and makes me do things I don't want to... (suddenly his eyes turn red and he looks at Timmy with an aggressive face).");
+	wolfBeforeCombatTree = std::make_shared<DialogueTree>();
+	wolfBeforeCombatTree->SetRoot(wolfBeforeCombatNode);
+
+	auto wolfAfterCombatNode = std::make_shared<DialogueNode>();
+	wolfAfterCombatNode->SetText("Timmy, thank you for showing me that there is still hope for me. Your bravery has inspired me to do what is right, even if it means sacrificing myself. The evil I have caused is too great to be ignored, and my existence will only perpetuate the darkness. But with my death, I can release my soul from this curse and protect others from its influence. -The wolf kneels down and impales his heart with the sword, falling to the ground in a pool of blood. - Finally, I was able to find redemption in your bravery.");
+	wolfAfterCombatTree = std::make_shared<DialogueTree>();
+	wolfAfterCombatTree->SetRoot(wolfAfterCombatNode);
+
+}
+
+void Scene::AppearDialogue4()
+{
+	if (player->playerState == player->PlayerState::NPC_INTERACT)
+	{
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = DIALOG;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+		for (auto& e : dialogue4)
+		{
+			std::cout << e << std::endl;
+		}
+
+	}
 }
