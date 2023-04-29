@@ -202,9 +202,7 @@ public:
 	uint maxStamina;
 	uint speed;
 	uint movement;
-	uint skill;
 	uint attack;
-	uint resistance; 
 	int AttArea;
 	uint Ab1Power;
 	uint Ab2Power;

@@ -115,7 +115,6 @@ private:
 	SString mapFolder;
 
 	TileDataa* selectedtile;
-
 	Entity* characterTurn;
 	List<Entity*> turnqueue;
 	List<Entity*> allentities;

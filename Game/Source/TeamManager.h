@@ -8,6 +8,30 @@
 #include "Animation.h"
 #include "Timmy.h"
 #include "Bunny.h"
+#include <iostream>
+using namespace std;
+
+struct item
+{
+	//type = 1 if weapon, 2 if armor, 3 if accessory
+	int type;
+	//weaponuser = 0 if noneweapon, 1 if timmy, 2 if bunny, 3 if lrrh, 4 if LilPig, 5 if MiddlePig, 6 if Peter
+	int weaponuser;
+	string name;
+	uint defense;
+	uint magic;
+	uint speed;
+	uint movement;
+	uint attack;
+	int AttArea;
+	uint Ab1Power;
+	uint Ab2Power;
+	int Ab1Area;
+	int Ab2Area;
+	uint healingpower;
+
+};
+
 class TeamManager : public Module {
 public:
 
@@ -34,6 +58,12 @@ public:
 	List<Entity*> characters;
 	//List of the selected playable characters in the team
 	List<Entity*> team;
+
+	Timmy* timmy;
+	Bunny* bunny;
+
+	item yoyo;
+	
 
 private:
 

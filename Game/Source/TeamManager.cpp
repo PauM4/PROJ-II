@@ -22,8 +22,7 @@ TeamManager::~TeamManager() {
 bool TeamManager::Awake(pugi::xml_node& config)
 {
 	
-	Timmy* timmy;
-	Bunny* bunny;
+
 	if (config.parent().child("timmy")) {
 		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
 		timmy->stats = config.parent().child("timmy");
@@ -32,11 +31,11 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		bunny = (Bunny*)app->entityManager->CreateEntity(EntityType::BUNNY);
 		bunny->stats = config.parent().child("bunny");
 	}
-	//characters.Add(timmy);
-	//characters.Add(bunny);
-	//team.Add(timmy);
-	//team.Add(bunny);
-
+	characters.Add(timmy);
+	characters.Add(bunny);
+	team.Add(timmy);
+	team.Add(bunny);
+	yoyo.name = "yoyo";
 	return true;
 }
 
