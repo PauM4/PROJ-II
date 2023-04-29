@@ -31,7 +31,7 @@ bool Fonts::Start() {
 		fontsTTF[i] = nullptr;
 	}
 
-	gameFont = LoadTTF("Assets/fonts/SwanTales.ttf", 18); 
+	gameFont = LoadTTF("Assets/fonts/Cartoonero.ttf", 32); 
 
 	return true; 
 
