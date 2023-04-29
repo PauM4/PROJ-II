@@ -1,0 +1,116 @@
+#ifndef __BATTLE_MANAGER_H__
+#define __BATTLE_MANAGER_H__
+
+#include "Module.h"
+#include "Entity.h"
+#include "List.h"
+
+enum class TILE_TYPE {
+	UNKNOWN = -1,
+	BARRIER = 4,
+	FLOOR = 2,
+	HALF_BARRIER = 3,
+	MUD
+};
+
+struct TileData {
+	int x;
+	int y;
+	Entity* character = nullptr;
+	TILE_TYPE type;
+};
+
+enum class BattleState {
+	UNKNOWN = -1,
+	NORMAL,
+	WIN,
+	LOSE
+};
+
+enum class ActionType {
+	UNKNOWN = -1,
+	MOVE,
+	ATTACK,
+	ABILITY,
+	END_TURN
+};
+
+class BattleManager : public Module {
+public:
+
+	BattleManager(bool active);
+
+	// Destructor
+	virtual ~BattleManager();
+
+	// Called before render is available
+	bool Awake(pugi::xml_node& config);
+
+	// Called before the first frame
+	bool Start();
+
+	// Called before all Updates
+	bool PreUpdate();
+
+	// Called each loop iteration
+	bool Update(float dt);
+
+	// Called before all Updates
+	bool PostUpdate();
+
+	// Called before quitting
+	bool CleanUp();
+
+private:
+
+	//Adds a playable Entity to allies/enenmies list and combatMap
+	bool AddCharacter(Entity* character, int x, int y, bool isEnemy); //Better way of identifing if its an enemy
+
+	//Fills turnList with entities from allies/emenies list and rearrenges them by turn priority
+	bool MakeTurnList();
+
+	//Updates TurnList and currentTurn
+	bool UpdateTurnList();
+
+	//Displays the turn order in battle
+	bool DisplayTurnList();
+
+	//Displays the area of effect of an action
+	bool DisplayArea(int type);
+
+	//Apply action type from character to all targets
+	bool ApplyAction(Entity* character, int type);
+
+	// Loads combat map from Map module using GID tile metadata
+	bool MakeCombatMap();
+
+	//Sets the actionArea from a character, type idicates the type of action
+	bool GetActionArea(Entity* character, int type);
+
+	//Fills the target list depending of action
+	bool SelectTargets(int type);
+
+	//Checks if either all the entities in allies or enemies are dead
+	//and updates battle state
+	BattleState CheckState();
+
+private:
+
+	TileData combatMap[16][9];
+
+	List<Entity*> allies;
+	List<Entity*> enemies;
+
+	List<Entity*> targets;
+
+	Entity* currentTurn;
+	List<Entity*> turnList;
+
+	TileData* selectedTile;
+	List<TileData*> actionArea;
+};
+
+
+
+
+#endif // __BATTLE_MANAGER_H__
