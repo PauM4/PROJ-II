@@ -11,6 +11,7 @@
 #include "DialogueTree.h"
 #include "UriBehaviorTree.h"
 #include "Physics.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -87,9 +88,14 @@ public:
 
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;
+
 	SDL_Texture* ropeTexture;
 
+	Animation pressKeyAnim;
+	SDL_Texture* pressKeyTexture;
+
 	SDL_Rect ropeRect;
+	SDL_Rect keyRect;
 
 private:
 

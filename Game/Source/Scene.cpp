@@ -50,6 +50,11 @@ bool Scene::Awake(pugi::xml_node& config)
 		doors.Add(door);
 	}
 
+	pressKeyAnim.PushBack({ 0, 0, 485, 734 });
+	pressKeyAnim.PushBack({ 485, 0, 485, 735 });
+	pressKeyAnim.loop = true;
+	pressKeyAnim.speed = 0.1f;
+
 	app->entityManager->Awake(config);
 
 	CreateDialogue(); //3MB
@@ -57,7 +62,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	ropeTexture = app->tex->Load("Assets/UI/ropeImage.png");
-
+	pressKeyTexture = app->tex->Load("Assets/UI/pressEanimation.png");
 
 	return ret;
 }
@@ -66,7 +71,6 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	app->entityManager->Start();
-	
 
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
@@ -113,7 +117,7 @@ bool Scene::Start()
 	ropeJump = 20;
 	ropeSpeedLimit = 550;
 
-	ropeX = player->position.x - app->win->width / 2 + 1378;
+	ropeX = player->position.x - app->win->width / 2 + 1078;
 	ropeY = player->position.y - app->win->height / 2 + 49;
 
 	ropeWin = false;
@@ -207,6 +211,11 @@ bool Scene::Update(float dt)
 
 	UpdateRopeMinigame(dt);
 	app->render->DrawTexture(ropeTexture, ropeX, ropeY, &ropeRect);
+
+	// While playing the minigame, appear animation of press Key
+	pressKeyAnim.Update();
+	keyRect = pressKeyAnim.GetCurrentFrame();
+	app->render->DrawTexture(pressKeyTexture, player->position.x - 800, player->position.y - 450, &keyRect);
 
 
 	//int mouseX, mouseY;
@@ -801,23 +810,24 @@ bool Scene::SaveState(pugi::xml_node& data)
 }
 
 
-// Every time player presses T, rope goes up.
+// Every time player presses E, rope goes up.
 // Every frame the rope goes down
 // The player has to press the button faster proportionally with how much he has left to reach the goal
 void Scene::UpdateRopeMinigame(float dt)
 {
 	if (!ropeWin)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		{
 			ropeSpeed += ropeJump;
 		}
 
 		// To increase difficulty, change divider (5) to smaller num
 		ropeSpeed -= ropeSpeed / 4 * dt;
+		if (ropeSpeed < 0) ropeSpeed = 0;
 
 		// update rope position
-		ropeX = player->position.x - app->win->width / 2 + 1378;
+		ropeX = player->position.x - app->win->width / 2 + 1078;
 		ropeY = (player->position.y - app->win->height / 2 + 49) - ropeSpeed;
 
 		// If player reaches ropeSpeedLimt, stop the rope and trigger win consequence
@@ -828,11 +838,13 @@ void Scene::UpdateRopeMinigame(float dt)
 			// Win...
 			ropeWin = true;
 		}
+
+
 	}
 	else
 	{
 		// update rope position
-		ropeX = player->position.x - app->win->width / 2 + 1378;
+		ropeX = player->position.x - app->win->width / 2 + 1078;
 		// ropeY remains the same
 	}
 
