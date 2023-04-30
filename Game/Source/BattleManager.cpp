@@ -191,11 +191,6 @@ bool BattleManager::PostUpdate() {
 
     }
 
-
-
-	
-
-
 	DisplayTurnList();
 	return true;
 }

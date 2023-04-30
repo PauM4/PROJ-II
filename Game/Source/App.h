@@ -31,7 +31,7 @@ class Map;
 class Fonts;
 class FadeToBlack;
 class SceneManager;
-class BatlleManager;
+class BattleManager;
 //L07 DONE 2: Add Physics module
 class Physics;
 class PathFinding;
