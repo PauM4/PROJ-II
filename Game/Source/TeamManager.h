@@ -14,23 +14,24 @@ using namespace std;
 
 struct item
 {
+	//true if player has obtained this item
+	bool ininventory;
 	//type = 1 if weapon, 2 if armor, 3 if accessory
 	int type;
 	//weaponuser = 0 if noneweapon, 1 if timmy, 2 if bunny, 3 if lrrh, 4 if LilPig, 5 if MiddlePig, 6 if Peter
 	int weaponuser;
 	string name;
-	uint defense;
-	uint magic;
-	uint speed;
-	uint movement;
-	uint attack;
+	int defense;
+	int magic;
+	int speed;
+	int movement;
+	int attack;
 	int AttArea;
-	uint Ab1Power;
-	uint Ab2Power;
+	int Ab1Power;
+	int Ab2Power;
 	int Ab1Area;
 	int Ab2Area;
-	uint healingpower;
-
+	int healingpower;
 };
 
 class TeamManager : public Module {
@@ -66,22 +67,22 @@ public:
 	Bunny* bunny;
 	Lrrh* lrrh;
 	item yoyo;
-	
-	List<item*> ItemList;
+	bool hasyoyo;
+	List<item> inventory;
 
 	//True if is a playable character
-	bool istimmyplayable = true;
+	bool istimmyplayable;
+	//Truislrrhplayablee if is a playable character
+	bool isbunnyplayable;
 	//True if is a playable character
-	bool isbunnyplayable = true;
-	//True if is a playable character
-	bool islrrhplayable = false;
+	bool islrrhplayable;
 
 	//True if it's on the team
-	bool IsTimmyOnTeam = true;
+	bool IsTimmyOnTeam;
 	//True if it's on the team
-	bool IsBunnyOnTeam = true;
+	bool IsBunnyOnTeam;
 	//True if it's on the team
-	bool IsLrrhOnTeam = false;
+	bool IsLrrhOnTeam;
 
 private:
 

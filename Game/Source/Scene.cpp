@@ -40,6 +40,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
+		player->position.x = config.child("player").attribute("x").as_int();
+		player->position.y = config.child("player").attribute("y").as_int();
 	}
 
 
@@ -56,7 +58,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
-
+	isNewGame;
 	return ret;
 }
 
@@ -759,7 +761,6 @@ bool Scene::LoadState(pugi::xml_node& data)
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
-	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
 	return true;
 }
@@ -776,10 +777,6 @@ bool Scene::SaveState(pugi::xml_node& data)
 		app->uiModule->doorPlayerPosition = false;
 	}
 
-	playerNode.append_attribute("x") = player->position.x;
-	playerNode.append_attribute("y") = player->position.y;
-
-	
 
 	return true;
 }
