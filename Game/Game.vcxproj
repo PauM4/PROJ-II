@@ -109,6 +109,7 @@
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\Item.cpp" />
+    <ClCompile Include="Source\Lrrh.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\Item.h" />
+    <ClInclude Include="Source\Lrrh.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Npc.h" />
     <ClInclude Include="Source\Pathfinding.h" />

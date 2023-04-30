@@ -30,11 +30,12 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		bunny = (Bunny*)app->entityManager->CreateEntity(EntityType::BUNNY);
 		bunny->stats = config.parent().child("bunny");
 	}
-	characters.Add(timmy);
-	characters.Add(bunny);
-	team.Add(timmy);
-	team.Add(bunny);
+	if (config.parent().child("lrrh")) {
+		lrrh = (Lrrh*)app->entityManager->CreateEntity(EntityType::LRRH);
+		lrrh->stats = config.parent().child("lrrh");
+	}
 	yoyo.name = "yoyo";
+
 	return true;
 }
 
@@ -68,21 +69,44 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
 	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());*/
-	istimmy = data.child("teamMembers").attribute("istimmy");
-	isbunny = data.child("teamMembers").attribute("isbunny");
-	islrrh = data.child("teamMembers").attribute("islrrh");
+	istimmyplayable = data.child("playable").attribute("istimmyplayable");
+	isbunnyplayable = data.child("playable").attribute("isbunnyplayable");
+	islrrhplayable = data.child("playable").attribute("islrrhplayable");
 
+	IsTimmyOnTeam = data.child("onteam").attribute("IsTimmyOnTeam");
+	IsBunnyOnTeam = data.child("onteam").attribute("IsBunnyOnTeam");
+	IsLrrhOnTeam = data.child("onteam").attribute("IsLrrhOnTeam");
+	characters.Clear();
+	team.Clear();
+	characters.Add(timmy);
+	characters.Add(bunny);
+	if (IsTimmyOnTeam == true) {
+		team.Add(timmy);
+	}
+	if (IsBunnyOnTeam == true) {
+		team.Add(bunny);
+	}
+	if (islrrhplayable == true) {
+		characters.Add(lrrh);
+		if (IsLrrhOnTeam == true) {
+			team.Add(lrrh);
+		}
+	}
 	return true;
 }
 
 bool TeamManager::SaveState(pugi::xml_node& data)
 {
-	pugi::xml_node teamMembers = data.append_child("teamMembers");
+	pugi::xml_node playable = data.append_child("playable");
 	// If door, save mes lluny
-	teamMembers.append_attribute("istimmy") = istimmy;
-	teamMembers.append_attribute("isbunny") = isbunny;
-	teamMembers.append_attribute("islrrh") = islrrh;
-
+	playable.append_attribute("istimmyplayable") = istimmyplayable;
+	playable.append_attribute("isbunnyplayable") = isbunnyplayable;
+	playable.append_attribute("islrrhplayable") = islrrhplayable;
+	
+	pugi::xml_node onteam = data.append_child("onteam");
+	onteam.append_attribute("IsTimmyOnTeam") = IsTimmyOnTeam;
+	onteam.append_attribute("IsBunnyOnTeam") = IsBunnyOnTeam;
+	onteam.append_attribute("IsLrrhOnTeam") = IsLrrhOnTeam;
 	//playerNode.append_attribute("x") = player->position.x;
 	//playerNode.append_attribute("y") = player->position.y;
 

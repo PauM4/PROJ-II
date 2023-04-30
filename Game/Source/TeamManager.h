@@ -8,6 +8,7 @@
 #include "Animation.h"
 #include "Timmy.h"
 #include "Bunny.h"
+#include "Lrrh.h"
 #include <iostream>
 using namespace std;
 
@@ -63,12 +64,25 @@ public:
 
 	Timmy* timmy;
 	Bunny* bunny;
-
+	Lrrh* lrrh;
 	item yoyo;
 	
-	bool istimmy = true;
-	bool isbunny = true;
-	bool islrrh = false;
+	List<item*> ItemList;
+
+	//True if is a playable character
+	bool istimmyplayable = true;
+	//True if is a playable character
+	bool isbunnyplayable = true;
+	//True if is a playable character
+	bool islrrhplayable = false;
+
+	//True if it's on the team
+	bool IsTimmyOnTeam = true;
+	//True if it's on the team
+	bool IsBunnyOnTeam = true;
+	//True if it's on the team
+	bool IsLrrhOnTeam = false;
+
 private:
 
 	

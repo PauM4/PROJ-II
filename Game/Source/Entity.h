@@ -26,7 +26,7 @@ enum class EntityType
 	
 	TIMMY,
 	BUNNY,
-
+	LRRH,
 	//Scene
 
 	PLAYER,

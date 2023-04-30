@@ -227,16 +227,18 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// New Game. Start the game with all original config.xml info
 	case 5:
+		app->SaveGameRequest();
+		app->LoadGameRequest();
 		app->scene->isNewGame = true;
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;
 		break;
 		// When continue pressed, go to gameplay
 	case 6:
+		app->LoadGameRequest();
 		continueBool = true;
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;
-		/*app->LoadGameRequest();*/
 		break;
 
 		// When button Return Is Pressed, show the Main Menu buttons

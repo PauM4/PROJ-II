@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Scene.h"
 #include "Timmy.h"
+#include "Lrrh.h"
 #include "Npc.h"
 #include "Bunny.h"
 #include "Item.h"
@@ -101,7 +102,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::BUNNY:
 		entity = new Bunny();
 		break;
-
+	case EntityType::LRRH:
+		entity = new Lrrh();
+		break;
 	case EntityType::PLAYER:
 		entity = new Player();
 		break;
