@@ -59,9 +59,8 @@ bool SceneBattle::Start() {
 	bool retLoad = app->map->Load(mapName, mapFolder);
 
 	app->battleManager->MakeCombatMap();
-	app->battleManager->MakeTurnList();
 	
-	battleState = BattleState::NORMAL;
+	
 
 	return true;
 }
@@ -72,6 +71,8 @@ bool SceneBattle::PreUpdate() {
 
 	//Buttons :)
 
+	
+
 	bool ret = true;
 	return true;
 }
@@ -80,24 +81,6 @@ bool SceneBattle::PreUpdate() {
 // Called each loop iteration
 bool SceneBattle::Update(float dt) {
 
-	Entity* character = app->battleManager->GetCurrentTurn();
-
-	//Check for mouse/controller hovering on action button
-	app->battleManager->GetActionArea(character);
-
-	//Check for mouse/controller clicking on action button
-
-	
-	//Checks win/lose state
-	battleState = app->battleManager->CheckState();
-	switch (battleState) {
-	case BattleState::WIN:
-		//Win sheganigans
-		break;
-	case BattleState::LOSE:
-		//Lose screen plus reset
-		break;
-	}
 }
 
 // Called each loop iteration
@@ -107,7 +90,7 @@ bool SceneBattle::PostUpdate() {
 
 	app->map->Draw();
 
-	app->battleManager->DisplayTurnList();
+
 	
 	return ret;
 }

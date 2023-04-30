@@ -449,10 +449,8 @@ bool SceneCombatLHHR::PostUpdate()
 	int mouseX, mouseY;
 	app->input->GetMousePosition(mouseX, mouseY);
 
-	iPoint mouseTile = iPoint(0, 0);
 
 	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x, mouseY - app->render->camera.y);
-	LOG("%d %d", mouseTile.x, mouseTile.y);
 	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
 	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x][mouseTile.y].character != false && move == false) {
 		app->render->DrawRectangle({ highlightedTileWorld.x, highlightedTileWorld.y, 120, 120 }, 0, 143, 57, 100, true);
@@ -571,9 +569,7 @@ bool SceneCombatLHHR::PostUpdate()
 		length = app->pathfinding->CreatePath(origin, destination);
 	}
 	else {
-		length = 1;
-		pathIndex = 1;
-		app->pathfinding->ClearLastPath();
+		
 
 
 	}
@@ -1222,14 +1218,13 @@ bool SceneCombatLHHR:: GetTargets(){
 
 			targets.Add(combatMap[pos.x][pos.y].characterType);
 			
-			std::cout << "posicion: " << pos.x << "x "<< pos.y <<"y" << std::endl;
 
 		}
 		else if (combatMap[pos.x][pos.y].character == true && characterTurn->isEnemy == true) {
 
 			targets.Add(combatMap[pos.x][pos.y].characterType);
 
-			std::cout << "posicion: " << pos.x << "x " << pos.y << "y" << std::endl;
+		
 
 		}
 

@@ -17,14 +17,18 @@ struct TileData {
 	int x;
 	int y;
 	Entity* character = nullptr;
+	bool inRange;
 	TILE_TYPE type;
 };
 
 enum class BattleState {
 	UNKNOWN = -1,
-	NORMAL,
+	THINKING,
+	SELCETED,
+	INACTION,
 	WIN,
 	LOSE
+
 };
 
 enum class ActionType {
@@ -33,6 +37,15 @@ enum class ActionType {
 	ATTACK,
 	ABILITY,
 	END_TURN
+};
+
+enum class CombatButtons
+{
+	NONE,
+	ATTACK,
+	ABILITY,
+	MOVE,
+	END,
 };
 
 class BattleManager : public Module {
@@ -57,6 +70,9 @@ public:
 
 	// Called before all Updates
 	bool PostUpdate();
+
+	// Define multiple Gui Event methods
+	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	// Called before quitting
 	bool CleanUp();
@@ -91,8 +107,14 @@ public:
 	//Sets the actionArea from a character, type idicates the type of action
 	bool GetActionArea(Entity* character, ActionType type);
 
+	bool MousePosition();
+
+	bool Move(int pathindex, int length);
+
 	//Fills the target list depending of action
-	bool SelectTargets(ActionType type);
+	bool SelectTargets();
+
+	void TriggerButtonPressed(CombatButtons button);
 
 	//Checks if either all the entities in allies or enemies are dead
 	//and updates battle state
@@ -112,6 +134,20 @@ private:
 
 	TileData* selectedTile;
 	List<TileData*> actionArea;
+
+	ActionType actionType;
+	CombatButtons buttonPressed;
+	BattleState battleState;
+
+	//Pathfinding varibles
+	iPoint origin;
+	int length;
+	iPoint mouseTile;
+	iPoint destination;
+	bool moveanim;
+	int xDir;
+	int yDir;
+	int pathIndex;
 };
 
 

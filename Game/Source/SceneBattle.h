@@ -42,8 +42,8 @@ private:
 	SString mapName;
 	SString mapFolder;
 
-	BattleState battleState;
-	ActionType actionType;
+	
+	
 };
 
 #endif // __SCENE_BATTLE_H__

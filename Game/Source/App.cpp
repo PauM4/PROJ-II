@@ -51,7 +51,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	sceneBattle = new SceneBattle(false);
 	sceneGrandma = new SceneGrandma(false);
 
-	battleManager = new BatlleManager(false);
+	battleManager = new BattleManager(false);
 	entityManager = new EntityManager(true);
 	map = new Map(true);
 	guiManager = new GuiManager(true);

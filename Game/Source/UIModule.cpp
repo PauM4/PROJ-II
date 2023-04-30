@@ -378,16 +378,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Attack
 	case 16:
-
-
-		app->sceneBattle->attackpressed = true;
-		app->sceneBattle->abiltypressed = false;
-
-		app->sceneBattle->movepressed = false;
-
-		app->sceneBattle->endturnpressed = false;
-
-
 		app->sceneCombatLHHR->attackpressed = true;
 		app->sceneCombatLHHR->abiltypressed = false;
 
@@ -399,15 +389,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		// Ability
 	case 17:
 
-
-		app->sceneBattle->attackpressed = false;
-		app->sceneBattle->abiltypressed = true;
-
-		app->sceneBattle->movepressed = false;
-
-		app->sceneBattle->endturnpressed = false;
-
-
 		app->sceneCombatLHHR->attackpressed = false;
 		app->sceneCombatLHHR->abiltypressed = true;
 
@@ -418,15 +399,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		// Move
 	case 18:
 		
-
-
-		app->sceneBattle->attackpressed = false;
-		app->sceneBattle->abiltypressed = false;
-
-		app->sceneBattle->movepressed = true;
-
-		app->sceneBattle->endturnpressed = false;
-
 		app->sceneCombatLHHR->attackpressed = false;
 		app->sceneCombatLHHR->abiltypressed = false;
 
@@ -437,15 +409,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 
 		// End turn
 	case 19:
-
-
-		app->sceneBattle->attackpressed = false;
-		app->sceneBattle->abiltypressed = false;
-
-		app->sceneBattle->movepressed = false;
-
-		app->sceneBattle->endturnpressed = true;
-
 
 		app->sceneCombatLHHR->attackpressed = false;
 		app->sceneCombatLHHR->abiltypressed = false;
