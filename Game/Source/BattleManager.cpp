@@ -28,7 +28,6 @@ bool BattleManager::Awake(pugi::xml_node& config) {
 
 bool BattleManager::Start() {
 
-	state = BattleState::NORMAL;
 
 	return true;
 }
@@ -57,6 +56,9 @@ bool BattleManager::CleanUp() {
 	return true;
 }
 
+Entity* BattleManager::GetCurrentTurn() { return currentTurn;}
+
+
 // Loads combat map from Map module using GID tile metadata
 bool BattleManager::MakeCombatMap() {
 
@@ -74,16 +76,16 @@ bool BattleManager::MakeCombatMap() {
 	return ret;
 }
 
-bool BattleManager::GetActionArea(Entity* character, int type) {
+bool BattleManager::GetActionArea(Entity* character, ActionType type) {
 
 	switch (type) {
-	case 0:
+	case ActionType::MOVE:
 		//actionArea = character.attackArea;
 		break;
-	case 1:
+	case ActionType::ATTACK:
 		//actionArea = character.abiltyArea;
 		break;
-	case 3:
+	case ActionType::ABILITY:
 		//actionArea = character.moveArea;
 		break;
 	default:
@@ -159,7 +161,7 @@ bool BattleManager::DisplayTurnList() {
 	return true;
 }
 
-bool BattleManager::DisplayArea(int type) {
+bool BattleManager::DisplayArea(ActionType type) {
 
 	bool ret = true;
 
@@ -170,17 +172,17 @@ bool BattleManager::DisplayArea(int type) {
 
 	switch (type)
 	{
-	case 0:
+	case ActionType::MOVE:
 		color[0] = 255;
 		color[1] = 0;
 		color[2] = 0;
 		break;
-	case 1:
+	case ActionType::ATTACK:
 		color[0] = 0;
 		color[1] = 255;
 		color[2] = 0;
 		break;
-	case 2:
+	case ActionType::ABILITY:
 		color[0] = 0;
 		color[1] = 0;
 		color[2] = 255;
@@ -200,18 +202,15 @@ bool BattleManager::DisplayArea(int type) {
 	return ret;
 }
 
-bool BattleManager::ApplyAction(Entity* character, int type) {
+bool BattleManager::ApplyAction(Entity* character, ActionType type) {
 
 	for (ListItem<Entity*>* targetItem = targets.start; targetItem != NULL; targetItem = targetItem->next) {
 		switch (type) {
-		case 0:
+		case ActionType::ATTACK:
 			targetItem->data->TakeDamage(character->attack);
 			break;
-		case 1:
+		case ActionType::ABILITY:
 			targetItem->data->TakeDamage(character->Ab1Power);
-			break;
-		case 2:
-			targetItem->data->TakeHealing(character->healingpower);
 			break;
 		default:
 			break;

@@ -46,7 +46,7 @@
 	<sceneBattle name="Assets/Maps/World_01/test.tmx" path="Assets/Maps/World_01/">
 		<timmy x= "840" y="720" movement= "3"/>
 		<bunny x= "960" y="720" movement= "2"/>
-		<enemy_angryVillager x="840" y="240" movement="5"/>
+		<enemy_angryVillager x="4" y="4" movement="5"/>
 
 		
 	</sceneBattle>

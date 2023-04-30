@@ -61,7 +61,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
+public:
+
+	Entity* GetCurrentTurn();
+
+public:
 
 	//Adds a playable Entity to allies/enenmies list and combatMap
 	bool AddCharacter(Entity* character, int x, int y, bool isEnemy); //Better way of identifing if its an enemy
@@ -76,19 +80,19 @@ private:
 	bool DisplayTurnList();
 
 	//Displays the area of effect of an action
-	bool DisplayArea(int type);
+	bool DisplayArea(ActionType type);
 
 	//Apply action type from character to all targets
-	bool ApplyAction(Entity* character, int type);
+	bool ApplyAction(Entity* character, ActionType type);
 
 	// Loads combat map from Map module using GID tile metadata
 	bool MakeCombatMap();
 
 	//Sets the actionArea from a character, type idicates the type of action
-	bool GetActionArea(Entity* character, int type);
+	bool GetActionArea(Entity* character, ActionType type);
 
 	//Fills the target list depending of action
-	bool SelectTargets(int type);
+	bool SelectTargets(ActionType type);
 
 	//Checks if either all the entities in allies or enemies are dead
 	//and updates battle state

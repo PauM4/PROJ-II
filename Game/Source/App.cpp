@@ -16,6 +16,7 @@
 #include "GuiManager.h"
 #include "Fonts.h"
 #include "SceneManager.h"
+#include "BattleManager.h"
 #include "FadeToBlack.h"
 #include "UIModule.h"
 
@@ -50,7 +51,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	sceneBattle = new SceneBattle(false);
 	sceneGrandma = new SceneGrandma(false);
 
-
+	battleManager = new BatlleManager(false);
 	entityManager = new EntityManager(true);
 	map = new Map(true);
 	guiManager = new GuiManager(true);
@@ -76,6 +77,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneBattle);
 	AddModule(sceneGrandma);
 
+	AddModule(battleManager);
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(guiManager);
