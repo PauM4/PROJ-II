@@ -18,6 +18,7 @@ enum GameScene {
 	BATTLE,
 	GRANDMA,
 	COMBATLHHR,
+	FOXQUEST,
 	GAME_OVER
 };
 

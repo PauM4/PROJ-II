@@ -26,6 +26,7 @@ class Scene;
 class SceneCombatLHHR;
 class SceneBattle;
 class SceneGrandma;
+class SceneFoxQuest; 
 class EntityManager;
 class Map;
 class Fonts;
@@ -109,6 +110,7 @@ public:
 	SceneCombatLHHR* sceneCombatLHHR;
 	SceneBattle* sceneBattle;
 	SceneGrandma* sceneGrandma;
+	SceneFoxQuest* sceneFoxQuest; 
 	EntityManager* entityManager;
 	Map* map;
 	Fonts* fonts; 

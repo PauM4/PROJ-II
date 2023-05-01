@@ -68,6 +68,7 @@
     </ClCompile>
     <ClCompile Include="Source\SceneGrandma.cpp" />
     <ClCompile Include="Source\SceneCombatLHHR.cpp" />
+    <ClCompile Include="Source\SceneFoxQuest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -172,6 +173,7 @@
     </ClInclude>
     <ClInclude Include="Source\SceneGrandma.h" />
     <ClInclude Include="Source\SceneCombatLHHR.h" />
+    <ClInclude Include="Source\SceneFoxQuest.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

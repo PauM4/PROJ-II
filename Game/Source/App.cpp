@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "SceneCombatLHHR.h"
 #include "SceneBattle.h"
+#include "SceneFoxQuest.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
@@ -49,6 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	sceneCombatLHHR = new SceneCombatLHHR(false);
 	sceneBattle = new SceneBattle(false);
 	sceneGrandma = new SceneGrandma(false);
+	sceneFoxQuest = new SceneFoxQuest(false); 
 
 
 	entityManager = new EntityManager(true);
@@ -75,6 +77,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneCombatLHHR);
 	AddModule(sceneBattle);
 	AddModule(sceneGrandma);
+	AddModule(sceneFoxQuest); 
 
 	AddModule(entityManager);
 	AddModule(map);

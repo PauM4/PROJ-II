@@ -65,6 +65,11 @@ bool SceneManager::PreUpdate()
 		app->sceneManager->isBattle = false;
 		scene = GameScene::GRANDMA;
 	}
+	if ((app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = false;
+		scene = GameScene::FOXQUEST;
+	}
 
 	switch (scene) {
 	case GameScene::INTRO:
@@ -145,6 +150,13 @@ bool SceneManager::Update(float dt)
 			}
 		}
 		break;
+	case GameScene::FOXQUEST:
+		if (currentScene != (Module*)app->sceneFoxQuest) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneFoxQuest, 20)) {
+				currentScene = (Module*)app->sceneFoxQuest;
+				LOG("SCENE_FOXQUEST");
+			}
+		}
 	default:
 		break;
 	}
