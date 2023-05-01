@@ -11,6 +11,7 @@
 #include "DialogueTree.h"
 #include "UriBehaviorTree.h"
 #include "Physics.h"
+#include "SDL_Timer.h"
 
 struct SDL_Texture;
 
@@ -64,6 +65,7 @@ private:
 	void GodMode();
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
+	void MoveToBattleFromDialogue();
 
 
 public:
@@ -84,6 +86,10 @@ public:
 	SDL_Texture* uiSpriteTexture;
 
 	bool angryVillagerDefeated, LRRHDefeated;
+
+	int numTimesAVDialogueTriggered, numTimesLRRHDialogueTriggered;
+	SDL_Timer timerToSceneBattle, timerToLRRHCombat;
+	
 
 private:
 

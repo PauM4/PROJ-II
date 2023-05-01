@@ -57,6 +57,8 @@ public:
 	uint32 introCurrentTime;
 
 	bool isBattle; 
+
+
 };
 
 #endif __SCENEMANAGER_H__

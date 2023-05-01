@@ -30,6 +30,8 @@ public:
 
 public:
 
+	static void TriggerDoor(int scene);
+
 private:
 	
 	bool godMode;

@@ -469,7 +469,7 @@ void Player::Movement(float dt)
 	if (godMode)
 	{
 		if(!isRunning)
-		vel *= 1.5;
+		vel *= 1.5 * 2;
 	}
 
 	pbody->body->SetLinearVelocity(vel);

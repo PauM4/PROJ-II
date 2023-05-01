@@ -86,3 +86,12 @@ void Door::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 	}
 }
+
+void Door::TriggerDoor(int scene)
+{
+
+	app->uiModule->doorPlayerPosition = true;
+	app->SaveGameRequest();
+
+	app->sceneManager->LoadScene((GameScene)scene);
+}

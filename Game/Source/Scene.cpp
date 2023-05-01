@@ -54,8 +54,8 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	app->entityManager->Awake(config);
 
-	angryVillagerDefeated = config.child("angryVillagerDefeated").attribute("value").as_bool();
-	LRRHDefeated = config.child("LRRHDefeated").attribute("value").as_bool();
+	angryVillagerDefeated = false;
+	LRRHDefeated = false;
 
 	CreateDialogue(); //3MB
 
@@ -107,6 +107,8 @@ bool Scene::Start()
 	dialogue.push_back("");
 
 	godMode = false;
+	numTimesAVDialogueTriggered = 0;
+	numTimesLRRHDialogueTriggered = 0;
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
 
@@ -194,11 +196,39 @@ bool Scene::Update(float dt)
 		}
 	}
 
+	MoveToBattleFromDialogue();
 
 	// Draw map
 	app->map->Draw();
 
 	return true;
+}
+
+//This function swaps after 2sec from Scene to SceneBattle/LRRHCombat If Player has triggered the dialogue with AngryVillager/LRRH and they haven't been defeated before
+void Scene::MoveToBattleFromDialogue()
+{
+	if (numTimesAVDialogueTriggered == 1 && !angryVillagerDefeated)
+	{
+		timerToSceneBattle.Start(2.0f);
+		numTimesAVDialogueTriggered = 0;
+	}
+
+	if (timerToSceneBattle.Test() == estadoTimerP::FIN)
+	{
+		doors.At(0)->data->TriggerDoor(GameScene::BATTLE);
+	}
+
+	if (numTimesLRRHDialogueTriggered == 1 && !LRRHDefeated)
+	{
+		timerToLRRHCombat.Start(2.0f);
+		numTimesLRRHDialogueTriggered = 0;
+	}
+
+	if (timerToLRRHCombat.Test() == estadoTimerP::FIN)
+	{
+		doors.At(0)->data->TriggerDoor(GameScene::COMBATLHHR);
+	}
+
 }
 
 void Scene::AppearDialogue()
@@ -372,15 +402,8 @@ std::string Scene::LastTextNPC(ColliderType NPC)
 		break;
 
 	case ColliderType::LRRH:
-		switch (index)
-		{
-		case 1:
-			auxString = "";
-			break;
-		case 2:
-			auxString = "";
-			break;
-		}
+		auxString = "I want to join your group to help you. I realize that I have been acting wrongly. The wolf corrupted me with his magic and made me do terrible things. I thought I was protecting the portal, but in reality, I was hurting others. I cannot justify my actions, but I want to make amends and restore peace to the world of dreams.I want to join your group to fight together against the wolf and stop his evil plan. Together we can do it.";
+
 		break;
 	default:
 
@@ -457,10 +480,12 @@ void Scene::UpdateDialogueTree(int option)
 		{
 		case ColliderType::ANGRYVILLAGER:
 			angryVillagerTreePT->Update(option);
+			numTimesAVDialogueTriggered++;
 			break;
 
 		case ColliderType::TALISMANVILLAGER:
 			talismanVillagerTree->Update(option);
+			
 			break;
 
 		case ColliderType::GRANDMA:
@@ -469,6 +494,7 @@ void Scene::UpdateDialogueTree(int option)
 
 		case ColliderType::LRRH:
 			littleRedTree->Update(option);
+			numTimesLRRHDialogueTriggered++;
 			break;
 
 		default:
@@ -696,7 +722,7 @@ void Scene::CreateDialogue()
 	{
 		//LittleRedAfterCombat
 		auto fristNodeLRAC = std::make_shared<DialogueNode>();
-		fristNodeLRAC->SetText("I want to join your group to help you. I realize that I have been acting wrongly. The wolf corrupted me with his magic and made me do terrible things. I thought I was protecting the portal, but in reality, I was hurting others. I cannot justify my actions, but I want to make amends and restore peace to the world of dreams. The villagers are right to be angry with me, and I thank you for saving me from corruption and for not allowing me to continue terrorizing the town. I want to join your group to fight together against the wolf and stop his evil plan. Together we can do it.");
+		fristNodeLRAC->SetText("I want to join your group to help you. I realize that I have been acting wrongly. The wolf corrupted me with his magic and made me do terrible things. I thought I was protecting the portal, but in reality, I was hurting others. I cannot justify my actions, but I want to make amends and restore peace to the world of dreams.I want to join your group to fight together against the wolf and stop his evil plan. Together we can do it.");
 
 		littleRedTree = std::make_shared<DialogueTree>();
 		littleRedTree->SetRoot(fristNodeLRAC);

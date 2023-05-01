@@ -159,7 +159,10 @@ bool SceneBattle::PreUpdate()
 // Called each loop iteration
 bool SceneBattle::Update(float dt)
 {
-
+	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+	{
+		win = true;
+	}
 	
 
 	// Menu appear
