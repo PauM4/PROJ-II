@@ -83,6 +83,8 @@ public:
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;
 
+	bool angryVillagerDefeated, LRRHDefeated;
+
 private:
 
 	SString mapName;
@@ -105,8 +107,6 @@ private:
 	std::vector<std::string> dialogue;
 
 	void Prueba();
-
-	int pruebaj = 0;
 
 	bool godMode;
 
