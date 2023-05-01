@@ -37,6 +37,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
 	npc1->parameters = config.child("npc");
 
+
+
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
@@ -48,6 +50,13 @@ bool Scene::Awake(pugi::xml_node& config)
 		door->parameters = doorNode;
 
 		doors.Add(door);
+	}
+
+	for (pugi::xml_node chestNode = config.child("chest"); chestNode; chestNode = chestNode.next_sibling("chest")) {
+		Item* chest = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		chest->parameters = chestNode;
+
+		chests.Add(chest);
 	}
 
 	pressKeyAnim.PushBack({ 0, 0, 485, 734 });
@@ -787,11 +796,15 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
+	LoadChests(data);
+
+
 	return true;
 }
 
 bool Scene::SaveState(pugi::xml_node& data)
 {
+	// PLAYER
 	pugi::xml_node playerNode = data.append_child("player");
 
 	// If door, save mes lluny
@@ -804,10 +817,40 @@ bool Scene::SaveState(pugi::xml_node& data)
 
 	playerNode.append_attribute("x") = player->position.x;
 	playerNode.append_attribute("y") = player->position.y;
+	
 
+	// CHESTS
+	pugi::xml_node chestGameSave = data.append_child("chests");
+
+	for (int i = 0; i < chests.Count(); i++) {
+		Item* chest = chests[i];
+		pugi::xml_node chestNode = chestGameSave.append_child("chest");
+
+
+		chestNode.append_attribute("isPicked").set_value(chest->isPicked);
+		// Add code to save other variables of the chest here
+	}
 	
 
 	return true;
+}
+
+void Scene::LoadChests(pugi::xml_node& data)
+{
+	pugi::xml_node chestsNode = data.child("chests");
+
+	if (!chestsNode)
+		return;
+
+	for (pugi::xml_node chestNode : chestsNode.children("chest"))
+	{
+		int chestIndex = chestNode.attribute("index").as_int();
+		bool isPicked = chestNode.attribute("isPicked").as_bool();
+
+		chests[chestIndex]->isPicked = isPicked;
+
+		// Add code to load other variables of the chest here
+	}
 }
 
 
@@ -825,7 +868,7 @@ void Scene::UpdateRopeMinigame(float dt)
 
 		// To increase difficulty, change divider (5) to smaller num
 		ropeSpeed -= ropeSpeed / 4 * dt;
-		if (ropeSpeed < 0) ropeSpeed = 0;
+		if (ropeSpeed <= 0) ropeSpeed = 0.01f;
 
 		// update rope position
 		ropeX = player->position.x - app->win->width / 2 + 1078;

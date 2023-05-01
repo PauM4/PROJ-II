@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Door.h"
 #include "Npc.h"
+#include "Item.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -70,6 +71,7 @@ private:
 	void GodMode();
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
+	void LoadChests(pugi::xml_node& data);
 
 
 public:
@@ -77,6 +79,7 @@ public:
 	Player* player;
 	Npc* npc1;
 	List<Door*> doors;
+	List<Item*> chests;
 
 	// Load things
 	int loadPlayerPosX;

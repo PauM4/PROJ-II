@@ -247,7 +247,10 @@ bool Player::PostUpdate() {
 	UpdateAndPrintTimmyAnimation();
 
 	// Print E key if interaction is available
-	if (itemInteractAvailable || npcInteractAvailable) app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
+	if ((itemInteractAvailable || npcInteractAvailable) && playerState == PlayerState::MOVING)
+	{
+		app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
+	}
 	
 	return true;
 }
@@ -401,6 +404,24 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 	switch (physB->ctype)
 	{
 	case ColliderType::LRRH:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::ITEM:
+		itemInteractAvailable = false;
+		break;
+	case ColliderType::BARRIER:
+		break;
+	case ColliderType::DOOR:
+		break;
+	case ColliderType::UNKNOWN:
+		break;
+	case ColliderType::ANGRYVILLAGER:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::TALISMANVILLAGER:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::GRANDMA:
 		npcInteractAvailable = false;
 		break;
 	default:
@@ -620,6 +641,11 @@ void Player::InteractWithEntities()
 			{
 				playerState = MOVING;
 				itemInteractAvailable = false;
+
+				// Tell to UIModule which currentMenuType
+				app->uiModule->currentMenuType = DISABLED;
+				// Call this function only when buttons change
+				app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 			}
 			// Moving
 			else

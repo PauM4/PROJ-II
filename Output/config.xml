@@ -33,6 +33,13 @@
 		<!-- Door to Boos fight-->
 		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="0" nextPlayerY="0"/>
 
+		<!-- Chest 1-->
+		<chest x="845" y="3969" width="100" height="75" isPicked="false"/>
+		<!-- Chest 2-->
+		<chest x="782" y="2081" width="67" height="111" isPicked="false"/>
+		<!-- Chest 3-->
+		<chest x="4125" y="1006" width="100" height="75" isPicked="false"/>
+
 	</scene>
 
 	<sceneGrandma name="Assets/Maps/World_01/town_house.tmx" path="Assets/Maps/World_01/">
