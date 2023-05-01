@@ -52,11 +52,6 @@ public:
 
 	std::vector<std::string> GetDialogue() { return dialogue; }
 
-	std::string LastTextNPC(ColliderType NPC);
-	std::string LastTextAngryVillager(std::string);
-	std::string LastTextTalismanVillager(std::string);
-	std::string LastTextGrandmaVillager(std::string);
-	std::string LastTextLittleRedVillager(std::string);
 	void AppearDialogue();
 
 	ColliderType GetPlayerLastCollision() { return player->lastCollision; }
@@ -102,10 +97,10 @@ private:
 	bool pauseMenuActive;
 	bool exitButtonBool;
 
-	std::shared_ptr<DialogueTree> angryVillagerTree, angryVillagerTreePT, 
-		talismanVillagerTree, littleRedTree, grandmaTree;
-
+	std::shared_ptr<DialogueTree> deadVillagerTree, sheepATree, sheepBTree, sheepCTree, sheepDTree;
 	std::vector<std::string> dialogue;
+
+	std::shared_ptr<DialogueTree> wolfBeforeCombatTree, wolfAfterCombatTree;
 
 	void Prueba();
 

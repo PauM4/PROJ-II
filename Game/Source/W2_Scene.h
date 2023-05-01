@@ -50,14 +50,10 @@ public:
 
 	void UpdateDialogueTree(int opt);
 
-	std::vector<std::string> GetDialogue() { return dialogue; }
-
-	std::string LastTextNPC(ColliderType NPC);
-	std::string LastTextAngryVillager(std::string);
-	std::string LastTextTalismanVillager(std::string);
-	std::string LastTextGrandmaVillager(std::string);
-	std::string LastTextLittleRedVillager(std::string);
 	void AppearDialogue();
+
+	std::vector<std::string> GetDialogue2() { return dialogue; }
+
 
 	ColliderType GetPlayerLastCollision() { return player->lastCollision; }
 
@@ -102,8 +98,7 @@ private:
 	bool pauseMenuActive;
 	bool exitButtonBool;
 
-	std::shared_ptr<DialogueTree> angryVillagerTree, angryVillagerTreePT, 
-		talismanVillagerTree, littleRedTree, grandmaTree;
+	std::shared_ptr<DialogueTree> pigsBeforeCombatTree, pigsAfterCombatTree, wolfTree;
 
 	std::vector<std::string> dialogue;
 

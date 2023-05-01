@@ -58,67 +58,6 @@ public:
 
 	ColliderType GetPlayerLastCollision() { return player->lastCollision; }
 
-//Dialogos Mundo 2
-public:
-	void CreateDialogue2();
-
-	void RunDialogueTree2(ColliderType NPC);
-
-	void UpdateDialogueTree2(int opt);
-
-	void AppearDialogue2();
-
-	std::vector<std::string> GetDialogue2() { return dialogue2; }
-
-private:
-	std::shared_ptr<DialogueTree> pigsBeforeCombatTree, pigsAfterCombatTree, wolfTree;
-
-	std::vector<std::string> dialogue2;
-
-
-
-
-
-//Dialogos Mundo 3
-public:
-	void CreateDialogue3();
-
-	void RunDialogueTree3(ColliderType NPC);
-
-	void UpdateDialogueTree3(int opt);
-
-	void AppearDialogue3();
-
-	std::vector<std::string> GetDialogue3() { return dialogue3; }
-
-private:
-	std::shared_ptr<DialogueTree> deadVillagerTree, sheepATree, sheepBTree, sheepCTree, sheepDTree;
-
-	std::vector<std::string> dialogue3;
-
-
-
-	
-
-//Dialogos Mundo 4
-public:
-	void CreateDialogue4();
-
-	void RunDialogueTree4(ColliderType NPC);
-
-	void UpdateDialogueTree4(int opt);
-
-	void AppearDialogue4();
-
-	std::vector<std::string> GetDialogue4() { return dialogue4; }
-
-private:
-	std::shared_ptr<DialogueTree> wolfBeforeCombatTree, wolfAfterCombatTree;
-
-	std::vector<std::string> dialogue4;
-
-
-
 private:
 
 	void Camera();
