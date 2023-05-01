@@ -9,6 +9,7 @@
 #include "Fonts.h"
 #include "SceneBattle.h"
 #include "SceneCombatLHHR.h"
+#include "BattleManager.h"
 #include "SceneMainMenu.h"
 #include "Scene.h"
 #include "Player.h"
@@ -378,44 +379,36 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Attack
 	case 16:
-		app->sceneCombatLHHR->attackpressed = true;
-		app->sceneCombatLHHR->abiltypressed = false;
 
-		app->sceneCombatLHHR->movepressed = false;
-
-		app->sceneCombatLHHR->endturnpressed = false;
-
+		app->battleManager->buttonPressed = CombatButtons::ATTACK;
+		app->battleManager->battleState = BattleState::SELCETED;
+		app->battleManager->actionType = ActionType::ATTACK;
 		break;
 		// Ability
 	case 17:
 
-		app->sceneCombatLHHR->attackpressed = false;
-		app->sceneCombatLHHR->abiltypressed = true;
+		app->battleManager->buttonPressed = CombatButtons::ABILITY;
+		app->battleManager->battleState = BattleState::SELCETED;
+		app->battleManager->actionType = ActionType::ABILITY;
 
-		app->sceneCombatLHHR->movepressed = false;
-
-		app->sceneCombatLHHR->endturnpressed = false;
 		break;
 		// Move
 	case 18:
 		
-		app->sceneCombatLHHR->attackpressed = false;
-		app->sceneCombatLHHR->abiltypressed = false;
+		app->battleManager->buttonPressed = CombatButtons::MOVE;
+		app->battleManager->battleState = BattleState::SELCETED;
+		app->battleManager->actionType = ActionType::MOVE;
 
-		app->sceneCombatLHHR->movepressed = true;
-
-		app->sceneCombatLHHR->endturnpressed = false;
 		break;
 
 		// End turn
 	case 19:
+		app->battleManager->buttonPressed = CombatButtons::END;
 
-		app->sceneCombatLHHR->attackpressed = false;
-		app->sceneCombatLHHR->abiltypressed = false;
+		app->battleManager->battleState = BattleState::THINKING;
+		app->battleManager->actionType = ActionType::END_TURN;
 
-		app->sceneCombatLHHR->movepressed = false;
 
-		app->sceneCombatLHHR->endturnpressed = true;
 		break;
 	}
 

@@ -166,7 +166,7 @@ public:
 		return true;
 	}
 
-	uint GetStamina() const { return stamina; }
+
 
 	int GetHealth() const { return health; }
 	uint GetMaxHealth() const { return maxHealth; }

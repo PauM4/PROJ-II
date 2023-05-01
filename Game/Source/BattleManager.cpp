@@ -9,6 +9,9 @@
 #include "Map.h"
 #include "PathFinding.h"
 #include "GuiButton.h"
+#include "GuiControl.h"
+#include "UIModule.h"
+#include "Fonts.h"
 #include "Defs.h"
 #include "Physics.h"
 #include "Log.h"
@@ -29,7 +32,18 @@ bool BattleManager::Awake(pugi::xml_node& config) {
 
 bool BattleManager::Start() {
 
+
+	winScreen = app->tex->Load("Assets/UI/Win_screen.png");
+	loseScreen = app->tex->Load("Assets/UI/lose_screen.png");
+
+	// Tell to UIModule which currentMenuType
+	app->uiModule->currentMenuType = COMBAT;
+	// Call this function only when buttons change
+	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 	MakeTurnList();
+
+	
 	currentTurn = turnList.start->data;
 	origin = currentTurn->tilePos;
 
@@ -47,6 +61,33 @@ bool BattleManager::PreUpdate() {
 
 bool BattleManager::Update(float dt) {
 
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		PauseMenuAppear();
+
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		return false;
+
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godMode)
+		{
+			godMode = false;
+		}
+		else
+		{
+			godMode = false;
+		}
+	}
+
+	if (godMode)
+		GodMode();
+
+	UpdateEntitiesTilePos();
+
+
+
+	
+
 	switch (battleState)
 	{
 	case BattleState::UNKNOWN:
@@ -55,63 +96,34 @@ bool BattleManager::Update(float dt) {
 
 		targets.Clear();
 		actionArea.Clear();
-		switch (buttonPressed)
-		{
-		case CombatButtons::ATTACK:
-
-
-			actionType = ActionType::ATTACK;
-
-
-			break;
-
-		case CombatButtons::ABILITY:
-
-			actionType = ActionType::ABILITY;
-
-			break;
-
-		case CombatButtons::MOVE:
-
-			actionType = ActionType::MOVE;
-			break;
-
-		case CombatButtons::END:
-
-			actionType = ActionType::END_TURN;
-
-			UpdateTurnList();
-
-			break;
-
-		case CombatButtons::NONE:
-
-			actionType = ActionType::UNKNOWN;
-
-			break;
-		}
 		break;
 	case BattleState::SELCETED:
 
 		origin = currentTurn->tilePos;
+		actionArea.Clear();
+		targets.Clear();
+		GetActionArea(currentTurn, actionType);
 
 		if (actionType == ActionType::MOVE) {
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 			{
-				if (app->pathfinding->IsWalkable(origin) && combatMap[mouseTile.x][mouseTile.y].inRange == true && combatMap[mouseTile.x][mouseTile.y].character == false) {
-					length = app->pathfinding->CreatePath(origin, mouseTile);
-					destination.x = mouseTile.x;
-					destination.y = mouseTile.y;
-					moveanim = true;
-					currentTurn->UseStamina(3);
-					battleState = BattleState::INACTION;
+				for (ListItem<TileData*>* area = actionArea.start; area != NULL; area = area->next) {
+					iPoint pos = iPoint(area->data->x, area->data->y);
+					if (app->pathfinding->IsWalkable(origin) && mouseTile==pos && combatMap[mouseTile.x][mouseTile.y].character == nullptr) {
+						length = app->pathfinding->CreatePath(origin, mouseTile);
+						destination.x = mouseTile.x;
+						destination.y = mouseTile.y;
+						moveanim = true;
+						currentTurn->UseStamina(3);
+						battleState = BattleState::INACTION;
+					}
 				}
 			}
 		}
 		else {
+		
 			
-			GetActionArea(currentTurn, actionType);
 			SelectTargets();
 
 			for (int i = 0; i < targets.Count(); i++) {
@@ -166,18 +178,18 @@ bool BattleManager::Update(float dt) {
 
 		break;
 	case BattleState::WIN:
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
 		break;
 	case BattleState::LOSE:
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
 		break;
 	default:
 		break;
 	}
 	
+	CheckWinCondition();
 
-		
-
-	
-	
+	UpdateCombatMap();
 
 
 	return true;
@@ -188,10 +200,15 @@ bool BattleManager::PostUpdate() {
 	if (battleState == BattleState::SELCETED) {
 
 		DisplayArea(actionType);
+		DisplayEnemys();
 
     }
 
+	UIStatsForBattle();
 	DisplayTurnList();
+
+	app->render->DrawRectangle({ int(allies.start->data->position.x) + 35, int(allies.start->data->position.y) + 35, 50, 50 }, 0, 233, 0, 250, true);
+	app->render->DrawRectangle({ int(enemies.start->data->position.x) + 35, int(enemies.start->data->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 	return true;
 }
 
@@ -209,7 +226,7 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
-	if (battleState == BattleState::THINKING) {
+	
 		switch (control->id)
 		{
 		case 16:
@@ -230,11 +247,65 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 		}
 
 		battleState = BattleState::SELCETED;
-	}
+	
 	return true;
 
 }
 
+void BattleManager::UIStatsForBattle()
+{
+
+	// UI Stats for Battle
+	for (ListItem<Entity*>* allyItem = allies.start; allyItem != NULL; allyItem = allyItem->next) {
+
+
+		uint stamina = allyItem->data->stamina;
+		std::string staminaString = std::to_string(stamina);
+		const char* staminaChar = staminaString.c_str();
+
+		uint hp = allyItem->data->health;
+		std::string hpString = std::to_string(hp);
+		const char* hpChar = hpString.c_str();
+	    
+		app->fonts->DrawText("--Name--", 80, 200, 200, 200, {255,255,255}, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 80, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(hpChar, 200, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 80, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(staminaChar, 200, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	}
+
+	for (ListItem<Entity*>* enemyItem = enemies.start; enemyItem != NULL; enemyItem = enemyItem->next) {
+
+	}
+	//// Bunny stats:
+	//app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText(UintToChar(bunny->health), 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText(UintToChar(bunny->stamina), 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	//// Villager stats:
+	//uint villagerStamina = villager->stamina;
+	//std::string villagerStaminaString = std::to_string(villagerStamina);
+	//const char* villagerStaminaChar = villagerStaminaString.c_str();
+
+	//uint villagerHP = villager->health;
+	//std::string villagerHPString = std::to_string(villagerHP);
+	//const char* villagerHpChar = villagerHPString.c_str();
+
+	//int w_window = app->win->width;
+
+	//app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText(UintToChar(villager->health), 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText(UintToChar(villager->stamina), 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+	//app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//int nextTurn = (currentTurn + 1) % turnQueue.size();
+	//app->fonts->DrawText(turnQueue.at(nextTurn)->name.GetString(), 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+}
 
 // Loads combat map from Map module using GID tile metadata
 bool BattleManager::MakeCombatMap() {
@@ -254,11 +325,73 @@ bool BattleManager::MakeCombatMap() {
 	return ret;
 }
 
+void BattleManager::UpdateCombatMap() {
+
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < 9; j++) {
+
+			combatMap[i][j].character= nullptr;
+			combatMap[i][j].inRange = false;
+	
+		}
+	}
+
+	for (ListItem<Entity*>* entity = turnList.start; entity != NULL; entity = entity->next) {
+
+         combatMap[entity->data->tilePos.x][entity->data->tilePos.y].character = entity->data;
+
+	}
+
+}
+
+void BattleManager::UpdateEntitiesTilePos()
+{
+
+	ListItem<Entity*>* entity;
+	entity = turnList.start;
+	while(entity!=NULL) {
+		
+		entity->data->tilePos = app->map->WorldToMap(entity->data->position.x - app->render->camera.x, entity->data->position.y - app->render->camera.y);
+		entity = entity->next;
+	}
+}
+
 bool BattleManager::GetActionArea(Entity* character, ActionType type) {
 
+	iPoint nexTile;
+	iPoint pos;
 	switch (type) {
 	case ActionType::MOVE:
-		//actionArea = character.attackArea;
+		//actionArea = character.attackArea
+
+		for (int i = 0; i < character->movement; i++) {
+			for (int j = 0; j < character->movement - i; j++) {
+
+				nexTile = iPoint(currentTurn->tilePos.x + j, currentTurn->tilePos.y + i);
+				if (combatMap[nexTile.x][nexTile.y].type == TILE_TYPE::FLOOR) {
+					actionArea.Add(&combatMap[nexTile.x][nexTile.y]);
+				}
+				nexTile = iPoint(currentTurn->tilePos.x - j, currentTurn->tilePos.y + i);
+				
+				if (combatMap[nexTile.x][nexTile.y].type == TILE_TYPE::FLOOR) {
+					actionArea.Add(&combatMap[nexTile.x][nexTile.y]);
+				}
+
+				nexTile = iPoint(currentTurn->tilePos.x - j, currentTurn->tilePos.y - i);
+			
+				if (combatMap[nexTile.x][nexTile.y].type == TILE_TYPE::FLOOR) {
+					actionArea.Add(&combatMap[nexTile.x][nexTile.y]);
+				}
+
+				nexTile = iPoint(currentTurn->tilePos.x + j, currentTurn->tilePos.y - i);
+				
+				if (combatMap[nexTile.x][nexTile.y].type == TILE_TYPE::FLOOR) {
+					actionArea.Add(&combatMap[nexTile.x][nexTile.y]);
+				}
+
+			}
+
+		}
 
 		break;
 	case ActionType::ATTACK:
@@ -319,6 +452,7 @@ bool BattleManager::MousePosition() {
 
 	}
 
+	return true;
 }
 bool BattleManager::Move(int pathindex, int length) {
 
@@ -394,7 +528,7 @@ bool BattleManager::MakeTurnList() {
 
 	//Sort auxList into turnList based on Entity->speed
 	while (auxList.Count() > 0) {
-		ListItem<Entity*>* auxIndex = NULL;
+		ListItem<Entity*>* auxIndex = auxList.start;
 
 		for (ListItem<Entity*>* auxItem = auxList.start; auxItem != NULL; auxItem = auxItem->next) {
 			if (auxItem->data->speed > auxIndex->data->speed || auxIndex == NULL) {
@@ -428,6 +562,20 @@ bool BattleManager::SelectTargets() {
 		}
 
 	}
+
+	return true;
+}
+
+bool BattleManager::DisplayEnemys() {
+
+
+	for (ListItem<Entity*>* entitylist = targets.start; entitylist != NULL; entitylist = entitylist->next) {
+		iPoint pos = iPoint(entitylist->data->position.x, entitylist->data->position.y);
+
+		app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 250, 0, 0, 100);
+
+	}
+
 
 	return true;
 }
@@ -515,6 +663,194 @@ bool BattleManager::ApplyAction(Entity* character, ActionType type) {
 	return true;
 }
 
+void BattleManager::CheckWinCondition()
+{
+
+
+	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+
+		battleState = BattleState::LOSE;
+	}
+	
+	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+
+		battleState = BattleState::WIN;
+	}
+	
+}
+
+void BattleManager::LiveCondition() {
 
 
 
+	for (ListItem<Entity*>* ally = allies.start; ally != NULL; ally = ally->next) {
+
+		if (ally->data->health <= 0) {
+
+			ally->data->isAlive = false;
+		}
+		if (ally->data->isAlive == false) {
+
+			allies.Del(ally);
+		 }
+	}
+	for (ListItem<Entity*>* enemy = enemies.start; enemy != NULL; enemy = enemy->next) {
+
+
+		if (enemy->data->health <= 0) {
+
+			enemy->data->isAlive = false;
+		}
+		if (enemy->data->isAlive == false) {
+
+			enemies.Del(enemy);
+		}
+	}
+}
+
+void BattleManager::PauseMenuAppear()
+{
+	// If player is in pause, close it
+	if (!isPaused)
+	{
+		app->uiModule->currentMenuType = COMBAT;
+		// Call this function only when scene is changed
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+		isPaused = true;
+	}
+	// If player is NOT in pause, open it
+	else
+	{
+		app->uiModule->currentMenuType = COMBAT_PAUSE;
+		// Call this function only when scene is changed
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+		isPaused = false;
+	}
+}
+void BattleManager::GodMode()
+{
+
+	for (ListItem<Entity*>* ally = allies.start; ally != NULL; ally = ally->next) {
+
+		ally->data->health = ally->data->maxHealth;
+		ally->data->stamina = ally->data->maxStamina;
+	}
+}
+
+
+
+
+
+
+//if (moveenemy == true) {
+
+//    /*	move = true;
+//	moveanim = false;
+//
+
+//	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+
+//		atack = true;
+
+//	}*/
+
+//	if (characterTurn->stamina >= 5 && length==1) {
+//		ListItem<Entity*>* entitylist;
+//		entitylist = targets.start;
+
+//		while (entitylist != NULL && moveenemy == true) {
+
+//			/*Combat(characterTurn, targets, 1);*/
+
+//			if (entitylist->data->isAlive == true) {
+//				entitylist->data->health = entitylist->data->health - (characterTurn->attack - entitylist->data->defense);
+//				targets.Clear();
+//				characterTurn->UseStamina(5);
+//				turnstart = false;
+//				atack = false;
+//				moveenemy = false;
+
+//			}
+
+//			entitylist = entitylist->next;
+
+//		}
+
+//	}
+
+
+//	if (moveenemy == true && characterTurn->stamina >= 3) {
+
+//		moveanim = true;
+//		move = true;
+//		for (int i = 0; i < 16; i++) {
+//			for (int j = 0; j < 9; j++) {
+
+//				if (moveenemy == true) {
+//					if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
+//						iPoint pos = iPoint(i, j);
+
+//						if (app->pathfinding->IsWalkable(pos)) {
+//							CreateArea(LRRH->AttArea, 1, pos);
+//							for (int i = 0; i < area.Count(); i++) {
+
+//								if (area.At(i)->data->character == true && area.At(i)->data->dead == false) {
+
+//									length = app->pathfinding->CreatePath(origin, pos);
+//									destination.x = pos.x;
+//									destination.y = pos.y;
+//									originSelected = false;
+//									moveenemy = false;
+//									characterTurn->UseStamina(3);
+//									i = area.Count();
+
+//								}
+
+//							}
+//						}
+//					}
+//					
+//				}
+
+//			}
+
+//		}
+//	} 
+//	if(moveenemy == true && characterTurn->stamina >= 3) {
+
+//		moveanim = true;
+//		
+//				if (moveenemy == true) {
+//					
+//						iPoint pos = iPoint(characterTurn->tilePos.x - 3, characterTurn->tilePos.y);
+//						
+//						if (app->pathfinding->IsWalkable(pos)) {
+//							
+
+//									length = app->pathfinding->CreatePath(origin, pos);
+//									destination.x = pos.x;
+//									destination.y = pos.y;
+//									originSelected = false;
+//									moveenemy = false;
+//									characterTurn->UseStamina(3);
+//
+//							
+//						}
+//					
+//				
+//				}
+
+//			
+
+//		
+//	}
+//	else if (moveenemy == true) {
+
+//		characterTurn->GainStamina(10);
+//		moveenemy = false;
+//	 }
+
+
+//}

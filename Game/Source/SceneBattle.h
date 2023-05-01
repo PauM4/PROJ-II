@@ -7,6 +7,7 @@
 #include "List.h"
 #include "UIModule.h"
 #include "Enemy_AngryVillager.h"
+#include "Timmy.h"
 
 struct SDL_Texture;
 
@@ -42,6 +43,8 @@ private:
 	SString mapName;
 	SString mapFolder;
 
+	Timmy* timmy;
+	Enemy_AngryVillager* villager;
 	
 	
 };

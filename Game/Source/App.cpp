@@ -73,7 +73,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneIntro);
 	AddModule(sceneMainMenu);
 	AddModule(scene);
-	AddModule(sceneCombatLHHR);
+	//AddModule(sceneCombatLHHR);
 	AddModule(sceneBattle);
 	AddModule(sceneGrandma);
 

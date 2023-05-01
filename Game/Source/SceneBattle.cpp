@@ -31,6 +31,8 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 	LOG("Loading Scene");
 	bool ret = true;
 
+	
+
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 
@@ -40,15 +42,25 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 		app->battleManager->AddCharacter(teamItem->data, 0, i, false);
 		i++;
 	}*/
+	
+	if (config.child("timmy")) {
+		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
+		timmy->parameters = config.child("timmy");
+		timmy->stats = config.parent().child("timmy");
+		app->battleManager->AddCharacter(timmy, timmy->parameters.attribute("x").as_int() / 120, timmy->parameters.attribute("y").as_int() / 120, false);
+	}
 
 	//Add enemies from config
 	if (config.child("enemy_angryVillager")) {
-		Enemy_AngryVillager* villager = (Enemy_AngryVillager*)app->entityManager->CreateEntity(EntityType::ANGRYVILLAGER);
-		int x = config.child("enemy_angryVillager").attribute("x").as_int();
-		int y = config.child("enemy_angryVillager").attribute("y").as_int();
-		app->battleManager->AddCharacter(villager, x, y, true);
+		villager = (Enemy_AngryVillager*)app->entityManager->CreateEntity(EntityType::ANGRYVILLAGER);
+		villager->parameters = config.child("enemy_angryVillager");
+		villager->stats = config.parent().child("enemy_angryVillager");
+		app->battleManager->AddCharacter(villager, villager->parameters.attribute("x").as_int()/120, villager->parameters.attribute("y").as_int() / 120, true);
 	}
 
+	app->entityManager->Awake(config);
+	app->battleManager->Enable();
+	
 	return ret;
 }
 
@@ -57,6 +69,18 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 bool SceneBattle::Start() {
 
 	bool retLoad = app->map->Load(mapName, mapFolder);
+
+
+	if (retLoad) {
+		int w, h;
+		uchar* data = NULL;
+
+		bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		if (retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+
+	}
 
 	app->battleManager->MakeCombatMap();
 	
@@ -81,6 +105,8 @@ bool SceneBattle::PreUpdate() {
 // Called each loop iteration
 bool SceneBattle::Update(float dt) {
 
+	app->map->Draw();
+	return true;
 }
 
 // Called each loop iteration
@@ -88,7 +114,7 @@ bool SceneBattle::PostUpdate() {
 
 	bool ret = true;
 
-	app->map->Draw();
+	
 
 
 	

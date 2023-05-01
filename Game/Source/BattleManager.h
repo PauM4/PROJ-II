@@ -74,6 +74,8 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	void UIStatsForBattle();
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -89,6 +91,8 @@ public:
 	//Fills turnList with entities from allies/emenies list and rearrenges them by turn priority
 	bool MakeTurnList();
 
+	bool DisplayEnemys();
+
 	//Updates TurnList and currentTurn
 	bool UpdateTurnList();
 
@@ -101,8 +105,20 @@ public:
 	//Apply action type from character to all targets
 	bool ApplyAction(Entity* character, ActionType type);
 
+	void CheckWinCondition();
+
+	void LiveCondition();
+
+	void PauseMenuAppear();
+
+	void GodMode();
+
 	// Loads combat map from Map module using GID tile metadata
 	bool MakeCombatMap();
+
+	void UpdateCombatMap();
+
+	void UpdateEntitiesTilePos();
 
 	//Sets the actionArea from a character, type idicates the type of action
 	bool GetActionArea(Entity* character, ActionType type);
@@ -122,6 +138,7 @@ public:
 
 private:
 
+public:
 	TileData combatMap[16][9];
 
 	List<Entity*> allies;
@@ -138,6 +155,14 @@ private:
 	ActionType actionType;
 	CombatButtons buttonPressed;
 	BattleState battleState;
+
+	SDL_Texture* winScreen = nullptr;
+	SDL_Texture* loseScreen = nullptr;
+
+	bool godMode;
+	bool isPaused;
+	bool win;
+	bool lose;
 
 	//Pathfinding varibles
 	iPoint origin;
