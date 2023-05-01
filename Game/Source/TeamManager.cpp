@@ -145,8 +145,9 @@ bool TeamManager::Start()
 bool TeamManager::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		yoyo.character = 1;
+
 		app->SaveGameRequest();
+		
 	}
 	timmy->attack;
 	return true;
