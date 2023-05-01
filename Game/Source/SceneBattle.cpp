@@ -13,7 +13,7 @@
 #include "Fonts.h"
 #include "Physics.h"
 #include "Timmy.h"
-
+#include "TeamManager.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -59,7 +59,6 @@ bool SceneBattle::Awake(pugi::xml_node& config)
 		villager->stats = config.parent().child("enemy_angryVillager");
 	}
 	app->entityManager->Awake(config);
-	
 	return ret;
 }
 

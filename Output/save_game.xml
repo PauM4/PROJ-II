@@ -25,7 +25,10 @@
 	<teamManager>
 		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" />
 		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" />
-		<inventory hasyoyo="true" />
+		<inventory>
+			<yoyo isobtained="true" character="1" />
+			<handsxd isobtained="true" character="2" />
+		</inventory>
 	</teamManager>
 	<fadeToBlack />
 	<renderer>

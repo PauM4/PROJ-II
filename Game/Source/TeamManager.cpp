@@ -21,6 +21,7 @@ TeamManager::~TeamManager() {
 
 bool TeamManager::Awake(pugi::xml_node& config)
 {
+	
 	//Load from xml
 	if (config.parent().child("timmy")) {
 		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
@@ -53,22 +54,44 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		IsLrrhOnTeam = true;
 	}
 	if (config.child("item").child("yoyo")) {
-		yoyo.ininventory = config.child("item").child("yoyo").attribute("ininventory").as_bool();
-		yoyo.type = config.child("item").child("yoyo").attribute("type").as_int();
-		yoyo.weaponuser = config.child("item").child("yoyo").attribute("weaponuser").as_int();
-		yoyo.name = config.child("item").child("yoyo").attribute("name").as_string();
-		yoyo.defense = config.child("item").child("yoyo").attribute("defense").as_int();
-		yoyo.magic = config.child("item").child("yoyo").attribute("magic").as_int();
-		yoyo.speed = config.child("item").child("yoyo").attribute("speed").as_int();
-		yoyo.movement = config.child("item").child("yoyo").attribute("movement").as_int();
-		yoyo.attack = config.child("item").child("yoyo").attribute("attack").as_int();
-		yoyo.AttArea = config.child("item").child("yoyo").attribute("AttArea").as_int();
-		yoyo.Ab1Power = config.child("item").child("yoyo").attribute("Ab1Power").as_int();
-		yoyo.Ab2Power = config.child("item").child("yoyo").attribute("Ab2Power").as_int();
-		yoyo.Ab1Area = config.child("item").child("yoyo").attribute("Ab1Area").as_int();
-		yoyo.Ab2Area = config.child("item").child("yoyo").attribute("Ab2Area").as_int();
-		yoyo.healingpower = config.child("item").child("yoyo").attribute("healingpower").as_int();
+		pugi::xml_node newnode = config.child("item").child("yoyo");
+		yoyo.ininventory = newnode.attribute("ininventory").as_bool();
+		yoyo.type = newnode.attribute("type").as_int();
+		yoyo.weaponuser = newnode.attribute("weaponuser").as_int();
+		yoyo.character = newnode.attribute("character").as_int();
+		yoyo.name = newnode.attribute("name").as_string();
+		yoyo.defense = newnode.attribute("defense").as_int();
+		yoyo.magic = newnode.attribute("magic").as_int();
+		yoyo.speed = newnode.attribute("speed").as_int();
+		yoyo.movement = newnode.attribute("movement").as_int();
+		yoyo.attack = newnode.attribute("attack").as_int();
+		yoyo.AttArea = newnode.attribute("AttArea").as_int();
+		yoyo.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		yoyo.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		yoyo.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		yoyo.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		yoyo.healingpower = newnode.attribute("healingpower").as_int();
 	}
+	if (config.child("item").child("handsxd")) {
+		pugi::xml_node newnode = config.child("item").child("handsxd");
+		handsxd.ininventory = newnode.attribute("ininventory").as_bool();
+		handsxd.type = newnode.attribute("type").as_int();
+		handsxd.weaponuser = newnode.attribute("weaponuser").as_int();
+		handsxd.character = newnode.attribute("character").as_int();
+		handsxd.name = newnode.attribute("name").as_string();
+		handsxd.defense = newnode.attribute("defense").as_int();
+		handsxd.magic = newnode.attribute("magic").as_int();
+		handsxd.speed = newnode.attribute("speed").as_int();
+		handsxd.movement = newnode.attribute("movement").as_int();
+		handsxd.attack = newnode.attribute("attack").as_int();
+		handsxd.AttArea = newnode.attribute("AttArea").as_int();
+		handsxd.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		handsxd.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		handsxd.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		handsxd.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		handsxd.healingpower = newnode.attribute("healingpower").as_int();
+	}
+	app->entityManager->Awake(config);
 
 	return true;
 }
@@ -83,6 +106,8 @@ bool TeamManager::Start()
 bool TeamManager::Update(float dt)
 {
 
+	timmy->attack;
+	bunny->magic;
 	return true;
 
 }
@@ -128,12 +153,93 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 			team.Add(lrrh);
 		}
 	}
+	//Delete stats from items
+	for (int i = 0; i < equipment.Count(); i++) {
 
+		if (equipment.At(i)->data.character == 1) {
+
+			timmy->defense -= equipment.At(i)->data.defense;
+			timmy->magic -= equipment.At(i)->data.magic;
+			timmy->speed -= equipment.At(i)->data.speed;
+			timmy->movement -= equipment.At(i)->data.movement;
+			timmy->attack -= equipment.At(i)->data.attack;
+			timmy->AttArea -= equipment.At(i)->data.AttArea;
+			timmy->Ab1Power -= equipment.At(i)->data.Ab1Power;
+			timmy->Ab2Power -= equipment.At(i)->data.Ab2Power;
+			timmy->Ab1Area -= equipment.At(i)->data.Ab1Area;
+			timmy->Ab2Area -= equipment.At(i)->data.Ab2Area;
+			timmy->healingpower -= equipment.At(i)->data.healingpower;
+		}
+
+		if (equipment.At(i)->data.character == 2) {
+
+			bunny->defense -= equipment.At(i)->data.defense;
+			bunny->magic -= equipment.At(i)->data.magic;
+			bunny->speed -= equipment.At(i)->data.speed;
+			bunny->movement -= equipment.At(i)->data.movement;
+			bunny->attack -= equipment.At(i)->data.attack;
+			bunny->AttArea -= equipment.At(i)->data.AttArea;
+			bunny->Ab1Power -= equipment.At(i)->data.Ab1Power;
+			bunny->Ab2Power -= equipment.At(i)->data.Ab2Power;
+			bunny->Ab1Area -= equipment.At(i)->data.Ab1Area;
+			bunny->Ab2Area -= equipment.At(i)->data.Ab2Area;
+			bunny->healingpower -= equipment.At(i)->data.healingpower;
+		}
+	}
 	//Load inventory
-	yoyo.ininventory = data.child("inventory").attribute("hasyoyo").as_bool();
+	inventory.Clear();
+	equipment.Clear();
+	yoyo.ininventory = data.child("inventory").child("yoyo").attribute("isobtained").as_bool();
+	yoyo.character = data.child("inventory").child("yoyo").attribute("character").as_int();
 	if (yoyo.ininventory == true) {
 		inventory.Add(yoyo);
+		if (yoyo.character != 0) {
+			equipment.Add(yoyo);
+		}
 	}
+	handsxd.ininventory = data.child("inventory").child("handsxd").attribute("isobtained").as_bool();
+	handsxd.character = data.child("inventory").child("handsxd").attribute("character").as_int();
+	if (handsxd.ininventory == true) {
+		inventory.Add(handsxd);
+		if (handsxd.character != 0) {
+			equipment.Add(handsxd);
+		}
+	}
+
+	//Apply equipped item stats
+	for (int i = 0; i < equipment.Count(); i++) {
+
+		if (equipment.At(i)->data.character == 1) {
+
+			timmy->defense += equipment.At(i)->data.defense;
+			timmy->magic += equipment.At(i)->data.magic;
+			timmy->speed += equipment.At(i)->data.speed;
+			timmy->movement += equipment.At(i)->data.movement;
+			timmy->attack += equipment.At(i)->data.attack;
+			timmy->AttArea += equipment.At(i)->data.AttArea;
+			timmy->Ab1Power += equipment.At(i)->data.Ab1Power;
+			timmy->Ab2Power += equipment.At(i)->data.Ab2Power;
+			timmy->Ab1Area += equipment.At(i)->data.Ab1Area;
+			timmy->Ab2Area += equipment.At(i)->data.Ab2Area;
+			timmy->healingpower += equipment.At(i)->data.healingpower;
+		}
+
+		if (equipment.At(i)->data.character == 2) {
+
+			bunny->defense += equipment.At(i)->data.defense;
+			bunny->magic += equipment.At(i)->data.magic;
+			bunny->speed += equipment.At(i)->data.speed;
+			bunny->movement += equipment.At(i)->data.movement;
+			bunny->attack += equipment.At(i)->data.attack;
+			bunny->AttArea += equipment.At(i)->data.AttArea;
+			bunny->Ab1Power += equipment.At(i)->data.Ab1Power;
+			bunny->Ab2Power += equipment.At(i)->data.Ab2Power;
+			bunny->Ab1Area += equipment.At(i)->data.Ab1Area;
+			bunny->Ab2Area += equipment.At(i)->data.Ab2Area;
+			bunny->healingpower += equipment.At(i)->data.healingpower;
+		}
+	}
+	statsdone = true;
 	return true;
 }
 
@@ -152,11 +258,14 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	onteam.append_attribute("IsLrrhOnTeam") = IsLrrhOnTeam;
 
 	pugi::xml_node inventory = data.append_child("inventory");
-	inventory.append_attribute("hasyoyo") = yoyo.ininventory;
-	//playerNode.append_attribute("x") = player->position.x;
-	//playerNode.append_attribute("y") = player->position.y;
-	app->LoadGameRequest();
+	inventory.append_child("yoyo");
+	inventory.child("yoyo").append_attribute("isobtained") = yoyo.ininventory;
+	inventory.child("yoyo").append_attribute("character") = yoyo.character;
+	inventory.append_child("handsxd");
+	inventory.child("handsxd").append_attribute("isobtained") = handsxd.ininventory;
+	inventory.child("handsxd").append_attribute("character") = handsxd.character;
 
+	app->LoadGameRequest();
 
 	return true;
 }

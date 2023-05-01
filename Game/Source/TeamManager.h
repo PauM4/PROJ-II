@@ -18,8 +18,11 @@ struct item
 	bool ininventory;
 	//type = 1 if weapon, 2 if armor, 3 if accessory
 	int type;
-	//weaponuser = 0 if noneweapon, 1 if timmy, 2 if bunny, 3 if lrrh, 4 if LilPig, 5 if MiddlePig, 6 if Peter
+	//weaponuser = 0 if nonweapon, 1 if timmy, 2 if bunny, 3 if lrrh, 4 if LilPig, 5 if MiddlePig, 6 if Peter
 	int weaponuser;
+	//character that has equipped this item: 0 if not equipped, 1 if timmy, 2 if bunny, 3 if lrrh, 4 if LilPig, 5 if MiddlePig, 6 if Peter
+	int character;
+	//Name and Stats
 	string name;
 	int defense;
 	int magic;
@@ -67,22 +70,23 @@ public:
 	Bunny* bunny;
 	Lrrh* lrrh;
 	item yoyo;
-	bool hasyoyo;
+	item handsxd;
 	List<item> inventory;
-
+	List<item> equipment;
 	//True if is a playable character
 	bool istimmyplayable;
 	//Truislrrhplayablee if is a playable character
 	bool isbunnyplayable;
 	//True if is a playable character
 	bool islrrhplayable;
-
 	//True if it's on the team
 	bool IsTimmyOnTeam;
 	//True if it's on the team
 	bool IsBunnyOnTeam;
 	//True if it's on the team
 	bool IsLrrhOnTeam;
+
+	bool statsdone = false;
 
 private:
 
