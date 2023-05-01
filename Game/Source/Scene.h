@@ -90,6 +90,7 @@ public:
 
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;
+	SDL_Texture* questUiTexture;
 
 	SDL_Texture* ropeTexture;
 
@@ -130,9 +131,10 @@ private:
 	float ropeSpeed;
 	int ropeJump;
 	int ropeSpeedLimit;
+	bool ropeWin;
+public:
 	int ropeX;
 	int ropeY;
-	bool ropeWin;
 };
 
 #endif // __SCENE_H__
