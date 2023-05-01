@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1999" y="871" />
+		<player />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -23,15 +23,17 @@
 	<guiManager />
 	<UIModule />
 	<teamManager>
-		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" />
-		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" />
+		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" />
+		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="true" />
 		<inventory>
 			<yoyo isobtained="true" character="1" />
 			<handsxd isobtained="true" character="2" />
+			<bow isobtained="false" character="0" />
+			<club isobtained="false" character="0" />
 		</inventory>
 	</teamManager>
 	<fadeToBlack />
 	<renderer>
-		<camera x="446" y="54" />
+		<camera x="-968" y="-4695" />
 	</renderer>
 </save_state>

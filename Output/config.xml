@@ -75,11 +75,14 @@
 
 	</scenecombatLHHR>
 	<teamManager>
-		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" />
-		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" />
+		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" />
+		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="true" />
 		<item>
-			<yoyo ininventory="true" type="1" weaponuser="1" character="1" name ="yoyo" defense  =  "0" magic  =  "0" speed  = "0" movement="0" attack  =  "3" AttArea  =  "0" Ab1Area  =  "0" Ab1Power  =  "0" Ab2Area  = "0" Ab2Power  = "0" healingpower  = "0"/>
+			<yoyo ininventory="true" type="1" weaponuser="1" character="0" name ="yoyo" defense  =  "0" magic  =  "0" speed  = "0" movement="0" attack  =  "3" AttArea  =  "0" Ab1Area  =  "0" Ab1Power  =  "0" Ab2Area  = "0" Ab2Power  = "0" healingpower  = "0"/>
 			<handsxd ininventory="true" type="1" weaponuser="2" character="2" name ="handsxd" defense  =  "0" magic  =  "3" speed  = "0" movement="0" attack  =  "0" AttArea  =  "0" Ab1Area  =  "0" Ab1Power  =  "0" Ab2Area  = "0" Ab2Power  = "0" healingpower  = "0"/>
+			<bow ininventory="false" type="1" weaponuser="3" character="0" name ="bow" defense  =  "0" magic  =  "0" speed  = "0" movement="0" attack  =  "3" AttArea  =  "0" Ab1Area  =  "0" Ab1Power  =  "0" Ab2Area  = "0" Ab2Power  = "0" healingpower  = "0"/>
+			<club ininventory="false" type="1" weaponuser="4" character="0" name ="club" defense  =  "0" magic  =  "0" speed  = "0" movement="0" attack  =  "3" AttArea  =  "0" Ab1Area  =  "0" Ab1Power  =  "0" Ab2Area  = "0" Ab2Power  = "0" healingpower  = "0"/>
+
 		</item>	
 	</teamManager>
 	<timmy level="1" health= "20" maxHealth = "20" defense  =  "3" magic  =  "1" stamina  =  "15" maxStamina  =  "15" speed  =  "6" attack  =  "10" AttArea  =  "2" Ab1Type  =  "1" Ab1Area  =  "3" Ab1RangeType  =  "1" Ab1Power  =  "18" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "3"/>

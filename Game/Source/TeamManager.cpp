@@ -53,6 +53,7 @@ bool TeamManager::Awake(pugi::xml_node& config)
 	if (config.child("onteam").attribute("IsLrrhOnTeam").as_bool() == true) {
 		IsLrrhOnTeam = true;
 	}
+
 	if (config.child("item").child("yoyo")) {
 		pugi::xml_node newnode = config.child("item").child("yoyo");
 		yoyo.ininventory = newnode.attribute("ininventory").as_bool();
@@ -91,6 +92,44 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		handsxd.Ab2Area = newnode.attribute("Ab2Area").as_int();
 		handsxd.healingpower = newnode.attribute("healingpower").as_int();
 	}
+	if (config.child("item").child("bow")) {
+		pugi::xml_node newnode = config.child("item").child("bow");
+		bow.ininventory = newnode.attribute("ininventory").as_bool();
+		bow.type = newnode.attribute("type").as_int();
+		bow.weaponuser = newnode.attribute("weaponuser").as_int();
+		bow.character = newnode.attribute("character").as_int();
+		bow.name = newnode.attribute("name").as_string();
+		bow.defense = newnode.attribute("defense").as_int();
+		bow.magic = newnode.attribute("magic").as_int();
+		bow.speed = newnode.attribute("speed").as_int();
+		bow.movement = newnode.attribute("movement").as_int();
+		bow.attack = newnode.attribute("attack").as_int();
+		bow.AttArea = newnode.attribute("AttArea").as_int();
+		bow.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		bow.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		bow.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		bow.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		bow.healingpower = newnode.attribute("healingpower").as_int();
+	}
+	if (config.child("item").child("club")) {
+		pugi::xml_node newnode = config.child("item").child("club");
+		club.ininventory = newnode.attribute("ininventory").as_bool();
+		club.type = newnode.attribute("type").as_int();
+		club.weaponuser = newnode.attribute("weaponuser").as_int();
+		club.character = newnode.attribute("character").as_int();
+		club.name = newnode.attribute("name").as_string();
+		club.defense = newnode.attribute("defense").as_int();
+		club.magic = newnode.attribute("magic").as_int();
+		club.speed = newnode.attribute("speed").as_int();
+		club.movement = newnode.attribute("movement").as_int();
+		club.attack = newnode.attribute("attack").as_int();
+		club.AttArea = newnode.attribute("AttArea").as_int();
+		club.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		club.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		club.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		club.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		club.healingpower = newnode.attribute("healingpower").as_int();
+	}
 	app->entityManager->Awake(config);
 
 	return true;
@@ -105,9 +144,11 @@ bool TeamManager::Start()
 
 bool TeamManager::Update(float dt)
 {
-
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+		yoyo.character = 1;
+		app->SaveGameRequest();
+	}
 	timmy->attack;
-	bunny->magic;
 	return true;
 
 }
@@ -156,34 +197,26 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	//Delete stats from items
 	for (int i = 0; i < equipment.Count(); i++) {
 
-		if (equipment.At(i)->data.character == 1) {
-
-			timmy->defense -= equipment.At(i)->data.defense;
-			timmy->magic -= equipment.At(i)->data.magic;
-			timmy->speed -= equipment.At(i)->data.speed;
-			timmy->movement -= equipment.At(i)->data.movement;
-			timmy->attack -= equipment.At(i)->data.attack;
-			timmy->AttArea -= equipment.At(i)->data.AttArea;
-			timmy->Ab1Power -= equipment.At(i)->data.Ab1Power;
-			timmy->Ab2Power -= equipment.At(i)->data.Ab2Power;
-			timmy->Ab1Area -= equipment.At(i)->data.Ab1Area;
-			timmy->Ab2Area -= equipment.At(i)->data.Ab2Area;
-			timmy->healingpower -= equipment.At(i)->data.healingpower;
-		}
-
-		if (equipment.At(i)->data.character == 2) {
-
-			bunny->defense -= equipment.At(i)->data.defense;
-			bunny->magic -= equipment.At(i)->data.magic;
-			bunny->speed -= equipment.At(i)->data.speed;
-			bunny->movement -= equipment.At(i)->data.movement;
-			bunny->attack -= equipment.At(i)->data.attack;
-			bunny->AttArea -= equipment.At(i)->data.AttArea;
-			bunny->Ab1Power -= equipment.At(i)->data.Ab1Power;
-			bunny->Ab2Power -= equipment.At(i)->data.Ab2Power;
-			bunny->Ab1Area -= equipment.At(i)->data.Ab1Area;
-			bunny->Ab2Area -= equipment.At(i)->data.Ab2Area;
-			bunny->healingpower -= equipment.At(i)->data.healingpower;
+		switch (equipment.At(i)->data.character)
+		{
+		case 1:
+			substractitemstats(timmy, i);
+			break;
+		case 2:
+			substractitemstats(bunny, i);
+			break;
+		case 3:
+			substractitemstats(lrrh, i);
+			break;
+		case 4:
+			//Indev
+			break;
+		case 5:
+			//Indev
+			break;
+		case 6:
+			//Indev
+			break;
 		}
 	}
 	//Load inventory
@@ -205,39 +238,47 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 			equipment.Add(handsxd);
 		}
 	}
-
+	bow.ininventory = data.child("inventory").child("bow").attribute("isobtained").as_bool();
+	bow.character = data.child("inventory").child("bow").attribute("character").as_int();
+	if (bow.ininventory == true) {
+		inventory.Add(bow);
+		if (bow.character != 0) {
+			equipment.Add(bow);
+		}
+	}
+	club.ininventory = data.child("inventory").child("club").attribute("isobtained").as_bool();
+	club.character = data.child("inventory").child("club").attribute("character").as_int();
+	if (club.ininventory == true) {
+		inventory.Add(club);
+		if (club.character != 0) {
+			equipment.Add(club);
+		}
+	}
 	//Apply equipped item stats
 	for (int i = 0; i < equipment.Count(); i++) {
 
-		if (equipment.At(i)->data.character == 1) {
-
-			timmy->defense += equipment.At(i)->data.defense;
-			timmy->magic += equipment.At(i)->data.magic;
-			timmy->speed += equipment.At(i)->data.speed;
-			timmy->movement += equipment.At(i)->data.movement;
-			timmy->attack += equipment.At(i)->data.attack;
-			timmy->AttArea += equipment.At(i)->data.AttArea;
-			timmy->Ab1Power += equipment.At(i)->data.Ab1Power;
-			timmy->Ab2Power += equipment.At(i)->data.Ab2Power;
-			timmy->Ab1Area += equipment.At(i)->data.Ab1Area;
-			timmy->Ab2Area += equipment.At(i)->data.Ab2Area;
-			timmy->healingpower += equipment.At(i)->data.healingpower;
+		switch (equipment.At(i)->data.character)
+		{
+		case 1:
+			additemstats(timmy, i);
+			break;
+		case 2:
+			additemstats(bunny, i);
+			break;
+		case 3:
+			additemstats(lrrh, i);
+			break;
+		case 4:
+			//Indev
+			break;
+		case 5:
+			//Indev
+			break;
+		case 6:
+			//Indev
+			break;
 		}
-
-		if (equipment.At(i)->data.character == 2) {
-
-			bunny->defense += equipment.At(i)->data.defense;
-			bunny->magic += equipment.At(i)->data.magic;
-			bunny->speed += equipment.At(i)->data.speed;
-			bunny->movement += equipment.At(i)->data.movement;
-			bunny->attack += equipment.At(i)->data.attack;
-			bunny->AttArea += equipment.At(i)->data.AttArea;
-			bunny->Ab1Power += equipment.At(i)->data.Ab1Power;
-			bunny->Ab2Power += equipment.At(i)->data.Ab2Power;
-			bunny->Ab1Area += equipment.At(i)->data.Ab1Area;
-			bunny->Ab2Area += equipment.At(i)->data.Ab2Area;
-			bunny->healingpower += equipment.At(i)->data.healingpower;
-		}
+		
 	}
 	statsdone = true;
 	return true;
@@ -261,11 +302,54 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	inventory.append_child("yoyo");
 	inventory.child("yoyo").append_attribute("isobtained") = yoyo.ininventory;
 	inventory.child("yoyo").append_attribute("character") = yoyo.character;
+
 	inventory.append_child("handsxd");
 	inventory.child("handsxd").append_attribute("isobtained") = handsxd.ininventory;
 	inventory.child("handsxd").append_attribute("character") = handsxd.character;
 
+	inventory.append_child("bow");
+	inventory.child("bow").append_attribute("isobtained") = bow.ininventory;
+	inventory.child("bow").append_attribute("character") = bow.character;
+
+	inventory.append_child("club");
+	inventory.child("club").append_attribute("isobtained") = club.ininventory;
+	inventory.child("club").append_attribute("character") = club.character;
+
 	app->LoadGameRequest();
 
 	return true;
+}
+
+bool TeamManager::additemstats(Entity* ent, int i)
+{
+
+	ent->defense += equipment.At(i)->data.defense;
+	ent->magic += equipment.At(i)->data.magic;
+	ent->speed += equipment.At(i)->data.speed;
+	ent->movement += equipment.At(i)->data.movement;
+	ent->attack += equipment.At(i)->data.attack;
+	ent->AttArea += equipment.At(i)->data.AttArea;
+	ent->Ab1Power += equipment.At(i)->data.Ab1Power;
+	ent->Ab2Power += equipment.At(i)->data.Ab2Power;
+	ent->Ab1Area += equipment.At(i)->data.Ab1Area;
+	ent->Ab2Area += equipment.At(i)->data.Ab2Area;
+	ent->healingpower += equipment.At(i)->data.healingpower;
+
+	return false;
+}
+
+bool TeamManager::substractitemstats(Entity* ent, int i)
+{
+	ent->defense -= equipment.At(i)->data.defense;
+	ent->magic -= equipment.At(i)->data.magic;
+	ent->speed -= equipment.At(i)->data.speed;
+	ent->movement -= equipment.At(i)->data.movement;
+	ent->attack -= equipment.At(i)->data.attack;
+	ent->AttArea -= equipment.At(i)->data.AttArea;
+	ent->Ab1Power -= equipment.At(i)->data.Ab1Power;
+	ent->Ab2Power -= equipment.At(i)->data.Ab2Power;
+	ent->Ab1Area -= equipment.At(i)->data.Ab1Area;
+	ent->Ab2Area -= equipment.At(i)->data.Ab2Area;
+	ent->healingpower -= equipment.At(i)->data.healingpower;
+	return false;
 }

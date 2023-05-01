@@ -59,6 +59,8 @@ private:
 
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
+	bool additemstats(Entity* ent, int i);
+	bool substractitemstats(Entity* ent, int i);
 
 public:
 	//List of acquaried playable characters
@@ -71,6 +73,8 @@ public:
 	Lrrh* lrrh;
 	item yoyo;
 	item handsxd;
+	item bow;
+	item club;
 	List<item> inventory;
 	List<item> equipment;
 	//True if is a playable character
