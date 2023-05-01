@@ -129,9 +129,10 @@ bool Scene::Start()
 	ropeSpeedLimit = 550;
 
 	ropeX = -app->render->camera.x + 1078;
-	ropeY = -app->render->camera.y + 49;
+	ropeY = -app->render->camera.y;
 
 	ropeWin = false;
+	minigameActive = false;
 
 	return true;
 }
@@ -221,11 +222,21 @@ bool Scene::Update(float dt)
 	app->map->Draw();
 
 
-	// While playing the minigame, appear animation of press Key
-	// Draw is made on UIModule
-	UpdateRopeMinigame(dt);
-	pressKeyAnim.Update();
-	keyRect = pressKeyAnim.GetCurrentFrame();
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		if (minigameActive) minigameActive = false;
+		else minigameActive = true;
+	}
+	if (minigameActive)
+	{
+		player->movementRestringed = true;
+		// While playing the minigame, appear animation of press Key
+		// Draw is made on UIModule
+		UpdateRopeMinigame(dt);
+		pressKeyAnim.Update();
+		keyRect = pressKeyAnim.GetCurrentFrame();
+	}
+	
 
 
 	//int mouseX, mouseY;
@@ -873,7 +884,7 @@ void Scene::UpdateRopeMinigame(float dt)
 
 		// update rope position
 		ropeX = -app->render->camera.x + 1078;
-		ropeY = (-app->render->camera.y + 49) - ropeSpeed;
+		ropeY = -app->render->camera.y - ropeSpeed;
 
 		// If player reaches ropeSpeedLimt, stop the rope and trigger win consequence
 		if (ropeSpeed >= ropeSpeedLimit || app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
@@ -889,7 +900,7 @@ void Scene::UpdateRopeMinigame(float dt)
 		// update rope position
 		ropeX = -app->render->camera.x + 1078;
 		// ropeY remains the same
-		ropeY = (-app->render->camera.y + 49) - ropeSpeedLimit;
+		ropeY = -app->render->camera.y - ropeSpeedLimit;
 	}
 
 	//std::cout << "Rope Speed " << ropeSpeed << std::endl;

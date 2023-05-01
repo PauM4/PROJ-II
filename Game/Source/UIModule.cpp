@@ -165,14 +165,23 @@ bool UIModule::PostUpdate()
 		}
 
 		// print UI that is on top of the SCENE SCREEN here
+		
 
-		if (app->scene->player->playerState == app->scene->player->PlayerState::MOVING)
+		//UI Minigame
+		// Condition for debug
+		if (app->scene->minigameActive)
 		{
-			app->render->DrawTexture(app->scene->questUiTexture, -app->render->camera.x + 30, -app->render->camera.y + 30, NULL);
+			app->render->DrawTexture(app->scene->ropeTexture, app->scene->ropeX, app->scene->ropeY, &app->scene->ropeRect);
+			app->render->DrawTexture(app->scene->pressKeyTexture, -app->render->camera.x + 400, -app->render->camera.y + 50, &app->scene->keyRect);
 		}
-
-		app->render->DrawTexture(app->scene->ropeTexture, app->scene->ropeX, app->scene->ropeY, &app->scene->ropeRect);
-		app->render->DrawTexture(app->scene->pressKeyTexture, -app->render->camera.x + 400, -app->render->camera.y + 50, &app->scene->keyRect);
+		else
+		{
+			// UI Quest
+			if (app->scene->player->playerState == app->scene->player->PlayerState::MOVING)
+			{
+				app->render->DrawTexture(app->scene->questUiTexture, -app->render->camera.x + 30, -app->render->camera.y + 30, NULL);
+			}
+		}
 
 	}
 

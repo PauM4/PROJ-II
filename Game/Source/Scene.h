@@ -135,6 +135,8 @@ private:
 public:
 	int ropeX;
 	int ropeY;
+	// Debug bool to activate minigame when desired
+	bool minigameActive;
 };
 
 #endif // __SCENE_H__
