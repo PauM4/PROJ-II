@@ -311,21 +311,21 @@ void Scene::Camera()
 }
 
 //Return random number between 2 numbers
-//int GenerateRandomNumber(int num1, int num2)
-//{
-//	auto eng = std::default_random_engine(std::time(0));
-//	std::uniform_int_distribution<int> dist(num1, num2);
-//
-//	return dist(eng);
-//
-//
-//}
+int GenerateRandomNumber(int num1, int num2)
+{
+	auto eng = std::default_random_engine(std::time(0));
+	std::uniform_int_distribution<int> dist(num1, num2);
+
+	return dist(eng);
+
+
+}
 
 //Returns a string with the last line spoken by the specified NPC. Randomized.
 std::string Scene::LastTextNPC(ColliderType NPC)
 {
 	std::string auxString;
-	//int index = GenerateRandomNumber(1, 2);
+	int index = GenerateRandomNumber(1, 2);
 	int index = 1; //Apaño
 
 	switch (NPC)
