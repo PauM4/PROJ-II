@@ -326,7 +326,6 @@ std::string Scene::LastTextNPC(ColliderType NPC)
 {
 	std::string auxString;
 	int index = GenerateRandomNumber(1, 2);
-	int index = 1; //Apaño
 
 	switch (NPC)
 	{
