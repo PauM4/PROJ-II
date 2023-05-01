@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Door.h"
 #include "Npc.h"
+#include "Portal.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -46,6 +47,7 @@ public:
 
 	Player* player;
 	Door* door;
+	Portal* portal; 
 
 	// UI Things
 	bool isPaused;

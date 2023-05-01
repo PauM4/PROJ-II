@@ -13,6 +13,7 @@
 #include "Defs.h"
 #include "Log.h"
 
+
 SceneGrandma::SceneGrandma(bool isActive) : Module(isActive)
 {
 	name.Create("sceneGrandma");
@@ -41,6 +42,9 @@ bool SceneGrandma::Awake(pugi::xml_node& config)
 
 	door = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);
 	door->parameters = config.child("door");
+
+	portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
+	portal->parameters = config.child("portal");
 
 	app->entityManager->Awake(config);
 

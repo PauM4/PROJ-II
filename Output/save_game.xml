@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player />
+		<player x="1999" y="871" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -32,6 +32,6 @@
 	</teamManager>
 	<fadeToBlack />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="446" y="54" />
 	</renderer>
 </save_state>

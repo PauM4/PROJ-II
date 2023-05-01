@@ -33,6 +33,7 @@ enum class EntityType
 	NPC,
 	ITEM,
 	DOOR,
+	PORTAL,
 
 	//Enemies
 	ENEMYLRRH,

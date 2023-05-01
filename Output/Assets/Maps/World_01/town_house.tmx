@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="9" height="9" tilewidth="120" tileheight="120" infinite="0" nextlayerid="5" nextobjectid="8">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="9" height="9" tilewidth="120" tileheight="120" infinite="0" nextlayerid="6" nextobjectid="9">
  <imagelayer id="2" name="BG">
-  <image source="Assets/Maps/World_01/house_town.png" width="1080" height="1080"/>
+  <image source="Assets/Maps/World_01/house_town.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -22,5 +22,11 @@
    <property name="ColType" type="int" value="1"/>
   </properties>
   <object id="7" x="480" y="1030" width="120" height="48"/>
+ </objectgroup>
+ <objectgroup color="#00ffff" id="5" name="Portal">
+  <properties>
+   <property name="ColType" type="int" value="2"/>
+  </properties>
+  <object id="8" x="480.75" y="361.655" width="118.575" height="88.9316"/>
  </objectgroup>
 </map>

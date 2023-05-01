@@ -13,6 +13,7 @@
 #include "Enemy_AngryVillager.h"
 #include "Enemy_LRRH.h"
 #include "Enemy_CorruptedSprout.h"
+#include "Portal.h"
 #include "Log.h"
 
 EntityManager::EntityManager(bool isActive) : Module(isActive)
@@ -116,6 +117,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::DOOR:
 		entity = new Door();
 		break;
+	case EntityType::PORTAL:
+		entity = new Portal();
+		break; 
 
 	case EntityType::ANGRYVILLAGER:
 		entity = new Enemy_AngryVillager();

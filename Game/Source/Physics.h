@@ -30,6 +30,7 @@ enum class ColliderType {
 	//Map
 	BARRIER,
 	DOOR,
+	PORTAL,
 
 	//Entities
 	PLAYER,

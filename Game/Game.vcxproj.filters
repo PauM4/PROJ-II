@@ -74,6 +74,9 @@
     <ClCompile Include="Source\Lrrh.cpp">
       <Filter>Entities\Playable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Portal.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -183,6 +186,9 @@
     <ClInclude Include="Source\W3_Scene.h" />
     <ClInclude Include="Source\Lrrh.h">
       <Filter>Entities\Playable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Portal.h">
+      <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
