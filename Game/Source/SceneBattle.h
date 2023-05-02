@@ -96,6 +96,10 @@ public:
 	
 	void DestroyListArea();
 
+private:
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
+
 public:
 
 	// UI Things

@@ -977,7 +977,11 @@ bool SceneBattle::PostUpdate()
 		app->render->DrawTexture(loseScreen, 0, 0);
 	}
 
-	if ((win || lose) && app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
+	if ((win || lose) && app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		app->sceneManager->LoadScene(GameScene::SCENE);
+		//app->SaveToFile();
+	}
 
 
 	if (characterTurn->isAlive == false) {
@@ -1423,6 +1427,35 @@ bool SceneBattle::CleanUp()
 
 	app->tex->UnLoad(winScreen);
 	app->tex->UnLoad(loseScreen);
+
+	return true;
+}
+
+
+bool SceneBattle::LoadState(pugi::xml_node& data)
+{
+
+	return true;
+}
+
+bool SceneBattle::SaveState(pugi::xml_node& data)
+{
+	
+	//Hacer una funcion especifica en app para que solo se guarde en el xml del nodo que yo quiera y guardar esta parte
+	//unicamente cuando se gane/pierda
+
+	std::cout << data.name() << std::endl;
+
+	pugi::xml_node battleInfoNode = data.parent().append_child("SceneBattle");
+
+	if (win)
+	{
+		battleInfoNode.append_attribute("angryVillagerDefeated") = true; //win
+	}
+	else if (lose)
+	{
+		battleInfoNode.append_attribute("angryVillagerDefeated") = true; //lose
+	}
 
 	return true;
 }

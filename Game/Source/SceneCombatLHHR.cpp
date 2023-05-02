@@ -1553,3 +1553,29 @@ bool SceneCombatLHHR::CleanUp()
 
 	return true;
 }
+
+
+bool SceneCombatLHHR::LoadState(pugi::xml_node& data)
+{
+
+	return true;
+}
+
+bool SceneCombatLHHR::SaveState(pugi::xml_node& data)
+{
+
+	std::cout << data.name() << std::endl;
+
+	pugi::xml_node battleInfoNode = data.parent().append_child("SceneCombatLRRH");
+
+	if (win)
+	{
+		battleInfoNode.append_attribute("LRRHDefeated") = true; //win
+	}
+	else if (lose)
+	{
+		battleInfoNode.append_attribute("LRRHDefeated") = true; //lose
+	}
+
+	return true;
+}

@@ -14,7 +14,9 @@
 		<player />
 	</scene>
 	<scenecombatLHHR />
+	<SceneCombatLRRH />
 	<sceneBattle />
+	<SceneBattle />
 	<sceneGrandma />
 	<w2_scene />
 	<w3_scene />
@@ -34,6 +36,6 @@
 	</teamManager>
 	<fadeToBlack />
 	<renderer>
-		<camera x="-968" y="-4695" />
+		<camera x="0" y="0" />
 	</renderer>
 </save_state>
