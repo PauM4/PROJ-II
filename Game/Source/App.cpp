@@ -471,6 +471,52 @@ bool App::SaveToFile()
 		item = item->next;
 	}
 
+	pugi::xml_document gameStateFile;
+	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
+
+	if (!result) {
+		std::cerr << "Error cargando el archivo: " << result.description() << std::endl;
+		
+	}
+	else
+	{
+		pugi::xml_node saveNodeAuxiliar = gameStateFile.child("save_state");
+		if (!saveNodeAuxiliar) {
+			std::cerr << "No se encontró el nodo 'save_state' en el archivo." << std::endl;
+			
+		}
+		else
+		{
+			pugi::xml_node battleInfoNodeAuxiliar = saveNodeAuxiliar.child("BattleInfo");
+			if (!battleInfoNodeAuxiliar) {
+				std::cerr << "No se encontró el nodo 'BattleInfo' en el archivo." << std::endl;
+
+				//Si no se encuentra el nodo BattleInfo (primera vez que se crea el save_game), lo creamos.
+				pugi::xml_node battleInfoNode = saveStateNode.append_child("BattleInfo");
+				battleInfoNode.append_attribute("isAngryVillagerDefeated");
+				battleInfoNode.append_attribute("isLRRHDefeated");
+				battleInfoNode.append_attribute("isPigDefeated");
+				battleInfoNode.append_attribute("isPereDefeated");
+				battleInfoNode.append_attribute("isWolfDefeated");
+				
+			}
+			else
+			{
+				//De ya estar creado: Cogemos la información del ya creado previamente y la dejamos tal cual:
+
+				pugi::xml_node battleInfoNodeToReplace = saveStateNode.append_child("BattleInfo");
+				battleInfoNodeToReplace.append_attribute("isAngryVillagerDefeated") = battleInfoNodeAuxiliar.attribute("isAngryVillagerDefeated").value();
+				battleInfoNodeToReplace.append_attribute("isLRRHDefeated") = battleInfoNodeAuxiliar.attribute("isLRRHDefeated").value();
+				battleInfoNodeToReplace.append_attribute("isPigDefeated") = battleInfoNodeAuxiliar.attribute("isPigDefeated").value();
+				battleInfoNodeToReplace.append_attribute("isPereDefeated") = battleInfoNodeAuxiliar.attribute("isPereDefeated").value();
+				battleInfoNodeToReplace.append_attribute("isWolfDefeated") = battleInfoNodeAuxiliar.attribute("isWolfDefeated").value();
+
+			}
+
+		}
+	}
+
+
 	ret = saveDoc->save_file("save_game.xml");
 
 	saveGameRequested = false;

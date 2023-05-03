@@ -1551,31 +1551,39 @@ bool SceneCombatLHHR::CleanUp()
 	app->tex->UnLoad(winScreen);
 	app->tex->UnLoad(loseScreen);
 
-	return true;
-}
-
-
-bool SceneCombatLHHR::LoadState(pugi::xml_node& data)
-{
+	SaveResult();
 
 	return true;
 }
 
-bool SceneCombatLHHR::SaveState(pugi::xml_node& data)
+void SceneCombatLHHR::SaveResult()
 {
 
-	std::cout << data.name() << std::endl;
+	pugi::xml_document gameStateFile;
+	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
 
-	pugi::xml_node battleInfoNode = data.parent().append_child("SceneCombatLRRH");
-
-	if (win)
+	if (result)
 	{
-		battleInfoNode.append_attribute("LRRHDefeated") = true; //win
+		pugi::xml_attribute battleResult = gameStateFile.child("save_state").child("BattleInfo").attribute("isLRRHDefeated");
+
+		if (win)
+		{
+			battleResult.set_value("true"); //win
+		}
+		else if (lose)
+		{
+			battleResult.set_value("false"); //win
+		}
+
 	}
-	else if (lose)
-	{
-		battleInfoNode.append_attribute("LRRHDefeated") = true; //lose
+	else {
+		LOG("Error in App::LoadConfig(): %s", result.description());
 	}
 
-	return true;
+
+	if (!gameStateFile.save_file("save_game.xml")) {
+		std::cerr << "Error al guardar el archivo" << std::endl;
+	}
+
+
 }

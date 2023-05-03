@@ -1428,34 +1428,39 @@ bool SceneBattle::CleanUp()
 	app->tex->UnLoad(winScreen);
 	app->tex->UnLoad(loseScreen);
 
-	return true;
-}
-
-
-bool SceneBattle::LoadState(pugi::xml_node& data)
-{
+	SaveResult();
 
 	return true;
 }
 
-bool SceneBattle::SaveState(pugi::xml_node& data)
+void SceneBattle::SaveResult()
 {
+
+	pugi::xml_document gameStateFile;
+	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
 	
-	//Hacer una funcion especifica en app para que solo se guarde en el xml del nodo que yo quiera y guardar esta parte
-	//unicamente cuando se gane/pierda
-
-	std::cout << data.name() << std::endl;
-
-	pugi::xml_node battleInfoNode = data.parent().append_child("SceneBattle");
-
-	if (win)
+	if (result)
 	{
-		battleInfoNode.append_attribute("angryVillagerDefeated") = true; //win
+		pugi::xml_attribute battleResult = gameStateFile.child("save_state").child("BattleInfo").attribute("isAngryVillagerDefeated");
+
+		if (win)
+		{
+			battleResult.set_value("true"); //win
+		}
+		else if (lose)
+		{
+			battleResult.set_value("false"); //win
+		}
+		
 	}
-	else if (lose)
-	{
-		battleInfoNode.append_attribute("angryVillagerDefeated") = true; //lose
+	else {
+		LOG("Error in App::LoadConfig(): %s", result.description());
 	}
 
-	return true;
+
+	if (!gameStateFile.save_file("save_game.xml")) {
+		std::cerr << "Error al guardar el archivo" << std::endl;
+	}
+
+
 }

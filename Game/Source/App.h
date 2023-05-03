@@ -80,9 +80,9 @@ public:
 
 	// L03: DONE 1: Create methods to control that the real Load and Save happens at the end of the frame
 	void LoadGameRequest();
-	void SaveGameRequest() ;
+	void SaveGameRequest();
 	bool LoadFromFile();
-	bool SaveToFile() ;
+	bool SaveToFile();
 
 private:
 
