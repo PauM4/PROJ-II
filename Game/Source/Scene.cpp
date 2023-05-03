@@ -796,6 +796,8 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
+	ropeWin = data.child("rope_minigame").attribute("rope_minigame_state").as_bool();
+
 	LoadChests(data);
 
 
@@ -818,6 +820,9 @@ bool Scene::SaveState(pugi::xml_node& data)
 	playerNode.append_attribute("x") = player->position.x;
 	playerNode.append_attribute("y") = player->position.y;
 	
+	// Save Minigame has been Completed
+	pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");
+	ropeMinigameNode.append_attribute("rope_minigame_state") = ropeWin;
 
 	// CHESTS
 	pugi::xml_node chestGameSave = data.append_child("chests");
@@ -935,6 +940,8 @@ void Scene::UpdateMinigameLogic(float dt)
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 			minigameTVdialogueCounter++;
+
+			app->SaveGameRequest();
 		}
 	}
 }
