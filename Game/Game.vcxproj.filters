@@ -77,6 +77,15 @@
     <ClCompile Include="Source\Portal.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LittlePig.cpp">
+      <Filter>Entities\Playable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MiddlePig.cpp">
+      <Filter>Entities\Playable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Peter.cpp">
+      <Filter>Entities\Playable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -189,6 +198,15 @@
     </ClInclude>
     <ClInclude Include="Source\Portal.h">
       <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LittlePig.h">
+      <Filter>Entities\Playable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MiddlePig.h">
+      <Filter>Entities\Playable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Peter.h">
+      <Filter>Entities\Playable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,9 @@
 #include "Lrrh.h"
 #include "Npc.h"
 #include "Bunny.h"
+#include "LittlePig.h"
+#include "MiddlePig.h"
+#include "Peter.h"
 #include "Item.h"
 #include "Door.h"
 #include "Defs.h"
@@ -105,6 +108,15 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::LRRH:
 		entity = new Lrrh();
+		break;
+	case EntityType::LPIG:
+		entity = new LittlePig();
+		break;
+	case EntityType::MPIG:
+		entity = new MiddlePig();
+		break;
+	case EntityType::PETER:
+		entity = new Peter();
 		break;
 	case EntityType::PLAYER:
 		entity = new Player();

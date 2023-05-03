@@ -27,6 +27,9 @@ enum class EntityType
 	TIMMY,
 	BUNNY,
 	LRRH,
+	LPIG,
+	MPIG,
+	PETER,
 	//Scene
 
 	PLAYER,

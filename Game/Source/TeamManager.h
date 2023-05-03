@@ -9,6 +9,9 @@
 #include "Timmy.h"
 #include "Bunny.h"
 #include "Lrrh.h"
+#include "LittlePig.h"
+#include "MiddlePig.h"
+#include "Peter.h"
 #include <iostream>
 using namespace std;
 
@@ -90,6 +93,9 @@ public:
 	Timmy* timmy;
 	Bunny* bunny;
 	Lrrh* lrrh;
+	LittlePig* littlepig;
+	MiddlePig* middlepig;
+	Peter* peter;
 	item yoyo;
 	item handsxd;
 	item bow;
@@ -99,18 +105,33 @@ public:
 	stats timmystats;
 	stats bunnystats;
 	stats lrrhstats;
+	stats lilpigstats;
+	stats midpigstats;
+	stats peterstats;
 	//True if is a playable character
 	bool istimmyplayable;
-	//Truislrrhplayablee if is a playable character
+	//True if is a playable character
 	bool isbunnyplayable;
 	//True if is a playable character
 	bool islrrhplayable;
+	//True if is a playable character
+	bool islilpigplayable;
+	//True if is a playable character
+	bool ismidpigplayable;
+	//True if is a playable character
+	bool ispeterplayable;
 	//True if it's on the team
 	bool IsTimmyOnTeam;
 	//True if it's on the team
 	bool IsBunnyOnTeam;
 	//True if it's on the team
 	bool IsLrrhOnTeam;
+	//True if it's on the team
+	bool IsLilPigOnTeam;
+	//True if it's on the team
+	bool IsMidPigOnTeam;
+	//True if it's on the team
+	bool IsPeterOnTeam;
 
 	bool statsdone = false;
 
