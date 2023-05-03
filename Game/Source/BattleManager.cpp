@@ -755,34 +755,198 @@ void BattleManager::GodMode()
 
 		ally->data->health = ally->data->maxHealth;
 		ally->data->stamina = ally->data->maxStamina;
+		
 	}
 }
 
 
 
+bool BattleManager::IaEnemyAttack() {
 
+	if (currentTurn->stamina >= 5) {
+		ListItem<Entity*>* entitylist;
+		for (entitylist = targets.start; entitylist != NULL; entitylist = entitylist->next) {
+
+			if (entitylist->data->isAlive == true) {
+
+				return true;
+
+			}
+
+
+		}
+
+
+	}
+
+	return false;
+
+}
+
+bool BattleManager::IaEnemyMove() {
+
+	if (currentTurn->stamina >= 5) {
+		ListItem<TileData*>* tiledata;
+		for (tiledata = actionArea.start; tiledata != NULL; tiledata = tiledata->next) {
+
+			if (tiledata->data->type == TILE_TYPE::FLOOR) {
+				iPoint pos = iPoint(tiledata->data->x, tiledata->data->y);
+
+				CreateArea(currentTurn->AttArea, 1, pos);
+				for (int i = 0; i < area.Count(); i++) {
+
+					if (area.At(i)->data->character!=NULL &&area.At(i)->data->character->isAlive==true) {
+
+						length = app->pathfinding->CreatePath(origin, pos);
+						destination.x = pos.x;
+						destination.y = pos.y;
+						currentTurn->UseStamina(3);
+						i = area.Count();
+
+						return true;
+
+					}
+
+				}
+
+			}
+		}
+
+
+	}
+	return false;
+
+}
+
+bool BattleManager::CreateArea(int range, int type, iPoint posTile) {
+
+
+
+
+	switch (type) {
+
+	case 0:
+		//attack
+		if (combatMap[posTile.x + 1][posTile.y].type == TILE_TYPE::FLOOR) {
+
+			area.Add(&combatMap[posTile.x + 1][posTile.y]);
+		}
+		if (combatMap[posTile.x - 1][posTile.y].type == TILE_TYPE::FLOOR) {
+			area.Add(&combatMap[posTile.x - 1][posTile.y]);
+		}
+		if (combatMap[posTile.x][posTile.y + 1].type == TILE_TYPE::FLOOR) {
+			area.Add(&combatMap[posTile.x][posTile.y + 1]);
+		}
+		if (combatMap[posTile.x][posTile.y - 1].type == TILE_TYPE::FLOOR) {
+			area.Add(&combatMap[posTile.x][posTile.y - 1]);
+		}
+		break;
+	case 1:
+		//lineal
+		for (int i = 1; i <= range; i++) {
+			if (combatMap[posTile.x + i][posTile.y].type == TILE_TYPE::FLOOR) {
+				area.Add(&combatMap[posTile.x + i][posTile.y]);
+			}
+			if (combatMap[posTile.x - i][posTile.y].type == TILE_TYPE::FLOOR) {
+				area.Add(&combatMap[posTile.x - i][posTile.y]);
+			}
+			if (combatMap[posTile.x][posTile.y + i].type == TILE_TYPE::FLOOR) {
+				area.Add(&combatMap[posTile.x][posTile.y + i]);
+			}
+			if (combatMap[posTile.x][posTile.y - i].type == TILE_TYPE::FLOOR) {
+				area.Add(&combatMap[posTile.x][posTile.y - i]);
+			}
+		}
+		break;
+	case 2:
+		//circular
+		int i;
+		int j;
+		for (i = 0; i <= range; i++) {
+			for (j = 0; j <= range - i; j++) {
+				if (combatMap[posTile.x + j][posTile.y + i].type == TILE_TYPE::FLOOR) {
+					area.Add(&combatMap[posTile.x + j][posTile.y + i]);
+				}
+				if (combatMap[posTile.x - j][posTile.y + i].type == TILE_TYPE::FLOOR) {
+					area.Add(&combatMap[posTile.x - j][posTile.y + i]);
+				}
+				if (combatMap[posTile.x - j][posTile.y - i].type == TILE_TYPE::FLOOR) {
+					area.Add(&combatMap[posTile.x - j][posTile.y - i]);
+				}
+				if (combatMap[posTile.x + j][posTile.y - i].type == TILE_TYPE::FLOOR) {
+					area.Add(&combatMap[posTile.x + j][posTile.y - i]);
+				}
+			}
+
+		}
+
+		break;
+	case 3:
+		//global
+		for (int i = 0; i < COMBAT_MAP_HEIGHT; i++) {
+			for (int j = 0; j < COMBAT_MAP_WIDTH; j++) {
+				iPoint pos = iPoint(i, j);
+				if (combatMap[j][i].type == TILE_TYPE::FLOOR) {
+
+					area.Add(&combatMap[j][i]);
+
+				}
+
+			}
+		}
+		break;
+	case 4:
+		//LRRH attack area
+
+		//for (int i = -1; i < 2; i++) {
+
+		//	for (int j = 0; j < 8; i++) {
+
+		//		if (posTile.x - j <2  && posTile.y + i < 9 && combatMap[posTile.x + j][posTile.y+i].type == TILE_TYPEE::FLOOR) {
+		//			area.Add(&combatMap[posTile.x + i][posTile.y+i]);
+		//		}
+		//		if (posTile.x - j < 2 && posTile.y + i > 9 && combatMap[posTile.x - j][posTile.y+i].type == TILE_TYPEE::FLOOR) {
+		//			area.Add(&combatMap[posTile.x - j][posTile.y+i]);
+		//		}
+		//		if (posTile.x+i >14 && posTile.y + j>6 && combatMap[posTile.x+i][posTile.y + j].type == TILE_TYPEE::FLOOR) {
+		//			area.Add(&combatMap[posTile.x+i][posTile.y + i]);
+		//		}
+		//		if (posTile.x + i > 14 && posTile.y - j < 2 && combatMap[posTile.x+i][posTile.y - j].type == TILE_TYPEE::FLOOR) {
+		//			area.Add(&combatMap[posTile.x+i][posTile.y - j]);
+		//		}
+		//	}
+
+		//}
+
+		break;
+	}
+
+
+	return true;
+
+}
 
 
 //if (moveenemy == true) {
-
+//
 //    /*	move = true;
 //	moveanim = false;
 //
-
+//
 //	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-
+//
 //		atack = true;
-
+//
 //	}*/
-
+//
 //	if (characterTurn->stamina >= 5 && length==1) {
 //		ListItem<Entity*>* entitylist;
 //		entitylist = targets.start;
-
+//
 //		while (entitylist != NULL && moveenemy == true) {
-
+//
 //			/*Combat(characterTurn, targets, 1);*/
-
+//
 //			if (entitylist->data->isAlive == true) {
 //				entitylist->data->health = entitylist->data->health - (characterTurn->attack - entitylist->data->defense);
 //				targets.Clear();
@@ -790,33 +954,33 @@ void BattleManager::GodMode()
 //				turnstart = false;
 //				atack = false;
 //				moveenemy = false;
-
+//
 //			}
-
+//
 //			entitylist = entitylist->next;
-
+//
 //		}
-
+//
 //	}
-
-
+//
+//
 //	if (moveenemy == true && characterTurn->stamina >= 3) {
-
+//
 //		moveanim = true;
 //		move = true;
 //		for (int i = 0; i < 16; i++) {
 //			for (int j = 0; j < 9; j++) {
-
+//
 //				if (moveenemy == true) {
 //					if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
 //						iPoint pos = iPoint(i, j);
-
+//
 //						if (app->pathfinding->IsWalkable(pos)) {
 //							CreateArea(LRRH->AttArea, 1, pos);
 //							for (int i = 0; i < area.Count(); i++) {
-
+//
 //								if (area.At(i)->data->character == true && area.At(i)->data->dead == false) {
-
+//
 //									length = app->pathfinding->CreatePath(origin, pos);
 //									destination.x = pos.x;
 //									destination.y = pos.y;
@@ -824,21 +988,21 @@ void BattleManager::GodMode()
 //									moveenemy = false;
 //									characterTurn->UseStamina(3);
 //									i = area.Count();
-
+//
 //								}
-
+//
 //							}
 //						}
 //					}
 //					
 //				}
-
+//
 //			}
-
+//
 //		}
 //	} 
 //	if(moveenemy == true && characterTurn->stamina >= 3) {
-
+//
 //		moveanim = true;
 //		
 //				if (moveenemy == true) {
@@ -847,7 +1011,7 @@ void BattleManager::GodMode()
 //						
 //						if (app->pathfinding->IsWalkable(pos)) {
 //							
-
+//
 //									length = app->pathfinding->CreatePath(origin, pos);
 //									destination.x = pos.x;
 //									destination.y = pos.y;
@@ -860,16 +1024,16 @@ void BattleManager::GodMode()
 //					
 //				
 //				}
-
+//
 //			
-
+//
 //		
 //	}
 //	else if (moveenemy == true) {
-
+//
 //		characterTurn->GainStamina(10);
 //		moveenemy = false;
 //	 }
-
-
+//
+//
 //}

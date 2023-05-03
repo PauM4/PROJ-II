@@ -115,6 +115,12 @@ public:
 
 	void GodMode();
 
+	bool IaEnemyAttack();
+
+	bool IaEnemyMove();
+
+	bool CreateArea(int range, int type, iPoint posTile);
+
 	// Loads combat map from Map module using GID tile metadata
 	bool MakeCombatMap();
 
@@ -153,7 +159,7 @@ public:
 
 	TileData* selectedTile;
 	List<TileData*> actionArea;
-
+	List<TileData*> area;
 	ActionType actionType;
 	CombatButtons buttonPressed;
 	BattleState battleState;
