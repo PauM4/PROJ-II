@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1404" y="3761" />
+		<player />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -34,7 +34,7 @@
 	</teamManager>
 	<fadeToBlack />
 	<renderer>
-		<camera x="-444" y="-3191" />
+		<camera x="0" y="0" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="true" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
+	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="false" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

@@ -54,9 +54,6 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	app->entityManager->Awake(config);
 
-	angryVillagerDefeated = false;
-	LRRHDefeated = false;
-
 	CreateDialogue(); //3MB
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
@@ -804,14 +801,9 @@ bool Scene::LoadState(pugi::xml_node& data)
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
-	pugi::xml_node sceneBattle = data.parent().child("SceneBattle");
-	angryVillagerDefeated = sceneBattle.attribute("angryVillagerDefeated").as_bool();
-	
-	pugi::xml_node sceneCombatLRRH = data.parent().child("SceneCombatLRRH");
-	LRRHDefeated = sceneCombatLRRH.attribute("LRRHDefeated").as_bool();
-
-	std::cout << "AngryVillagerDefeated :" << angryVillagerDefeated << std::endl;
-	std::cout << "LRRHDefeated :" << LRRHDefeated << std::endl;
+	pugi::xml_node battleInfo = data.parent().child("BattleInfo");
+	angryVillagerDefeated = battleInfo.attribute("isAngryVillagerDefeated").as_bool();
+	LRRHDefeated = battleInfo.attribute("isLRRHDefeated").as_bool();
 
 	return true;
 }
