@@ -374,43 +374,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	}
 
-	// Combat Menu Switch
-	//switch (control->id)
-	//{
-	//	// Attack
-	//case 16:
-
-	//	app->battleManager->buttonPressed = CombatButtons::ATTACK;
-	//	app->battleManager->battleState = BattleState::SELCETED;
-	//	app->battleManager->actionType = ActionType::ATTACK;
-	//	break;
-	//	// Ability
-	//case 17:
-
-	//	app->battleManager->buttonPressed = CombatButtons::ABILITY;
-	//	app->battleManager->battleState = BattleState::SELCETED;
-	//	app->battleManager->actionType = ActionType::ABILITY;
-
-	//	break;
-	//	// Move
-	//case 18:
-	//	
-	//	app->battleManager->buttonPressed = CombatButtons::MOVE;
-	//	app->battleManager->battleState = BattleState::SELCETED;
-	//	app->battleManager->actionType = ActionType::MOVE;
-
-	//	break;
-
-	//	// End turn
-	//case 19:
-	//	app->battleManager->buttonPressed = CombatButtons::END;
-
-	//	app->battleManager->battleState = BattleState::THINKING;
-	//	app->battleManager->actionType = ActionType::END_TURN;
-
-
-	//	break;
-	//}
+	
 
 	// Dialog Options Switch
 	switch (control->id)
