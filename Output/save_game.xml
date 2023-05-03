@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="3740" y="1043" x="3740" y="968" />
+		<player x="1815" y="1638" />
 		<chests>
 			<chest isPicked="false" />
 			<chest isPicked="false" />
@@ -27,6 +27,6 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-2776" y="-473" />
+		<camera x="-855" y="-1143" />
 	</renderer>
 </save_state>

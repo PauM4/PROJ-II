@@ -160,7 +160,6 @@ bool Player::Update(float dt)
 	currentAnimation->Update();
 	bunnyCurrentAnimation->Update();
 
-
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
 	{
 		InteractWithEntities();

@@ -134,6 +134,8 @@ bool Scene::Start()
 	ropeWin = false;
 	minigameActive = false;
 
+	minigameTVdialogueCounter = 0;
+
 	return true;
 }
 
@@ -221,21 +223,7 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		if (minigameActive) minigameActive = false;
-		else minigameActive = true;
-	}
-	if (minigameActive)
-	{
-		player->movementRestringed = true;
-		// While playing the minigame, appear animation of press Key
-		// Draw is made on UIModule
-		UpdateRopeMinigame(dt);
-		pressKeyAnim.Update();
-		keyRect = pressKeyAnim.GetCurrentFrame();
-	}
+	UpdateMinigameLogic(dt);
 	
 
 
@@ -510,6 +498,7 @@ void Scene::UpdateDialogueTree(int option)
 
 		case ColliderType::TALISMANVILLAGER:
 			talismanVillagerTree->Update(option);
+			minigameTVdialogueCounter++;
 			break;
 
 		case ColliderType::GRANDMA:
@@ -866,20 +855,20 @@ void Scene::LoadChests(pugi::xml_node& data)
 }
 
 
-// Every time player presses E, rope goes up.
+// Every time player presses T, rope goes up.
 // Every frame the rope goes down
 // The player has to press the button faster proportionally with how much he has left to reach the goal
 void Scene::UpdateRopeMinigame(float dt)
 {
 	if (!ropeWin)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 		{
 			ropeSpeed += ropeJump;
 		}
 
-		// To increase difficulty, change divider (5) to smaller num
-		ropeSpeed -= ropeSpeed / 4 * dt;
+		// To increase difficulty, change divider to smaller num
+		ropeSpeed -= ropeSpeed / 6 * dt;
 		if (ropeSpeed <= 0) ropeSpeed = 0.01f;
 
 		// update rope position
@@ -901,7 +890,51 @@ void Scene::UpdateRopeMinigame(float dt)
 		ropeX = -app->render->camera.x + 1078;
 		// ropeY remains the same
 		ropeY = -app->render->camera.y - ropeSpeedLimit;
+
+		// Timer to wait for particles to celebrate win?
+		//...
+
+		// Then disable minigame
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = DIALOG;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+		
 	}
 
 	//std::cout << "Rope Speed " << ropeSpeed << std::endl;
+}
+
+void Scene::UpdateMinigameLogic(float dt)
+{
+	if (minigameTVdialogueCounter == 1 && !minigameActive)
+	{
+		minigameActive = true;
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = ROPE_MINIGAME;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	}
+
+	if (minigameActive)
+	{
+		player->movementRestringed = true;
+		// While playing the minigame, appear animation of press Key
+		// Draw is made on UIModule
+		UpdateRopeMinigame(dt);
+		pressKeyAnim.Update();
+		keyRect = pressKeyAnim.GetCurrentFrame();
+
+		if (ropeWin)
+		{
+			minigameActive = false;
+			// Then disable minigame
+			// Tell to UIModule which currentMenuType
+			app->uiModule->currentMenuType = DIALOG;
+			// Call this function only when buttons change
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			minigameTVdialogueCounter++;
+		}
+	}
 }

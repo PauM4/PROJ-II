@@ -153,7 +153,7 @@ bool UIModule::PostUpdate()
 	app->guiManager->Draw();
 
 	if (app->scene->active) {
-		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT)
+		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT && currentMenuType != ROPE_MINIGAME)
 		{
 			PrintDialogue(app->scene->GetDialogue());
 			if (app->scene->player->dialogueActivate)
@@ -718,6 +718,52 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 		// Disable other menus buttons:
 
+
+		break;
+	case ROPE_MINIGAME:
+
+		//...
+
+		// Disable all main menu buttons
+		mainmenu_play_button->state = GuiControlState::NONE;
+		mainmenu_options_button->state = GuiControlState::NONE;
+		mainmenu_credits_button->state = GuiControlState::NONE;
+		mainmenu_quit_button->state = GuiControlState::NONE;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_return_button->state = GuiControlState::NONE;
+
+		// Disable all pause menu buttons
+		pausemenu_resume_button->state = GuiControlState::NONE;
+		pausemenu_save_button->state = GuiControlState::NONE;
+		pausemenu_load_button->state = GuiControlState::NONE;
+		pausemenu_options_button->state = GuiControlState::NONE;
+		pausemenu_return_button->state = GuiControlState::NONE;
+		pausemenu_backtomain_button->state = GuiControlState::NONE;
+		pausemenu_quit_button->state = GuiControlState::NONE;
+
+		// Disable all combat buttons
+		combat_attack_button->state = GuiControlState::NONE;
+		combat_ability_button->state = GuiControlState::NONE;
+		combat_move_button->state = GuiControlState::NONE;
+		combat_endTurn_button->state = GuiControlState::NONE;
+
+		// Disable all dialog buttons
+		dialog_option1_button->state = GuiControlState::NONE;
+		dialog_option2_button->state = GuiControlState::NONE;
+		dialog_option3_button->state = GuiControlState::NONE;
+		dialog_option4_button->state = GuiControlState::NONE;
+		dialog_text_button->state = GuiControlState::NONE;
+
+		// Disable all combat pause buttons
+		pausemenuCombat_resume_button->state = GuiControlState::NONE;
+		pausemenuCombat_options_button->state = GuiControlState::NONE;
+		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
+
+
+		// Disable other menus buttons:
 
 		break;
 	case DISABLED:

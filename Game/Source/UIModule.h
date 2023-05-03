@@ -19,6 +19,7 @@ enum CurrentMenuType
 	COMBAT_PAUSE,
 	DIALOG,
 	COMBAT,
+	ROPE_MINIGAME,
 	DISABLED
 };
 
@@ -69,6 +70,7 @@ public:
 	int currentMenuType;
 
 	// Buttons list
+
 	GuiButton* mainmenu_play_button;
 	GuiButton* mainmenu_options_button;
 	GuiButton* mainmenu_credits_button;

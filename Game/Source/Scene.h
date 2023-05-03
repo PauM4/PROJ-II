@@ -54,6 +54,8 @@ public:
 
 	void UpdateRopeMinigame(float dt);
 
+	void UpdateMinigameLogic(float dt);
+
 	std::vector<std::string> GetDialogue() { return dialogue; }
 
 	std::string LastTextNPC(ColliderType NPC);
@@ -128,15 +130,20 @@ private:
 	bool godMode;
 
 
+	// Minigame variables:
 	float ropeSpeed;
 	int ropeJump;
 	int ropeSpeedLimit;
 	bool ropeWin;
+
 public:
 	int ropeX;
 	int ropeY;
 	// Debug bool to activate minigame when desired
 	bool minigameActive;
+	int minigameTVdialogueCounter;
+
+	//----------------
 };
 
 #endif // __SCENE_H__
