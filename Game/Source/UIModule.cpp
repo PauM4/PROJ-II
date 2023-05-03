@@ -68,10 +68,10 @@ bool UIModule::Start()
 	pausemenuCombat_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Return", { 1620, 80, 120,30 }, this);
 	pausemenuCombat_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Quit", { 1620, 255, 120, 30 }, this);
 
-	combat_attack_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 30 }, this);
-	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "Ability", { 100, 815, 100, 30 }, this);
-	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 850, 100, 30 }, this);
-	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 885, 100, 30 }, this);
+	combat_attack_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 30 }, app->battleManager);
+	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "Ability", { 100, 815, 100, 30 }, app->battleManager);
+	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 850, 100, 30 }, app->battleManager);
+	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 885, 100, 30 }, app->battleManager);
 
 	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, app->scene);
 	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, app->scene);
@@ -375,42 +375,42 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	}
 
 	// Combat Menu Switch
-	switch (control->id)
-	{
-		// Attack
-	case 16:
+	//switch (control->id)
+	//{
+	//	// Attack
+	//case 16:
 
-		app->battleManager->buttonPressed = CombatButtons::ATTACK;
-		app->battleManager->battleState = BattleState::SELCETED;
-		app->battleManager->actionType = ActionType::ATTACK;
-		break;
-		// Ability
-	case 17:
+	//	app->battleManager->buttonPressed = CombatButtons::ATTACK;
+	//	app->battleManager->battleState = BattleState::SELCETED;
+	//	app->battleManager->actionType = ActionType::ATTACK;
+	//	break;
+	//	// Ability
+	//case 17:
 
-		app->battleManager->buttonPressed = CombatButtons::ABILITY;
-		app->battleManager->battleState = BattleState::SELCETED;
-		app->battleManager->actionType = ActionType::ABILITY;
+	//	app->battleManager->buttonPressed = CombatButtons::ABILITY;
+	//	app->battleManager->battleState = BattleState::SELCETED;
+	//	app->battleManager->actionType = ActionType::ABILITY;
 
-		break;
-		// Move
-	case 18:
-		
-		app->battleManager->buttonPressed = CombatButtons::MOVE;
-		app->battleManager->battleState = BattleState::SELCETED;
-		app->battleManager->actionType = ActionType::MOVE;
+	//	break;
+	//	// Move
+	//case 18:
+	//	
+	//	app->battleManager->buttonPressed = CombatButtons::MOVE;
+	//	app->battleManager->battleState = BattleState::SELCETED;
+	//	app->battleManager->actionType = ActionType::MOVE;
 
-		break;
+	//	break;
 
-		// End turn
-	case 19:
-		app->battleManager->buttonPressed = CombatButtons::END;
+	//	// End turn
+	//case 19:
+	//	app->battleManager->buttonPressed = CombatButtons::END;
 
-		app->battleManager->battleState = BattleState::THINKING;
-		app->battleManager->actionType = ActionType::END_TURN;
+	//	app->battleManager->battleState = BattleState::THINKING;
+	//	app->battleManager->actionType = ActionType::END_TURN;
 
 
-		break;
-	}
+	//	break;
+	//}
 
 	// Dialog Options Switch
 	switch (control->id)

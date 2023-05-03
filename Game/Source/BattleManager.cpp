@@ -10,6 +10,7 @@
 #include "PathFinding.h"
 #include "GuiButton.h"
 #include "GuiControl.h"
+#include "GuiManager.h"
 #include "UIModule.h"
 #include "Fonts.h"
 #include "Defs.h"
@@ -227,24 +228,42 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 	LOG("Event by %d ", control->id);
 
 	
-		switch (control->id)
-		{
-		case 16:
-			buttonPressed = CombatButtons::ATTACK;
-			break;
+	switch (control->id)
+	{
+		// Attack
+	case 16:
 
-		case 17:
-			buttonPressed = CombatButtons::ABILITY;
-			break;
+		app->battleManager->buttonPressed = CombatButtons::ATTACK;
+		app->battleManager->battleState = BattleState::SELCETED;
+		app->battleManager->actionType = ActionType::ATTACK;
+		break;
+		// Ability
+	case 17:
 
-		case 18:
-			buttonPressed = CombatButtons::MOVE;
-			break;
+		app->battleManager->buttonPressed = CombatButtons::ABILITY;
+		app->battleManager->battleState = BattleState::SELCETED;
+		app->battleManager->actionType = ActionType::ABILITY;
 
-		case 19:
-			buttonPressed = CombatButtons::END;
-			return true;
-		}
+		break;
+		// Move
+	case 18:
+
+		app->battleManager->buttonPressed = CombatButtons::MOVE;
+		app->battleManager->battleState = BattleState::SELCETED;
+		app->battleManager->actionType = ActionType::MOVE;
+
+		break;
+
+		// End turn
+	case 19:
+		app->battleManager->buttonPressed = CombatButtons::END;
+
+		app->battleManager->battleState = BattleState::THINKING;
+		app->battleManager->actionType = ActionType::END_TURN;
+
+
+		break;
+	}
 
 		battleState = BattleState::SELCETED;
 	

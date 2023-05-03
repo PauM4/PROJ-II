@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Entity.h"
 #include "List.h"
+#include "UIModule.h"
+#include "GuiButton.h"
 
 enum class TILE_TYPE {
 	UNKNOWN = -1,
