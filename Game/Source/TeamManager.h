@@ -35,8 +35,25 @@ struct item
 	int Ab1Area;
 	int Ab2Area;
 	int healingpower;
-};
 
+};
+struct stats
+{
+	//1 if timmy, 2 if bunny, 3 if lrrh, 4 if LilPig, 5 if MiddlePig, 6 if Peter
+	int character;
+	int defense;
+	int magic;
+	int speed;
+	int movement;
+	int attack;
+	int AttArea;
+	int Ab1Power;
+	int Ab2Power;
+	int Ab1Area;
+	int Ab2Area;
+	int healingpower;
+
+};
 class TeamManager : public Module {
 public:
 
@@ -54,20 +71,22 @@ public:
 
 	bool CleanUp();
 
+	bool additemstats(Entity* ent, int i);
+
+	bool addallstats();
 
 private:
 
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
-	bool additemstats(Entity* ent, int i);
-	bool substractitemstats(Entity* ent, int i);
+
 
 public:
 	//List of acquaried playable characters
 	List<Entity*> characters;
 	//List of the selected playable characters in the team
 	List<Entity*> team;
-
+	List<stats*> statslist;
 	Timmy* timmy;
 	Bunny* bunny;
 	Lrrh* lrrh;
@@ -77,6 +96,9 @@ public:
 	item club;
 	List<item> inventory;
 	List<item> equipment;
+	stats timmystats;
+	stats bunnystats;
+	stats lrrhstats;
 	//True if is a playable character
 	bool istimmyplayable;
 	//Truislrrhplayablee if is a playable character

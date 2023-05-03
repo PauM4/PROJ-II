@@ -48,6 +48,7 @@ bool Timmy::Awake()
 		Ab2Power = stats.attribute("Ab2Power").as_int();
 		healingpower = stats.attribute("healingpower").as_int();
 		movement = stats.attribute("movement").as_int();
+		app->teamManager->statsdone = true;
 	}
 
 	idleAnim.PushBack({ 0, 0, 140, 140 });

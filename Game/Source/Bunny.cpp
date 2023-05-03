@@ -14,6 +14,7 @@ Bunny::Bunny() : Entity(EntityType::BUNNY)
 	name.Create("bunny");
 	isAlive = true;
 	battleState = IDLE; 
+	isEnemy = false;
 
 }
 
@@ -47,7 +48,7 @@ bool Bunny::Awake()
 		Ab2Power = stats.attribute("Ab2Power").as_int();
 		healingpower = stats.attribute("healingpower").as_int();
 		movement = stats.attribute("movement").as_int();
-		isEnemy = false;
+		app->teamManager->statsdone = true;
 	}
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;

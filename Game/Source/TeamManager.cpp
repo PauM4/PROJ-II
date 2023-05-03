@@ -130,6 +130,29 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		club.Ab2Area = newnode.attribute("Ab2Area").as_int();
 		club.healingpower = newnode.attribute("healingpower").as_int();
 	}
+
+	
+	statslist.Add(&timmystats);
+	statslist.Add(&bunnystats);
+	statslist.Add(&lrrhstats);
+	
+	for (int i = 0; i < statslist.Count(); i++) {
+
+		statslist.At(i)->data->character = i+1;
+		statslist.At(i)->data->defense = 0;
+		statslist.At(i)->data->magic = 0;
+		statslist.At(i)->data->speed = 0;
+		statslist.At(i)->data->movement = 0;
+		statslist.At(i)->data->attack = 0;
+		statslist.At(i)->data->AttArea = 0;
+		statslist.At(i)->data->Ab1Power = 0;
+		statslist.At(i)->data->Ab2Power = 0;
+		statslist.At(i)->data->Ab1Area = 0;
+		statslist.At(i)->data->Ab2Area = 0;
+		statslist.At(i)->data->healingpower = 0;
+
+	}
+	
 	app->entityManager->Awake(config);
 
 	return true;
@@ -146,8 +169,9 @@ bool TeamManager::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
 
+		timmystats.attack = 3;
+		bunnystats.magic = 30;
 		app->SaveGameRequest();
-		
 	}
 	timmy->attack;
 	return true;
@@ -162,14 +186,16 @@ bool TeamManager::PostUpdate()
 
 bool TeamManager::CleanUp()
 {
+	characters.Clear();
+	team.Clear();
+	inventory.Clear();
+	equipment.Clear();
+	statslist.Clear();
 	return true;
 }
 bool TeamManager::LoadState(pugi::xml_node& data)
 {
-	/*loadPlayerPosX = data.child("player").attribute("x").as_int();
-	loadPlayerPosY = data.child("player").attribute("y").as_int();
-
-	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());*/
+	
 	//Load unlocked characters
 	istimmyplayable = data.child("playable").attribute("istimmyplayable").as_bool();
 	isbunnyplayable = data.child("playable").attribute("isbunnyplayable").as_bool();
@@ -195,31 +221,46 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 			team.Add(lrrh);
 		}
 	}
-	//Delete stats from items
-	for (int i = 0; i < equipment.Count(); i++) {
+	//Load Stats
+	pugi::xml_node statsnode = data.child("stats");
+	timmystats.defense = statsnode.child("timmy").attribute("defense").as_int();
+	timmystats.magic = statsnode.child("timmy").attribute("magic").as_int();
+	timmystats.speed = statsnode.child("timmy").attribute("speed").as_int();
+	timmystats.movement = statsnode.child("timmy").attribute("movement").as_int();
+	timmystats.attack = statsnode.child("timmy").attribute("attack").as_int();
+	timmystats.AttArea = statsnode.child("timmy").attribute("AttArea").as_int();
+	timmystats.Ab1Power = statsnode.child("timmy").attribute("Ab1Power").as_int();
+	timmystats.Ab2Power = statsnode.child("timmy").attribute("Ab2Power").as_int();
+	timmystats.Ab1Area = statsnode.child("timmy").attribute("Ab1Area").as_int();
+	timmystats.Ab2Area = statsnode.child("timmy").attribute("Ab2Area").as_int();
+	timmystats.healingpower = statsnode.child("timmy").attribute("healingpower").as_int();
 
-		switch (equipment.At(i)->data.character)
-		{
-		case 1:
-			substractitemstats(timmy, i);
-			break;
-		case 2:
-			substractitemstats(bunny, i);
-			break;
-		case 3:
-			substractitemstats(lrrh, i);
-			break;
-		case 4:
-			//Indev
-			break;
-		case 5:
-			//Indev
-			break;
-		case 6:
-			//Indev
-			break;
-		}
-	}
+	bunnystats.defense = statsnode.child("bunny").attribute("defense").as_int();
+	bunnystats.magic = statsnode.child("bunny").attribute("magic").as_int();
+	bunnystats.speed = statsnode.child("bunny").attribute("speed").as_int();
+	bunnystats.movement = statsnode.child("bunny").attribute("movement").as_int();
+	bunnystats.attack = statsnode.child("bunny").attribute("attack").as_int();
+	bunnystats.AttArea = statsnode.child("bunny").attribute("AttArea").as_int();
+	bunnystats.Ab1Power = statsnode.child("bunny").attribute("Ab1Power").as_int();
+	bunnystats.Ab2Power = statsnode.child("bunny").attribute("Ab2Power").as_int();
+	bunnystats.Ab1Area = statsnode.child("bunny").attribute("Ab1Area").as_int();
+	bunnystats.Ab2Area = statsnode.child("bunny").attribute("Ab2Area").as_int();
+	bunnystats.healingpower = statsnode.child("bunny").attribute("healingpower").as_int();
+
+	lrrhstats.defense = statsnode.child("lrrh").attribute("defense").as_int();
+	lrrhstats.magic = statsnode.child("lrrh").attribute("magic").as_int();
+	lrrhstats.speed = statsnode.child("lrrh").attribute("speed").as_int();
+	lrrhstats.movement = statsnode.child("lrrh").attribute("movement").as_int();
+	lrrhstats.attack = statsnode.child("lrrh").attribute("attack").as_int();
+	lrrhstats.AttArea = statsnode.child("lrrh").attribute("AttArea").as_int();
+	lrrhstats.Ab1Power = statsnode.child("lrrh").attribute("Ab1Power").as_int();
+	lrrhstats.Ab2Power = statsnode.child("lrrh").attribute("Ab2Power").as_int();
+	lrrhstats.Ab1Area = statsnode.child("lrrh").attribute("Ab1Area").as_int();
+	lrrhstats.Ab2Area = statsnode.child("lrrh").attribute("Ab2Area").as_int();
+	lrrhstats.healingpower = statsnode.child("lrrh").attribute("healingpower").as_int();
+
+	addallstats();
+
 	//Load inventory
 	inventory.Clear();
 	equipment.Clear();
@@ -281,7 +322,7 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 		}
 		
 	}
-	statsdone = true;
+
 	return true;
 }
 
@@ -299,6 +340,7 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	onteam.append_attribute("IsBunnyOnTeam") = IsBunnyOnTeam;
 	onteam.append_attribute("IsLrrhOnTeam") = IsLrrhOnTeam;
 
+	//Save item
 	pugi::xml_node inventory = data.append_child("inventory");
 	inventory.append_child("yoyo");
 	inventory.child("yoyo").append_attribute("isobtained") = yoyo.ininventory;
@@ -315,6 +357,47 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	inventory.append_child("club");
 	inventory.child("club").append_attribute("isobtained") = club.ininventory;
 	inventory.child("club").append_attribute("character") = club.character;
+
+	pugi::xml_node statsnode = data.append_child("stats");
+	statsnode.append_child("timmy");
+	statsnode.child("timmy").append_attribute("defense") = timmystats.defense;
+	statsnode.child("timmy").append_attribute("magic") = timmystats.magic;
+	statsnode.child("timmy").append_attribute("speed") = timmystats.speed;
+	statsnode.child("timmy").append_attribute("movement") = timmystats.movement;
+	statsnode.child("timmy").append_attribute("attack") = timmystats.attack;
+	statsnode.child("timmy").append_attribute("AttArea") = timmystats.AttArea;
+	statsnode.child("timmy").append_attribute("Ab1Power") = timmystats.Ab1Power;
+	statsnode.child("timmy").append_attribute("Ab2Power") = timmystats.Ab2Power;
+	statsnode.child("timmy").append_attribute("Ab1Area") = timmystats.Ab1Area;
+	statsnode.child("timmy").append_attribute("Ab2Area") = timmystats.Ab2Area;
+	statsnode.child("timmy").append_attribute("healingpower") = timmystats.healingpower;
+
+	statsnode.append_child("bunny");
+	statsnode.child("bunny").append_attribute("defense") = bunnystats.defense;
+	statsnode.child("bunny").append_attribute("magic") = bunnystats.magic;
+	statsnode.child("bunny").append_attribute("speed") = bunnystats.speed;
+	statsnode.child("bunny").append_attribute("movement") = bunnystats.movement;
+	statsnode.child("bunny").append_attribute("attack") = bunnystats.attack;
+	statsnode.child("bunny").append_attribute("AttArea") = bunnystats.AttArea;
+	statsnode.child("bunny").append_attribute("Ab1Power") = bunnystats.Ab1Power;
+	statsnode.child("bunny").append_attribute("Ab2Power") = bunnystats.Ab2Power;
+	statsnode.child("bunny").append_attribute("Ab1Area") = bunnystats.Ab1Area;
+	statsnode.child("bunny").append_attribute("Ab2Area") = bunnystats.Ab2Area;
+	statsnode.child("bunny").append_attribute("healingpower") = bunnystats.healingpower;
+
+	statsnode.append_child("lrrh");
+	statsnode.child("lrrh").append_attribute("defense") = lrrhstats.defense;
+	statsnode.child("lrrh").append_attribute("magic") = lrrhstats.magic;
+	statsnode.child("lrrh").append_attribute("speed") = lrrhstats.speed;
+	statsnode.child("lrrh").append_attribute("movement") = lrrhstats.movement;
+	statsnode.child("lrrh").append_attribute("attack") = lrrhstats.attack;
+	statsnode.child("lrrh").append_attribute("AttArea") = lrrhstats.AttArea;
+	statsnode.child("lrrh").append_attribute("Ab1Power") = lrrhstats.Ab1Power;
+	statsnode.child("lrrh").append_attribute("Ab2Power") = lrrhstats.Ab2Power;
+	statsnode.child("lrrh").append_attribute("Ab1Area") = lrrhstats.Ab1Area;
+	statsnode.child("lrrh").append_attribute("Ab2Area") = lrrhstats.Ab2Area;
+	statsnode.child("lrrh").append_attribute("healingpower") = lrrhstats.healingpower;
+
 
 	app->LoadGameRequest();
 
@@ -339,18 +422,58 @@ bool TeamManager::additemstats(Entity* ent, int i)
 	return false;
 }
 
-bool TeamManager::substractitemstats(Entity* ent, int i)
+bool TeamManager::addallstats()
 {
-	ent->defense -= equipment.At(i)->data.defense;
-	ent->magic -= equipment.At(i)->data.magic;
-	ent->speed -= equipment.At(i)->data.speed;
-	ent->movement -= equipment.At(i)->data.movement;
-	ent->attack -= equipment.At(i)->data.attack;
-	ent->AttArea -= equipment.At(i)->data.AttArea;
-	ent->Ab1Power -= equipment.At(i)->data.Ab1Power;
-	ent->Ab2Power -= equipment.At(i)->data.Ab2Power;
-	ent->Ab1Area -= equipment.At(i)->data.Ab1Area;
-	ent->Ab2Area -= equipment.At(i)->data.Ab2Area;
-	ent->healingpower -= equipment.At(i)->data.healingpower;
+	
+	for (int i = 0; i < characters.Count(); i++) {
+		statsdone = false;
+		characters.At(i)->data->Awake();
+	}
+	for (int j = 0; j < statslist.Count(); j++) {
+
+		if (statslist.At(j)->data->character == 1) {
+			timmy->defense += statslist.At(j)->data->defense;
+			timmy->magic += statslist.At(j)->data->magic;
+			timmy->speed += statslist.At(j)->data->speed;
+			timmy->movement += statslist.At(j)->data->movement;
+			timmy->attack += statslist.At(j)->data->attack;
+			timmy->AttArea += statslist.At(j)->data->AttArea;
+			timmy->Ab1Power += statslist.At(j)->data->Ab1Power;
+			timmy->Ab2Power += statslist.At(j)->data->Ab2Power;
+			timmy->Ab1Area += statslist.At(j)->data->Ab1Area;
+			timmy->Ab2Area += statslist.At(j)->data->Ab2Area;
+			timmy->healingpower += statslist.At(j)->data->healingpower;
+		}
+		if (statslist.At(j)->data->character == 2) {
+			bunny->defense += statslist.At(j)->data->defense;
+			bunny->magic += statslist.At(j)->data->magic;
+			bunny->speed += statslist.At(j)->data->speed;
+			bunny->movement += statslist.At(j)->data->movement;
+			bunny->attack += statslist.At(j)->data->attack;
+			bunny->AttArea += statslist.At(j)->data->AttArea;
+			bunny->Ab1Power += statslist.At(j)->data->Ab1Power;
+			bunny->Ab2Power += statslist.At(j)->data->Ab2Power;
+			bunny->Ab1Area += statslist.At(j)->data->Ab1Area;
+			bunny->Ab2Area += statslist.At(j)->data->Ab2Area;
+			bunny->healingpower += statslist.At(j)->data->healingpower;
+		}
+		if (statslist.At(j)->data->character == 3) {
+			lrrh->defense += statslist.At(j)->data->defense;
+			lrrh->magic += statslist.At(j)->data->magic;
+			lrrh->speed += statslist.At(j)->data->speed;
+			lrrh->movement += statslist.At(j)->data->movement;
+			lrrh->attack += statslist.At(j)->data->attack;
+			lrrh->AttArea += statslist.At(j)->data->AttArea;
+			lrrh->Ab1Power += statslist.At(j)->data->Ab1Power;
+			lrrh->Ab2Power += statslist.At(j)->data->Ab2Power;
+			lrrh->Ab1Area += statslist.At(j)->data->Ab1Area;
+			lrrh->Ab2Area += statslist.At(j)->data->Ab2Area;
+			lrrh->healingpower += statslist.At(j)->data->healingpower;
+		}
+
+	}
+
+	
+
 	return false;
 }
