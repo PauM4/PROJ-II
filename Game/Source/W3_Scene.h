@@ -104,10 +104,6 @@ private:
 
 	std::shared_ptr<DialogueTree> wolfBeforeCombatTree, wolfAfterCombatTree;
 
-	void Prueba();
-
-	int pruebaj = 0;
-
 	bool godMode;
 
 

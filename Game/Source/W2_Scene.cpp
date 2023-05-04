@@ -108,24 +108,7 @@ bool W2_Scene::PreUpdate()
 // Called each loop iteration
 bool W2_Scene::Update(float dt)
 {
-	//if (pruebaj == 0)
-	//{
-	//	Prueba();
-	//	std::cout <<" "<< std::endl;
-	//	
-	//}
-	//else if (pruebaj == 1)
-	//{
-	//	//dialogo version tipo 2
-	//	//angryVillagerTreePT->Update(1);
-	//	//dialogue = angryVillagerTreePT->Run();
-	//	//Prueba();
 
-	//	//dialogo version tipo 1: funciona en las diferentes opciones
-	//	//talismanVillagerTree->Update(2);
-	//	//dialogue = talismanVillagerTree->Run();
-	//	//Prueba();
-	//}
 
 	Camera();
 
@@ -297,16 +280,6 @@ void W2_Scene::Camera()
 
 }
 
-
-void W2_Scene::Prueba()
-{
-	for (auto& e : dialogue)
-	{
-		std::cout << e << std::endl;
-	}
-	//	pruebaj++;
-
-}
 
 //Runs a dialogue tree for a specific NPC, identified using a ColliderType enum. This function delegates the NPC specific behavior to other functions based on the enum passed in.
 void W2_Scene::RunDialogueTree(ColliderType NPC)

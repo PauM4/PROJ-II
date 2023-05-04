@@ -102,10 +102,6 @@ private:
 
 	std::vector<std::string> dialogue;
 
-	void Prueba();
-
-	int pruebaj = 0;
-
 	bool godMode;
 
 

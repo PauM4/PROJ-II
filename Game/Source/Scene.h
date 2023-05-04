@@ -87,9 +87,6 @@ public:
 
 	bool angryVillagerDefeated, LRRHDefeated;
 
-	bool prueba1 = true;
-	bool prueba2= true;
-
 	int numTimesAVDialogueTriggered, numTimesLRRHDialogueTriggered;
 	SDL_Timer timerToSceneBattle, timerToLRRHCombat;
 	
@@ -114,8 +111,6 @@ private:
 		talismanVillagerTree, littleRedTree, grandmaTree, littleRedACTree;
 
 	std::vector<std::string> dialogue;
-
-	void Prueba();
 
 	bool godMode;
 
