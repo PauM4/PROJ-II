@@ -1559,31 +1559,12 @@ bool SceneCombatLHHR::CleanUp()
 void SceneCombatLHHR::SaveResult()
 {
 
-	pugi::xml_document gameStateFile;
-	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
-
-	if (result)
+	if (win)
 	{
-		pugi::xml_attribute battleResult = gameStateFile.child("save_state").child("BattleInfo").attribute("isLRRHDefeated");
-
-		if (win)
-		{
-			battleResult.set_value("true"); //win
-		}
-		else if (lose)
-		{
-			battleResult.set_value("false"); //win
-		}
-
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "true");
 	}
-	else {
-		LOG("Error in App::LoadConfig(): %s", result.description());
+	else if (lose)
+	{
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "false");
 	}
-
-
-	if (!gameStateFile.save_file("save_game.xml")) {
-		std::cerr << "Error al guardar el archivo" << std::endl;
-	}
-
-
 }
