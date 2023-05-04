@@ -67,7 +67,6 @@ private:
 	bool SaveState(pugi::xml_node&);
 	void MoveToBattleFromDialogue();
 
-	int pruebaXML = 0;
 public:
 
 	Player* player;

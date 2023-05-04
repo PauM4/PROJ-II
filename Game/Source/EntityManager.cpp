@@ -6,6 +6,8 @@
 #include "Timmy.h"
 #include "Lrrh.h"
 #include "Npc.h"
+#include "NpcW2.h"
+#include "NpcW3.h"
 #include "Bunny.h"
 #include "LittlePig.h"
 #include "MiddlePig.h"
@@ -97,6 +99,14 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	{
 	case EntityType::NPC:
 		entity = new Npc();
+		break;
+
+	case EntityType::NPCW2:
+		entity = new NpcW2();
+		break;
+
+	case EntityType::NPCW3:
+		entity = new NpcW3();
 		break;
 
 	case EntityType::TIMMY:

@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "Door.h"
-#include "Npc.h"
+#include "NpcW2.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -63,12 +63,13 @@ private:
 	void GodMode();
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
+	void MoveToBattleFromDialogue();
 
 
 public:
 
 	Player* player;
-	Npc* npc1;
+	NpcW2* npc;
 	List<Door*> doors;
 
 
@@ -87,6 +88,9 @@ private:
 	SString mapName;
 	SString mapFolder;
 
+	bool pigsDefeated;
+	int numTimesPigsDialogueTriggered;
+	SDL_Timer timerToPigsCombat;
 
 	// L12: Debug pathfing
 	iPoint origin;
@@ -98,7 +102,7 @@ private:
 	bool pauseMenuActive;
 	bool exitButtonBool;
 
-	std::shared_ptr<DialogueTree> pigsBeforeCombatTree, pigsAfterCombatTree, wolfTree;
+	std::shared_ptr<DialogueTree> pigsTree, wolfTree;
 
 	std::vector<std::string> dialogue;
 

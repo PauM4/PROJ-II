@@ -86,6 +86,12 @@
     <ClCompile Include="Source\Peter.cpp">
       <Filter>Entities\Playable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\NpcW2.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NpcW3.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -207,6 +213,12 @@
     </ClInclude>
     <ClInclude Include="Source\Peter.h">
       <Filter>Entities\Playable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NpcW2.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NpcW3.h">
+      <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

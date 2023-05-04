@@ -118,6 +118,8 @@
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\MiddlePig.cpp" />
     <ClCompile Include="Source\Npc.cpp" />
+    <ClCompile Include="Source\NpcW2.cpp" />
+    <ClCompile Include="Source\NpcW3.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerformanceBar2.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
@@ -163,6 +165,8 @@
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\MiddlePig.h" />
     <ClInclude Include="Source\Npc.h" />
+    <ClInclude Include="Source\NpcW2.h" />
+    <ClInclude Include="Source\NpcW3.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerformanceBar2.h" />
     <ClInclude Include="Source\PerfTimer.h" />

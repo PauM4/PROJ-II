@@ -5,6 +5,8 @@
 #include "Input.h"
 #include "Render.h"
 #include "Scene.h"
+#include "W2_Scene.h"
+#include "W3_Scene.h"
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
@@ -377,6 +379,46 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			npcInteractAvailable = true;
 			lastCollision = ColliderType::LRRH;
 			break;
+		case ColliderType::PIGS:
+			LOG("Collision 	PIGS");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::PIGS;
+			break;
+		case ColliderType::DEADVILLAGER:
+			LOG("Collision 	DEADVILLAGER");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::DEADVILLAGER;
+			break;
+		case ColliderType::WOLF:
+			LOG("Collision 	WOLF");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::WOLF;
+			break;
+		case ColliderType::PEDRO:
+			LOG("Collision 	PEDRO");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::PEDRO;
+			break;
+		case ColliderType::SHEEPA:
+			LOG("Collision 	SHEEPA");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::SHEEPA;
+			break;
+		case ColliderType::SHEEPB:
+			LOG("Collision 	SHEEPB");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::SHEEPB;
+			break;
+		case ColliderType::SHEEPC:
+			LOG("Collision 	SHEEPC");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::SHEEPC;
+			break;
+		case ColliderType::SHEEPD:
+			LOG("Collision 	SHEEPD");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::SHEEPD;
+			break;
 	}
 	
 }
@@ -441,6 +483,31 @@ void Player::TriggerDialogueTree(ColliderType NPC)
 	case ColliderType::LRRH:
 		app->scene->RunDialogueTree(ColliderType::LRRH);
 		break;
+	case ColliderType::PIGS:
+		app->w2_scene->RunDialogueTree(ColliderType::PIGS);
+		break;
+	case ColliderType::DEADVILLAGER:
+		app->w3_scene->RunDialogueTree(ColliderType::DEADVILLAGER);
+		break;
+	case ColliderType::WOLF:
+		app->w3_scene->RunDialogueTree(ColliderType::WOLF);
+		break;
+	case ColliderType::PEDRO:
+		app->w3_scene->RunDialogueTree(ColliderType::PEDRO);
+		break;
+	case ColliderType::SHEEPA:
+		app->w3_scene->RunDialogueTree(ColliderType::SHEEPA);
+		break;
+	case ColliderType::SHEEPB:
+		app->w3_scene->RunDialogueTree(ColliderType::SHEEPB);
+		break;
+	case ColliderType::SHEEPC:
+		app->w3_scene->RunDialogueTree(ColliderType::SHEEPC);
+		break;
+	case ColliderType::SHEEPD:
+		app->w3_scene->RunDialogueTree(ColliderType::SHEEPD);
+		break;
+
 	default:
 		break;
 	}

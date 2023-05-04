@@ -37,6 +37,8 @@ enum class EntityType
 	ITEM,
 	DOOR,
 	PORTAL,
+	NPCW2,
+	NPCW3,
 
 	//Enemies
 	ENEMYLRRH,

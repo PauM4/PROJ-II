@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "Door.h"
-#include "Npc.h"
+#include "NpcW3.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -62,12 +62,13 @@ private:
 	void GodMode();
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
+	void MoveToBattleFromDialogue();
 
 
 public:
 
 	Player* player;
-	Npc* npc1;
+	NpcW3* npc;
 	List<Door*> doors;
 
 
@@ -81,7 +82,9 @@ public:
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;
 
-	bool pedroDefeated;
+	bool pedroDefeated, wolfDefeated;
+	int numTimesPedroDialogueTriggered, numTimesWolfDialogueTriggered;
+	SDL_Timer timerToPedroCombat, timerToWolfCombat;
 
 private:
 
@@ -99,10 +102,8 @@ private:
 	bool pauseMenuActive;
 	bool exitButtonBool;
 
-	std::shared_ptr<DialogueTree> deadVillagerTree, sheepATree, sheepBTree, sheepCTree, sheepDTree, pedroTree, pedroACTree;
+	std::shared_ptr<DialogueTree> deadVillagerTree, sheepATree, sheepBTree, sheepCTree, sheepDTree, pedroTree;
 	std::vector<std::string> dialogue;
-
-	std::shared_ptr<DialogueTree> wolfBeforeCombatTree, wolfAfterCombatTree;
 
 	bool godMode;
 
