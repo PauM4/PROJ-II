@@ -84,6 +84,9 @@ public:
 	bool LoadFromFile();
 	bool SaveToFile();
 
+
+	bool UpdateXMLAttributeFromNode(const char* file_name, const char* node_name, const char* attribute_name, const char* value);
+
 private:
 
 	// Load config file

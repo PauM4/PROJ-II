@@ -1,97 +1,67 @@
+<?xml version="1.0"?>
 <config>
 	<app>
 		<title>Game Development Testbed</title>
 		<organization>UPC</organization>
-		<frcap value = "16"/>
+		<frcap value="16" />
 	</app>
-
 	<renderer>
-		<vsync value="false"/>
+		<vsync value="false" />
 	</renderer>
-
 	<window>
-		<resolution width="1920" height="1080" scale="1"/>
-		<fullscreen value="false"/>
-		<borderless value="false"/>
-		<resizable value="true"/>
-		<fullscreen_window value="false"/>
+		<resolution width="1920" height="1080" scale="1" />
+		<fullscreen value="false" />
+		<borderless value="false" />
+		<resizable value="true" />
+		<fullscreen_window value="false" />
 	</window>
-
-	<audio>
-
-	</audio>
-
-	<!--SCENES-->
-	<!--World_01-->
-	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
-		<player x="1868" y="5608" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"
-															bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
-		<npc npcTexturePath ="Assets/Characters/Characters_popups.png"/>
-
-		<!-- Door to tutorial house-->
-		<door x="2213" y="2511" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0"/>
-		<!-- Door to Grandmas-->
-		<door x="1967" y="781" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0"/>
-		<!-- Door to Boos fight-->
-		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="0" nextPlayerY="0"/>
-
+	<audio />
+	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/" randomAtt="1">
+		<player x="1868" y="5608" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" bunnyTexturepath="Assets/Characters/F_sprites_bunny.png" />
+		<npc npcTexturePath="Assets/Characters/Characters_popups.png" />
+		<door x="2213" y="2511" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0" />
+		<door x="1967" y="781" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0" />
+		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="0" nextPlayerY="0" />
 	</scene>
-
-	<!--World_02-->
-	
-	<w2_scene name ="Assets/Maps/World_02/scene_01.tmx" path="Assets/Maps/World_02/">
+	<w2_scene name="Assets/Maps/World_02/scene_01.tmx" path="Assets/Maps/World_02/">
 		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 	</w2_scene>
-
-	<!--World_03-->
-
-	<w3_scene name ="Assets/Maps/World_03/scene_01.tmx" path="Assets/Maps/World_03/">
+	<w3_scene name="Assets/Maps/World_03/scene_01.tmx" path="Assets/Maps/World_03/">
 		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 	</w3_scene>
-		
 	<sceneGrandma name="Assets/Maps/World_01/town_house.tmx" path="Assets/Maps/World_01/">
-		<player x="532" y="882" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
-
-		<!-- Door to Scene-->
-		<door x="480" y="1030" width="58" height="95" nextScene="3" nextPlayerX="0" nextPlayerY="0"/>
-		<!-- Portal to world 2-->
-		<portal x="480" y="361" width="58" height="97" nextScene="8" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"/>
-
+		<player x="532" y="882" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+		<door x="480" y="1030" width="58" height="95" nextScene="3" nextPlayerX="0" nextPlayerY="0" />
+		<portal x="480" y="361" width="58" height="97" nextScene="8" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 	</sceneGrandma>
-
 	<sceneBattle name="Assets/Maps/World_01/test.tmx" path="Assets/Maps/World_01/">
-		<timmy x= "840" y="720" movement= "3"/>
-		<bunny x= "960" y="720" movement= "2"/>
-		<enemy_angryVillager x="840" y="240" movement="5"/>
-
-
+		<timmy x="840" y="720" movement="3" />
+		<bunny x="960" y="720" movement="2" />
+		<enemy_angryVillager x="840" y="240" movement="5" />
 	</sceneBattle>
-
 	<scenecombatLHHR name="Assets/Maps/World_01/LRH.tmx" path="Assets/Maps/World_01/">
-		<timmy x= "360" y="480" movement= "3"/>
-		<bunny x= "360" y="360" movement= "2"/>
-		<enemy_lrrh x="1320" y="480" movement ="5"/>
-		<sprout x="1320" y="360" movement ="6"/>
-
+		<timmy x="360" y="480" movement="3" />
+		<bunny x="360" y="360" movement="2" />
+		<enemy_lrrh x="1320" y="480" movement="5" />
+		<sprout x="1320" y="360" movement="6" />
 	</scenecombatLHHR>
 	<teamManager>
-		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false"/>
+		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
 		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnteam="false" />
 		<item>
-			<yoyo ininventory="true" type="1" weaponuser="1" character="1" name ="yoyo" defense  =  "0" magic  =  "0" speed  = "0" movement="0" attack  =  "3" AttArea  =  "0" Ab1Area  =  "0" Ab1Power  =  "0" Ab2Area  = "0" Ab2Power  = "0" healingpower  = "0"/>
-			<handsxd ininventory="true" type="1" weaponuser="2" character="2" name ="handsxd" defense  =  "0" magic  =  "3" speed  = "0" movement="0" attack  =  "0" AttArea  =  "0" Ab1Area  =  "0" Ab1Power  =  "0" Ab2Area  = "0" Ab2Power  = "0" healingpower  = "0"/>
-			<bow ininventory="false" type="1" weaponuser="3" character="0" name ="bow" defense  =  "0" magic  =  "0" speed  = "0" movement="0" attack  =  "3" AttArea  =  "0" Ab1Area  =  "0" Ab1Power  =  "0" Ab2Area  = "0" Ab2Power  = "0" healingpower  = "0"/>
-			<club ininventory="false" type="1" weaponuser="4" character="0" name ="club" defense  =  "0" magic  =  "0" speed  = "0" movement="0" attack  =  "3" AttArea  =  "0" Ab1Area  =  "0" Ab1Power  =  "0" Ab2Area  = "0" Ab2Power  = "0" healingpower  = "0"/>
-		</item>	
+			<yoyo ininventory="true" type="1" weaponuser="1" character="1" name="yoyo" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<handsxd ininventory="true" type="1" weaponuser="2" character="2" name="handsxd" defense="0" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<bow ininventory="false" type="1" weaponuser="3" character="0" name="bow" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<club ininventory="false" type="1" weaponuser="4" character="0" name="club" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+		</item>
 	</teamManager>
-	<timmy level="1" health= "20" maxHealth = "20" defense  =  "3" magic  =  "1" stamina  =  "15" maxStamina  =  "15" speed  =  "6" attack  =  "10" AttArea  =  "2" Ab1Type  =  "1" Ab1Area  =  "3" Ab1RangeType  =  "1" Ab1Power  =  "18" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "3"/>
-	<bunny level="1" health= "21" maxHealth = "21" defense  =  "1" magic  =  "7" stamina  =  "15" maxStamina  =  "15" speed  =  "8" attack  =  "8" AttArea  =  "3" Ab1Type  =  "1" Ab1Area  =  "3" Ab1RangeType  =  "1" Ab1Power  =  "20" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "4"/>
-	<enemy_angryVillager level="1" health= "40" maxHealth = "40" defense  =  "4" magic  =  "5" stamina  =  "15" maxStamina  =  "15" speed  =  "7" attack  =  "8" AttArea  =  "4" Ab1Type  =  "3" Ab1Area  =  "1" Ab1RangeType  =  "3" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "4"/>
-	<enemy_lrrh level="1" health= "40" maxHealth = "40" defense  =  "4" magic  =  "5" stamina  =  "15" maxStamina  =  "15" speed  =  "7" attack  =  "8" AttArea  =  "4" Ab1Type  =  "3" Ab1Area  =  "1" Ab1RangeType  =  "3" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "4"/>
-	<sprout level="1" health= "15" maxHealth = "15" defense  =  "4" magic  =  "5" stamina  =  "15" maxStamina  =  "15" speed  =  "7" attack  =  "8" AttArea  =  "4" Ab1Type  =  "3" Ab1Area  =  "1" Ab1RangeType  =  "3" Ab1Power  =  "2" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "4"/>
-	<lrrh level="1" health= "20" maxHealth = "20" defense  =  "3" magic  =  "1" stamina  =  "15" maxStamina  =  "15" speed  =  "6" attack  =  "10" AttArea  =  "2" Ab1Type  =  "1" Ab1Area  =  "3" Ab1RangeType  =  "1" Ab1Power  =  "18" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "3"/>
-	<littlePig level="1" health= "20" maxHealth = "20" defense  =  "3" magic  =  "1" stamina  =  "15" maxStamina  =  "15" speed  =  "6" attack  =  "10" AttArea  =  "2" Ab1Type  =  "1" Ab1Area  =  "3" Ab1RangeType  =  "1" Ab1Power  =  "18" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "3"/>
-	<middlePig level="1" health= "20" maxHealth = "20" defense  =  "3" magic  =  "1" stamina  =  "15" maxStamina  =  "15" speed  =  "6" attack  =  "10" AttArea  =  "2" Ab1Type  =  "1" Ab1Area  =  "3" Ab1RangeType  =  "1" Ab1Power  =  "18" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "3"/>
-	<peter level="1" health= "20" maxHealth = "20" defense  =  "3" magic  =  "1" stamina  =  "15" maxStamina  =  "15" speed  =  "6" attack  =  "10" AttArea  =  "2" Ab1Type  =  "1" Ab1Area  =  "3" Ab1RangeType  =  "1" Ab1Power  =  "18" Ab2Type  =  "0" Ab2Area  = "0" Ab2RangeType  = "0" Ab2Power  = "0" healingpower  = "0" movement= "3"/>
-
+	<timmy level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
+	<bunny level="1" health="21" maxHealth="21" defense="1" magic="7" stamina="15" maxStamina="15" speed="8" attack="8" AttArea="3" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="20" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
+	<enemy_angryVillager level="1" health="40" maxHealth="40" defense="4" magic="5" stamina="15" maxStamina="15" speed="7" attack="8" AttArea="4" Ab1Type="3" Ab1Area="1" Ab1RangeType="3" Ab1Power="2" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
+	<enemy_lrrh level="1" health="40" maxHealth="40" defense="4" magic="5" stamina="15" maxStamina="15" speed="7" attack="8" AttArea="4" Ab1Type="3" Ab1Area="1" Ab1RangeType="3" Ab1Power="2" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
+	<sprout level="1" health="15" maxHealth="15" defense="4" magic="5" stamina="15" maxStamina="15" speed="7" attack="8" AttArea="4" Ab1Type="3" Ab1Area="1" Ab1RangeType="3" Ab1Power="2" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
+	<lrrh level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
+	<littlePig level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
+	<middlePig level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
+	<peter level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
 </config>

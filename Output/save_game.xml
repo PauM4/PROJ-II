@@ -42,7 +42,7 @@
 	</teamManager>
 	<fadeToBlack />
 	<renderer>
-		<camera x="-1011" y="-2664" />
+		<camera x="0" y="0" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="false" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

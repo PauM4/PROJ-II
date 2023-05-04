@@ -523,3 +523,47 @@ bool App::SaveToFile()
 
 	return ret;
 }
+
+
+bool App::UpdateXMLAttributeFromNode(const char* file_name, const char* node_name, const char* attribute_name, const char* value)
+{
+	pugi::xml_document doc;
+	if (!doc.load_file(file_name)) return false;
+
+	pugi::xml_node padre;
+
+	if (file_name == "config.xml")
+	{
+		padre = doc.child("config");
+	}
+	else if (file_name == "save_game.xml")
+	{
+		padre = doc.child("save_state");
+	}
+
+	
+	pugi::xml_attribute* attributeToModify;
+
+	for (pugi::xml_node hijo : padre.children(node_name))
+	{
+		for (pugi::xml_attribute attr : hijo.attributes())
+		{
+			std::cout << " " << attr.name() << "=" << attr.value();
+
+			if (std::strcmp(attr.name(), attribute_name) == 0) {
+				attr.set_value(value);
+
+				std::cout << "Attribute: " << attribute_name << " modified with value :" << value << std::endl;
+			}
+
+		}
+
+	}
+	if (!doc.save_file(file_name)) {
+		std::cout << "Could not save XML file" << std::endl;
+		return false;
+	}
+
+	return true;
+
+}
