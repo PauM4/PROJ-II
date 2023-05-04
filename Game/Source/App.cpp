@@ -541,11 +541,10 @@ bool App::UpdateXMLAttributeFromNode(const char* file_name, const char* node_nam
 		padre = doc.child("save_state");
 	}
 
-	
-	pugi::xml_attribute* attributeToModify;
 
 	for (pugi::xml_node hijo : padre.children(node_name))
 	{
+
 		for (pugi::xml_attribute attr : hijo.attributes())
 		{
 			std::cout << " " << attr.name() << "=" << attr.value();
