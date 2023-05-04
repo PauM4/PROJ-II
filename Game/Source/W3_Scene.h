@@ -81,6 +81,8 @@ public:
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;
 
+	bool pedroDefeated;
+
 private:
 
 	SString mapName;
@@ -97,7 +99,7 @@ private:
 	bool pauseMenuActive;
 	bool exitButtonBool;
 
-	std::shared_ptr<DialogueTree> deadVillagerTree, sheepATree, sheepBTree, sheepCTree, sheepDTree;
+	std::shared_ptr<DialogueTree> deadVillagerTree, sheepATree, sheepBTree, sheepCTree, sheepDTree, pedroTree, pedroACTree;
 	std::vector<std::string> dialogue;
 
 	std::shared_ptr<DialogueTree> wolfBeforeCombatTree, wolfAfterCombatTree;

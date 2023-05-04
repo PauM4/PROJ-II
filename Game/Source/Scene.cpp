@@ -720,6 +720,7 @@ void Scene::CreateDialogue()
 		//LittleRedAfterCombat
 		auto fristNodeLRAC = std::make_shared<DialogueNode>();
 		fristNodeLRAC->SetText("I want to join your group to help you. I realize that I have been acting wrongly. The wolf corrupted me with his magic and made me do terrible things. I thought I was protecting the portal, but in reality, I was hurting others. I cannot justify my actions, but I want to make amends and restore peace to the world of dreams.I want to join your group to fight together against the wolf and stop his evil plan. Together we can do it.");
+		fristNodeLRAC->ActivateNode();
 
 		littleRedTree = std::make_shared<DialogueTree>();
 		littleRedTree->SetRoot(fristNodeLRAC);

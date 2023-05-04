@@ -47,6 +47,7 @@ enum class ColliderType {
 	SHEEPB,
 	SHEEPC,
 	SHEEPD,
+	PEDRO,
 	WOLFBEFORECOMBAT,
 	WOLFAFTERCOMBAT
 	// ..

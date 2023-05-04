@@ -405,6 +405,10 @@ void W3_Scene::UpdateDialogueTree(int option)
 			deadVillagerTree->Update(option);
 			break;
 
+		case ColliderType::PEDRO:
+			pedroTree->Update(option);
+			break;
+
 		case ColliderType::WOLFBEFORECOMBAT:
 			wolfBeforeCombatTree->Update(option);
 			break;
@@ -485,6 +489,65 @@ void W3_Scene::CreateDialogue()
 	wolfAfterCombatNode->SetText("Timmy, thank you for showing me that there is still hope for me. Your bravery has inspired me to do what is right, even if it means sacrificing myself. The evil I have caused is too great to be ignored, and my existence will only perpetuate the darkness. But with my death, I can release my soul from this curse and protect others from its influence. -The wolf kneels down and impales his heart with the sword, falling to the ground in a pool of blood. - Finally, I was able to find redemption in your bravery.");
 	wolfAfterCombatTree = std::make_shared<DialogueTree>();
 	wolfAfterCombatTree->SetRoot(wolfAfterCombatNode);
+
+
+	if (!pedroDefeated)
+	{
+		// - Pedro
+		//2nd Level
+		auto PToOption1 = std::make_shared<DialogueNode>();
+		PToOption1->SetText("There is no escape from my wrath. Prepare to face my power.");
+
+		auto PToOption2 = std::make_shared<DialogueNode>();
+		PToOption2->SetText("Your threats are futile. Come and face my wrath if you dare.");
+
+		auto PToOption3 = std::make_shared<DialogueNode>();
+		PToOption3->SetText("Your fear only fuels my power. Prepare to face me, for you will have no other choice.");
+
+		auto PToOption4 = std::make_shared<DialogueNode>();
+		PToOption4->SetText("Your indifference only shows your weakness. Come and prove me wrong.");
+
+
+		//1st Level
+		auto firstOption1P = std::make_shared<DialogueNode>();
+		firstOption1P->SetText("I’m ready to fight.");
+		firstOption1P->AddChild(PToOption1);
+
+		auto firstOption2P = std::make_shared<DialogueNode>();
+		firstOption2P->SetText("I'm gonna crush your balls.");
+		firstOption2P->AddChild(PToOption2);
+
+		auto firstOption3P = std::make_shared<DialogueNode>();
+		firstOption3P->SetText("I want to cry - sobs.");
+		firstOption3P->AddChild(PToOption3);
+
+		auto firstOption4P = std::make_shared<DialogueNode>();
+		firstOption4P->SetText("yawns - Can't we settle this without violence? I'm too tired for a fight.");
+		firstOption4P->AddChild(PToOption4);
+
+
+		//Root
+		auto firstNodeP = std::make_shared<DialogueNode>();
+		firstNodeP->SetText("You dare enter my domain, fools? You think you can defeat me? You have no idea what kind of power you're up against. The darkness within me grows stronger every day, and I will not hesitate to destroy you.");
+		firstNodeP->AddChild(firstOption1P);
+		firstNodeP->AddChild(firstOption2P);
+		firstNodeP->AddChild(firstOption3P);
+		firstNodeP->AddChild(firstOption4P);
+		firstNodeP->ActivateNode();
+
+		//Tree
+		pedroTree = std::make_shared <DialogueTree>();
+		pedroTree->SetRoot(firstNodeP);
+	}
+	else
+	{
+		//LittleRedAfterCombat
+		auto fristNodePAC = std::make_shared<DialogueNode>();
+		fristNodePAC->SetText("I realize now that I was wrong to think that protecting the portal meant hurting others. The wolf used his dark magic to manipulate me, and I fell for it. But I want to make amends and fight for what is right. I know I have a lot to prove, and I understand if you don't trust me. But please, give me a chance to prove myself. I want to join your group and fight against the wolf together.");
+
+		pedroACTree = std::make_shared<DialogueTree>();
+		pedroACTree->SetRoot(fristNodePAC);
+	}
 
 }
 
