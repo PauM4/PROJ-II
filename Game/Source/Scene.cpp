@@ -73,7 +73,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	ropeTexture = app->tex->Load("Assets/UI/ropeImage.png");
 	pressKeyTexture = app->tex->Load("Assets/UI/pressEanimation.png");
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
-
+	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
 
 	return ret;
 }
@@ -135,6 +135,12 @@ bool Scene::Start()
 	minigameActive = false;
 
 	minigameTVdialogueCounter = 0;
+
+	eKeyAnim.Set();
+	eKeyAnim.smoothness = 4;
+	eKeyAnim.AddTween(100, 50, EXPONENTIAL_OUT);
+
+	inventoryOpen = false;
 
 	return true;
 }
@@ -206,6 +212,7 @@ bool Scene::Update(float dt)
 			app->uiModule->currentMenuType = DISABLED;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+			
 		}
 		// If player is NOT in pause, open it
 		else
@@ -217,6 +224,7 @@ bool Scene::Update(float dt)
 			app->uiModule->currentMenuType = PAUSE;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 		}
 	}
 
@@ -224,8 +232,27 @@ bool Scene::Update(float dt)
 	app->map->Draw();
 
 	UpdateMinigameLogic(dt);
-	
 
+	if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
+	{
+		inventoryOpen = !inventoryOpen;
+	}
+
+	eKeyAnim.Step(1, false);
+
+	if (inventoryOpen)
+	{
+		eKeyAnim.Foward();
+	}
+	else
+	{
+		eKeyAnim.Backward();
+	}
+
+	int offset = 1970;
+
+	float point = eKeyAnim.GetPoint();
+	app->render->DrawTexture(eKeyTexture, 1960, offset + point * (400 - 100));
 
 	//int mouseX, mouseY;
 	//app->input->GetMousePosition(mouseX, mouseY);

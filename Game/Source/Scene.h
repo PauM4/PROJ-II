@@ -144,6 +144,10 @@ public:
 	int minigameTVdialogueCounter;
 
 	//----------------
+
+	SDL_Texture* eKeyTexture;
+	Tween eKeyAnim;
+	bool inventoryOpen;
 };
 
 #endif // __SCENE_H__
