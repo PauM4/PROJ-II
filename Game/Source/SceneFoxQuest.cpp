@@ -156,19 +156,27 @@ void SceneFoxQuest::Movement()
 {
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
 		player->Move(1, 0);
-		player->direction = Direction::RIGHT;
+		if (player->isMoving == true) {
+			player->direction = Direction::RIGHT;
+		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
 		player->Move(-1, 0);
-		player->direction = Direction::LEFT;
+		if (player->isMoving == true) {
+			player->direction = Direction::LEFT;
+		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 		player->Move(0, -1);
-		player->direction = Direction::UP;
+		if (player->isMoving == true) {
+			player->direction = Direction::UP;
+		}
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
 		player->Move(0, 1);
-		player->direction = Direction::DOWN;
+		if (player->isMoving == true) {
+			player->direction = Direction::DOWN;
+		}
 	}
 }
 
@@ -240,17 +248,22 @@ TilePlayer::~TilePlayer()
 void TilePlayer::Move(int x, int y) {
 
 	SetAnimation(x, y);  
+	isMoving = true;
 
 	int newPlayerX = pos.x + x; 
 	int newPlayerY = pos.y + y; 
 
 	if (app->sceneFoxQuest->HitWall(newPlayerX, newPlayerY)) {
 		LOG("HIT WALL");
+		isMoving = false;
+		currentAnimation = &idleAnim;
 		return; 
 	}
 	if (app->sceneFoxQuest->HitRock(newPlayerX, newPlayerY)) {
 		if (!app->sceneFoxQuest->PushRock(x, y, newPlayerX, newPlayerY)){
 			LOG("CANT PUSH ROCK");
+			isMoving = false; 
+			currentAnimation = &idleAnim;
 			return;
 		}
 	}
@@ -258,7 +271,7 @@ void TilePlayer::Move(int x, int y) {
 	pos.x = newPlayerX; 
 	pos.y = newPlayerY; 
 
-	isMoving = true; 
+	 
 }
 
 void TilePlayer::Draw() {
