@@ -13,6 +13,7 @@
 #include "UriBehaviorTree.h"
 #include "Physics.h"
 #include "Animation.h"
+#include "Tweening.h"
 
 struct SDL_Texture;
 
@@ -128,7 +129,6 @@ private:
 	int pruebaj = 0;
 
 	bool godMode;
-
 
 	// Minigame variables:
 	float ropeSpeed;
