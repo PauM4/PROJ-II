@@ -18,6 +18,13 @@ enum class TileState {
 	CHEST
 };
 
+enum class Direction {
+	UP, 
+	DOWN, 
+	LEFT, 
+	RIGHT
+};
+
 struct Tile {
 	int x, y;
 
@@ -35,9 +42,11 @@ public:
 
 	void SetAnimation(int x, int y); 
 
+	void SetPlayerPos(int x, int y);
+
 	bool CleanUp();  
 
-private:
+public:
 	iPoint pos; 
 	iPoint tilePos; 
 	SDL_Texture* texture; 
@@ -47,6 +56,8 @@ private:
 	Animation walkRightAnim;
 	Animation walkLeftAnim;
 	Animation idleAnim;
+	Direction direction; 
+	bool isMoving; 
 
 
 };

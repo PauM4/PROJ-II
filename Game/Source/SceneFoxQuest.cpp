@@ -42,7 +42,7 @@ bool SceneFoxQuest::Start()
 			map[i][j]->state = TileState::EMPTY; 
 		}
 	}
-	map[0][0]->state = TileState::PLAYER; 
+	map[3][3]->state = TileState::PLAYER; 
 	map[0][1]->state = TileState::ROCK;
 	map[0][2]->state = TileState::ROCK;
 	map[1][0]->state = TileState::ROCK;
@@ -52,7 +52,7 @@ bool SceneFoxQuest::Start()
 	for (int i = 0; i < mapLength; i++) {
 		for (int j = 0; j < mapHeigth; j++) {
 			if (map[i][j]->state == TileState::PLAYER) {
-				player->Move(i, j);
+				player->SetPlayerPos(i, j);
 			}
 		}
 	}
@@ -66,7 +66,43 @@ bool SceneFoxQuest::PreUpdate()
 
 bool SceneFoxQuest::Update(float dt)
 {
-	Movement(); 
+	if (player->isMoving == false) {
+		Movement();
+	}
+	
+	if (player->isMoving == true) {
+		switch (player->direction) {
+		case Direction::RIGHT:
+			player->tilePos.x += 3; 
+			if (player->tilePos.x >= player->pos.x * 150) {
+				player->isMoving = false; 
+				player->currentAnimation = &player->idleAnim; 
+			}
+			break; 
+		case Direction::LEFT:
+			player->tilePos.x -= 3;
+			if (player->tilePos.x <= player->pos.x * 150) {
+				player->isMoving = false;
+				player->currentAnimation = &player->idleAnim;
+			}
+			break; 
+		case Direction::UP:
+			player->tilePos.y -= 3;
+			if (player->tilePos.y <= player->pos.y * 150) {
+				player->isMoving = false;
+				player->currentAnimation = &player->idleAnim;
+			}
+			break; 
+		case Direction::DOWN:
+			player->tilePos.y += 3;
+			if (player->tilePos.y >= player->pos.y * 150) {
+				player->isMoving = false;
+				player->currentAnimation = &player->idleAnim;
+			}
+			break; 
+		}
+		
+	}
 
 	return true;
 }
@@ -77,7 +113,7 @@ bool SceneFoxQuest::PostUpdate()
 	for (int i = 0; i < mapLength; i++) {
 		for (int j = 0; j < mapHeigth; j++) {
 			if (map[i][j]->state == TileState::PLAYER) {
-				//player->Draw(); 
+				player->Draw(); 
 			}
 			if (map[i][j]->state == TileState::ROCK) {
 
@@ -89,7 +125,9 @@ bool SceneFoxQuest::PostUpdate()
 
 bool SceneFoxQuest::CleanUp()
 {
-	player->CleanUp();
+	if (player != nullptr) {
+		player->CleanUp();
+	}
 	return true;
 }
 
@@ -118,15 +156,19 @@ void SceneFoxQuest::Movement()
 {
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
 		player->Move(1, 0);
+		player->direction = Direction::RIGHT;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
 		player->Move(-1, 0);
+		player->direction = Direction::LEFT;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 		player->Move(0, -1);
+		player->direction = Direction::UP;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
 		player->Move(0, 1);
+		player->direction = Direction::DOWN;
 	}
 }
 
@@ -151,6 +193,7 @@ TilePlayer::TilePlayer() {
 	pos.x = 0; 
 	pos.y = 0;  
 	texture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
+	isMoving = false; 
 
 	//Animations
 
@@ -185,6 +228,8 @@ TilePlayer::TilePlayer() {
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
+	currentAnimation = &idleAnim; 
+
 }
 
 TilePlayer::~TilePlayer()
@@ -213,29 +258,46 @@ void TilePlayer::Move(int x, int y) {
 	pos.x = newPlayerX; 
 	pos.y = newPlayerY; 
 
-	tilePos.x = pos.x * 150; 
-	tilePos.y = pos.y * 150; 
+	isMoving = true; 
 }
 
 void TilePlayer::Draw() {
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	app->render->DrawTexture(texture, tilePos.x, tilePos.y, &rect);
+	currentAnimation->Update(); 
 }
 
 void TilePlayer::SetAnimation(int x, int y)
 {
 	if (x > 0) {
 		currentAnimation = &walkRightAnim; 
+		
+		LOG("Walking right");
 	}
 	else if (x < 0) {
 		currentAnimation = &walkLeftAnim; 
-	}
-	else if (y > 0) {
-		currentAnimation = &walkUpAnim; 
+		LOG("Walking left");
 	}
 	else if (y < 0) {
-		currentAnimation = &walkDownAnim; 
+		currentAnimation = &walkUpAnim;
+		LOG("Walking up");
 	}
+	else if (y > 0) {
+		currentAnimation = &walkDownAnim; 
+		LOG("Walking down");
+	}
+}
+
+void TilePlayer::SetPlayerPos(int x, int y)
+{
+	int newPlayerX = pos.x + x;
+	int newPlayerY = pos.y + y;
+
+	pos.x = newPlayerX;
+	pos.y = newPlayerY;
+
+	tilePos.x = pos.x * 150; 
+	tilePos.y = pos.y * 150;
 }
 
 bool TilePlayer::CleanUp()

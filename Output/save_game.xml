@@ -11,18 +11,18 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="3743" y="1001" x="3743" y="926" />
+		<player x="2248" y="2652" x="2248" y="2577" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
 	<sceneGrandma />
+	<sceneFoxQuest />
 	<entitymanager />
 	<map />
 	<guiManager />
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-2532" y="-431" />
+		<camera x="-1288" y="-2089" />
 	</renderer>
-
 </save_state>
