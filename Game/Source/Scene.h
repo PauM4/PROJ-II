@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Door.h"
 #include "Npc.h"
+#include "Item.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -12,6 +13,8 @@
 #include "UriBehaviorTree.h"
 #include "Physics.h"
 #include "SDL_Timer.h"
+#include "Animation.h"
+#include "Tweening.h"
 
 struct SDL_Texture;
 
@@ -51,6 +54,10 @@ public:
 
 	void UpdateDialogueTree(int opt);
 
+	void UpdateRopeMinigame(float dt);
+
+	void UpdateMinigameLogic(float dt);
+
 	std::vector<std::string> GetDialogue() { return dialogue; }
 
 	std::string LastTextNPC(ColliderType NPC);
@@ -66,13 +73,15 @@ private:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
 	void MoveToBattleFromDialogue();
+	void LoadChests(pugi::xml_node& data);
+
 
 public:
 
 	Player* player;
 	Npc* npc1;
 	List<Door*> doors;
-
+	List<Item*> chests;
 
 	// Load things
 	int loadPlayerPosX;
@@ -83,6 +92,15 @@ public:
 
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;
+	SDL_Texture* questUiTexture;
+
+	SDL_Texture* ropeTexture;
+
+	// Rope minigame
+	Animation pressKeyAnim;
+	SDL_Texture* pressKeyTexture;
+	SDL_Rect ropeRect;
+	SDL_Rect keyRect;
 
 	bool angryVillagerDefeated, LRRHDefeated;
 
@@ -113,7 +131,24 @@ private:
 
 	bool godMode;
 
+	// Minigame variables:
+	float ropeSpeed;
+	int ropeJump;
+	int ropeSpeedLimit;
+	bool ropeWin;
 
+public:
+	int ropeX;
+	int ropeY;
+	// Debug bool to activate minigame when desired
+	bool minigameActive;
+	int minigameTVdialogueCounter;
+
+	//----------------
+
+	SDL_Texture* eKeyTexture;
+	Tween eKeyAnim;
+	bool inventoryOpen;
 };
 
 #endif // __SCENE_H__

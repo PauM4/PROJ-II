@@ -111,6 +111,7 @@ bool Player::Awake() {
 		position.y = parameters.attribute("y").as_int();
 	}
 	
+	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
 	
 	speed = 350;
 	vel = b2Vec2(0, 0);
@@ -161,6 +162,19 @@ bool Player::Update(float dt)
 	currentAnimation->Update();
 	bunnyCurrentAnimation->Update();
 
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
+	{
+		InteractWithEntities();
+
+		if (playerState == NPC_INTERACT)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+		}
+
+
+	}
+
+
 	switch (playerState)
 	{
 	case PAUSE:
@@ -207,11 +221,7 @@ bool Player::Update(float dt)
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
-	{
-		InteractWithEntities();
-	}
-
+	
 	GodMode();
 
 
@@ -236,6 +246,12 @@ bool Player::PostUpdate() {
 	UpdateAndPrintBunnyAnimation();
 	
 	UpdateAndPrintTimmyAnimation();
+
+	// Print E key if interaction is available
+	if ((itemInteractAvailable || npcInteractAvailable) && playerState == PlayerState::MOVING)
+	{
+		app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
+	}
 	
 	return true;
 }
@@ -326,12 +342,14 @@ void Player::UpdateAndPrintBunnyAnimation()
 
 	SDL_Rect rect2 = bunnyCurrentAnimation->GetCurrentFrame();
 	app->render->DrawTexture(bunnyTexture, position.x - 145, position.y - 115, &rect2);
+
 }
 
 bool Player::CleanUp()
 {
 	app->tex->UnLoad(texture);
 	app->tex->UnLoad(bunnyTexture);
+	app->tex->UnLoad(eKeyTexture);
 
 	if (pbody != NULL)
 	{
@@ -420,7 +438,36 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			lastCollision = ColliderType::SHEEPD;
 			break;
 	}
-	
+}
+
+void Player::EndContact(PhysBody* physA, PhysBody* physB)
+{
+	switch (physB->ctype)
+	{
+	case ColliderType::LRRH:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::ITEM:
+		itemInteractAvailable = false;
+		break;
+	case ColliderType::BARRIER:
+		break;
+	case ColliderType::DOOR:
+		break;
+	case ColliderType::UNKNOWN:
+		break;
+	case ColliderType::ANGRYVILLAGER:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::TALISMANVILLAGER:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::GRANDMA:
+		npcInteractAvailable = false;
+		break;
+	default:
+		break;
+	}
 }
 
 //This function toggles the player's god mode when the F10 key is pressed
@@ -445,24 +492,29 @@ void Player::InteractWithTree()
 	if (buttonOption1)
 	{
 		app->scene->UpdateDialogueTree(1);
+		app->uiModule->CleaningDialogeOverTime();
 		buttonOption1 = false;
 	}
 	else if (buttonOption2)
 	{
+		app->uiModule->CleaningDialogeOverTime();
 		app->scene->UpdateDialogueTree(2);
 		buttonOption2 = false;
 	}
 	else if (buttonOption3)
 	{
+		app->uiModule->CleaningDialogeOverTime();
 		app->scene->UpdateDialogueTree(3);
 		buttonOption3 = false;
 	}
 	else if (buttonOption4)
 	{
+		app->uiModule->CleaningDialogeOverTime();
 		app->scene->UpdateDialogueTree(4);
 		buttonOption4 = false;
 	}
 
+	
 
 }
 
@@ -653,6 +705,11 @@ void Player::InteractWithEntities()
 			{
 				playerState = MOVING;
 				itemInteractAvailable = false;
+
+				// Tell to UIModule which currentMenuType
+				app->uiModule->currentMenuType = DISABLED;
+				// Call this function only when buttons change
+				app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 			}
 			// Moving
 			else

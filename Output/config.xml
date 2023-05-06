@@ -15,13 +15,31 @@
 		<resizable value="true" />
 		<fullscreen_window value="false" />
 	</window>
-	<audio />
-	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/" randomAtt="1">
-		<player x="1868" y="5608" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" bunnyTexturepath="Assets/Characters/F_sprites_bunny.png" />
-		<npc npcTexturePath="Assets/Characters/Characters_popups.png" />
-		<door x="2213" y="2511" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0" />
-		<door x="1967" y="781" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0" />
-		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="0" nextPlayerY="0" />
+
+	<audio>
+
+	</audio>
+
+	<scene name="Assets/Maps/World_01/scene_01.tmx" path="Assets/Maps/World_01/">
+		<player x="1868" y="5608" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png"
+															bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
+		<npc npcTexturePath ="Assets/Characters/Characters_popups.png"/>
+		
+		<!-- Door to tutorial house-->
+		<door x="2213" y="2511" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0"/>
+		<!-- Door to Grandmas-->
+		<door x="1967" y="781" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0"/>
+		<!-- Door to Boos fight-->
+		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="0" nextPlayerY="0"/>
+		
+		<!-- Chest 1-->
+		<chest x="845" y="3969" width="100" height="75" isPicked="false"/>
+		<!-- Chest 2-->
+		<chest x="782" y="2081" width="67" height="111" isPicked="false"/>
+		<!-- Chest 3-->
+		<chest x="4125" y="1006" width="100" height="75" isPicked="false"/>
+
+
 	</scene>
 	<w2_scene name="Assets/Maps/World_02/scene_01.tmx" path="Assets/Maps/World_02/">
 		<player x="5104" y="3122" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />

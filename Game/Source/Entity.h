@@ -109,6 +109,10 @@ public:
 	
 	};
 
+	virtual void EndContact(PhysBody* physA, PhysBody* physB) {
+
+	};
+
 	virtual void LoadInfo(iPoint pos, int state)
 	{
 

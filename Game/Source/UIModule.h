@@ -7,6 +7,8 @@
 #include "SceneManager.h"
 #include <vector>
 #include <string>
+#include "SDL_Timer.h"
+#include <cassert>
 
 struct SDL_Texture;
 
@@ -17,6 +19,7 @@ enum CurrentMenuType
 	COMBAT_PAUSE,
 	DIALOG,
 	COMBAT,
+	ROPE_MINIGAME,
 	DISABLED
 };
 
@@ -55,12 +58,19 @@ public:
 
 	void PrintDialogue(std::vector<std::string> dialogue);
 
+	void CleaningDialogeOverTime();
+
+private:
+
+	std::string DialogueOverTime(std::string dialogue);
+
 
 public:
 
 	int currentMenuType;
 
 	// Buttons list
+
 	GuiButton* mainmenu_play_button;
 	GuiButton* mainmenu_options_button;
 	GuiButton* mainmenu_credits_button;
@@ -94,14 +104,19 @@ public:
 	GuiButton* dialog_option4_button;
 	GuiButton* dialog_text_button;
 
-
-
 	bool quitButtonBool;
 
 	bool continueBool;
 
 	// UI Things
 	bool doorPlayerPosition;
+
+	SDL_Timer textDialogueTimer;
+	std::string previousTextDialogue, dialogueOverTime;
+
+	bool dialogueHasChanged;
+	int indexDialogueOverTime;
+	float timeToRefreshDialogue;
 
 private:
 

@@ -19,8 +19,10 @@ public:
 
 private:
 	uint32_t startTime;
-	estadoTimerP estadoTimer = APAGADO;
 	uint32_t duration; //segundos de cronómetro
+
+public:
+	estadoTimerP estadoTimer = APAGADO;
 };
 
 #endif // !__SDL_TIMER_H__

@@ -26,15 +26,15 @@ public:
 
 public:
 
-	bool isPicked = false;
+	bool isPicked;
+	int width, height;
+	PhysBody* pbody;
 
 private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	//DONE 4: Add a physics to an item
-	PhysBody* pbody;
 };
 
 #endif // __ITEM_H__

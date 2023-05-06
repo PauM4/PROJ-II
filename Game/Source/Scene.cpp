@@ -37,6 +37,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
 	npc1->parameters = config.child("npc");
 
+
+
 	if (config.child("player")) {
 		player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 		player->parameters = config.child("player");
@@ -52,13 +54,29 @@ bool Scene::Awake(pugi::xml_node& config)
 		doors.Add(door);
 	}
 
+	for (pugi::xml_node chestNode = config.child("chest"); chestNode; chestNode = chestNode.next_sibling("chest")) {
+		Item* chest = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		chest->parameters = chestNode;
+
+		chests.Add(chest);
+	}
+
+	pressKeyAnim.PushBack({ 0, 0, 485, 734 });
+	pressKeyAnim.PushBack({ 485, 0, 485, 735 });
+	pressKeyAnim.loop = true;
+	pressKeyAnim.speed = 0.1f;
+
 	app->entityManager->Awake(config);
 
 	CreateDialogue(); //3MB
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
-	isNewGame;
+	ropeTexture = app->tex->Load("Assets/UI/ropeImage.png");
+	pressKeyTexture = app->tex->Load("Assets/UI/pressEanimation.png");
+	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
+	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
+
 	return ret;
 }
 
@@ -66,7 +84,6 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	app->entityManager->Start();
-	
 
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
@@ -108,6 +125,26 @@ bool Scene::Start()
 	numTimesLRRHDialogueTriggered = 0;
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
+
+	// Rect for Rope texture
+	ropeRect = { 0, 0, 177, 971};
+	ropeSpeed = 0.01f;
+	ropeJump = 20;
+	ropeSpeedLimit = 550;
+
+	ropeX = -app->render->camera.x + 1078;
+	ropeY = -app->render->camera.y;
+
+	ropeWin = false;
+	minigameActive = false;
+
+	minigameTVdialogueCounter = 0;
+
+	eKeyAnim.Set();
+	eKeyAnim.smoothness = 4;
+	eKeyAnim.AddTween(100, 50, EXPONENTIAL_OUT);
+
+	inventoryOpen = false;
 
 	return true;
 }
@@ -161,6 +198,7 @@ bool Scene::Update(float dt)
 			app->uiModule->currentMenuType = DISABLED;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+			
 		}
 		// If player is NOT in pause, open it
 		else
@@ -172,6 +210,7 @@ bool Scene::Update(float dt)
 			app->uiModule->currentMenuType = PAUSE;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 		}
 	}
 
@@ -179,6 +218,33 @@ bool Scene::Update(float dt)
 
 	// Draw map
 	app->map->Draw();
+
+	UpdateMinigameLogic(dt);
+
+	if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
+	{
+		inventoryOpen = !inventoryOpen;
+	}
+
+	eKeyAnim.Step(1, false);
+
+	if (inventoryOpen)
+	{
+		eKeyAnim.Foward();
+	}
+	else
+	{
+		eKeyAnim.Backward();
+	}
+
+	int offset = 1970;
+
+	float point = eKeyAnim.GetPoint();
+	app->render->DrawTexture(eKeyTexture, 1960, offset + point * (400 - 100));
+
+	//int mouseX, mouseY;
+	//app->input->GetMousePosition(mouseX, mouseY);
+	//std::cout << "MouseX: " << mouseX << "MouseY: " << mouseY << std::endl;
 
 	return true;
 }
@@ -242,8 +308,6 @@ bool Scene::PostUpdate()
 		return false;
 	}
 
-	
-
 	return ret;
 }
 
@@ -285,6 +349,9 @@ bool Scene::CleanUp()
 
 	app->tex->UnLoad(npcPopUpTexture);
 	app->tex->UnLoad(uiSpriteTexture);
+	app->tex->UnLoad(ropeTexture);
+	app->tex->UnLoad(pressKeyTexture);
+	app->tex->UnLoad(questUiTexture);
 	
 
 	return true;
@@ -454,7 +521,7 @@ void Scene::UpdateDialogueTree(int option)
 
 		case ColliderType::TALISMANVILLAGER:
 			talismanVillagerTree->Update(option);
-			
+			minigameTVdialogueCounter++;
 			break;
 
 		case ColliderType::GRANDMA:
@@ -778,11 +845,17 @@ bool Scene::LoadState(pugi::xml_node& data)
 	angryVillagerDefeated = battleInfo.attribute("isAngryVillagerDefeated").as_bool();
 	LRRHDefeated = battleInfo.attribute("isLRRHDefeated").as_bool();
 
+	ropeWin = data.child("rope_minigame").attribute("rope_minigame_state").as_bool();
+
+	LoadChests(data);
+
+
 	return true;
 }
 
 bool Scene::SaveState(pugi::xml_node& data)
 {
+	// PLAYER
 	pugi::xml_node playerNode = data.append_child("player");
 
 	// If door, save mes lluny
@@ -793,6 +866,131 @@ bool Scene::SaveState(pugi::xml_node& data)
 		app->uiModule->doorPlayerPosition = false;
 	}
 
+	playerNode.append_attribute("x") = player->position.x;
+	playerNode.append_attribute("y") = player->position.y;
+	
+	// Save Minigame has been Completed
+	pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");
+	ropeMinigameNode.append_attribute("rope_minigame_state") = ropeWin;
+
+	// CHESTS
+	pugi::xml_node chestGameSave = data.append_child("chests");
+
+	for (int i = 0; i < chests.Count(); i++) {
+		Item* chest = chests[i];
+		pugi::xml_node chestNode = chestGameSave.append_child("chest");
+
+
+		chestNode.append_attribute("isPicked").set_value(chest->isPicked);
+		// Add code to save other variables of the chest here
+	}
+	
+
 	return true;
 }
 
+// Code to Load Chests variables, encapsulated. It is called in LoadState() 
+void Scene::LoadChests(pugi::xml_node& data)
+{
+	pugi::xml_node chestsNode = data.child("chests");
+
+	if (!chestsNode)
+		return;
+
+	for (pugi::xml_node chestNode : chestsNode.children("chest"))
+	{
+		int chestIndex = chestNode.attribute("index").as_int();
+		bool isPicked = chestNode.attribute("isPicked").as_bool();
+
+		chests[chestIndex]->isPicked = isPicked;
+
+		// Add code to load other variables of the chest here
+	}
+}
+
+
+// Every time player presses T, rope goes up.
+// Every frame the rope goes down
+// The player has to press the button faster proportionally with how much he has left to reach the goal
+void Scene::UpdateRopeMinigame(float dt)
+{
+	if (!ropeWin)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		{
+			ropeSpeed += ropeJump;
+		}
+
+		// To increase difficulty, change divider to smaller num
+		ropeSpeed -= ropeSpeed / 6 * dt;
+		if (ropeSpeed <= 0) ropeSpeed = 0.01f;
+
+		// update rope position
+		ropeX = -app->render->camera.x + 1078;
+		ropeY = -app->render->camera.y - ropeSpeed;
+
+		// If player reaches ropeSpeedLimt, stop the rope and trigger win consequence
+		if (ropeSpeed >= ropeSpeedLimit || app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+		{
+			ropeSpeed = 0;
+
+			// Win...
+			ropeWin = true;
+		}
+	}
+	else
+	{
+		// update rope position
+		ropeX = -app->render->camera.x + 1078;
+		// ropeY remains the same
+		ropeY = -app->render->camera.y - ropeSpeedLimit;
+
+		// Timer to wait for particles to celebrate win?
+		//...
+
+		// Then disable minigame
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = DIALOG;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+		
+	}
+
+	//std::cout << "Rope Speed " << ropeSpeed << std::endl;
+}
+
+void Scene::UpdateMinigameLogic(float dt)
+{
+	if (minigameTVdialogueCounter == 1 && !minigameActive)
+	{
+		minigameActive = true;
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = ROPE_MINIGAME;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	}
+
+	if (minigameActive)
+	{
+		player->movementRestringed = true;
+		// While playing the minigame, appear animation of press Key
+		// Draw is made on UIModule
+		UpdateRopeMinigame(dt);
+		pressKeyAnim.Update();
+		keyRect = pressKeyAnim.GetCurrentFrame();
+
+		if (ropeWin)
+		{
+			minigameActive = false;
+			// Then disable minigame
+			// Tell to UIModule which currentMenuType
+			app->uiModule->currentMenuType = DIALOG;
+			// Call this function only when buttons change
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			minigameTVdialogueCounter++;
+
+			app->SaveGameRequest();
+		}
+	}
+}

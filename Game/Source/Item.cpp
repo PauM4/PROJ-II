@@ -18,18 +18,24 @@ Item::~Item() {}
 
 bool Item::Awake() {
 
-	position.x = 100;
-	position.y = 0;
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
+	width = parameters.attribute("width").as_int();
+	height = parameters.attribute("height").as_int();
+
+	isPicked = false;
 
 	return true;
 }
 
 bool Item::Start() {
 
-	
-	//pbody = app->physics->CreateRectangleSensor(position.x, position.y, 40, 40, bodyType::STATIC);
-	//pbody->listener = this;
-	//pbody->ctype = ColliderType::ITEM;
+	if (!isPicked)
+	{
+		pbody = app->physics->CreateRectangleSensor(position.x + width/2, position.y + height/2, width, height, bodyType::STATIC);
+		pbody->listener = this;
+		pbody->ctype = ColliderType::ITEM;
+	}
 
 	return true;
 }
