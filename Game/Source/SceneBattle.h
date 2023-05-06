@@ -38,6 +38,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void SaveResult();
+
+
 private:
 
 	SString mapName;
@@ -45,6 +48,8 @@ private:
 
 	Timmy* timmy;
 	Enemy_AngryVillager* villager;
+
+
 	
 	
 };

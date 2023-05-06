@@ -34,6 +34,7 @@ bool BattleManager::Awake(pugi::xml_node& config) {
 bool BattleManager::Start() {
 
 
+
 	winScreen = app->tex->Load("Assets/UI/Win_screen.png");
 	loseScreen = app->tex->Load("Assets/UI/lose_screen.png");
 

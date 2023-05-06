@@ -33,7 +33,7 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 	LOG("Loading Scene");
 	bool ret = true;
 
-	
+	app->teamManager->statsdone = false;
 
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
@@ -136,11 +136,11 @@ bool SceneBattle::CleanUp(){
 void SceneBattle::SaveResult()
 {
 
-	if (win)
+	if (app->battleManager->win)
 	{
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isAngryVillagerDefeated", "true");
 	}
-	else if (lose)
+	else if (app->battleManager->lose)
 	{
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isAngryVillagerDefeated", "false");
 	}

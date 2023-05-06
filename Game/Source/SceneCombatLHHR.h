@@ -11,6 +11,7 @@
 #include "GuiButton.h"
 #include "List.h"
 #include "UIModule.h"
+#include "BattleManager.h"
 
 
 struct SDL_Texture;

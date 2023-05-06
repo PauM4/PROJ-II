@@ -186,9 +186,7 @@ public:
 	uint GetMaxStamina() const { return maxStamina; }
 	uint GetSpeed() const { return speed; }
 	uint GetMovement() const { return movement; }
-	uint GetSkill() const { return skill; }
 	uint GetAttack() const { return attack; }
-	uint GetResistance() const { return resistance; }
 	int GetAttArea() const { AttArea; }
 	uint GetAb1Power() const { return Ab1Power; }
 	uint GetAb2Power() const { return Ab2Power; }

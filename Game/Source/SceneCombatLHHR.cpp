@@ -92,10 +92,6 @@ bool SceneCombatLHHR::PreUpdate()
 // Called each loop iteration
 bool SceneCombatLHHR::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-	{
-		win = true;
-	}
 
 
 	//// Menu appear
@@ -1045,11 +1041,11 @@ bool SceneCombatLHHR::CleanUp()
 void SceneCombatLHHR::SaveResult()
 {
 
-	if (win)
+	if (app->battleManager->win)
 	{
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "true");
 	}
-	else if (lose)
+	else if (app->battleManager->lose)
 	{
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "false");
 	}

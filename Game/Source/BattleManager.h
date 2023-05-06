@@ -6,6 +6,7 @@
 #include "List.h"
 #include "UIModule.h"
 #include "GuiButton.h"
+#include "TeamManager.h"
 
 enum class TILE_TYPE {
 	UNKNOWN = -1,
