@@ -178,7 +178,7 @@ NodeStatus Enemy_AngryVillager::GetCloser::Run() {
 	//Hacemos que actionType sea Move para que se mueva cuando entre al estado Inactive
 	app->battleManager->actionType = ActionType::MOVE;
 
-	return NodeStatus::Success;
+	return NodeStatus::Success; 
 }
 
 NodeStatus Enemy_AngryVillager::Shoot::Run() {
