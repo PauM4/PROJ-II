@@ -21,6 +21,7 @@
 #include "W3_Scene.h"
 
 //-------------------
+#include "SceneFoxQuest.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
@@ -63,6 +64,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	sceneCombatLHHR = new SceneCombatLHHR(false);
 	sceneBattle = new SceneBattle(false);
 	sceneGrandma = new SceneGrandma(false);
+	sceneFoxQuest = new SceneFoxQuest(false); 
 
 	//World_02
 	w2_scene = new W2_Scene(false);
@@ -98,6 +100,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneCombatLHHR);
 	AddModule(sceneBattle);
 	AddModule(sceneGrandma);
+	AddModule(sceneFoxQuest); 
 
 	//World_02
 	AddModule(w2_scene);
@@ -482,14 +485,14 @@ bool App::SaveToFile()
 	{
 		pugi::xml_node saveNodeAuxiliar = gameStateFile.child("save_state");
 		if (!saveNodeAuxiliar) {
-			std::cerr << "No se encontró el nodo 'save_state' en el archivo." << std::endl;
+			std::cerr << "No se encontrï¿½ el nodo 'save_state' en el archivo." << std::endl;
 			
 		}
 		else
 		{
 			pugi::xml_node battleInfoNodeAuxiliar = saveNodeAuxiliar.child("BattleInfo");
 			if (!battleInfoNodeAuxiliar) {
-				std::cerr << "No se encontró el nodo 'BattleInfo' en el archivo." << std::endl;
+				std::cerr << "No se encontrï¿½ el nodo 'BattleInfo' en el archivo." << std::endl;
 
 				//Si no se encuentra el nodo BattleInfo (primera vez que se crea el save_game), lo creamos.
 				pugi::xml_node battleInfoNode = saveStateNode.append_child("BattleInfo");
@@ -502,7 +505,7 @@ bool App::SaveToFile()
 			}
 			else
 			{
-				//De ya estar creado: Cogemos la información del ya creado previamente y la dejamos tal cual:
+				//De ya estar creado: Cogemos la informaciï¿½n del ya creado previamente y la dejamos tal cual:
 
 				pugi::xml_node battleInfoNodeToReplace = saveStateNode.append_child("BattleInfo");
 				battleInfoNodeToReplace.append_attribute("isAngryVillagerDefeated") = battleInfoNodeAuxiliar.attribute("isAngryVillagerDefeated").value();

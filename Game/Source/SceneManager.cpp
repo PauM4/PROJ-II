@@ -78,6 +78,12 @@ bool SceneManager::PreUpdate()
 		scene = GameScene::W3_SCENE;
 	}
 
+	if ((app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = false;
+		scene = GameScene::FOXQUEST;
+	}
+
 	switch (scene) {
 	case GameScene::INTRO:
 		if ((app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && currentScene->active == true)
@@ -173,6 +179,13 @@ bool SceneManager::Update(float dt)
 			}
 		}
 		break;
+	case GameScene::FOXQUEST:
+		if (currentScene != (Module*)app->sceneFoxQuest) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneFoxQuest, 20)) {
+				currentScene = (Module*)app->sceneFoxQuest;
+				LOG("SCENE_FOXQUEST");
+			}
+		}
 	default:
 		break;
 	}

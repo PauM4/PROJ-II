@@ -127,6 +127,7 @@
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Portal.cpp" />
     <ClCompile Include="Source\SceneCombatLHHR.cpp" />
+    <ClCompile Include="Source\SceneFoxQuest.cpp" />
     <ClCompile Include="Source\SceneGrandma.cpp" />
     <ClCompile Include="Source\SceneIntro.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Portal.h" />
     <ClInclude Include="Source\SceneCombatLHHR.h" />
+    <ClInclude Include="Source\SceneFoxQuest.h" />
     <ClInclude Include="Source\SceneGrandma.h" />
     <ClInclude Include="Source\SceneIntro.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />

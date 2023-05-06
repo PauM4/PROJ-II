@@ -36,6 +36,7 @@ class W2_Scene;
 class W3_Scene;
 
 //----------
+class SceneFoxQuest; 
 class EntityManager;
 class Map;
 class Fonts;
@@ -133,6 +134,7 @@ public:
 	W3_Scene* w3_scene;
 
 	//----------
+	SceneFoxQuest* sceneFoxQuest; 
 	EntityManager* entityManager;
 	Map* map;
 	Fonts* fonts; 

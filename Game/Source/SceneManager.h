@@ -23,7 +23,8 @@ enum GameScene {
 	//World_02
 	W2_SCENE,
 	//World_03
-	W3_SCENE
+	W3_SCENE,
+	FOXQUEST
 };
 
 class SceneManager : public Module {
