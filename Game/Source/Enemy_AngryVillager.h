@@ -39,6 +39,7 @@ public:
 
 	void Movement() override;
 
+
 	//Control Flow Nodes
 	std::shared_ptr<SwitchConditionNode> inRangeChecker;
 	std::shared_ptr<SwitchConditionNode> isEnemyTooClose;

@@ -34,6 +34,7 @@ public:
 
 	void Movement() override;
 
+
 private:
 	SDL_Texture* texture;
 

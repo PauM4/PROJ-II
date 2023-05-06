@@ -8,6 +8,8 @@
 #include "UIModule.h"
 #include "Enemy_AngryVillager.h"
 #include "Timmy.h"
+#include "Bunny.h"
+#include "SDL_Timer.h"
 
 struct SDL_Texture;
 
@@ -38,6 +40,16 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void RunTree();
+
+	void UpdateAnimation(const char* name);
+
+	void MoveAnimation(const char* name);
+
+	void TakeDamageAnimation(const char* name);
+
+	void UpdatePosForAnimation(const char* name, iPoint tilePos);
+
 private:
 
 	SString mapName;
@@ -45,7 +57,16 @@ private:
 
 	Timmy* timmy;
 	Enemy_AngryVillager* villager;
+	Bunny* bunny;
+
+	iPoint timmyPrevPos, bunnyPrevPos, villagerPrevPos;
+	bool timmyPrevPosBool, bunnyPrevPosBool, villagerPrevPosBool;
+
+	int frames = 0;
 	
+public:
+	bool conditionToRangeChecker;
+	bool noStaminaToMove;
 	
 };
 

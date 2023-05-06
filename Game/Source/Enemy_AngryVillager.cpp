@@ -10,6 +10,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "SceneBattle.h"
+#include "BattleManager.h"
 
 
 Enemy_AngryVillager::Enemy_AngryVillager() : Entity(EntityType::ANGRYVILLAGER) {
@@ -101,22 +102,32 @@ bool Enemy_AngryVillager::Awake()
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
+	texture = app->tex->Load("Assets/Characters/F_sprites_angry_Villager.png");
+
+	currentAnimation = &idleAnim;
+
 	return true;
 }
 
 bool Enemy_AngryVillager::Start()
 {
+	
 	return true;
 }
 
 bool Enemy_AngryVillager::Update(float dt)
 {
+	currentAnimation->Update();
 	return true;
 }
 
 bool Enemy_AngryVillager::PostUpdate()
 {
 	//Render
+	
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x -13 , position.y - 35, &rect);
+
 	return true;
 }
 
@@ -164,37 +175,27 @@ void Enemy_AngryVillager::Movement()
 
 
 NodeStatus Enemy_AngryVillager::GetCloser::Run() {
-	// implementacion detallada del nodo
-
+	//Hacemos que actionType sea Move para que se mueva cuando entre al estado Inactive
+	app->battleManager->actionType = ActionType::MOVE;
 
 	return NodeStatus::Success;
 }
 
 NodeStatus Enemy_AngryVillager::Shoot::Run() {
-	// implementacion detallada del nodo
+
+	//Ataca al player
+	app->battleManager->TriggerAIAttack();
+
+	//--------
+	app->battleManager->battleState = BattleState::THINKING;
+	app->battleManager->UpdateTurnList();
 
 
 	return NodeStatus::Success;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 NodeStatus Enemy_AngryVillager::MoveAway::Run() {
 	// implementacion detallada del nodo
 	return NodeStatus::Success;
 }
+

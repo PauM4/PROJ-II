@@ -16,6 +16,8 @@
 #include "Defs.h"
 #include "Physics.h"
 #include "Log.h"
+#include"Enemy_AngryVillager.h"
+#include "SceneBattle.h"
 
 BattleManager::BattleManager(bool isActive) : Module(isActive) {
 
@@ -85,65 +87,66 @@ bool BattleManager::Update(float dt) {
 
 	UpdateEntitiesTilePos();
 
-
-
-	
-
 	switch (battleState)
 	{
 	case BattleState::UNKNOWN:
 		break;
 	case BattleState::THINKING:
-
+		origin = currentTurn->tilePos;
 		targets.Clear();
 		actionArea.Clear();
 		break;
 	case BattleState::SELCETED:
 
-		origin = currentTurn->tilePos;
+//		origin = currentTurn->tilePos;
 		actionArea.Clear();
 		targets.Clear();
 		GetActionArea(currentTurn, actionType);
 
-		if (actionType == ActionType::MOVE) {
+		if (!currentTurn->isEnemy)
+		{
+			if (actionType == ActionType::MOVE) {
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-			{
-				for (ListItem<TileData*>* area = actionArea.start; area != NULL; area = area->next) {
-					iPoint pos = iPoint(area->data->x, area->data->y);
-					if (app->pathfinding->IsWalkable(origin) && mouseTile==pos && combatMap[mouseTile.x][mouseTile.y].character == nullptr) {
-						length = app->pathfinding->CreatePath(origin, mouseTile);
-						destination.x = mouseTile.x;
-						destination.y = mouseTile.y;
-						moveanim = true;
-						currentTurn->UseStamina(3);
-						battleState = BattleState::INACTION;
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+				{
+					for (ListItem<TileData*>* area = actionArea.start; area != NULL; area = area->next) {
+						iPoint pos = iPoint(area->data->x, area->data->y);
+						if (app->pathfinding->IsWalkable(origin) && mouseTile == pos && combatMap[mouseTile.x][mouseTile.y].character == nullptr) {
+							length = app->pathfinding->CreatePath(origin, mouseTile);
+							destination.x = mouseTile.x;
+							destination.y = mouseTile.y;
+							moveanim = true;
+							currentTurn->UseStamina(3);
+							battleState = BattleState::INACTION;
+						}
+					}
+				}
+			}
+			else {
+
+
+				SelectTargets();
+
+				for (int i = 0; i < targets.Count(); i++) {
+
+
+					if (targets.At(i)->data->tilePos == mouseTile) {
+						if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+
+
+
+							targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->attack - targets.At(i)->data->defense);
+							app->sceneBattle->TakeDamageAnimation(targets.At(i)->data->name.GetString());
+
+							currentTurn->UseStamina(5);
+							battleState = BattleState::INACTION;
+
+						}
 					}
 				}
 			}
 		}
-		else {
 		
-			
-			SelectTargets();
-
-			for (int i = 0; i < targets.Count(); i++) {
-
-
-				if (targets.At(i)->data->tilePos == mouseTile) {
-					if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
-
-
-
-						targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->attack - targets.At(i)->data->defense);
-						
-						currentTurn->UseStamina(5);
-						battleState = BattleState::INACTION;
-
-					}
-				}
-			}
-		}
 
 		break;
 	case BattleState::INACTION:
@@ -187,6 +190,20 @@ bool BattleManager::Update(float dt) {
 	default:
 		break;
 	}
+
+
+	if (currentTurn->isEnemy)
+	{
+		//Miramos si tiene que atacar o tiene que moverse
+		app->sceneBattle->conditionToRangeChecker = IaEnemyAttack();
+
+		//Miramos si tiene suficiente stamina para que se mueva
+		app->sceneBattle->noStaminaToMove = IaEnemyMove();
+
+		//Se Ejecuta el arbol
+		app->sceneBattle->RunTree();
+	}
+
 	
 	CheckWinCondition();
 
@@ -205,6 +222,9 @@ bool BattleManager::PostUpdate() {
 
     }
 
+	
+	app->sceneBattle->UpdateAnimation(currentTurn->name.GetString());
+
 	UIStatsForBattle();
 	DisplayTurnList();
 
@@ -212,6 +232,8 @@ bool BattleManager::PostUpdate() {
 	app->render->DrawRectangle({ int(enemies.start->data->position.x) + 35, int(enemies.start->data->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 	return true;
 }
+
+
 
 bool BattleManager::CleanUp() {
 
@@ -371,6 +393,7 @@ void BattleManager::UpdateEntitiesTilePos()
 	while(entity!=NULL) {
 		
 		entity->data->tilePos = app->map->WorldToMap(entity->data->position.x - app->render->camera.x, entity->data->position.y - app->render->camera.y);
+		
 		entity = entity->next;
 	}
 }
@@ -759,31 +782,47 @@ void BattleManager::GodMode()
 	}
 }
 
+void BattleManager::TriggerAIAttack()
+{
+	ListItem<Entity*>* entitylist;
+		entitylist = targets.start;
+	
+		while (entitylist != NULL) {
+	
+			if (entitylist->data->isAlive == true) {
+				entitylist->data->health = entitylist->data->health - (currentTurn->attack - entitylist->data->defense);
+				targets.Clear();
+				currentTurn->UseStamina(5);
+				app->sceneBattle->TakeDamageAnimation(entitylist->data->name.GetString());
 
+			}
+	
+			entitylist = entitylist->next;
+	
+		}
+}
 
 bool BattleManager::IaEnemyAttack() {
+
+	GetActionArea(currentTurn, ActionType::ATTACK);
+	SelectTargets();
 
 	if (currentTurn->stamina >= 5) {
 		ListItem<Entity*>* entitylist;
 		for (entitylist = targets.start; entitylist != NULL; entitylist = entitylist->next) {
-
 			if (entitylist->data->isAlive == true) {
-
 				return true;
-
 			}
 
-
 		}
-
-
 	}
-
 	return false;
-
 }
 
+//Mira si puedes desplazarte, hacia donde te mueves y crea el path.
 bool BattleManager::IaEnemyMove() {
+
+	GetActionArea(currentTurn, ActionType::MOVE);
 
 	if (currentTurn->stamina >= 5) {
 		ListItem<TileData*>* tiledata;

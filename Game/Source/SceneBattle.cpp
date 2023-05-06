@@ -69,7 +69,9 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 bool SceneBattle::Start() {
 
 	bool retLoad = app->map->Load(mapName, mapFolder);
-
+	timmyPrevPosBool = false;
+	bunnyPrevPosBool = false;
+	villagerPrevPosBool = false;
 
 	if (retLoad) {
 		int w, h;
@@ -84,7 +86,9 @@ bool SceneBattle::Start() {
 
 	app->battleManager->MakeCombatMap();
 	
-	
+	timmyPrevPos = timmy->position;
+	//bunnyPrevPos = bunny->position;
+	villagerPrevPos = villager->position;
 
 	return true;
 }
@@ -105,8 +109,38 @@ bool SceneBattle::PreUpdate() {
 // Called each loop iteration
 bool SceneBattle::Update(float dt) {
 
+	
+
 	app->map->Draw();
 	return true;
+}
+
+void SceneBattle::RunTree()
+{
+	//Esto tiene que ser false por defecto para que se ejecute solo la parte del arbol que es la que
+	//utilizaremos debido a que al final la IA del EnemyVillager es diferente
+	villager->isEnemyTooClose->SetCondition(false);
+
+	//Miramos si tiene que atacar o tiene que moverse
+	villager->inRangeChecker->SetCondition(conditionToRangeChecker); //true=atacar, false=mover
+
+	//Si se tiene que mover:
+	if (!conditionToRangeChecker)
+	{
+		//Chequeamos que tiene suficente stamina
+		if (!noStaminaToMove)
+		{
+			//si no tiene no se mueve
+			return;
+		}
+		{
+			//si tiene se mueve
+			app->battleManager->battleState = BattleState::INACTION;
+		}
+	}
+	
+	//ejecutamos el arbol
+	villager->behaviorTree->Run();
 }
 
 // Called each loop iteration
@@ -115,10 +149,15 @@ bool SceneBattle::PostUpdate() {
 	bool ret = true;
 
 	
-
-
-	
 	return ret;
+}
+
+
+void SceneBattle::UpdateAnimation(const char* name)
+{
+	//Movimiento y Idle
+	MoveAnimation(name);
+
 }
 
 bool SceneBattle::CleanUp(){
@@ -129,4 +168,149 @@ bool SceneBattle::CleanUp(){
 	app->entityManager->CleanUp(); 
 
 	return true;
+}
+
+void SceneBattle::MoveAnimation(const char* name)
+{
+	if (strcmp(name,"enemy_angryVillager") == 0)
+	{
+		//Moverse a la derecha
+		if (villager->position.x > villagerPrevPos.x)
+		{
+			villager->currentAnimation = &villager->walkRightAnim;
+		}
+		//Moverse a la izquierda
+		else if (villager->position.x < villagerPrevPos.x)
+		{
+			villager->currentAnimation = &villager->walkLeftAnim;
+		}
+		//Moverse a abajo
+		else if (villager->position.y > villagerPrevPos.y)
+		{
+			villager->currentAnimation = &villager->walkDownAnim;
+		}
+		//Moverse a arriba
+		else if (villager->position.y < villagerPrevPos.y)
+		{
+			villager->currentAnimation = &villager->walkUpAnim;
+		}
+		else if (villager->position.y == villagerPrevPos.y && villager->position.x == villagerPrevPos.x)
+		{
+
+			if (frames > 60)
+			{
+				villager->currentAnimation = &villager->idleAnim;
+				frames = 0;
+			}
+			else
+			{
+				frames++;
+			}
+		}
+
+		villagerPrevPos.x = villager->position.x;
+		villagerPrevPos.y = villager->position.y;
+	}
+	else if (strcmp(name, "timmy") == 0)
+	{
+
+		//Moverse a la derecha
+		if (timmy->position.x > timmyPrevPos.x)
+		{
+			timmy->currentAnimation = &timmy->walkRightAnim;
+		}
+		//Moverse a la izquierda
+		else if (timmy->position.x < timmyPrevPos.x)
+		{
+			timmy->currentAnimation = &timmy->walkLeftAnim;
+		}
+		//Moverse a abajo
+		else if (timmy->position.y > timmyPrevPos.y)
+		{
+			timmy->currentAnimation = &timmy->walkDownAnim;
+		}
+		//Moverse a arriba
+		else if (timmy->position.y < timmyPrevPos.y)
+		{
+			timmy->currentAnimation = &timmy->walkUpAnim;
+		}
+		else if (timmy->position.y == timmyPrevPos.y && timmy->position.x == timmyPrevPos.x)
+		{
+			if (frames > 60)
+			{
+				timmy->currentAnimation = &timmy->idleAnim;
+				frames = 0;
+			}
+			else
+			{
+				frames++;
+			}
+			
+		}
+
+		timmyPrevPos.x = timmy->position.x;
+		timmyPrevPos.y = timmy->position.y;
+
+	}
+	else if (strcmp(name, "bunny") == 0)
+	{
+
+		//Moverse a la derecha
+		if (bunny->position.x > bunnyPrevPos.x)
+		{
+			bunny->currentAnimation = &bunny->walkRightAnim;
+		}
+		//Moverse a la izquierda
+		else if (bunny->position.x < bunnyPrevPos.x)
+		{
+			bunny->currentAnimation = &bunny->walkLeftAnim;
+		}
+		//Moverse a abajo
+		else if (bunny->position.y > bunnyPrevPos.y)
+		{
+			bunny->currentAnimation = &bunny->walkDownAnim;
+		}
+		//Moverse a arriba
+		else if (bunny->position.y < bunnyPrevPos.y)
+		{
+			bunny->currentAnimation = &bunny->walkUpAnim;
+		}
+		else if (bunny->position.y == bunnyPrevPos.y && bunny->position.x == bunnyPrevPos.x)
+		{
+			if (frames > 60)
+			{
+				bunny->currentAnimation = &bunny->idleAnim;
+				frames = 0;
+			}
+			else
+			{
+				frames++;
+			}
+
+			
+		}
+		
+
+		bunnyPrevPos.x = bunny->position.x;
+		bunnyPrevPos.y = bunny->position.y;
+
+	}
+}
+
+void SceneBattle::TakeDamageAnimation(const char* name)
+{
+	//Animación de ser dañado
+	if (strcmp(name, "enemy_angryVillager") == 0)
+	{
+		villager->currentAnimation = &villager->takedmgAnim;
+	}
+	else if (strcmp(name, "timmy") == 0)
+	{
+		timmy->currentAnimation = &timmy->takedmgAnim;
+	}
+	else if (strcmp(name, "bunny") == 0)
+	{
+		bunny->currentAnimation = &bunny->takedmgAnim;
+	}
+
 }

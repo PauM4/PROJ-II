@@ -35,7 +35,7 @@ private:
 	
 
 public:
-
+	SDL_Texture* texture;
 	Animation* currentAnimation;
 	Animation walkDownAnim;
 	Animation walkUpAnim;

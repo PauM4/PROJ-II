@@ -117,6 +117,8 @@ public:
 
 	bool IaEnemyAttack();
 
+	void TriggerAIAttack();
+
 	bool IaEnemyMove();
 
 	bool CreateArea(int range, int type, iPoint posTile);
