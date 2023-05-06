@@ -186,6 +186,24 @@ bool BattleManager::Update(float dt) {
 		}
 
 		break;
+	case BattleState::ENEMY:
+			origin = currentTurn->tilePos;
+			targets.Clear();
+			actionArea.Clear();
+			area.Clear();
+
+			//Miramos si tiene que atacar o tiene que moverse
+			app->sceneBattle->conditionToRangeChecker = IaEnemyAttack();
+
+			//Miramos si tiene suficiente stamina para que se mueva
+			app->sceneBattle->noStaminaToMove = IaEnemyMove();
+
+			//Se Ejecuta el arbol
+			app->sceneBattle->RunTree();
+
+			battleState = BattleState::INACTION;
+
+			break;
 	case BattleState::WIN:
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
 		break;
@@ -199,14 +217,10 @@ bool BattleManager::Update(float dt) {
 
 	if (currentTurn->isEnemy)
 	{
-		//Miramos si tiene que atacar o tiene que moverse
-		app->sceneBattle->conditionToRangeChecker = IaEnemyAttack();
+		if (battleState == BattleState::THINKING) {
+			battleState = BattleState::ENEMY;
 
-		//Miramos si tiene suficiente stamina para que se mueva
-		app->sceneBattle->noStaminaToMove = IaEnemyMove();
-
-		//Se Ejecuta el arbol
-		app->sceneBattle->RunTree();
+		}
 	}
 
 	
@@ -331,26 +345,26 @@ void BattleManager::UIStatsForBattle()
 	//app->fonts->DrawText(UintToChar(bunny->stamina), 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
 	//// Villager stats:
-	//uint villagerStamina = villager->stamina;
-	//std::string villagerStaminaString = std::to_string(villagerStamina);
-	//const char* villagerStaminaChar = villagerStaminaString.c_str();
+	uint villagerStamina = enemies.start->data->stamina;
+	std::string villagerStaminaString = std::to_string(villagerStamina);
+	const char* villagerStaminaChar = villagerStaminaString.c_str();
 
-	//uint villagerHP = villager->health;
-	//std::string villagerHPString = std::to_string(villagerHP);
-	//const char* villagerHpChar = villagerHPString.c_str();
+	uint villagerHP = enemies.start->data->health;
+	std::string villagerHPString = std::to_string(villagerHP);
+	const char* villagerHpChar = villagerHPString.c_str();
 
-	//int w_window = app->win->width;
+	int w_window = app->win->width;
 
-	//app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText(UintToChar(villager->health), 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText(UintToChar(villager->stamina), 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
-	//app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//int nextTurn = (currentTurn + 1) % turnQueue.size();
-	//app->fonts->DrawText(turnQueue.at(nextTurn)->name.GetString(), 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-
+	app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(turnList.At(1)->data->name.GetString(), 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	
+	
 }
 
 // Loads combat map from Map module using GID tile metadata

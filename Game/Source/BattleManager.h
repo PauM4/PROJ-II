@@ -28,6 +28,7 @@ enum class BattleState {
 	THINKING,
 	SELCETED,
 	INACTION,
+	ENEMY,
 	WIN,
 	LOSE
 
