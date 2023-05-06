@@ -841,6 +841,11 @@ bool Scene::LoadState(pugi::xml_node& data)
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
+	if (active)
+	{
+		player->ChangePosition(loadPlayerPosX, loadPlayerPosY);
+	}
+
 	pugi::xml_node battleInfo = data.parent().child("BattleInfo");
 	angryVillagerDefeated = battleInfo.attribute("isAngryVillagerDefeated").as_bool();
 	LRRHDefeated = battleInfo.attribute("isLRRHDefeated").as_bool();
@@ -865,9 +870,13 @@ bool Scene::SaveState(pugi::xml_node& data)
 		playerNode.append_attribute("y") = player->position.y + 75;
 		app->uiModule->doorPlayerPosition = false;
 	}
-
-	playerNode.append_attribute("x") = player->position.x;
-	playerNode.append_attribute("y") = player->position.y;
+	
+	if (active)
+	{
+		playerNode.append_attribute("x") = player->position.x + 16;
+		playerNode.append_attribute("y") = player->position.y + 16;
+	}
+	
 	
 	// Save Minigame has been Completed
 	pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");

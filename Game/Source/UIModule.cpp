@@ -255,7 +255,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// New Game. Start the game with all original config.xml info
 	case 5:
-		app->SaveGameRequest();
 		app->scene->isNewGame = true;
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;

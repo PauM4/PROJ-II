@@ -734,8 +734,8 @@ void Player::StopVelocity()
 void Player::ChangePosition(int x, int y)
 {
 
- 	/*teleport.posX = x;
+ 	teleport.posX = x;
 	teleport.posY = y;
-	teleport.turn = true;*/
+	teleport.turn = true;
 
 }

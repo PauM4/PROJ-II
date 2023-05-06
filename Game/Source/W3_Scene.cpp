@@ -517,7 +517,7 @@ bool W3_Scene::LoadState(pugi::xml_node& data)
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
-	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+	//player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
 	pugi::xml_node battleInfo = data.parent().child("BattleInfo");
 	pedroDefeated = battleInfo.attribute("isPereDefeated").as_bool();

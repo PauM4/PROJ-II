@@ -439,11 +439,6 @@ void W2_Scene::CreateDialogue()
 		pigsTree = std::make_shared<DialogueTree>();
 		pigsTree->SetRoot(firstNodePigsAC);
 	}
-
-
-
-	
-
 }
 
 bool W2_Scene::LoadState(pugi::xml_node& data)
@@ -451,7 +446,7 @@ bool W2_Scene::LoadState(pugi::xml_node& data)
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
-	player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+	//player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
 	pugi::xml_node battleInfo = data.parent().child("BattleInfo");
 	pigsDefeated = battleInfo.attribute("isPigDefeated").as_bool();
