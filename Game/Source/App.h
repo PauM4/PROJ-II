@@ -42,6 +42,8 @@ class Map;
 class Fonts;
 class FadeToBlack;
 class SceneManager;
+class BattleManager;
+//L07 DONE 2: Add Physics module
 class Physics;
 class PathFinding;
 class GuiManager;
@@ -140,6 +142,7 @@ public:
 	Fonts* fonts; 
 	FadeToBlack* fadeToBlack;
 	SceneManager* sceneManager; 
+	BattleManager* battleManager;
 
 	Physics* physics;
 	PathFinding* pathfinding;

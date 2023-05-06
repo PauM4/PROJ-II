@@ -2,6 +2,8 @@
 
 #include "App.h"
 #include "Render.h"
+#include "SceneManager.h"
+#include "BattleManager.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -39,6 +41,7 @@ bool FadeToBlack::Update(float dt)
 		{
 			moduleToDisable->Disable();
 			moduleToEnable->Enable(); 
+
 
 			currentStep = Fade_Step::FROM_BLACK;
 		}

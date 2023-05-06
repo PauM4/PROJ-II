@@ -9,6 +9,7 @@
 #include "Fonts.h"
 #include "SceneBattle.h"
 #include "SceneCombatLHHR.h"
+#include "BattleManager.h"
 #include "SceneMainMenu.h"
 #include "Scene.h"
 #include "Player.h"
@@ -67,10 +68,10 @@ bool UIModule::Start()
 	pausemenuCombat_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Return", { 1620, 80, 120,30 }, this);
 	pausemenuCombat_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Quit", { 1620, 255, 120, 30 }, this);
 
-	combat_attack_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 30 }, this);
-	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "Ability", { 100, 815, 100, 30 }, this);
-	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 850, 100, 30 }, this);
-	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 885, 100, 30 }, this);
+	combat_attack_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 30 }, app->battleManager);
+	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "Ability", { 100, 815, 100, 30 }, app->battleManager);
+	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 850, 100, 30 }, app->battleManager);
+	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 885, 100, 30 }, app->battleManager);
 
 	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, app->scene);
 	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, app->scene);
@@ -401,79 +402,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	}
 
-	// Combat Menu Switch
-	switch (control->id)
-	{
-		// Attack
-	case 16:
-		app->sceneBattle->attackpressed = true;
-		app->sceneBattle->abiltypressed = false;
-
-		app->sceneBattle->movepressed = false;
-
-		app->sceneBattle->endturnpressed = false;
-
-
-		app->sceneCombatLHHR->attackpressed = true;
-		app->sceneCombatLHHR->abiltypressed = false;
-
-		app->sceneCombatLHHR->movepressed = false;
-
-		app->sceneCombatLHHR->endturnpressed = false;
-
-		break;
-		// Ability
-	case 17:
-		app->sceneBattle->attackpressed = false;
-		app->sceneBattle->abiltypressed = true;
-
-		app->sceneBattle->movepressed = false;
-
-		app->sceneBattle->endturnpressed = false;
-
-
-		app->sceneCombatLHHR->attackpressed = false;
-		app->sceneCombatLHHR->abiltypressed = true;
-
-		app->sceneCombatLHHR->movepressed = false;
-
-		app->sceneCombatLHHR->endturnpressed = false;
-		break;
-		// Move
-	case 18:
-
-		app->sceneBattle->attackpressed = false;
-		app->sceneBattle->abiltypressed = false;
-
-		app->sceneBattle->movepressed = true;
-
-		app->sceneBattle->endturnpressed = false;
-
-		app->sceneCombatLHHR->attackpressed = false;
-		app->sceneCombatLHHR->abiltypressed = false;
-
-		app->sceneCombatLHHR->movepressed = true;
-
-		app->sceneCombatLHHR->endturnpressed = false;
-		break;
-		// End turn
-	case 19:
-		app->sceneBattle->attackpressed = false;
-		app->sceneBattle->abiltypressed = false;
-
-		app->sceneBattle->movepressed = false;
-
-		app->sceneBattle->endturnpressed = true;
-
-
-		app->sceneCombatLHHR->attackpressed = false;
-		app->sceneCombatLHHR->abiltypressed = false;
-
-		app->sceneCombatLHHR->movepressed = false;
-
-		app->sceneCombatLHHR->endturnpressed = true;
-		break;
-	}
+	
 
 	// Dialog Options Switch
 	switch (control->id)

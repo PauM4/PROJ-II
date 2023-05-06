@@ -29,6 +29,7 @@
 #include "GuiManager.h"
 #include "Fonts.h"
 #include "SceneManager.h"
+#include "BattleManager.h"
 #include "FadeToBlack.h"
 #include "UIModule.h"
 #include "TeamManager.h"
@@ -73,6 +74,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	w3_scene = new W3_Scene(false);
 
 	//-----------------
+	battleManager = new BattleManager(false);
 	entityManager = new EntityManager(true);
 	map = new Map(true);
 	guiManager = new GuiManager(true);
@@ -97,7 +99,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	//World_01
 	AddModule(scene);
-	AddModule(sceneCombatLHHR);
+	//AddModule(sceneCombatLHHR);
 	AddModule(sceneBattle);
 	AddModule(sceneGrandma);
 	AddModule(sceneFoxQuest); 
@@ -109,6 +111,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(w3_scene);
 
 	//-----------------
+	AddModule(battleManager);
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(guiManager);

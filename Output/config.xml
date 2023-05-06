@@ -31,7 +31,7 @@
 		<door x="1967" y="781" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0"/>
 		<!-- Door to Boos fight-->
 		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="0" nextPlayerY="0"/>
-		
+
 		<!-- Chest 1-->
 		<chest x="845" y="3969" width="100" height="75" isPicked="false"/>
 		<!-- Chest 2-->
