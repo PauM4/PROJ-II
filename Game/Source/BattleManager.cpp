@@ -122,6 +122,12 @@ bool BattleManager::Update(float dt) {
 					}
 				}
 			}
+			else if (actionType == ActionType::END_TURN) {
+
+				currentTurn->GainStamina(10);
+				battleState= BattleState::INACTION;
+
+			}
 			else {
 
 
@@ -132,7 +138,6 @@ bool BattleManager::Update(float dt) {
 
 					if (targets.At(i)->data->tilePos == mouseTile) {
 						if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
-
 
 
 							targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->attack - targets.At(i)->data->defense);
