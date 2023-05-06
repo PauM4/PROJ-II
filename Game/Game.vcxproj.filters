@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Input.cpp" />
@@ -26,8 +25,6 @@
     <ClCompile Include="Source\SDL_Timer.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneManager.cpp" />
-    <ClCompile Include="Source\SceneBattle.cpp" />
     <ClCompile Include="Source\PerformanceBar2.cpp" />
     <ClCompile Include="Source\EntityManager.cpp">
       <Filter>Entities</Filter>
@@ -60,20 +57,40 @@
     <ClCompile Include="Source\Bunny.cpp">
       <Filter>Entities\Playable</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneIntro.cpp" />
-    <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\UIModule.cpp" />
     <ClCompile Include="Source\Door.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneGrandma.cpp" />
-    <ClCompile Include="Source\SceneCombatLHHR.cpp" />
     <ClCompile Include="Source\BattleSystem.cpp" />
+    <ClCompile Include="Source\BattleManager.cpp" />
+    <ClCompile Include="Source\SceneIntro.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneMainMenu.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneManager.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BattleScene_Pigs.cpp">
+      <Filter>Scenes\BattleScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneBattle.cpp">
+      <Filter>Scenes\BattleScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneCombatLHHR.cpp">
+      <Filter>Scenes\BattleScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
+      <Filter>Scenes\WorldScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneGrandma.cpp">
+      <Filter>Scenes\WorldScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Textures.h" />
-    <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Render.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Input.h" />
@@ -121,8 +138,6 @@
     <ClInclude Include="Source\SDL_Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneManager.h" />
-    <ClInclude Include="Source\SceneBattle.h" />
     <ClInclude Include="Source\Animation.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -165,15 +180,36 @@
     <ClInclude Include="Source\Bunny.h">
       <Filter>Entities\Playable</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneIntro.h" />
-    <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\UIModule.h" />
     <ClInclude Include="Source\Door.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneGrandma.h" />
-    <ClInclude Include="Source\SceneCombatLHHR.h" />
     <ClInclude Include="Source\BattleSystem.h" />
+    <ClInclude Include="Source\BattleManager.h" />
+    <ClInclude Include="Source\SceneIntro.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneMainMenu.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneManager.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BattleScene_Pigs.h">
+      <Filter>Scenes\BattleScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneBattle.h">
+      <Filter>Scenes\BattleScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneCombatLHHR.h">
+      <Filter>Scenes\BattleScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Scenes\WorldScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneGrandma.h">
+      <Filter>Scenes\WorldScenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -193,6 +229,15 @@
     </Filter>
     <Filter Include="Entities\NonPlayable">
       <UniqueIdentifier>{1832da15-3a2b-44e6-bb34-84d1c65a3b76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{271434d8-4eab-45d3-b6d6-a5930b25dc3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\BattleScenes">
+      <UniqueIdentifier>{130057d9-04ce-45e7-88f3-794363a8e6a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\WorldScenes">
+      <UniqueIdentifier>{502328db-9478-46bf-bb03-1fb2db95b620}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

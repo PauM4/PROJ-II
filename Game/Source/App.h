@@ -26,6 +26,7 @@ class Scene;
 class SceneCombatLHHR;
 class SceneBattle;
 class SceneGrandma;
+class BattleScene_Pigs;
 class EntityManager;
 class Map;
 class Fonts;
@@ -109,6 +110,7 @@ public:
 	SceneMainMenu* sceneMainMenu;
 	SceneCombatLHHR* sceneCombatLHHR;
 	SceneBattle* sceneBattle;
+	BattleScene_Pigs* battleScene_Pigs;
 	SceneGrandma* sceneGrandma;
 	EntityManager* entityManager;
 	Map* map;
