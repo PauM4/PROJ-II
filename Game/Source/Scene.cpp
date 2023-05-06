@@ -254,7 +254,7 @@ void Scene::MoveToBattleFromDialogue()
 {
 	if (numTimesAVDialogueTriggered == 1 && !angryVillagerDefeated)
 	{
-		timerToSceneBattle.Start(2.0f);
+		timerToSceneBattle.Start(3.0f);
 		numTimesAVDialogueTriggered = 0;
 	}
 
@@ -265,7 +265,7 @@ void Scene::MoveToBattleFromDialogue()
 
 	if (numTimesLRRHDialogueTriggered == 1 && !LRRHDefeated)
 	{
-		timerToLRRHCombat.Start(2.0f);
+		timerToLRRHCombat.Start(3.0f);
 		numTimesLRRHDialogueTriggered = 0;
 	}
 
