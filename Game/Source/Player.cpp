@@ -12,6 +12,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Fonts.h"
+#include "TeamManager.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -179,19 +180,16 @@ bool Player::Update(float dt)
 	{
 	case PAUSE:
 		movementRestringed = true;
-		/*app->fonts->DrawText("PLAYER STATE: PAUSE", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
+
 		break;
 	case INVENTORY:
 		movementRestringed = true;
-		/*app->fonts->DrawText("PLAYER STATE: INVENTORY", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
+
 
 		break;
 	case MOVING:
 		movementRestringed = false;
-		/*app->fonts->DrawText("PLAYER STATE: MOVING", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
+
 		break;
 	case BATTLE:
 		break;
@@ -201,14 +199,11 @@ bool Player::Update(float dt)
 		TriggerDialogueTree(lastCollision);
 		InteractWithTree();
 
-		/*app->fonts->DrawText("PLAYER STATE: NPC_INTERACT", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
 		break;
 	case ITEM_INTERACT:
 		LOG("INTERACTING WITH ITEM");
 		movementRestringed = true;
-		/*app->fonts->DrawText("PLAYER STATE: ITEM_INTERACT", position.x + 100, position.y + 100,
-			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
+
 		break;
 	case TUTORIAL:
 		LOG("TUTORIAL MODE");
@@ -705,6 +700,7 @@ void Player::InteractWithEntities()
 
 		else if (itemInteractAvailable)
 		{
+			// If already interacting, stop interact
 			if (playerState == ITEM_INTERACT)
 			{
 				playerState = MOVING;
@@ -715,11 +711,12 @@ void Player::InteractWithEntities()
 				// Call this function only when buttons change
 				app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 			}
-			// Moving
+			// If moving, start interact
 			else
 			{
 				playerPrevState = playerState;
 				playerState = ITEM_INTERACT;
+
 				StopVelocity();
 			}
 		}

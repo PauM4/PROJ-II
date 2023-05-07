@@ -33,11 +33,11 @@
 		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="0" nextPlayerY="0"/>
 
 		<!-- Chest 1-->
-		<chest x="845" y="3969" width="100" height="75" isPicked="false"/>
+		<chest x="845" y="3969" width="100" height="75" isPicked="false" id="0"/>
 		<!-- Chest 2-->
-		<chest x="782" y="2081" width="67" height="111" isPicked="false"/>
+		<chest x="782" y="2081" width="67" height="111" isPicked="false" id="1"/>
 		<!-- Chest 3-->
-		<chest x="4125" y="1006" width="100" height="75" isPicked="false"/>
+		<chest x="4125" y="1006" width="100" height="75" isPicked="false" id="2"/>
 
 
 	</scene>
