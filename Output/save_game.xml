@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1960" y="5445" />
+		<player x="1960" y="4837" />
 		<rope_minigame rope_minigame_state="false" />
 		<chests>
 			<chest isPicked="false" />
@@ -19,7 +19,6 @@
 			<chest isPicked="false" />
 		</chests>
 	</scene>
-	<scenecombatLHHR />
 	<sceneBattle />
 	<sceneGrandma />
 	<sceneFoxQuest />
@@ -29,6 +28,7 @@
 	<w3_scene>
 		<player />
 	</w3_scene>
+	<battleManager />
 	<entitymanager />
 	<map />
 	<guiManager />
@@ -41,9 +41,10 @@
 			<handsxd isobtained="true" character="2" />
 			<bow isobtained="false" character="0" />
 			<club isobtained="false" character="0" />
+			<talisman isobtained="true" character="2" />
 		</inventory>
 		<stats>
-			<timmy defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
+			<timmy defense="0" magic="0" speed="0" movement="0" attack="123" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<bunny defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<lrrh defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<littlePig defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
@@ -53,7 +54,7 @@
 	</teamManager>
 	<fadeToBlack />
 	<renderer>
-		<camera x="-984" y="-4934" />
+		<camera x="-984" y="-4326" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

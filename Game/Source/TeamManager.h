@@ -100,6 +100,7 @@ public:
 	item handsxd;
 	item bow;
 	item club;
+	item talisman;
 	List<item> inventory;
 	List<item> equipment;
 	stats timmystats;

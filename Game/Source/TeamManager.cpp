@@ -138,6 +138,25 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		club.Ab2Area = newnode.attribute("Ab2Area").as_int();
 		club.healingpower = newnode.attribute("healingpower").as_int();
 	}
+	if (config.child("item").child("talisman")) {
+		pugi::xml_node newnode = config.child("item").child("talisman");
+		talisman.ininventory = newnode.attribute("ininventory").as_bool();
+		talisman.type = newnode.attribute("type").as_int();
+		talisman.weaponuser = newnode.attribute("weaponuser").as_int();
+		talisman.character = newnode.attribute("character").as_int();
+		talisman.name = newnode.attribute("name").as_string();
+		talisman.defense = newnode.attribute("defense").as_int();
+		talisman.magic = newnode.attribute("magic").as_int();
+		talisman.speed = newnode.attribute("speed").as_int();
+		talisman.movement = newnode.attribute("movement").as_int();
+		talisman.attack = newnode.attribute("attack").as_int();
+		talisman.AttArea = newnode.attribute("AttArea").as_int();
+		talisman.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		talisman.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		talisman.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		talisman.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		talisman.healingpower = newnode.attribute("healingpower").as_int();
+	}
 
 	
 	statslist.Add(&timmystats);
@@ -180,13 +199,14 @@ bool TeamManager::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
 
-		ispeterplayable = true;
-		IsPeterOnTeam = true;
-		peterstats.attack = 3;
-		app->SaveGameRequest();
+		//talisman.ininventory = true;
+		//talisman.character = 2;
+		//timmystats.attack = 123;
+		//app->SaveGameRequest();
 
 	}
-	peter->attack;
+	//timmy->attack;
+	//bunny->magic;
 	return true;
 
 }
@@ -375,6 +395,16 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 			equipment.Add(club);
 		}
 	}
+
+	talisman.ininventory = data.child("inventory").child("talisman").attribute("isobtained").as_bool();
+	talisman.character = data.child("inventory").child("talisman").attribute("character").as_int();
+	if (talisman.ininventory == true) {
+		inventory.Add(talisman);
+		if (talisman.character != 0) {
+			equipment.Add(talisman);
+		}
+	}
+
 	//Apply equipped item stats
 	for (int i = 0; i < equipment.Count(); i++) {
 
@@ -442,6 +472,10 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	inventory.append_child("club");
 	inventory.child("club").append_attribute("isobtained") = club.ininventory;
 	inventory.child("club").append_attribute("character") = club.character;
+
+	inventory.append_child("talisman");
+	inventory.child("talisman").append_attribute("isobtained") = talisman.ininventory;
+	inventory.child("talisman").append_attribute("character") = talisman.character;
 
 	pugi::xml_node statsnode = data.append_child("stats");
 	statsnode.append_child("timmy");
