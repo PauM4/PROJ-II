@@ -39,6 +39,10 @@ public:
 	// Called each loop iteration
 	bool Update(float dt);
 
+	void MenuAppear();
+
+	void TweenyTestWithU();
+
 	// Called before all Updates
 	bool PostUpdate();
 
@@ -82,6 +86,10 @@ public:
 	Npc* npc1;
 	List<Door*> doors;
 	List<Item*> chests;
+
+	// Counter that triggers the tutorial screens when new Game
+	// Number 2 means --> don't appear the tutorial
+	int basicTutorialCounter;
 
 	// Load things
 	int loadPlayerPosX;
@@ -130,6 +138,7 @@ private:
 	std::vector<std::string> dialogue;
 
 	bool godMode;
+
 
 	// Minigame variables:
 	float ropeSpeed;

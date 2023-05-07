@@ -176,3 +176,12 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+// 0 no audio, 128 max audio
+void Audio::SetMusicVolume(int volume)
+{
+	if (!active || music == NULL)
+		return;
+
+	Mix_VolumeMusic(volume);
+}

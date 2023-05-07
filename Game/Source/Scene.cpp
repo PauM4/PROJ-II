@@ -103,11 +103,13 @@ bool Scene::Start()
 	if (isNewGame)
 	{
 		player->ChangePosition(1868, 5608);
+		basicTutorialCounter = 0;
 		isNewGame = false;
 	}
 	else
 	{
 		app->LoadGameRequest();
+		basicTutorialCounter = 2;
 	}
 
 	pauseMenuActive = false;
@@ -145,6 +147,7 @@ bool Scene::Start()
 	eKeyAnim.AddTween(100, 50, EXPONENTIAL_OUT);
 
 	inventoryOpen = false;
+
 
 	return true;
 }
@@ -188,6 +191,56 @@ bool Scene::Update(float dt)
 	GodMode();
 
 	// Menu appear
+	MenuAppear();
+
+	MoveToBattleFromDialogue();
+
+
+	// Tutorial SCREENS when NewGame
+	if (basicTutorialCounter >= 2)
+	{
+		// Draw map
+		app->map->Draw();
+		TweenyTestWithU();
+
+	}
+	else
+	{
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			basicTutorialCounter++;
+		}
+
+		// Here draw the tutorial images
+		if (basicTutorialCounter == 0)
+		{
+
+		}
+		else if (basicTutorialCounter == 1)
+		{
+
+		}
+		else if (basicTutorialCounter == 2)
+		{
+			app->audio->SetMusicVolume(128);
+		}
+	}
+
+	
+	
+
+	UpdateMinigameLogic(dt);
+
+
+	//int mouseX, mouseY;
+	//app->input->GetMousePosition(mouseX, mouseY);
+	//std::cout << "MouseX: " << mouseX << "MouseY: " << mouseY << std::endl;
+
+	return true;
+}
+
+void Scene::MenuAppear()
+{
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		// If player is in pause, close it
@@ -198,7 +251,10 @@ bool Scene::Update(float dt)
 			app->uiModule->currentMenuType = DISABLED;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-			
+
+			// Max volume
+			app->audio->SetMusicVolume(128);
+
 		}
 		// If player is NOT in pause, open it
 		else
@@ -211,16 +267,14 @@ bool Scene::Update(float dt)
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
+			// Mid-Low volume
+			app->audio->SetMusicVolume(32);
 		}
 	}
+}
 
-	MoveToBattleFromDialogue();
-
-	// Draw map
-	app->map->Draw();
-
-	UpdateMinigameLogic(dt);
-
+void Scene::TweenyTestWithU()
+{
 	if (app->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
 	{
 		inventoryOpen = !inventoryOpen;
@@ -241,12 +295,6 @@ bool Scene::Update(float dt)
 
 	float point = eKeyAnim.GetPoint();
 	app->render->DrawTexture(eKeyTexture, 1960, offset + point * (400 - 100));
-
-	//int mouseX, mouseY;
-	//app->input->GetMousePosition(mouseX, mouseY);
-	//std::cout << "MouseX: " << mouseX << "MouseY: " << mouseY << std::endl;
-
-	return true;
 }
 
 //This function swaps after 2sec from Scene to SceneBattle/LRRHCombat If Player has triggered the dialogue with AngryVillager/LRRH and they haven't been defeated before
