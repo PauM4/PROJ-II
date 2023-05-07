@@ -16,7 +16,17 @@
 #include "Animation.h"
 #include "Tweening.h"
 
+#include <vector>
+#include <string>
+
 struct SDL_Texture;
+
+// A struct to represent a quest
+struct Quest {
+	const char* description; // The quest description
+	bool completed; // Whether the quest is completed or not
+};
+
 
 class Scene : public Module
 {
@@ -62,6 +72,10 @@ public:
 
 	void UpdateMinigameLogic(float dt);
 
+	void drawQuest(int posX, int posY);
+
+	void nextQuest();
+
 	std::vector<std::string> GetDialogue() { return dialogue; }
 
 	std::string LastTextNPC(ColliderType NPC);
@@ -86,6 +100,13 @@ public:
 	Npc* npc1;
 	List<Door*> doors;
 	List<Item*> chests;
+
+	// A list of quests
+	std::vector<Quest> questList;
+	const char* questText;
+
+	// The index of the current quest
+	int currentQuestIndex;
 
 	// Counter that triggers the tutorial screens when new Game
 	// Number 2 means --> don't appear the tutorial
@@ -164,3 +185,5 @@ public:
 };
 
 #endif // __SCENE_H__
+
+

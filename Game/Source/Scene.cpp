@@ -79,7 +79,10 @@ bool Scene::Awake(pugi::xml_node& config)
 	moveTutorialTextutre = app->tex->Load("Assets/UI/Movement_Guide.png");
 	interactTutorialTextutre = app->tex->Load("Assets/UI/Interact_Guide.png");
 
+	currentQuestIndex = 0;
+
 	return ret;
+
 }
 
 // Called before the first frame
@@ -149,6 +152,18 @@ bool Scene::Start()
 	eKeyAnim.AddTween(100, 50, EXPONENTIAL_OUT);
 
 	inventoryOpen = false;
+	
+	Quest quest1;
+	quest1.completed = false;
+	quest1.description = "HOLA 1";
+	questList.push_back(quest1);
+
+	Quest quest2;
+	quest2.completed = false;
+	quest2.description = "HOLA 2";
+	questList.push_back(quest2);
+
+	questText = "RES";
 
 
 	return true;
@@ -197,6 +212,11 @@ bool Scene::Update(float dt)
 
 	MoveToBattleFromDialogue();
 
+	// Check if the current quest is completed
+	if (questList[currentQuestIndex].completed || app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+		// If it is, move to the next quest
+		nextQuest();
+	}
 
 	// Tutorial SCREENS when NewGame
 	if (basicTutorialCounter >= 2)
@@ -225,7 +245,6 @@ bool Scene::Update(float dt)
 	}	
 
 	UpdateMinigameLogic(dt);
-
 
 	//int mouseX, mouseY;
 	//app->input->GetMousePosition(mouseX, mouseY);
@@ -1046,5 +1065,22 @@ void Scene::UpdateMinigameLogic(float dt)
 
 			app->SaveGameRequest();
 		}
+	}
+}
+
+// A function to draw the current quest on the screen
+void Scene::drawQuest(int posX, int posY) {
+
+	questText = questList[currentQuestIndex].description;
+
+	app->fonts->DrawText(questText, posX, posY, 100, 100, { 0, 0, 0 });
+}
+
+// A function to move to the next quest
+void Scene::nextQuest() {
+	currentQuestIndex++;
+	if (currentQuestIndex >= questList.size()) {
+		// If we've reached the end of the quest list, wrap around to the beginning
+		currentQuestIndex = 0;
 	}
 }

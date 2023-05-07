@@ -193,6 +193,7 @@ bool UIModule::PostUpdate()
 				if (app->scene->player->playerState == app->scene->player->PlayerState::MOVING)
 				{
 					app->render->DrawTexture(app->scene->questUiTexture, -app->render->camera.x + 30, -app->render->camera.y + 30, NULL);
+					app->scene->drawQuest(-app->render->camera.x + 120, -app->render->camera.y + 120);
 				}
 			}
 		}
