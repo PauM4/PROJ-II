@@ -153,6 +153,7 @@ bool UIModule::PostUpdate()
 
 	app->guiManager->Draw();
 
+	// SCENE 1 UI
 	if (app->scene->active) {
 		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT && currentMenuType != ROPE_MINIGAME)
 		{
@@ -165,11 +166,11 @@ bool UIModule::PostUpdate()
 			}
 		}
 
+
 		// print UI that is on top of the SCENE SCREEN here
 		
-
 		//UI Minigame
-		// Condition for debug
+		// Condition for minigame
 		if (app->scene->minigameActive)
 		{
 			app->render->DrawTexture(app->scene->ropeTexture, app->scene->ropeX, app->scene->ropeY, &app->scene->ropeRect);
@@ -177,17 +178,29 @@ bool UIModule::PostUpdate()
 		}
 		else
 		{
-			// UI Quest
-			if (app->scene->player->playerState == app->scene->player->PlayerState::MOVING)
+			// Tutorial Textures here (on top of quest)
+			if (app->scene->basicTutorialCounter == 0)
 			{
-				app->render->DrawTexture(app->scene->questUiTexture, -app->render->camera.x + 30, -app->render->camera.y + 30, NULL);
+				app->render->DrawTexture(app->scene->moveTutorialTexutre, -app->render->camera.x, -app->render->camera.y);
+			}
+			else if (app->scene->basicTutorialCounter == 1)
+			{
+				app->render->DrawTexture(app->scene->interactTutorialTexutre, -app->render->camera.x, -app->render->camera.y);
+			}
+			else // If no longer tutorial, print Quest
+			{
+				// UI Quest
+				if (app->scene->player->playerState == app->scene->player->PlayerState::MOVING)
+				{
+					app->render->DrawTexture(app->scene->questUiTexture, -app->render->camera.x + 30, -app->render->camera.y + 30, NULL);
+				}
 			}
 		}
 
 	}
 
-	//... check for others scenes if they are loaded before calling them here
-	// This module starts before any other scene
+	//... check for others scenes if they are loaded before calling them here because
+	// this module starts before any other scene
 
 
 	return ret;
@@ -695,6 +708,7 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		// Disable other menus buttons:
 
 		break;
+
 	case DISABLED:
 
 		//...

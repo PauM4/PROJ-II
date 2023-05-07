@@ -102,9 +102,12 @@ public:
 	SDL_Texture* uiSpriteTexture;
 	SDL_Texture* questUiTexture;
 
-	SDL_Texture* ropeTexture;
+	// Basic Tutorials
+	SDL_Texture* moveTutorialTextutre;
+	SDL_Texture* interactTutorialTextutre;
 
 	// Rope minigame
+	SDL_Texture* ropeTexture;
 	Animation pressKeyAnim;
 	SDL_Texture* pressKeyTexture;
 	SDL_Rect ropeRect;

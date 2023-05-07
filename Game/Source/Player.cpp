@@ -210,6 +210,10 @@ bool Player::Update(float dt)
 		/*app->fonts->DrawText("PLAYER STATE: ITEM_INTERACT", position.x + 100, position.y + 100,
 			100, 100, { 255,255,255,255 }, app->fonts->gameFont);*/
 		break;
+	case TUTORIAL:
+		LOG("TUTORIAL MODE");
+		movementRestringed = true;
+		break;
 	case NONE:
 		break;
 	}

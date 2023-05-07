@@ -76,6 +76,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	pressKeyTexture = app->tex->Load("Assets/UI/pressEanimation.png");
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
+	moveTutorialTextutre = app->tex->Load("Assets/UI/Movement_Guide.png");
+	interactTutorialTextutre = app->tex->Load("Assets/UI/Interact_Guide.png");
 
 	return ret;
 }
@@ -210,24 +212,17 @@ bool Scene::Update(float dt)
 		{
 			basicTutorialCounter++;
 		}
+		player->playerPrevState = player->playerState;
+		player->playerState = player->TUTORIAL;
 
-		// Here draw the tutorial images
-		if (basicTutorialCounter == 0)
+		if (basicTutorialCounter >= 2)
 		{
-
+			player->playerPrevState = player->playerState;
+			player->playerState = player->MOVING;
 		}
-		else if (basicTutorialCounter == 1)
-		{
+		// !!! Tutorial Images drawn in UIModule using basicTtorialCounter variable
 
-		}
-		else if (basicTutorialCounter == 2)
-		{
-			app->audio->SetMusicVolume(128);
-		}
-	}
-
-	
-	
+	}	
 
 	UpdateMinigameLogic(dt);
 
@@ -400,6 +395,8 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(ropeTexture);
 	app->tex->UnLoad(pressKeyTexture);
 	app->tex->UnLoad(questUiTexture);
+	app->tex->UnLoad(moveTutorialTextutre);
+	app->tex->UnLoad(interactTutorialTextutre);
 	
 
 	return true;

@@ -72,6 +72,7 @@ public:
 		BATTLE,
 		NPC_INTERACT,
 		ITEM_INTERACT,
+		TUTORIAL,
 		NONE
 	};
 

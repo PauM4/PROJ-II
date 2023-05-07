@@ -77,6 +77,8 @@ bool SceneMainMenu::Update(float dt)
 		returnPressed = true;
 	}
 
+
+
 	return true;
 }
 
@@ -98,8 +100,6 @@ bool SceneMainMenu::PostUpdate()
 	{
 		app->render->DrawTexture(credits_image, 0, 0, NULL);
 	}
-
-
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
