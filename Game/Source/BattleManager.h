@@ -20,6 +20,7 @@ struct TileData {
 	int y;
 	Entity* character = nullptr;
 	bool inRange;
+	bool isCharacter;
 	TILE_TYPE type;
 };
 
@@ -103,7 +104,9 @@ public:
 	bool DisplayTurnList();
 
 	//Displays the area of effect of an action
-	bool DisplayArea(ActionType type);
+	bool DisplayAtackArea(ActionType type);
+
+	bool DisplayMoveArea(ActionType type);
 
 	//Apply action type from character to all targets
 	bool ApplyAction(Entity* character, ActionType type);
@@ -174,6 +177,7 @@ public:
 	bool isPaused;
 	bool win;
 	bool lose;
+	int enemyTimer;
 
 	//Pathfinding varibles
 	iPoint origin;

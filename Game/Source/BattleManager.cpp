@@ -18,6 +18,7 @@
 #include "Log.h"
 #include"Enemy_AngryVillager.h"
 #include "SceneBattle.h"
+#include "Timer.h"
 
 BattleManager::BattleManager(bool isActive) : Module(isActive) {
 
@@ -49,7 +50,8 @@ bool BattleManager::Start() {
 	
 	currentTurn = turnList.start->data;
 	origin = currentTurn->tilePos;
-
+	enemyTimer = 0;
+	pathIndex = 1;
 	battleState = BattleState::THINKING;
 	return true;
 }
@@ -95,16 +97,21 @@ bool BattleManager::Update(float dt) {
 		origin = currentTurn->tilePos;
 		targets.Clear();
 		actionArea.Clear();
+		area.Clear();
+		if (currentTurn->isEnemy)
+		{
+			battleState = BattleState::ENEMY;
+		}
 		break;
 	case BattleState::SELCETED:
 
-//		origin = currentTurn->tilePos;
+	
 		actionArea.Clear();
 		targets.Clear();
 		GetActionArea(currentTurn, actionType);
 
-		if (!currentTurn->isEnemy)
-		{
+		if (!currentTurn->isEnemy) {
+
 			if (actionType == ActionType::MOVE) {
 
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -125,7 +132,7 @@ bool BattleManager::Update(float dt) {
 			else if (actionType == ActionType::END_TURN) {
 
 				currentTurn->GainStamina(10);
-				battleState= BattleState::INACTION;
+				battleState = BattleState::INACTION;
 
 			}
 			else {
@@ -151,23 +158,23 @@ bool BattleManager::Update(float dt) {
 				}
 			}
 		}
-		
+
 
 		break;
 	case BattleState::INACTION:
 
 		if (actionType == ActionType::MOVE) {
-			
+
 			if (pathIndex != length) {
 
-				length = app->pathfinding->CreatePath(origin, destination);
+				
 				Move(pathIndex, length);
 			}
 			else
 			{
 				if (currentTurn->tilePos == destination) {
 
-				
+
 					destination = iPoint(0, 0);
 					length = 1;
 					pathIndex = 1;
@@ -187,23 +194,107 @@ bool BattleManager::Update(float dt) {
 
 		break;
 	case BattleState::ENEMY:
-			origin = currentTurn->tilePos;
+
+		////Miramos si tiene que atacar o tiene que moverse
+		//app->sceneBattle->conditionToRangeChecker = IaEnemyAttack();
+
+		////Miramos si tiene suficiente stamina para que se mueva
+		//app->sceneBattle->noStaminaToMove = IaEnemyMove();
+
+		//if (enemyTimer > 300) {
+
+		//	//Se Ejecuta el arbol
+		//	app->sceneBattle->RunTree();
+		//	enemyTimer = 0;
+		//	battleState = BattleState::INACTION;
+		//}
+		//else {
+		//	enemyTimer++;
+		//}
+
+		GetActionArea(currentTurn, ActionType::ATTACK);
+		SelectTargets();
+
+		if (currentTurn->stamina >= 5 && battleState == BattleState::ENEMY)
+		{
+			ListItem<Entity*>* entitylist;
+			entitylist = targets.start;
+
+			while (entitylist != NULL)
+			{
+				if (entitylist->data->isAlive == true)
+				{
+					entitylist->data->health = entitylist->data->health - (currentTurn->attack - entitylist->data->defense);
+					targets.Clear();
+					currentTurn->UseStamina(5);
+					entitylist = NULL;
+					actionType = ActionType::ATTACK;
+					battleState = BattleState::INACTION;
+					break;
+				}
+
+				entitylist = entitylist->next;
+
+			}
+
+		}
+		if (currentTurn->stamina >= 3 && battleState == BattleState::ENEMY) {
+
 			targets.Clear();
 			actionArea.Clear();
-			area.Clear();
 
-			//Miramos si tiene que atacar o tiene que moverse
-			app->sceneBattle->conditionToRangeChecker = IaEnemyAttack();
+	/*		iPoint pos = iPoint(currentTurn->tilePos.x, currentTurn->tilePos.y+1);
+			length = app->path  finding->CreatePath(origin, pos);
+			destination.x = pos.x;
+			destination.y = pos.y;
+			currentTurn->UseStamina(3);
+			actionType = ActionType::MOVE;
+			battleState = BattleState::INACTION;*/
 
-			//Miramos si tiene suficiente stamina para que se mueva
-			app->sceneBattle->noStaminaToMove = IaEnemyMove();
+			GetActionArea(currentTurn, ActionType::MOVE);
 
-			//Se Ejecuta el arbol
-			app->sceneBattle->RunTree();
+			if (battleState == BattleState::ENEMY) {
+				ListItem<TileData*>* tiledata;
+				for (tiledata = actionArea.start; tiledata != NULL; tiledata = tiledata->next) {
 
+					if (battleState == BattleState::ENEMY && tiledata->data->isCharacter==false) {
+						
+						iPoint pos = iPoint(tiledata->data->x, tiledata->data->y);
+						CreateArea(currentTurn->AttArea, 1, pos);
+						for (int i = 0; i < area.Count(); i++) {
+
+							if (area.At(i)->data->isCharacter == true && area.At(i)->data->character->isAlive == true) {
+
+								length = app->pathfinding->CreatePath(origin, pos);
+								destination.x = pos.x;
+								destination.y = pos.y;
+								currentTurn->UseStamina(3);
+								actionType = ActionType::MOVE;
+								i = area.Count();
+								battleState = BattleState::INACTION;
+								
+							}
+
+						}
+
+					}
+
+				}
+			}
+
+				
+
+			
+			
+		}
+	
+		if (battleState == BattleState::ENEMY) {
+			currentTurn->GainStamina(10);
 			battleState = BattleState::INACTION;
+		}
 
-			break;
+		break;
+
 	case BattleState::WIN:
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
 		break;
@@ -215,13 +306,6 @@ bool BattleManager::Update(float dt) {
 	}
 
 
-	if (currentTurn->isEnemy)
-	{
-		if (battleState == BattleState::THINKING) {
-			battleState = BattleState::ENEMY;
-
-		}
-	}
 
 	
 	CheckWinCondition();
@@ -234,9 +318,9 @@ bool BattleManager::Update(float dt) {
 
 bool BattleManager::PostUpdate() {
 
-	if (battleState == BattleState::SELCETED) {
+	if (battleState == BattleState::SELCETED || battleState==BattleState::ENEMY) {
 
-		DisplayArea(actionType);
+		DisplayAtackArea(actionType);
 		DisplayEnemys();
 
     }
@@ -273,32 +357,32 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Attack
 	case 16:
-
-		app->battleManager->buttonPressed = CombatButtons::ATTACK;
-		app->battleManager->battleState = BattleState::SELCETED;
-		app->battleManager->actionType = ActionType::ATTACK;
+		if (currentTurn->stamina >= 5) {
+			app->battleManager->buttonPressed = CombatButtons::ATTACK;
+			app->battleManager->battleState = BattleState::SELCETED;
+			app->battleManager->actionType = ActionType::ATTACK;
+		}
 		break;
 		// Ability
 	case 17:
-
-		app->battleManager->buttonPressed = CombatButtons::ABILITY;
-		app->battleManager->battleState = BattleState::SELCETED;
-		app->battleManager->actionType = ActionType::ABILITY;
-
+		if (currentTurn->stamina >= 10) {
+			app->battleManager->buttonPressed = CombatButtons::ABILITY;
+			app->battleManager->battleState = BattleState::SELCETED;
+			app->battleManager->actionType = ActionType::ABILITY;
+		}
 		break;
 		// Move
 	case 18:
-
-		app->battleManager->buttonPressed = CombatButtons::MOVE;
-		app->battleManager->battleState = BattleState::SELCETED;
-		app->battleManager->actionType = ActionType::MOVE;
-
+		if (currentTurn->stamina >= 3) {
+			app->battleManager->buttonPressed = CombatButtons::MOVE;
+			app->battleManager->battleState = BattleState::SELCETED;
+			app->battleManager->actionType = ActionType::MOVE;
+		}
 		break;
 
 		// End turn
 	case 19:
 		app->battleManager->buttonPressed = CombatButtons::END;
-
 		app->battleManager->battleState = BattleState::THINKING;
 		app->battleManager->actionType = ActionType::END_TURN;
 
@@ -392,6 +476,7 @@ void BattleManager::UpdateCombatMap() {
 
 			combatMap[i][j].character= nullptr;
 			combatMap[i][j].inRange = false;
+			combatMap[i][j].isCharacter = false;
 	
 		}
 	}
@@ -399,7 +484,7 @@ void BattleManager::UpdateCombatMap() {
 	for (ListItem<Entity*>* entity = turnList.start; entity != NULL; entity = entity->next) {
 
          combatMap[entity->data->tilePos.x][entity->data->tilePos.y].character = entity->data;
-
+		 combatMap[entity->data->tilePos.x][entity->data->tilePos.y].isCharacter = true;
 	}
 
 }
@@ -665,7 +750,7 @@ bool BattleManager::DisplayTurnList() {
 	return true;
 }
 
-bool BattleManager::DisplayArea(ActionType type) {
+bool BattleManager::DisplayAtackArea(ActionType type) {
 
 	bool ret = true;
 
@@ -705,6 +790,33 @@ bool BattleManager::DisplayArea(ActionType type) {
 
 	return ret;
 }
+bool BattleManager::DisplayMoveArea(ActionType type) {
+	
+		bool ret = true;
+	
+		ListItem<TileData*>*tileListItem;
+		tileListItem = area.start;
+	
+		uint color[3];
+	
+	
+		color[0] = 255;
+		color[1] = 0;
+		color[2] = 0;
+		
+	
+		while (tileListItem != NULL) {
+	
+			
+			iPoint pos = app->map->MapToWorld(tileListItem->data->x, tileListItem->data->y);
+			app->render->DrawRectangle({ pos.x,pos.y,app->map->mapData.tileWidth,app->map->mapData.tileHeight }, 0, 0, 250, 100);
+	
+			tileListItem = tileListItem->next;
+		}
+	
+		return ret;
+	}
+
 
 bool BattleManager::ApplyAction(Entity* character, ActionType type) {
 
@@ -879,8 +991,6 @@ bool BattleManager::IaEnemyMove() {
 bool BattleManager::CreateArea(int range, int type, iPoint posTile) {
 
 
-
-
 	switch (type) {
 
 	case 0:
@@ -985,113 +1095,3 @@ bool BattleManager::CreateArea(int range, int type, iPoint posTile) {
 }
 
 
-//if (moveenemy == true) {
-//
-//    /*	move = true;
-//	moveanim = false;
-//
-//
-//	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-//
-//		atack = true;
-//
-//	}*/
-//
-//	if (characterTurn->stamina >= 5 && length==1) {
-//		ListItem<Entity*>* entitylist;
-//		entitylist = targets.start;
-//
-//		while (entitylist != NULL && moveenemy == true) {
-//
-//			/*Combat(characterTurn, targets, 1);*/
-//
-//			if (entitylist->data->isAlive == true) {
-//				entitylist->data->health = entitylist->data->health - (characterTurn->attack - entitylist->data->defense);
-//				targets.Clear();
-//				characterTurn->UseStamina(5);
-//				turnstart = false;
-//				atack = false;
-//				moveenemy = false;
-//
-//			}
-//
-//			entitylist = entitylist->next;
-//
-//		}
-//
-//	}
-//
-//
-//	if (moveenemy == true && characterTurn->stamina >= 3) {
-//
-//		moveanim = true;
-//		move = true;
-//		for (int i = 0; i < 16; i++) {
-//			for (int j = 0; j < 9; j++) {
-//
-//				if (moveenemy == true) {
-//					if (combatMap[i][j].inRange == true && combatMap[i][j].character == false && atack == false) {
-//						iPoint pos = iPoint(i, j);
-//
-//						if (app->pathfinding->IsWalkable(pos)) {
-//							CreateArea(LRRH->AttArea, 1, pos);
-//							for (int i = 0; i < area.Count(); i++) {
-//
-//								if (area.At(i)->data->character == true && area.At(i)->data->dead == false) {
-//
-//									length = app->pathfinding->CreatePath(origin, pos);
-//									destination.x = pos.x;
-//									destination.y = pos.y;
-//									originSelected = false;
-//									moveenemy = false;
-//									characterTurn->UseStamina(3);
-//									i = area.Count();
-//
-//								}
-//
-//							}
-//						}
-//					}
-//					
-//				}
-//
-//			}
-//
-//		}
-//	} 
-//	if(moveenemy == true && characterTurn->stamina >= 3) {
-//
-//		moveanim = true;
-//		
-//				if (moveenemy == true) {
-//					
-//						iPoint pos = iPoint(characterTurn->tilePos.x - 3, characterTurn->tilePos.y);
-//						
-//						if (app->pathfinding->IsWalkable(pos)) {
-//							
-//
-//									length = app->pathfinding->CreatePath(origin, pos);
-//									destination.x = pos.x;
-//									destination.y = pos.y;
-//									originSelected = false;
-//									moveenemy = false;
-//									characterTurn->UseStamina(3);
-//
-//							
-//						}
-//					
-//				
-//				}
-//
-//			
-//
-//		
-//	}
-//	else if (moveenemy == true) {
-//
-//		characterTurn->GainStamina(10);
-//		moveenemy = false;
-//	 }
-//
-//
-//}
