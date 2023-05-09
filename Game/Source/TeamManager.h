@@ -100,7 +100,14 @@ public:
 	item handsxd;
 	item bow;
 	item club;
+	item knife;
+	item shotgun;
+	item ironchestplate;
+	item reversehat;
 	item talisman;
+	item susjar;
+	item dentures;
+
 	List<item> inventory;
 	List<item> equipment;
 	stats timmystats;

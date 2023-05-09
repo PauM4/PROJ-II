@@ -138,6 +138,120 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		club.Ab2Area = newnode.attribute("Ab2Area").as_int();
 		club.healingpower = newnode.attribute("healingpower").as_int();
 	}
+	if (config.child("item").child("knife")) {
+		pugi::xml_node newnode = config.child("item").child("knife");
+		knife.ininventory = newnode.attribute("ininventory").as_bool();
+		knife.type = newnode.attribute("type").as_int();
+		knife.weaponuser = newnode.attribute("weaponuser").as_int();
+		knife.character = newnode.attribute("character").as_int();
+		knife.name = newnode.attribute("name").as_string();
+		knife.defense = newnode.attribute("defense").as_int();
+		knife.magic = newnode.attribute("magic").as_int();
+		knife.speed = newnode.attribute("speed").as_int();
+		knife.movement = newnode.attribute("movement").as_int();
+		knife.attack = newnode.attribute("attack").as_int();
+		knife.AttArea = newnode.attribute("AttArea").as_int();
+		knife.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		knife.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		knife.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		knife.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		knife.healingpower = newnode.attribute("healingpower").as_int();
+	}
+	if (config.child("item").child("shotgun")) {
+		pugi::xml_node newnode = config.child("item").child("shotgun");
+		shotgun.ininventory = newnode.attribute("ininventory").as_bool();
+		shotgun.type = newnode.attribute("type").as_int();
+		shotgun.weaponuser = newnode.attribute("weaponuser").as_int();
+		shotgun.character = newnode.attribute("character").as_int();
+		shotgun.name = newnode.attribute("name").as_string();
+		shotgun.defense = newnode.attribute("defense").as_int();
+		shotgun.magic = newnode.attribute("magic").as_int();
+		shotgun.speed = newnode.attribute("speed").as_int();
+		shotgun.movement = newnode.attribute("movement").as_int();
+		shotgun.attack = newnode.attribute("attack").as_int();
+		shotgun.AttArea = newnode.attribute("AttArea").as_int();
+		shotgun.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		shotgun.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		shotgun.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		shotgun.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		shotgun.healingpower = newnode.attribute("healingpower").as_int();
+	}
+	if (config.child("item").child("ironchestplate")) {
+		pugi::xml_node newnode = config.child("item").child("ironchestplate");
+		ironchestplate.ininventory = newnode.attribute("ininventory").as_bool();
+		ironchestplate.type = newnode.attribute("type").as_int();
+		ironchestplate.weaponuser = newnode.attribute("weaponuser").as_int();
+		ironchestplate.character = newnode.attribute("character").as_int();
+		ironchestplate.name = newnode.attribute("name").as_string();
+		ironchestplate.defense = newnode.attribute("defense").as_int();
+		ironchestplate.magic = newnode.attribute("magic").as_int();
+		ironchestplate.speed = newnode.attribute("speed").as_int();
+		ironchestplate.movement = newnode.attribute("movement").as_int();
+		ironchestplate.attack = newnode.attribute("attack").as_int();
+		ironchestplate.AttArea = newnode.attribute("AttArea").as_int();
+		ironchestplate.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		ironchestplate.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		ironchestplate.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		ironchestplate.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		ironchestplate.healingpower = newnode.attribute("healingpower").as_int();
+	}
+	if (config.child("item").child("reversehat")) {
+		pugi::xml_node newnode = config.child("item").child("reversehat");
+		reversehat.ininventory = newnode.attribute("ininventory").as_bool();
+		reversehat.type = newnode.attribute("type").as_int();
+		reversehat.weaponuser = newnode.attribute("weaponuser").as_int();
+		reversehat.character = newnode.attribute("character").as_int();
+		reversehat.name = newnode.attribute("name").as_string();
+		reversehat.defense = newnode.attribute("defense").as_int();
+		reversehat.magic = newnode.attribute("magic").as_int();
+		reversehat.speed = newnode.attribute("speed").as_int();
+		reversehat.movement = newnode.attribute("movement").as_int();
+		reversehat.attack = newnode.attribute("attack").as_int();
+		reversehat.AttArea = newnode.attribute("AttArea").as_int();
+		reversehat.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		reversehat.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		reversehat.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		reversehat.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		reversehat.healingpower = newnode.attribute("healingpower").as_int();
+	}
+	if (config.child("item").child("susjar")) {
+		pugi::xml_node newnode = config.child("item").child("susjar");
+		susjar.ininventory = newnode.attribute("ininventory").as_bool();
+		susjar.type = newnode.attribute("type").as_int();
+		susjar.weaponuser = newnode.attribute("weaponuser").as_int();
+		susjar.character = newnode.attribute("character").as_int();
+		susjar.name = newnode.attribute("name").as_string();
+		susjar.defense = newnode.attribute("defense").as_int();
+		susjar.magic = newnode.attribute("magic").as_int();
+		susjar.speed = newnode.attribute("speed").as_int();
+		susjar.movement = newnode.attribute("movement").as_int();
+		susjar.attack = newnode.attribute("attack").as_int();
+		susjar.AttArea = newnode.attribute("AttArea").as_int();
+		susjar.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		susjar.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		susjar.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		susjar.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		susjar.healingpower = newnode.attribute("healingpower").as_int();
+	}
+	if (config.child("item").child("dentures")) {
+		pugi::xml_node newnode = config.child("item").child("dentures");
+		dentures.ininventory = newnode.attribute("ininventory").as_bool();
+		dentures.type = newnode.attribute("type").as_int();
+		dentures.weaponuser = newnode.attribute("weaponuser").as_int();
+		dentures.character = newnode.attribute("character").as_int();
+		dentures.name = newnode.attribute("name").as_string();
+		dentures.defense = newnode.attribute("defense").as_int();
+		dentures.magic = newnode.attribute("magic").as_int();
+		dentures.speed = newnode.attribute("speed").as_int();
+		dentures.movement = newnode.attribute("movement").as_int();
+		dentures.attack = newnode.attribute("attack").as_int();
+		dentures.AttArea = newnode.attribute("AttArea").as_int();
+		dentures.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		dentures.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		dentures.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		dentures.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		dentures.healingpower = newnode.attribute("healingpower").as_int();
+	}
 	if (config.child("item").child("talisman")) {
 		pugi::xml_node newnode = config.child("item").child("talisman");
 		talisman.ininventory = newnode.attribute("ininventory").as_bool();
@@ -202,7 +316,7 @@ bool TeamManager::Update(float dt)
 		//talisman.ininventory = true;
 		//talisman.character = 2;
 		//timmystats.attack = 123;
-		//app->SaveGameRequest();
+		app->SaveGameRequest();
 
 	}
 	//timmy->attack;
@@ -395,7 +509,54 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 			equipment.Add(club);
 		}
 	}
-
+	knife.ininventory = data.child("inventory").child("knife").attribute("isobtained").as_bool();
+	knife.character = data.child("inventory").child("knife").attribute("character").as_int();
+	if (knife.ininventory == true) {
+		inventory.Add(knife);
+		if (knife.character != 0) {
+			equipment.Add(knife);
+		}
+	}
+	shotgun.ininventory = data.child("inventory").child("shotgun").attribute("isobtained").as_bool();
+	shotgun.character = data.child("inventory").child("shotgun").attribute("character").as_int();
+	if (shotgun.ininventory == true) {
+		inventory.Add(shotgun);
+		if (shotgun.character != 0) {
+			equipment.Add(shotgun);
+		}
+	}
+	ironchestplate.ininventory = data.child("inventory").child("ironchestplate").attribute("isobtained").as_bool();
+	ironchestplate.character = data.child("inventory").child("ironchestplate").attribute("character").as_int();
+	if (ironchestplate.ininventory == true) {
+		inventory.Add(ironchestplate);
+		if (ironchestplate.character != 0) {
+			equipment.Add(ironchestplate);
+		}
+	}
+	reversehat.ininventory = data.child("inventory").child("reversehat").attribute("isobtained").as_bool();
+	reversehat.character = data.child("inventory").child("reversehat").attribute("character").as_int();
+	if (reversehat.ininventory == true) {
+		inventory.Add(reversehat);
+		if (reversehat.character != 0) {
+			equipment.Add(reversehat);
+		}
+	}
+	susjar.ininventory = data.child("inventory").child("susjar").attribute("isobtained").as_bool();
+	susjar.character = data.child("inventory").child("susjar").attribute("character").as_int();
+	if (susjar.ininventory == true) {
+		inventory.Add(susjar);
+		if (susjar.character != 0) {
+			equipment.Add(susjar);
+		}
+	}
+	dentures.ininventory = data.child("inventory").child("dentures").attribute("isobtained").as_bool();
+	dentures.character = data.child("inventory").child("dentures").attribute("character").as_int();
+	if (dentures.ininventory == true) {
+		inventory.Add(dentures);
+		if (dentures.character != 0) {
+			equipment.Add(dentures);
+		}
+	}
 	talisman.ininventory = data.child("inventory").child("talisman").attribute("isobtained").as_bool();
 	talisman.character = data.child("inventory").child("talisman").attribute("character").as_int();
 	if (talisman.ininventory == true) {
@@ -472,6 +633,30 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	inventory.append_child("club");
 	inventory.child("club").append_attribute("isobtained") = club.ininventory;
 	inventory.child("club").append_attribute("character") = club.character;
+
+	inventory.append_child("knife");
+	inventory.child("knife").append_attribute("isobtained") = knife.ininventory;
+	inventory.child("knife").append_attribute("character") = knife.character;
+
+	inventory.append_child("shotgun");
+	inventory.child("shotgun").append_attribute("isobtained") = shotgun.ininventory;
+	inventory.child("shotgun").append_attribute("character") = shotgun.character;
+
+	inventory.append_child("ironchestplate");
+	inventory.child("ironchestplate").append_attribute("isobtained") = ironchestplate.ininventory;
+	inventory.child("ironchestplate").append_attribute("character") = ironchestplate.character;
+
+	inventory.append_child("reversehat");
+	inventory.child("reversehat").append_attribute("isobtained") = reversehat.ininventory;
+	inventory.child("reversehat").append_attribute("character") = reversehat.character;
+
+	inventory.append_child("susjar");
+	inventory.child("susjar").append_attribute("isobtained") = susjar.ininventory;
+	inventory.child("susjar").append_attribute("character") = susjar.character;
+
+	inventory.append_child("dentures");
+	inventory.child("dentures").append_attribute("isobtained") = dentures.ininventory;
+	inventory.child("dentures").append_attribute("character") = dentures.character;
 
 	inventory.append_child("talisman");
 	inventory.child("talisman").append_attribute("isobtained") = talisman.ininventory;
