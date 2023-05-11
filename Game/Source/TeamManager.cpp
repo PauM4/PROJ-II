@@ -9,6 +9,8 @@
 #include "EntityManager.h"
 #include "Timmy.h"
 #include "Bunny.h"
+#include "Fonts.h"
+
 TeamManager::TeamManager(bool isActive) : Module (isActive)
 {
 	name.Create("teamManager");
@@ -61,6 +63,8 @@ bool TeamManager::Awake(pugi::xml_node& config)
 	IsMidPigOnTeam = config.child("onteam").attribute("IsMidPigOnTeam").as_bool();
 	IsPeterOnTeam = config.child("onteam").attribute("IsPeterOnTeam").as_bool();
 
+	characters.Add(timmy);
+	characters.Add(bunny);
 
 	if (config.child("item").child("yoyo")) {
 		pugi::xml_node newnode = config.child("item").child("yoyo");
@@ -296,9 +300,19 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		statslist.At(i)->data->healingpower = 0;
 
 	}
-	
+
 	app->entityManager->Awake(config);
 
+	cont = 0;
+	LvlUpPoints = 3;
+	defenseup = false;
+	magicup = false;
+	speedup = false;
+	movementup = false;
+	attackup = false;
+	Ab1Powerup = false;
+	healingpowerup = false;
+	lvlupbool = false;
 	return true;
 }
 
@@ -313,11 +327,72 @@ bool TeamManager::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
 
+
 		//talisman.ininventory = true;
 		//talisman.character = 2;
 		//timmystats.attack = 123;
+		lvlupbool = !lvlupbool;
 		app->SaveGameRequest();
 
+	}
+	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
+
+		defenseup = true;
+
+	}
+	if (lvlupbool == true) {
+		if (cont < characters.Count()) {
+			if (LvlUpPoints > 0) {
+
+				if (defenseup == true) {
+					statslist.At(cont)->data->defense++;
+					LvlUpPoints--;
+					defenseup = false;
+					app->SaveGameRequest();
+				}
+				if (magicup == true) {
+					statslist.At(cont)->data->magic++;
+					LvlUpPoints--;
+					magicup = false;
+				}
+				if (speedup == true) {
+					statslist.At(cont)->data->speed++;
+					LvlUpPoints--;
+					speedup = false;
+				}
+				if (movementup == true) {
+					statslist.At(cont)->data->movement++;
+					LvlUpPoints--;
+					movementup = false;
+				}
+				if (attackup == true) {
+					statslist.At(cont)->data->attack++;
+					LvlUpPoints--;
+					attackup = false;
+				}
+				if (Ab1Powerup == true) {
+					statslist.At(cont)->data->Ab1Power++;
+					LvlUpPoints--;
+					Ab1Powerup = false;
+				}
+				if (healingpowerup == true) {
+					statslist.At(cont)->data->healingpower++;
+					LvlUpPoints--;
+					healingpowerup = false;
+				}
+
+			}
+			if (LvlUpPoints == 0) {
+				cont++;
+				LvlUpPoints = 3;
+			}
+		}
+		if (cont >= characters.Count()) {
+
+			lvlupbool = false;
+			cont = 0;
+			app->SaveGameRequest();
+		}
 	}
 	//timmy->attack;
 	//bunny->magic;
@@ -327,6 +402,20 @@ bool TeamManager::Update(float dt)
 
 bool TeamManager::PostUpdate()
 {
+	if (lvlupbool == true) {
+		app->fonts->DrawText("Level Up! Choose between these stats to boost: ", -app->render->camera.x + 900, -app->render->camera.y + 300, 100, 100, { 0, 0, 0 });
+		std::string stringname = characters.At(cont)->data->name.GetString();
+		const char* charactername = stringname.c_str();
+		app->fonts->DrawText(charactername, -app->render->camera.x + 900, -app->render->camera.y + 350, 100, 100, {0, 0, 0});
+
+		uint defense = characters.At(cont)->data->defense + statslist.At(cont)->data->defense;
+		std::string defenSestring = std::to_string(defense);
+		const char* defChar = defenSestring.c_str();
+		app->fonts->DrawText("Defense: ", -app->render->camera.x + 900, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
+		app->fonts->DrawText(defChar, -app->render->camera.x + 1000, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
+
+
+	}
 
 	return true;
 }
@@ -346,6 +435,7 @@ bool TeamManager::CleanUp()
 	peter->CleanUp();
 	return true;
 }
+
 bool TeamManager::LoadState(pugi::xml_node& data)
 {
 	
@@ -857,3 +947,4 @@ bool TeamManager::addallstats()
 
 	return false;
 }
+

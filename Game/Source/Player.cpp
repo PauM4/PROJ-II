@@ -251,7 +251,7 @@ bool Player::PostUpdate() {
 	{
 		app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
 	}
-	
+
 	return true;
 }
 

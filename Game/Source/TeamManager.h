@@ -78,6 +78,8 @@ public:
 
 	bool addallstats();
 
+	bool printLVLup();
+
 private:
 
 	bool LoadState(pugi::xml_node&);
@@ -142,6 +144,20 @@ public:
 	bool IsPeterOnTeam;
 
 	bool statsdone = false;
+
+	
+	bool defenseup;
+	bool magicup;
+	bool speedup;
+	bool movementup;
+	bool attackup;
+	bool Ab1Powerup;
+	bool healingpowerup;
+
+	bool lvlupbool;
+
+	int LvlUpPoints;
+	int cont;
 
 private:
 
