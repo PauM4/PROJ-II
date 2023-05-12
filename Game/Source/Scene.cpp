@@ -155,16 +155,28 @@ bool Scene::Start()
 	
 	Quest quest1;
 	quest1.completed = false;
-	quest1.description = "HOLA 1";
+	quest1.description = "Leave the forest and find the magic wand";
 	questList.push_back(quest1);
 
 	Quest quest2;
 	quest2.completed = false;
-	quest2.description = "HOLA 2";
+	quest2.description = "Look for help in the village";
 	questList.push_back(quest2);
 
-	questText = "RES";
+	Quest quest3;
+	quest3.completed = false;
+	quest3.description = "Look for the Little Red Riding Hood grandma";
+	questList.push_back(quest3);
 
+	Quest quest4;
+	quest4.completed = false;
+	quest4.description = "Go save LRRH";
+	questList.push_back(quest4);
+
+	Quest quest5;
+	quest5.completed = false;
+	quest5.description = "Get through the portal";
+	questList.push_back(quest5);
 
 	return true;
 }
@@ -1073,7 +1085,11 @@ void Scene::drawQuest(int posX, int posY) {
 
 	questText = questList[currentQuestIndex].description;
 
-	app->fonts->DrawText(questText, posX, posY, 100, 100, { 0, 0, 0 });
+	SDL_Rect rect = { 0, 0, 280, 20 };
+
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, questText, { 0,0,0 }, 280);
+
+	app->render->DrawTexture(textDialogue, posX, posY, &rect);
 }
 
 // A function to move to the next quest
