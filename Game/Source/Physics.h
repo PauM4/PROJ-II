@@ -46,8 +46,11 @@ enum class ColliderType {
 	SHEEPC,
 	SHEEPD,
 	PEDRO,
-	WOLF
+	WOLF,
+
 	// ..
+	// QUESTS
+	SECQUESTCOLLIDER
 };
 
 // Small class to return to other modules to track position and rotation of physics bodies

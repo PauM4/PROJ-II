@@ -178,6 +178,9 @@ bool Scene::Start()
 	quest5.description = "Get through the portal";
 	questList.push_back(quest5);
 
+	secondQuestCollider = app->physics->CreateRectangleSensor(1756 + 443/2, 3968 + 101/2, 443, 101, bodyType::STATIC);
+	secondQuestCollider->ctype = ColliderType::SECQUESTCOLLIDER;
+
 	return true;
 }
 

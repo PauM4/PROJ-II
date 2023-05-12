@@ -436,6 +436,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			npcInteractAvailable = true;
 			lastCollision = ColliderType::SHEEPD;
 			break;
+		case ColliderType::SECQUESTCOLLIDER:
+			LOG("Collision SecondQuestCollider");
+			app->scene->nextQuest();
+			if (app->scene->secondQuestCollider != NULL)
+			{
+				app->scene->secondQuestCollider->body->SetActive(false);
+			}
+			break;
 	}
 }
 

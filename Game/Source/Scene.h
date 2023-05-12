@@ -104,6 +104,7 @@ public:
 	// A list of quests
 	std::vector<Quest> questList;
 	const char* questText;
+	PhysBody* secondQuestCollider;
 
 	// The index of the current quest
 	int currentQuestIndex;
