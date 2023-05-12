@@ -11,13 +11,14 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1467" y="3761" x="1483" y="3702" />
+		<player x="2021" y="3612" />
 		<rope_minigame rope_minigame_state="false" />
 		<chests>
 			<chest isPicked="false" />
 			<chest isPicked="false" />
 			<chest isPicked="false" />
 		</chests>
+		<questIndex questIndex="1" />
 	</scene>
 	<sceneBattle />
 	<sceneGrandma />
@@ -60,7 +61,7 @@
 	</teamManager>
 	<fadeToBlack />
 	<renderer>
-		<camera x="-507" y="-3181" />
+		<camera x="-1045" y="-3091" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

@@ -933,6 +933,8 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 	LoadChests(data);
 
+	currentQuestIndex = data.child("questIndex").attribute("questIndex").as_int();
+	if (currentQuestIndex == 0) secondQuestCollider->body->SetActive(true);
 
 	return true;
 }
@@ -972,6 +974,10 @@ bool Scene::SaveState(pugi::xml_node& data)
 		chestNode.append_attribute("isPicked").set_value(chest->isPicked);
 		// Add code to save other variables of the chest here
 	}
+
+	pugi::xml_node questIndexSave = data.append_child("questIndex");
+
+	questIndexSave.append_attribute("questIndex").set_value(currentQuestIndex);
 	
 
 	return true;
