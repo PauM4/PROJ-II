@@ -102,7 +102,7 @@ public:
 
 
 public:
-	Tile* map[8][8] = {0};
+	Tile* map[10][10] = {0};
 
 	TilePlayer* player;  
 private:

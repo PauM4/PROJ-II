@@ -24,8 +24,8 @@ SceneFoxQuest::~SceneFoxQuest()
 
 bool SceneFoxQuest::Awake(pugi::xml_node& config)
 {
-	mapLength = 8;
-	mapHeigth = 8;
+	mapLength = 10;
+	mapHeigth = 10;
 	return true;
 }
 
@@ -40,12 +40,15 @@ bool SceneFoxQuest::Start()
 			map[i][j]->x = i;
 			map[i][j]->y = j;
 			map[i][j]->state = TileState::EMPTY; 
+			if (i == 0 || i == 9 || j == 0 || j == 9) {
+				map[i][j]->state = TileState::WALL;
+			}
 		}
 	}
 	map[3][3]->state = TileState::PLAYER; 
-	map[0][1]->state = TileState::ROCK;
-	map[0][2]->state = TileState::ROCK;
-	map[1][0]->state = TileState::ROCK;
+	map[1][2]->state = TileState::ROCK;
+	map[1][3]->state = TileState::ROCK;
+	map[2][1]->state = TileState::ROCK;
 
 	player = new TilePlayer(); 
 
@@ -74,28 +77,28 @@ bool SceneFoxQuest::Update(float dt)
 		switch (player->direction) {
 		case Direction::RIGHT:
 			player->tilePos.x += 3; 
-			if (player->tilePos.x >= player->pos.x * 150) {
+			if (player->tilePos.x >= player->pos.x * 108 + 420) {
 				player->isMoving = false; 
 				player->currentAnimation = &player->idleAnim; 
 			}
 			break; 
 		case Direction::LEFT:
 			player->tilePos.x -= 3;
-			if (player->tilePos.x <= player->pos.x * 150) {
+			if (player->tilePos.x <= player->pos.x * 108 + 420) {
 				player->isMoving = false;
 				player->currentAnimation = &player->idleAnim;
 			}
 			break; 
 		case Direction::UP:
 			player->tilePos.y -= 3;
-			if (player->tilePos.y <= player->pos.y * 150) {
+			if (player->tilePos.y <= player->pos.y * 108) {
 				player->isMoving = false;
 				player->currentAnimation = &player->idleAnim;
 			}
 			break; 
 		case Direction::DOWN:
 			player->tilePos.y += 3;
-			if (player->tilePos.y >= player->pos.y * 150) {
+			if (player->tilePos.y >= player->pos.y * 108) {
 				player->isMoving = false;
 				player->currentAnimation = &player->idleAnim;
 			}
@@ -309,8 +312,8 @@ void TilePlayer::SetPlayerPos(int x, int y)
 	pos.x = newPlayerX;
 	pos.y = newPlayerY;
 
-	tilePos.x = pos.x * 150; 
-	tilePos.y = pos.y * 150;
+	tilePos.x = pos.x * 108 + 420; 
+	tilePos.y = pos.y * 108;
 }
 
 bool TilePlayer::CleanUp()
