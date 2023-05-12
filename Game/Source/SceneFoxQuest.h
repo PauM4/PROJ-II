@@ -56,6 +56,9 @@ public:
 	Animation walkRightAnim;
 	Animation walkLeftAnim;
 	Animation idleAnim;
+	Animation idleUp; 
+	Animation idleRight; 
+	Animation idleLeft; 
 	Direction direction; 
 	bool isMoving; 
 
@@ -97,7 +100,9 @@ public:
 	
 	void Movement(); 
 
-	bool PushRock(int moveX, int moveY, int pX, int pY); 
+	bool PushRock(int moveX, int moveY, int pX, int pY);
+
+	bool PullRock(int moveX, int moveY, int pX, int pY);
 
 
 

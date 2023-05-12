@@ -211,6 +211,15 @@ TilePlayer::TilePlayer() {
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
 
+	idleUp.PushBack({0, 600, 150, 150});
+	idleUp.loop = true; 
+
+	idleLeft.PushBack({ 0, 300, 150, 150 });
+	idleLeft.loop = true; 
+
+	idleRight.PushBack({ 0, 450, 150, 150 });
+	idleRight.loop = true; 
+
 	for (int i = 0; i < 10; i++) 
 	{
 		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
@@ -259,14 +268,40 @@ void TilePlayer::Move(int x, int y) {
 	if (app->sceneFoxQuest->HitWall(newPlayerX, newPlayerY)) {
 		LOG("HIT WALL");
 		isMoving = false;
-		currentAnimation = &idleAnim;
+		switch (direction) {
+		case Direction::RIGHT:
+			currentAnimation = &idleRight; 
+			break; 
+		case Direction::LEFT:
+			currentAnimation = &idleLeft; 
+			break; 
+		case Direction::UP:
+			currentAnimation = &idleUp;
+			break; 
+		case Direction::DOWN:
+			currentAnimation = &idleAnim;
+			break; 
+		}
 		return; 
 	}
 	if (app->sceneFoxQuest->HitRock(newPlayerX, newPlayerY)) {
 		if (!app->sceneFoxQuest->PushRock(x, y, newPlayerX, newPlayerY)){
 			LOG("CANT PUSH ROCK");
 			isMoving = false; 
-			currentAnimation = &idleAnim;
+			switch (direction) {
+			case Direction::RIGHT:
+				currentAnimation = &idleRight;
+				break;
+			case Direction::LEFT:
+				currentAnimation = &idleLeft;
+				break;
+			case Direction::UP:
+				currentAnimation = &idleUp;
+				break;
+			case Direction::DOWN:
+				currentAnimation = &idleAnim;
+				break;
+			}
 			return;
 		}
 	}
@@ -287,7 +322,6 @@ void TilePlayer::SetAnimation(int x, int y)
 {
 	if (x > 0) {
 		currentAnimation = &walkRightAnim; 
-		
 		LOG("Walking right");
 	}
 	else if (x < 0) {
