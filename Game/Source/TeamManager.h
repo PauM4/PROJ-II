@@ -72,6 +72,8 @@ public:
 
 	bool PostUpdate();
 
+	void PrintLvlUpText();
+
 	bool CleanUp();
 
 	bool additemstats(Entity* ent, int i);
@@ -161,9 +163,6 @@ public:
 
 private:
 
-	
-	
-	
 };
 
 #endif // __TEAMMANAGER_H__

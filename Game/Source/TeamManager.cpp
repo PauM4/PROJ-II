@@ -10,6 +10,7 @@
 #include "Timmy.h"
 #include "Bunny.h"
 #include "Fonts.h"
+#include "UIModule.h"
 
 TeamManager::TeamManager(bool isActive) : Module (isActive)
 {
@@ -332,14 +333,25 @@ bool TeamManager::Update(float dt)
 		//talisman.character = 2;
 		//timmystats.attack = 123;
 		lvlupbool = !lvlupbool;
-		app->SaveGameRequest();
+
+		if (lvlupbool)
+		{
+			// Tell to UIModule which currentMenuType
+			app->uiModule->currentMenuType = LEVEL_UP;
+			// Call this function only when buttons change
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+		}
+		else
+		{
+			// Tell to UIModule which currentMenuType
+			app->uiModule->currentMenuType = DISABLED;
+			// Call this function only when buttons change
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+		}
+		
 
 	}
-	if (app->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN) {
 
-		defenseup = true;
-
-	}
 	if (lvlupbool == true) {
 		if (cont < characters.Count()) {
 			if (LvlUpPoints > 0) {
@@ -348,7 +360,6 @@ bool TeamManager::Update(float dt)
 					statslist.At(cont)->data->defense++;
 					LvlUpPoints--;
 					defenseup = false;
-					app->SaveGameRequest();
 				}
 				if (magicup == true) {
 					statslist.At(cont)->data->magic++;
@@ -391,7 +402,11 @@ bool TeamManager::Update(float dt)
 
 			lvlupbool = false;
 			cont = 0;
-			app->SaveGameRequest();
+
+			// Tell to UIModule which currentMenuType
+			app->uiModule->currentMenuType = DISABLED;
+			// Call this function only when buttons change
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 		}
 	}
 	//timmy->attack;
@@ -402,20 +417,6 @@ bool TeamManager::Update(float dt)
 
 bool TeamManager::PostUpdate()
 {
-	if (lvlupbool == true) {
-		app->fonts->DrawText("Level Up! Choose between these stats to boost: ", -app->render->camera.x + 900, -app->render->camera.y + 300, 100, 100, { 0, 0, 0 });
-		std::string stringname = characters.At(cont)->data->name.GetString();
-		const char* charactername = stringname.c_str();
-		app->fonts->DrawText(charactername, -app->render->camera.x + 900, -app->render->camera.y + 350, 100, 100, {0, 0, 0});
-
-		uint defense = characters.At(cont)->data->defense + statslist.At(cont)->data->defense;
-		std::string defenSestring = std::to_string(defense);
-		const char* defChar = defenSestring.c_str();
-		app->fonts->DrawText("Defense: ", -app->render->camera.x + 900, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
-		app->fonts->DrawText(defChar, -app->render->camera.x + 1000, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
-
-
-	}
 
 	return true;
 }
@@ -948,3 +949,58 @@ bool TeamManager::addallstats()
 	return false;
 }
 
+void TeamManager::PrintLvlUpText()
+{
+	app->fonts->DrawText("Level Up! Choose between these stats to boost: ", -app->render->camera.x + 700, -app->render->camera.y + 300, 100, 100, { 0, 0, 0 });
+	std::string stringname = characters.At(cont)->data->name.GetString();
+	const char* charactername = stringname.c_str();
+	app->fonts->DrawText(charactername, -app->render->camera.x + 700, -app->render->camera.y + 350, 100, 100, { 0, 0, 0 });
+
+	uint remainPoints = LvlUpPoints;
+	std::string remainPointsString = std::to_string(remainPoints);
+	const char* remainPointsChar = remainPointsString.c_str();
+	app->fonts->DrawText("Points: ", -app->render->camera.x + 900, -app->render->camera.y + 350, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(remainPointsChar, -app->render->camera.x + 975, -app->render->camera.y + 350, 100, 100, { 0, 0, 0 });
+
+	uint defense = characters.At(cont)->data->defense + statslist.At(cont)->data->defense;
+	std::string defenSestring = std::to_string(defense);
+	const char* defChar = defenSestring.c_str();
+	app->fonts->DrawText("Defense: ", -app->render->camera.x + 700, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(defChar, -app->render->camera.x + 860, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
+
+	uint magic = characters.At(cont)->data->magic + statslist.At(cont)->data->magic;
+	std::string magicString = std::to_string(magic);
+	const char* magicChar = magicString.c_str();
+	app->fonts->DrawText("Magic: ", -app->render->camera.x + 700, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(magicChar, -app->render->camera.x + 860, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
+
+	uint speed = characters.At(cont)->data->speed + statslist.At(cont)->data->speed;
+	std::string speedString = std::to_string(speed);
+	const char* speedChar = speedString.c_str();
+	app->fonts->DrawText("Speed: ", -app->render->camera.x + 700, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(speedChar, -app->render->camera.x + 860, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
+
+	uint movement = characters.At(cont)->data->movement + statslist.At(cont)->data->movement;
+	std::string movementString = std::to_string(movement);
+	const char* movementChar = movementString.c_str();
+	app->fonts->DrawText("Movement: ", -app->render->camera.x + 700, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(movementChar, -app->render->camera.x + 860, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
+
+	uint attack = characters.At(cont)->data->attack + statslist.At(cont)->data->attack;
+	std::string attackString = std::to_string(attack);
+	const char* attackChar = attackString.c_str();
+	app->fonts->DrawText("Attack: ", -app->render->camera.x + 700, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(attackChar, -app->render->camera.x + 860, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
+
+	uint ability = characters.At(cont)->data->Ab1Power + statslist.At(cont)->data->Ab1Power;
+	std::string abilityString = std::to_string(ability);
+	const char* abilityChar = abilityString.c_str();
+	app->fonts->DrawText("Ability Power: ", -app->render->camera.x + 700, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(abilityChar, -app->render->camera.x + 860, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
+
+	uint healPow = characters.At(cont)->data->healingpower + statslist.At(cont)->data->healingpower;
+	std::string healPowString = std::to_string(healPow);
+	const char* healPowChar = healPowString.c_str();
+	app->fonts->DrawText("Healing Power: ", -app->render->camera.x + 700, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(healPowChar, -app->render->camera.x + 860, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+}

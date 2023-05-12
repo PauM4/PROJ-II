@@ -171,8 +171,22 @@ bool Player::Update(float dt)
 		{
 			app->uiModule->CleaningDialogeOverTime();
 		}
+	}
 
 
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		if (playerState == PlayerState::LEVEL_UP)
+		{
+			playerPrevState = playerState;
+			playerState = MOVING;
+		}
+		// If player is NOT in lvlUP, open it
+		else
+		{
+			playerPrevState = playerState;
+			playerState = LEVEL_UP;
+		}
 	}
 
 
@@ -207,6 +221,10 @@ bool Player::Update(float dt)
 		break;
 	case TUTORIAL:
 		LOG("TUTORIAL MODE");
+		movementRestringed = true;
+		break;
+	case LEVEL_UP:
+		LOG("LEVEL_UP MODE");
 		movementRestringed = true;
 		break;
 	case NONE:

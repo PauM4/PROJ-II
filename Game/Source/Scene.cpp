@@ -10,6 +10,7 @@
 #include "PathFinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
+#include "TeamManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -207,19 +208,6 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 
-	float speed = 0.2 * dt;
-	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += ceil(speed);
-
-	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= ceil(speed);
-
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += ceil(speed);
-
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= ceil(speed);
-
 	GodMode();
 
 	// Menu appear
@@ -270,7 +258,7 @@ bool Scene::Update(float dt)
 
 void Scene::MenuAppear()
 {
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && !app->teamManager->lvlupbool)
 	{
 		// If player is in pause, close it
 		if (player->playerState == player->PlayerState::PAUSE)

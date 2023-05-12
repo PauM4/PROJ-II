@@ -79,6 +79,14 @@ bool UIModule::Start()
 	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "", { 1000, 950, 800, 30 }, app->scene);
 	dialog_text_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "", { 100, 700, 1700, 150 }, this);
 
+	levelup_defenseUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "+", { 900, 400, 100, 30 }, this);
+	levelup_magicUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, "+", { 900, 450, 100, 30 }, this);
+	levelup_speedUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, "+", { 900, 500, 100, 30 }, this);
+	levelup_movementUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, "+", { 900, 550, 100, 30 }, this);
+	levelup_attackUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, "+", { 900, 600, 100, 30 }, this);
+	levelup_AB1PowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, "+", { 900, 650, 100, 30 }, this);
+	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, "+", { 900, 700, 100, 30 }, this);
+
 	// When creating a new button, iniciate it in NONE state
 
 	mainmenu_play_button->state = GuiControlState::NONE;
@@ -113,6 +121,14 @@ bool UIModule::Start()
 	pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 	pausemenuCombat_return_button->state = GuiControlState::NONE;
 	pausemenuCombat_quit_button->state = GuiControlState::NONE;
+
+	levelup_defenseUp_button->state = GuiControlState::NONE;
+	levelup_magicUp_button->state = GuiControlState::NONE;
+	levelup_speedUp_button->state = GuiControlState::NONE;
+	levelup_movementUp_button->state = GuiControlState::NONE;
+	levelup_attackUp_button->state = GuiControlState::NONE;
+	levelup_AB1PowerUp_button->state = GuiControlState::NONE;
+	levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
 	doorPlayerPosition = false;
 
@@ -150,6 +166,13 @@ bool UIModule::Update(float dt)
 bool UIModule::PostUpdate()
 {
 	bool ret = true;
+
+	// Pergami fons level up screen
+	if (app->teamManager->active && app->teamManager->lvlupbool)
+	{
+		app->render->DrawTexture(app->scene->moveTutorialTextutre, -app->render->camera.x, -app->render->camera.y);
+		app->teamManager->PrintLvlUpText();
+	}
 
 	app->guiManager->Draw();
 
@@ -190,7 +213,7 @@ bool UIModule::PostUpdate()
 			else // If no longer tutorial, print Quest
 			{
 				// UI Quest
-				if (app->scene->player->playerState == app->scene->player->PlayerState::MOVING)
+				if (app->scene->player->playerState == app->scene->player->PlayerState::MOVING && !app->teamManager->lvlupbool)
 				{
 					app->render->DrawTexture(app->scene->questUiTexture, -app->render->camera.x + 30, -app->render->camera.y + 30, NULL);
 					app->scene->drawQuest(-app->render->camera.x + 120, -app->render->camera.y + 120);
@@ -439,6 +462,33 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	}
 
+
+	// Level Up Stats
+	switch (control->id)
+	{
+	case 60:
+		app->teamManager->defenseup = true;
+		break;
+	case 61:
+		app->teamManager->magicup = true;
+		break;
+	case 62:
+		app->teamManager->speedup = true;
+		break;
+	case 63:
+		app->teamManager->movementup = true;
+		break;
+	case 64:
+		app->teamManager->attackup = true;
+		break;
+	case 65:
+		app->teamManager->Ab1Powerup = true;
+		break;
+	case 66:
+		app->teamManager->healingpowerup = true;
+		break;
+	}
+
 	return true;
 }
 
@@ -488,6 +538,15 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		pausemenuCombat_return_button->state = GuiControlState::NONE;
 		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 
+		// Disable other menus buttons:
+		levelup_defenseUp_button->state = GuiControlState::NONE;
+		levelup_magicUp_button->state = GuiControlState::NONE;
+		levelup_speedUp_button->state = GuiControlState::NONE;
+		levelup_movementUp_button->state = GuiControlState::NONE;
+		levelup_attackUp_button->state = GuiControlState::NONE;
+		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
+		levelup_healingpowerUp_button->state = GuiControlState::NONE;
+
 		break;
 	case PAUSE:
 
@@ -530,6 +589,13 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 
 		// Disable other menus buttons:
+		levelup_defenseUp_button->state = GuiControlState::NONE;
+		levelup_magicUp_button->state = GuiControlState::NONE;
+		levelup_speedUp_button->state = GuiControlState::NONE;
+		levelup_movementUp_button->state = GuiControlState::NONE;
+		levelup_attackUp_button->state = GuiControlState::NONE;
+		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
+		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
 		break;
 
@@ -572,6 +638,15 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option3_button->state = GuiControlState::NONE;
 		dialog_option4_button->state = GuiControlState::NONE;
 		dialog_text_button->state = GuiControlState::NONE;
+
+		// Disable other menus buttons:
+		levelup_defenseUp_button->state = GuiControlState::NONE;
+		levelup_magicUp_button->state = GuiControlState::NONE;
+		levelup_speedUp_button->state = GuiControlState::NONE;
+		levelup_movementUp_button->state = GuiControlState::NONE;
+		levelup_attackUp_button->state = GuiControlState::NONE;
+		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
+		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
 		break;
 
@@ -617,6 +692,13 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 
 		// Disable other menus buttons:
+		levelup_defenseUp_button->state = GuiControlState::NONE;
+		levelup_magicUp_button->state = GuiControlState::NONE;
+		levelup_speedUp_button->state = GuiControlState::NONE;
+		levelup_movementUp_button->state = GuiControlState::NONE;
+		levelup_attackUp_button->state = GuiControlState::NONE;
+		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
+		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
 		break;
 	case COMBAT:
@@ -660,6 +742,13 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 
 		// Disable other menus buttons:
+		levelup_defenseUp_button->state = GuiControlState::NONE;
+		levelup_magicUp_button->state = GuiControlState::NONE;
+		levelup_speedUp_button->state = GuiControlState::NONE;
+		levelup_movementUp_button->state = GuiControlState::NONE;
+		levelup_attackUp_button->state = GuiControlState::NONE;
+		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
+		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
 
 		break;
@@ -705,8 +794,63 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		pausemenuCombat_return_button->state = GuiControlState::NONE;
 		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 
-
 		// Disable other menus buttons:
+		levelup_defenseUp_button->state = GuiControlState::NONE;
+		levelup_magicUp_button->state = GuiControlState::NONE;
+		levelup_speedUp_button->state = GuiControlState::NONE;
+		levelup_movementUp_button->state = GuiControlState::NONE;
+		levelup_attackUp_button->state = GuiControlState::NONE;
+		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
+		levelup_healingpowerUp_button->state = GuiControlState::NONE;
+
+		break;
+	case LEVEL_UP:
+
+		levelup_defenseUp_button->state = GuiControlState::NORMAL;
+		levelup_magicUp_button->state = GuiControlState::NORMAL;
+		levelup_speedUp_button->state = GuiControlState::NORMAL;
+		levelup_movementUp_button->state = GuiControlState::NORMAL;
+		levelup_attackUp_button->state = GuiControlState::NORMAL;
+		levelup_AB1PowerUp_button->state = GuiControlState::NORMAL;
+		levelup_healingpowerUp_button->state = GuiControlState::NORMAL;
+
+		// Disable all main menu buttons
+		mainmenu_play_button->state = GuiControlState::NONE;
+		mainmenu_options_button->state = GuiControlState::NONE;
+		mainmenu_credits_button->state = GuiControlState::NONE;
+		mainmenu_quit_button->state = GuiControlState::NONE;
+		mainmenu_newGame_button->state = GuiControlState::NONE;
+		mainmenu_continueGame_button->state = GuiControlState::NONE;
+		mainmenu_return_button->state = GuiControlState::NONE;
+
+		// Disable all pause menu buttons
+		pausemenu_resume_button->state = GuiControlState::NONE;
+		pausemenu_save_button->state = GuiControlState::NONE;
+		pausemenu_load_button->state = GuiControlState::NONE;
+		pausemenu_options_button->state = GuiControlState::NONE;
+		pausemenu_return_button->state = GuiControlState::NONE;
+		pausemenu_backtomain_button->state = GuiControlState::NONE;
+		pausemenu_quit_button->state = GuiControlState::NONE;
+
+		// Disable all combat buttons
+		combat_attack_button->state = GuiControlState::NONE;
+		combat_ability_button->state = GuiControlState::NONE;
+		combat_move_button->state = GuiControlState::NONE;
+		combat_endTurn_button->state = GuiControlState::NONE;
+
+		// Disable all dialog buttons
+		dialog_option1_button->state = GuiControlState::NONE;
+		dialog_option2_button->state = GuiControlState::NONE;
+		dialog_option3_button->state = GuiControlState::NONE;
+		dialog_option4_button->state = GuiControlState::NONE;
+		dialog_text_button->state = GuiControlState::NONE;
+
+		// Disable all combat pause buttons
+		pausemenuCombat_resume_button->state = GuiControlState::NONE;
+		pausemenuCombat_options_button->state = GuiControlState::NONE;
+		pausemenuCombat_quit_button->state = GuiControlState::NONE;
+		pausemenuCombat_return_button->state = GuiControlState::NONE;
+		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 
 		break;
 
@@ -751,6 +895,15 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		pausemenuCombat_quit_button->state = GuiControlState::NONE;
 		pausemenuCombat_return_button->state = GuiControlState::NONE;
 		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
+
+		// Disable other menus buttons:
+		levelup_defenseUp_button->state = GuiControlState::NONE;
+		levelup_magicUp_button->state = GuiControlState::NONE;
+		levelup_speedUp_button->state = GuiControlState::NONE;
+		levelup_movementUp_button->state = GuiControlState::NONE;
+		levelup_attackUp_button->state = GuiControlState::NONE;
+		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
+		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
 
 		// Disable other menus buttons:

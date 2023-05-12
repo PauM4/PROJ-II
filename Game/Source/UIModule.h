@@ -20,7 +20,8 @@ enum CurrentMenuType
 	DIALOG,
 	COMBAT,
 	ROPE_MINIGAME,
-	DISABLED
+	DISABLED,
+	LEVEL_UP
 };
 
 class UIModule : public Module
@@ -103,6 +104,15 @@ public:
 	GuiButton* dialog_option3_button;
 	GuiButton* dialog_option4_button;
 	GuiButton* dialog_text_button;
+
+	GuiButton* levelup_defenseUp_button;
+	GuiButton* levelup_magicUp_button;
+	GuiButton* levelup_speedUp_button;
+	GuiButton* levelup_movementUp_button;
+	GuiButton* levelup_attackUp_button;
+	GuiButton* levelup_AB1PowerUp_button;
+	GuiButton* levelup_healingpowerUp_button;
+
 
 	bool quitButtonBool;
 

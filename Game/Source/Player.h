@@ -74,6 +74,7 @@ public:
 		NPC_INTERACT,
 		ITEM_INTERACT,
 		TUTORIAL,
+		LEVEL_UP,
 		NONE
 	};
 

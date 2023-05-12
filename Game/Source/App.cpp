@@ -118,8 +118,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(guiManager);
-	AddModule(uiModule);
 	AddModule(teamManager);
+	AddModule(uiModule);
 	AddModule(fadeToBlack);
 
 	// Render last to swap buffer
