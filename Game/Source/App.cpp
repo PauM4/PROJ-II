@@ -22,6 +22,7 @@
 
 //-------------------
 #include "SceneFoxQuest.h"
+#include "BattleScene_Pigs.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
@@ -66,6 +67,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	sceneBattle = new SceneBattle(false);
 	sceneGrandma = new SceneGrandma(false);
 	sceneFoxQuest = new SceneFoxQuest(false); 
+	battleScene_Pigs = new BattleScene_Pigs(false);
 
 	//World_02
 	w2_scene = new W2_Scene(false);
@@ -103,6 +105,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneBattle);
 	AddModule(sceneGrandma);
 	AddModule(sceneFoxQuest); 
+	AddModule(battleScene_Pigs);
 
 	//World_02
 	AddModule(w2_scene);

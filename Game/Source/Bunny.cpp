@@ -84,19 +84,23 @@ bool Bunny::Awake()
 	}
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
+
+	texture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
+	currentAnimation = &idleAnim;
+
 	return true;
 }
 
 bool Bunny::Start()
 {
-
+	
 
 	return true;
 }
 
 bool Bunny::Update(float dt) 
 {
-
+	currentAnimation->Update();
 	switch (battleState) {
 	case IDLE:
 		break; 
@@ -116,6 +120,9 @@ bool Bunny::Update(float dt)
 
 bool Bunny::PostUpdate()
 {
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x - 55, position.y - 75, &rect);
+
 	return true;
 }
 

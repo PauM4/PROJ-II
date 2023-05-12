@@ -37,6 +37,7 @@ class W3_Scene;
 
 //----------
 class SceneFoxQuest; 
+class BattleScene_Pigs;
 class EntityManager;
 class Map;
 class Fonts;
@@ -127,6 +128,7 @@ public:
 	Scene* scene;
 	SceneCombatLHHR* sceneCombatLHHR;
 	SceneBattle* sceneBattle;
+	BattleScene_Pigs* battleScene_Pigs;
 	SceneGrandma* sceneGrandma;
 
 	//World_02

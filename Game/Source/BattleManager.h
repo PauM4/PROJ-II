@@ -21,6 +21,7 @@ struct TileData {
 	int y;
 	Entity* character = nullptr;
 	bool inRange;
+	bool isCharacter;
 	TILE_TYPE type;
 };
 
@@ -29,6 +30,7 @@ enum class BattleState {
 	THINKING,
 	SELCETED,
 	INACTION,
+	ENEMY,
 	WIN,
 	LOSE
 
@@ -103,7 +105,9 @@ public:
 	bool DisplayTurnList();
 
 	//Displays the area of effect of an action
-	bool DisplayArea(ActionType type);
+	bool DisplayAtackArea(ActionType type);
+
+	bool DisplayMoveArea(ActionType type);
 
 	//Apply action type from character to all targets
 	bool ApplyAction(Entity* character, ActionType type);
@@ -117,6 +121,8 @@ public:
 	void GodMode();
 
 	bool IaEnemyAttack();
+
+	void TriggerAIAttack();
 
 	bool IaEnemyMove();
 
@@ -172,6 +178,7 @@ public:
 	bool isPaused;
 	bool win;
 	bool lose;
+	int enemyTimer;
 
 	//Pathfinding varibles
 	iPoint origin;

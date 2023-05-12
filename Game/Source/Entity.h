@@ -176,8 +176,6 @@ public:
 		return true;
 	}
 
-
-
 	int GetHealth() const { return health; }
 	uint GetMaxHealth() const { return maxHealth; }
 	uint GetDefense() const { return defense; }
@@ -206,7 +204,7 @@ public:
 
 	//In Combat Variables
 
-	enum BattleState
+	enum BattleStatee
 	{
 		UNKNOWN = -1,
 		OUTOFCOMBAT,

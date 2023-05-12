@@ -1,26 +1,23 @@
-#ifndef __SCENE_BATTLE_H__
-#define __SCENE_BATTLE_H__
+#ifndef __BATTLE_SCENE_PIGS_H__
+#define __BATTLE_SCENE_PIGS_H__
 
 #include "Module.h"
 #include "Entity.h"
 #include "GuiButton.h"
 #include "List.h"
 #include "UIModule.h"
-#include "Enemy_AngryVillager.h"
-#include "Timmy.h"
-#include "Bunny.h"
 #include "SDL_Timer.h"
 
 struct SDL_Texture;
 
-class SceneBattle : public Module
+class BattleScene_Pigs : public Module
 {
 public:
 
-	SceneBattle(bool isActive);
+	BattleScene_Pigs(bool isActive);
 
 	// Destructor
-	virtual ~SceneBattle();
+	virtual ~BattleScene_Pigs();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -40,8 +37,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void SaveResult();
-
 	void RunTree();
 
 	void UpdateAnimation(const char* name);
@@ -57,9 +52,9 @@ private:
 	SString mapName;
 	SString mapFolder;
 
-	Timmy* timmy;
+	/*Timmy* timmy;
 	Enemy_AngryVillager* villager;
-	Bunny* bunny;
+	Bunny* bunny;*/
 
 	iPoint timmyPrevPos, bunnyPrevPos, villagerPrevPos;
 	bool timmyPrevPosBool, bunnyPrevPosBool, villagerPrevPosBool;
@@ -72,4 +67,4 @@ public:
 	
 };
 
-#endif // __SCENE_BATTLE_H__
+#endif // __BATTLE_SCENE_PIGS_H__

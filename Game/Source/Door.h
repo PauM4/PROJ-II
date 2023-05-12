@@ -28,6 +28,7 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+
 public:
 
 	static void TriggerDoor(int scene);

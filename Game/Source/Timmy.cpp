@@ -89,18 +89,23 @@ bool Timmy::Awake()
 
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
+
+	texture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
+	currentAnimation = &idleAnim;
 	return true;
 }
 
 bool Timmy::Start()
 {
-
+	
 
 	return true;
 }
 
 bool Timmy::Update(float dt)
 {
+	currentAnimation->Update();
+
 	b2Vec2 vel = b2Vec2(0, 0);
 
 	switch (battleState) {
@@ -123,6 +128,8 @@ bool Timmy::Update(float dt)
 
 bool Timmy::PostUpdate()
 {
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
 
 	return true;
 }
