@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="Source\Window.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Input.cpp" />
@@ -26,8 +25,6 @@
     <ClCompile Include="Source\SDL_Timer.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneManager.cpp" />
-    <ClCompile Include="Source\SceneBattle.cpp" />
     <ClCompile Include="Source\PerformanceBar2.cpp" />
     <ClCompile Include="Source\EntityManager.cpp">
       <Filter>Entities</Filter>
@@ -60,17 +57,11 @@
     <ClCompile Include="Source\Bunny.cpp">
       <Filter>Entities\Playable</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneIntro.cpp" />
-    <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\UIModule.cpp" />
     <ClCompile Include="Source\Door.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneGrandma.cpp" />
-    <ClCompile Include="Source\SceneCombatLHHR.cpp" />
     <ClCompile Include="Source\TeamManager.cpp" />
-    <ClCompile Include="Source\W2_Scene.cpp" />
-    <ClCompile Include="Source\W3_Scene.cpp" />
     <ClCompile Include="Source\Lrrh.cpp">
       <Filter>Entities\Playable</Filter>
     </ClCompile>
@@ -92,11 +83,46 @@
     <ClCompile Include="Source\NpcW3.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BattleManager.cpp" />
+    <ClCompile Include="Source\BattleSystem.cpp" />
+    <ClCompile Include="Source\Tweening.cpp" />
+    <ClCompile Include="Source\W3_Scene.cpp">
+      <Filter>Scenes\W3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\W3_Scene_Maze.cpp">
+      <Filter>Scenes\W3</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\W2_Scene.cpp">
+      <Filter>Scenes\W2</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneFoxQuest.cpp">
+      <Filter>Scenes\W2</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
+      <Filter>Scenes\W1</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneBattle.cpp">
+      <Filter>Scenes\W1</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneCombatLHHR.cpp">
+      <Filter>Scenes\W1</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneGrandma.cpp">
+      <Filter>Scenes\W1</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneIntro.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneMainMenu.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneManager.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Textures.h" />
-    <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Render.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Input.h" />
@@ -144,8 +170,6 @@
     <ClInclude Include="Source\SDL_Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneManager.h" />
-    <ClInclude Include="Source\SceneBattle.h" />
     <ClInclude Include="Source\Animation.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -188,17 +212,11 @@
     <ClInclude Include="Source\Bunny.h">
       <Filter>Entities\Playable</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneIntro.h" />
-    <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\UIModule.h" />
     <ClInclude Include="Source\Door.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneGrandma.h" />
-    <ClInclude Include="Source\SceneCombatLHHR.h" />
     <ClInclude Include="Source\TeamManager.h" />
-    <ClInclude Include="Source\W2_Scene.h" />
-    <ClInclude Include="Source\W3_Scene.h" />
     <ClInclude Include="Source\Lrrh.h">
       <Filter>Entities\Playable</Filter>
     </ClInclude>
@@ -220,6 +238,42 @@
     <ClInclude Include="Source\NpcW3.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
+    <ClInclude Include="Source\BattleManager.h" />
+    <ClInclude Include="Source\BattleSystem.h" />
+    <ClInclude Include="Source\Tweening.h" />
+    <ClInclude Include="Source\W3_Scene.h">
+      <Filter>Scenes\W3</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\W3_Scene_Maze.h">
+      <Filter>Scenes\W3</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\W2_Scene.h">
+      <Filter>Scenes\W2</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneFoxQuest.h">
+      <Filter>Scenes\W2</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Scenes\W1</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneBattle.h">
+      <Filter>Scenes\W1</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneCombatLHHR.h">
+      <Filter>Scenes\W1</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneGrandma.h">
+      <Filter>Scenes\W1</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneManager.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneIntro.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneMainMenu.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -239,6 +293,18 @@
     </Filter>
     <Filter Include="Entities\NonPlayable">
       <UniqueIdentifier>{1832da15-3a2b-44e6-bb34-84d1c65a3b76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{67ff4b3f-5f0a-4601-9269-9f88cc68537e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\W1">
+      <UniqueIdentifier>{9c29e67d-3c44-4fec-acbf-c38018f3240b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\W2">
+      <UniqueIdentifier>{9f88ccca-2042-40fa-9e75-ddeed7032525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\W3">
+      <UniqueIdentifier>{82d9b662-2ab7-4aa5-a1a7-b57eaacc49e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
