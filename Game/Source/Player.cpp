@@ -174,19 +174,21 @@ bool Player::Update(float dt)
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	if(app->teamManager->lvlupplayerstate == true)
 	{
-		if (playerState == PlayerState::LEVEL_UP)
+		if (playerState != PlayerState::LEVEL_UP)
 		{
 			playerPrevState = playerState;
-			playerState = MOVING;
+			playerState = LEVEL_UP;
+
 		}
 		// If player is NOT in lvlUP, open it
 		else
 		{
 			playerPrevState = playerState;
-			playerState = LEVEL_UP;
+			playerState = MOVING;
 		}
+		app->teamManager->lvlupplayerstate = false;
 	}
 
 

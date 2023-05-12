@@ -94,6 +94,7 @@ public:
 	//List of the selected playable characters in the team
 	List<Entity*> team;
 	List<stats*> statslist;
+	List<stats> statslist2;
 	Timmy* timmy;
 	Bunny* bunny;
 	Lrrh* lrrh;
@@ -157,7 +158,7 @@ public:
 	bool healingpowerup;
 
 	bool lvlupbool;
-
+	bool lvlupplayerstate;
 	int LvlUpPoints;
 	int cont;
 
