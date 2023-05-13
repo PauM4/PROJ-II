@@ -406,7 +406,7 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 
 void BattleManager::UIStatsForBattle()
 {
-
+	int i = 0;
 	// UI Stats for Battle
 	for (ListItem<Entity*>* allyItem = allies.start; allyItem != NULL; allyItem = allyItem->next) {
 
@@ -419,11 +419,13 @@ void BattleManager::UIStatsForBattle()
 		std::string hpString = std::to_string(hp);
 		const char* hpChar = hpString.c_str();
 	    
-		app->fonts->DrawText("--Name--", 80, 200, 200, 200, {255,255,255}, app->fonts->gameFont);
-		app->fonts->DrawText("- HP: ", 80, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(hpChar, 200, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- Stamina: ", 80, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(staminaChar, 200, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		const char* nameChar = allyItem->data->namechar.GetString();
+		app->fonts->DrawText(nameChar, 80, 200 + i, 200, 200, {255,255,255}, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 80, 230 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(hpChar, 200, 230 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 80, 260 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(staminaChar, 200, 260 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		i+= 100;
 	}
 
 	for (ListItem<Entity*>* enemyItem = enemies.start; enemyItem != NULL; enemyItem = enemyItem->next) {

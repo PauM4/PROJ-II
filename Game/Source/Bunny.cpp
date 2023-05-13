@@ -12,6 +12,7 @@
 Bunny::Bunny() : Entity(EntityType::BUNNY)
 {
 	name.Create("bunny");
+	namechar.Create("---Bunny---");
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;

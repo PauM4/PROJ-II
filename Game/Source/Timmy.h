@@ -45,6 +45,8 @@ public:
 	Animation idleAnim;
 	Animation takedmgAnim;
 
+	
+
 private:
 
 	

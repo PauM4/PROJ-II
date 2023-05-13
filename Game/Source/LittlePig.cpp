@@ -13,6 +13,7 @@
 LittlePig::LittlePig() : Entity(EntityType::LPIG)
 {
 	name.Create("littlePig");
+	namechar.Create("---Little Pig---");
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;

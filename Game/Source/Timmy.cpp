@@ -13,6 +13,7 @@
 Timmy::Timmy() : Entity(EntityType::TIMMY)
 {
 	name.Create("timmy");
+	namechar.Create("---Timmy---");
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;

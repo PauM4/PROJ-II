@@ -193,6 +193,7 @@ public:
 
 	SString name;
 	EntityType type;
+	SString namechar;
 	bool active = true;
 	pugi::xml_node parameters;
 	pugi::xml_node stats;

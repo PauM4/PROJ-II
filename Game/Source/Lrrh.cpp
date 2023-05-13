@@ -12,6 +12,7 @@
 Lrrh::Lrrh() : Entity(EntityType::LRRH)
 {
 	name.Create("lrrh");
+	namechar.Create("---RedHoody---");
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;
