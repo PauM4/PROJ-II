@@ -98,7 +98,7 @@ bool Timmy::Awake()
 bool Timmy::Start()
 {
 	
-
+	prevPos = position;
 	return true;
 }
 
@@ -122,6 +122,42 @@ bool Timmy::Update(float dt)
 	return true;
 
 
+
+	if (position.x > prevPos.x)
+	{
+		currentAnimation = &walkRightAnim;
+	}
+	//Moverse a la izquierda
+	else if (position.x < prevPos.x)
+	{
+		currentAnimation = &walkLeftAnim;
+	}
+	//Moverse a abajo
+	else if (position.y > prevPos.y)
+	{
+		currentAnimation = &walkDownAnim;
+	}
+	//Moverse a arriba
+	else if (position.y < prevPos.y)
+	{
+		currentAnimation = &walkUpAnim;
+	}
+	else if (position.y == prevPos.y && position.x == prevPos.x)
+	{
+		if (frames > 60)
+		{
+			timmy->currentAnimation = &timmy->idleAnim;
+			frames = 0;
+		}
+		else
+		{
+			frames++;
+		}
+
+	}
+
+	timmyPrevPos.x = timmy->position.x;
+	timmyPrevPos.y = timmy->position.y;
 
 
 }
