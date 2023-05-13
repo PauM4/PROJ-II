@@ -154,7 +154,7 @@ public:
 	};
 
 	bool UseStamina(uint value) {
-
+		
 		stamina -= value;
 
 		if (stamina < 0) {
@@ -222,7 +222,7 @@ public:
 	uint maxHealth;
 	uint defense;
 	uint magic;
-	uint stamina;
+	int stamina;
 	uint maxStamina;
 	uint speed;
 	uint movement;

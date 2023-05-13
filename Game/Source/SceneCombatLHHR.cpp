@@ -36,6 +36,9 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 	mapFolder = config.attribute("path").as_string();
 
 
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+
 	return ret;
 }
 
@@ -63,8 +66,6 @@ bool SceneCombatLHHR::Start()
 
 	}
 
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
 
 
 

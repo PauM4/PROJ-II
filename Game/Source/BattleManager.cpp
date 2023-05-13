@@ -294,7 +294,7 @@ bool BattleManager::Update(float dt) {
 			
 		}
 	
-		if (battleState == BattleState::ENEMY && enemyTimer==0) {
+		if (battleState == BattleState::ENEMY) {
 			currentTurn->GainStamina(10);
 			battleState = BattleState::INACTION;
 		}
@@ -360,46 +360,47 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
-	
-	switch (control->id)
-	{
-		// Attack
-	case 16:
-		if (currentTurn->stamina >= 5) {
-			app->battleManager->buttonPressed = CombatButtons::ATTACK;
-			app->battleManager->battleState = BattleState::SELCETED;
-			app->battleManager->actionType = ActionType::ATTACK;
-		}
-		break;
-		// Ability
-	case 17:
-		if (currentTurn->stamina >= 10) {
-			app->battleManager->buttonPressed = CombatButtons::ABILITY;
-			app->battleManager->battleState = BattleState::SELCETED;
-			app->battleManager->actionType = ActionType::ABILITY;
-		}
-		break;
-		// Move
-	case 18:
-		if (currentTurn->stamina >= 3) {
-			app->battleManager->buttonPressed = CombatButtons::MOVE;
-			app->battleManager->battleState = BattleState::SELCETED;
-			app->battleManager->actionType = ActionType::MOVE;
-		}
-		break;
+	if (battleState != BattleState::INACTION) {
+		switch (control->id)
+		{
+			// Attack
+		case 16:
+			if (currentTurn->stamina >= 5) {
+				app->battleManager->buttonPressed = CombatButtons::ATTACK;
+				app->battleManager->battleState = BattleState::SELCETED;
+				app->battleManager->actionType = ActionType::ATTACK;
+			}
+			break;
+			// Ability
+		case 17:
+			if (currentTurn->stamina >= 10) {
+				app->battleManager->buttonPressed = CombatButtons::ABILITY;
+				app->battleManager->battleState = BattleState::SELCETED;
+				app->battleManager->actionType = ActionType::ABILITY;
+			}
+			break;
+			// Move
+		case 18:
+			if (currentTurn->stamina >= 3) {
+				app->battleManager->buttonPressed = CombatButtons::MOVE;
+				app->battleManager->battleState = BattleState::SELCETED;
+				app->battleManager->actionType = ActionType::MOVE;
+			}
+			break;
 
-		// End turn
-	case 19:
-		app->battleManager->buttonPressed = CombatButtons::END;
-		app->battleManager->battleState = BattleState::THINKING;
-		app->battleManager->actionType = ActionType::END_TURN;
+			// End turn
+		case 19:
+			app->battleManager->buttonPressed = CombatButtons::END;
+			app->battleManager->battleState = BattleState::THINKING;
+			app->battleManager->actionType = ActionType::END_TURN;
+			app->battleManager->battleState = BattleState::SELCETED;
 
 
-		break;
+			break;
+		}
+
+		
 	}
-
-		battleState = BattleState::SELCETED;
-	
 	return true;
 
 }
@@ -456,7 +457,7 @@ void BattleManager::UIStatsForBattle()
 	app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
 	app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(turnList.At(1)->data->name.GetString(), 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 	
 	
 }
