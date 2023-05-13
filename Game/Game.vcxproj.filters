@@ -119,6 +119,8 @@
     <ClCompile Include="Source\SceneManager.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BattleScene_Pigs.cpp" />
+    <ClCompile Include="Source\Entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -274,6 +276,7 @@
     <ClInclude Include="Source\SceneMainMenu.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Source\BattleScene_Pigs.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

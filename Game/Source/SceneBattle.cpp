@@ -35,11 +35,10 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
-	app->teamManager->statsdone = false;
 
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
-
+	
 	//Add allies from teamManager
 	int i = 0;
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
@@ -90,7 +89,6 @@ bool SceneBattle::Start() {
 
 	app->battleManager->MakeCombatMap();
 	
-	timmyPrevPos = timmy->position;
 	//bunnyPrevPos = bunny->position;
 	villagerPrevPos = villager->position;
 
@@ -229,90 +227,7 @@ void SceneBattle::MoveAnimation(const char* name)
 		villagerPrevPos.x = villager->position.x;
 		villagerPrevPos.y = villager->position.y;
 	}
-	else if (strcmp(name, "timmy") == 0)
-	{
 
-		//Moverse a la derecha
-		if (timmy->position.x > timmyPrevPos.x)
-		{
-			timmy->currentAnimation = &timmy->walkRightAnim;
-		}
-		//Moverse a la izquierda
-		else if (timmy->position.x < timmyPrevPos.x)
-		{
-			timmy->currentAnimation = &timmy->walkLeftAnim;
-		}
-		//Moverse a abajo
-		else if (timmy->position.y > timmyPrevPos.y)
-		{
-			timmy->currentAnimation = &timmy->walkDownAnim;
-		}
-		//Moverse a arriba
-		else if (timmy->position.y < timmyPrevPos.y)
-		{
-			timmy->currentAnimation = &timmy->walkUpAnim;
-		}
-		else if (timmy->position.y == timmyPrevPos.y && timmy->position.x == timmyPrevPos.x)
-		{
-			if (frames > 60)
-			{
-				timmy->currentAnimation = &timmy->idleAnim;
-				frames = 0;
-			}
-			else
-			{
-				frames++;
-			}
-			
-		}
-
-		timmyPrevPos.x = timmy->position.x;
-		timmyPrevPos.y = timmy->position.y;
-
-	}
-	else if (strcmp(name, "bunny") == 0)
-	{
-
-		//Moverse a la derecha
-		if (bunny->position.x > bunnyPrevPos.x)
-		{
-			bunny->currentAnimation = &bunny->walkRightAnim;
-		}
-		//Moverse a la izquierda
-		else if (bunny->position.x < bunnyPrevPos.x)
-		{
-			bunny->currentAnimation = &bunny->walkLeftAnim;
-		}
-		//Moverse a abajo
-		else if (bunny->position.y > bunnyPrevPos.y)
-		{
-			bunny->currentAnimation = &bunny->walkDownAnim;
-		}
-		//Moverse a arriba
-		else if (bunny->position.y < bunnyPrevPos.y)
-		{
-			bunny->currentAnimation = &bunny->walkUpAnim;
-		}
-		else if (bunny->position.y == bunnyPrevPos.y && bunny->position.x == bunnyPrevPos.x)
-		{
-			if (frames > 60)
-			{
-				bunny->currentAnimation = &bunny->idleAnim;
-				frames = 0;
-			}
-			else
-			{
-				frames++;
-			}
-
-			
-		}
-		
-
-		bunnyPrevPos.x = bunny->position.x;
-		bunnyPrevPos.y = bunny->position.y;
-
-	}
 }
 
 void SceneBattle::TakeDamageAnimation(const char* name)
@@ -321,14 +236,6 @@ void SceneBattle::TakeDamageAnimation(const char* name)
 	if (strcmp(name, "enemy_angryVillager") == 0)
 	{
 		villager->currentAnimation = &villager->takedmgAnim;
-	}
-	else if (strcmp(name, "timmy") == 0)
-	{
-		timmy->currentAnimation = &timmy->takedmgAnim;
-	}
-	else if (strcmp(name, "bunny") == 0)
-	{
-		bunny->currentAnimation = &bunny->takedmgAnim;
 	}
 
 }

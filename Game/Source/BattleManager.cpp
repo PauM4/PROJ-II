@@ -662,7 +662,8 @@ bool BattleManager::AddCharacter(Entity* character, int x, int y, bool isEnemy) 
 
 	if (isEnemy) enemies.Add(character);
 	else allies.Add(character);
-
+	character->position = iPoint(x * 120, y * 120);
+	character->position = character->position;
 	combatMap[x][y].character = character;
 
 	return true;
@@ -798,6 +799,7 @@ bool BattleManager::DisplayAtackArea(ActionType type) {
 
 	return ret;
 }
+
 bool BattleManager::DisplayMoveArea(ActionType type) {
 	
 		bool ret = true;
@@ -824,7 +826,6 @@ bool BattleManager::DisplayMoveArea(ActionType type) {
 	
 		return ret;
 	}
-
 
 bool BattleManager::ApplyAction(Entity* character, ActionType type) {
 

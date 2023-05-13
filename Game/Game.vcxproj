@@ -106,6 +106,7 @@
     <ClCompile Include="Source\Enemy_AngryVillager.cpp" />
     <ClCompile Include="Source\Enemy_CorruptedSprout.cpp" />
     <ClCompile Include="Source\Enemy_LRRH.cpp" />
+    <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />

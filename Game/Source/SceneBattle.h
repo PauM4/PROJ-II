@@ -61,7 +61,7 @@ private:
 	Enemy_AngryVillager* villager;
 	Bunny* bunny;
 
-	iPoint timmyPrevPos, bunnyPrevPos, villagerPrevPos;
+	iPoint bunnyPrevPos, villagerPrevPos;
 	bool timmyPrevPosBool, bunnyPrevPosBool, villagerPrevPosBool;
 
 	int frames = 0;
