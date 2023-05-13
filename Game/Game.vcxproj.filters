@@ -121,6 +121,12 @@
     </ClCompile>
     <ClCompile Include="Source\BattleScene_Pigs.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
+    <ClCompile Include="Source\Enemy_LittlePig.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy_MiddlePig.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -277,6 +283,12 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\BattleScene_Pigs.h" />
+    <ClInclude Include="Source\Enemy_LittlePig.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy_MiddlePig.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

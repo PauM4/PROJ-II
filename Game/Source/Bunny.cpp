@@ -118,7 +118,7 @@ bool Bunny::Update(float dt)
 	}
 	
 
-	if (app->uiModule->currentMenuType == COMBAT) {
+	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsBunnyOnTeam) {
 
 		currentAnimation->Update();
 
@@ -163,7 +163,7 @@ bool Bunny::Update(float dt)
 
 bool Bunny::PostUpdate()
 {
-	if (app->uiModule->currentMenuType == COMBAT) {
+	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsBunnyOnTeam) {
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
 	}

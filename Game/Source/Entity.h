@@ -43,6 +43,8 @@ enum class EntityType
 	//Enemies
 	ENEMYLRRH,
 	ANGRYVILLAGER,
+	ENEMYLPIG,
+	ENEMYMPIG,
 	CORRUPTEDSPROUT,
 };
 

@@ -51,7 +51,6 @@ bool LittlePig::Awake()
 		movement = stats.attribute("movement").as_int();
 		app->teamManager->statsdone = true;
 	}
-
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
 
@@ -89,7 +88,11 @@ bool LittlePig::Awake()
 	}
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
+	
 
+	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Pequeño.png");
+
+	currentAnimation = &idleAnim;
 
 	PrevPos = position;
 
@@ -118,9 +121,8 @@ bool LittlePig::Update(float dt)
 		break; 
 
 	}
-	return true;
 
-	if (app->uiModule->currentMenuType == COMBAT) {
+	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsLilPigOnTeam==true) {
 		currentAnimation->Update();
 
 		if (position.x > PrevPos.x)
@@ -159,12 +161,17 @@ bool LittlePig::Update(float dt)
 		PrevPos.x = position.x;
 		PrevPos.y = position.y;
 	}
+	return true;
 
 
 }
 
 bool LittlePig::PostUpdate()
 {
+	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsLilPigOnTeam == true) {
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	}
 
 	return true;
 }

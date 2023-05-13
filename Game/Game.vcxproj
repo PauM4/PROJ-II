@@ -105,7 +105,9 @@
     <ClCompile Include="Source\Door.cpp" />
     <ClCompile Include="Source\Enemy_AngryVillager.cpp" />
     <ClCompile Include="Source\Enemy_CorruptedSprout.cpp" />
+    <ClCompile Include="Source\Enemy_LittlePig.cpp" />
     <ClCompile Include="Source\Enemy_LRRH.cpp" />
+    <ClCompile Include="Source\Enemy_MiddlePig.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
@@ -161,7 +163,9 @@
     <ClInclude Include="Source\Door.h" />
     <ClInclude Include="Source\Enemy_AngryVillager.h" />
     <ClInclude Include="Source\Enemy_CorruptedSprout.h" />
+    <ClInclude Include="Source\Enemy_LittlePig.h" />
     <ClInclude Include="Source\Enemy_LRRH.h" />
+    <ClInclude Include="Source\Enemy_MiddlePig.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FadeToBlack.h" />

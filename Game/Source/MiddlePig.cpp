@@ -52,44 +52,46 @@ bool MiddlePig::Awake()
 		app->teamManager->statsdone = true;
 	}
 
-	idleAnim.PushBack({ 0, 0, 140, 140 });
+	idleAnim.PushBack({ 0, 0, 210, 210 });
 	idleAnim.loop = true;
 
-	takedmgAnim.PushBack({ 150, 0, 140, 140 });
-	takedmgAnim.PushBack({ 150, 0, 140, 140 });
-	takedmgAnim.PushBack({ 150, 0, 140, 140 });
-	takedmgAnim.PushBack({ 150, 0, 140, 140 });
+	takedmgAnim.PushBack({ 225, 0, 210, 210 });
+	takedmgAnim.PushBack({ 225, 0, 210, 210 });
+	takedmgAnim.PushBack({ 225, 0, 210, 210 });
+	takedmgAnim.PushBack({ 225, 0, 210, 210 });
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
 
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
-		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
+		walkDownAnim.PushBack({ (i * 225), 225, 225, 225 });
 	}
 	walkDownAnim.loop = true;
 	walkDownAnim.speed = 0.15f;
 
 	for (int i = 0; i < 10; i++)
 	{
-		walkUpAnim.PushBack({ (i * 150), 600, 150, 150 });
+		walkUpAnim.PushBack({ (i * 225), 900, 225, 225 });
 	}
 	walkUpAnim.loop = true;
 	walkUpAnim.speed = 0.15f;
 
 	for (int i = 0; i < 10; i++)
 	{
-		walkRightAnim.PushBack({ (i * 150), 450, 150, 150 });
+		walkRightAnim.PushBack({ (i * 225), 600, 225, 225 });
 	}
 	walkRightAnim.loop = true;
 	walkRightAnim.speed = 0.15f;
 
 	for (int i = 0; i < 10; i++)
 	{
-		walkLeftAnim.PushBack({ (i * 150), 300, 150, 150 });
+		walkLeftAnim.PushBack({ (i * 225), 450, 225, 225 });
 	}
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
+	currentAnimation = &idleAnim;
+	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Mediano.png");
 
 	PrevPos = position;
 	return true;
@@ -119,7 +121,7 @@ bool MiddlePig::Update(float dt)
 	}
 	return true;
 
-	if (app->uiModule->currentMenuType == COMBAT) {
+	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsMidPigOnTeam==true){
 		currentAnimation->Update();
 
 		if (position.x > PrevPos.x)
@@ -164,7 +166,10 @@ bool MiddlePig::Update(float dt)
 
 bool MiddlePig::PostUpdate()
 {
-
+	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsMidPigOnTeam == true) {
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 80, position.y - 35, &rect);
+	}
 	return true;
 }
 
