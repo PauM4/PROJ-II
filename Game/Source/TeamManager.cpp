@@ -25,28 +25,35 @@ TeamManager::~TeamManager() {
 bool TeamManager::Awake(pugi::xml_node& config)
 {
 	lvlupplayerstate = false;
+
 	//Load from xml
 	if (config.parent().child("timmy")) {
+		statsdone = false;
 		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
 		timmy->stats = config.parent().child("timmy");
 	}
 	if (config.parent().child("bunny")) {
+		statsdone = false;
 		bunny = (Bunny*)app->entityManager->CreateEntity(EntityType::BUNNY);
 		bunny->stats = config.parent().child("bunny");
 	}
 	if (config.parent().child("lrrh")) {
+		statsdone = false;
 		lrrh = (Lrrh*)app->entityManager->CreateEntity(EntityType::LRRH);
 		lrrh->stats = config.parent().child("lrrh");
 	}
 	if (config.parent().child("littlePig")) {
+		statsdone = false;
 		littlepig = (LittlePig*)app->entityManager->CreateEntity(EntityType::LPIG);
 		littlepig->stats = config.parent().child("littlePig");
 	}
 	if (config.parent().child("middlePig")) {
+		statsdone = false;
 		middlepig = (MiddlePig*)app->entityManager->CreateEntity(EntityType::MPIG);
 		middlepig->stats = config.parent().child("middlePig");
 	}
 	if (config.parent().child("peter")) {
+		statsdone = false;
 		peter = (Peter*)app->entityManager->CreateEntity(EntityType::PETER);
 		peter->stats = config.parent().child("peter");
 	}

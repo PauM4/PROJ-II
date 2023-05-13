@@ -119,7 +119,45 @@ bool MiddlePig::Update(float dt)
 	}
 	return true;
 
+	if (app->uiModule->currentMenuType == COMBAT) {
+		currentAnimation->Update();
 
+		if (position.x > PrevPos.x)
+		{
+			currentAnimation = &walkRightAnim;
+		}
+		//Moverse a la izquierda
+		else if (position.x < PrevPos.x)
+		{
+			currentAnimation = &walkLeftAnim;
+		}
+		//Moverse a abajo
+		else if (position.y > PrevPos.y)
+		{
+			currentAnimation = &walkDownAnim;
+		}
+		//Moverse a arriba
+		else if (position.y < PrevPos.y)
+		{
+			currentAnimation = &walkUpAnim;
+		}
+		else if (position.y == PrevPos.y && position.x == PrevPos.x)
+		{
+			if (frames > 60)
+			{
+				currentAnimation = &idleAnim;
+				frames = 0;
+			}
+			else
+			{
+				frames++;
+			}
+
+		}
+
+		PrevPos.x = position.x;
+		PrevPos.y = position.y;
+	}
 
 
 }
@@ -185,5 +223,12 @@ int MiddlePig::Ability(int id)
 }
 
 void MiddlePig::Movement() {
+
+}
+
+void MiddlePig::TakeDamageAnimation()
+{
+
+	currentAnimation = &takedmgAnim;
 
 }

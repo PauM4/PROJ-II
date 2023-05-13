@@ -240,7 +240,8 @@ public:
 	int Ab1Area;
 	int Ab2Area;
 	uint healingpower;
-
+	iPoint PrevPos;
+	int frames;
 	iPoint tilePos; 
 	bool isEnemy;
 	bool isAlive;

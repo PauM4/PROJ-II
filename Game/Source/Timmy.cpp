@@ -24,30 +24,30 @@ Timmy::~Timmy() {
 
 bool Timmy::Awake()
 {
-	id = 1;
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
-	level = stats.attribute("level").as_int();
-	health = stats.attribute("health").as_int();
-	maxHealth = stats.attribute("maxHealth").as_int();
-	defense = stats.attribute("defense").as_int();
-	magic = stats.attribute("magic").as_int();
-	stamina = stats.attribute("stamina").as_int();
-	maxStamina = stats.attribute("maxStamina").as_int();
-	speed = stats.attribute("speed").as_int();
-	attack = stats.attribute("attack").as_int();
-	AttArea = stats.attribute("AttArea").as_int();
-	Ab1Type = stats.attribute("Ab1Type").as_int();
-	Ab1Area = stats.attribute("Ab1Area").as_int();
-	Ab1RangeType = stats.attribute("Ab1RangeType").as_int();
-	Ab1Power = stats.attribute("Ab1Power").as_int();
-	Ab2Type = stats.attribute("Ab2Type").as_int();
-	Ab2Area = stats.attribute("Ab2Area").as_int();
-	Ab2RangeType = stats.attribute("Ab2RangeType").as_int();
-	Ab2Power = stats.attribute("Ab2Power").as_int();
-	healingpower = stats.attribute("healingpower").as_int();
-	movement = stats.attribute("movement").as_int();
-
+	if (app->teamManager->statsdone == false) {
+		id = 1;
+		level = stats.attribute("level").as_int();
+		health = stats.attribute("health").as_int();
+		maxHealth = stats.attribute("maxHealth").as_int();
+		defense = stats.attribute("defense").as_int();
+		magic = stats.attribute("magic").as_int();
+		stamina = stats.attribute("stamina").as_int();
+		maxStamina = stats.attribute("maxStamina").as_int();
+		speed = stats.attribute("speed").as_int();
+		attack = stats.attribute("attack").as_int();
+		AttArea = stats.attribute("AttArea").as_int();
+		Ab1Type = stats.attribute("Ab1Type").as_int();
+		Ab1Area = stats.attribute("Ab1Area").as_int();
+		Ab1RangeType = stats.attribute("Ab1RangeType").as_int();
+		Ab1Power = stats.attribute("Ab1Power").as_int();
+		Ab2Type = stats.attribute("Ab2Type").as_int();
+		Ab2Area = stats.attribute("Ab2Area").as_int();
+		Ab2RangeType = stats.attribute("Ab2RangeType").as_int();
+		Ab2Power = stats.attribute("Ab2Power").as_int();
+		healingpower = stats.attribute("healingpower").as_int();
+		movement = stats.attribute("movement").as_int();
+		app->teamManager->statsdone = true;
+	}
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
 
@@ -86,10 +86,6 @@ bool Timmy::Awake()
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
-
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
-
 	texture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	currentAnimation = &idleAnim;
 	return true;
@@ -98,13 +94,14 @@ bool Timmy::Awake()
 bool Timmy::Start()
 {
 	
-	prevPos = position;
+	PrevPos = position;
+	frames = 0;
 	return true;
 }
 
 bool Timmy::Update(float dt)
 {
-	currentAnimation->Update();
+	
 
 	b2Vec2 vel = b2Vec2(0, 0);
 
@@ -119,53 +116,57 @@ bool Timmy::Update(float dt)
 		break; 
 
 	}
+
+
+	if (app->uiModule->currentMenuType == COMBAT) {
+		currentAnimation->Update();
+
+		if (position.x > PrevPos.x)
+		{
+			currentAnimation = &walkRightAnim;
+		}
+		//Moverse a la izquierda
+		else if (position.x < PrevPos.x)
+		{
+			currentAnimation = &walkLeftAnim;
+		}
+		//Moverse a abajo
+		else if (position.y > PrevPos.y)
+		{
+			currentAnimation = &walkDownAnim;
+		}
+		//Moverse a arriba
+		else if (position.y < PrevPos.y)
+		{
+			currentAnimation = &walkUpAnim;
+		}
+		else if (position.y == PrevPos.y && position.x == PrevPos.x)
+		{
+			if (frames > 60)
+			{
+				currentAnimation = &idleAnim;
+				frames = 0;
+			}
+			else
+			{
+				frames++;
+			}
+
+		}
+
+		PrevPos.x = position.x;
+		PrevPos.y = position.y;
+	}
+
 	return true;
-
-
-
-	if (position.x > prevPos.x)
-	{
-		currentAnimation = &walkRightAnim;
-	}
-	//Moverse a la izquierda
-	else if (position.x < prevPos.x)
-	{
-		currentAnimation = &walkLeftAnim;
-	}
-	//Moverse a abajo
-	else if (position.y > prevPos.y)
-	{
-		currentAnimation = &walkDownAnim;
-	}
-	//Moverse a arriba
-	else if (position.y < prevPos.y)
-	{
-		currentAnimation = &walkUpAnim;
-	}
-	else if (position.y == prevPos.y && position.x == prevPos.x)
-	{
-		if (frames > 60)
-		{
-			timmy->currentAnimation = &timmy->idleAnim;
-			frames = 0;
-		}
-		else
-		{
-			frames++;
-		}
-
-	}
-
-	timmyPrevPos.x = timmy->position.x;
-	timmyPrevPos.y = timmy->position.y;
-
-
 }
 
 bool Timmy::PostUpdate()
 {
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	if (app->uiModule->currentMenuType == COMBAT) {
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	}
 
 	return true;
 }
@@ -225,5 +226,12 @@ int Timmy::Ability(int id)
 }
 
 void Timmy::Movement() {
+
+}
+
+void Timmy::TakeDamageAnimation()
+{
+
+	currentAnimation = &takedmgAnim;
 
 }

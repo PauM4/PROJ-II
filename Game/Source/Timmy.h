@@ -30,6 +30,7 @@ public:
 
 	void Movement() override;
 
+	void TakeDamageAnimation();
 
 private:
 	
@@ -43,6 +44,7 @@ public:
 	Animation walkLeftAnim;
 	Animation idleAnim;
 	Animation takedmgAnim;
+
 private:
 
 	
