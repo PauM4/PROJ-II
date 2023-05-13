@@ -79,7 +79,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
 	moveTutorialTextutre = app->tex->Load("Assets/UI/Movement_Guide.png");
 	interactTutorialTextutre = app->tex->Load("Assets/UI/Interact_Guide.png");
-
+	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	currentQuestIndex = 0;
 
 	return ret;

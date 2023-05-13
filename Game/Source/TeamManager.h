@@ -82,6 +82,10 @@ public:
 
 	bool printLVLup();
 
+	void loadinventory();
+
+	void ApplyEquipedItemStats();
+
 private:
 
 	bool LoadState(pugi::xml_node&);

@@ -127,6 +127,7 @@ public:
 	// Basic Tutorials
 	SDL_Texture* moveTutorialTextutre;
 	SDL_Texture* interactTutorialTextutre;
+	SDL_Texture* lvlupTexture;
 
 	// Rope minigame
 	SDL_Texture* ropeTexture;

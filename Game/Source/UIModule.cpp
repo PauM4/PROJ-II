@@ -170,7 +170,7 @@ bool UIModule::PostUpdate()
 	// Pergami fons level up screen
 	if (app->teamManager->active && app->teamManager->lvlupbool)
 	{
-		app->render->DrawTexture(app->scene->moveTutorialTextutre, -app->render->camera.x, -app->render->camera.y);
+		app->render->DrawTexture(app->scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		app->teamManager->PrintLvlUpText();
 	}
 

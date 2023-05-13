@@ -67,6 +67,9 @@ bool TeamManager::Awake(pugi::xml_node& config)
 	characters.Add(timmy);
 	characters.Add(bunny);
 
+	team.Add(timmy);
+	team.Add(bunny);
+
 	if (config.child("item").child("yoyo")) {
 		pugi::xml_node newnode = config.child("item").child("yoyo");
 		yoyo.ininventory = newnode.attribute("ininventory").as_bool();
@@ -276,8 +279,9 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		talisman.Ab2Area = newnode.attribute("Ab2Area").as_int();
 		talisman.healingpower = newnode.attribute("healingpower").as_int();
 	}
+	loadinventory();
+	ApplyEquipedItemStats();
 
-	
 	statslist.Add(&timmystats);
 	statslist.Add(&bunnystats);
 	statslist.Add(&lrrhstats);
@@ -335,6 +339,7 @@ bool TeamManager::Awake(pugi::xml_node& config)
 	Ab1Powerup = false;
 	healingpowerup = false;
 	lvlupbool = false;
+
 	return true;
 }
 
@@ -607,119 +612,42 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	equipment.Clear();
 	yoyo.ininventory = data.child("inventory").child("yoyo").attribute("isobtained").as_bool();
 	yoyo.character = data.child("inventory").child("yoyo").attribute("character").as_int();
-	if (yoyo.ininventory == true) {
-		inventory.Add(yoyo);
-		if (yoyo.character != 0) {
-			equipment.Add(yoyo);
-		}
-	}
+
 	handsxd.ininventory = data.child("inventory").child("handsxd").attribute("isobtained").as_bool();
 	handsxd.character = data.child("inventory").child("handsxd").attribute("character").as_int();
-	if (handsxd.ininventory == true) {
-		inventory.Add(handsxd);
-		if (handsxd.character != 0) {
-			equipment.Add(handsxd);
-		}
-	}
+
 	bow.ininventory = data.child("inventory").child("bow").attribute("isobtained").as_bool();
 	bow.character = data.child("inventory").child("bow").attribute("character").as_int();
-	if (bow.ininventory == true) {
-		inventory.Add(bow);
-		if (bow.character != 0) {
-			equipment.Add(bow);
-		}
-	}
+
 	club.ininventory = data.child("inventory").child("club").attribute("isobtained").as_bool();
 	club.character = data.child("inventory").child("club").attribute("character").as_int();
-	if (club.ininventory == true) {
-		inventory.Add(club);
-		if (club.character != 0) {
-			equipment.Add(club);
-		}
-	}
+	
 	knife.ininventory = data.child("inventory").child("knife").attribute("isobtained").as_bool();
 	knife.character = data.child("inventory").child("knife").attribute("character").as_int();
-	if (knife.ininventory == true) {
-		inventory.Add(knife);
-		if (knife.character != 0) {
-			equipment.Add(knife);
-		}
-	}
+
 	shotgun.ininventory = data.child("inventory").child("shotgun").attribute("isobtained").as_bool();
 	shotgun.character = data.child("inventory").child("shotgun").attribute("character").as_int();
-	if (shotgun.ininventory == true) {
-		inventory.Add(shotgun);
-		if (shotgun.character != 0) {
-			equipment.Add(shotgun);
-		}
-	}
+	
 	ironchestplate.ininventory = data.child("inventory").child("ironchestplate").attribute("isobtained").as_bool();
 	ironchestplate.character = data.child("inventory").child("ironchestplate").attribute("character").as_int();
-	if (ironchestplate.ininventory == true) {
-		inventory.Add(ironchestplate);
-		if (ironchestplate.character != 0) {
-			equipment.Add(ironchestplate);
-		}
-	}
+	
 	reversehat.ininventory = data.child("inventory").child("reversehat").attribute("isobtained").as_bool();
 	reversehat.character = data.child("inventory").child("reversehat").attribute("character").as_int();
-	if (reversehat.ininventory == true) {
-		inventory.Add(reversehat);
-		if (reversehat.character != 0) {
-			equipment.Add(reversehat);
-		}
-	}
+
 	susjar.ininventory = data.child("inventory").child("susjar").attribute("isobtained").as_bool();
 	susjar.character = data.child("inventory").child("susjar").attribute("character").as_int();
-	if (susjar.ininventory == true) {
-		inventory.Add(susjar);
-		if (susjar.character != 0) {
-			equipment.Add(susjar);
-		}
-	}
+
 	dentures.ininventory = data.child("inventory").child("dentures").attribute("isobtained").as_bool();
 	dentures.character = data.child("inventory").child("dentures").attribute("character").as_int();
-	if (dentures.ininventory == true) {
-		inventory.Add(dentures);
-		if (dentures.character != 0) {
-			equipment.Add(dentures);
-		}
-	}
+
+	
 	talisman.ininventory = data.child("inventory").child("talisman").attribute("isobtained").as_bool();
 	talisman.character = data.child("inventory").child("talisman").attribute("character").as_int();
-	if (talisman.ininventory == true) {
-		inventory.Add(talisman);
-		if (talisman.character != 0) {
-			equipment.Add(talisman);
-		}
-	}
+
+	loadinventory();
 
 	//Apply equipped item stats
-	for (int i = 0; i < equipment.Count(); i++) {
-
-		switch (equipment.At(i)->data.character)
-		{
-		case 1:
-			additemstats(timmy, i);
-			break;
-		case 2:
-			additemstats(bunny, i);
-			break;
-		case 3:
-			additemstats(lrrh, i);
-			break;
-		case 4:
-			additemstats(littlepig, i);
-			break;
-		case 5:
-			additemstats(middlepig, i);
-			break;
-		case 6:
-			additemstats(peter, i);
-			break;
-		}
-		
-	}
+	ApplyEquipedItemStats();
 
 	return true;
 }
@@ -1041,4 +969,107 @@ void TeamManager::PrintLvlUpText()
 	const char* healPowChar = healPowString.c_str();
 	app->fonts->DrawText("Healing Power: ", -app->render->camera.x + 700, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
 	app->fonts->DrawText(healPowChar, -app->render->camera.x + 860, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+}
+
+void TeamManager::loadinventory() {
+
+	if (yoyo.ininventory == true) {
+		inventory.Add(yoyo);
+		if (yoyo.character != 0) {
+			equipment.Add(yoyo);
+		}
+	}
+
+	if (handsxd.ininventory == true) {
+		inventory.Add(handsxd);
+		if (handsxd.character != 0) {
+			equipment.Add(handsxd);
+		}
+	}
+
+	if (club.ininventory == true) {
+		inventory.Add(club);
+		if (club.character != 0) {
+			equipment.Add(club);
+		}
+	}
+
+	if (knife.ininventory == true) {
+		inventory.Add(knife);
+		if (knife.character != 0) {
+			equipment.Add(knife);
+		}
+	}
+
+	if (shotgun.ininventory == true) {
+		inventory.Add(shotgun);
+		if (shotgun.character != 0) {
+			equipment.Add(shotgun);
+		}
+	}
+
+	if (ironchestplate.ininventory == true) {
+		inventory.Add(ironchestplate);
+		if (ironchestplate.character != 0) {
+			equipment.Add(ironchestplate);
+		}
+	}
+
+	if (reversehat.ininventory == true) {
+		inventory.Add(reversehat);
+		if (reversehat.character != 0) {
+			equipment.Add(reversehat);
+		}
+	}
+
+	if (susjar.ininventory == true) {
+		inventory.Add(susjar);
+		if (susjar.character != 0) {
+			equipment.Add(susjar);
+		}
+	}
+
+	if (dentures.ininventory == true) {
+		inventory.Add(dentures);
+		if (dentures.character != 0) {
+			equipment.Add(dentures);
+		}
+	}
+
+	if (talisman.ininventory == true) {
+		inventory.Add(talisman);
+		if (talisman.character != 0) {
+			equipment.Add(talisman);
+		}
+	}
+
+}
+
+void TeamManager::ApplyEquipedItemStats()
+{
+	for (int i = 0; i < equipment.Count(); i++) {
+
+		switch (equipment.At(i)->data.character)
+		{
+		case 1:
+			additemstats(timmy, i);
+			break;
+		case 2:
+			additemstats(bunny, i);
+			break;
+		case 3:
+			additemstats(lrrh, i);
+			break;
+		case 4:
+			additemstats(littlepig, i);
+			break;
+		case 5:
+			additemstats(middlepig, i);
+			break;
+		case 6:
+			additemstats(peter, i);
+			break;
+		}
+
+	}
 }
