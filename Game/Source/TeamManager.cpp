@@ -28,35 +28,30 @@ bool TeamManager::Awake(pugi::xml_node& config)
 
 	//Load from xml
 	if (config.parent().child("timmy")) {
-		statsdone = false;
 		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
 		timmy->stats = config.parent().child("timmy");
 	}
 	if (config.parent().child("bunny")) {
-		statsdone = false;
 		bunny = (Bunny*)app->entityManager->CreateEntity(EntityType::BUNNY);
 		bunny->stats = config.parent().child("bunny");
 	}
 	if (config.parent().child("lrrh")) {
-		statsdone = false;
 		lrrh = (Lrrh*)app->entityManager->CreateEntity(EntityType::LRRH);
 		lrrh->stats = config.parent().child("lrrh");
 	}
 	if (config.parent().child("littlePig")) {
-		statsdone = false;
 		littlepig = (LittlePig*)app->entityManager->CreateEntity(EntityType::LPIG);
 		littlepig->stats = config.parent().child("littlePig");
 	}
 	if (config.parent().child("middlePig")) {
-		statsdone = false;
 		middlepig = (MiddlePig*)app->entityManager->CreateEntity(EntityType::MPIG);
 		middlepig->stats = config.parent().child("middlePig");
 	}
 	if (config.parent().child("peter")) {
-		statsdone = false;
 		peter = (Peter*)app->entityManager->CreateEntity(EntityType::PETER);
 		peter->stats = config.parent().child("peter");
 	}
+	
 	istimmyplayable = config.child("playable").attribute("istimmyplayable").as_bool();
 	isbunnyplayable = config.child("playable").attribute("isbunnyplayable").as_bool();
 	islrrhplayable = config.child("playable").attribute("islrrhplayable").as_bool();
@@ -286,8 +281,7 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		talisman.Ab2Area = newnode.attribute("Ab2Area").as_int();
 		talisman.healingpower = newnode.attribute("healingpower").as_int();
 	}
-	loadinventory();
-	ApplyEquipedItemStats();
+
 
 	statslist.Add(&timmystats);
 	statslist.Add(&bunnystats);
@@ -302,6 +296,9 @@ bool TeamManager::Awake(pugi::xml_node& config)
 	statslist2.Add(lilpigstats);
 	statslist2.Add(midpigstats);
 	statslist2.Add(peterstats);
+	addallstats();
+	loadinventory();
+	ApplyEquipedItemStats();
 	for (int i = 0; i < statslist.Count(); i++) {
 
 		statslist.At(i)->data->character = i+1;

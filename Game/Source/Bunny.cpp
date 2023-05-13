@@ -90,13 +90,13 @@ bool Bunny::Awake()
 
 	texture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
 	currentAnimation = &idleAnim;
-
+	PrevPos = position;
 	return true;
 }
 
 bool Bunny::Start()
 {
-	
+	PrevPos = position;
 
 	return true;
 }

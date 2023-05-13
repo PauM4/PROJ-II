@@ -90,8 +90,7 @@ bool MiddlePig::Awake()
 	walkLeftAnim.speed = 0.15f;
 
 
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
+	PrevPos = position;
 	return true;
 }
 
