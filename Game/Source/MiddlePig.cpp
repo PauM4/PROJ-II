@@ -168,7 +168,7 @@ bool MiddlePig::PostUpdate()
 {
 	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsMidPigOnTeam == true) {
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 80, position.y - 35, &rect);
+		app->render->DrawTexture(texture, position.x - 50, position.y - 120, &rect);
 	}
 	return true;
 }
