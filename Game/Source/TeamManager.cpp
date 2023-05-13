@@ -464,6 +464,7 @@ bool TeamManager::CleanUp()
 	inventory.Clear();
 	equipment.Clear();
 	statslist.Clear();
+	statslist2.Clear();
 	timmy->CleanUp();
 	bunny->CleanUp();
 	lrrh->CleanUp();
