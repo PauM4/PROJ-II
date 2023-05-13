@@ -89,6 +89,7 @@ bool Timmy::Awake()
 
 	texture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
 	currentAnimation = &idleAnim;
+	PrevPos = position;
 	return true;
 }
 

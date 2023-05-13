@@ -610,6 +610,7 @@ bool BattleManager::MousePosition() {
 
 	return true;
 }
+
 bool BattleManager::Move(int pathindex, int length) {
 
 	iPoint dist;
@@ -660,6 +661,7 @@ bool BattleManager::Move(int pathindex, int length) {
 
 	return true;
 }
+
 bool BattleManager::AddCharacter(Entity* character, int x, int y, bool isEnemy) {
 
 	if (isEnemy) enemies.Add(character);
@@ -700,6 +702,7 @@ bool BattleManager::MakeTurnList() {
 	
 	return true;
 }
+
 bool BattleManager::SelectTargets() {
 
 
@@ -736,6 +739,7 @@ bool BattleManager::DisplayEnemys() {
 
 	return true;
 }
+
 bool BattleManager::UpdateTurnList() {
 
 	ListItem<Entity*>* auxItem;
@@ -913,6 +917,7 @@ void BattleManager::PauseMenuAppear()
 		isPaused = false;
 	}
 }
+
 void BattleManager::GodMode()
 {
 
