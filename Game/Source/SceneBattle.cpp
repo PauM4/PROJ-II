@@ -185,6 +185,7 @@ void SceneBattle::SaveResult()
 	}
 
 }
+
 void SceneBattle::MoveAnimation(const char* name)
 {
 	if (strcmp(name,"enemy_angryVillager") == 0)

@@ -37,6 +37,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void SaveResult();
+
 	void RunTree();
 
 	void UpdateAnimation(const char* name);
