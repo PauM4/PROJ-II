@@ -167,6 +167,9 @@ bool BattleScene_Pigs::CleanUp(){
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
 
+
+	SaveResult();
+
 	return true;
 }
 
@@ -312,5 +315,19 @@ void BattleScene_Pigs::TakeDamageAnimation(const char* name)
 	{
 		bunny->currentAnimation = &bunny->takedmgAnim;
 	}*/
+
+}
+
+void BattleScene_Pigs::SaveResult()
+{
+
+	if (app->battleManager->win)
+	{
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isPigDefeated", "true");
+	}
+	else if (app->battleManager->lose)
+	{
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isPigDefeated", "false");
+	}
 
 }
