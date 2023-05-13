@@ -552,6 +552,12 @@ void Scene::RunDialogueTree(ColliderType NPC)
 
 		break;
 	case ColliderType::TALISMANVILLAGER:
+		
+		if (ropeWin)
+		{
+			talismanVillagerTree->Update(1);
+		}
+
 		dialogue = talismanVillagerTree->Run();
 
 		if (dialogue.empty())
