@@ -540,6 +540,12 @@ void Scene::RunDialogueTree(ColliderType NPC)
 
 		break;
 	case ColliderType::TALISMANVILLAGER:
+
+		if (ropeWin)
+		{
+			talismanVillagerTree->Update(1);
+		}
+
 		dialogue = talismanVillagerTree->Run();
 
 		if (dialogue.empty())
@@ -919,7 +925,7 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 	ropeWin = data.child("rope_minigame").attribute("rope_minigame_state").as_bool();
 
-	LoadChests(data);
+	//LoadChests(data);
 
 
 	return true;
