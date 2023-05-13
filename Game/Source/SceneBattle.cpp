@@ -33,24 +33,26 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 	LOG("Loading Scene");
 	bool ret = true;
 
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 	app->teamManager->statsdone = false;
 
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 
 	//Add allies from teamManager
-	/*int i = 0;
+	int i = 0;
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
-		app->battleManager->AddCharacter(teamItem->data, 0, i, false);
+		app->battleManager->AddCharacter(teamItem->data, 7+i, 6, false);
 		i++;
-	}*/
-	
-	if (config.child("timmy")) {
-		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
-		timmy->parameters = config.child("timmy");
-		timmy->stats = config.parent().child("timmy");
-		app->battleManager->AddCharacter(timmy, timmy->parameters.attribute("x").as_int() / 120, timmy->parameters.attribute("y").as_int() / 120, false);
 	}
+	
+	//if (config.child("timmy")) {
+	//	timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
+	//	timmy->parameters = config.child("timmy");
+	//	timmy->stats = config.parent().child("timmy");
+	//	app->battleManager->AddCharacter(timmy, timmy->parameters.attribute("x").as_int() / 120, timmy->parameters.attribute("y").as_int() / 120, false);
+	//}
 
 	//Add enemies from config
 	if (config.child("enemy_angryVillager")) {

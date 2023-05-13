@@ -19,7 +19,7 @@
 BattleScene_Pigs::BattleScene_Pigs(bool isActive) : Module(isActive) {
 
 	name.Create("battleScene_Pigs");
-}
+	}
 
 // Destructor
 BattleScene_Pigs::~BattleScene_Pigs()

@@ -101,7 +101,9 @@ bool BattleManager::Update(float dt) {
 		area.Clear();
 		if (currentTurn->isEnemy)
 		{
+			enemyTimer = 200;
 			battleState = BattleState::ENEMY;
+			
 		}
 		break;
 	case BattleState::SELCETED:
@@ -258,24 +260,27 @@ bool BattleManager::Update(float dt) {
 				ListItem<TileData*>* tiledata;
 				for (tiledata = actionArea.start; tiledata != NULL; tiledata = tiledata->next) {
 
-					if (battleState == BattleState::ENEMY && tiledata->data->isCharacter==false) {
+					if (battleState == BattleState::ENEMY && tiledata->data->character==NULL) {
 						
 						iPoint pos = iPoint(tiledata->data->x, tiledata->data->y);
 						CreateArea(currentTurn->AttArea, 1, pos);
-						for (int i = 0; i < area.Count(); i++) {
+						ListItem<TileData*>* tileListItem;
 
-							if (area.At(i)->data->isCharacter == true && area.At(i)->data->character->isAlive == true) {
+						if (battleState == BattleState::ENEMY) {
+							for (tileListItem = area.start; tileListItem != NULL; tileListItem = tileListItem->next) {
 
-								length = app->pathfinding->CreatePath(origin, pos);
-								destination.x = pos.x;
-								destination.y = pos.y;
-								currentTurn->UseStamina(3);
-								actionType = ActionType::MOVE;
-								i = area.Count();
-								battleState = BattleState::INACTION;
-								
+								if (tileListItem->data->character != NULL && tileListItem->data->character->isEnemy == false) {
+
+									length = app->pathfinding->CreatePath(origin, pos);
+									destination.x = pos.x;
+									destination.y = pos.y;
+									currentTurn->UseStamina(3);
+									actionType = ActionType::MOVE;
+									battleState = BattleState::INACTION;
+
+								}
+
 							}
-
 						}
 
 					}
@@ -289,7 +294,7 @@ bool BattleManager::Update(float dt) {
 			
 		}
 	
-		if (battleState == BattleState::ENEMY) {
+		if (battleState == BattleState::ENEMY && enemyTimer==0) {
 			currentTurn->GainStamina(10);
 			battleState = BattleState::INACTION;
 		}
@@ -307,7 +312,9 @@ bool BattleManager::Update(float dt) {
 	}
 
 
-
+	if (enemyTimer > 0) {
+		enemyTimer--;
+	}
 	
 	CheckWinCondition();
 
@@ -319,7 +326,7 @@ bool BattleManager::Update(float dt) {
 
 bool BattleManager::PostUpdate() {
 
-	if (battleState == BattleState::SELCETED || battleState==BattleState::ENEMY) {
+	if (battleState == BattleState::SELCETED || battleState==BattleState::ENEMY ) {
 
 		DisplayAtackArea(actionType);
 		DisplayEnemys();
