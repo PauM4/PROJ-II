@@ -124,6 +124,8 @@ bool Enemy_LittlePig::Start()
 bool Enemy_LittlePig::Update(float dt)
 {
 	currentAnimation->Update();
+
+
 	return true;
 }
 

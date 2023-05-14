@@ -74,7 +74,7 @@ bool SceneBattle::Start() {
 	bool retLoad = app->map->Load(mapName, mapFolder);
 	timmyPrevPosBool = false;
 	bunnyPrevPosBool = false;
-	villagerPrevPosBool = false;
+	 villagerPrevPosBool = false;
 
 	if (retLoad) {
 		int w, h;

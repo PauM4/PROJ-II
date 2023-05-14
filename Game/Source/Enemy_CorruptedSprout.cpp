@@ -103,6 +103,10 @@ bool Enemy_CorruptedSprout::Awake()
 	walkLeftAnim.loop = true;
 	walkLeftAnim.pingpong = true;
 	walkLeftAnim.speed = 0.20f;
+
+	texture = app->tex->Load("Assets/Characters/F_sprites_esbirro.png");
+
+	currentAnimation = &idleAnim;
 	return true;
 }
 
@@ -113,12 +117,15 @@ bool Enemy_CorruptedSprout::Start()
 
 bool Enemy_CorruptedSprout::Update(float dt)
 {
+	currentAnimation->Update();
 	return true;
 }
 
 bool Enemy_CorruptedSprout::PostUpdate()
 {
 	//Render
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
 	return true;
 }
 

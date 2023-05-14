@@ -153,6 +153,7 @@ bool BattleManager::Update(float dt) {
 							targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->attack - targets.At(i)->data->defense);
 							app->sceneBattle->TakeDamageAnimation(targets.At(i)->data->name.GetString());
 
+						
 							currentTurn->UseStamina(5);
 							battleState = BattleState::INACTION;
 
@@ -172,6 +173,7 @@ bool BattleManager::Update(float dt) {
 
 				
 				Move(pathIndex, length);
+				
 			}
 			else
 			{
@@ -228,6 +230,7 @@ bool BattleManager::Update(float dt) {
 				if (entitylist->data->isAlive == true)
 				{
 					entitylist->data->health = entitylist->data->health - (currentTurn->attack - entitylist->data->defense);
+					app->sceneBattle->TakeDamageAnimation(targets.start->data->name.GetString());
 					targets.Clear();
 					currentTurn->UseStamina(5);
 					entitylist = NULL;
@@ -326,21 +329,22 @@ bool BattleManager::Update(float dt) {
 
 bool BattleManager::PostUpdate() {
 
-	if (battleState == BattleState::SELCETED || battleState==BattleState::ENEMY ) {
+	if (battleState == BattleState::SELCETED || battleState == BattleState::ENEMY) {
 
 		DisplayAtackArea(actionType);
 		DisplayEnemys();
 
+	}
+
+	for (ListItem<Entity*>* entiyItem = enemies.start; entiyItem != NULL; entiyItem = entiyItem->next){
+		app->sceneBattle->UpdateAnimation(entiyItem->data->name.GetString());
     }
-
 	
-	app->sceneBattle->UpdateAnimation(currentTurn->name.GetString());
-
 	UIStatsForBattle();
 	DisplayTurnList();
 
-	app->render->DrawRectangle({ int(allies.start->data->position.x) + 35, int(allies.start->data->position.y) + 35, 50, 50 }, 0, 233, 0, 250, true);
-	app->render->DrawRectangle({ int(enemies.start->data->position.x) + 35, int(enemies.start->data->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
+	//app->render->DrawRectangle({ int(allies.start->data->position.x) + 35, int(allies.start->data->position.y) + 35, 50, 50 }, 0, 233, 0, 250, true);
+	//app->render->DrawRectangle({ int(enemies.start->data->position.x) + 35, int(enemies.start->data->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 	return true;
 }
 
@@ -348,7 +352,11 @@ bool BattleManager::PostUpdate() {
 
 bool BattleManager::CleanUp() {
 
-
+	turnList.Clear();
+	allies.Clear();
+	enemies.Clear();
+	area.Clear();
+	actionArea.Clear();
 	return true;
 }
 
@@ -409,6 +417,10 @@ void BattleManager::UIStatsForBattle()
 {
 	int i = 0;
 	// UI Stats for Battle
+
+	app->fonts->DrawText("--- NEXT  TURN --- ", 80, 100, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 110, 125, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
 	for (ListItem<Entity*>* allyItem = allies.start; allyItem != NULL; allyItem = allyItem->next) {
 
 
@@ -421,43 +433,38 @@ void BattleManager::UIStatsForBattle()
 		const char* hpChar = hpString.c_str();
 	    
 		const char* nameChar = allyItem->data->namechar.GetString();
-		app->fonts->DrawText(nameChar, 80, 200 + i, 200, 200, {255,255,255}, app->fonts->gameFont);
-		app->fonts->DrawText("- HP: ", 80, 230 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(hpChar, 200, 230 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- Stamina: ", 80, 260 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(staminaChar, 200, 260 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		i+= 100;
+		app->fonts->DrawText(nameChar, 80, 250 + i, 200, 200, {255,255,255}, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 80, 280 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(hpChar, 200, 280 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 80, 310 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(staminaChar, 200, 310 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		i+= 120;
 	}
 
+	i = 0;
 	for (ListItem<Entity*>* enemyItem = enemies.start; enemyItem != NULL; enemyItem = enemyItem->next) {
 
+		uint stamina = enemyItem->data->stamina;
+		std::string staminaString = std::to_string(stamina);
+		const char* staminaChar = staminaString.c_str();
+
+		uint hp = enemyItem->data->health;
+		std::string hpString = std::to_string(hp);
+		const char* hpChar = hpString.c_str();
+
+		const char* nameChar = enemyItem->data->namechar.GetString();
+
+
+		app->fonts->DrawText(nameChar, 1690+30, 200+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 1690+30, 230+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(hpChar, 1810+30, 230+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 1690+30, 260+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(staminaChar, 1810+30, 260+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		i += 120;
 	}
-	//// Bunny stats:
-	//app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText(UintToChar(bunny->health), 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText(UintToChar(bunny->stamina), 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	
 
-	//// Villager stats:
-	uint villagerStamina = enemies.start->data->stamina;
-	std::string villagerStaminaString = std::to_string(villagerStamina);
-	const char* villagerStaminaChar = villagerStaminaString.c_str();
-
-	uint villagerHP = enemies.start->data->health;
-	std::string villagerHPString = std::to_string(villagerHP);
-	const char* villagerHpChar = villagerHPString.c_str();
-
-	int w_window = app->win->width;
-
-	app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-
-	app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	
 	
 	
 }
@@ -603,11 +610,8 @@ bool BattleManager::MousePosition() {
 
 
 	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x, mouseY - app->render->camera.y);
-	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
-	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x][mouseTile.y].character != false) {
-		app->render->DrawRectangle({ highlightedTileWorld.x, highlightedTileWorld.y, 120, 120 }, 0, 143, 57, 100, true);
 
-	}
+
 
 	return true;
 }
