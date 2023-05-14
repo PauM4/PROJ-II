@@ -58,18 +58,33 @@ bool Scene::Awake(pugi::xml_node& config)
 	pugi::xml_node chestNode1 = config.child("chest1");
 	chest1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 	chest1->parameters = chestNode1;
+	chest1->position.x = chestNode1.attribute("x").as_int();
+	chest1->position.y = chestNode1.attribute("y").as_int();
+	chest1->width = chestNode1.attribute("width").as_int();
+	chest1->height = chestNode1.attribute("height").as_int();
+	chest1->chestId = chestNode1.attribute("id").as_int();
 	PhysBody* chest1PB = app->physics->CreateRectangleSensor(chest1->position.x + chest1->width / 2, chest1->position.y + chest1->height / 2, chest1->width, chest1->height, bodyType::STATIC);
 	chest1PB->ctype = ColliderType::CHEST1;
 
 	pugi::xml_node chestNode2 = config.child("chest2");
 	chest2 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 	chest2->parameters = chestNode2;
+	chest2->position.x = chestNode2.attribute("x").as_int();
+	chest2->position.y = chestNode2.attribute("y").as_int();
+	chest2->width = chestNode2.attribute("width").as_int();
+	chest2->height = chestNode2.attribute("height").as_int();
+	chest2->chestId = chestNode2.attribute("id").as_int();
 	PhysBody* chest2PB = app->physics->CreateRectangleSensor(chest2->position.x + chest2->width / 2, chest2->position.y + chest2->height / 2, chest2->width, chest2->height, bodyType::STATIC);
 	chest2PB->ctype = ColliderType::CHEST2;
 
 	pugi::xml_node chestNode3 = config.child("chest3");
 	chest3 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 	chest3->parameters = chestNode3;
+	chest3->position.x = chestNode3.attribute("x").as_int();
+	chest3->position.y = chestNode3.attribute("y").as_int();
+	chest3->width = chestNode3.attribute("width").as_int();
+	chest3->height = chestNode3.attribute("height").as_int();
+	chest3->chestId = chestNode3.attribute("id").as_int();
 	PhysBody* chest3PB = app->physics->CreateRectangleSensor(chest3->position.x + chest3->width / 2, chest3->position.y + chest3->height / 2, chest3->width, chest3->height, bodyType::STATIC);
 	chest3PB->ctype = ColliderType::CHEST3;
 

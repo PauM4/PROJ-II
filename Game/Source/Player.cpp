@@ -239,9 +239,23 @@ bool Player::Update(float dt)
 		Movement(dt);
 	}
 
-	if (isChest1Pickable) app->teamManager->ironchestplate.ininventory = true;
-	if (isChest2Pickable) app->teamManager->reversehat.ininventory = true;
-	if (isChest3Pickable) app->teamManager->dentures.ininventory = true;
+	if (isChest1Pickable)
+	{
+		app->teamManager->ironchestplate.ininventory = true;
+		app->scene->chest1->isPicked = true;
+	}
+	if (isChest2Pickable)
+	{
+		app->teamManager->reversehat.ininventory = true;
+		app->scene->chest2->isPicked = true;
+	}
+	if (isChest3Pickable)
+	{
+		app->teamManager->dentures.ininventory = true;
+		app->scene->chest3->isPicked = true;
+	}
+
+	app->scene->chest3->isPicked;
 	
 	GodMode();
 
@@ -392,7 +406,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
 			itemInteractAvailable = true;
-
 			break;
 		case ColliderType::CHEST1:
 			isChest1Pickable = true;

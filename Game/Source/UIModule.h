@@ -22,7 +22,9 @@ enum CurrentMenuType
 	COMBAT,
 	ROPE_MINIGAME,
 	DISABLED,
-	LEVEL_UP
+	LEVEL_UP,
+	INVENTORY,
+	PARTY
 };
 
 class UIModule : public Module
@@ -83,6 +85,8 @@ public:
 	GuiButton* mainmenu_return_button;
 
 	GuiButton* pausemenu_resume_button;
+	GuiButton* pausemenu_inventory_button;
+	GuiButton* pausemenu_party_button;
 	GuiButton* pausemenu_save_button;
 	GuiButton* pausemenu_options_button;
 	GuiButton* pausemenu_return_button;
