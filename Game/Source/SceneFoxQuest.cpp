@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "Fonts.h"
+#include "SceneManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -57,8 +58,7 @@ bool SceneFoxQuest::Start()
 	map[2][7]->state = TileState::ROCK;
 	map[3][7]->state = TileState::ROCK;
 
-	map[3][6]->state = TileState::ROCK; //PullRock
-	map[4][6]->state = TileState::ROCK; 
+	map[3][6]->state = TileState::PULLROCK; 
 	map[6][6]->state = TileState::ROCK;
 	map[7][6]->state = TileState::ROCK;
 
@@ -66,16 +66,16 @@ bool SceneFoxQuest::Start()
 	map[2][5]->state = TileState::ROCK;
 	map[4][5]->state = TileState::ROCK;
 	map[5][5]->state = TileState::ROCK;
-	map[6][5]->state = TileState::ROCK; //PullRock
+	map[6][5]->state = TileState::PULLROCK; 
 	map[8][5]->state = TileState::ROCK;
 
 	map[1][4]->state = TileState::ROCK;
-	map[3][4]->state = TileState::ROCK; //PullRock
+	map[3][4]->state = TileState::ROCK; 
 	map[5][4]->state = TileState::ROCK;
 	map[7][4]->state = TileState::ROCK;
 
 	map[2][3]->state = TileState::ROCK;
-	map[3][3]->state = TileState::ROCK;
+	map[3][3]->state = TileState::PULLROCK;
 	map[5][3]->state = TileState::ROCK;
 	map[6][3]->state = TileState::ROCK;
 	map[7][3]->state = TileState::CHEST;
@@ -185,8 +185,12 @@ bool SceneFoxQuest::PostUpdate()
 	for (int i = 0; i < mapLength; i++) {
 		for (int j = 0; j < mapHeigth; j++) {
 			if (map[i][j]->state == TileState::ROCK) {
-				SDL_Rect rect = { 326,426,108,108 };
+				SDL_Rect rect = { 326,431,108,108 };
 				app->render->DrawTexture(rockTexture, i*108 + 420, j*108, &rect);
+			}
+			if (map[i][j]->state == TileState::PULLROCK) {
+				SDL_Rect rect = { 490,436,108,108 };
+				app->render->DrawTexture(rockTexture, i * 108 + 420, j * 108, &rect);
 			}
 		}
 	}
@@ -221,7 +225,7 @@ bool SceneFoxQuest::HitWall(int x, int y)
 
 bool SceneFoxQuest::HitRock(int x, int y)
 {
-	return map[x][y]->state == TileState::ROCK; 
+	return map[x][y]->state == TileState::ROCK || map[x][y]->state == TileState::PULLROCK;
 }
 
 void SceneFoxQuest::Movement()
@@ -253,34 +257,34 @@ void SceneFoxQuest::Movement()
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 		switch (player->direction) {
 		case Direction::LEFT:
-			if (map[player->pos.x - 1][player->pos.y]->state == TileState::ROCK) {
+			if (map[player->pos.x - 1][player->pos.y]->state == TileState::PULLROCK) {
 				PullRock(1, 0, player->pos.x, player->pos.y);
 			}
 			break; 
 		case Direction::RIGHT:
-			if (map[player->pos.x + 1][player->pos.y]->state == TileState::ROCK) {
+			if (map[player->pos.x + 1][player->pos.y]->state == TileState::PULLROCK) {
 				PullRock(-1, 0, player->pos.x, player->pos.y);
 			}
 			break; 
 		case Direction::UP:
-			if (map[player->pos.x][player->pos.y - 1]->state == TileState::ROCK) {
+			if (map[player->pos.x][player->pos.y - 1]->state == TileState::PULLROCK) {
 				PullRock(0, 1, player->pos.x, player->pos.y);
 			}
 			break;
 		case Direction::DOWN:
-			if (map[player->pos.x][player->pos.y +1]->state == TileState::ROCK) {
+			if (map[player->pos.x][player->pos.y +1]->state == TileState::PULLROCK) {
 				PullRock(0, -1, player->pos.x, player->pos.y);
 			}
 			break;
 		}
 	}
 
-	if (map[player->tilePos.x][player->tilePos.y]->state == TileState::EXIT) {
-		
+	if (map[player->pos.x][player->pos.y]->state == TileState::EXIT) {
+		app->sceneManager->LoadScene(GameScene::SCENE); //Change to world 2
 	}
 
-	if (map[player->tilePos.x][player->tilePos.y]->state == TileState::ENTRANCE) {
-
+	if (map[player->pos.x][player->pos.y]->state == TileState::ENTRANCE) {
+		app->sceneManager->LoadScene(GameScene::SCENE); //Change to world 2
 	}
 }
 
@@ -293,8 +297,15 @@ bool SceneFoxQuest::PushRock(int moveX, int moveY, int pX, int pY)
 	if (HitWall(newRockX, newRockY)||HitRock(newRockX, newRockY)) {
 		return false; 
 	}
-	map[pX][pY]->state = TileState::EMPTY; 
-	map[newRockX][newRockY]->state = TileState::ROCK; 
+	if (map[pX][pY]->state == TileState::ROCK) {
+		map[pX][pY]->state = TileState::EMPTY;
+		map[newRockX][newRockY]->state = TileState::ROCK;
+	}
+	else if (map[pX][pY]->state == TileState::PULLROCK) {
+		map[pX][pY]->state = TileState::EMPTY;
+		map[newRockX][newRockY]->state = TileState::PULLROCK;
+	}
+
 	LOG("PUSH ROCK");
 
 	return true;
@@ -312,7 +323,7 @@ bool SceneFoxQuest::PullRock(int moveX, int moveY, int pX, int pY)
 	}
 	player->isMoving = true; 
 	
-	map[pX][pY]->state = TileState::ROCK;
+	map[pX][pY]->state = TileState::PULLROCK;
 	map[pX-moveX][pY- moveY]->state = TileState::EMPTY;
 	LOG("PULLED ROCK"); 
 

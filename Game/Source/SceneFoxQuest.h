@@ -14,6 +14,7 @@ enum class TileState {
 	PLAYER, 
 	WALL, 
 	ROCK,
+	PULLROCK,
 	EMPTY,
 	ENTRANCE, 
 	EXIT,

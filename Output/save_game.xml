@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="2248" y="2652" x="2248" y="2577" />
+		<player x="3743" y="974" x="3743" y="899" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -23,6 +23,6 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-1288" y="-2089" />
+		<camera x="-2532" y="-404" />
 	</renderer>
 </save_state>
