@@ -36,19 +36,30 @@ bool BattleScene_Pigs::Awake(pugi::xml_node& config) {
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+
 	//Add allies from teamManager
 	int i = 0;
-	/*for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
-		app->battleManager->AddCharacter(teamItem->data, 0, i, false);
+	int i = 0;
+	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
+		app->battleManager->AddCharacter(teamItem->data, 4, 3 + i, false);
 		i++;
-	}*/
+	}
 	
-	/*if (config.child("timmy")) {
-		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
-		timmy->parameters = config.child("timmy");
-		timmy->stats = config.parent().child("timmy");
-		app->battleManager->AddCharacter(timmy, timmy->parameters.attribute("x").as_int() / 120, timmy->parameters.attribute("y").as_int() / 120, false);
-	}*/
+	if (config.child("enemy_littlePig")) {
+		littlePig = (Enemy_LittlePig*)app->entityManager->CreateEntity(EntityType::ENEMYLPIG);
+		littlePig->parameters = config.child("enemy_littlePig");
+		littlePig->stats = config.parent().child("enemy_littlePig");
+		app->battleManager->AddCharacter(littlePig, littlePig->parameters.attribute("x").as_int() / 120, littlePig->parameters.attribute("y").as_int() / 120, false);
+	}
+
+	if (config.child("enemy_middlePig")) {
+		middlePig = (Enemy_MiddlePig*)app->entityManager->CreateEntity(EntityType::ENEMYMPIG);
+		middlePig->parameters = config.child("enemy_middlePig");
+		middlePig->stats = config.parent().child("enemy_middlePig");
+		app->battleManager->AddCharacter(middlePig, middlePig->parameters.attribute("x").as_int() / 120, middlePig->parameters.attribute("y").as_int() / 120, false);
+	}
 
 	//Add enemies from config
 	/*if (config.child("enemy_angryVillager")) {
@@ -69,9 +80,7 @@ bool BattleScene_Pigs::Awake(pugi::xml_node& config) {
 bool BattleScene_Pigs::Start() {
 
 	bool retLoad = app->map->Load(mapName, mapFolder);
-	timmyPrevPosBool = false;
-	bunnyPrevPosBool = false;
-	villagerPrevPosBool = false;
+
 
 	if (retLoad) {
 		int w, h;
@@ -84,11 +93,22 @@ bool BattleScene_Pigs::Start() {
 
 	}
 
+
+	// Tell to UIModule which currentMenuType
+	app->uiModule->currentMenuType = COMBAT;
+	// Call this function only when buttons change
+	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+
+
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.wav", 0.2f);
+
 	app->battleManager->MakeCombatMap();
 	
-	//timmyPrevPos = timmy->position;
-	//bunnyPrevPos = bunny->position;
-	//villagerPrevPos = villager->position;
+
+
+	sproutPrevPos = sprout->position;
+	redhoodiePrevPos = redhoodie->position;
 
 	return true;
 }
@@ -164,8 +184,10 @@ bool BattleScene_Pigs::CleanUp(){
 
 	LOG("Freeing sceneBattle");
 
+	app->pathfinding->ClearLastPath();
 	app->map->CleanUp();
-	app->entityManager->CleanUp(); 
+	app->entityManager->CleanUp();
+	app->battleManager->CleanUp();
 
 
 	SaveResult();
@@ -175,146 +197,99 @@ bool BattleScene_Pigs::CleanUp(){
 
 void BattleScene_Pigs::MoveAnimation(const char* name)
 {
-	//if (strcmp(name,"enemy_angryVillager") == 0)
-	//{
-	//	//Moverse a la derecha
-	//	if (villager->position.x > villagerPrevPos.x)
-	//	{
-	//		villager->currentAnimation = &villager->walkRightAnim;
-	//	}
-	//	//Moverse a la izquierda
-	//	else if (villager->position.x < villagerPrevPos.x)
-	//	{
-	//		villager->currentAnimation = &villager->walkLeftAnim;
-	//	}
-	//	//Moverse a abajo
-	//	else if (villager->position.y > villagerPrevPos.y)
-	//	{
-	//		villager->currentAnimation = &villager->walkDownAnim;
-	//	}
-	//	//Moverse a arriba
-	//	else if (villager->position.y < villagerPrevPos.y)
-	//	{
-	//		villager->currentAnimation = &villager->walkUpAnim;
-	//	}
-	//	else if (villager->position.y == villagerPrevPos.y && villager->position.x == villagerPrevPos.x)
-	//	{
+	if (strcmp(name, "enemy_littlePig") == 0)
+	{
+		//Moverse a la derecha
+		if (littlePig->position.x > littlePigPrevPos.x)
+		{
+			littlePig->currentAnimation = &littlePig->walkRightAnim;
+		}
+		//Moverse a la izquierda
+		else if (littlePig->position.x < littlePigPrevPos.x)
+		{
+			littlePig->currentAnimation = &littlePig->walkLeftAnim;
+		}
+		//Moverse a abajo
+		else if (littlePig->position.y > littlePigPrevPos.y)
+		{
+			littlePig->currentAnimation = &littlePig->walkDownAnim;
+		}
+		//Moverse a arriba
+		else if (littlePig->position.y < littlePigPrevPos.y)
+		{
+			littlePig->currentAnimation = &littlePig->walkUpAnim;
+		}
+		else if (littlePig->position.y == littlePigPrevPos.y && littlePig->position.x == littlePigPrevPos.x)
+		{
 
-	//		if (frames > 60)
-	//		{
-	//			villager->currentAnimation = &villager->idleAnim;
-	//			frames = 0;
-	//		}
-	//		else
-	//		{
-	//			frames++;
-	//		}
-	//	}
+			if (frames > 60)
+			{
+				littlePig->currentAnimation = &littlePig->idleAnim;
+				frames = 0;
+			}
+			else
+			{
+				frames++;
+			}
+		}
 
-	//	villagerPrevPos.x = villager->position.x;
-	//	villagerPrevPos.y = villager->position.y;
-	//}
-	//else if (strcmp(name, "timmy") == 0)
-	//{
+		littlePigPrevPos.x = littlePig->position.x;
+		littlePigPrevPos.y = littlePig->position.y;
+	}
 
-	//	//Moverse a la derecha
-	//	if (timmy->position.x > timmyPrevPos.x)
-	//	{
-	//		timmy->currentAnimation = &timmy->walkRightAnim;
-	//	}
-	//	//Moverse a la izquierda
-	//	else if (timmy->position.x < timmyPrevPos.x)
-	//	{
-	//		timmy->currentAnimation = &timmy->walkLeftAnim;
-	//	}
-	//	//Moverse a abajo
-	//	else if (timmy->position.y > timmyPrevPos.y)
-	//	{
-	//		timmy->currentAnimation = &timmy->walkDownAnim;
-	//	}
-	//	//Moverse a arriba
-	//	else if (timmy->position.y < timmyPrevPos.y)
-	//	{
-	//		timmy->currentAnimation = &timmy->walkUpAnim;
-	//	}
-	//	else if (timmy->position.y == timmyPrevPos.y && timmy->position.x == timmyPrevPos.x)
-	//	{
-	//		if (frames > 60)
-	//		{
-	//			timmy->currentAnimation = &timmy->idleAnim;
-	//			frames = 0;
-	//		}
-	//		else
-	//		{
-	//			frames++;
-	//		}
-	//		
-	//	}
+	if (strcmp(name, "enemy_middlePig") == 0)
+	{
+		//Moverse a la derecha
+		if (middlePig->position.x > middlePigPrevPos.x)
+		{
+			middlePig->currentAnimation = &middlePig->walkRightAnim;
+		}
+		//Moverse a la izquierda
+		else if (middlePig->position.x < middlePigPrevPos.x)
+		{
+			middlePig->currentAnimation = &middlePig->walkLeftAnim;
+		}
+		//Moverse a abajo
+		else if (middlePig->position.y > middlePigPrevPos.y)
+		{
+			middlePig->currentAnimation = &middlePig->walkDownAnim;
+		}
+		//Moverse a arriba
+		else if (middlePig->position.y < middlePigPrevPos.y)
+		{
+			middlePig->currentAnimation = &middlePig->walkUpAnim;
+		}
+		else if (middlePig->position.y == middlePigPrevPos.y && middlePig->position.x == middlePigPrevPos.x)
+		{
 
-	//	timmyPrevPos.x = timmy->position.x;
-	//	timmyPrevPos.y = timmy->position.y;
+			if (frames > 60)
+			{
+				middlePig->currentAnimation = &middlePig->idleAnim;
+				frames = 0;
+			}
+			else
+			{
+				frames++;
+			}
+		}
 
-	//}
-	//else if (strcmp(name, "bunny") == 0)
-	//{
-
-	//	//Moverse a la derecha
-	//	if (bunny->position.x > bunnyPrevPos.x)
-	//	{
-	//		bunny->currentAnimation = &bunny->walkRightAnim;
-	//	}
-	//	//Moverse a la izquierda
-	//	else if (bunny->position.x < bunnyPrevPos.x)
-	//	{
-	//		bunny->currentAnimation = &bunny->walkLeftAnim;
-	//	}
-	//	//Moverse a abajo
-	//	else if (bunny->position.y > bunnyPrevPos.y)
-	//	{
-	//		bunny->currentAnimation = &bunny->walkDownAnim;
-	//	}
-	//	//Moverse a arriba
-	//	else if (bunny->position.y < bunnyPrevPos.y)
-	//	{
-	//		bunny->currentAnimation = &bunny->walkUpAnim;
-	//	}
-	//	else if (bunny->position.y == bunnyPrevPos.y && bunny->position.x == bunnyPrevPos.x)
-	//	{
-	//		if (frames > 60)
-	//		{
-	//			bunny->currentAnimation = &bunny->idleAnim;
-	//			frames = 0;
-	//		}
-	//		else
-	//		{
-	//			frames++;
-	//		}
-
-	//		
-	//	}
-	//	
-
-	//	bunnyPrevPos.x = bunny->position.x;
-	//	bunnyPrevPos.y = bunny->position.y;
-
-	//}
+		middlePigPrevPos.x = middlePig->position.x;
+		middlePigPrevPos.y = middlePig->position.y;
+	}
 }
 
 void BattleScene_Pigs::TakeDamageAnimation(const char* name)
 {
 	//Animación de ser dañado
-	/*if (strcmp(name, "enemy_angryVillager") == 0)
+	if (strcmp(name, "enemy_middlePig") == 0)
 	{
-		villager->currentAnimation = &villager->takedmgAnim;
+		middlePig->currentAnimation = &middlePig->takedmgAnim;
 	}
-	else if (strcmp(name, "timmy") == 0)
+	else if (strcmp(name, "enemy_littlePig") == 0)
 	{
-		timmy->currentAnimation = &timmy->takedmgAnim;
+		littlePig->currentAnimation = &littlePig->takedmgAnim;
 	}
-	else if (strcmp(name, "bunny") == 0)
-	{
-		bunny->currentAnimation = &bunny->takedmgAnim;
-	}*/
+
 
 }
 
