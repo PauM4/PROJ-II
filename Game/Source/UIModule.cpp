@@ -1123,8 +1123,8 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 
 
 	// Draw NPC Popup
-	SDL_Rect pigsRect = { 1198, 212, 416, 705 };
-	SDL_Rect zorroRect = { 1174, 2024, 435, 726 };
+	SDL_Rect pigsRect = { 9, 1855, 662, 604 };
+	SDL_Rect zorroRect = { 18, 924, 788, 703 };
 
 	switch (app->w2_scene->GetPlayerLastCollision())
 	{
@@ -1134,7 +1134,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 		break;
 
 	case ColliderType::ZORRO:
-		app->render->DrawTexture(app->w2_scene->npcPopUpTexture, app->w2_scene->player->position.x - 800, app->w2_scene->player->position.y - 300, &zorroRect);
+		app->render->DrawTexture(app->w2_scene->npcPopUpTexture, app->w2_scene->player->position.x - 900, app->w2_scene->player->position.y - 300, &zorroRect);
 		break;
 
 	default:

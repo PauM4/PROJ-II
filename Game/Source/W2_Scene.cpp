@@ -48,7 +48,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 
 	CreateDialogue(); //3MB
 
-	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
+	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters2_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
@@ -260,19 +260,19 @@ bool W2_Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Option 1
 	case 12:
-		app->scene->player->buttonOption1 = true;
+		app->w2_scene->player->buttonOption1 = true;
 		break;
 		// Option 2
 	case 13:
-		app->scene->player->buttonOption2 = true;
+		app->w2_scene->player->buttonOption2 = true;
 		break;
 		// Option 3
 	case 14:
-		app->scene->player->buttonOption3 = true;
+		app->w2_scene->player->buttonOption3 = true;
 		break;
 		// Option 4
 	case 15:
-		app->scene->player->buttonOption4 = true;
+		app->w2_scene->player->buttonOption4 = true;
 	default:
 		break;
 	}
@@ -498,7 +498,7 @@ void W2_Scene::CreateDialogue()
 
 	//sheeps
 	auto zorroNode = std::make_shared<DialogueNode>();
-	zorroNode->SetText("If you keep going this way, you will come across a cave, full of challenges and mysteries.");
+	zorroNode->SetText("If you keep going this way, you will come across a cave, full of challenges and mysteries. Help Me!");
 	zorroTree = std::make_shared<DialogueTree>();
 	zorroTree->SetRoot(zorroNode);
 
