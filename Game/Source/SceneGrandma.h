@@ -48,6 +48,7 @@ public:
 	Player* player;
 	Door* door;
 	Portal* portal; 
+	Npc* npc1;
 
 	// UI Things
 	bool isPaused;
