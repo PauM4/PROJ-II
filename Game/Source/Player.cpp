@@ -421,6 +421,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			npcInteractAvailable = true;
 			lastCollision = ColliderType::PIGS;
 			break;
+		case ColliderType::ZORRO:
+			LOG("Collision 	ZORRO");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::ZORRO;
+			break;
 		case ColliderType::DEADVILLAGER:
 			LOG("Collision 	DEADVILLAGER");
 			npcInteractAvailable = true;
@@ -487,6 +492,8 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 		npcInteractAvailable = false;
 		break;
 	case ColliderType::TALISMANVILLAGER:
+		npcInteractAvailable = false;
+	case ColliderType::ZORRO:
 		npcInteractAvailable = false;
 		break;
 	case ColliderType::GRANDMA:
@@ -564,6 +571,9 @@ void Player::TriggerDialogueTree(ColliderType NPC)
 		break;
 	case ColliderType::PIGS:
 		app->w2_scene->RunDialogueTree(ColliderType::PIGS);
+		break;
+	case ColliderType::ZORRO:
+		app->w2_scene->RunDialogueTree(ColliderType::ZORRO);
 		break;
 	case ColliderType::DEADVILLAGER:
 		app->w3_scene->RunDialogueTree(ColliderType::DEADVILLAGER);

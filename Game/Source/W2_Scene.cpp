@@ -99,7 +99,7 @@ bool W2_Scene::Start()
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
 
-
+	player->ChangePosition(5258, 3101);
 
 	return true;
 }
@@ -315,6 +315,11 @@ void W2_Scene::RunDialogueTree(ColliderType NPC)
 		break;
 	case ColliderType::WOLF:
 		dialogue = wolfTree->Run();
+
+		break;
+
+	case ColliderType::ZORRO:
+		
 
 		break;
 	default:

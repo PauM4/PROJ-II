@@ -40,6 +40,7 @@ enum class ColliderType {
 	LRRH,
 	ITEM,
 	PIGS,
+	ZORRO,
 	DEADVILLAGER,
 	SHEEPA,
 	SHEEPB,
