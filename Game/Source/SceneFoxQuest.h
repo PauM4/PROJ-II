@@ -116,6 +116,8 @@ public:
 
 	SDL_Texture* rockTexture; 
 
+	SDL_Texture* mapTexture; 
+
 	bool movingRock; 
 private:
 
