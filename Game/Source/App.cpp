@@ -101,7 +101,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	//World_01
 	AddModule(scene);
-	//AddModule(sceneCombatLHHR);
+	AddModule(sceneCombatLHHR);
 	AddModule(sceneBattle);
 	AddModule(sceneGrandma);
 	AddModule(sceneFoxQuest); 

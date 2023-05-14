@@ -83,6 +83,11 @@ bool SceneManager::PreUpdate()
 		app->sceneManager->isBattle = false;
 		scene = GameScene::FOXQUEST;
 	}
+	if ((app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = true;
+		scene = GameScene::COMBATLHHR;
+	}
 
 	switch (scene) {
 	case GameScene::INTRO:
@@ -151,7 +156,7 @@ bool SceneManager::Update(float dt)
 		if (currentScene != (Module*)app->sceneCombatLHHR) {
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneCombatLHHR, 20)) {
 				currentScene = (Module*)app->sceneCombatLHHR;
-				LOG("SCENE_BATTLE");
+				LOG("SCENE_BATTLELHHR");
 			}
 		}
 		break;

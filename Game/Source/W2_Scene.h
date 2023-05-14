@@ -102,7 +102,7 @@ private:
 	bool pauseMenuActive;
 	bool exitButtonBool;
 
-	std::shared_ptr<DialogueTree> pigsTree, wolfTree;
+	std::shared_ptr<DialogueTree> pigsTree, wolfTree, zorroTree;
 
 	std::vector<std::string> dialogue;
 
