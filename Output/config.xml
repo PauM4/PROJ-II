@@ -72,6 +72,10 @@
 		<enemy_lrrh x="1320" y="480" movement="5" />
 		<sprout x="1320" y="360" movement="6" />
 	</scenecombatLHHR>
+
+	<battleScene_Pigs name="Assets/Maps/World_02/pigsBattle.tmx" path="Assets/Maps/World_02/" >
+		
+	</battleScene_Pigs>
 	
 	<teamManager>
 		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
