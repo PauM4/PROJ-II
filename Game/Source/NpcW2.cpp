@@ -21,8 +21,8 @@ NpcW2::~NpcW2() {
 bool NpcW2::Awake() {
 
 	npcW2TexturePath = "Assets/Characters/W2Sprites_ingame.png";
-
-	posPigs.x = 5054, posPigs.y = 2958;
+	//x=5054
+	posPigs.x = 4854, posPigs.y = 2958;
 	pigsAnimation.PushBack({ 307,25,218,252 });
 
 	posZorro.x = 5374, posZorro.y = 3218;

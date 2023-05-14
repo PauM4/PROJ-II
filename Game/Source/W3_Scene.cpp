@@ -277,11 +277,11 @@ void W3_Scene::Camera()
 		app->render->FollowObject(-(int)player->position.x, -(int)player->position.y - 35,
 			app->render->camera.w / 2, app->render->camera.h / 2);
 	}
-	else
-	{
-		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2);
-	}
+	//else
+	//{
+	//	app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
+	//		app->render->camera.w / 2, app->render->camera.h / 2);
+	//}
 
 }
 

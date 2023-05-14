@@ -197,6 +197,9 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 
+	std::cout << "X: " << player->position.x << std::endl;
+	std::cout << "Y: " << player->position.y << std::endl;
+
 	Camera();
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
@@ -451,7 +454,7 @@ void Scene::Camera()
 	else
 	{
 		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2);
+			app->render->camera.w / 2, app->render->camera.h / 2, -2532, -18, -4974, -16);
 	}
 
 }

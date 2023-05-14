@@ -284,7 +284,7 @@ void W2_Scene::Camera()
 	else
 	{
 		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2);
+			app->render->camera.w / 2, app->render->camera.h / 2, -4254, -93, -2767, -1212);
 	}
 
 }
