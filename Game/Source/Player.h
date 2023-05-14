@@ -92,7 +92,7 @@ public:
 
 	bool buttonOption1, buttonOption2, buttonOption3, buttonOption4;
 
-	int grasswalkFx = -1;
+	int walkFx = -1;
 
 private:
 

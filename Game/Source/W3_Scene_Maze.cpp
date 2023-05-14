@@ -58,6 +58,7 @@ bool W3_Scene_Maze::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool W3_Scene_Maze::Start()
 {
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	app->entityManager->Start();
 	
 

@@ -89,6 +89,7 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	ropeFX = app->audio->LoadFx("Assets/Sounds/FX/fx_water_splash.wav");
 
 	app->entityManager->Start();

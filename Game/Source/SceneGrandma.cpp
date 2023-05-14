@@ -57,6 +57,7 @@ bool SceneGrandma::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneGrandma::Start()
 {	
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_wooden_walk.wav");
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
