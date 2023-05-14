@@ -220,7 +220,7 @@ void W2_Scene::AppearDialogue()
 	if (player->playerState == player->PlayerState::NPC_INTERACT)
 	{
 		// Tell to UIModule which currentMenuType
-		app->uiModule->currentMenuType = DIALOG;
+		app->uiModule->currentMenuType = DIALOG2;
 		// Call this function only when buttons change
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
@@ -259,19 +259,19 @@ bool W2_Scene::OnGuiMouseClickEvent(GuiControl* control)
 	switch (control->id)
 	{
 		// Option 1
-	case 12:
+	case 30:
 		app->w2_scene->player->buttonOption1 = true;
 		break;
 		// Option 2
-	case 13:
+	case 31:
 		app->w2_scene->player->buttonOption2 = true;
 		break;
 		// Option 3
-	case 14:
+	case 32:
 		app->w2_scene->player->buttonOption3 = true;
 		break;
 		// Option 4
-	case 15:
+	case 33:
 		app->w2_scene->player->buttonOption4 = true;
 	default:
 		break;

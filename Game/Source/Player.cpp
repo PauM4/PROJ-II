@@ -529,33 +529,60 @@ void Player::GodMode()
 //This function checks for input from the player's keyboard and updates the dialogue tree in the game's scene accordingly. The function checks if any button is being pressed, and if so, it calls the UpdateDialogueTree() function in the scene and passes it an integer value from 1 to 4, depending on which button was pressed.
 void Player::InteractWithTree()
 {
-	if (buttonOption1)
+	if (app->scene->active)
 	{
-		app->scene->UpdateDialogueTree(1);
-		app->uiModule->CleaningDialogeOverTime();
-		buttonOption1 = false;
+		if (buttonOption1)
+		{
+			app->scene->UpdateDialogueTree(1);
+			app->uiModule->CleaningDialogeOverTime();
+			buttonOption1 = false;
+		}
+		else if (buttonOption2)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->scene->UpdateDialogueTree(2);
+			buttonOption2 = false;
+		}
+		else if (buttonOption3)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->scene->UpdateDialogueTree(3);
+			buttonOption3 = false;
+		}
+		else if (buttonOption4)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->scene->UpdateDialogueTree(4);
+			buttonOption4 = false;
+		}
 	}
-	else if (buttonOption2)
+	else if (app->w2_scene->active)
 	{
-		app->uiModule->CleaningDialogeOverTime();
-		app->scene->UpdateDialogueTree(2);
-		buttonOption2 = false;
+		if (buttonOption1)
+		{
+			app->w2_scene->UpdateDialogueTree(1);
+			app->uiModule->CleaningDialogeOverTime();
+			buttonOption1 = false;
+		}
+		else if (buttonOption2)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w2_scene->UpdateDialogueTree(2);
+			buttonOption2 = false;
+		}
+		else if (buttonOption3)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w2_scene->UpdateDialogueTree(3);
+			buttonOption3 = false;
+		}
+		else if (buttonOption4)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w2_scene->UpdateDialogueTree(4);
+			buttonOption4 = false;
+		}
 	}
-	else if (buttonOption3)
-	{
-		app->uiModule->CleaningDialogeOverTime();
-		app->scene->UpdateDialogueTree(3);
-		buttonOption3 = false;
-	}
-	else if (buttonOption4)
-	{
-		app->uiModule->CleaningDialogeOverTime();
-		app->scene->UpdateDialogueTree(4);
-		buttonOption4 = false;
-	}
-
-	
-
 }
 
 //This function takes a ColliderType parameter and runs the corresponding dialogue tree in the game's scene
