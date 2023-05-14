@@ -63,27 +63,3 @@ bool Item::CleanUp()
 
 	return true;
 }
-
-void Item::OnCollision(PhysBody* physA, PhysBody* physB)
-{
-	if (physB->ctype == ColliderType::PLAYER)
-	{
-		LOG("Player collided with item %d", chestId);
-
-		if (app->scene->player->playerState == app->scene->player->ITEM_INTERACT)
-		{
-			LOG("ASDADA");
-			switch (chestId)
-			{
-			case 0:
-				break;
-			case 1:
-				break;
-			case 2:
-				app->teamManager->ironchestplate.ininventory = true;
-				break;
-			}
-		}
-
-	}
-}

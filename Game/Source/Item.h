@@ -24,9 +24,6 @@ public:
 
 	bool CleanUp();
 
-	// On Collision is defined in Player.cpp
-	void OnCollision(PhysBody* physA, PhysBody* physB);
-
 
 public:
 

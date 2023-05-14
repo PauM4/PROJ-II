@@ -239,7 +239,9 @@ bool Player::Update(float dt)
 		Movement(dt);
 	}
 
-
+	if (isChest1Pickable) app->teamManager->ironchestplate.ininventory = true;
+	if (isChest2Pickable) app->teamManager->reversehat.ininventory = true;
+	if (isChest3Pickable) app->teamManager->dentures.ininventory = true;
 	
 	GodMode();
 
@@ -386,6 +388,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision ITEM");
 			itemInteractAvailable = true;
 			break;
+		case ColliderType::CHEST1:
+			isChest1Pickable = true;
+			break;
+		case ColliderType::CHEST2:
+			isChest2Pickable = true;
+			break;
+		case ColliderType::CHEST3:
+			isChest3Pickable = true;
+			break;
 		case ColliderType::BARRIER:
 			LOG("Collision BARRIER");
 			break;
@@ -476,6 +487,15 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::ITEM:
 		itemInteractAvailable = false;
+		break;
+	case ColliderType::CHEST1:
+		isChest1Pickable = false;
+		break;
+	case ColliderType::CHEST2:
+		isChest2Pickable = false;
+		break;
+	case ColliderType::CHEST3:
+		isChest3Pickable = false;
 		break;
 	case ColliderType::BARRIER:
 		break;

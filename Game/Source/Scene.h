@@ -99,7 +99,9 @@ public:
 	Player* player;
 	Npc* npc1;
 	List<Door*> doors;
-	List<Item*> chests;
+	Item* chest1;
+	Item* chest2;
+	Item* chest3;
 
 	// A list of quests
 	std::vector<Quest> questList;
