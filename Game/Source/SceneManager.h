@@ -19,6 +19,7 @@ enum GameScene {
 	BATTLE,
 	GRANDMA,
 	COMBATLHHR,
+	COMBATOINK,
 	GAME_OVER,
 	//World_02
 	W2_SCENE,
