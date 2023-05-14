@@ -47,12 +47,11 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 
 
 	if (config.child("enemy_lrrh")) {
-		redhoodie = (Enemy_LRRH*)app->entityManager->CreateEntity(EntityType::LRRH);
+		redhoodie = (Enemy_LRRH*)app->entityManager->CreateEntity(EntityType::ENEMYLRRH);
 		redhoodie->parameters = config.child("enemy_lrrh");
 		redhoodie->stats = config.parent().child("enemy_lrrh");
 		app->battleManager->AddCharacter(redhoodie, redhoodie->parameters.attribute("x").as_int() / 120, redhoodie->parameters.attribute("y").as_int() / 120, true);
 	}
-
 
 	if (config.child("sprout")) {
 		sprout = (Enemy_CorruptedSprout*)app->entityManager->CreateEntity(EntityType::CORRUPTEDSPROUT);
