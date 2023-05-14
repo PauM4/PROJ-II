@@ -42,7 +42,7 @@
 
 	</scene>
 	<w2_scene name="Assets/Maps/World_02/scene_01.tmx" path="Assets/Maps/World_02/">
-		<player x="5104" y="3122" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+		<player x="571" y="3117" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
     <npcW2 npcW2TexturePath="Assets/Characters/Characters_popups.png" />
 	</w2_scene>
 	<w3_scene name="Assets/Maps/World_03/scene_01.tmx" path="Assets/Maps/World_03/">

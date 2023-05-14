@@ -76,7 +76,7 @@ bool W2_Scene::Start()
 
 	if (isNewGame)
 	{
-		player->ChangePosition(1868, 5608);
+		player->ChangePosition(571, 3117);
 		isNewGame = false;
 	}
 	else
@@ -98,6 +98,8 @@ bool W2_Scene::Start()
 	numTimesPigsDialogueTriggered = 0;
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
+
+
 
 	return true;
 }
