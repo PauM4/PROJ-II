@@ -58,6 +58,7 @@ public:
 	bool ChangeButtonState(int& currentMenuType);
 
 	void PrintDialogue(std::vector<std::string> dialogue);
+	void PrintDialogue2(std::vector<std::string> dialogue);
 
 	void CleaningDialogeOverTime();
 
@@ -133,5 +134,6 @@ private:
 };
 
 #endif // __UIMODULE_H__
+
 
 

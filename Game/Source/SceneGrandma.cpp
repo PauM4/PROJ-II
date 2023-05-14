@@ -39,6 +39,8 @@ bool SceneGrandma::Awake(pugi::xml_node& config)
 		player->parameters = config.child("player");
 	}
 
+	npc1 = (Npc*)app->entityManager->CreateEntity(EntityType::NPC);
+	npc1->parameters = config.child("npc");
 
 	door = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);
 	door->parameters = config.child("door");
