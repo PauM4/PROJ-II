@@ -52,7 +52,11 @@ public:
 
 	void AppearDialogue();
 
-	std::vector<std::string> GetDialogue2() { return dialogue; }
+	void drawQuest(int posX, int posY);
+
+	void nextQuest();
+
+	std::vector<std::string> GetDialogue() { return dialogue; }
 
 
 	ColliderType GetPlayerLastCollision() { return player->lastCollision; }
@@ -73,6 +77,14 @@ public:
 	List<Door*> doors;
 
 
+	// A list of quests
+	std::vector<Quest> questList;
+	const char* questText;
+	PhysBody* secondQuestCollider;
+
+	// The index of the current quest
+	int currentQuestIndex;
+
 	// Load things
 	int loadPlayerPosX;
 	int loadPlayerPosY;
@@ -82,6 +94,11 @@ public:
 
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;
+	SDL_Texture* questUiTexture;
+	SDL_Texture* lvlupTexture;
+	SDL_Texture* eKeyTexture;
+	Tween eKeyAnim;
+	bool inventoryOpen;
 
 private:
 
@@ -102,7 +119,7 @@ private:
 	bool pauseMenuActive;
 	bool exitButtonBool;
 
-	std::shared_ptr<DialogueTree> pigsTree, wolfTree;
+	std::shared_ptr<DialogueTree> pigsTree, wolfTree, zorroTree;
 
 	std::vector<std::string> dialogue;
 

@@ -50,7 +50,7 @@ public:
 	bool SaveState(pugi::xml_node&);
 
 	void FollowObject(int posX, int posY, int offsetX, int offsetY);
-	void FollowObjectRespectBoundaries(int posX, int posY, int offsetX, int offsetY);
+	void FollowObjectRespectBoundaries(int posX, int posY, int offsetX, int offsetY, int minX, int maxX, int minY, int maxY);
 
 private:
 	void GodMode();

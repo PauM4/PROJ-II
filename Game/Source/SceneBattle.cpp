@@ -74,7 +74,7 @@ bool SceneBattle::Start() {
 	bool retLoad = app->map->Load(mapName, mapFolder);
 	timmyPrevPosBool = false;
 	bunnyPrevPosBool = false;
-	villagerPrevPosBool = false;
+	 villagerPrevPosBool = false;
 
 	if (retLoad) {
 		int w, h;
@@ -86,7 +86,7 @@ bool SceneBattle::Start() {
 		RELEASE_ARRAY(data);
 
 	}
-
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.wav", 0.2f);
 	app->battleManager->MakeCombatMap();
 	
 	//bunnyPrevPos = bunny->position;

@@ -48,8 +48,13 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 
 	CreateDialogue(); //3MB
 
-	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
+	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters2_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
+	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
+	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
+	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
+
+	currentQuestIndex = 0;
 
 	return ret;
 }
@@ -76,7 +81,7 @@ bool W2_Scene::Start()
 
 	if (isNewGame)
 	{
-		player->ChangePosition(1868, 5608);
+		player->ChangePosition(571, 3117);
 		isNewGame = false;
 	}
 	else
@@ -98,6 +103,34 @@ bool W2_Scene::Start()
 	numTimesPigsDialogueTriggered = 0;
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
+
+	player->ChangePosition(5258, 3101);
+
+	Quest quest1;
+	quest1.completed = false;
+	quest1.description = "Leave the forest and find the magic wand";
+	questList.push_back(quest1);
+
+	Quest quest2;
+	quest2.completed = false;
+	quest2.description = "Look for help in the village";
+	questList.push_back(quest2);
+
+	Quest quest3;
+	quest3.completed = false;
+	quest3.description = "Look for the Little Red Riding Hood grandma";
+	questList.push_back(quest3);
+
+	Quest quest4;
+	quest4.completed = false;
+	quest4.description = "Go save LRRH";
+	questList.push_back(quest4);
+
+	Quest quest5;
+	quest5.completed = false;
+	quest5.description = "Get through the portal";
+	questList.push_back(quest5);
+
 
 	return true;
 }
@@ -143,6 +176,13 @@ bool W2_Scene::Update(float dt)
 
 	GodMode();
 
+
+	// Check if the current quest is completed
+	if (questList[currentQuestIndex].completed || app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+		// If it is, move to the next quest
+		nextQuest();
+	}
+
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
@@ -180,7 +220,7 @@ void W2_Scene::AppearDialogue()
 	if (player->playerState == player->PlayerState::NPC_INTERACT)
 	{
 		// Tell to UIModule which currentMenuType
-		app->uiModule->currentMenuType = DIALOG;
+		app->uiModule->currentMenuType = DIALOG2;
 		// Call this function only when buttons change
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
@@ -219,20 +259,20 @@ bool W2_Scene::OnGuiMouseClickEvent(GuiControl* control)
 	switch (control->id)
 	{
 		// Option 1
-	case 12:
-		app->scene->player->buttonOption1 = true;
+	case 30:
+		app->w2_scene->player->buttonOption1 = true;
 		break;
 		// Option 2
-	case 13:
-		app->scene->player->buttonOption2 = true;
+	case 31:
+		app->w2_scene->player->buttonOption2 = true;
 		break;
 		// Option 3
-	case 14:
-		app->scene->player->buttonOption3 = true;
+	case 32:
+		app->w2_scene->player->buttonOption3 = true;
 		break;
 		// Option 4
-	case 15:
-		app->scene->player->buttonOption4 = true;
+	case 33:
+		app->w2_scene->player->buttonOption4 = true;
 	default:
 		break;
 	}
@@ -250,7 +290,9 @@ bool W2_Scene::CleanUp()
 
 	app->tex->UnLoad(npcPopUpTexture);
 	app->tex->UnLoad(uiSpriteTexture);
-	
+	app->tex->UnLoad(questUiTexture);
+	app->tex->UnLoad(lvlupTexture);
+	app->tex->UnLoad(eKeyTexture);	
 
 	return true;
 }
@@ -282,7 +324,7 @@ void W2_Scene::Camera()
 	else
 	{
 		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2);
+			app->render->camera.w / 2, app->render->camera.h / 2, -4254, -93, -2767, -1212);
 	}
 
 }
@@ -313,6 +355,20 @@ void W2_Scene::RunDialogueTree(ColliderType NPC)
 		break;
 	case ColliderType::WOLF:
 		dialogue = wolfTree->Run();
+
+		break;
+
+	case ColliderType::ZORRO:
+		dialogue = zorroTree->Run();
+
+		if (dialogue.empty())
+		{
+			dialogue.push_back("If you keep going this way, you will come across a cave, full of challenges and mysteries.");
+		}
+		for (auto& text : dialogue)
+		{
+			std::cout << text << std::endl;
+		}
 
 		break;
 	default:
@@ -439,6 +495,13 @@ void W2_Scene::CreateDialogue()
 		pigsTree = std::make_shared<DialogueTree>();
 		pigsTree->SetRoot(firstNodePigsAC);
 	}
+
+	//sheeps
+	auto zorroNode = std::make_shared<DialogueNode>();
+	zorroNode->SetText("If you keep going this way, you will come across a cave, full of challenges and mysteries. Help Me!");
+	zorroTree = std::make_shared<DialogueTree>();
+	zorroTree->SetRoot(zorroNode);
+
 }
 
 bool W2_Scene::LoadState(pugi::xml_node& data)
@@ -492,4 +555,26 @@ void W2_Scene::MoveToBattleFromDialogue()
 
 
 
+}
+
+
+// A function to draw the current quest on the screen
+void W2_Scene::drawQuest(int posX, int posY) {
+
+	questText = questList[currentQuestIndex].description;
+
+	SDL_Rect rect = { 0, 0, 280, 20 };
+
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, questText, { 0,0,0 }, 280);
+
+	app->render->DrawTexture(textDialogue, posX, posY, &rect);
+}
+
+// A function to move to the next quest
+void W2_Scene::nextQuest() {
+	currentQuestIndex++;
+	if (currentQuestIndex >= questList.size()) {
+		// If we've reached the end of the quest list, wrap around to the beginning
+		currentQuestIndex = 0;
+	}
 }

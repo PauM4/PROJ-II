@@ -129,7 +129,9 @@ private:
 
 	bool godMode;
 
-
+	bool isChest1Pickable;
+	bool isChest2Pickable;
+	bool isChest3Pickable;
 
 
 };

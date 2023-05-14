@@ -48,6 +48,12 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void UpdateAnimation(const char* name);
+
+	void MoveAnimation(const char* name);
+
+	void TakeDamageAnimation(const char* name);
+
 
 
 	// Define multiple Gui Event methods
@@ -69,8 +75,13 @@ private:;
 	SString mapName;
 	SString mapFolder;
 
-	
+	Enemy_CorruptedSprout* sprout;
 
+	Enemy_LRRH* redhoodie;
+
+	int frames = 0;
+
+	iPoint sproutPrevPos, redhoodiePrevPos;
 
 
 

@@ -105,6 +105,7 @@ bool Audio::PlayMusic(const char* path, float fadeTime)
 
 		// this call blocks until fade out is done
 		Mix_FreeMusic(music);
+		music = NULL;
 	}
 
 	music = Mix_LoadMUS(path);

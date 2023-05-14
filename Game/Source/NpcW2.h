@@ -42,6 +42,10 @@ public:
 	PhysBody* pbodyPigs;
 	Animation pigsAnimation;
 
+	iPoint posZorro;
+	PhysBody* pbodyZorro;
+	Animation zorroAnimation;
+
 
 };
 

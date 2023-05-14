@@ -239,7 +239,9 @@ bool Player::Update(float dt)
 		Movement(dt);
 	}
 
-
+	if (isChest1Pickable) app->teamManager->ironchestplate.ininventory = true;
+	if (isChest2Pickable) app->teamManager->reversehat.ininventory = true;
+	if (isChest3Pickable) app->teamManager->dentures.ininventory = true;
 	
 	GodMode();
 
@@ -384,11 +386,22 @@ bool Player::CleanUp()
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
+
 	switch (physB->ctype)
 	{
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
 			itemInteractAvailable = true;
+
+			break;
+		case ColliderType::CHEST1:
+			isChest1Pickable = true;
+			break;
+		case ColliderType::CHEST2:
+			isChest2Pickable = true;
+			break;
+		case ColliderType::CHEST3:
+			isChest3Pickable = true;
 			break;
 		case ColliderType::BARRIER:
 			LOG("Collision BARRIER");
@@ -424,6 +437,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision 	PIGS");
 			npcInteractAvailable = true;
 			lastCollision = ColliderType::PIGS;
+			break;
+		case ColliderType::ZORRO:
+			LOG("Collision 	ZORRO");
+			npcInteractAvailable = true;
+			lastCollision = ColliderType::ZORRO;
 			break;
 		case ColliderType::DEADVILLAGER:
 			LOG("Collision 	DEADVILLAGER");
@@ -481,6 +499,15 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 	case ColliderType::ITEM:
 		itemInteractAvailable = false;
 		break;
+	case ColliderType::CHEST1:
+		isChest1Pickable = false;
+		break;
+	case ColliderType::CHEST2:
+		isChest2Pickable = false;
+		break;
+	case ColliderType::CHEST3:
+		isChest3Pickable = false;
+		break;
 	case ColliderType::BARRIER:
 		break;
 	case ColliderType::DOOR:
@@ -491,6 +518,12 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 		npcInteractAvailable = false;
 		break;
 	case ColliderType::TALISMANVILLAGER:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::PIGS:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::ZORRO:
 		npcInteractAvailable = false;
 		break;
 	case ColliderType::GRANDMA:
@@ -520,33 +553,60 @@ void Player::GodMode()
 //This function checks for input from the player's keyboard and updates the dialogue tree in the game's scene accordingly. The function checks if any button is being pressed, and if so, it calls the UpdateDialogueTree() function in the scene and passes it an integer value from 1 to 4, depending on which button was pressed.
 void Player::InteractWithTree()
 {
-	if (buttonOption1)
+	if (app->scene->active)
 	{
-		app->scene->UpdateDialogueTree(1);
-		app->uiModule->CleaningDialogeOverTime();
-		buttonOption1 = false;
+		if (buttonOption1)
+		{
+			app->scene->UpdateDialogueTree(1);
+			app->uiModule->CleaningDialogeOverTime();
+			buttonOption1 = false;
+		}
+		else if (buttonOption2)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->scene->UpdateDialogueTree(2);
+			buttonOption2 = false;
+		}
+		else if (buttonOption3)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->scene->UpdateDialogueTree(3);
+			buttonOption3 = false;
+		}
+		else if (buttonOption4)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->scene->UpdateDialogueTree(4);
+			buttonOption4 = false;
+		}
 	}
-	else if (buttonOption2)
+	else if (app->w2_scene->active)
 	{
-		app->uiModule->CleaningDialogeOverTime();
-		app->scene->UpdateDialogueTree(2);
-		buttonOption2 = false;
+		if (buttonOption1)
+		{
+			app->w2_scene->UpdateDialogueTree(1);
+			app->uiModule->CleaningDialogeOverTime();
+			buttonOption1 = false;
+		}
+		else if (buttonOption2)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w2_scene->UpdateDialogueTree(2);
+			buttonOption2 = false;
+		}
+		else if (buttonOption3)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w2_scene->UpdateDialogueTree(3);
+			buttonOption3 = false;
+		}
+		else if (buttonOption4)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w2_scene->UpdateDialogueTree(4);
+			buttonOption4 = false;
+		}
 	}
-	else if (buttonOption3)
-	{
-		app->uiModule->CleaningDialogeOverTime();
-		app->scene->UpdateDialogueTree(3);
-		buttonOption3 = false;
-	}
-	else if (buttonOption4)
-	{
-		app->uiModule->CleaningDialogeOverTime();
-		app->scene->UpdateDialogueTree(4);
-		buttonOption4 = false;
-	}
-
-	
-
 }
 
 //This function takes a ColliderType parameter and runs the corresponding dialogue tree in the game's scene
@@ -568,6 +628,9 @@ void Player::TriggerDialogueTree(ColliderType NPC)
 		break;
 	case ColliderType::PIGS:
 		app->w2_scene->RunDialogueTree(ColliderType::PIGS);
+		break;
+	case ColliderType::ZORRO:
+		app->w2_scene->RunDialogueTree(ColliderType::ZORRO);
 		break;
 	case ColliderType::DEADVILLAGER:
 		app->w3_scene->RunDialogueTree(ColliderType::DEADVILLAGER);
@@ -772,3 +835,4 @@ void Player::ChangePosition(int x, int y)
 	teleport.turn = true;
 
 }
+
