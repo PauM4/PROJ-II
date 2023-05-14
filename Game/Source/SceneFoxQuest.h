@@ -15,6 +15,8 @@ enum class TileState {
 	WALL, 
 	ROCK,
 	EMPTY,
+	ENTRANCE, 
+	EXIT,
 	CHEST
 };
 
@@ -110,6 +112,8 @@ public:
 	Tile* map[10][10] = {0};
 
 	TilePlayer* player;  
+
+	SDL_Texture* rockTexture; 
 private:
 
 	int mapLength; 
