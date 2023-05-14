@@ -77,7 +77,7 @@ bool SceneCombatLHHR::Start()
 
 
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.wav", 0.2f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle.ogg", 0.2f);
 
 	return true;
 }
