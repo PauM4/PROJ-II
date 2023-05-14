@@ -69,8 +69,9 @@ private:;
 	SString mapName;
 	SString mapFolder;
 
-	
+	Enemy_CorruptedSprout* sprout;
 
+	Enemy_LRRH* redhoodie;
 
 
 

@@ -39,6 +39,27 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	int i = 0;
+	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
+		app->battleManager->AddCharacter(teamItem->data, 7 + i, 6, false);
+		i++;
+	}
+
+
+	if (config.child("enemy_lrrh")) {
+		redhoodie = (Enemy_LRRH*)app->entityManager->CreateEntity(EntityType::LRRH);
+		redhoodie->parameters = config.child("enemy_lrrh");
+		redhoodie->stats = config.parent().child("enemy_lrrh");
+		app->battleManager->AddCharacter(redhoodie, redhoodie->parameters.attribute("x").as_int() / 120, redhoodie->parameters.attribute("y").as_int() / 120, true);
+	}
+
+
+	if (config.child("sprout")) {
+		sprout = (Enemy_CorruptedSprout*)app->entityManager->CreateEntity(EntityType::CORRUPTEDSPROUT);
+		sprout->parameters = config.child("sprout");
+		sprout->stats = config.parent().child("sprout");
+		app->battleManager->AddCharacter(sprout, sprout->parameters.attribute("x").as_int() / 120, sprout->parameters.attribute("y").as_int() / 120, true);
+	}
 	return ret;
 }
 
@@ -93,7 +114,7 @@ bool SceneCombatLHHR::PreUpdate()
 // Called each loop iteration
 bool SceneCombatLHHR::Update(float dt)
 {
-
+	app->map->Draw();
 
 	//// Menu appear
 	//if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
@@ -171,7 +192,6 @@ bool SceneCombatLHHR::Update(float dt)
 
 	//}
 
-	app->map->Draw();
 
 	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
