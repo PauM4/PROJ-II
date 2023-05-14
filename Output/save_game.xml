@@ -11,8 +11,8 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="3481" y="920" x="3497" y="861" />
-		<rope_minigame rope_minigame_state="false" />
+		<player x="1830" y="1518" />
+		<rope_minigame rope_minigame_state="true" />
 		<chests>
 			<chest isPicked="false" />
 			<chest isPicked="false" />
@@ -50,8 +50,8 @@
 			<talisman isobtained="false" character="0" />
 		</inventory>
 		<stats>
-			<timmy defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="6" />
-			<bunny defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="6" />
+			<timmy defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
+			<bunny defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<lrrh defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<littlePig defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<middlePig defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
@@ -61,7 +61,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-2521" y="-340" />
+		<camera x="-854" y="-1007" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

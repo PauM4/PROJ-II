@@ -682,6 +682,7 @@ bool Player::VerticalMovement(float dt)
 		vel.y = speed * dt;
 		currentAnimation = &walkDownAnim;
 		bunnyCurrentAnimation = &bunnyWalkDownAnim;
+		app->audio->PlayFx(grasswalkFx);
 		return true;
 	}
 
@@ -696,6 +697,7 @@ bool Player::HorizontalMovement(float dt)
 		vel.x = -speed * dt;
 		currentAnimation = &walkLeftAnim;
 		bunnyCurrentAnimation = &bunnyWalkLeftAnim;
+		app->audio->PlayFx(grasswalkFx);
 		return true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_REPEAT || app->input->pad->left_x > 0.5)
@@ -703,6 +705,7 @@ bool Player::HorizontalMovement(float dt)
 		vel.x = speed * dt;
 		currentAnimation = &walkRightAnim;
 		bunnyCurrentAnimation = &bunnyWalkRightAnim;
+		app->audio->PlayFx(grasswalkFx);
 		return true;
 	}
 
