@@ -48,6 +48,11 @@
 	<w3_scene name="Assets/Maps/World_03/scene_01.tmx" path="Assets/Maps/World_03/">
 		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 	</w3_scene>
+
+	<w3_scene_maze name="Assets/Maps/World_02/maze.tmx" path="Assets/Maps/World_02/">
+		<player x="1670" y="140" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+	</w3_scene_maze>
+	
 	<sceneGrandma name="Assets/Maps/World_01/town_house.tmx" path="Assets/Maps/World_01/">
 		<player x="532" y="882" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 		<door x="480" y="1030" width="58" height="95" nextScene="3" nextPlayerX="0" nextPlayerY="0" />
@@ -67,6 +72,7 @@
 		<enemy_lrrh x="1320" y="480" movement="5" />
 		<sprout x="1320" y="360" movement="6" />
 	</scenecombatLHHR>
+	
 	<teamManager>
 		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
 		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnteam="false" />
