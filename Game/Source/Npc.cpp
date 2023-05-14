@@ -33,6 +33,12 @@ bool Npc::Awake() {
 		break; 
 	case GRANDMA:
 		posGrandma.x = 250, posGrandma.y = 700;
+
+		posAngryVillager.x = -1393, posAngryVillager.y = -3592;
+
+		posTalismanVillager.x = -1820, posTalismanVillager.y = -1408;
+
+		posLRRH.x = -3420, posLRRH.y = -721;
 		break; 
 	}
 	
