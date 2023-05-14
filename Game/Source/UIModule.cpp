@@ -12,6 +12,7 @@
 #include "BattleManager.h"
 #include "SceneMainMenu.h"
 #include "Scene.h"
+#include "W2_Scene.h"
 #include "Player.h"
 #include "Npc.h"
 #include <iostream>
@@ -225,6 +226,30 @@ bool UIModule::PostUpdate()
 
 	//... check for others scenes if they are loaded before calling them here because
 	// this module starts before any other scene
+
+	// SCENE 2 UI
+	if (app->w2_scene->active) {
+		if (app->w2_scene->player->playerState == app->w2_scene->player->PlayerState::NPC_INTERACT)
+		{
+			PrintDialogue(app->w2_scene->GetDialogue());
+			if (app->w2_scene->player->dialogueActivate)
+			{
+				app->w2_scene->AppearDialogue();
+
+				app->w2_scene->player->dialogueActivate = false;
+			}
+		}
+
+		// print UI that is on top of the w2_scene SCREEN here
+
+		// UI Quest
+		if (app->w2_scene->player->playerState == app->w2_scene->player->PlayerState::MOVING && !app->teamManager->lvlupbool)
+		{
+			app->render->DrawTexture(app->w2_scene->questUiTexture, -app->render->camera.x + 30, -app->render->camera.y + 30, NULL);
+			app->w2_scene->drawQuest(-app->render->camera.x + 120, -app->render->camera.y + 120);
+		}
+
+	}
 
 
 	return ret;
@@ -940,9 +965,18 @@ void UIModule::CleaningDialogeOverTime()
 
 void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 {
+	int posX, posY;
+	if (app->scene->active)
+	{
+		posX = app->scene->player->position.x;
+		posY = app->scene->player->position.y;
+	}
+	else if (app->w2_scene->active)
+	{
+		posX = app->w2_scene->player->position.x;
+		posY = app->w2_scene->player->position.y;
+	}
 
-	int posX = app->scene->player->position.x;
-	int posY = app->scene->player->position.y;
 
 	// Draw NPC Popup
 	SDL_Rect angryVillagerRect = { 1198, 212, 416, 705 };

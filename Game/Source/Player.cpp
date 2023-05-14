@@ -380,11 +380,13 @@ bool Player::CleanUp()
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
+
 	switch (physB->ctype)
 	{
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
 			itemInteractAvailable = true;
+
 			break;
 		case ColliderType::BARRIER:
 			LOG("Collision BARRIER");
@@ -492,6 +494,12 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 		npcInteractAvailable = false;
 		break;
 	case ColliderType::TALISMANVILLAGER:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::PIGS:
+		npcInteractAvailable = false;
+		break;
+	case ColliderType::ZORRO:
 		npcInteractAvailable = false;
 		break;
 	case ColliderType::GRANDMA:

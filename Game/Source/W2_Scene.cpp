@@ -50,6 +50,11 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
+	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
+	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
+	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
+
+	currentQuestIndex = 0;
 
 	return ret;
 }
@@ -101,6 +106,32 @@ bool W2_Scene::Start()
 
 	player->ChangePosition(5258, 3101);
 
+	Quest quest1;
+	quest1.completed = false;
+	quest1.description = "Leave the forest and find the magic wand";
+	questList.push_back(quest1);
+
+	Quest quest2;
+	quest2.completed = false;
+	quest2.description = "Look for help in the village";
+	questList.push_back(quest2);
+
+	Quest quest3;
+	quest3.completed = false;
+	quest3.description = "Look for the Little Red Riding Hood grandma";
+	questList.push_back(quest3);
+
+	Quest quest4;
+	quest4.completed = false;
+	quest4.description = "Go save LRRH";
+	questList.push_back(quest4);
+
+	Quest quest5;
+	quest5.completed = false;
+	quest5.description = "Get through the portal";
+	questList.push_back(quest5);
+
+
 	return true;
 }
 
@@ -144,6 +175,13 @@ bool W2_Scene::Update(float dt)
 		app->render->camera.x -= ceil(speed);
 
 	GodMode();
+
+
+	// Check if the current quest is completed
+	if (questList[currentQuestIndex].completed || app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+		// If it is, move to the next quest
+		nextQuest();
+	}
 
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
@@ -252,7 +290,9 @@ bool W2_Scene::CleanUp()
 
 	app->tex->UnLoad(npcPopUpTexture);
 	app->tex->UnLoad(uiSpriteTexture);
-	
+	app->tex->UnLoad(questUiTexture);
+	app->tex->UnLoad(lvlupTexture);
+	app->tex->UnLoad(eKeyTexture);	
 
 	return true;
 }
@@ -515,4 +555,26 @@ void W2_Scene::MoveToBattleFromDialogue()
 
 
 
+}
+
+
+// A function to draw the current quest on the screen
+void W2_Scene::drawQuest(int posX, int posY) {
+
+	questText = questList[currentQuestIndex].description;
+
+	SDL_Rect rect = { 0, 0, 280, 20 };
+
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, questText, { 0,0,0 }, 280);
+
+	app->render->DrawTexture(textDialogue, posX, posY, &rect);
+}
+
+// A function to move to the next quest
+void W2_Scene::nextQuest() {
+	currentQuestIndex++;
+	if (currentQuestIndex >= questList.size()) {
+		// If we've reached the end of the quest list, wrap around to the beginning
+		currentQuestIndex = 0;
+	}
 }
