@@ -114,6 +114,8 @@ public:
 	TilePlayer* player;  
 
 	SDL_Texture* rockTexture; 
+
+	bool movingRock; 
 private:
 
 	int mapLength; 
