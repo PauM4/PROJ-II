@@ -768,3 +768,4 @@ void Player::ChangePosition(int x, int y)
 	teleport.turn = true;
 
 }
+

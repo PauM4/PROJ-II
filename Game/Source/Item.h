@@ -24,11 +24,15 @@ public:
 
 	bool CleanUp();
 
+	// On Collision is defined in Player.cpp
+	void OnCollision(PhysBody* physA, PhysBody* physB);
+
 
 public:
 
 	bool isPicked;
 	int width, height;
+	int chestId;
 	PhysBody* pbody;
 
 private:

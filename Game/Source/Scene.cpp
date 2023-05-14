@@ -226,7 +226,7 @@ bool Scene::Update(float dt)
 	{
 		// Draw map
 		app->map->Draw();
-		TweenyTestWithU();
+		//TweenyTestWithU();
 
 	}
 	else
@@ -245,7 +245,8 @@ bool Scene::Update(float dt)
 		}
 		// !!! Tutorial Images drawn in UIModule using basicTtorialCounter variable
 
-	}	
+	}
+
 
 	UpdateMinigameLogic(dt);
 
