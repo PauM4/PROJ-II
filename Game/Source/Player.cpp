@@ -493,8 +493,6 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::TALISMANVILLAGER:
 		npcInteractAvailable = false;
-	case ColliderType::ZORRO:
-		npcInteractAvailable = false;
 		break;
 	case ColliderType::GRANDMA:
 		npcInteractAvailable = false;

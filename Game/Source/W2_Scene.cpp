@@ -319,7 +319,16 @@ void W2_Scene::RunDialogueTree(ColliderType NPC)
 		break;
 
 	case ColliderType::ZORRO:
-		
+		dialogue = zorroTree->Run();
+
+		if (dialogue.empty())
+		{
+			dialogue.push_back("If you keep going this way, you will come across a cave, full of challenges and mysteries.");
+		}
+		for (auto& text : dialogue)
+		{
+			std::cout << text << std::endl;
+		}
 
 		break;
 	default:
@@ -446,6 +455,13 @@ void W2_Scene::CreateDialogue()
 		pigsTree = std::make_shared<DialogueTree>();
 		pigsTree->SetRoot(firstNodePigsAC);
 	}
+
+	//sheeps
+	auto zorroNode = std::make_shared<DialogueNode>();
+	zorroNode->SetText("If you keep going this way, you will come across a cave, full of challenges and mysteries.");
+	zorroTree = std::make_shared<DialogueTree>();
+	zorroTree->SetRoot(zorroNode);
+
 }
 
 bool W2_Scene::LoadState(pugi::xml_node& data)
