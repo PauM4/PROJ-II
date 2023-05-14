@@ -257,13 +257,10 @@ bool Player::Update(float dt)
 		teleport.turn = false;
 	}
 
-	return true;
-}
-
-bool Player::PostUpdate() {
+	//Print
 
 	UpdateAndPrintBunnyAnimation();
-	
+
 	UpdateAndPrintTimmyAnimation();
 
 	// Print E key if interaction is available
@@ -271,6 +268,13 @@ bool Player::PostUpdate() {
 	{
 		app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
 	}
+
+	return true;
+}
+
+bool Player::PostUpdate() {
+
+	
 
 	return true;
 }

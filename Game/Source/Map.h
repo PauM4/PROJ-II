@@ -97,6 +97,8 @@ struct ImageLayer {
 	int id;
 	int offsetX;
 	int offsetY;
+	int width;
+	int height;
 
 	Properties properties;
 
@@ -152,6 +154,11 @@ public:
 
     // Called each loop iteration
     void Draw();
+
+	// Must be called on PostUpdtate()
+	// Compares the position of the assets to the 
+	// player's and draws the assets accordingly.
+	void PostDraw(int playerPivotY);
 
     // Called before quitting
     bool CleanUp();
