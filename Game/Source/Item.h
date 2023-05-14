@@ -29,6 +29,7 @@ public:
 
 	bool isPicked;
 	int width, height;
+	int chestId;
 	PhysBody* pbody;
 
 private:

@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "TeamManager.h"
 
 Item::Item() : Entity(EntityType::ITEM)
 {
@@ -22,6 +23,7 @@ bool Item::Awake() {
 	position.y = parameters.attribute("y").as_int();
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
+	chestId = parameters.attribute("id").as_int();
 
 	isPicked = false;
 
