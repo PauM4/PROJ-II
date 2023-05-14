@@ -166,10 +166,10 @@ bool SceneManager::Update(float dt)
 		}
 		break;
 	case GameScene::COMBATOINK:
-		if (currentScene != (Module*)app->sceneCombatLHHR) {
-			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneCombatLHHR, 20)) {
-				currentScene = (Module*)app->sceneCombatLHHR;
-				LOG("SCENE_BATTLELHHR");
+		if (currentScene != (Module*)app->battleScene_Pigs) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->battleScene_Pigs, 20)) {
+				currentScene = (Module*)app->battleScene_Pigs;
+				LOG("SCENE_BATTLEOINK");
 			}
 		}
 		break;

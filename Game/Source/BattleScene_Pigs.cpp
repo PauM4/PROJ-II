@@ -41,7 +41,7 @@ bool BattleScene_Pigs::Awake(pugi::xml_node& config) {
 
 	//Add allies from teamManager
 	int i = 0;
-	int i = 0;
+	
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
 		app->battleManager->AddCharacter(teamItem->data, 4, 3 + i, false);
 		i++;
@@ -107,8 +107,8 @@ bool BattleScene_Pigs::Start() {
 	
 
 
-	sproutPrevPos = sprout->position;
-	redhoodiePrevPos = redhoodie->position;
+	littlePigPrevPos = littlePig->position;
+	middlePigPrevPos = middlePig->position;
 
 	return true;
 }

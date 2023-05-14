@@ -179,7 +179,7 @@ void SceneCombatLHHR::UpdateAnimation(const char* name)
 
 void SceneCombatLHHR::MoveAnimation(const char* name)
 {
-	if (strcmp(name, "srout") == 0)
+	if (strcmp(name, "sprout") == 0)
 	{
 		//Moverse a la derecha
 		if (sprout->position.x > sproutPrevPos.x)
@@ -219,7 +219,7 @@ void SceneCombatLHHR::MoveAnimation(const char* name)
 		sproutPrevPos.y = sprout->position.y;
 	}
 
-	if (strcmp(name, "srout") == 0)
+	if (strcmp(name, "enemy_lrrh") == 0)
 	{
 		//Moverse a la derecha
 		if (redhoodie->position.x > redhoodiePrevPos.x)

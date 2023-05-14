@@ -6,6 +6,8 @@
 #include "GuiButton.h"
 #include "List.h"
 #include "UIModule.h"
+#include "Enemy_MiddlePig.h"
+#include"Enemy_LittlePig.h"
 #include "SDL_Timer.h"
 
 struct SDL_Texture;
@@ -54,12 +56,12 @@ private:
 	SString mapName;
 	SString mapFolder;
 
-	/*Timmy* timmy;
-	Enemy_AngryVillager* villager;
-	Bunny* bunny;*/
 
-	iPoint timmyPrevPos, bunnyPrevPos, villagerPrevPos;
-	bool timmyPrevPosBool, bunnyPrevPosBool, villagerPrevPosBool;
+
+	Enemy_LittlePig* littlePig;
+	Enemy_MiddlePig* middlePig;
+	iPoint middlePigPrevPos, littlePigPrevPos;
+
 
 	int frames = 0;
 	
