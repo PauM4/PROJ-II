@@ -237,7 +237,7 @@ bool W2_Scene::PostUpdate()
 {
 	bool ret = true;
 
-	app->map->PostDraw(player->position.y + 55);
+	if (!godMode) app->map->PostDraw(player->position.y + 40);
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
