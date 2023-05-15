@@ -373,6 +373,9 @@ bool BattleManager::CleanUp() {
 	enemies.Clear();
 	area.Clear();
 	actionArea.Clear();
+
+	app->tex->UnLoad(winScreen); 
+	app->tex->UnLoad(loseScreen);
 	return true;
 }
 

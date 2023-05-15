@@ -43,6 +43,7 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 	int i = 0;
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
 		app->battleManager->AddCharacter(teamItem->data, 7+i, 6, false);
+		app->entityManager->AddEntity(teamItem->data);
 		i++;
 	}
 	
@@ -74,7 +75,7 @@ bool SceneBattle::Start() {
 	bool retLoad = app->map->Load(mapName, mapFolder);
 	timmyPrevPosBool = false;
 	bunnyPrevPosBool = false;
-	 villagerPrevPosBool = false;
+	villagerPrevPosBool = false;
 
 	if (retLoad) {
 		int w, h;
@@ -168,6 +169,7 @@ bool SceneBattle::CleanUp(){
 
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
+	app->battleManager->Disable(); 
 
 	return true;
 }
