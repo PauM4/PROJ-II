@@ -218,7 +218,7 @@ bool UIModule::PostUpdate()
 		{
 			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
-		app->fonts->DrawText("INVENTORY", 640, 100, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
+		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 	}
 
 	if (currentMenuType == PARTY)
@@ -231,7 +231,7 @@ bool UIModule::PostUpdate()
 		{
 			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
-			app->fonts->DrawText("PARTY", 800, 100, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
+			app->fonts->DrawText("PARTY", 800, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 	}
 
 	app->guiManager->Draw();
