@@ -146,8 +146,8 @@ bool W2_Scene::PreUpdate()
 // Called each loop iteration
 bool W2_Scene::Update(float dt)
 {
-	std::cout << "X: " << player->position.x << std::endl;
-	std::cout << "Y: " << player->position.y << std::endl;
+	//std::cout << "X: " << player->position.x << std::endl;
+	//std::cout << "Y: " << player->position.y << std::endl;
 
 
 	Camera();

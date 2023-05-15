@@ -223,8 +223,8 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 
-	std::cout << "X: " << player->position.x << std::endl;
-	std::cout << "Y: " << player->position.y << std::endl;
+	//std::cout << "X: " << player->position.x << std::endl;
+	//std::cout << "Y: " << player->position.y << std::endl;
 
 	Camera();
 
@@ -384,7 +384,7 @@ void Scene::AppearDialogue()
 
 		for (auto& e : dialogue)
 		{
-			std::cout << e << std::endl;
+			//std::cout << e << std::endl;
 		}
 
 	}
