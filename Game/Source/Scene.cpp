@@ -250,12 +250,14 @@ bool Scene::Update(float dt)
 		nextQuest();
 	}
 
+	app->map->Draw();
+
 	// Tutorial SCREENS when NewGame
 	if (basicTutorialCounter >= 2)
 	{
 		// Draw map
-		app->map->Draw();
-		//TweenyTestWithU();
+		
+		TweenyTestWithU();
 
 	}
 	else
