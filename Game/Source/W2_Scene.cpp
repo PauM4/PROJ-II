@@ -146,8 +146,8 @@ bool W2_Scene::PreUpdate()
 // Called each loop iteration
 bool W2_Scene::Update(float dt)
 {
-	//std::cout << "X: " << player->position.x << std::endl;
-	//std::cout << "Y: " << player->position.y << std::endl;
+	std::cout << "X: " << player->position.x << std::endl;
+	std::cout << "Y: " << player->position.y << std::endl;
 
 
 	Camera();
@@ -326,7 +326,7 @@ void W2_Scene::Camera()
 	else
 	{
 		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2, -4254, -93, -2767, -1212);
+			app->render->camera.w / 2, app->render->camera.h / 2, -4254, -93, -3624, -1212);
 	}
 
 }

@@ -123,6 +123,14 @@ public:
 	GuiButton* levelup_AB1PowerUp_button;
 	GuiButton* levelup_healingpowerUp_button;
 
+	GuiButton* party_timmy_button;
+	GuiButton* party_bunny_button;
+	GuiButton* party_lrrh_button;
+	GuiButton* party_Lpig_button;
+	GuiButton* party_Mpig_button;
+	// World 3 player
+	GuiButton* party_peter_button;
+
 
 	bool quitButtonBool;
 

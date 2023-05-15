@@ -43,6 +43,7 @@ public:
 	bool DrawText(const char* text, int posx, int posy, int w, int h, SDL_Color color, int font_id = app->fonts->gameFont, bool followCam = false);
 
 	int gameFont;
+	int gameFontBig;
 
 private:
 
