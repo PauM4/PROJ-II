@@ -39,8 +39,10 @@ bool BattleManager::Awake(pugi::xml_node& config) {
 
 bool BattleManager::Start() {
 
-
+	moveFx = app->audio->LoadFx("Assets/Sounds/FX/fx_wooden_walk.wav");
 	deathFx = app->audio->LoadFx("Assets/Sounds/FX/fx_death.wav");
+	looseFx = app->audio->LoadFx("Assets/Sounds/FX/fx_loose.wav");
+	victoryFx = app->audio->LoadFx("Assets/Sounds/FX/fx_victory.wav");
 	rechargemanaFx = app->audio->LoadFx("Assets/Sounds/FX/fx_recharge_mana.wav");
 	winScreen = app->tex->Load("Assets/UI/Win_screen.png");
 	loseScreen = app->tex->Load("Assets/UI/lose_screen.png");
@@ -690,6 +692,7 @@ bool BattleManager::Move(int pathindex, int length) {
 
 		currentTurn->position.x = currentTurn->position.x + vel.x;
 		currentTurn->position.y = currentTurn->position.y + vel.y;
+		app->audio->PlayFx(moveFx);
 	}
 	return true;
 }
@@ -888,12 +891,12 @@ void BattleManager::CheckWinCondition()
 	LiveCondition();
 
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
-
+		app->audio->PlayFx(looseFx);
 		battleState = BattleState::LOSE;
 	}
 	
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-
+		app->audio->PlayFx(victoryFx);
 		battleState = BattleState::WIN;
 	}
 	
