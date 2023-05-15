@@ -86,10 +86,11 @@ public:
 
 	void ApplyEquipedItemStats();
 
+	void UpdateParty();
+
 private:
 
 	bool LoadState(pugi::xml_node&);
-	void UpdateParty();
 	bool SaveState(pugi::xml_node&);
 
 

@@ -48,7 +48,6 @@ bool UIModule::Start()
 	uint w, h;
 	app->win->GetWindowSize(w, h);
 
-
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 920, 600, 120,30 }, this);
 	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 920, 640, 120,30 }, this);
 	mainmenu_credits_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { 920, 680, 120,30 }, this);
@@ -96,68 +95,18 @@ bool UIModule::Start()
 	levelup_AB1PowerUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, "+", { 900, 650, 100, 30 }, this);
 	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, "+", { 900, 700, 100, 30 }, this);
 
-	party_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 67, "In Party", { 1000, 400, 100, 30 }, this);
-	party_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 68, "In Party", { 1000, 450, 100, 30 }, this);
+	party_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 67, "Unavailable", { 1000, 400, 100, 30 }, this);
+	party_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 68, "Unavailable", { 1000, 450, 100, 30 }, this);
 	party_lrrh_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 69, "Unavailable", { 1000, 500, 100, 30 }, this);
 	party_Lpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 70, "Unavailable", { 1000, 550, 100, 30 }, this);
 	party_Mpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 71, "Unavailable", { 1000, 600, 100, 30 }, this);
 	party_peter_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 72, "Unavailable", { 1000, 650, 100, 30 }, this);
 
+	AddButtonsToList();
+
 	// When creating a new button, iniciate it in NONE state
 
-	mainmenu_play_button->state = GuiControlState::NONE;
-	mainmenu_options_button->state = GuiControlState::NONE;
-	mainmenu_credits_button->state = GuiControlState::NONE;
-	mainmenu_quit_button->state = GuiControlState::NONE;
-	mainmenu_newGame_button->state = GuiControlState::NONE;
-	mainmenu_continueGame_button->state = GuiControlState::NONE;
-	mainmenu_return_button->state = GuiControlState::NONE;
-
-	pausemenu_resume_button->state = GuiControlState::NONE;
-	pausemenu_save_button->state = GuiControlState::NONE;
-	pausemenu_options_button->state = GuiControlState::NONE;
-	pausemenu_return_button->state = GuiControlState::NONE;
-	pausemenu_load_button->state = GuiControlState::NONE;
-	pausemenu_backtomain_button->state = GuiControlState::NONE;
-	pausemenu_quit_button->state = GuiControlState::NONE;
-	pausemenu_inventory_button->state = GuiControlState::NONE;
-	pausemenu_party_button->state = GuiControlState::NONE;
-
-	combat_attack_button->state = GuiControlState::NONE;
-	combat_ability_button->state = GuiControlState::NONE;
-	combat_move_button->state = GuiControlState::NONE;
-	combat_endTurn_button->state = GuiControlState::NONE;
-
-	dialog_option1_button->state = GuiControlState::NONE;
-	dialog_option2_button->state = GuiControlState::NONE;
-	dialog_option3_button->state = GuiControlState::NONE;
-	dialog_option4_button->state = GuiControlState::NONE;
-
-	dialog2_option1_button->state = GuiControlState::NONE;
-	dialog2_option2_button->state = GuiControlState::NONE;
-	dialog2_option3_button->state = GuiControlState::NONE;
-	dialog2_option4_button->state = GuiControlState::NONE;
-
-	pausemenuCombat_resume_button->state = GuiControlState::NONE;
-	pausemenuCombat_options_button->state = GuiControlState::NONE;
-	pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-	pausemenuCombat_return_button->state = GuiControlState::NONE;
-	pausemenuCombat_quit_button->state = GuiControlState::NONE;
-
-	levelup_defenseUp_button->state = GuiControlState::NONE;
-	levelup_magicUp_button->state = GuiControlState::NONE;
-	levelup_speedUp_button->state = GuiControlState::NONE;
-	levelup_movementUp_button->state = GuiControlState::NONE;
-	levelup_attackUp_button->state = GuiControlState::NONE;
-	levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-	levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-	party_timmy_button->state = GuiControlState::NONE;
-	party_bunny_button->state = GuiControlState::NONE;
-	party_lrrh_button->state = GuiControlState::NONE;
-	party_Lpig_button->state = GuiControlState::NONE;
-	party_Mpig_button->state = GuiControlState::NONE;
-	party_peter_button->state = GuiControlState::NONE;
+	DisableButtonsToNone();
 
 	doorPlayerPosition = false;
 
@@ -170,6 +119,16 @@ bool UIModule::Start()
 
 	
 	return true;
+}
+
+void UIModule::DisableButtonsToNone()
+{
+	for (int i = 0; i < buttonsList.Count(); ++i)
+	{
+		GuiButton* button = buttonsList[i];
+		button->state = GuiControlState::NONE;
+
+	}
 }
 
 // Called each loop iteration
@@ -322,6 +281,8 @@ bool UIModule::CleanUp()
 {
 	LOG("Freeing UIModule");
 	app->guiManager->guiControlsList.Clear();
+	buttonsList.Clear();
+
 
 	return true;
 }
@@ -451,6 +412,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	case 23:
 		if (currentMenuType == INVENTORY || currentMenuType == PARTY)
 		{
+			app->teamManager->UpdateParty();
+
 			// Tell to UIModule which currentMenuType
 			app->uiModule->currentMenuType = PAUSE;
 			// Call this function only when buttons change
@@ -496,6 +459,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 
 		// Party
 	case 24:
+
+		CheckPartyTextOnStart();
 
 		// Tell to UIModule which currentMenuType
 		app->uiModule->currentMenuType = PARTY;
@@ -766,6 +731,8 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 	switch (currentMenuType)
 	{
 	case MAIN:
+		
+		DisableButtonsToNone();
 		// Activate main menu buttons
 		mainmenu_play_button->state = GuiControlState::NORMAL;
 		mainmenu_options_button->state = GuiControlState::NORMAL;
@@ -774,65 +741,12 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		mainmenu_newGame_button->state = GuiControlState::NONE;
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_return_button->state = GuiControlState::NONE;
-		//...
 
-		// Disable other menu buttons
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog_option1_button->state = GuiControlState::NONE;
-		dialog_option2_button->state = GuiControlState::NONE;
-		dialog_option3_button->state = GuiControlState::NONE;
-		dialog_option4_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-
-		// Disable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
-
-		// Disable inventory buttons
 
 		break;
 	case PAUSE:
+
+		DisableButtonsToNone();
 
 		// Activate pause buttons
 		pausemenu_resume_button->state = GuiControlState::NORMAL;
@@ -845,118 +759,15 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		pausemenu_inventory_button->state = GuiControlState::NORMAL;
 		pausemenu_party_button->state = GuiControlState::NORMAL;
 
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog_option1_button->state = GuiControlState::NONE;
-		dialog_option2_button->state = GuiControlState::NONE;
-		dialog_option3_button->state = GuiControlState::NONE;
-		dialog_option4_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-
-		// Disable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
-
 		break;
 	case INVENTORY:
 
-		// Enable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable all pause menu buttons except for Return
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NORMAL;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
+		DisableButtonsToNone();
 
 		break;
 	case PARTY:
+
+		DisableButtonsToNone();
 
 		// Enable party buttons
 		party_timmy_button->state = GuiControlState::NORMAL;
@@ -966,56 +777,10 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		party_Mpig_button->state = GuiControlState::NORMAL;
 		party_peter_button->state = GuiControlState::NORMAL;
 
-		// Enable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable all pause menu buttons except for Return
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NORMAL;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
 		break;
 	case COMBAT_PAUSE:
+
+		DisableButtonsToNone();
 
 		// Enable all combat pause buttons
 		pausemenuCombat_resume_button->state = GuiControlState::NORMAL;
@@ -1024,59 +789,12 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		pausemenuCombat_backtomain_button->state = GuiControlState::NORMAL;
 		pausemenuCombat_return_button->state = GuiControlState::NONE;
 
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable all pause menu buttons
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
-
 		break;
 
 	case DIALOG:
+
+		DisableButtonsToNone();
+
 		// Activate dialog buttonts
 		// Maybe there would be another switch for each dialog, idk how it will work
 		dialog_option1_button->state = GuiControlState::NORMAL;
@@ -1084,267 +802,38 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog_option3_button->state = GuiControlState::NORMAL;
 		dialog_option4_button->state = GuiControlState::NORMAL;
 
-		// Disable all dialog2 buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable all pause menu buttons
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
-
 		break;
 	case DIALOG2:
+
+		DisableButtonsToNone();
 		// Enable all dialog2 buttons
 		dialog2_option1_button->state = GuiControlState::NORMAL;
 		dialog2_option2_button->state = GuiControlState::NORMAL;
 		dialog2_option3_button->state = GuiControlState::NORMAL;
 		dialog2_option4_button->state = GuiControlState::NORMAL;
 
-		// Activate dialog buttonts
-		dialog_option1_button->state = GuiControlState::NONE;
-		dialog_option2_button->state = GuiControlState::NONE;
-		dialog_option3_button->state = GuiControlState::NONE;
-		dialog_option4_button->state = GuiControlState::NONE;
-
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable all pause menu buttons
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
-
 		break;
 	case COMBAT:
+
+		DisableButtonsToNone();
 		// Activate combat buttons
 		combat_attack_button->state = GuiControlState::NORMAL;
 		combat_ability_button->state = GuiControlState::NORMAL;
 		combat_move_button->state = GuiControlState::NORMAL;
 		combat_endTurn_button->state = GuiControlState::NORMAL;
 
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable pause menu buttons just in case
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog_option1_button->state = GuiControlState::NONE;
-		dialog_option2_button->state = GuiControlState::NONE;
-		dialog_option3_button->state = GuiControlState::NONE;
-		dialog_option4_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-
-		// Disable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
-
-
 		break;
 
 	case ROPE_MINIGAME:
 
-		//...
-
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable all pause menu buttons
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog_option1_button->state = GuiControlState::NONE;
-		dialog_option2_button->state = GuiControlState::NONE;
-		dialog_option3_button->state = GuiControlState::NONE;
-		dialog_option4_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-			  
-		// Disable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
+		DisableButtonsToNone();
 
 		break;
 	case LEVEL_UP:
 
 		app->audio->PlayFx(levelUpFX);
+
+		DisableButtonsToNone();
 
 		levelup_defenseUp_button->state = GuiControlState::NORMAL;
 		levelup_magicUp_button->state = GuiControlState::NORMAL;
@@ -1354,124 +843,11 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_AB1PowerUp_button->state = GuiControlState::NORMAL;
 		levelup_healingpowerUp_button->state = GuiControlState::NORMAL;
 
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable all pause menu buttons
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-
-		// Disable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
-
 		break;
 
 	case DISABLED:
 
-		//...
-
-		// Disable all main menu buttons
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_return_button->state = GuiControlState::NONE;
-
-		// Disable all pause menu buttons
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_return_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
-
-
-		// Disable all combat buttons
-		combat_attack_button->state = GuiControlState::NONE;
-		combat_ability_button->state = GuiControlState::NONE;
-		combat_move_button->state = GuiControlState::NONE;
-		combat_endTurn_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog_option1_button->state = GuiControlState::NONE;
-		dialog_option2_button->state = GuiControlState::NONE;
-		dialog_option3_button->state = GuiControlState::NONE;
-		dialog_option4_button->state = GuiControlState::NONE;
-
-		// Disable all dialog buttons
-		dialog2_option1_button->state = GuiControlState::NONE;
-		dialog2_option2_button->state = GuiControlState::NONE;
-		dialog2_option3_button->state = GuiControlState::NONE;
-		dialog2_option4_button->state = GuiControlState::NONE;
-
-		// Disable all combat pause buttons
-		pausemenuCombat_resume_button->state = GuiControlState::NONE;
-		pausemenuCombat_options_button->state = GuiControlState::NONE;
-		pausemenuCombat_quit_button->state = GuiControlState::NONE;
-		pausemenuCombat_return_button->state = GuiControlState::NONE;
-		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
-
-		// Disable other menus buttons:
-		levelup_defenseUp_button->state = GuiControlState::NONE;
-		levelup_magicUp_button->state = GuiControlState::NONE;
-		levelup_speedUp_button->state = GuiControlState::NONE;
-		levelup_movementUp_button->state = GuiControlState::NONE;
-		levelup_attackUp_button->state = GuiControlState::NONE;
-		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
-		levelup_healingpowerUp_button->state = GuiControlState::NONE;
-
-		// Disable party buttons
-		party_timmy_button->state = GuiControlState::NONE;
-		party_bunny_button->state = GuiControlState::NONE;
-		party_lrrh_button->state = GuiControlState::NONE;
-		party_Lpig_button->state = GuiControlState::NONE;
-		party_Mpig_button->state = GuiControlState::NONE;
-		party_peter_button->state = GuiControlState::NONE;
-
-
-		// Disable other menus buttons:
+		DisableButtonsToNone();
 
 		break;
 	}
@@ -1791,9 +1167,171 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 
 }
 
+void UIModule::CheckPartyTextOnStart()
+{
+	// Party Buttons
+	// Timmy
+	if (app->teamManager->istimmyplayable)
+	{
+		if (app->teamManager->IsTimmyOnTeam)
+		{
+			party_timmy_button->text = "In Party";
+		}
+		else
+		{
+			party_timmy_button->text = "-";
+		}
+	}
+	else
+	{
+		party_timmy_button->text = "Unavailable";
+	}
+
+	// Bunny
+	if (app->teamManager->isbunnyplayable)
+	{
+		if (app->teamManager->IsBunnyOnTeam)
+		{
+			party_bunny_button->text = "In Party";
+		}
+		else
+		{
+			party_bunny_button->text = "-";
+		}
+	}
+	else
+	{
+		party_bunny_button->text = "Unavailable";
+	}
+
+	// LRRH
+	if (app->teamManager->islrrhplayable)
+	{
+		if (app->teamManager->IsLrrhOnTeam)
+		{
+			party_lrrh_button->text = "In Party";
+		}
+		else
+		{
+			party_lrrh_button->text = "-";
+		}
+	}
+	else
+	{
+		party_lrrh_button->text = "Unavailable";
+	}
+
+	// LPig
+	if (app->teamManager->islilpigplayable)
+	{
+		if (app->teamManager->IsLilPigOnTeam)
+		{
+			party_Lpig_button->text = "In Party";
+		}
+		else
+		{
+			party_Lpig_button->text = "-";
+		}
+	}
+	else
+	{
+		party_Lpig_button->text = "Unavailable";
+	}
+
+	// MPig
+	if (app->teamManager->ismidpigplayable)
+	{
+		if (app->teamManager->IsMidPigOnTeam)
+		{
+			party_Mpig_button->text = "In Party";
+		}
+		else
+		{
+			party_Mpig_button->text = "-";
+		}
+	}
+	else
+	{
+		party_Mpig_button->text = "Unavailable";
+	}
+
+	// Peter
+	if (app->teamManager->ispeterplayable)
+	{
+		if (app->teamManager->IsPeterOnTeam)
+		{
+			party_peter_button->text = "In Party";
+		}
+		else
+		{
+			party_peter_button->text = "-";
+		}
+	}
+	else
+	{
+		party_peter_button->text = "Unavailable";
+	}
+}
 
 const char* uintToCChar(uint myuInt)
 {
 	std::string myString = std::to_string(myuInt);
 	return myString.c_str();
+}
+
+void UIModule::AddButtonsToList()
+{
+	buttonsList.Add(mainmenu_play_button);
+	buttonsList.Add(mainmenu_options_button);
+	buttonsList.Add(mainmenu_credits_button);
+	buttonsList.Add(mainmenu_quit_button);
+	buttonsList.Add(mainmenu_newGame_button);
+	buttonsList.Add(mainmenu_continueGame_button);
+	buttonsList.Add(mainmenu_return_button);
+
+	buttonsList.Add(pausemenu_resume_button);
+	buttonsList.Add(pausemenu_inventory_button);
+	buttonsList.Add(pausemenu_party_button);
+	buttonsList.Add(pausemenu_save_button);
+	buttonsList.Add(pausemenu_load_button);
+	buttonsList.Add(pausemenu_options_button);
+	buttonsList.Add(pausemenu_return_button);
+	buttonsList.Add(pausemenu_backtomain_button);
+	buttonsList.Add(pausemenu_quit_button);
+
+	buttonsList.Add(pausemenuCombat_resume_button);
+	buttonsList.Add(pausemenuCombat_options_button);
+	buttonsList.Add(pausemenuCombat_backtomain_button);
+	buttonsList.Add(pausemenuCombat_return_button);
+	buttonsList.Add(pausemenuCombat_quit_button);
+
+	buttonsList.Add(combat_attack_button);
+	buttonsList.Add(combat_ability_button);
+	buttonsList.Add(combat_move_button);
+	buttonsList.Add(combat_endTurn_button);
+
+	buttonsList.Add(dialog_option1_button);
+	buttonsList.Add(dialog_option2_button);
+	buttonsList.Add(dialog_option3_button);
+	buttonsList.Add(dialog_option4_button);
+
+	buttonsList.Add(dialog2_option1_button);
+	buttonsList.Add(dialog2_option2_button);
+	buttonsList.Add(dialog2_option3_button);
+	buttonsList.Add(dialog2_option4_button);
+
+	buttonsList.Add(levelup_defenseUp_button);
+	buttonsList.Add(levelup_magicUp_button);
+	buttonsList.Add(levelup_speedUp_button);
+	buttonsList.Add(levelup_movementUp_button);
+	buttonsList.Add(levelup_attackUp_button);
+	buttonsList.Add(levelup_AB1PowerUp_button);
+	buttonsList.Add(levelup_healingpowerUp_button);
+
+	buttonsList.Add(party_timmy_button);
+	buttonsList.Add(party_bunny_button);
+	buttonsList.Add(party_lrrh_button);
+	buttonsList.Add(party_Lpig_button);
+	buttonsList.Add(party_Mpig_button);
+	buttonsList.Add(party_peter_button);
 }

@@ -42,6 +42,8 @@ public:
 	// Called before the first frame
 	bool Start();
 
+	void DisableButtonsToNone();
+
 	// Called before all Updates
 	bool PreUpdate();
 
@@ -64,6 +66,11 @@ public:
 	void PrintDialogue2(std::vector<std::string> dialogue);
 
 	void CleaningDialogeOverTime();
+
+	void CheckPartyTextOnStart();
+
+	void AddButtonsToList();
+
 
 private:
 
@@ -142,6 +149,8 @@ public:
 	//GuiButton* inventory_yoyo_button;
 	//GuiButton* inventory_yoyo_button;
 	//GuiButton* inventory_yoyo_button;
+
+	List<GuiButton*> buttonsList;
 
 
 	bool quitButtonBool;
