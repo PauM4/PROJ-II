@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="59" nextobjectid="149">
+ <imagelayer id="2" name="BG">
+  <image source="Assets/Maps/World_02/maze.png" width="6319" height="4716"/>
+  <properties>
+   <property name="BG" type="bool" value="true"/>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="56" name="chest" offsetx="2434" offsety="2506">
+  <image source="Assets/Maps/World_02/chest.png" width="92" height="77"/>
+ </imagelayer>
+ <imagelayer id="58" name="Copy of chest" offsetx="940" offsety="1434">
+  <image source="Assets/Maps/World_02/chest.png" width="92" height="77"/>
+ </imagelayer>
+ <imagelayer id="57" name="Copy of chest" offsetx="3140" offsety="3624">
+  <image source="Assets/Maps/World_02/chest.png" width="92" height="77"/>
+ </imagelayer>
+ <objectgroup color="#ff0000" id="3" name="Collisions">
+  <properties>
+   <property name="ColType" type="int" value="0"/>
+  </properties>
+  <object id="77" x="1336.36" y="-6.06061" width="184.848" height="312.121"/>
+  <object id="78" x="293.939" y="69.697" width="1218.18" height="230.303"/>
+  <object id="79" x="1903.03" y="0" width="187.879" height="324.242"/>
+  <object id="80" x="300" y="75.7576" width="148.485" height="4345.45"/>
+  <object id="81" x="1078.79" y="2700" width="96.9697" height="481.818"/>
+  <object id="82" x="1421.21" y="2627.27" width="139.394" height="560.606"/>
+  <object id="83" x="1469.7" y="3436.36" width="136.364" height="475.758"/>
+  <object id="84" x="700" y="3363.64" width="136.364" height="590.909"/>
+  <object id="85" x="715.152" y="3360.61" width="427.273" height="187.879"/>
+  <object id="86" x="715.152" y="3703.03" width="542.424" height="245.455"/>
+  <object id="87" x="1121.21" y="3703.03" width="136.364" height="490.909"/>
+  <object id="88" x="300" y="4176" width="3972" height="236"/>
+  <object id="89" x="4076" y="132" width="184" height="4284"/>
+  <object id="90" x="1920" y="124" width="2336" height="192"/>
+  <object id="91" x="408" y="448" width="1124" height="200"/>
+  <object id="92" x="420" y="784" width="848" height="240"/>
+  <object id="93" x="1096" y="800" width="168" height="912"/>
+  <object id="94" x="716" y="1532" width="548" height="180"/>
+  <object id="95" x="708" y="1232" width="140" height="1592"/>
+  <object id="96" x="832" y="2264" width="1528" height="196"/>
+  <object id="97" x="1840" y="2004" width="132" height="268"/>
+  <object id="98" x="1112" y="1908" width="432" height="212"/>
+  <object id="99" x="1440" y="1552" width="96" height="440"/>
+  <object id="100" x="1436" y="1544" width="924" height="188"/>
+  <object id="101" x="1440" y="792" width="824" height="188"/>
+  <object id="102" x="1440" y="888" width="136" height="456"/>
+  <object id="103" x="1820" y="476" width="120" height="312"/>
+  <object id="104" x="2212" y="284" width="128" height="332"/>
+  <object id="105" x="1828" y="476" width="512" height="140"/>
+  <object id="106" x="3304" y="276" width="148" height="312"/>
+  <object id="107" x="2608" y="464" width="1192" height="192"/>
+  <object id="108" x="2612" y="628" width="156" height="352"/>
+  <object id="109" x="2672" y="792" width="344" height="188"/>
+  <object id="110" x="3672" y="628" width="124" height="372"/>
+  <object id="111" x="2556" y="1160" width="1536" height="208"/>
+  <object id="112" x="3296" y="868" width="144" height="332"/>
+  <object id="113" x="2552" y="1332" width="156" height="388"/>
+  <object id="114" x="2664" y="1528" width="320" height="188"/>
+  <object id="115" x="1808" y="1196" width="468" height="172"/>
+  <object id="116" x="1804" y="1264" width="140" height="288"/>
+  <object id="117" x="3300" y="1552" width="804" height="208"/>
+  <object id="118" x="2944" y="1896" width="792" height="220"/>
+  <object id="119" x="4096" y="2268"/>
+  <object id="120" x="3332" y="2268" width="764" height="180"/>
+  <object id="121" x="3332" y="2636" width="428" height="196"/>
+  <object id="122" x="3332" y="2384" width="108" height="400"/>
+  <object id="123" x="3304" y="1912"/>
+  <object id="124" x="3304" y="1912"/>
+  <object id="125" x="3304" y="1692" width="116" height="220"/>
+  <object id="126" x="3420" y="1692"/>
+  <object id="127" x="2940" y="2072" width="156" height="768"/>
+  <object id="128" x="3096" y="2840"/>
+  <object id="129" x="2192" y="1720" width="164" height="428"/>
+  <object id="130" x="2240" y="1928" width="504" height="208"/>
+  <object id="131" x="2604" y="1928" width="140" height="868"/>
+  <object id="133" x="2248" y="2632" width="484" height="160"/>
+  <object id="134" x="2232" y="2420" width="140" height="308"/>
+  <object id="135" x="1540" y="2628" width="452" height="216"/>
+  <object id="136" x="1856" y="2624" width="128" height="596"/>
+  <object id="137" x="1856" y="2964" width="864" height="256"/>
+  <object id="138" x="2604" y="2964" width="116" height="604"/>
+  <object id="139" x="1824" y="3360" width="888" height="192"/>
+  <object id="140" x="1824" y="3360" width="120" height="412"/>
+  <object id="141" x="1548" y="3724" width="1920" height="184"/>
+  <object id="142" x="3288" y="3440" width="176" height="744"/>
+  <object id="143" x="3688" y="3740" width="136" height="472"/>
+  <object id="145" x="3708" y="3000" width="124" height="568"/>
+  <object id="146" x="2960" y="3004" width="864" height="248"/>
+  <object id="147" x="2964" y="3012" width="120" height="752"/>
+  <object id="148" x="432" y="2996" width="684" height="200"/>
+ </objectgroup>
+ <objectgroup color="#00ff00" id="4" name="Doors">
+  <properties>
+   <property name="ColType" type="int" value="1"/>
+  </properties>
+ </objectgroup>
+</map>

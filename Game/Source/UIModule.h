@@ -18,10 +18,13 @@ enum CurrentMenuType
 	PAUSE,
 	COMBAT_PAUSE,
 	DIALOG,
+	DIALOG2,
 	COMBAT,
 	ROPE_MINIGAME,
 	DISABLED,
-	LEVEL_UP
+	LEVEL_UP,
+	INVENTORY,
+	PARTY
 };
 
 class UIModule : public Module
@@ -58,6 +61,7 @@ public:
 	bool ChangeButtonState(int& currentMenuType);
 
 	void PrintDialogue(std::vector<std::string> dialogue);
+	void PrintDialogue2(std::vector<std::string> dialogue);
 
 	void CleaningDialogeOverTime();
 
@@ -81,6 +85,8 @@ public:
 	GuiButton* mainmenu_return_button;
 
 	GuiButton* pausemenu_resume_button;
+	GuiButton* pausemenu_inventory_button;
+	GuiButton* pausemenu_party_button;
 	GuiButton* pausemenu_save_button;
 	GuiButton* pausemenu_options_button;
 	GuiButton* pausemenu_return_button;
@@ -103,7 +109,11 @@ public:
 	GuiButton* dialog_option2_button;
 	GuiButton* dialog_option3_button;
 	GuiButton* dialog_option4_button;
-	GuiButton* dialog_text_button;
+
+	GuiButton* dialog2_option1_button;
+	GuiButton* dialog2_option2_button;
+	GuiButton* dialog2_option3_button;
+	GuiButton* dialog2_option4_button;
 
 	GuiButton* levelup_defenseUp_button;
 	GuiButton* levelup_magicUp_button;
@@ -133,5 +143,6 @@ private:
 };
 
 #endif // __UIMODULE_H__
+
 
 

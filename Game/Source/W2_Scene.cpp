@@ -48,7 +48,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 
 	CreateDialogue(); //3MB
 
-	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
+	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters2_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
@@ -220,7 +220,7 @@ void W2_Scene::AppearDialogue()
 	if (player->playerState == player->PlayerState::NPC_INTERACT)
 	{
 		// Tell to UIModule which currentMenuType
-		app->uiModule->currentMenuType = DIALOG;
+		app->uiModule->currentMenuType = DIALOG2;
 		// Call this function only when buttons change
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
@@ -259,20 +259,20 @@ bool W2_Scene::OnGuiMouseClickEvent(GuiControl* control)
 	switch (control->id)
 	{
 		// Option 1
-	case 12:
-		app->scene->player->buttonOption1 = true;
+	case 30:
+		app->w2_scene->player->buttonOption1 = true;
 		break;
 		// Option 2
-	case 13:
-		app->scene->player->buttonOption2 = true;
+	case 31:
+		app->w2_scene->player->buttonOption2 = true;
 		break;
 		// Option 3
-	case 14:
-		app->scene->player->buttonOption3 = true;
+	case 32:
+		app->w2_scene->player->buttonOption3 = true;
 		break;
 		// Option 4
-	case 15:
-		app->scene->player->buttonOption4 = true;
+	case 33:
+		app->w2_scene->player->buttonOption4 = true;
 	default:
 		break;
 	}
@@ -498,7 +498,7 @@ void W2_Scene::CreateDialogue()
 
 	//sheeps
 	auto zorroNode = std::make_shared<DialogueNode>();
-	zorroNode->SetText("If you keep going this way, you will come across a cave, full of challenges and mysteries.");
+	zorroNode->SetText("If you keep going this way, you will come across a cave, full of challenges and mysteries. Help Me!");
 	zorroTree = std::make_shared<DialogueTree>();
 	zorroTree->SetRoot(zorroNode);
 

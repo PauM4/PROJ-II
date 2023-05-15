@@ -110,6 +110,11 @@ bool Enemy_LRRH::Awake()
 	}
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
+
+
+	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh.png");
+
+	currentAnimation = &idleAnim;
 	return true;
 }
 
@@ -120,12 +125,15 @@ bool Enemy_LRRH::Start()
 
 bool Enemy_LRRH::Update(float dt)
 {
+	currentAnimation->Update();
 	return true;
 }
 
 bool Enemy_LRRH::PostUpdate()
 {
 	//Render
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
 	return true;
 }
 

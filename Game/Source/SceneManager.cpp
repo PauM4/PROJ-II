@@ -88,6 +88,11 @@ bool SceneManager::PreUpdate()
 		app->sceneManager->isBattle = true;
 		scene = GameScene::COMBATLHHR;
 	}
+	if ((app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = true;
+		scene = GameScene::COMBATOINK;
+	}
 
 	switch (scene) {
 	case GameScene::INTRO:
@@ -157,6 +162,14 @@ bool SceneManager::Update(float dt)
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneCombatLHHR, 20)) {
 				currentScene = (Module*)app->sceneCombatLHHR;
 				LOG("SCENE_BATTLELHHR");
+			}
+		}
+		break;
+	case GameScene::COMBATOINK:
+		if (currentScene != (Module*)app->battleScene_Pigs) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->battleScene_Pigs, 20)) {
+				currentScene = (Module*)app->battleScene_Pigs;
+				LOG("SCENE_BATTLEOINK");
 			}
 		}
 		break;

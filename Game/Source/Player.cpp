@@ -137,6 +137,29 @@ bool Player::Start() {
 	pbody->ctype = ColliderType::PLAYER;
 
 
+	bunnyPbody = app->physics->CreateCircle(position.x, position.y+80, 25, bodyType::DYNAMIC);
+	bunnyPbody->body->SetFixedRotation(true);
+	bunnyPbody->listener = nullptr;
+	bunnyPbody->ctype = ColliderType::UNKNOWN;
+	bunnyPbody->body->SetLinearDamping(5.0f);
+
+	//Bunny Joint
+	b2RopeJointDef ropeJointDef;
+	ropeJointDef.bodyA = pbody->body;
+	ropeJointDef.bodyB = bunnyPbody->body;
+	ropeJointDef.localAnchorA = { 0, 0 }; 
+	ropeJointDef.localAnchorB = { 0, 0 }; 
+	ropeJointDef.maxLength = 2.0f;
+	ropeJointDef.collideConnected = true;
+
+	joint = (b2RopeJoint*)app->physics->world->CreateJoint(&ropeJointDef);
+	
+
+
+	const b2Vec2 aux = pbody->body->GetPosition();
+	bunnyPbody->body->SetTransform(aux, 0); // posición inicial de la mascota
+
+
 	// Bool variables
 	npcInteractAvailable = false;
 	itemInteractAvailable = false;
@@ -159,7 +182,8 @@ bool Player::Start() {
 }
 
 bool Player::Update(float dt)
-{
+{	
+
 	currentAnimation->Update();
 	bunnyCurrentAnimation->Update();
 
@@ -239,7 +263,23 @@ bool Player::Update(float dt)
 		Movement(dt);
 	}
 
+	if (isChest1Pickable)
+	{
+		app->teamManager->ironchestplate.ininventory = true;
+		app->scene->chest1->isPicked = true;
+	}
+	if (isChest2Pickable)
+	{
+		app->teamManager->reversehat.ininventory = true;
+		app->scene->chest2->isPicked = true;
+	}
+	if (isChest3Pickable)
+	{
+		app->teamManager->dentures.ininventory = true;
+		app->scene->chest3->isPicked = true;
+	}
 
+	app->scene->chest3->isPicked;
 	
 	GodMode();
 
@@ -253,17 +293,15 @@ bool Player::Update(float dt)
 	{
 		b2Vec2 resetPos = b2Vec2(PIXEL_TO_METERS(teleport.posX), PIXEL_TO_METERS(teleport.posY));
 		pbody->body->SetTransform(resetPos, 0);
+		bunnyPbody->body->SetTransform(resetPos, 0);
 
 		teleport.turn = false;
 	}
 
-	return true;
-}
-
-bool Player::PostUpdate() {
+	//Print
 
 	UpdateAndPrintBunnyAnimation();
-	
+
 	UpdateAndPrintTimmyAnimation();
 
 	// Print E key if interaction is available
@@ -271,6 +309,13 @@ bool Player::PostUpdate() {
 	{
 		app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
 	}
+
+	return true;
+}
+
+bool Player::PostUpdate() {
+
+	
 
 	return true;
 }
@@ -359,8 +404,14 @@ void Player::UpdateAndPrintBunnyAnimation()
 		}
 	}
 
+	int bunnyPosX = METERS_TO_PIXELS(bunnyPbody->body->GetTransform().p.x-65);
+	int bunnyPosY = METERS_TO_PIXELS(bunnyPbody->body->GetTransform().p.y-85);
+
+
 	SDL_Rect rect2 = bunnyCurrentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(bunnyTexture, position.x - 145, position.y - 115, &rect2);
+	//app->render->DrawTexture(bunnyTexture, position.x - 145, position.y - 115, &rect2);
+
+	app->render->DrawTexture(bunnyTexture, bunnyPosX, bunnyPosY, &rect2);
 
 }
 
@@ -370,10 +421,21 @@ bool Player::CleanUp()
 	app->tex->UnLoad(bunnyTexture);
 	app->tex->UnLoad(eKeyTexture);
 
+	if (joint != NULL)
+	{
+		app->physics->world->DestroyJoint(joint);
+	}
+
 	if (pbody != NULL)
 	{
 		pbody->body->GetWorld()->DestroyBody(pbody->body);
 	}
+
+	if (bunnyPbody != NULL)
+	{
+		bunnyPbody->body->GetWorld()->DestroyBody(bunnyPbody->body);
+	}
+
 
 	return true;
 }
@@ -386,7 +448,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
 			itemInteractAvailable = true;
-
+			break;
+		case ColliderType::CHEST1:
+			isChest1Pickable = true;
+			break;
+		case ColliderType::CHEST2:
+			isChest2Pickable = true;
+			break;
+		case ColliderType::CHEST3:
+			isChest3Pickable = true;
 			break;
 		case ColliderType::BARRIER:
 			LOG("Collision BARRIER");
@@ -484,6 +554,15 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 	case ColliderType::ITEM:
 		itemInteractAvailable = false;
 		break;
+	case ColliderType::CHEST1:
+		isChest1Pickable = false;
+		break;
+	case ColliderType::CHEST2:
+		isChest2Pickable = false;
+		break;
+	case ColliderType::CHEST3:
+		isChest3Pickable = false;
+		break;
 	case ColliderType::BARRIER:
 		break;
 	case ColliderType::DOOR:
@@ -529,33 +608,60 @@ void Player::GodMode()
 //This function checks for input from the player's keyboard and updates the dialogue tree in the game's scene accordingly. The function checks if any button is being pressed, and if so, it calls the UpdateDialogueTree() function in the scene and passes it an integer value from 1 to 4, depending on which button was pressed.
 void Player::InteractWithTree()
 {
-	if (buttonOption1)
+	if (app->scene->active)
 	{
-		app->scene->UpdateDialogueTree(1);
-		app->uiModule->CleaningDialogeOverTime();
-		buttonOption1 = false;
+		if (buttonOption1)
+		{
+			app->scene->UpdateDialogueTree(1);
+			app->uiModule->CleaningDialogeOverTime();
+			buttonOption1 = false;
+		}
+		else if (buttonOption2)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->scene->UpdateDialogueTree(2);
+			buttonOption2 = false;
+		}
+		else if (buttonOption3)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->scene->UpdateDialogueTree(3);
+			buttonOption3 = false;
+		}
+		else if (buttonOption4)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->scene->UpdateDialogueTree(4);
+			buttonOption4 = false;
+		}
 	}
-	else if (buttonOption2)
+	else if (app->w2_scene->active)
 	{
-		app->uiModule->CleaningDialogeOverTime();
-		app->scene->UpdateDialogueTree(2);
-		buttonOption2 = false;
+		if (buttonOption1)
+		{
+			app->w2_scene->UpdateDialogueTree(1);
+			app->uiModule->CleaningDialogeOverTime();
+			buttonOption1 = false;
+		}
+		else if (buttonOption2)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w2_scene->UpdateDialogueTree(2);
+			buttonOption2 = false;
+		}
+		else if (buttonOption3)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w2_scene->UpdateDialogueTree(3);
+			buttonOption3 = false;
+		}
+		else if (buttonOption4)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w2_scene->UpdateDialogueTree(4);
+			buttonOption4 = false;
+		}
 	}
-	else if (buttonOption3)
-	{
-		app->uiModule->CleaningDialogeOverTime();
-		app->scene->UpdateDialogueTree(3);
-		buttonOption3 = false;
-	}
-	else if (buttonOption4)
-	{
-		app->uiModule->CleaningDialogeOverTime();
-		app->scene->UpdateDialogueTree(4);
-		buttonOption4 = false;
-	}
-
-	
-
 }
 
 //This function takes a ColliderType parameter and runs the corresponding dialogue tree in the game's scene
@@ -635,6 +741,7 @@ void Player::Movement(float dt)
 	}
 
 	pbody->body->SetLinearVelocity(vel);
+	//bunnyPbody->body->SetLinearVelocity(vel);
 
 }
 
@@ -772,6 +879,7 @@ void Player::StopVelocity()
 {
 	vel = b2Vec2(0, 0);
 	pbody->body->SetLinearVelocity(vel);
+	//bunnyPbody->body->SetLinearVelocity(vel);
 	currentAnimation = &idleAnim;
 	bunnyCurrentAnimation = &bunnyIdleAnim;
 }
@@ -784,3 +892,4 @@ void Player::ChangePosition(int x, int y)
 	teleport.turn = true;
 
 }
+

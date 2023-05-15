@@ -55,12 +55,38 @@ bool Scene::Awake(pugi::xml_node& config)
 		doors.Add(door);
 	}
 
-	for (pugi::xml_node chestNode = config.child("chest"); chestNode; chestNode = chestNode.next_sibling("chest")) {
-		Item* chest = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		chest->parameters = chestNode;
+	pugi::xml_node chestNode1 = config.child("chest1");
+	chest1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	chest1->parameters = chestNode1;
+	chest1->position.x = chestNode1.attribute("x").as_int();
+	chest1->position.y = chestNode1.attribute("y").as_int();
+	chest1->width = chestNode1.attribute("width").as_int();
+	chest1->height = chestNode1.attribute("height").as_int();
+	chest1->chestId = chestNode1.attribute("id").as_int();
+	PhysBody* chest1PB = app->physics->CreateRectangleSensor(chest1->position.x + chest1->width / 2, chest1->position.y + chest1->height / 2, chest1->width, chest1->height, bodyType::STATIC);
+	chest1PB->ctype = ColliderType::CHEST1;
 
-		chests.Add(chest);
-	}
+	pugi::xml_node chestNode2 = config.child("chest2");
+	chest2 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	chest2->parameters = chestNode2;
+	chest2->position.x = chestNode2.attribute("x").as_int();
+	chest2->position.y = chestNode2.attribute("y").as_int();
+	chest2->width = chestNode2.attribute("width").as_int();
+	chest2->height = chestNode2.attribute("height").as_int();
+	chest2->chestId = chestNode2.attribute("id").as_int();
+	PhysBody* chest2PB = app->physics->CreateRectangleSensor(chest2->position.x + chest2->width / 2, chest2->position.y + chest2->height / 2, chest2->width, chest2->height, bodyType::STATIC);
+	chest2PB->ctype = ColliderType::CHEST2;
+
+	pugi::xml_node chestNode3 = config.child("chest3");
+	chest3 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	chest3->parameters = chestNode3;
+	chest3->position.x = chestNode3.attribute("x").as_int();
+	chest3->position.y = chestNode3.attribute("y").as_int();
+	chest3->width = chestNode3.attribute("width").as_int();
+	chest3->height = chestNode3.attribute("height").as_int();
+	chest3->chestId = chestNode3.attribute("id").as_int();
+	PhysBody* chest3PB = app->physics->CreateRectangleSensor(chest3->position.x + chest3->width / 2, chest3->position.y + chest3->height / 2, chest3->width, chest3->height, bodyType::STATIC);
+	chest3PB->ctype = ColliderType::CHEST3;
 
 	pressKeyAnim.PushBack({ 0, 0, 485, 734 });
 	pressKeyAnim.PushBack({ 485, 0, 485, 735 });
@@ -224,11 +250,13 @@ bool Scene::Update(float dt)
 		nextQuest();
 	}
 
+	app->map->Draw();
+
 	// Tutorial SCREENS when NewGame
 	if (basicTutorialCounter >= 2)
 	{
 		// Draw map
-		app->map->Draw();
+		
 		TweenyTestWithU();
 
 	}
@@ -248,7 +276,8 @@ bool Scene::Update(float dt)
 		}
 		// !!! Tutorial Images drawn in UIModule using basicTtorialCounter variable
 
-	}	
+	}
+
 
 	UpdateMinigameLogic(dt);
 
@@ -366,9 +395,10 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
+	app->map->PostDraw((player->position.y + 40));
+
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-
 
 	// When exit button click, close app
 	if (exitButtonBool == true)
@@ -422,6 +452,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(questUiTexture);
 	app->tex->UnLoad(moveTutorialTextutre);
 	app->tex->UnLoad(interactTutorialTextutre);
+	app->tex->UnLoad(lvlupTexture);
 	
 
 	return true;
@@ -961,14 +992,14 @@ bool Scene::SaveState(pugi::xml_node& data)
 	// CHESTS
 	pugi::xml_node chestGameSave = data.append_child("chests");
 
-	for (int i = 0; i < chests.Count(); i++) {
-		Item* chest = chests[i];
-		pugi::xml_node chestNode = chestGameSave.append_child("chest");
+	pugi::xml_node chestNodeSave1 = chestGameSave.append_child("chest1");
+	chestNodeSave1.append_attribute("isPicked").set_value(chest1->isPicked);
 
+	pugi::xml_node chestNodeSave2 = chestGameSave.append_child("chest2");
+	chestNodeSave2.append_attribute("isPicked").set_value(chest2->isPicked);
 
-		chestNode.append_attribute("isPicked").set_value(chest->isPicked);
-		// Add code to save other variables of the chest here
-	}
+	pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
+	chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
 	
 
 	return true;
@@ -977,20 +1008,10 @@ bool Scene::SaveState(pugi::xml_node& data)
 // Code to Load Chests variables, encapsulated. It is called in LoadState() 
 void Scene::LoadChests(pugi::xml_node& data)
 {
-	pugi::xml_node chestsNode = data.child("chests");
-
-	if (!chestsNode)
-		return;
-
-	for (pugi::xml_node chestNode : chestsNode.children("chest"))
-	{
-		int chestIndex = chestNode.attribute("index").as_int();
-		bool isPicked = chestNode.attribute("isPicked").as_bool();
-
-		chests[chestIndex]->isPicked = isPicked;
-
-		// Add code to load other variables of the chest here
-	}
+	chest1->isPicked = data.child("chest1").attribute("isPicked").as_bool();
+	chest2->isPicked = data.child("chest2").attribute("isPicked").as_bool();
+	chest3->isPicked = data.child("chest3").attribute("isPicked").as_bool();
+	
 }
 
 

@@ -18,7 +18,7 @@
 #include "Log.h"
 #include"Enemy_AngryVillager.h"
 #include "SceneBattle.h"
-#include "Timer.h"
+
 
 BattleManager::BattleManager(bool isActive) : Module(isActive) {
 
@@ -30,12 +30,14 @@ BattleManager::~BattleManager() {}
 
 bool BattleManager::Awake(pugi::xml_node& config) {
 
+	enemyAreaTimer.Start(0.5f);
+	enemyAttackTimer.Start(0.3f);
+
 
 	return true;
 }
 
 bool BattleManager::Start() {
-
 
 
 	winScreen = app->tex->Load("Assets/UI/Win_screen.png");
@@ -51,8 +53,8 @@ bool BattleManager::Start() {
 	
 	currentTurn = turnList.start->data;
 	origin = currentTurn->tilePos;
-	enemyTimer = 0;
 	pathIndex = 1;
+	triggerMoveTimer = false;
 	battleState = BattleState::THINKING;
 	return true;
 }
@@ -99,9 +101,10 @@ bool BattleManager::Update(float dt) {
 		targets.Clear();
 		actionArea.Clear();
 		area.Clear();
+		enemyAreaTimer.Start(1.0f);
+		enemyAttackTimer.Start(0.9f);
 		if (currentTurn->isEnemy)
 		{
-			enemyTimer = 200;
 			battleState = BattleState::ENEMY;
 			
 		}
@@ -153,6 +156,7 @@ bool BattleManager::Update(float dt) {
 							targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->attack - targets.At(i)->data->defense);
 							app->sceneBattle->TakeDamageAnimation(targets.At(i)->data->name.GetString());
 
+						
 							currentTurn->UseStamina(5);
 							battleState = BattleState::INACTION;
 
@@ -172,11 +176,12 @@ bool BattleManager::Update(float dt) {
 
 				
 				Move(pathIndex, length);
+				
 			}
 			else
 			{
 				if (currentTurn->tilePos == destination) {
-
+					triggerMoveTimer = false;
 
 					destination = iPoint(0, 0);
 					length = 1;
@@ -227,13 +232,17 @@ bool BattleManager::Update(float dt) {
 			{
 				if (entitylist->data->isAlive == true)
 				{
-					entitylist->data->health = entitylist->data->health - (currentTurn->attack - entitylist->data->defense);
-					targets.Clear();
-					currentTurn->UseStamina(5);
-					entitylist = NULL;
-					actionType = ActionType::ATTACK;
-					battleState = BattleState::INACTION;
-					break;
+
+					if (enemyAttackTimer.Test() == FIN) {
+						entitylist->data->health = entitylist->data->health - (currentTurn->attack - entitylist->data->defense);
+						app->sceneBattle->TakeDamageAnimation(targets.start->data->name.GetString());
+						targets.Clear();
+						currentTurn->UseStamina(5);
+						entitylist = NULL;
+						actionType = ActionType::ATTACK;
+						battleState = BattleState::INACTION;
+						break;
+					}
 				}
 
 				entitylist = entitylist->next;
@@ -312,9 +321,7 @@ bool BattleManager::Update(float dt) {
 	}
 
 
-	if (enemyTimer > 0) {
-		enemyTimer--;
-	}
+
 	
 	CheckWinCondition();
 
@@ -326,21 +333,22 @@ bool BattleManager::Update(float dt) {
 
 bool BattleManager::PostUpdate() {
 
-	if (battleState == BattleState::SELCETED || battleState==BattleState::ENEMY ) {
+	if (battleState == BattleState::SELCETED || battleState == BattleState::ENEMY || enemyAreaTimer.Test()==EJECUTANDO ) {
 
 		DisplayAtackArea(actionType);
 		DisplayEnemys();
 
+	}
+
+	for (ListItem<Entity*>* entiyItem = enemies.start; entiyItem != NULL; entiyItem = entiyItem->next){
+		app->sceneBattle->UpdateAnimation(entiyItem->data->name.GetString());
     }
-
 	
-	app->sceneBattle->UpdateAnimation(currentTurn->name.GetString());
-
 	UIStatsForBattle();
 	DisplayTurnList();
 
-	app->render->DrawRectangle({ int(allies.start->data->position.x) + 35, int(allies.start->data->position.y) + 35, 50, 50 }, 0, 233, 0, 250, true);
-	app->render->DrawRectangle({ int(enemies.start->data->position.x) + 35, int(enemies.start->data->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
+	//app->render->DrawRectangle({ int(allies.start->data->position.x) + 35, int(allies.start->data->position.y) + 35, 50, 50 }, 0, 233, 0, 250, true);
+	//app->render->DrawRectangle({ int(enemies.start->data->position.x) + 35, int(enemies.start->data->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 	return true;
 }
 
@@ -348,7 +356,11 @@ bool BattleManager::PostUpdate() {
 
 bool BattleManager::CleanUp() {
 
-
+	turnList.Clear();
+	allies.Clear();
+	enemies.Clear();
+	area.Clear();
+	actionArea.Clear();
 	return true;
 }
 
@@ -409,6 +421,10 @@ void BattleManager::UIStatsForBattle()
 {
 	int i = 0;
 	// UI Stats for Battle
+
+	app->fonts->DrawText("--- NEXT  TURN --- ", 80, 100, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 110, 125, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
 	for (ListItem<Entity*>* allyItem = allies.start; allyItem != NULL; allyItem = allyItem->next) {
 
 
@@ -421,43 +437,38 @@ void BattleManager::UIStatsForBattle()
 		const char* hpChar = hpString.c_str();
 	    
 		const char* nameChar = allyItem->data->namechar.GetString();
-		app->fonts->DrawText(nameChar, 80, 200 + i, 200, 200, {255,255,255}, app->fonts->gameFont);
-		app->fonts->DrawText("- HP: ", 80, 230 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(hpChar, 200, 230 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- Stamina: ", 80, 260 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(staminaChar, 200, 260 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		i+= 100;
+		app->fonts->DrawText(nameChar, 80, 250 + i, 200, 200, {255,255,255}, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 80, 280 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(hpChar, 200, 280 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 80, 310 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(staminaChar, 200, 310 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		i+= 120;
 	}
 
+	i = 0;
 	for (ListItem<Entity*>* enemyItem = enemies.start; enemyItem != NULL; enemyItem = enemyItem->next) {
 
+		uint stamina = enemyItem->data->stamina;
+		std::string staminaString = std::to_string(stamina);
+		const char* staminaChar = staminaString.c_str();
+
+		uint hp = enemyItem->data->health;
+		std::string hpString = std::to_string(hp);
+		const char* hpChar = hpString.c_str();
+
+		const char* nameChar = enemyItem->data->namechar.GetString();
+
+
+		app->fonts->DrawText(nameChar, 1690+30, 200+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- HP: ", 1690+30, 230+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(hpChar, 1810+30, 230+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText("- Stamina: ", 1690+30, 260+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(staminaChar, 1810+30, 260+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		i += 120;
 	}
-	//// Bunny stats:
-	//app->fonts->DrawText("--- BUNNY ---", 80, 290, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText("- HP: ", 80, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText(UintToChar(bunny->health), 200, 320, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText("- Stamina: ", 80, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	//app->fonts->DrawText(UintToChar(bunny->stamina), 200, 350, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	
 
-	//// Villager stats:
-	uint villagerStamina = enemies.start->data->stamina;
-	std::string villagerStaminaString = std::to_string(villagerStamina);
-	const char* villagerStaminaChar = villagerStaminaString.c_str();
-
-	uint villagerHP = enemies.start->data->health;
-	std::string villagerHPString = std::to_string(villagerHP);
-	const char* villagerHpChar = villagerHPString.c_str();
-
-	int w_window = app->win->width;
-
-	app->fonts->DrawText("--- VILLAGER ---", 1690, 200, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- HP: ", 1690, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(villagerHpChar, 1810, 230, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText("- Stamina: ", 1690, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(villagerStaminaChar, 1810, 260, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-
-	app->fonts->DrawText("--- NEXT  TURN --- ", 1690, 340, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-	app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 1690, 365, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	
 	
 	
 }
@@ -603,11 +614,8 @@ bool BattleManager::MousePosition() {
 
 
 	mouseTile = app->map->WorldToMap(mouseX - app->render->camera.x, mouseY - app->render->camera.y);
-	iPoint highlightedTileWorld = app->map->MapToWorld(mouseTile.x, mouseTile.y);
-	if (app->pathfinding->IsWalkable(mouseTile) && combatMap[mouseTile.x][mouseTile.y].character != false) {
-		app->render->DrawRectangle({ highlightedTileWorld.x, highlightedTileWorld.y, 120, 120 }, 0, 143, 57, 100, true);
 
-	}
+
 
 	return true;
 }
@@ -622,44 +630,51 @@ bool BattleManager::Move(int pathindex, int length) {
 
 	const DynArray<iPoint>* lastpath = app->pathfinding->GetLastPath();
 
+	if (enemyAreaTimer.Test() == FIN || !currentTurn->isEnemy)
+	{
+		triggerMoveTimer = true;
+	}
 
-	pixelPosition.x = lastpath->At(pathIndex)->x * app->map->mapData.tileWidth;
-	pixelPosition.y = lastpath->At(pathIndex)->y * app->map->mapData.tileHeight;
+	if (triggerMoveTimer)
+	{
 
-	finalPosition.x = lastpath->At(length - 1)->x * app->map->mapData.tileWidth;
-	finalPosition.x = lastpath->At(length - 1)->x * app->map->mapData.tileWidth;
+		pixelPosition.x = lastpath->At(pathIndex)->x * app->map->mapData.tileWidth;
+		pixelPosition.y = lastpath->At(pathIndex)->y * app->map->mapData.tileHeight;
+
+		finalPosition.x = lastpath->At(length - 1)->x * app->map->mapData.tileWidth;
+		finalPosition.x = lastpath->At(length - 1)->x * app->map->mapData.tileWidth;
 
 
-	dist.x = pixelPosition.x - currentTurn->position.x;
-	dist.y = pixelPosition.y - currentTurn->position.y;
+		dist.x = pixelPosition.x - currentTurn->position.x;
+		dist.y = pixelPosition.y - currentTurn->position.y;
 
 
-	xDir = 0;
-	yDir = 0;
-	xDir = (dist.x > 0) ? 1 : -1;
-	yDir = (dist.y > 0) ? 1 : -1;
-	if (dist.x == 0) {
 		xDir = 0;
-	}
-	if (dist.y == 0) {
 		yDir = 0;
+		xDir = (dist.x > 0) ? 1 : -1;
+		yDir = (dist.y > 0) ? 1 : -1;
+		if (dist.x == 0) {
+			xDir = 0;
+		}
+		if (dist.y == 0) {
+			yDir = 0;
+		}
+		if (dist.x == 0 && dist.y == 0) {
+			pathIndex++;
+
+		}
+		else if (abs(dist.x) > 0) {
+			vel.x = 5 * xDir;
+
+		}
+		else if (abs(dist.y) > 0) {
+			vel.y = 5 * yDir;
+
+		}
+
+		currentTurn->position.x = currentTurn->position.x + vel.x;
+		currentTurn->position.y = currentTurn->position.y + vel.y;
 	}
-	if (dist.x == 0 && dist.y == 0) {
-		pathIndex++;
-
-	}
-	else if (abs(dist.x) > 0) {
-		vel.x = 5 * xDir;
-
-	}
-	else if (abs(dist.y) > 0) {
-		vel.y = 5 * yDir;
-
-	}
-
-	currentTurn->position.x = currentTurn->position.x + vel.x;
-	currentTurn->position.y = currentTurn->position.y + vel.y;
-
 	return true;
 }
 

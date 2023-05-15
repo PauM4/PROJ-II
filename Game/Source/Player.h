@@ -110,6 +110,7 @@ private:
 	Animation leftIdleAnim;
 	Animation upIdleAnim;
 
+	PhysBody* bunnyPbody;
 	SDL_Texture* bunnyTexture;
 	const char* bunnyTexturePath;
 
@@ -124,12 +125,17 @@ private:
 	Animation bunnyLeftIdleAnim;
 	Animation bunnyUpIdleAnim;
 
+	b2PrismaticJointDef prismaticJointDef;
+	b2RopeJoint* joint;
+
 	SDL_Texture* eKeyTexture;
 
 
 	bool godMode;
 
-
+	bool isChest1Pickable;
+	bool isChest2Pickable;
+	bool isChest3Pickable;
 
 
 };

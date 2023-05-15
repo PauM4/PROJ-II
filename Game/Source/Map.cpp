@@ -124,6 +124,32 @@ void Map::Draw()
     }
 }
 
+void Map::PostDraw(int playerPivotY) {
+
+    if (mapLoaded == false)
+        return;
+
+    ListItem<ImageLayer*>* imageLayerItem;
+    imageLayerItem = mapData.imageLayers.start;
+
+    while (imageLayerItem != NULL) {
+        if (imageLayerItem->data->properties.GetProperty("BG") != NULL && imageLayerItem->data->properties.GetProperty("BG")) {
+
+            imageLayerItem = imageLayerItem->next;
+            continue;
+        }
+        if (imageLayerItem->data->properties.GetProperty("Draw") != NULL && imageLayerItem->data->properties.GetProperty("Draw")->value) {
+
+            if (imageLayerItem->data->offsetY + imageLayerItem->data->height > playerPivotY) {
+
+                app->render->DrawTexture(imageLayerItem->data->texture, imageLayerItem->data->offsetX, imageLayerItem->data->offsetY);
+            }
+            
+        }
+        imageLayerItem = imageLayerItem->next;
+    }
+}
+
 // Create a method that translates x,y coordinates from map positions to world positions
 iPoint Map::MapToWorld(int x, int y) const
 {
@@ -430,6 +456,8 @@ bool Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* layer)
     layer->id = node.attribute("id").as_int();
     layer->offsetX = node.attribute("offsetx").as_int();
     layer->offsetY = node.attribute("offsety").as_int();
+    layer->width = node.child("image").attribute("width").as_int();
+    layer->height = node.child("image").attribute("height").as_int();
     layer->texturePath = (const char*)node.child("image").attribute("source").as_string();
 
     layer->texture = app->tex->Load(layer->texturePath);
