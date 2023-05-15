@@ -17,7 +17,7 @@ Enemy_MiddlePig::Enemy_MiddlePig() : Entity(EntityType::ENEMYMPIG) {
 	name.Create("enemy_middlePig");
 	namechar.Create("---Middle Pig---");
 	isAlive = true;
-	battleState = IDLE;
+
 	//Behavior Tree
 	//Action Nodes
 	auto getCloser = std::make_shared<GetCloser>();
@@ -106,7 +106,8 @@ bool Enemy_MiddlePig::Awake()
 
 	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Mediano.png");
 
-	PrevPos = position;
+	currentAnimation = &idleAnim;
+
 
 	return true;
 }
@@ -128,7 +129,7 @@ bool Enemy_MiddlePig::PostUpdate()
 	//Render
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	app->render->DrawTexture(texture, position.x - 50, position.y -125, &rect);
 
 	return true;
 }
@@ -137,7 +138,7 @@ bool Enemy_MiddlePig::CleanUp()
 {
 	return true;
 }
-
+	
 bool Enemy_MiddlePig::LoadState(pugi::xml_node&)
 {
 	return true;

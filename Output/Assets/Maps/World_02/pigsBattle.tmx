@@ -10,7 +10,7 @@
   <image source="../World_01/metaTiles.png" width="360" height="120"/>
  </tileset>
  <imagelayer id="2" name="BG">
-  <image source="Interior_Cerdo_Grande.png" width="1920" height="1080"/>
+  <image source="Assets\Maps\World_02\Interior_Cerdo_Grande.png" width="1920" height="1080"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>

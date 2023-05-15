@@ -51,14 +51,14 @@ bool BattleScene_Pigs::Awake(pugi::xml_node& config) {
 		littlePig = (Enemy_LittlePig*)app->entityManager->CreateEntity(EntityType::ENEMYLPIG);
 		littlePig->parameters = config.child("enemy_littlePig");
 		littlePig->stats = config.parent().child("enemy_littlePig");
-		app->battleManager->AddCharacter(littlePig, littlePig->parameters.attribute("x").as_int() / 120, littlePig->parameters.attribute("y").as_int() / 120, false);
+		app->battleManager->AddCharacter(littlePig, littlePig->parameters.attribute("x").as_int() / 120, littlePig->parameters.attribute("y").as_int() / 120, true);
 	}
 
 	if (config.child("enemy_middlePig")) {
 		middlePig = (Enemy_MiddlePig*)app->entityManager->CreateEntity(EntityType::ENEMYMPIG);
 		middlePig->parameters = config.child("enemy_middlePig");
 		middlePig->stats = config.parent().child("enemy_middlePig");
-		app->battleManager->AddCharacter(middlePig, middlePig->parameters.attribute("x").as_int() / 120, middlePig->parameters.attribute("y").as_int() / 120, false);
+		app->battleManager->AddCharacter(middlePig, middlePig->parameters.attribute("x").as_int() / 120, middlePig->parameters.attribute("y").as_int() / 120, true);
 	}
 
 	//Add enemies from config

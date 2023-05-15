@@ -74,7 +74,8 @@
 	</scenecombatLHHR>
 
 	<battleScene_Pigs name="Assets/Maps/World_02/pigsBattle.tmx" path="Assets/Maps/World_02/" >
-		
+		<enemy_littlePig x="960" y="480"/>
+		<enemy_middlePig x="960" y="360"/>
 	</battleScene_Pigs>
 	
 	<teamManager>

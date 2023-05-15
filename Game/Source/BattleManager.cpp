@@ -159,7 +159,14 @@ bool BattleManager::Update(float dt) {
 
 							targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->attack - targets.At(i)->data->defense);
 							app->sceneBattle->TakeDamageAnimation(targets.At(i)->data->name.GetString());
+							if (actionType == ActionType::ABILITY) {
 
+								//audio ability
+							}
+							if (actionType == ActionType::ATTACK) {
+
+								//adio attack
+							}
 						
 							currentTurn->UseStamina(5);
 							battleState = BattleState::INACTION;

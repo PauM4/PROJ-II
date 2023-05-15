@@ -106,11 +106,11 @@ bool Enemy_LittlePig::Awake()
 	walkLeftAnim.speed = 0.15f;
 
 
-	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Pequeño.png");
+	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Pequeno.png");
 
 	currentAnimation = &idleAnim;
 
-	PrevPos = position;
+
 
 	return true;
 }

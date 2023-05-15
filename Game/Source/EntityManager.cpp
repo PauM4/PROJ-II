@@ -18,6 +18,8 @@
 #include "Enemy_AngryVillager.h"
 #include "Enemy_LRRH.h"
 #include "Enemy_CorruptedSprout.h"
+#include "Enemy_LittlePig.h"
+#include "Enemy_MiddlePig.h"
 #include "Portal.h"
 #include "Log.h"
 
@@ -153,6 +155,12 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 	case EntityType::CORRUPTEDSPROUT:
 		entity = new Enemy_CorruptedSprout();
+		break;
+	case EntityType::ENEMYLPIG:
+		entity = new Enemy_LittlePig();
+		break;
+	case EntityType::ENEMYMPIG:
+		entity = new Enemy_MiddlePig();
 		break;
 	default: break;
 	}
