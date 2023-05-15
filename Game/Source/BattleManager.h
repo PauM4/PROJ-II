@@ -7,6 +7,7 @@
 #include "UIModule.h"
 #include "GuiButton.h"
 #include "TeamManager.h"
+#include"SDL_Timer.h"
 
 enum class TILE_TYPE {
 	UNKNOWN = -1,
@@ -178,7 +179,10 @@ public:
 	bool isPaused;
 	bool win;
 	bool lose;
-	int enemyTimer;
+	SDL_Timer enemyAreaTimer;
+	SDL_Timer enemyAttackTimer;
+	bool triggerMoveTimer;
+
 
 	//Pathfinding varibles
 	iPoint origin;
