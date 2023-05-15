@@ -42,6 +42,7 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 	int i = 0;
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
 		app->battleManager->AddCharacter(teamItem->data, 4 , 3+i, false);
+		app->entityManager->AddEntity(teamItem->data);
 		i++;
 	}
 
