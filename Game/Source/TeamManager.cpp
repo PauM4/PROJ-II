@@ -66,11 +66,7 @@ bool TeamManager::Awake(pugi::xml_node& config)
 	IsMidPigOnTeam = config.child("onteam").attribute("IsMidPigOnTeam").as_bool();
 	IsPeterOnTeam = config.child("onteam").attribute("IsPeterOnTeam").as_bool();
 
-	characters.Add(timmy);
-	characters.Add(bunny);
-
-	team.Add(timmy);
-	team.Add(bunny);
+	UpdateParty();
 
 	if (config.child("item").child("yoyo")) {
 		pugi::xml_node newnode = config.child("item").child("yoyo");
