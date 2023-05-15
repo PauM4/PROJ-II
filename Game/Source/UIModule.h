@@ -168,6 +168,7 @@ public:
 	float timeToRefreshDialogue;
 
 	int levelUpFX = -1;
+	int errorFX = -1;
 
 private:
 

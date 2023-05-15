@@ -44,6 +44,7 @@ bool UIModule::Start()
 	currentMenuType = DISABLED;
 
 	levelUpFX = app->audio->LoadFx("Assets/Sounds/FX/fx_level_up.wav");
+	errorFX = app->audio->LoadFx("Assets/Sounds/FX/fx_error.wav");
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
@@ -343,6 +344,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		app->scene->isNewGame = true;
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;
+		app->teamManager->Disable();
+		app->teamManager->Enable();
 		break;
 		// When continue pressed, go to gameplay
 	case 6:
@@ -414,22 +417,20 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->teamManager->UpdateParty();
 
-			// Tell to UIModule which currentMenuType
-			app->uiModule->currentMenuType = PAUSE;
-			// Call this function only when buttons change
-			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+			if (app->teamManager->team.Count() > 0)
+			{
+				// Tell to UIModule which currentMenuType
+				app->uiModule->currentMenuType = PAUSE;
+				// Call this function only when buttons change
+				app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+			}
+			else
+			{
+				// Play FX because error
+				app->audio->PlayFx(errorFX);
+			}
 		}
 
-		pausemenu_resume_button->state = GuiControlState::NORMAL;
-		pausemenu_save_button->state = GuiControlState::NORMAL;
-		pausemenu_options_button->state = GuiControlState::NORMAL;
-		pausemenu_load_button->state = GuiControlState::NORMAL;
-		pausemenu_backtomain_button->state = GuiControlState::NORMAL;
-		pausemenu_quit_button->state = GuiControlState::NORMAL;
-		pausemenu_inventory_button->state = GuiControlState::NORMAL;
-		pausemenu_party_button->state = GuiControlState::NORMAL;
-
-		pausemenu_return_button->state = GuiControlState::NONE;
 		break;
 		//Back to Main Menu
 	case 10:
@@ -764,6 +765,8 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 		DisableButtonsToNone();
 
+		pausemenu_return_button->state = GuiControlState::NORMAL;
+
 		break;
 	case PARTY:
 
@@ -776,6 +779,8 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		party_Lpig_button->state = GuiControlState::NORMAL;
 		party_Mpig_button->state = GuiControlState::NORMAL;
 		party_peter_button->state = GuiControlState::NORMAL;
+
+		pausemenu_return_button->state = GuiControlState::NORMAL;
 
 		break;
 	case COMBAT_PAUSE:

@@ -5,6 +5,7 @@
 #include "Log.h"
 #include "GuiManager.h"
 #include "Fonts.h"
+#include "TeamManager.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -41,7 +42,12 @@ bool GuiButton::Update(float dt)
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT) {
 				state = GuiControlState::PRESSED;
-				app->audio->PlayFx(app->guiManager->pressedFxId);
+
+				// Please don't touch. Critical code
+				if (app->teamManager->team.Count() > 0)
+				{
+					app->audio->PlayFx(app->guiManager->pressedFxId);
+				}
 			}
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
