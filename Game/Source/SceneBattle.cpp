@@ -87,7 +87,7 @@ bool SceneBattle::Start() {
 		RELEASE_ARRAY(data);
 
 	}
-	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.wav", 0.2f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle.ogg", 0.2f);
 	app->battleManager->MakeCombatMap();
 	
 	//bunnyPrevPos = bunny->position;

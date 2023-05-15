@@ -62,6 +62,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool W2_Scene::Start()
 {
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	app->entityManager->Start();
 
 	// L03: DONE: Load map
@@ -102,7 +103,7 @@ bool W2_Scene::Start()
 	godMode = false;
 	numTimesPigsDialogueTriggered = 0;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_pigs_world.ogg", 0.2f);
 
 	player->ChangePosition(5258, 3101);
 
