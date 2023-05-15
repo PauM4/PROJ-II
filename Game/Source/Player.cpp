@@ -122,10 +122,9 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	
+	chestFX = app->audio->LoadFx("Assets/Sounds/FX/fx_open_chest.wav");
+
 	// Grab player position from save_game file
-
-
 	texture = app->tex->Load(texturePath);
 	bunnyTexture = app->tex->Load(bunnyTexturePath);
 
@@ -196,6 +195,11 @@ bool Player::Update(float dt)
 		{
 			app->uiModule->CleaningDialogeOverTime();
 		}
+
+		if (playerState == ITEM_INTERACT)
+		{
+			app->audio->PlayFx(chestFX);
+		}
 	}
 
 
@@ -244,7 +248,6 @@ bool Player::Update(float dt)
 	case ITEM_INTERACT:
 		LOG("INTERACTING WITH ITEM");
 		movementRestringed = true;
-
 		break;
 	case TUTORIAL:
 		LOG("TUTORIAL MODE");
@@ -872,6 +875,7 @@ void Player::InteractWithEntities()
 			{
 				playerPrevState = playerState;
 				playerState = ITEM_INTERACT;
+
 
 				StopVelocity();
 			}

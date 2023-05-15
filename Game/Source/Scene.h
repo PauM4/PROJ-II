@@ -145,6 +145,7 @@ public:
 
 	//Load FX rope
 	int ropeFX = -1;
+
 	
 
 private:
