@@ -138,17 +138,15 @@ public:
 	// World 3 player
 	GuiButton* party_peter_button;
 
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
-	//GuiButton* inventory_yoyo_button;
+	GuiButton* inventory_timmy_button;
+	GuiButton* inventory_bunny_button;
+	GuiButton* inventory_lrrh_button;
+	GuiButton* inventory_Lpig_button;
+	GuiButton* inventory_Mpig_button;
+	// World 3 player
+	/*GuiButton* inventory_peter_button;*/
+
+
 
 	List<GuiButton*> buttonsList;
 

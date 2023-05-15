@@ -108,6 +108,12 @@ bool UIModule::Start()
 	party_Mpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 71, "Unavailable", { 1000, 600, 100, 30 }, this);
 	party_peter_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 72, "Unavailable", { 1000, 650, 100, 30 }, this);
 
+	inventory_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 73, "Timmy", { 900, 400, 100, 30 }, this);
+	inventory_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 74, "Bunny", { 900, 450, 100, 30 }, this);
+	inventory_lrrh_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 75, "LHRR", { 900, 500, 100, 30 }, this);
+	inventory_Lpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 76, "L. Pig", { 900, 550, 100, 30 }, this);
+	inventory_Mpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 77, "M. Pig", { 900, 600, 100, 30 }, this);
+
 	AddButtonsToList();
 
 	// When creating a new button, iniciate it in NONE state
@@ -748,6 +754,21 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		}
 	}
 
+	// Inventory Buttons
+	switch (control->id)
+	{
+	case 73:
+		break;
+	case 74:
+		break;
+	case 75:
+		break;
+	case 76:
+		break;
+	case 77:
+		break;
+	}
+
 
 	return true;
 }
@@ -793,6 +814,12 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		DisableButtonsToNone();
 
 		pausemenu_return_button->state = GuiControlState::NORMAL;
+
+		inventory_timmy_button->state = GuiControlState::NORMAL;
+		inventory_bunny_button->state = GuiControlState::NORMAL;
+		inventory_lrrh_button->state = GuiControlState::NORMAL;
+		inventory_Lpig_button->state = GuiControlState::NORMAL;
+		inventory_Mpig_button->state = GuiControlState::NORMAL;
 
 		break;
 	case PARTY:
@@ -1366,4 +1393,11 @@ void UIModule::AddButtonsToList()
 	buttonsList.Add(party_Lpig_button);
 	buttonsList.Add(party_Mpig_button);
 	buttonsList.Add(party_peter_button);
+
+	buttonsList.Add(inventory_timmy_button);
+	buttonsList.Add(inventory_bunny_button);
+	buttonsList.Add(inventory_lrrh_button);
+	buttonsList.Add(inventory_Lpig_button);
+	buttonsList.Add(inventory_Mpig_button);
+
 }
