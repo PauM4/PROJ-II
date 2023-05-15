@@ -109,6 +109,7 @@ bool BattleManager::Update(float dt) {
 			enemyAttackTimer.Start(0.9f);
 			displayEnemyAttackAreaOnce = false;
 			battleState = BattleState::ENEMY;
+			actionType = ActionType::UNKNOWN;
 			
 		}
 		break;
@@ -224,14 +225,17 @@ bool BattleManager::Update(float dt) {
 		//}
 
 
-		if (!displayEnemyAttackAreaOnce)
-		{
-			GetActionArea(currentTurn, ActionType::ATTACK);
-			SelectTargets();
-		}
+	
 
 		if (currentTurn->stamina >= 5 && battleState == BattleState::ENEMY)
 		{
+
+			if (!displayEnemyAttackAreaOnce)
+			{
+				GetActionArea(currentTurn, ActionType::ATTACK);
+				SelectTargets();
+			}
+
 			ListItem<Entity*>* entitylist;
 			entitylist = targets.start;
 
