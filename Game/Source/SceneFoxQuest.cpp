@@ -56,6 +56,7 @@ bool SceneFoxQuest::Start()
 			}
 		}
 	}
+	app->audio->PlayMusic("Assets/Sounds/Music/music_cave.ogg", 0.2f);
 	return true;
 }
 

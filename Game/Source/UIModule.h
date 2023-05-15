@@ -131,6 +131,18 @@ public:
 	// World 3 player
 	GuiButton* party_peter_button;
 
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+	//GuiButton* inventory_yoyo_button;
+
 
 	bool quitButtonBool;
 
@@ -145,6 +157,8 @@ public:
 	bool dialogueHasChanged;
 	int indexDialogueOverTime;
 	float timeToRefreshDialogue;
+
+	int levelUpFX = -1;
 
 private:
 

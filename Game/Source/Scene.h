@@ -142,6 +142,10 @@ public:
 
 	int numTimesAVDialogueTriggered, numTimesLRRHDialogueTriggered;
 	SDL_Timer timerToSceneBattle, timerToLRRHCombat;
+
+	//Load FX rope
+	int ropeFX = -1;
+
 	
 
 private:

@@ -92,6 +92,9 @@ public:
 
 	bool buttonOption1, buttonOption2, buttonOption3, buttonOption4;
 
+	int walkFx = -1;
+	int chestFX = -1;
+
 private:
 
 	PhysBody* pbody;

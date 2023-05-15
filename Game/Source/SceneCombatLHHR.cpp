@@ -42,6 +42,7 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 	int i = 0;
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
 		app->battleManager->AddCharacter(teamItem->data, 4 , 3+i, false);
+		app->entityManager->AddEntity(teamItem->data);
 		i++;
 	}
 
@@ -102,7 +103,7 @@ bool SceneCombatLHHR::Start()
 
 
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.wav", 0.2f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle.ogg", 0.2f);
 	app->battleManager->MakeCombatMap();
 
 	sproutPrevPos = sprout->position;

@@ -58,6 +58,7 @@ bool W3_Scene_Maze::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool W3_Scene_Maze::Start()
 {
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	app->entityManager->Start();
 	
 
@@ -98,7 +99,7 @@ bool W3_Scene_Maze::Start()
 
 	godMode = false;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_maze.ogg", 0.2f);
 
 	return true;
 }
