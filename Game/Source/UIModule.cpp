@@ -43,6 +43,8 @@ bool UIModule::Start()
 {
 	currentMenuType = DISABLED;
 
+	levelUpFX = app->audio->LoadFx("Assets/Sounds/FX/fx_level_up.wav");
+
 	uint w, h;
 	app->win->GetWindowSize(w, h);
 
@@ -1341,6 +1343,8 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 		break;
 	case LEVEL_UP:
+
+		app->audio->PlayFx(levelUpFX);
 
 		levelup_defenseUp_button->state = GuiControlState::NORMAL;
 		levelup_magicUp_button->state = GuiControlState::NORMAL;

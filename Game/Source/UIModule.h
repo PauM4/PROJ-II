@@ -158,6 +158,8 @@ public:
 	int indexDialogueOverTime;
 	float timeToRefreshDialogue;
 
+	int levelUpFX = -1;
+
 private:
 
 };
