@@ -170,6 +170,8 @@ public:
 	int levelUpFX = -1;
 	int errorFX = -1;
 
+	bool errorWhenParty;
+
 private:
 
 };

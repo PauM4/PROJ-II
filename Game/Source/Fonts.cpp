@@ -32,6 +32,7 @@ bool Fonts::Start() {
 	}
 
 	gameFont = LoadTTF("Assets/fonts/Cartoonero.ttf", 32); 
+	gameFontNotThatBig = LoadTTF("Assets/fonts/Cartoonero.ttf", 64);
 	gameFontBig = LoadTTF("Assets/fonts/Strange Tales.ttf", 128);
 
 	return true; 

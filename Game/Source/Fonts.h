@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "SDL\include\SDL_pixels.h"
 
-#define MAX_FONTS 2
+#define MAX_FONTS 6
 #define MAX_FONT_CHARS 256
 
 struct SDL_Texture;
@@ -43,6 +43,7 @@ public:
 	bool DrawText(const char* text, int posx, int posy, int w, int h, SDL_Color color, int font_id = app->fonts->gameFont, bool followCam = false);
 
 	int gameFont;
+	int gameFontNotThatBig;
 	int gameFontBig;
 
 private:

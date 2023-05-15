@@ -33,6 +33,9 @@ UIModule::~UIModule()
 bool UIModule::Awake(pugi::xml_node& config)
 {
 	LOG("Loading UIModule");
+
+	errorWhenParty = false;
+
 	bool ret = true;
 
 	return ret;
@@ -42,6 +45,8 @@ bool UIModule::Awake(pugi::xml_node& config)
 bool UIModule::Start()
 {
 	currentMenuType = DISABLED;
+
+	errorWhenParty = false;
 
 	levelUpFX = app->audio->LoadFx("Assets/Sounds/FX/fx_level_up.wav");
 	errorFX = app->audio->LoadFx("Assets/Sounds/FX/fx_error.wav");
@@ -193,7 +198,27 @@ bool UIModule::PostUpdate()
 		{
 			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
-			app->fonts->DrawText("PARTY", 800, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
+		app->fonts->DrawText("PARTY", 800, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
+
+		if (!errorWhenParty)
+		{
+			app->fonts->DrawText("Minimum 1; Maximum 3", 850, 900, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+		}
+		else
+		{
+			app->fonts->DrawText("Minimum 1; Maximum 3", 765, 870, 200, 200, { 255, 0, 0 }, app->fonts->gameFontNotThatBig, true);
+		}
+
+		int j = 0;
+		// Draw players name next to buttons
+		for (int i = 0; i < app->teamManager->characters.Count(); ++i)
+		{
+			std::string stringname = app->teamManager->characters.At(i)->data->namechar.GetString();
+			const char* charactername = stringname.c_str();
+
+			app->fonts->DrawText(charactername, 800, 400 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+			j += 50;
+		}
 	}
 
 	app->guiManager->Draw();
@@ -417,8 +442,9 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			app->teamManager->UpdateParty();
 
-			if (app->teamManager->team.Count() > 0)
+			if (app->teamManager->team.Count() > 0 && app->teamManager->team.Count() < 4)
 			{
+				errorWhenParty = false;
 				// Tell to UIModule which currentMenuType
 				app->uiModule->currentMenuType = PAUSE;
 				// Call this function only when buttons change
@@ -428,6 +454,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				// Play FX because error
 				app->audio->PlayFx(errorFX);
+				errorWhenParty = true;
 			}
 		}
 

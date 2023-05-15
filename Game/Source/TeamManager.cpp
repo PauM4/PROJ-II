@@ -923,7 +923,7 @@ void TeamManager::PrintLvlUpText()
 {
 
 	app->fonts->DrawText("Level Up! Choose between these stats to boost: ", -app->render->camera.x + 700, -app->render->camera.y + 300, 100, 100, { 0, 0, 0 });
-	std::string stringname = characters.At(cont)->data->name.GetString();
+	std::string stringname = characters.At(cont)->data->namechar.GetString();
 	const char* charactername = stringname.c_str();
 	app->fonts->DrawText(charactername, -app->render->camera.x + 700, -app->render->camera.y + 350, 100, 100, { 0, 0, 0 });
 

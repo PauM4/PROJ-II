@@ -44,7 +44,7 @@ bool GuiButton::Update(float dt)
 				state = GuiControlState::PRESSED;
 
 				// Please don't touch. Critical code
-				if (app->teamManager->team.Count() > 0)
+				if (app->teamManager->team.Count() > 0 && app->teamManager->team.Count() < 4)
 				{
 					app->audio->PlayFx(app->guiManager->pressedFxId);
 				}
