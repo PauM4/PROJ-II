@@ -384,7 +384,7 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
-	if (battleState != BattleState::INACTION) {
+	if (battleState != BattleState::INACTION && !currentTurn->isEnemy) {
 		switch (control->id)
 		{
 			// Attack
@@ -909,6 +909,8 @@ void BattleManager::LiveCondition() {
 		if (ally->data->isAlive == false) {
 
 			allies.Del(ally);
+			turnList.Clear();
+			MakeTurnList();
 		 }
 	}
 	for (ListItem<Entity*>* enemy = enemies.start; enemy != NULL; enemy = enemy->next) {
@@ -921,6 +923,8 @@ void BattleManager::LiveCondition() {
 		if (enemy->data->isAlive == false) {
 
 			enemies.Del(enemy);
+			turnList.Clear();
+			MakeTurnList();
 		}
 	}
 }
