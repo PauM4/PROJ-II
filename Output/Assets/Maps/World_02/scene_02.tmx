@@ -34,6 +34,9 @@
  </imagelayer>
  <imagelayer id="14" name="mazeSign" offsetx="1186" offsety="4042">
   <image source="Assets/Maps/World_02/Assets/maze_sign.png" width="315" height="339"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
  </imagelayer>
  <objectgroup color="#ff0000" id="3" name="Collisions">
   <properties>
