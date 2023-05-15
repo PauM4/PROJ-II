@@ -501,40 +501,7 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	IsMidPigOnTeam = data.child("onteam").attribute("IsMidPigOnTeam").as_bool();
 	IsPeterOnTeam = data.child("onteam").attribute("IsPeterOnTeam").as_bool();
 	//Add characters and team to the lists
-	characters.Clear();
-	team.Clear();
-	characters.Add(timmy);
-	characters.Add(bunny);
-	if (IsTimmyOnTeam == true) {
-		team.Add(timmy);
-	}
-	if (IsBunnyOnTeam == true) {
-		team.Add(bunny);
-	}
-	if (islrrhplayable == true) {
-		characters.Add(lrrh);
-		if (IsLrrhOnTeam == true) {
-			team.Add(lrrh);
-		}
-	}
-	if (islilpigplayable == true) {
-		characters.Add(littlepig);
-		if (IsLilPigOnTeam == true) {
-			team.Add(littlepig);
-		}
-	}
-	if (ismidpigplayable == true) {
-		characters.Add(middlepig);
-		if (IsMidPigOnTeam == true) {
-			team.Add(middlepig);
-		}
-	}
-	if (ispeterplayable == true) {
-		characters.Add(peter);
-		if (IsPeterOnTeam == true) {
-			team.Add(peter);
-		}
-	}
+	UpdateParty();
 	//Load Stats
 	pugi::xml_node statsnode = data.child("stats");
 	timmystats.defense = statsnode.child("timmy").attribute("defense").as_int();
@@ -654,6 +621,44 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	ApplyEquipedItemStats();
 
 	return true;
+}
+
+void TeamManager::UpdateParty()
+{
+	characters.Clear();
+	team.Clear();
+	characters.Add(timmy);
+	characters.Add(bunny);
+	if (IsTimmyOnTeam == true) {
+		team.Add(timmy);
+	}
+	if (IsBunnyOnTeam == true) {
+		team.Add(bunny);
+	}
+	if (islrrhplayable == true) {
+		characters.Add(lrrh);
+		if (IsLrrhOnTeam == true) {
+			team.Add(lrrh);
+		}
+	}
+	if (islilpigplayable == true) {
+		characters.Add(littlepig);
+		if (IsLilPigOnTeam == true) {
+			team.Add(littlepig);
+		}
+	}
+	if (ismidpigplayable == true) {
+		characters.Add(middlepig);
+		if (IsMidPigOnTeam == true) {
+			team.Add(middlepig);
+		}
+	}
+	if (ispeterplayable == true) {
+		characters.Add(peter);
+		if (IsPeterOnTeam == true) {
+			team.Add(peter);
+		}
+	}
 }
 
 bool TeamManager::SaveState(pugi::xml_node& data)

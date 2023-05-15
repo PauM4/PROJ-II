@@ -194,6 +194,13 @@ public:
 	int xDir;
 	int yDir;
 	int pathIndex;
+
+	//SFX
+	int deathFx = -1;
+	int rechargemanaFx = -1;
+	int moveFx = -1;
+	int victoryFx = -1;
+	int looseFx = -1;
 };
 
 

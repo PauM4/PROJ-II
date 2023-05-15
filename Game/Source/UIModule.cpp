@@ -43,37 +43,39 @@ bool UIModule::Start()
 {
 	currentMenuType = DISABLED;
 
+	levelUpFX = app->audio->LoadFx("Assets/Sounds/FX/fx_level_up.wav");
+
 	uint w, h;
 	app->win->GetWindowSize(w, h);
 
 
-	mainmenu_play_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 920, 600, 120,30 }, this);
-	mainmenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 920, 640, 120,30 }, this);
-	mainmenu_credits_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { 920, 680, 120,30 }, this);
-	mainmenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { 920, 720, 120, 30 }, this);
-	mainmenu_newGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { 920, 640, 120,30 }, this);
+	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 920, 600, 120,30 }, this);
+	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 920, 640, 120,30 }, this);
+	mainmenu_credits_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { 920, 680, 120,30 }, this);
+	mainmenu_quit_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { 920, 720, 120, 30 }, this);
+	mainmenu_newGame_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { 920, 640, 120,30 }, this);
 	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { 920, 680, 120,30 }, this);
-	mainmenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { 920, 925, 120,30 }, this);
+	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { 920, 925, 120,30 }, this);
 
-	pausemenu_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, "Resume", { 1620, 80, 120,30 }, this);
-	pausemenu_inventory_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, "Inventory", { 1620, 115, 120,30 }, this);
-	pausemenu_party_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 24, "Party", { 1620, 150, 120,30 }, this);
-	pausemenu_save_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Save", { 1620, 185, 120,30 }, this);
-	pausemenu_load_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Load", { 1620, 220, 120,30 }, this);
-	pausemenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Options", { 1620, 255, 120,30 }, this);
-	pausemenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, "Return", { 1620, 80, 120,30 }, this);
+	pausemenu_resume_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, "Resume", { 1620, 80, 120,30 }, this);
+	pausemenu_inventory_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, "Inventory", { 1620, 115, 120,30 }, this);
+	pausemenu_party_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 24, "Party", { 1620, 150, 120,30 }, this);
+	pausemenu_save_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Save", { 1620, 185, 120,30 }, this);
+	pausemenu_load_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Load", { 1620, 220, 120,30 }, this);
+	pausemenu_options_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Options", { 1620, 255, 120,30 }, this);
+	pausemenu_return_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, "Return", { 1620, 80, 120,30 }, this);
 	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "Main Menu", { 1620, 290, 120,30 }, this);
-	pausemenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "Quit", { 1620, 325, 120, 30 }, this);
+	pausemenu_quit_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "Quit", { 1620, 325, 120, 30 }, this);
 
-	pausemenuCombat_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, "Resume", { 1620, 80, 120,30 }, this);
-	pausemenuCombat_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Options", { 1620, 115, 120,30 }, this);
+	pausemenuCombat_resume_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, "Resume", { 1620, 80, 120,30 }, this);
+	pausemenuCombat_options_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Options", { 1620, 115, 120,30 }, this);
 	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Main Menu", { 1620, 150, 120,30 }, this);
-	pausemenuCombat_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Return", { 1620, 80, 120,30 }, this);
-	pausemenuCombat_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Quit", { 1620, 255, 120, 30 }, this);
+	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Return", { 1620, 80, 120,30 }, this);
+	pausemenuCombat_quit_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Quit", { 1620, 255, 120, 30 }, this);
 
-	combat_attack_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 30 }, app->battleManager);
+	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 30 }, app->battleManager);
 	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "Ability", { 100, 815, 100, 30 }, app->battleManager);
-	combat_move_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 850, 100, 30 }, app->battleManager);
+	combat_move_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 850, 100, 30 }, app->battleManager);
 	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 885, 100, 30 }, app->battleManager);
 
 	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, app->scene);
@@ -86,13 +88,20 @@ bool UIModule::Start()
 	dialog2_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 32, "", { 1000, 900, 800, 30 }, app->w2_scene);
 	dialog2_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 33, "", { 1000, 950, 800, 30 }, app->w2_scene);
 
-	levelup_defenseUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "+", { 900, 400, 100, 30 }, this);
-	levelup_magicUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, "+", { 900, 450, 100, 30 }, this);
-	levelup_speedUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, "+", { 900, 500, 100, 30 }, this);
-	levelup_movementUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, "+", { 900, 550, 100, 30 }, this);
-	levelup_attackUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, "+", { 900, 600, 100, 30 }, this);
-	levelup_AB1PowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, "+", { 900, 650, 100, 30 }, this);
+	levelup_defenseUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "+", { 900, 400, 100, 30 }, this);
+	levelup_magicUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, "+", { 900, 450, 100, 30 }, this);
+	levelup_speedUp_button =        (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, "+", { 900, 500, 100, 30 }, this);
+	levelup_movementUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, "+", { 900, 550, 100, 30 }, this);
+	levelup_attackUp_button =       (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, "+", { 900, 600, 100, 30 }, this);
+	levelup_AB1PowerUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, "+", { 900, 650, 100, 30 }, this);
 	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, "+", { 900, 700, 100, 30 }, this);
+
+	party_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 67, "In Party", { 1000, 400, 100, 30 }, this);
+	party_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 68, "In Party", { 1000, 450, 100, 30 }, this);
+	party_lrrh_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 69, "Unavailable", { 1000, 500, 100, 30 }, this);
+	party_Lpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 70, "Unavailable", { 1000, 550, 100, 30 }, this);
+	party_Mpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 71, "Unavailable", { 1000, 600, 100, 30 }, this);
+	party_peter_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 72, "Unavailable", { 1000, 650, 100, 30 }, this);
 
 	// When creating a new button, iniciate it in NONE state
 
@@ -142,6 +151,13 @@ bool UIModule::Start()
 	levelup_attackUp_button->state = GuiControlState::NONE;
 	levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 	levelup_healingpowerUp_button->state = GuiControlState::NONE;
+
+	party_timmy_button->state = GuiControlState::NONE;
+	party_bunny_button->state = GuiControlState::NONE;
+	party_lrrh_button->state = GuiControlState::NONE;
+	party_Lpig_button->state = GuiControlState::NONE;
+	party_Mpig_button->state = GuiControlState::NONE;
+	party_peter_button->state = GuiControlState::NONE;
 
 	doorPlayerPosition = false;
 
@@ -204,6 +220,7 @@ bool UIModule::PostUpdate()
 		{
 			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
+		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 	}
 
 	if (currentMenuType == PARTY)
@@ -216,6 +233,7 @@ bool UIModule::PostUpdate()
 		{
 			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
+			app->fonts->DrawText("PARTY", 800, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 	}
 
 	app->guiManager->Draw();
@@ -540,8 +558,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	}
 
-	
-
 	// Dialog Options Switch
 	switch (control->id)
 	{
@@ -584,7 +600,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	}
 
-
 	// Level Up Stats
 	switch (control->id)
 	{
@@ -610,6 +625,136 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		app->teamManager->healingpowerup = true;
 		break;
 	}
+
+	// Party Buttons
+	switch (control->id)
+	{
+		// Timmy
+	case 67:
+		if (app->teamManager->istimmyplayable)
+		{
+			if (app->teamManager->IsTimmyOnTeam)
+			{
+				app->teamManager->IsTimmyOnTeam = false;
+				party_timmy_button->text = "-";
+			}
+			else
+			{
+				app->teamManager->IsTimmyOnTeam = true;
+				party_timmy_button->text = "In Party";
+			}
+		}
+		else
+		{
+			party_timmy_button->text = "Unavailable";
+		}
+		break;
+
+		// Bunny
+	case 68:
+		if (app->teamManager->isbunnyplayable)
+		{
+			if (app->teamManager->IsBunnyOnTeam)
+			{
+				app->teamManager->IsBunnyOnTeam = false;
+				party_bunny_button->text = "-";
+			}
+			else
+			{
+				app->teamManager->IsBunnyOnTeam = true;
+				party_bunny_button->text = "In Party";
+			}
+		}
+		else
+		{
+			party_bunny_button->text = "Unavailable";
+		}
+		break;
+
+		// LRRH
+	case 69:
+		if (app->teamManager->islrrhplayable)
+		{
+			if (app->teamManager->IsLrrhOnTeam)
+			{
+				app->teamManager->IsLrrhOnTeam = false;
+				party_lrrh_button->text = "-";
+			}
+			else
+			{
+				app->teamManager->IsLrrhOnTeam = true;
+				party_lrrh_button->text = "In Party";
+			}
+		}
+		else
+		{
+			party_lrrh_button->text = "Unavailable";
+		}
+		break;
+
+		// LPig
+	case 70:
+		if (app->teamManager->islilpigplayable)
+		{
+			if (app->teamManager->IsLilPigOnTeam)
+			{
+				app->teamManager->IsLilPigOnTeam = false;
+				party_Lpig_button->text = "-";
+			}
+			else
+			{
+				app->teamManager->IsLilPigOnTeam = true;
+				party_Lpig_button->text = "In Party";
+			}
+		}
+		else
+		{
+			party_Lpig_button->text = "Unavailable";
+		}
+		break;
+
+		// MPig
+	case 71:
+		if (app->teamManager->ismidpigplayable)
+		{
+			if (app->teamManager->IsMidPigOnTeam)
+			{
+				app->teamManager->IsMidPigOnTeam = false;
+				party_Mpig_button->text = "-";
+			}
+			else
+			{
+				app->teamManager->IsMidPigOnTeam = true;
+				party_Mpig_button->text = "In Party";
+			}
+		}
+		else
+		{
+			party_Mpig_button->text = "Unavailable";
+		}
+		break;
+
+		// Peter
+	case 72:
+		if (app->teamManager->ispeterplayable)
+		{
+			if (app->teamManager->IsPeterOnTeam)
+			{
+				app->teamManager->IsPeterOnTeam = false;
+				party_peter_button->text = "-";
+			}
+			else
+			{
+				app->teamManager->IsPeterOnTeam = true;
+				party_peter_button->text = "In Party";
+			}
+		}
+		else
+		{
+			party_peter_button->text = "Unavailable";
+		}
+	}
+
 
 	return true;
 }
@@ -676,6 +821,16 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
+
+		// Disable inventory buttons
+
 		break;
 	case PAUSE:
 
@@ -733,6 +888,14 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
+
 		break;
 	case INVENTORY:
 
@@ -752,7 +915,7 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_return_button->state = GuiControlState::NONE;
 
-		// Disable all pause menu buttons
+		// Disable all pause menu buttons except for Return
 		pausemenu_resume_button->state = GuiControlState::NONE;
 		pausemenu_save_button->state = GuiControlState::NONE;
 		pausemenu_load_button->state = GuiControlState::NONE;
@@ -784,8 +947,24 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
+
 		break;
 	case PARTY:
+
+		// Enable party buttons
+		party_timmy_button->state = GuiControlState::NORMAL;
+		party_bunny_button->state = GuiControlState::NORMAL;
+		party_lrrh_button->state = GuiControlState::NORMAL;
+		party_Lpig_button->state = GuiControlState::NORMAL;
+		party_Mpig_button->state = GuiControlState::NORMAL;
+		party_peter_button->state = GuiControlState::NORMAL;
 
 		// Enable all combat pause buttons
 		pausemenuCombat_resume_button->state = GuiControlState::NONE;
@@ -803,7 +982,7 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_return_button->state = GuiControlState::NONE;
 
-		// Disable all pause menu buttons
+		// Disable all pause menu buttons except for Return
 		pausemenu_resume_button->state = GuiControlState::NONE;
 		pausemenu_save_button->state = GuiControlState::NONE;
 		pausemenu_load_button->state = GuiControlState::NONE;
@@ -886,6 +1065,15 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
+
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
+
 		break;
 
 	case DIALOG:
@@ -945,6 +1133,15 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
+
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
+
 		break;
 	case DIALOG2:
 		// Enable all dialog2 buttons
@@ -1002,6 +1199,14 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
+
 		break;
 	case COMBAT:
 		// Activate combat buttons
@@ -1058,6 +1263,14 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_attackUp_button->state = GuiControlState::NONE;
 		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 		levelup_healingpowerUp_button->state = GuiControlState::NONE;
+
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
 
 
 		break;
@@ -1120,8 +1333,18 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 		levelup_healingpowerUp_button->state = GuiControlState::NONE;
 
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
+
 		break;
 	case LEVEL_UP:
+
+		app->audio->PlayFx(levelUpFX);
 
 		levelup_defenseUp_button->state = GuiControlState::NORMAL;
 		levelup_magicUp_button->state = GuiControlState::NORMAL;
@@ -1169,6 +1392,14 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		pausemenuCombat_quit_button->state = GuiControlState::NONE;
 		pausemenuCombat_return_button->state = GuiControlState::NONE;
 		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
+
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
 
 		break;
 
@@ -1230,6 +1461,14 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		levelup_attackUp_button->state = GuiControlState::NONE;
 		levelup_AB1PowerUp_button->state = GuiControlState::NONE;
 		levelup_healingpowerUp_button->state = GuiControlState::NONE;
+
+		// Disable party buttons
+		party_timmy_button->state = GuiControlState::NONE;
+		party_bunny_button->state = GuiControlState::NONE;
+		party_lrrh_button->state = GuiControlState::NONE;
+		party_Lpig_button->state = GuiControlState::NONE;
+		party_Mpig_button->state = GuiControlState::NONE;
+		party_peter_button->state = GuiControlState::NONE;
 
 
 		// Disable other menus buttons:

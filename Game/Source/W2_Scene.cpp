@@ -62,6 +62,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool W2_Scene::Start()
 {
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	app->entityManager->Start();
 
 	// L03: DONE: Load map
@@ -102,7 +103,7 @@ bool W2_Scene::Start()
 	godMode = false;
 	numTimesPigsDialogueTriggered = 0;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_pigs_world.ogg", 0.2f);
 
 	player->ChangePosition(5258, 3101);
 
@@ -146,8 +147,8 @@ bool W2_Scene::PreUpdate()
 // Called each loop iteration
 bool W2_Scene::Update(float dt)
 {
-	//std::cout << "X: " << player->position.x << std::endl;
-	//std::cout << "Y: " << player->position.y << std::endl;
+	std::cout << "X: " << player->position.x << std::endl;
+	std::cout << "Y: " << player->position.y << std::endl;
 
 
 	Camera();
@@ -237,7 +238,7 @@ bool W2_Scene::PostUpdate()
 {
 	bool ret = true;
 
-	app->map->PostDraw(player->position.y + 55);
+	if (!godMode) app->map->PostDraw(player->position.y + 40);
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
@@ -326,7 +327,7 @@ void W2_Scene::Camera()
 	else
 	{
 		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2, -4254, -93, -2767, -1212);
+			app->render->camera.w / 2, app->render->camera.h / 2, -4254, -93, -3624, -1212);
 	}
 
 }

@@ -39,7 +39,11 @@ bool BattleManager::Awake(pugi::xml_node& config) {
 
 bool BattleManager::Start() {
 
-
+	moveFx = app->audio->LoadFx("Assets/Sounds/FX/fx_wooden_walk.wav");
+	deathFx = app->audio->LoadFx("Assets/Sounds/FX/fx_death.wav");
+	looseFx = app->audio->LoadFx("Assets/Sounds/FX/fx_loose.wav");
+	victoryFx = app->audio->LoadFx("Assets/Sounds/FX/fx_victory.wav");
+	rechargemanaFx = app->audio->LoadFx("Assets/Sounds/FX/fx_recharge_mana.wav");
 	winScreen = app->tex->Load("Assets/UI/Win_screen.png");
 	loseScreen = app->tex->Load("Assets/UI/lose_screen.png");
 
@@ -142,6 +146,7 @@ bool BattleManager::Update(float dt) {
 			else if (actionType == ActionType::END_TURN) {
 
 				currentTurn->GainStamina(10);
+				app->audio->PlayFx(rechargemanaFx);
 				battleState = BattleState::INACTION;
 
 			}
@@ -184,10 +189,7 @@ bool BattleManager::Update(float dt) {
 		if (actionType == ActionType::MOVE) {
 
 			if (pathIndex != length) {
-
-				
 				Move(pathIndex, length);
-				
 			}
 			else
 			{
@@ -380,6 +382,9 @@ bool BattleManager::CleanUp() {
 	enemies.Clear();
 	area.Clear();
 	actionArea.Clear();
+
+	app->tex->UnLoad(winScreen); 
+	app->tex->UnLoad(loseScreen);
 	return true;
 }
 
@@ -694,6 +699,7 @@ bool BattleManager::Move(int pathindex, int length) {
 
 		currentTurn->position.x = currentTurn->position.x + vel.x;
 		currentTurn->position.y = currentTurn->position.y + vel.y;
+		app->audio->PlayFx(moveFx);
 	}
 	return true;
 }
@@ -892,12 +898,12 @@ void BattleManager::CheckWinCondition()
 	LiveCondition();
 
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
-
+		app->audio->PlayFx(looseFx);
 		battleState = BattleState::LOSE;
 	}
 	
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-
+		app->audio->PlayFx(victoryFx);
 		battleState = BattleState::WIN;
 	}
 	
@@ -914,7 +920,7 @@ void BattleManager::LiveCondition() {
 			ally->data->isAlive = false;
 		}
 		if (ally->data->isAlive == false) {
-
+			app->audio->PlayFx(deathFx);
 			allies.Del(ally);
 			turnList.Clear();
 			MakeTurnList();
@@ -928,7 +934,7 @@ void BattleManager::LiveCondition() {
 			enemy->data->isAlive = false;
 		}
 		if (enemy->data->isAlive == false) {
-
+			app->audio->PlayFx(deathFx);
 			enemies.Del(enemy);
 			turnList.Clear();
 			MakeTurnList();

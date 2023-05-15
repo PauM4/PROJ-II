@@ -115,6 +115,9 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
+	ropeFX = app->audio->LoadFx("Assets/Sounds/FX/fx_water_splash.wav");
+
 	app->entityManager->Start();
 
 	// L03: DONE: Load map
@@ -395,7 +398,7 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	app->map->PostDraw((player->position.y + 40));
+	if (!godMode) app->map->PostDraw((player->position.y + 40));
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
@@ -1025,6 +1028,7 @@ void Scene::UpdateRopeMinigame(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 		{
 			ropeSpeed += ropeJump;
+			app->audio->PlayFx(ropeFX);
 		}
 
 		// To increase difficulty, change divider to smaller num
