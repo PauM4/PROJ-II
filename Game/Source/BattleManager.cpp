@@ -107,7 +107,7 @@ bool BattleManager::Update(float dt) {
 		{
 			
 			enemyAttackTimer.Start(0.9f);
-
+			displayEnemyAttackAreaOnce = false;
 			battleState = BattleState::ENEMY;
 			
 		}
@@ -223,15 +223,12 @@ bool BattleManager::Update(float dt) {
 		//	enemyTimer++;
 		//}
 
-		if (displayEnemyAttackAreaOnce == false)
+
+		if (!displayEnemyAttackAreaOnce)
 		{
-			
 			GetActionArea(currentTurn, ActionType::ATTACK);
-
+			SelectTargets();
 		}
-
-		//GetActionArea(currentTurn, ActionType::ATTACK);
-		SelectTargets();
 
 		if (currentTurn->stamina >= 5 && battleState == BattleState::ENEMY)
 		{
@@ -253,7 +250,7 @@ bool BattleManager::Update(float dt) {
 						
 						battleState = BattleState::INACTION;
 
-						displayEnemyAttackAreaOnce = false;
+						
 						break;
 					}
 				}
