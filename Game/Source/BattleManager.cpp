@@ -882,7 +882,7 @@ bool BattleManager::ApplyAction(Entity* character, ActionType type) {
 
 void BattleManager::CheckWinCondition()
 {
-
+	LiveCondition();
 
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 
