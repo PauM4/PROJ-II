@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1997" y="900" x="2013" y="841" />
+		<player x="1965" y="947" />
 		<rope_minigame rope_minigame_state="false" />
 		<chests>
 			<chest isPicked="false" />
@@ -62,7 +62,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-1037" y="-337" />
+		<camera x="126" y="-618" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

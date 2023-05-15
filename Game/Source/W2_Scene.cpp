@@ -565,7 +565,7 @@ void W2_Scene::drawQuest(int posX, int posY) {
 
 	SDL_Rect rect = { 0, 0, 280, 20 };
 
-	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, questText, { 0,0,0 }, 280);
+	textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, questText, { 0,0,0 }, 280);
 
 	app->render->DrawTexture(textDialogue, posX, posY, &rect);
 }
