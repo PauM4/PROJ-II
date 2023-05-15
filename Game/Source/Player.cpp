@@ -296,8 +296,9 @@ bool Player::Update(float dt)
 	if (teleport.turn == true)
 	{
 		b2Vec2 resetPos = b2Vec2(PIXEL_TO_METERS(teleport.posX), PIXEL_TO_METERS(teleport.posY));
+		b2Vec2 resetPos2 = b2Vec2(PIXEL_TO_METERS(teleport.posX+0.5f), PIXEL_TO_METERS(teleport.posY));
 		pbody->body->SetTransform(resetPos, 0);
-		bunnyPbody->body->SetTransform(resetPos, 0);
+		bunnyPbody->body->SetTransform(resetPos2, 0);
 
 		teleport.turn = false;
 	}
