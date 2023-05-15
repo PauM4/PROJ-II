@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="59" nextobjectid="149">
  <imagelayer id="2" name="BG">
-  <image source="Assets/Maps/World_02/maze.png" width="6319" height="4716"/>
+  <image source="Assets/Maps/World_02/maze.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
- </imagelayer>
- <imagelayer id="56" name="chest" offsetx="2434" offsety="2506">
-  <image source="Assets/Maps/World_02/chest.png" width="92" height="77"/>
- </imagelayer>
- <imagelayer id="58" name="Copy of chest" offsetx="940" offsety="1434">
-  <image source="Assets/Maps/World_02/chest.png" width="92" height="77"/>
- </imagelayer>
- <imagelayer id="57" name="Copy of chest" offsetx="3140" offsety="3624">
-  <image source="Assets/Maps/World_02/chest.png" width="92" height="77"/>
  </imagelayer>
  <objectgroup color="#ff0000" id="3" name="Collisions">
   <properties>

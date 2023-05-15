@@ -182,6 +182,7 @@ public:
 	SDL_Timer enemyAreaTimer;
 	SDL_Timer enemyAttackTimer;
 	bool triggerMoveTimer;
+	bool displayEnemyAttackAreaOnce = false;
 
 
 	//Pathfinding varibles

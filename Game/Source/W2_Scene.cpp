@@ -237,6 +237,8 @@ bool W2_Scene::PostUpdate()
 {
 	bool ret = true;
 
+	app->map->PostDraw(player->position.y + 55);
+
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
@@ -324,7 +326,7 @@ void W2_Scene::Camera()
 	else
 	{
 		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2, -4254, -93, -2767, -1212);
+			app->render->camera.w / 2, app->render->camera.h / 2, -4254, -93, -3624, -1212);
 	}
 
 }

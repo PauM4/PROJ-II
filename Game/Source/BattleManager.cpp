@@ -102,10 +102,14 @@ bool BattleManager::Update(float dt) {
 		actionArea.Clear();
 		area.Clear();
 		enemyAreaTimer.Start(1.0f);
-		enemyAttackTimer.Start(0.9f);
+		
 		if (currentTurn->isEnemy)
 		{
+			
+			enemyAttackTimer.Start(0.9f);
+			displayEnemyAttackAreaOnce = false;
 			battleState = BattleState::ENEMY;
+			actionType = ActionType::UNKNOWN;
 			
 		}
 		break;
@@ -220,11 +224,18 @@ bool BattleManager::Update(float dt) {
 		//	enemyTimer++;
 		//}
 
-		GetActionArea(currentTurn, ActionType::ATTACK);
-		SelectTargets();
+
+	
 
 		if (currentTurn->stamina >= 5 && battleState == BattleState::ENEMY)
 		{
+
+			if (!displayEnemyAttackAreaOnce)
+			{
+				GetActionArea(currentTurn, ActionType::ATTACK);
+				SelectTargets();
+			}
+
 			ListItem<Entity*>* entitylist;
 			entitylist = targets.start;
 
@@ -232,15 +243,18 @@ bool BattleManager::Update(float dt) {
 			{
 				if (entitylist->data->isAlive == true)
 				{
-
+					actionType = ActionType::ATTACK;
+					displayEnemyAttackAreaOnce = true;
 					if (enemyAttackTimer.Test() == FIN) {
 						entitylist->data->health = entitylist->data->health - (currentTurn->attack - entitylist->data->defense);
 						app->sceneBattle->TakeDamageAnimation(targets.start->data->name.GetString());
 						targets.Clear();
 						currentTurn->UseStamina(5);
 						entitylist = NULL;
-						actionType = ActionType::ATTACK;
+						
 						battleState = BattleState::INACTION;
+
+						
 						break;
 					}
 				}
@@ -250,7 +264,7 @@ bool BattleManager::Update(float dt) {
 			}
 
 		}
-		if (currentTurn->stamina >= 3 && battleState == BattleState::ENEMY) {
+		if (currentTurn->stamina >= 3 && battleState == BattleState::ENEMY && actionType != ActionType::ATTACK) {
 
 			targets.Clear();
 			actionArea.Clear();
@@ -303,7 +317,7 @@ bool BattleManager::Update(float dt) {
 			
 		}
 	
-		if (battleState == BattleState::ENEMY) {
+		if (battleState == BattleState::ENEMY && actionType != ActionType::ATTACK) {
 			currentTurn->GainStamina(10);
 			battleState = BattleState::INACTION;
 		}
@@ -321,8 +335,6 @@ bool BattleManager::Update(float dt) {
 	}
 
 
-
-	
 	CheckWinCondition();
 
 	UpdateCombatMap();
@@ -333,10 +345,10 @@ bool BattleManager::Update(float dt) {
 
 bool BattleManager::PostUpdate() {
 
-	if (battleState == BattleState::SELCETED || battleState == BattleState::ENEMY || enemyAreaTimer.Test()==EJECUTANDO ) {
+	if (battleState == BattleState::SELCETED /*|| battleState == BattleState::ENEMY*/ || enemyAreaTimer.Test()==EJECUTANDO || enemyAttackTimer.Test() == EJECUTANDO) {
 
 		DisplayAtackArea(actionType);
-		DisplayEnemys();
+		DisplayEnemys();	
 
 	}
 
@@ -375,7 +387,7 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
-	if (battleState != BattleState::INACTION) {
+	if (battleState != BattleState::INACTION && !currentTurn->isEnemy) {
 		switch (control->id)
 		{
 			// Attack
@@ -636,8 +648,9 @@ bool BattleManager::Move(int pathindex, int length) {
 	if (enemyAreaTimer.Test() == FIN || !currentTurn->isEnemy)
 	{
 		triggerMoveTimer = true;
+		enemyAttackTimer.Test();
 	}
-
+	
 	if (triggerMoveTimer)
 	{
 
@@ -872,7 +885,7 @@ bool BattleManager::ApplyAction(Entity* character, ActionType type) {
 
 void BattleManager::CheckWinCondition()
 {
-
+	LiveCondition();
 
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 
@@ -899,6 +912,8 @@ void BattleManager::LiveCondition() {
 		if (ally->data->isAlive == false) {
 
 			allies.Del(ally);
+			turnList.Clear();
+			MakeTurnList();
 		 }
 	}
 	for (ListItem<Entity*>* enemy = enemies.start; enemy != NULL; enemy = enemy->next) {
@@ -911,6 +926,8 @@ void BattleManager::LiveCondition() {
 		if (enemy->data->isAlive == false) {
 
 			enemies.Del(enemy);
+			turnList.Clear();
+			MakeTurnList();
 		}
 	}
 }
