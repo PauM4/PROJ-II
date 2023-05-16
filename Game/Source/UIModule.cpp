@@ -843,6 +843,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		lrrhItem = false;
 		lpigItem = false;
 		mpigItem = false;
+		app->teamManager->itemstoshow.Clear();
 
 		whatInventoryImIn = TIMMY;
 
@@ -850,7 +851,6 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 1) {
 				if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 1)
 				{
-					app->teamManager->itemstoshow.Clear();
 					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
 				}
 			}
@@ -869,6 +869,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		lrrhItem = false;
 		lpigItem = false;
 		mpigItem = false;
+		app->teamManager->itemstoshow.Clear();
 
 		whatInventoryImIn = BUNNY;
 
@@ -876,10 +877,14 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 2) {
 				if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 2)
 				{
-					app->teamManager->itemstoshow.Clear();
 					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
 				}
 			}
+		}
+
+		for (int i = 0; i < app->teamManager->itemstoshow.Count(); ++i)
+		{
+			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 		}
 
 		break;
@@ -902,6 +907,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			}
 		}
 
+		for (int i = 0; i < app->teamManager->itemstoshow.Count(); ++i)
+		{
+			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
+		}
+
 		break;
 	case 76:
 		lpigItem = true;
@@ -920,6 +930,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
 				}
 			}
+		}
+
+		for (int i = 0; i < app->teamManager->itemstoshow.Count(); ++i)
+		{
+			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 		}
 
 		break;
@@ -942,58 +957,80 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			}
 		}
 
+		for (int i = 0; i < app->teamManager->itemstoshow.Count(); ++i)
+		{
+			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
+		}
+
 		break;
 	}
+
 	// Item buttons
 	switch (control->id)
 	{
 	case 78:
-		// If equiped
-		if (app->teamManager->itemstoshow.At(0)->data.character != 0)
-		{
-			app->teamManager->itemstoshow.At(0)->data.character = 0;
-		} // If not equiped
-		else
-		{
-			// Check all items in inventory
-			for (int i = 0; i < app->teamManager->itemstoshow.Count(); ++i)
-			{
-				if (app->teamManager->itemstoshow.At(i)->data.type == app->teamManager->itemstoshow.At(0)->data.type
-					&& app->teamManager->itemstoshow.At(i)->data.character != 0)
-				{
-					break;
-				}
-			}
-			app->teamManager->itemstoshow.At(0)->data.character = whatInventoryImIn;
-		}
-		
+		EquipUnequipItem(0);		
 		break;
 	case 79:
+		EquipUnequipItem(1);
 		break;
 	case 80:
+		EquipUnequipItem(2);
 		break;
 	case 81:
+		EquipUnequipItem(3);
 		break;
 	case 82:
+		EquipUnequipItem(4);
 		break;
 	case 83:
+		EquipUnequipItem(5);
 		break;
 	case 84:
+		EquipUnequipItem(6);
 		break;
 	case 85:
+		EquipUnequipItem(7);
 		break;
 	case 86:
+		EquipUnequipItem(8);
 		break;
 	case 87:
+		EquipUnequipItem(9);
 		break;
 	case 88:
+		EquipUnequipItem(10);
 		break;
 	case 89:
+		EquipUnequipItem(11);
 		break;
 	}
 
 
 	return true;
+}
+
+void UIModule::EquipUnequipItem(int numOfItem)
+{
+	// If equiped, unequip
+	if (app->teamManager->itemstoshow.At(numOfItem)->data.character != 0)
+	{
+		app->teamManager->itemstoshow.At(numOfItem)->data.character = 0;
+	} // If not equiped
+	else
+	{
+		// Check all items in inventory
+		for (int i = 0; i < app->teamManager->itemstoshow.Count(); ++i)
+		{
+			// If there's any item that is the same type and is equiped, exit check inventory
+			if (app->teamManager->itemstoshow.At(i)->data.type == app->teamManager->itemstoshow.At(numOfItem)->data.type
+				&& app->teamManager->itemstoshow.At(i)->data.character != 0)
+			{
+				break;
+			}
+		}
+		app->teamManager->itemstoshow.At(numOfItem)->data.character = whatInventoryImIn;
+	}
 }
 
 

@@ -71,6 +71,8 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	void EquipUnequipItem(int numOfItem);
+
 	// Change buttons state depending on the scene
 	bool ChangeButtonState(int& currentMenuType);
 
