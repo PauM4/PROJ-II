@@ -54,8 +54,13 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 		doors.Add(door);
 	}
 
-	portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
-	portal->parameters = config.child("portal");
+	for (pugi::xml_node doorNode = config.child("portal"); doorNode; doorNode = doorNode.next_sibling("portal")) {
+		Portal* portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
+		portal->parameters = doorNode; 
+
+		portals.Add(portal);
+	}
+	
 
 
 	app->entityManager->Awake(config);
@@ -130,7 +135,7 @@ bool W2_Scene::Start()
 
 	if (isNewGame)
 	{
-		player->ChangePosition(571, 3117);
+		player->ChangePosition(871, 3117);
 		isNewGame = false;
 	}
 	else
@@ -138,7 +143,8 @@ bool W2_Scene::Start()
 		app->LoadGameRequest();
 	}
 
-	player->ChangePosition(871, 3117);
+	//player->ChangePosition(871, 3117);
+	player->ChangePosition(5000, 3117);
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
@@ -599,19 +605,21 @@ bool W2_Scene::LoadState(pugi::xml_node& data)
 
 bool W2_Scene::SaveState(pugi::xml_node& data)
 {
-	pugi::xml_node playerNode = data.append_child("player");
+	if (active) {
+		pugi::xml_node playerNode = data.append_child("player");
 
-	//// If door, save mes lluny
-	//if (app->uiModule->doorPlayerPosition)
-	//{
-	//	playerNode.append_attribute("x") = player->position.x;
-	//	playerNode.append_attribute("y") = player->position.y + 75;
-	//	app->uiModule->doorPlayerPosition = false;
-	//}
-
-	//playerNode.append_attribute("x") = player->position.x;
-	//playerNode.append_attribute("y") = player->position.y;
-
+		// If door, save mes lluny
+		if (app->uiModule->doorPlayerPosition)
+		{
+			playerNode.append_attribute("x") = player->position.x;
+			playerNode.append_attribute("y") = player->position.y + 75;
+			app->uiModule->doorPlayerPosition = false;
+		}
+		else {
+			playerNode.append_attribute("x") = player->position.x;
+			playerNode.append_attribute("y") = player->position.y;
+		}
+	}
 	
 
 	return true;

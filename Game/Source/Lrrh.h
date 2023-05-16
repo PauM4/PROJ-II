@@ -48,6 +48,16 @@ public:
 	Animation takedmgAnim;
 	Animation attackAnim;
 	Animation abilityAnim;
+
+	Animation* abilityAnimation;
+	Animation arrow;
+	Animation none;
+
+	iPoint arrowPos;
+
+	bool finishAnimBool;
+
+	int prehealth;
 private:
 
 	

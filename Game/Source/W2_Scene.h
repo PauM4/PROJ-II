@@ -79,7 +79,7 @@ public:
 	Player* player;
 	NpcW2* npc;
 	List<Door*> doors;
-	Portal* portal;
+	List<Portal*> portals;
 
 	Item* chest4;
 	Item* chest5;

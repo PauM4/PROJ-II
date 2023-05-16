@@ -188,6 +188,10 @@ bool SceneFoxQuest::Update(float dt)
 bool SceneFoxQuest::PostUpdate()
 {
 	//Print all the map
+	bool ret = true;
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;
+
 	SDL_Rect rectMap = { 0, 0, 1080, 1080 };
 	app->render->DrawTexture(mapTexture, 420, 0, &rectMap);
 
@@ -205,7 +209,7 @@ bool SceneFoxQuest::PostUpdate()
 	}
 
 	player->Draw();
-	return true;
+	return ret;
 }
 
 bool SceneFoxQuest::CleanUp()
@@ -289,11 +293,11 @@ void SceneFoxQuest::Movement()
 	}
 
 	if (map[player->pos.x][player->pos.y]->state == TileState::EXIT) {
-		app->sceneManager->LoadScene(GameScene::SCENE); //Change to world 2
+		app->sceneManager->LoadScene(GameScene::W2_SCENE); //Change to world 2
 	}
 
 	if (map[player->pos.x][player->pos.y]->state == TileState::ENTRANCE) {
-		app->sceneManager->LoadScene(GameScene::SCENE); //Change to world 2
+		app->sceneManager->LoadScene(GameScene::W2_SCENE); //Change to world 2
 	}
 }
 

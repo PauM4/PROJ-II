@@ -103,25 +103,26 @@ bool BattleManager::Update(float dt) {
 	case BattleState::UNKNOWN:
 		break;
 	case BattleState::THINKING:
+		actionfinish = false;
 		origin = currentTurn->tilePos;
 		targets.Clear();
 		actionArea.Clear();
 		area.Clear();
 		enemyAreaTimer.Start(1.0f);
-		
+
 		if (currentTurn->isEnemy)
 		{
-			
+
 			enemyAttackTimer.Start(0.9f);
 			displayEnemyAttackAreaOnce = false;
 			battleState = BattleState::ENEMY;
 			actionType = ActionType::UNKNOWN;
-			
+
 		}
 		break;
 	case BattleState::SELCETED:
 
-	
+
 		actionArea.Clear();
 		targets.Clear();
 		GetActionArea(currentTurn, actionType);
@@ -134,12 +135,13 @@ bool BattleManager::Update(float dt) {
 				{
 					for (ListItem<TileData*>* area = actionArea.start; area != NULL; area = area->next) {
 						iPoint pos = iPoint(area->data->x, area->data->y);
-						if (app->pathfinding->IsWalkable(origin) && mouseTile == pos && combatMap[mouseTile.x][mouseTile.y].character == nullptr) {
+						if (app->pathfinding->IsWalkable(origin) && mouseTile == pos && combatMap[mouseTile.x][mouseTile.y].character == nullptr && actionfinish==false) {
 							length = app->pathfinding->CreatePath(origin, mouseTile);
 							destination.x = mouseTile.x;
 							destination.y = mouseTile.y;
 							moveanim = true;
 							currentTurn->UseStamina(3);
+							actionfinish = true;
 							battleState = BattleState::INACTION;
 						}
 					}
@@ -160,23 +162,27 @@ bool BattleManager::Update(float dt) {
 				for (int i = 0; i < targets.Count(); i++) {
 
 
-					if (targets.At(i)->data->tilePos == mouseTile) {
+					if (targets.At(i)->data->tilePos == mouseTile && actionfinish == false) {
 						if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
 
 
-							targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->attack - targets.At(i)->data->defense);
+
 							app->sceneBattle->TakeDamageAnimation(targets.At(i)->data->name.GetString());
 							if (actionType == ActionType::ABILITY) {
 								app->audio->PlayFx(currentTurn->abilityFx);
+								targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->Ab1Power - targets.At(i)->data->defense);
 								//audio ability
+								currentTurn->UseStamina(10);
 							}
 							if (actionType == ActionType::ATTACK) {
 								app->audio->PlayFx(currentTurn->attackFx);
+								targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->attack - targets.At(i)->data->defense);
 								//adio attack
+								currentTurn->UseStamina(5);
 							}
 							targetPosForAnimation = targets.At(i)->data->position;
-						
-							currentTurn->UseStamina(5);
+
+							actionfinish = true;
 							battleState = BattleState::INACTION;
 
 						}
@@ -237,7 +243,7 @@ bool BattleManager::Update(float dt) {
 		//}
 
 
-	
+
 
 		if (currentTurn->stamina >= 5 && battleState == BattleState::ENEMY)
 		{
@@ -266,8 +272,8 @@ bool BattleManager::Update(float dt) {
 						entitylist = NULL;
 						app->audio->PlayFx(currentTurn->abilityFx);
 						battleState = BattleState::INACTION;
+						actionfinish = true;
 
-						
 						break;
 					}
 				}
@@ -282,13 +288,13 @@ bool BattleManager::Update(float dt) {
 			targets.Clear();
 			actionArea.Clear();
 
-	/*		iPoint pos = iPoint(currentTurn->tilePos.x, currentTurn->tilePos.y+1);
-			length = app->path  finding->CreatePath(origin, pos);
-			destination.x = pos.x;
-			destination.y = pos.y;
-			currentTurn->UseStamina(3);
-			actionType = ActionType::MOVE;
-			battleState = BattleState::INACTION;*/
+			/*		iPoint pos = iPoint(currentTurn->tilePos.x, currentTurn->tilePos.y+1);
+					length = app->path  finding->CreatePath(origin, pos);
+					destination.x = pos.x;
+					destination.y = pos.y;
+					currentTurn->UseStamina(3);
+					actionType = ActionType::MOVE;
+					battleState = BattleState::INACTION;*/
 
 			GetActionArea(currentTurn, ActionType::MOVE);
 
@@ -296,8 +302,8 @@ bool BattleManager::Update(float dt) {
 				ListItem<TileData*>* tiledata;
 				for (tiledata = actionArea.start; tiledata != NULL; tiledata = tiledata->next) {
 
-					if (battleState == BattleState::ENEMY && tiledata->data->character==NULL) {
-						
+					if (battleState == BattleState::ENEMY && tiledata->data->character == NULL) {
+
 						iPoint pos = iPoint(tiledata->data->x, tiledata->data->y);
 						CreateArea(currentTurn->AttArea, 1, pos);
 						ListItem<TileData*>* tileListItem;
@@ -305,12 +311,13 @@ bool BattleManager::Update(float dt) {
 						if (battleState == BattleState::ENEMY) {
 							for (tileListItem = area.start; tileListItem != NULL; tileListItem = tileListItem->next) {
 
-								if (tileListItem->data->character != NULL && tileListItem->data->character->isEnemy == false) {
+								if (tileListItem->data->character != NULL && tileListItem->data->character->isEnemy == false && actionfinish == false) {
 
 									length = app->pathfinding->CreatePath(origin, pos);
 									destination.x = pos.x;
 									destination.y = pos.y;
 									currentTurn->UseStamina(3);
+									actionfinish = true;
 									actionType = ActionType::MOVE;
 									battleState = BattleState::INACTION;
 
@@ -324,12 +331,29 @@ bool BattleManager::Update(float dt) {
 				}
 			}
 
-				
 
-			
-			
+
 		}
-	
+		else if (currentTurn->stamina >= 3 && battleState == BattleState::ENEMY && actionType != ActionType::ATTACK && actionfinish == false) {
+
+			targets.Clear();
+			actionArea.Clear();
+
+			GetActionArea(currentTurn, ActionType::MOVE);
+
+			iPoint pos = iPoint(currentTurn->tilePos.x - 3, currentTurn->tilePos.y);
+			length = app->pathfinding->CreatePath(origin, pos);
+			destination.x = pos.x;
+			destination.y = pos.y;
+			currentTurn->UseStamina(3);
+			actionfinish = true;
+			actionType = ActionType::MOVE;
+			battleState = BattleState::INACTION;
+
+
+		}
+
+		
 		if (battleState == BattleState::ENEMY && actionType != ActionType::ATTACK) {
 			currentTurn->GainStamina(10);
 			battleState = BattleState::INACTION;
@@ -338,7 +362,11 @@ bool BattleManager::Update(float dt) {
 		break;
 
 	case BattleState::WIN:
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+			app->teamManager->startstatsup = true;
+			app->sceneManager->LoadScene(GameScene::SCENE);
+		}
+
 		break;
 	case BattleState::LOSE:
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
@@ -347,9 +375,9 @@ bool BattleManager::Update(float dt) {
 		break;
 	}
 
-
-	CheckWinCondition();
-
+	if (battleState != BattleState::WIN && battleState != BattleState::LOSE) {
+		CheckWinCondition();
+	}
 	UpdateCombatMap();
 
 
@@ -914,6 +942,7 @@ void BattleManager::CheckWinCondition()
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 		app->audio->PlayFx(victoryFx);
 		battleState = BattleState::WIN;
+
 	}
 	
 }

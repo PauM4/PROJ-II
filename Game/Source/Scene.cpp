@@ -1048,13 +1048,10 @@ bool Scene::SaveState(pugi::xml_node& data)
 			playerNode.append_attribute("y") = player->position.y + 75;
 			app->uiModule->doorPlayerPosition = false;
 		}
-
-		if (active)
-		{
+		else {
 			playerNode.append_attribute("x") = player->position.x + 16;
 			playerNode.append_attribute("y") = player->position.y + 16;
 		}
-
 
 		// Save Minigame has been Completed
 		pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");
