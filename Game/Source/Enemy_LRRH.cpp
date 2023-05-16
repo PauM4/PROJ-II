@@ -120,6 +120,7 @@ bool Enemy_LRRH::Awake()
 
 bool Enemy_LRRH::Start()
 {
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_arrows.wav");
 	return true;
 }
 

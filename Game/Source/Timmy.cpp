@@ -95,7 +95,8 @@ bool Timmy::Awake()
 
 bool Timmy::Start()
 {
-	
+	attackFx = app->audio->LoadFx("Assets/Sounds/FX/fx_attack.wav");
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_yoyo.wav");
 	PrevPos = position;
 	frames = 0;
 	return true;
