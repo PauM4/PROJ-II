@@ -182,7 +182,9 @@ bool Scene::Start()
 
 	//Rect for chest Texture
 	chestHRect = {4, 36, 90, 77};
-	chestVRect = {15, 123, 71, 101};
+	chestVRect = {12, 135, 71, 101};
+	chestopenHRect = { 105, 3, 88, 108 };
+	chestopenVRect = { 107, 134, 74, 100 };
 
 	ropeWin = false;
 	minigameActive = false;
@@ -436,9 +438,13 @@ bool Scene::PostUpdate()
 		return false;
 	}
 
-	app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
-	app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
-	app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
+	if (chest1->isPicked)app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
+	if (chest2->isPicked) app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestopenVRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
+	if (chest3->isPicked) app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
+
 	return ret;
 }
 

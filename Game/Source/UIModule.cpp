@@ -1105,6 +1105,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 		inventoryButtonsList.At(numOfItem)->data->text = "Unequipped";
 
 		//Unequip FX
+		app->audio->PlayFx(unequipitemFx);
 	} // If not equiped
 	else
 	{
@@ -1116,6 +1117,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 				&& app->teamManager->itemstoshow.At(i)->data->character != 0)
 			{
 				//Error FX
+				app->audio->PlayFx(errorFX);
 				return;
 			}
 		}
@@ -1123,6 +1125,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 		inventoryButtonsList.At(numOfItem)->data->text = "Equipped";
 
 		//Equip FX
+		app->audio->PlayFx(equipitemFx);
 	}
 }
 

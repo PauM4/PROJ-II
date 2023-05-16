@@ -147,6 +147,8 @@ public:
 	SDL_Texture* chestTexture;
 	SDL_Rect chestHRect;
 	SDL_Rect chestVRect;
+	SDL_Rect chestopenHRect;
+	SDL_Rect chestopenVRect;
 
 	bool angryVillagerDefeated, LRRHDefeated;
 	bool talkedToGrandma;
