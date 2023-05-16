@@ -333,7 +333,6 @@ bool Scene::Update(float dt)
 			}
 		}
 	}
-	
 
 	UpdateMinigameLogic(dt);
 
@@ -1178,6 +1177,8 @@ void Scene::UpdateMinigameLogic(float dt)
 
 		if (ropeWin)
 		{
+			app->teamManager->talisman.ininventory = true;
+			app->teamManager->loadinventory();
 			minigameActive = false;
 			// Then disable minigame
 			// Tell to UIModule which currentMenuType
