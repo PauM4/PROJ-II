@@ -46,7 +46,7 @@
 		<chest3 x="4125" y="1006" width="100" height="75" isPicked="false" id="2"/>
 
 		<!--Portal to w2-->
-		<portal x="8087" y="603" width="67" height="236" nextScene="8" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
+		<portal x="8000" y="603" width="67" height="236" nextScene="9" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
 
 
 	</scene>
@@ -67,7 +67,7 @@
 		<door x="9758" y="4172" width="44" height="120" nextScene="6" nextPlayerX="5200" nextPlayerY="2336"/>
 
 		<!--Portal to w1-->
-		<portal x="592" y="2996" width="124" height="240" nextScene="8" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
+		<portal x="592" y="2996" width="124" height="240" nextScene="3" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
 		
     <npcW2 npcW2TexturePath="Assets/Characters/Characters_popups.png" />
 	</w2_scene>

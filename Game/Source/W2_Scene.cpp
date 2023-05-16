@@ -120,8 +120,6 @@ bool W2_Scene::Start()
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_pigs_world.ogg", 0.1f);
 
-	player->ChangePosition(5258, 3101);
-
 	Quest quest1;
 	quest1.completed = false;
 	quest1.description = "Leave the forest and find the magic wand";
