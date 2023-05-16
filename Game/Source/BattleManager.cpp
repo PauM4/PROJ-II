@@ -944,14 +944,14 @@ void BattleManager::CheckWinCondition()
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 		app->audio->PlayFx(looseFx);
 		battleState = BattleState::LOSE;
-		win = true;
-
+		lose = true;
 	}
 	
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 		app->audio->PlayFx(victoryFx);
 		battleState = BattleState::WIN;
-		lose = true;
+		win = true;
+
 
 	}
 	
