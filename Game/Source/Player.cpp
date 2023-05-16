@@ -252,6 +252,38 @@ bool Player::Update(float dt)
 		LOG("INTERACTING WITH ITEM");
 		movementRestringed = true;
 		StopVelocity();
+
+		if (isChest1Pickable)
+		{
+			app->teamManager->ironchestplate.ininventory = true;
+			app->scene->chest1->isPicked = true;
+		}
+		if (isChest2Pickable)
+		{
+			app->teamManager->reversehat.ininventory = true;
+			app->scene->chest2->isPicked = true;
+		}
+		if (isChest3Pickable)
+		{
+			app->teamManager->dentures.ininventory = true;
+			app->scene->chest3->isPicked = true;
+		}
+		if (isChest4Pickable)
+		{
+			app->teamManager->ironchestplate.ininventory = true;
+			app->w2_scene->chest4->isPicked = true;
+		}
+		if (isChest5Pickable)
+		{
+			app->teamManager->reversehat.ininventory = true;
+			app->w2_scene->chest5->isPicked = true;
+		}
+		if (isChest6Pickable)
+		{
+			app->teamManager->dentures.ininventory = true;
+			app->w2_scene->chest6->isPicked = true;
+		}
+
 		break;
 	case TUTORIAL:
 		LOG("TUTORIAL MODE");
@@ -272,38 +304,6 @@ bool Player::Update(float dt)
 	{
 		Movement(dt);
 	}
-
-	if (isChest1Pickable)
-	{
-		app->teamManager->ironchestplate.ininventory = true;
-		app->scene->chest1->isPicked = true;
-	}
-	if (isChest2Pickable)
-	{
-		app->teamManager->reversehat.ininventory = true;
-		app->scene->chest2->isPicked = true;
-	}
-	if (isChest3Pickable)
-	{
-		app->teamManager->dentures.ininventory = true;
-		app->scene->chest3->isPicked = true;
-	}
-	if (isChest4Pickable)
-	{
-		app->teamManager->ironchestplate.ininventory = true;
-		app->w2_scene->chest4->isPicked = true;
-	}
-	if (isChest5Pickable)
-	{
-		app->teamManager->reversehat.ininventory = true;
-		app->w2_scene->chest5->isPicked = true;
-	}
-	if (isChest6Pickable)
-	{
-		app->teamManager->dentures.ininventory = true;
-		app->w2_scene->chest6->isPicked = true;
-	}
-	app->scene->chest3->isPicked;
 	
 	GodMode();
 
