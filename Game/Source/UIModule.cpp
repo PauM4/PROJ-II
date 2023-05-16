@@ -62,6 +62,8 @@ bool UIModule::Start()
 
 	levelUpFX = app->audio->LoadFx("Assets/Sounds/FX/fx_level_up.wav");
 	errorFX = app->audio->LoadFx("Assets/Sounds/FX/fx_error.wav");
+	equipitemFx = app->audio->LoadFx("Assets/Sounds/FX/fx_equip_item.wav");
+	unequipitemFx = app->audio->LoadFx("Assets/Sounds/FX/fx_unequip_item.wav");
 
 	uint w, h;
 	app->win->GetWindowSize(w, h);
