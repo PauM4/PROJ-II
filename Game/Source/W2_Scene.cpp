@@ -118,7 +118,7 @@ bool W2_Scene::Start()
 	godMode = false;
 	numTimesPigsDialogueTriggered = 0;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_pigs_world.ogg", 0.2f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_pigs_world.ogg", 0.1f);
 
 	player->ChangePosition(5258, 3101);
 

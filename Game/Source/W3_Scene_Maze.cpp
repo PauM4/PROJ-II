@@ -99,7 +99,7 @@ bool W3_Scene_Maze::Start()
 
 	godMode = false;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_maze.ogg", 0.2f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_maze.ogg", 0.1f);
 
 	return true;
 }
