@@ -10,23 +10,15 @@
 	<Scene_manager />
 	<sceneIntro />
 	<sceneMainMenu />
-	<scene>
-		<player x="7559" y="659" />
-		<rope_minigame rope_minigame_state="false" />
-		<chests>
-			<chest1 isPicked="false" />
-			<chest2 isPicked="false" />
-			<chest3 isPicked="false" />
-		</chests>
-		<saveBattleTutoState state="0" />
-		<stepQuest num="0" />
-	</scene>
+	<scene />
 	<scenecombatLHHR />
 	<sceneBattle />
 	<sceneGrandma />
 	<sceneFoxQuest />
 	<battleScene_Pigs />
-	<w2_scene />
+	<w2_scene>
+		<player x="1680" y="4613" />
+	</w2_scene>
 	<w2_scene_maze>
 		<player />
 	</w2_scene_maze>
@@ -47,10 +39,10 @@
 			<club isobtained="false" character="0" />
 			<knife isobtained="false" character="0" />
 			<shotgun isobtained="false" character="0" />
-			<ironchestplate isobtained="false" character="0" />
-			<reversehat isobtained="false" character="0" />
+			<ironchestplate isobtained="true" character="0" />
+			<reversehat isobtained="true" character="0" />
 			<susjar isobtained="false" character="0" />
-			<dentures isobtained="false" character="0" />
+			<dentures isobtained="true" character="0" />
 			<talisman isobtained="false" character="0" />
 		</inventory>
 		<stats>
@@ -65,7 +57,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-6599" y="-89" />
+		<camera x="-720" y="-3674" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="false" isPigDefeated="false" isPereDefeated="" isWolfDefeated="" />
 </save_state>

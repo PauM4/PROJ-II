@@ -141,26 +141,7 @@ bool Timmy::Update(float dt)
 		break; 
 
 	}
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-
-		currentAnimation = &attackUAnim;
-
-	}
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
-
-		currentAnimation = &attackRAnim;
-
-	}
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
-
-		currentAnimation = &attackLAnim;
-
-	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
-
-		currentAnimation = &attackDAnim;
-
-	}
+	
 
 	if (app->uiModule->currentMenuType == COMBAT) {
 		currentAnimation->Update();
