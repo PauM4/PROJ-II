@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "TeamManager.h"
+#include "BattleManager.h"
 
 Timmy::Timmy() : Entity(EntityType::TIMMY)
 {
@@ -51,10 +52,14 @@ bool Timmy::Awake()
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
 
-	attackDAnim.PushBack({ 59, 889, 150, 155 });
-	attackUAnim.PushBack({ 2250, 1050, 150, 155 });
-	attackRAnim.PushBack({ 677, 848, 150, 155 });
-	attackLAnim.PushBack({ 370, 847, 150, 155 });
+	attackDAnim.PushBack({ 59, 808, 150, 185 });
+	attackDAnim.loop = true;
+	attackUAnim.PushBack({ 982,822, 150, 155 });
+	attackUAnim.loop = true;
+	attackRAnim.PushBack({ 677, 828, 150, 175 });
+	attackRAnim.loop = true;
+	attackLAnim.PushBack({ 370, 827, 150, 175 });
+	attackLAnim.loop = true;
 
 
 	takedmgAnim.PushBack({ 150, 0, 140, 140 });
@@ -63,6 +68,17 @@ bool Timmy::Awake()
 	takedmgAnim.PushBack({ 150, 0, 140, 140 });
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
+
+
+	abilityAnim.PushBack({1671,94,404,404 });
+	abilityAnim.PushBack({ 1671,541,404,404 });
+	abilityAnim.PushBack({ 1671,94,404,404 });
+	abilityAnim.PushBack({ 1671,541,404,404 });
+	abilityAnim.PushBack({ 1671,94,404,404 });
+	abilityAnim.PushBack({ 1671,541,404,404 });
+	abilityAnim.loop = true;
+	abilityAnim.speed = 0.05f;
+
 
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
@@ -124,12 +140,64 @@ bool Timmy::Update(float dt)
 		break; 
 
 	}
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 
+		currentAnimation = &attackUAnim;
+
+	}
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
+
+		currentAnimation = &attackRAnim;
+
+	}
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
+
+		currentAnimation = &attackLAnim;
+
+	}
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+
+		currentAnimation = &attackDAnim;
+
+	}
 
 	if (app->uiModule->currentMenuType == COMBAT) {
 		currentAnimation->Update();
 
-		if (position.x > PrevPos.x)
+		if (app->battleManager->actionType == ActionType::ATTACK && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (this->name == app->battleManager->currentTurn->name)
+			{
+				animDirection = CheckDirection();
+
+				switch (animDirection)
+				{
+				case AnimDirection::DOWN:
+					currentAnimation = &attackDAnim;
+					break;
+				case AnimDirection::UP:
+					currentAnimation = &attackUAnim;
+					break;
+				case AnimDirection::RIGHT:
+					currentAnimation = &attackRAnim;
+					break;
+				case AnimDirection::LEFT:
+					currentAnimation = &attackLAnim;
+					break;
+				}
+			}
+			
+
+		}
+		else if (app->battleManager->actionType == ActionType::ABILITY && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (this->name == app->battleManager->currentTurn->name)
+			{
+				currentAnimation = &abilityAnim;
+			}
+			
+		}
+		else if (position.x > PrevPos.x)
 		{
 			currentAnimation = &walkRightAnim;
 		}
@@ -162,6 +230,10 @@ bool Timmy::Update(float dt)
 
 		}
 
+
+
+		
+
 		PrevPos.x = position.x;
 		PrevPos.y = position.y;
 	}
@@ -169,12 +241,46 @@ bool Timmy::Update(float dt)
 	return true;
 }
 
+AnimDirection Timmy::CheckDirection()
+{
+	iPoint dist;
+	
+	dist.x = app->battleManager->targetPosForAnimation.x - app->battleManager->currentTurn->position.x;
+	dist.y = app->battleManager->targetPosForAnimation.y - app->battleManager->currentTurn->position.y;
+
+
+	int xDir = 0;
+	int yDir = 0;
+	xDir = (dist.x > 0) ? 1 : -1;
+	yDir = (dist.y > 0) ? 1 : -1;
+
+	if (dist.x == 0) xDir = 0;
+	if (dist.y == 0) yDir = 0;
+
+	if (xDir == 1) return AnimDirection::RIGHT;
+	if (xDir == -1) return AnimDirection::LEFT;
+	if (yDir == 1) return AnimDirection::DOWN;
+	if (yDir == -1) return AnimDirection::UP;
+
+	return AnimDirection::NONE;
+}
 bool Timmy::PostUpdate()
 {
-	if (app->uiModule->currentMenuType == COMBAT) {
+	if (currentAnimation == &abilityAnim)
+	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+		app->render->DrawTexture(texture, position.x - (13+125), position.y - (35+125), &rect);
 	}
+	else
+	{
+		if (app->uiModule->currentMenuType == COMBAT) {
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+		}
+	}
+	
+
+	
 
 	return true;
 }

@@ -7,6 +7,14 @@
 #include "List.h"
 #include "Animation.h"
 
+enum class AnimDirection
+{
+	NONE,
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+};
 class Timmy : public Entity {
 public:
 
@@ -32,6 +40,8 @@ public:
 
 	void TakeDamageAnimation();
 
+	AnimDirection CheckDirection();
+
 private:
 	
 
@@ -49,6 +59,8 @@ public:
 	Animation attackDAnim;
 	Animation attackUAnim;
 	Animation abilityAnim;
+	
+	AnimDirection animDirection;
 
 private:
 

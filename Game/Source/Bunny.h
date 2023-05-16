@@ -49,6 +49,12 @@ public:
 	Animation attackAnim;
 	Animation abilityAnim;
 
+	Animation* abilityAnimation;
+	Animation thunder;
+	Animation none;
+
+	iPoint thunderPos;
+
 private:
 
 
