@@ -51,10 +51,14 @@ bool Timmy::Awake()
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
 
-	attackDAnim.PushBack({ 59, 889, 150, 155 });
-	attackUAnim.PushBack({ 2250, 1050, 150, 155 });
-	attackRAnim.PushBack({ 677, 848, 150, 155 });
-	attackLAnim.PushBack({ 370, 847, 150, 155 });
+	attackDAnim.PushBack({ 59, 808, 150, 185 });
+	attackDAnim.loop = true;
+	attackUAnim.PushBack({ 982,822, 150, 155 });
+	attackUAnim.loop = true;
+	attackRAnim.PushBack({ 677, 828, 150, 175 });
+	attackRAnim.loop = true;
+	attackLAnim.PushBack({ 370, 827, 150, 175 });
+	attackLAnim.loop = true;
 
 
 	takedmgAnim.PushBack({ 150, 0, 140, 140 });
@@ -124,7 +128,26 @@ bool Timmy::Update(float dt)
 		break; 
 
 	}
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
 
+		currentAnimation = &attackUAnim;
+
+	}
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
+
+		currentAnimation = &attackRAnim;
+
+	}
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
+
+		currentAnimation = &attackLAnim;
+
+	}
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+
+		currentAnimation = &attackDAnim;
+
+	}
 
 	if (app->uiModule->currentMenuType == COMBAT) {
 		currentAnimation->Update();
