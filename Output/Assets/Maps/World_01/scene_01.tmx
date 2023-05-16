@@ -7,6 +7,13 @@
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
+	<imagelayer id="54" name="forest" offsetx="-1.33333" offsety="-1.33333">
+		<image source="Assets/Maps/World_01/Assets/Bosque.png" width="4736" height="6319"/>
+		<properties>
+			<property name="Draw" type="bool" value="true"/>
+			<property name="BG" type="bool" value="true"/>
+		</properties>
+	</imagelayer>
  <imagelayer id="39" name="Copy of House1" offsetx="1365" offsety="2284">
   <image source="Assets/Maps/World_01/Assets/house_01.png" width="395" height="538"/>
   <properties>
@@ -63,12 +70,6 @@
  </imagelayer>
  <imagelayer id="11" name="Tree2" offsetx="1991.7" offsety="5042.55">
   <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
-  <properties>
-   <property name="Draw" type="bool" value="true"/>
-  </properties>
- </imagelayer>
- <imagelayer id="54" name="forest" offsetx="-1.33333" offsety="-1.33333">
-  <image source="Assets/Maps/World_01/Assets/Bosque.png" width="4736" height="6319"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>

@@ -83,7 +83,7 @@ void Door::OnCollision(PhysBody* physA, PhysBody* physB)
 		/*app->SaveGameRequest();
 
 		app->sceneManager->LoadScene((GameScene)nextScene);*/
-
+		//Audio sortir/entrar llocs
 		switch (app->sceneManager->scene) {
 		case SCENE:
 			app->scene->player->ChangePosition(nextX, nextY);

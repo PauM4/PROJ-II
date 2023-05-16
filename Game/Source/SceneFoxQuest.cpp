@@ -300,6 +300,7 @@ bool SceneFoxQuest::PushRock(int moveX, int moveY, int pX, int pY)
 
 	//If rock is pushed into wall or rock, dont move it
 	if (HitWall(newRockX, newRockY)||HitRock(newRockX, newRockY)) {
+		//Audio no pot moure
 		return false; 
 	}
 	if (map[pX][pY]->state == TileState::ROCK) {
@@ -310,7 +311,7 @@ bool SceneFoxQuest::PushRock(int moveX, int moveY, int pX, int pY)
 		map[pX][pY]->state = TileState::EMPTY;
 		map[newRockX][newRockY]->state = TileState::PULLROCK;
 	}
-
+	//Audio moure roca
 	LOG("PUSH ROCK");
 
 	return true;
@@ -324,6 +325,7 @@ bool SceneFoxQuest::PullRock(int moveX, int moveY, int pX, int pY)
 
 	//If rock is pushed into wall or rock, dont move it
 	if (HitWall(newPlayerX, newPlayerY) || HitRock(newPlayerX, newPlayerY)) {
+		//Audio no pot moure
 		return false;
 	}
 	player->isMoving = true; 
@@ -331,7 +333,8 @@ bool SceneFoxQuest::PullRock(int moveX, int moveY, int pX, int pY)
 	map[pX][pY]->state = TileState::PULLROCK;
 	map[pX-moveX][pY- moveY]->state = TileState::EMPTY;
 	LOG("PULLED ROCK"); 
-
+	//Audio moure roca
+	//Audio moure player
 	if (moveX == 1) {
 		player->direction = Direction::RIGHT;
 	}
@@ -418,6 +421,7 @@ void TilePlayer::Move(int x, int y) {
 
 	if (app->sceneFoxQuest->HitWall(newPlayerX, newPlayerY)) {
 		LOG("HIT WALL");
+		//Audio no pot moure
 		isMoving = false;
 		if (x == 1) {
 			direction = Direction::RIGHT; 
@@ -451,6 +455,7 @@ void TilePlayer::Move(int x, int y) {
 	if (app->sceneFoxQuest->HitRock(newPlayerX, newPlayerY)) {
 		if (!app->sceneFoxQuest->PushRock(x, y, newPlayerX, newPlayerY)){
 			LOG("CANT PUSH ROCK");
+			//Audio no pot moure
 			isMoving = false; 
 			if (x == 1) {
 				direction = Direction::RIGHT;
@@ -481,7 +486,7 @@ void TilePlayer::Move(int x, int y) {
 			return;
 		}
 	}
-
+	//Audio moure caminar
 	pos.x = newPlayerX; 
 	pos.y = newPlayerY; 
 	 
