@@ -114,6 +114,7 @@ public:
 
 	// The index of the current quest
 	int currentQuestIndex;
+	int numEnteredQuestVillager, numEnteredQuestLHHR;
 
 	// Counter that triggers the tutorial screens when new Game
 	// Number 2 means --> don't appear the tutorial
@@ -148,6 +149,7 @@ public:
 	SDL_Rect chestVRect;
 
 	bool angryVillagerDefeated, LRRHDefeated;
+	bool talkedToGrandma;
 
 	int numTimesAVDialogueTriggered, numTimesLRRHDialogueTriggered;
 	SDL_Timer timerToSceneBattle, timerToLRRHCombat;

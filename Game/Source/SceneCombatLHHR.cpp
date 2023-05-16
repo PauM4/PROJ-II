@@ -222,8 +222,23 @@ void SceneCombatLHHR::MoveAnimation(const char* name)
 
 	if (strcmp(name, "enemy_lrrh") == 0)
 	{
+
+		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (redhoodie->name == app->battleManager->currentTurn->name)
+			{
+				redhoodie->currentAnimation = &redhoodie->abilityAnim;
+				redhoodie->abilityAnimation = &redhoodie->arrow;
+
+				redhoodie->arrowPos.x = app->battleManager->targetPosForAIAnimation.x;
+				redhoodie->arrowPos.y = app->battleManager->targetPosForAIAnimation.y;
+
+			}
+
+
+		}
 		//Moverse a la derecha
-		if (redhoodie->position.x > redhoodiePrevPos.x)
+		else if (redhoodie->position.x > redhoodiePrevPos.x)
 		{
 			redhoodie->currentAnimation = &redhoodie->walkRightAnim;
 		}

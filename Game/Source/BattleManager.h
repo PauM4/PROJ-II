@@ -155,6 +155,7 @@ public:
 public:
 
 	iPoint targetPosForAnimation;
+	iPoint targetPosForAIAnimation;
 
 public:
 	TileData combatMap[16][9];
