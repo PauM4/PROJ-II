@@ -11,23 +11,22 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="7426" y="5103" x="7442" y="5044" />
+		<player x="7559" y="659" />
 		<rope_minigame rope_minigame_state="false" />
 		<chests>
 			<chest1 isPicked="false" />
 			<chest2 isPicked="false" />
 			<chest3 isPicked="false" />
 		</chests>
-		<saveBattleTutoState state="3" />
+		<saveBattleTutoState state="0" />
+		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
 	<sceneGrandma />
 	<sceneFoxQuest />
 	<battleScene_Pigs />
-	<w2_scene>
-		<player x="710" y="3313" />
-	</w2_scene>
+	<w2_scene />
 	<w2_scene_maze>
 		<player />
 	</w2_scene_maze>
@@ -39,7 +38,7 @@
 	<map />
 	<guiManager />
 	<teamManager>
-		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
+		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
 		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
 		<inventory>
 			<yoyo isobtained="true" character="1" />
@@ -66,7 +65,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="237" y="-2743" />
+		<camera x="-6599" y="-89" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>
