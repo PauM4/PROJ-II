@@ -36,6 +36,12 @@ bool UIModule::Awake(pugi::xml_node& config)
 
 	errorWhenParty = false;
 
+	timmyItem = false;
+	bunnyItem = false;
+	lrrhItem = false;
+	lpigItem = false;
+	mpigItem = false;
+
 	bool ret = true;
 
 	return ret;
@@ -47,6 +53,12 @@ bool UIModule::Start()
 	currentMenuType = DISABLED;
 
 	errorWhenParty = false;
+
+	timmyItem = false;
+	bunnyItem = false;
+	lrrhItem = false;
+	lpigItem = false;
+	mpigItem = false;
 
 	levelUpFX = app->audio->LoadFx("Assets/Sounds/FX/fx_level_up.wav");
 	errorFX = app->audio->LoadFx("Assets/Sounds/FX/fx_error.wav");
@@ -205,6 +217,83 @@ bool UIModule::PostUpdate()
 			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
 		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
+
+		if (timmyItem)
+		{
+			int j = 0;
+			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 1) {
+					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 1) {
+						app->teamManager->itemstoshow.Clear();
+						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
+						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+						j += 50;
+					}
+				}
+			}
+		}
+		if (bunnyItem)
+		{
+			int j = 0;
+			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 2) {
+					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 2) {
+						app->teamManager->itemstoshow.Clear();
+						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
+						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+						j += 50;
+					}
+				}
+			}
+		}
+		if (lrrhItem)
+		{
+			int j = 0;
+			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 3) {
+					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 3) {
+						app->teamManager->itemstoshow.Clear();
+						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
+						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+						j += 50;
+					}
+				}
+			}
+		}
+		if (lpigItem)
+		{
+			int j = 0;
+			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 4) {
+					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 4) {
+						app->teamManager->itemstoshow.Clear();
+						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
+						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+						j += 50;
+					}
+				}
+			}
+		}
+		if (mpigItem)
+		{
+			int j = 0;
+			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 5) {
+					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 5) {
+						app->teamManager->itemstoshow.Clear();
+						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
+						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+						j += 50;
+					}
+				}
+			}
+		}
+
 	}
 
 	if (currentMenuType == PARTY)
@@ -771,14 +860,40 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	switch (control->id)
 	{
 	case 73:
+
+		timmyItem = true;
+		bunnyItem = false;
+		lrrhItem = false;
+		lpigItem = false;
+		mpigItem = false;
 		break;
 	case 74:
+		bunnyItem = true;
+		timmyItem = false;
+		lrrhItem = false;
+		lpigItem = false;
+		mpigItem = false;
 		break;
 	case 75:
+		lrrhItem = true;
+		bunnyItem = false;
+		timmyItem = false;
+		lpigItem = false;
+		mpigItem = false;
 		break;
 	case 76:
+		lpigItem = true;
+		bunnyItem = false;
+		lrrhItem = false;
+		timmyItem = false;
+		mpigItem = false;
 		break;
 	case 77:
+		mpigItem = true;
+		bunnyItem = false;
+		lrrhItem = false;
+		lpigItem = false;
+		timmyItem = false;
 		break;
 	}
 
@@ -833,6 +948,19 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		inventory_lrrh_button->state = GuiControlState::NORMAL;
 		inventory_Lpig_button->state = GuiControlState::NORMAL;
 		inventory_Mpig_button->state = GuiControlState::NORMAL;
+
+		item_1_button->state = GuiControlState::NORMAL;
+		item_2_button->state = GuiControlState::NORMAL;
+		item_3_button->state = GuiControlState::NORMAL;
+		item_4_button->state = GuiControlState::NORMAL;
+		item_5_button->state = GuiControlState::NORMAL;
+		item_6_button->state = GuiControlState::NORMAL;
+		item_7_button->state = GuiControlState::NORMAL;
+		item_8_button->state = GuiControlState::NORMAL;
+		item_9_button->state = GuiControlState::NORMAL;
+		item_10_button->state = GuiControlState::NORMAL;
+		item_11_button->state = GuiControlState::NORMAL;
+		item_12_button->state = GuiControlState::NORMAL;
 
 		break;
 	case PARTY:

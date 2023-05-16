@@ -161,6 +161,12 @@ public:
 	GuiButton* item_11_button;
 	GuiButton* item_12_button;
 
+	bool timmyItem;
+	bool bunnyItem;
+	bool lrrhItem;
+	bool lpigItem;
+	bool mpigItem;
+
 
 	List<GuiButton*> buttonsList;
 
