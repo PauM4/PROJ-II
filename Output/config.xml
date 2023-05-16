@@ -26,11 +26,17 @@
 		<npc npcTexturePath ="Assets/Characters/Characters_popups.png"/>
 		
 		<!-- Door to tutorial house-->
-		<door x="2213" y="2511" width="95" height="58" nextScene="4" nextPlayerX="7450" nextPlayerY="5090"/>
+		<door x="2213" y="2511" width="95" height="58" nextScene="4" nextPlayerX="7450" nextPlayerY="5240"/>
 		<!-- Door to Grandmas-->
-		<door x="1967" y="781" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0"/>
+		<door x="1967" y="781" width="87" height="37" nextScene="5" nextPlayerX="7440" nextPlayerY="3090"/>
 		<!-- Door to Boos fight-->
-		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="0" nextPlayerY="0"/>
+		<door x="3786" y="862" width="17" height="97" nextScene="6" nextPlayerX="6800" nextPlayerY="646"/>
+		<!-- Door come back from tutorial house-->
+		<door x="7424" y="5290" width="110" height="72" nextScene="4" nextPlayerX="2270" nextPlayerY="2630"/>
+		<!-- Door come back from Grandmas-->
+		<door x="7418" y="3140" width="96" height="81" nextScene="5" nextPlayerX="1990" nextPlayerY="864"/>
+		<!-- Door come back from Boos fight-->
+		<door x="6692" y="646" width="44" height="108" nextScene="6" nextPlayerX="3750" nextPlayerY="862"/>
 
 		<!-- Chest 1-->
 		<chest1 x="845" y="3969" width="100" height="75" isPicked="false" id="0"/>
