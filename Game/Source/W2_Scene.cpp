@@ -327,7 +327,7 @@ void W2_Scene::GodMode()
 //Updates the camera position based on the player's position. If god mode is on, the camera follows the player's position without any boundaries. If god mode is off, the camera follows the player's position while respecting the game's boundaries.
 void W2_Scene::Camera()
 {
-	if (godMode && CheckInsideBoundaries())
+	if (godMode || !CheckInsideBoundaries())
 	{
 		app->render->FollowObject(-(int)player->position.x, -(int)player->position.y - 35,
 			app->render->camera.w / 2, app->render->camera.h / 2);

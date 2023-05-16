@@ -76,6 +76,8 @@ public:
 
 	void nextQuest();
 
+	bool CheckInsideBoundaries();
+
 	std::vector<std::string> GetDialogue() { return dialogue; }
 
 	std::string LastTextNPC(ColliderType NPC);
