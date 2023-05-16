@@ -11,8 +11,8 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1941" y="5154" />
-		<rope_minigame rope_minigame_state="false" />
+		<player x="1988" y="904" x="2004" y="845" />
+		<rope_minigame rope_minigame_state="true" />
 		<chests>
 			<chest1 isPicked="false" />
 			<chest2 isPicked="false" />
@@ -35,7 +35,7 @@
 	<map />
 	<guiManager />
 	<teamManager>
-		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" islilpigplayable="true" ismidpigplayable="true" ispeterplayable="true" />
+		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
 		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
 		<inventory>
 			<yoyo isobtained="true" character="1" />
@@ -62,7 +62,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-965" y="-4643" />
+		<camera x="-1028" y="-344" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>
