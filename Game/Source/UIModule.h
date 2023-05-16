@@ -202,6 +202,8 @@ public:
 
 	int levelUpFX = -1;
 	int errorFX = -1;
+	int equipitemFx = -1;
+	int unequipitemFx = -1;
 
 	bool errorWhenParty;
 
