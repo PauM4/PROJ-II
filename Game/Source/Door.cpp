@@ -80,9 +80,14 @@ void Door::OnCollision(PhysBody* physA, PhysBody* physB)
 		LOG("Collision door/player");
 
 		app->uiModule->doorPlayerPosition = true;
-		app->SaveGameRequest();
+		/*app->SaveGameRequest();
 
-		app->sceneManager->LoadScene((GameScene)nextScene);
+		app->sceneManager->LoadScene((GameScene)nextScene);*/
+
+		switch (app->sceneManager->scene) {
+		case SCENE:
+			app->scene->player->ChangePosition(nextX, nextY);
+		}
 		break;
 	}
 }

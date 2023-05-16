@@ -23,22 +23,13 @@ bool Npc::Awake() {
 	npcTexturePath = parameters.attribute("npcTexturePath").as_string();
 	switch (app->sceneManager->scene) {
 	case SCENE:
-		posAngryVillager.x = 1393, posAngryVillager.y = 3592;
+		posAngryVillager.x = 7382, posAngryVillager.y = 4934;
 
 		posTalismanVillager.x = 1820, posTalismanVillager.y = 1408;
 
 		posGrandma.x = 1800, posGrandma.y = 831;
 
 		posLRRH.x = 3420, posLRRH.y = 721;
-		break; 
-	case GRANDMA:
-		posGrandma.x = 250, posGrandma.y = 700;
-
-		posAngryVillager.x = -1393, posAngryVillager.y = -3592;
-
-		posTalismanVillager.x = -1820, posTalismanVillager.y = -1408;
-
-		posLRRH.x = -3420, posLRRH.y = -721;
 		break; 
 	}
 	

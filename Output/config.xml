@@ -26,7 +26,7 @@
 		<npc npcTexturePath ="Assets/Characters/Characters_popups.png"/>
 		
 		<!-- Door to tutorial house-->
-		<door x="2213" y="2511" width="95" height="58" nextScene="4" nextPlayerX="0" nextPlayerY="0"/>
+		<door x="2213" y="2511" width="95" height="58" nextScene="4" nextPlayerX="7450" nextPlayerY="5090"/>
 		<!-- Door to Grandmas-->
 		<door x="1967" y="781" width="87" height="37" nextScene="5" nextPlayerX="0" nextPlayerY="0"/>
 		<!-- Door to Boos fight-->
