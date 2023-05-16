@@ -188,7 +188,7 @@ bool BattleScene_Pigs::CleanUp(){
 	app->pathfinding->ClearLastPath();
 	app->map->CleanUp();
 	app->entityManager->CleanUp();
-	app->battleManager->CleanUp();
+	app->battleManager->Disable();
 
 
 	SaveResult();
