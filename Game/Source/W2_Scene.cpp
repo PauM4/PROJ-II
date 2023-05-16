@@ -177,6 +177,8 @@ bool W2_Scene::Update(float dt)
 
 	GodMode();
 
+	MoveToBattleFromDialogue();
+
 
 	// Check if the current quest is completed
 	if (questList[currentQuestIndex].completed || app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
@@ -546,14 +548,14 @@ void W2_Scene::MoveToBattleFromDialogue()
 {
 	if (numTimesPigsDialogueTriggered == 1 && !pigsDefeated)
 	{
-		timerToPigsCombat.Start(2.0f);
+		timerToPigsCombat.Start(3.0f);
 		numTimesPigsDialogueTriggered = 0;
 	}
 
 	if (timerToPigsCombat.Test() == estadoTimerP::FIN)
 	{
 		//Teleportar a GameScene::Pigcombat
-		//doors.At(0)->data->TriggerDoor(GameScene::BATTLE);
+		app->sceneManager->LoadScene(GameScene::COMBATOINK);
 	}
 
 
