@@ -72,7 +72,7 @@ bool Bunny::Awake()
 		thunder.PushBack({ (i*150), 0, 150, 600 });
 	}
 	thunder.loop = false;
-	thunder.speed = 0.55;
+	thunder.speed = 0.35f;
 
 	for (int i = 0; i < 4; i++) //penutlima:cabezon
 	{
@@ -138,8 +138,7 @@ bool Bunny::Update(float dt)
 		currentAnimation->Update();
 		abilityAnimation->Update();
 		
-		abilityAnimation = &none;
-
+	
 		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
 		{
 			if (this->name == app->battleManager->currentTurn->name)
@@ -203,9 +202,14 @@ bool Bunny::PostUpdate()
 	if (abilityAnimation != &none)
 	{
 		SDL_Rect rect = abilityAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, thunderPos.x, thunderPos.y + 600-150, &rect);
+		app->render->DrawTexture(texture, thunderPos.x, thunderPos.y - 600+150, &rect);
 
-		if (thunder.HasFinished()) abilityAnimation = &none;
+		if (thunder.HasFinished())
+		{
+			abilityAnimation = &none;
+			abilityAnimation->Reset();
+
+		}
 	}
 
 	return true;
