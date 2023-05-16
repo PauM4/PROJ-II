@@ -121,6 +121,7 @@ public:
 
 	List<item> inventory;
 	List<item> equipment;
+	List<item> itemstoshow;
 	stats timmystats;
 	stats bunnystats;
 	stats lrrhstats;
