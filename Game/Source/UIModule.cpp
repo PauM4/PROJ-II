@@ -108,11 +108,24 @@ bool UIModule::Start()
 	party_Mpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 71, "Unavailable", { 1000, 600, 100, 30 }, this);
 	party_peter_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 72, "Unavailable", { 1000, 650, 100, 30 }, this);
 
-	inventory_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 73, "Timmy", { 900, 400, 100, 30 }, this);
-	inventory_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 74, "Bunny", { 900, 450, 100, 30 }, this);
-	inventory_lrrh_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 75, "LHRR", { 900, 500, 100, 30 }, this);
-	inventory_Lpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 76, "L. Pig", { 900, 550, 100, 30 }, this);
-	inventory_Mpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 77, "M. Pig", { 900, 600, 100, 30 }, this);
+	inventory_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 73, "Timmy", { 300, 400, 100, 30 }, this);
+	inventory_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 74, "Bunny", { 300, 450, 100, 30 }, this);
+	inventory_lrrh_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 75, "LHRR", { 300, 500, 100, 30 }, this);
+	inventory_Lpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 76, "L. Pig", { 300, 550, 100, 30 }, this);
+	inventory_Mpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 77, "M. Pig", { 300, 600, 100, 30 }, this);
+
+	item_1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 78, "+", { 960, 350, 100, 30 }, this);
+	item_2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 79, "+", { 960, 400, 100, 30 }, this);
+	item_3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 80, "+", { 960, 450, 100, 30 }, this);
+	item_4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, "+", { 960, 500, 100, 30 }, this);
+	item_5_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, "+", { 960, 550, 100, 30 }, this);
+	item_6_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 83, "+", { 960, 600, 100, 30 }, this);
+	item_7_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 84, "+", { 960, 650, 100, 30 }, this);
+	item_8_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 85, "+", { 960, 700, 100, 30 }, this);
+	item_9_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 86, "+", { 960, 750, 100, 30 }, this);
+	item_10_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 87, "+", { 960, 800, 100, 30 }, this);
+	item_11_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 88, "+", { 960, 850, 100, 30 }, this);
+	item_12_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 89, "+	", { 960, 900, 100, 30 }, this);
 
 	AddButtonsToList();
 
@@ -1399,5 +1412,18 @@ void UIModule::AddButtonsToList()
 	buttonsList.Add(inventory_lrrh_button);
 	buttonsList.Add(inventory_Lpig_button);
 	buttonsList.Add(inventory_Mpig_button);
+
+	buttonsList.Add(item_1_button);
+	buttonsList.Add(item_2_button);
+	buttonsList.Add(item_3_button);
+	buttonsList.Add(item_4_button);
+	buttonsList.Add(item_5_button);
+	buttonsList.Add(item_6_button);
+	buttonsList.Add(item_7_button);
+	buttonsList.Add(item_8_button);
+	buttonsList.Add(item_9_button);
+	buttonsList.Add(item_10_button);
+	buttonsList.Add(item_11_button);
+	buttonsList.Add(item_12_button);
 
 }

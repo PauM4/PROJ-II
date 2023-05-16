@@ -225,10 +225,12 @@ bool Player::Update(float dt)
 	{
 	case PAUSE:
 		movementRestringed = true;
+		StopVelocity();
 
 		break;
 	case INVENTORY:
 		movementRestringed = true;
+		StopVelocity();
 
 
 		break;
@@ -241,6 +243,7 @@ bool Player::Update(float dt)
 	case NPC_INTERACT:
 		LOG("TALKING TO NPC1");
 		movementRestringed = true;
+		StopVelocity();
 		TriggerDialogueTree(lastCollision);
 		InteractWithTree();
 
@@ -248,14 +251,17 @@ bool Player::Update(float dt)
 	case ITEM_INTERACT:
 		LOG("INTERACTING WITH ITEM");
 		movementRestringed = true;
+		StopVelocity();
 		break;
 	case TUTORIAL:
 		LOG("TUTORIAL MODE");
 		movementRestringed = true;
+		StopVelocity();
 		break;
 	case LEVEL_UP:
 		LOG("LEVEL_UP MODE");
 		movementRestringed = true;
+		StopVelocity();
 		break;
 	case NONE:
 		break;

@@ -138,6 +138,7 @@ public:
 	// World 3 player
 	GuiButton* party_peter_button;
 
+	// Inventory People
 	GuiButton* inventory_timmy_button;
 	GuiButton* inventory_bunny_button;
 	GuiButton* inventory_lrrh_button;
@@ -146,6 +147,19 @@ public:
 	// World 3 player
 	/*GuiButton* inventory_peter_button;*/
 
+	// Inventory items
+	GuiButton* item_1_button;
+	GuiButton* item_2_button;
+	GuiButton* item_3_button;
+	GuiButton* item_4_button;
+	GuiButton* item_5_button;
+	GuiButton* item_6_button;
+	GuiButton* item_7_button;
+	GuiButton* item_8_button;
+	GuiButton* item_9_button;
+	GuiButton* item_10_button;
+	GuiButton* item_11_button;
+	GuiButton* item_12_button;
 
 
 	List<GuiButton*> buttonsList;
