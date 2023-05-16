@@ -127,10 +127,10 @@ bool Enemy_MiddlePig::Update(float dt)
 bool Enemy_MiddlePig::PostUpdate()
 {
 	//Render
-
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x - 50, position.y -125, &rect);
-
+	if (health > 0) {
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 50, position.y - 125, &rect);
+	}
 	return true;
 }
 

@@ -12,6 +12,7 @@
 #include "Fonts.h"
 #include "UIModule.h"
 #include "W2_Scene.h"
+#include"BattleManager.h"
 
 TeamManager::TeamManager(bool isActive) : Module (isActive)
 {
@@ -457,6 +458,8 @@ bool TeamManager::Update(float dt)
 
 bool TeamManager::PostUpdate()
 {
+	if (app->uiModule->currentMenuType == COMBAT) { app->battleManager->DrawResult(); }
+
 
 	return true;
 }

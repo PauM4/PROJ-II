@@ -77,6 +77,8 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	void DrawResult();
+
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 

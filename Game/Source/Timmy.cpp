@@ -269,19 +269,20 @@ AnimDirection Timmy::CheckDirection()
 }
 bool Timmy::PostUpdate()
 {
-	if (currentAnimation == &abilityAnim)
-	{
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - (13+125), position.y - (35+125), &rect);
-	}
-	else
-	{
-		if (app->uiModule->currentMenuType == COMBAT) {
+	if (health > 0) {
+		if (currentAnimation == &abilityAnim)
+		{
 			SDL_Rect rect = currentAnimation->GetCurrentFrame();
-			app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+			app->render->DrawTexture(texture, position.x - (13 + 125), position.y - (35 + 125), &rect);
+		}
+		else
+		{
+			if (app->uiModule->currentMenuType == COMBAT) {
+				SDL_Rect rect = currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+			}
 		}
 	}
-	
 
 	
 

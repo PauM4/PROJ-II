@@ -201,21 +201,23 @@ bool Bunny::Update(float dt)
 
 bool Bunny::PostUpdate()
 {
-	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsBunnyOnTeam) {
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
-	}
+	if (health > 0) {
+		if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsBunnyOnTeam) {
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+		}
 
-	if (abilityAnimation != &none)
-	{
-		SDL_Rect rect = abilityAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, thunderPos.x, thunderPos.y - 600+150, &rect);
-
-		if (thunder.HasFinished())
+		if (abilityAnimation != &none)
 		{
-			abilityAnimation = &none;
-			abilityAnimation->Reset();
+			SDL_Rect rect = abilityAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, thunderPos.x, thunderPos.y - 600 + 150, &rect);
 
+			if (thunder.HasFinished())
+			{
+				abilityAnimation = &none;
+				abilityAnimation->Reset();
+
+			}
 		}
 	}
 

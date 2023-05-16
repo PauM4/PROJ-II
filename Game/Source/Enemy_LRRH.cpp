@@ -158,46 +158,47 @@ bool Enemy_LRRH::Update(float dt)
 
 bool Enemy_LRRH::PostUpdate()
 {
-
-	if (currentAnimation == &abilityAnim)
-	{
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 13, position.y - (35 + 60), &rect);
-	}
-	else
-	{
-
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
-	}
-
-
-	if (currentAnimation == &abilityAnim)
-	{
-		if (abilityAnim.HasFinished())
+	if (health > 0) {
+		if (currentAnimation == &abilityAnim)
 		{
-			finishAnimBool = true;
-			currentAnimation == &idleAnim;
-
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x - 13, position.y - (35 + 60), &rect);
 		}
-	}
-
-
-	if (finishAnimBool)
-	{
-		if (!arrow.HasFinished())
+		else
 		{
-			SDL_Rect rect = abilityAnimation->GetCurrentFrame();
-			app->render->DrawTexture(texture, arrowPos.x-10, arrowPos.y - 600 + 75, &rect);
+
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
 		}
 
-		if (arrow.HasFinished())
-		{
-			abilityAnimation = &none;
-			abilityAnim.Reset();
-			arrow.Reset();
-			finishAnimBool = false;
 
+		if (currentAnimation == &abilityAnim)
+		{
+			if (abilityAnim.HasFinished())
+			{
+				finishAnimBool = true;
+				currentAnimation == &idleAnim;
+
+			}
+		}
+
+
+		if (finishAnimBool)
+		{
+			if (!arrow.HasFinished())
+			{
+				SDL_Rect rect = abilityAnimation->GetCurrentFrame();
+				app->render->DrawTexture(texture, arrowPos.x - 10, arrowPos.y - 600 + 75, &rect);
+			}
+
+			if (arrow.HasFinished())
+			{
+				abilityAnimation = &none;
+				abilityAnim.Reset();
+				arrow.Reset();
+				finishAnimBool = false;
+
+			}
 		}
 	}
 	return true;
