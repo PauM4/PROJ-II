@@ -26,7 +26,7 @@
 	<sceneFoxQuest />
 	<battleScene_Pigs />
 	<w2_scene>
-		<player />
+		<player x="5588" y="3123" />
 	</w2_scene>
 	<w2_scene_maze>
 		<player />
@@ -68,5 +68,5 @@
 	<renderer>
 		<camera x="-6466" y="-4523" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
+	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

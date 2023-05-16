@@ -106,6 +106,8 @@ bool W2_Scene_Maze::PreUpdate()
 // Called each loop iteration
 bool W2_Scene_Maze::Update(float dt)
 {
+	std::cout << "X: " << player->position.x << std::endl;
+	std::cout << "Y: " << player->position.y << std::endl;
 
 	Camera();
 
@@ -238,11 +240,11 @@ void W2_Scene_Maze::Camera()
 		app->render->FollowObject(-(int)player->position.x, -(int)player->position.y - 35,
 			app->render->camera.w / 2, app->render->camera.h / 2);
 	}
-	//else
-	//{
-	//	app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-	//		app->render->camera.w / 2, app->render->camera.h / 2);
-	//}
+	else
+	{
+		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
+		app->render->camera.w / 2, app->render->camera.h / 2, -4394, -93, -3674, -52);
+	}
 
 }
 

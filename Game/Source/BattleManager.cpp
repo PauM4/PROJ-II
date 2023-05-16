@@ -356,7 +356,11 @@ bool BattleManager::Update(float dt) {
 		break;
 
 	case BattleState::WIN:
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+			app->teamManager->arasiva = true;
+			app->sceneManager->LoadScene(GameScene::SCENE);
+		}
+
 		break;
 	case BattleState::LOSE:
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
@@ -932,6 +936,7 @@ void BattleManager::CheckWinCondition()
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 		app->audio->PlayFx(victoryFx);
 		battleState = BattleState::WIN;
+
 	}
 	
 }

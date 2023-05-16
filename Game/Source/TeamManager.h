@@ -11,7 +11,6 @@
 #include "Lrrh.h"
 #include "LittlePig.h"
 #include "MiddlePig.h"
-#include "Peter.h"
 #include <iostream>
 using namespace std;
 
@@ -106,7 +105,6 @@ public:
 	Lrrh* lrrh;
 	LittlePig* littlepig;
 	MiddlePig* middlepig;
-	Peter* peter;
 	item yoyo;
 	item handsxd;
 	item bow;
@@ -155,7 +153,8 @@ public:
 
 	bool statsdone = false;
 
-	
+	bool startstatsup = false;
+	bool arasiva = false;
 	bool defenseup;
 	bool magicup;
 	bool speedup;
