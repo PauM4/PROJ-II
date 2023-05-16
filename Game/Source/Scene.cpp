@@ -232,8 +232,8 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 
-	//std::cout << "X: " << player->position.x << std::endl;
-	//std::cout << "Y: " << player->position.y << std::endl;
+	std::cout << "X: " << player->position.x << std::endl;
+	std::cout << "Y: " << player->position.y << std::endl;
 
 	Camera();
 
@@ -490,7 +490,7 @@ void Scene::GodMode()
 //Updates the camera position based on the player's position. If god mode is on, the camera follows the player's position without any boundaries. If god mode is off, the camera follows the player's position while respecting the game's boundaries.
 void Scene::Camera()
 {
-	if (godMode)
+	if (godMode || !CheckInsideBoundaries())
 	{
 		app->render->FollowObject(-(int)player->position.x, -(int)player->position.y - 35,
 			app->render->camera.w / 2, app->render->camera.h / 2);
@@ -501,6 +501,19 @@ void Scene::Camera()
 			app->render->camera.w / 2, app->render->camera.h / 2, -2532, -18, -4974, -16);
 	}
 
+}
+
+bool Scene::CheckInsideBoundaries()
+{
+	bool insideX = (player->position.x == clamp(player->position.x, 18, 2532 + (1920)));
+	bool insideY = (player->position.y == clamp(player->position.y, 1216, 4974 + 1080));
+
+	if (insideX && insideY)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 //Return random number between 2 numbers
