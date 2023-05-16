@@ -308,7 +308,7 @@ bool Scene::Update(float dt)
 	}
 
 	// If talking to AngryVillager, player can next tutorial
-	if (player->playerState == player->PlayerState::NPC_INTERACT && GetPlayerLastCollision() == ColliderType::ANGRYVILLAGER)
+	if (player->playerState == player->PlayerState::NPC_INTERACT && isTalkingToAngry)
 	{
 		if (battleTutorialCounter <= 3)
 		{

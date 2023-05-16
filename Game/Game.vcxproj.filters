@@ -129,6 +129,8 @@
     <ClCompile Include="Source\W2_Scene_Maze.cpp">
       <Filter>Scenes\W2</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GuiCheckBox.cpp" />
+    <ClCompile Include="Source\GuiSlider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -293,6 +295,8 @@
     <ClInclude Include="Source\W2_Scene_Maze.h">
       <Filter>Scenes\W2</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GuiCheckBox.h" />
+    <ClInclude Include="Source\GuiSlider.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

@@ -483,6 +483,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision 	ANGRYVILLAGER");
 			npcInteractAvailable = true;
 			lastCollision = ColliderType::ANGRYVILLAGER;
+			app->scene->isTalkingToAngry = true;
 			break;
 		case ColliderType::TALISMANVILLAGER:
 			LOG("Collision 	TALISMANVILLAGER");
@@ -582,6 +583,7 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::ANGRYVILLAGER:
 		npcInteractAvailable = false;
+		app->scene->isTalkingToAngry = false;
 		break;
 	case ColliderType::TALISMANVILLAGER:
 		npcInteractAvailable = false;

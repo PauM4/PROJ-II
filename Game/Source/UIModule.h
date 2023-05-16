@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "GuiManager.h"
 #include "GuiButton.h"
+#include "GuiSlider.h"
+#include "GuiCheckBox.h"
 #include "SceneManager.h"
 #include <vector>
 #include <string>

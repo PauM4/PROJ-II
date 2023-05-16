@@ -113,7 +113,9 @@
     <ClCompile Include="Source\FadeToBlack.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
+    <ClCompile Include="Source\GuiCheckBox.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
+    <ClCompile Include="Source\GuiSlider.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\LittlePig.cpp" />
     <ClCompile Include="Source\Lrrh.cpp" />
@@ -171,8 +173,10 @@
     <ClInclude Include="Source\FadeToBlack.h" />
     <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\GuiButton.h" />
+    <ClInclude Include="Source\GuiCheckBox.h" />
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiManager.h" />
+    <ClInclude Include="Source\GuiSlider.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\LittlePig.h" />
     <ClInclude Include="Source\Lrrh.h" />
