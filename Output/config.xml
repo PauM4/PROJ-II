@@ -85,7 +85,7 @@
 		
 		<player x="1670" y="140" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 		<!--Door to scene_02 -->
-		<door x="1259" y="2156" width="105" height="80" nextScene="6" nextPlayerX="8900" nextPlayerY="930"/>
+		<door x="1500" y="0" width="600" height="80" nextScene="9" nextPlayerX="8900" nextPlayerY="930"/>
 		
 	</w2_scene_maze>
 	
