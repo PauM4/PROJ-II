@@ -118,14 +118,14 @@
 		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
 		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnteam="false" />
 		<item>
-			<yoyo ininventory="true" type="1" weaponuser="1" character="1" name="yoyo" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
-			<handsxd ininventory="true" type="1" weaponuser="2" character="2" name="handsxd" defense="0" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<yoyo ininventory="true" type="1" weaponuser="1" character="1" name="Yo-Yo" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<handsxd ininventory="true" type="1" weaponuser="2" character="2" name="Bunny Hand" defense="0" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<bow ininventory="false" type="1" weaponuser="3" character="0" name="bow" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<club ininventory="false" type="1" weaponuser="4" character="0" name="club" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<knife ininventory="false" type="1" weaponuser="5" character="0" name="knife" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<shotgun ininventory="false" type="1" weaponuser="6" character="0" name="shotgun" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
-			<ironchestplate ininventory="true" type="2" weaponuser="0" character="0" name="ironchestplate" defense="2" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
-			<reversehat ininventory="true" type="2" weaponuser="0" character="0" name="reversehat" defense="1" magic="0" speed="2" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<ironchestplate ininventory="false" type="2" weaponuser="0" character="0" name="Iron Chestplate" defense="2" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<reversehat ininventory="false" type="2" weaponuser="0" character="0" name="Reverse Hat" defense="1" magic="0" speed="2" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<talisman ininventory="false" type="3" weaponuser="0" character="0" name="talisman" defense="1" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<susjar ininventory="false" type="3" weaponuser="0" character="0" name="susjar" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<dentures ininventory="false" type="3" weaponuser="0" character="0" name="dentures" defense="0" magic="0" speed="0" movement="0" attack="1" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
