@@ -65,12 +65,17 @@
 		<door x="5100" y="2211" width="227" height="75" nextScene="6" nextPlayerX="9700" nextPlayerY="4230"/>
 		<!--Door from brick house -->
 		<door x="9758" y="4172" width="44" height="120" nextScene="6" nextPlayerX="5200" nextPlayerY="2336"/>
+
+		<!--Portal to w1-->
+		<portal x="592" y="2996" width="124" height="240" nextScene="3" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
 		
 		<!--Door to maze -->
 		<portal x="1532" y="4578" width="276" height="122" nextScene="12" nextPlayerX="0" nextPlayerY="0"/>
+
+		<!--Door to maze -->
+		<portal x="5632" y="3020" width="56" height="124" nextScene="11" nextPlayerX="0" nextPlayerY="0"/>
 		
-		<!--Portal to w1-->
-		<portal x="592" y="2996" width="124" height="240" nextScene="3" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
+		
 		
 		<npcW2 npcW2TexturePath="Assets/Characters/Characters_popups.png" />
 		
