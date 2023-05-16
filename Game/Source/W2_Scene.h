@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Door.h"
 #include "NpcW2.h"
+#include "Portal.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -77,6 +78,7 @@ public:
 	Player* player;
 	NpcW2* npc;
 	List<Door*> doors;
+	Portal* portal;
 
 
 	// A list of quests

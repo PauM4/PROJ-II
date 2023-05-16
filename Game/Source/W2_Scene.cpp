@@ -54,6 +54,10 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 		doors.Add(door);
 	}
 
+	portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
+	portal->parameters = config.child("portal");
+
+
 	app->entityManager->Awake(config);
 
 	CreateDialogue(); //3MB

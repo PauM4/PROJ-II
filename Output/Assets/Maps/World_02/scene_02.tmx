@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="18" nextobjectid="211">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="19" nextobjectid="220">
  <imagelayer id="2" name="BG">
-  <image source="Assets/Maps/World_02/Assets/Fondo_map_cerditos.png" width="6319" height="4736"/>
+  <image source="Assets/Maps/World_02/Assets/Fondo_map_cerditos.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="9" name="Forest">
-  <image source="Assets/Maps/World_02/Assets/Mapa_Cerditos_Arboles_Y_Montaña.png" width="6319" height="4736"/>
+  <image source="Assets/Maps/World_02/Assets/Mapa_Cerditos_Arboles_Y_Montaña.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="10" name="hayHouse" offsetx="1014" offsety="1472">
-  <image source="Assets/Maps/World_02/Assets/hayHouse.png" width="540" height="784"/>
+  <image source="Assets/Maps/World_02/Assets/hayHouse.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="11" name="woodHouse" offsetx="2892" offsety="1590">
-  <image source="Assets/Maps/World_02/Assets/woodHouse.png" width="838" height="661"/>
+  <image source="Assets/Maps/World_02/Assets/woodHouse.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="12" name="brickHouse" offsetx="4792" offsety="648">
-  <image source="Assets/Maps/World_02/Assets/bricksHouse.png" width="1340" height="1652"/>
+  <image source="Assets/Maps/World_02/Assets/bricksHouse.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="14" name="mazeSign" offsetx="1186" offsety="4042">
-  <image source="Assets/Maps/World_02/Assets/maze_sign.png" width="315" height="339"/>
+  <image source="Assets/Maps/World_02/Assets/maze_sign.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="15" name="hayInterior" offsetx="8000" offsety="0">
-  <image source="Assets/Maps/World_02/Assets/Interior_Paja.png" width="1920" height="1080"/>
+  <image source="Assets/Maps/World_02/Assets/Interior_Paja.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="17" name="woodInterior" offsetx="8000" offsety="2000">
-  <image source="Assets/Maps/World_02/Assets/Interior_Madera.png" width="1920" height="1080"/>
+  <image source="Assets/Maps/World_02/Assets/Interior_Madera.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="16" name="brickInterior" offsetx="8000" offsety="3824">
-  <image source="Assets/Maps/World_02/Assets/Interior_Cerdo_Grande.png" width="1920" height="1080"/>
+  <image source="Assets/Maps/World_02/Assets/Interior_Cerdo_Grande.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
@@ -160,5 +160,11 @@
   <object id="188" x="8844" y="982" width="140" height="26"/>
   <object id="209" x="9758" y="4172" width="44" height="120"/>
   <object id="210" x="8718" y="2968" width="176" height="40"/>
+ </objectgroup>
+ <objectgroup color="#00ffff" id="18" name="Portal">
+  <properties>
+   <property name="ColType" type="int" value="2"/>
+  </properties>
+  <object id="219" x="592" y="2996" width="124" height="240"/>
  </objectgroup>
 </map>
