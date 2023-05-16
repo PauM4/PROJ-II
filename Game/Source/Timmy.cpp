@@ -28,25 +28,25 @@ bool Timmy::Awake()
 {
 	if (app->teamManager->statsdone == false) {
 		id = 1;
-		health = stats.attribute("health").as_int();
-		maxHealth = stats.attribute("maxHealth").as_int();
-		defense = stats.attribute("defense").as_int();
-		magic = stats.attribute("magic").as_int();
-		stamina = stats.attribute("stamina").as_int();
-		maxStamina = stats.attribute("maxStamina").as_int();
-		speed = stats.attribute("speed").as_int();
-		attack = stats.attribute("attack").as_int();
-		AttArea = stats.attribute("AttArea").as_int();
-		Ab1Type = stats.attribute("Ab1Type").as_int();
-		Ab1Area = stats.attribute("Ab1Area").as_int();
-		Ab1RangeType = stats.attribute("Ab1RangeType").as_int();
-		Ab1Power = stats.attribute("Ab1Power").as_int();
-		Ab2Type = stats.attribute("Ab2Type").as_int();
-		Ab2Area = stats.attribute("Ab2Area").as_int();
-		Ab2RangeType = stats.attribute("Ab2RangeType").as_int();
-		Ab2Power = stats.attribute("Ab2Power").as_int();
-		healingpower = stats.attribute("healingpower").as_int();
-		movement = stats.attribute("movement").as_int();
+		health = 20;
+		maxHealth = 20;
+		defense = 3;
+		magic = 1;
+		stamina = 15;
+		maxStamina = 15;
+		speed = 6;
+		attack = 10;
+		AttArea = 2;
+		Ab1Type = 1;
+		Ab1Area = 3;
+		Ab1RangeType = 1;
+		Ab1Power = 18;
+		Ab2Type = 0;
+		Ab2Area = 0;
+		Ab2RangeType = 0;
+		Ab2Power = 0;
+		healingpower = 0;
+		movement = 3;
 		app->teamManager->statsdone = true;
 	}
 	idleAnim.PushBack({ 0, 0, 140, 140 });
@@ -120,6 +120,7 @@ bool Timmy::Start()
 	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_yoyo.wav");
 	PrevPos = position;
 	frames = 0;
+	prehealth = health;
 	return true;
 }
 
@@ -230,12 +231,14 @@ bool Timmy::Update(float dt)
 
 		}
 
-
-
-		
-
 		PrevPos.x = position.x;
 		PrevPos.y = position.y;
+	}
+
+	if (health < prehealth || health <=0) {
+
+		currentAnimation = &takedmgAnim;
+		prehealth = health;
 	}
 
 	return true;
