@@ -280,7 +280,13 @@ bool Scene::Update(float dt)
 		nextQuest();
 	}
 
+	//Draw map
 	app->map->Draw();
+
+	//Draw chests
+	app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
+	app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
+	app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 
 	// Tutorial SCREENS when NewGame
 	if (basicTutorialCounter >= 2)
@@ -436,9 +442,6 @@ bool Scene::PostUpdate()
 		return false;
 	}
 
-	app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
-	app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
-	app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 	return ret;
 }
 

@@ -1,287 +1,281 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="60" nextobjectid="127">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="60" nextobjectid="132">
  <imagelayer id="2" name="BG">
-  <image source="Assets/Maps/World_01/Mapa_Export.png"/>
+  <image source="Assets/Maps/World_01/Mapa_Export.png" width="4736" height="6319"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="54" name="forest" offsetx="-1.33333" offsety="-1.33333">
-  <image source="Assets/Maps/World_01/Assets/Bosque.png"/>
+  <image source="Assets/Maps/World_01/Assets/Bosque.png" width="4736" height="6319"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="39" name="Copy of House1" offsetx="1365" offsety="2284">
-  <image source="Assets/Maps/World_01/Assets/house_01.png"/>
+  <image source="Assets/Maps/World_01/Assets/house_01.png" width="395" height="538"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <imagelayer id="26" name="Copy of Tree" offsetx="1164.79" offsety="2585.4">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+ <imagelayer id="26" name="Copy of Tree" offsetx="1174.12" offsety="2578.07">
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <imagelayer id="31" name="Copy of Tree" offsetx="2421.7" offsety="1957.21">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+ <imagelayer id="31" name="Copy of Tree" offsetx="2341.7" offsety="1939.88">
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="42" name="House2" offsetx="2080.67" offsety="2096">
-  <image source="Assets/Maps/World_01/Assets/house_02.png"/>
+  <image source="Assets/Maps/World_01/Assets/house_02.png" width="530" height="502"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <imagelayer id="19" name="Copy of Bush" offsetx="2513.67" offsety="2528.67">
-  <image source="Assets/Maps/World_01/Assets/bush.png"/>
+ <imagelayer id="19" name="Copy of Bush" offsetx="2452.67" offsety="2531.67">
+  <image source="Assets/Maps/World_01/Assets/bush.png" width="195" height="129"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <imagelayer id="16" name="Tree5" offsetx="1421.03" offsety="3871.88">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+ <imagelayer id="15" name="Tree6" offsetx="1632.36" offsety="4027.52">
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <imagelayer id="15" name="Tree6" offsetx="1616.36" offsety="3966.55">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+ <imagelayer id="13" name="Tree4" offsetx="1961.03" offsety="4402.55">
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <imagelayer id="13" name="Tree4" offsetx="1965.03" offsety="4388.55">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+ <imagelayer id="14" name="Tree3" offsetx="1654.36" offsety="4881.88">
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <imagelayer id="14" name="Tree3" offsetx="1624.36" offsety="4875.88">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
-  <properties>
-   <property name="Draw" type="bool" value="true"/>
-  </properties>
- </imagelayer>
- <imagelayer id="11" name="Tree2" offsetx="1991.7" offsety="5042.55">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+ <imagelayer id="11" name="Tree2" offsetx="1945.7" offsety="5024.55">
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="47" name="deadge" offsetx="2648.48" offsety="3633.33">
-  <image source="Assets/Maps/World_01/Assets/deadAnimal_01.png"/>
+  <image source="Assets/Maps/World_01/Assets/deadAnimal_01.png" width="154" height="204"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="52" name="well" offsetx="1742.91" offsety="1071.09">
-  <image source="Assets/Maps/World_01/Assets/well.png"/>
+  <image source="Assets/Maps/World_01/Assets/well.png" width="351" height="381"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="37" name="Copy of Hay" offsetx="1565" offsety="3073">
-  <image source="Assets/Maps/World_01/Assets/hayPile.png"/>
+  <image source="Assets/Maps/World_01/Assets/hayPile.png" width="280" height="255"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="51" name="barn" offsetx="1149.58" offsety="2961.58">
-  <image source="Assets/Maps/World_01/Assets/barn.png"/>
+  <image source="Assets/Maps/World_01/Assets/barn.png" width="586" height="673"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="49" name="Copy of deadge" offsetx="2372.73" offsety="3472.73">
-  <image source="Assets/Maps/World_01/Assets/deadAnimal_02.png"/>
+  <image source="Assets/Maps/World_01/Assets/deadAnimal_02.png" width="358" height="180"/>
   <properties>
    <property name="BG" type="bool" value="false"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="50" name="Copy of Copy of deadge" offsetx="936.364" offsety="3584.85">
-  <image source="Assets/Maps/World_01/Assets/deadAnimal_01.png"/>
+  <image source="Assets/Maps/World_01/Assets/deadAnimal_01.png" width="154" height="204"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="48" name="Copy of deadge" offsetx="2348.48" offsety="3693.94">
-  <image source="Assets/Maps/World_01/Assets/deadAnimal_03.png"/>
+  <image source="Assets/Maps/World_01/Assets/deadAnimal_03.png" width="237" height="149"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="55" name="Copy of Tree" offsetx="2598.4" offsety="2991.03">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="45" name="Fence1" offsetx="2187.76" offsety="3328.36">
-  <image source="Assets/Maps/World_01/Assets/fence_01.png"/>
+  <image source="Assets/Maps/World_01/Assets/fence_01.png" width="706" height="634"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="34" name="Copy of Tree" offsetx="3452" offsety="351.638">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="33" name="Copy of Tree" offsetx="2945.94" offsety="430.425">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="32" name="Copy of Tree" offsetx="2461.09" offsety="403.153">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="30" name="Copy of Tree" offsetx="1306.55" offsety="521.335">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="29" name="Copy of Tree" offsetx="1261.09" offsety="672.85">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="28" name="Copy of Tree" offsetx="1424.73" offsety="1045.58">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="27" name="Copy of Tree" offsetx="1111.7" offsety="2147.21">
-  <image source="Assets/Maps/World_01/Assets/tree.png"/>
+  <image source="Assets/Maps/World_01/Assets/tree.png" width="316" height="359"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="43" name="House3" offsetx="1647.09" offsety="332.303">
-  <image source="Assets/Maps/World_01/Assets/house_03.png"/>
+  <image source="Assets/Maps/World_01/Assets/house_03.png" width="721" height="526"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="44" name="Fence2" offsetx="857.333" offsety="3424">
-  <image source="Assets/Maps/World_01/Assets/fence_02.png"/>
+  <image source="Assets/Maps/World_01/Assets/fence_02.png" width="316" height="545"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="17" name="Bush" offsetx="2058.67" offsety="4744.67">
-  <image source="Assets/Maps/World_01/Assets/bush.png"/>
+  <image source="Assets/Maps/World_01/Assets/bush.png" width="195" height="129"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="25" name="Copy of Bush" offsetx="3618.67" offsety="633.667">
-  <image source="Assets/Maps/World_01/Assets/bush.png"/>
+  <image source="Assets/Maps/World_01/Assets/bush.png" width="195" height="129"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="24" name="Copy of Bush" offsetx="2641.33" offsety="707.364">
-  <image source="Assets/Maps/World_01/Assets/bush.png"/>
+  <image source="Assets/Maps/World_01/Assets/bush.png" width="195" height="129"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="23" name="Copy of Bush" offsetx="2165.58" offsety="801.303">
-  <image source="Assets/Maps/World_01/Assets/bush.png"/>
+  <image source="Assets/Maps/World_01/Assets/bush.png" width="195" height="129"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="22" name="Copy of Bush" offsetx="2289.67" offsety="1190.67">
-  <image source="Assets/Maps/World_01/Assets/bush.png"/>
+  <image source="Assets/Maps/World_01/Assets/bush.png" width="195" height="129"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="21" name="Copy of Bush" offsetx="1616.67" offsety="1536.67">
-  <image source="Assets/Maps/World_01/Assets/bush.png"/>
+  <image source="Assets/Maps/World_01/Assets/bush.png" width="195" height="129"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="20" name="Copy of Bush" offsetx="1984.67" offsety="2030.67">
-  <image source="Assets/Maps/World_01/Assets/bush.png"/>
+  <image source="Assets/Maps/World_01/Assets/bush.png" width="195" height="129"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="18" name="Copy of Bush" offsetx="2121.33" offsety="3021">
-  <image source="Assets/Maps/World_01/Assets/bush.png"/>
+  <image source="Assets/Maps/World_01/Assets/bush.png" width="195" height="129"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="36" name="Hay" offsetx="1529" offsety="3471">
-  <image source="Assets/Maps/World_01/Assets/hayPile.png"/>
+  <image source="Assets/Maps/World_01/Assets/hayPile.png" width="280" height="255"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="38" name="House1" offsetx="2198" offsety="2634">
-  <image source="Assets/Maps/World_01/Assets/house_01.png"/>
+  <image source="Assets/Maps/World_01/Assets/house_01.png" width="395" height="538"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="41" name="Copy of House1" offsetx="2110.15" offsety="1272.48">
-  <image source="Assets/Maps/World_01/Assets/house_01.png"/>
+  <image source="Assets/Maps/World_01/Assets/house_01.png" width="395" height="538"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="40" name="Copy of House1" offsetx="1406.12" offsety="1594.97">
-  <image source="Assets/Maps/World_01/Assets/house_01.png"/>
+  <image source="Assets/Maps/World_01/Assets/house_01.png" width="395" height="538"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="53" name="house4" offsetx="3694.97" offsety="524.394">
-  <image source="Assets/Maps/World_01/Assets/house_04.png"/>
+  <image source="Assets/Maps/World_01/Assets/house_04.png" width="551" height="486"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="56" name="hoodieInterior" offsetx="6622.97" offsety="44.394">
-  <image source="Assets/Maps/World_01/grandmas.png"/>
+  <image source="Assets/Maps/World_01/grandmas.png" width="1680" height="1080"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="58" name="grndmaInterior" offsetx="6926.97" offsety="2172.39">
-  <image source="Assets/Maps/World_01/house_town.png"/>
+  <image source="Assets/Maps/World_01/house_town.png" width="1080" height="1080"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="57" name="villagerInterior" offsetx="6518.97" offsety="4452.39">
-  <image source="Assets/Maps/World_01/town_house.png"/>
+  <image source="Assets/Maps/World_01/town_house.png" width="1920" height="1080"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
@@ -291,8 +285,8 @@
   <properties>
    <property name="ColType" type="int" value="0"/>
   </properties>
-  <object id="1" x="491.212" y="4208.12" width="1151.51" height="1668.12"/>
-  <object id="2" x="2263.22" y="4181.02" width="712.121" height="1688.92"/>
+  <object id="1" x="491.212" y="4038.42" width="1290.9" height="1837.82"/>
+  <object id="2" x="2142.01" y="4017.38" width="833.333" height="1852.56"/>
   <object id="3" x="2200.55" y="3379.62" width="23.6367" height="137.758"/>
   <object id="5" x="1211.09" y="3201.3" width="468.242" height="429.303"/>
   <object id="6" x="2238.98" y="2838.12" width="315.061" height="328.273"/>
@@ -300,12 +294,12 @@
   <object id="8" x="2309.98" y="2284.67" width="275.242" height="304.788"/>
   <object id="9" x="1447.61" y="1803.49" width="312.121" height="324.727"/>
   <object id="11" x="2148.49" y="1482.97" width="313.697" height="323.757"/>
-  <object id="12" x="651.819" y="2325.82" width="548.485" height="1096.18"/>
-  <object id="13" x="429.031" y="3231.88" width="339.394" height="1000"/>
+  <object id="12" x="651.819" y="2159.15" width="548.485" height="1262.85"/>
+  <object id="13" x="520.97" y="3217.88" width="339.394" height="1000"/>
   <object id="14" x="615.455" y="2058.7" width="96.9697" height="278.152"/>
-  <object id="15" x="657.607" y="538.965" width="500" height="1566.17"/>
+  <object id="15" x="693.971" y="475.329" width="475.758" height="1566.17"/>
   <object id="17" x="2688.28" y="3151.33" width="194.545" height="188"/>
-  <object id="18" x="2919.67" y="3250.33" width="344" height="936"/>
+  <object id="18" x="2858.34" y="3952.33" width="58" height="62"/>
   <object id="27" x="2202.52" y="3654.12" width="23.6367" height="292.258"/>
   <object id="28" x="2203.18" y="3341.45" width="667.97" height="53.758"/>
   <object id="29" x="2210.35" y="3892.79" width="667.97" height="58.4247"/>
@@ -318,7 +312,7 @@
   <object id="36" x="1514" y="1302.46" width="130.667" height="90.42"/>
   <object id="37" x="1782.01" y="1354.78" width="274" height="53.42"/>
   <object id="38" x="1822.84" y="1301.62" width="187.167" height="140.587"/>
-  <object id="39" x="2519.67" y="2178.46" width="251.667" height="138.087"/>
+  <object id="39" x="2412.34" y="2191.79" width="131.667" height="126.087"/>
   <object id="40" x="1204.67" y="2401.79" width="130.667" height="85.0867"/>
   <object id="41" x="1262" y="2849.12" width="123.334" height="85.0867"/>
   <object id="45" x="868.182" y="3475.78" width="23.6367" height="490.425"/>
@@ -331,23 +325,21 @@
   <object id="53" x="2562" y="662.793" width="130.667" height="85.0867"/>
   <object id="54" x="3036.67" y="696.123" width="130.667" height="85.0867"/>
   <object id="55" x="3540.67" y="622.793" width="130.667" height="85.0867"/>
-  <object id="56" x="1166" y="165.123" width="3151.57" height="454.42"/>
+  <object id="56" x="1166" y="165.123" width="3151.57" height="411.996"/>
   <object id="57" x="1709" y="4219.95" width="130.667" height="99.7533"/>
-  <object id="58" x="1508.01" y="4068.45" width="130.667" height="127.753"/>
   <object id="59" x="2064.01" y="4665.45" width="118" height="73.7533"/>
   <object id="60" x="1723.33" y="5161.46" width="117.334" height="66.42"/>
   <object id="61" x="2090" y="5317.45" width="117.334" height="78.42"/>
-  <object id="65" x="1624" y="5827" width="632" height="134.333"/>
+  <object id="65" x="1624" y="5719" width="632" height="242.333"/>
   <object id="66" x="4280" y="473.333" width="285.333" height="777.273"/>
   <object id="68" x="3796" y="563" width="361" height="435"/>
-  <object id="79" x="2645.33" y="1763" width="132.667" height="190.333"/>
-  <object id="80" x="2732.55" y="1258.42" width="1572" height="178"/>
-  <object id="81" x="2758" y="3001" width="122" height="161"/>
-  <object id="82" x="2724" y="2744" width="144" height="253"/>
-  <object id="84" x="2765" y="2487" width="139" height="253"/>
-  <object id="85" x="2703" y="2293" width="145" height="193"/>
-  <object id="86" x="2745" y="1941" width="118" height="243"/>
-  <object id="87" x="2705" y="1458" width="117" height="262"/>
+  <object id="79" x="2637.33" y="1879" width="132.667" height="514.333"/>
+  <object id="80" x="2581.88" y="1093.69" width="1680" height="514"/>
+  <object id="81" x="2658" y="2887" width="164" height="213"/>
+  <object id="82" x="2604" y="2608" width="170" height="297"/>
+  <object id="84" x="2655" y="2365" width="139" height="253"/>
+  <object id="85" x="2609" y="2149" width="145" height="193"/>
+  <object id="87" x="2541" y="1610" width="117" height="262"/>
   <object id="92" x="6956" y="5294" width="470" height="100"/>
   <object id="93" x="6952" y="4528" width="43" height="773"/>
   <object id="94" x="6952" y="4528" width="1068" height="42.6667"/>
@@ -370,6 +362,11 @@
   <object id="117" x="6674" y="756" width="64" height="270"/>
   <object id="118" x="6674" y="392" width="58" height="252"/>
   <object id="119" x="6634" y="594" width="56" height="206"/>
+  <object id="127" x="1139.39" y="554.545" width="118.182" height="178.788"/>
+  <object id="128" x="1115.15" y="706.061" width="103.03" height="239.394"/>
+  <object id="129" x="1109.09" y="866.667" width="184.848" height="330.303"/>
+  <object id="130" x="1127.27" y="1193.94" width="169.697" height="515.152"/>
+  <object id="131" x="1093.94" y="1693.94" width="166.667" height="334.061"/>
  </objectgroup>
  <objectgroup color="#00ff00" id="4" name="Doors">
   <properties>
