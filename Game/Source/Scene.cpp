@@ -1093,6 +1093,7 @@ void Scene::UpdateMinigameLogic(float dt)
 	if (minigameActive)
 	{
 		player->movementRestringed = true;
+		player->StopVelocity();
 		// While playing the minigame, appear animation of press Key
 		// Draw is made on UIModule
 		UpdateRopeMinigame(dt);

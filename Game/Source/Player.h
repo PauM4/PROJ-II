@@ -40,6 +40,7 @@ public:
 
 	// Magic function that allows the player to teleport :D
 	void Player::ChangePosition(int x, int y);
+	void StopVelocity();
 
 private:
 	void TriggerDialogueTree(ColliderType NPC);
@@ -49,7 +50,6 @@ private:
 	bool HorizontalMovement(float dt);
 	bool SprintMovement(float dt);
 	void InteractWithEntities();
-	void StopVelocity();
 	void GodMode();
 	void UpdateAndPrintBunnyAnimation();
 	void UpdateAndPrintTimmyAnimation();
