@@ -118,7 +118,13 @@ public:
 
 	SDL_Texture* mapTexture; 
 
-	bool movingRock; 
+	bool movingRock;
+
+	//SFX audios
+	int cantmoveFx = -1;
+	int sliderockFx = -1;
+	int cavewalkFx = -1;
+
 private:
 
 	int mapLength; 

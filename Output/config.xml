@@ -46,7 +46,7 @@
 		<chest3 x="4125" y="1006" width="100" height="75" isPicked="false" id="2"/>
 
 		<!--Portal to w2-->
-		<portal x="8000" y="603" width="67" height="236" nextScene="9" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
+		<portal x="8087" y="603" width="67" height="236" nextScene="9" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
 
 
 	</scene>
@@ -125,8 +125,8 @@
 			<club ininventory="false" type="1" weaponuser="4" character="0" name="club" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<knife ininventory="false" type="1" weaponuser="5" character="0" name="knife" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<shotgun ininventory="false" type="1" weaponuser="6" character="0" name="shotgun" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
-			<ironchestplate ininventory="false" type="2" weaponuser="0" character="0" name="ironchestplate" defense="2" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
-			<reversehat ininventory="false" type="2" weaponuser="0" character="0" name="reversehat" defense="1" magic="0" speed="2" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<ironchestplate ininventory="true" type="2" weaponuser="0" character="0" name="ironchestplate" defense="2" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<reversehat ininventory="true" type="2" weaponuser="0" character="0" name="reversehat" defense="1" magic="0" speed="2" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<talisman ininventory="false" type="3" weaponuser="0" character="0" name="talisman" defense="1" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<susjar ininventory="false" type="3" weaponuser="0" character="0" name="susjar" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<dentures ininventory="false" type="3" weaponuser="0" character="0" name="dentures" defense="0" magic="0" speed="0" movement="0" attack="1" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />

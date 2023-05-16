@@ -479,6 +479,10 @@ bool App::SaveToFile()
 
 	while (item != NULL)
 	{
+		/*if (item->data->active)
+		{
+		
+		}*/
 		ret = item->data->SaveState(saveStateNode.append_child(item->data->name.GetString()));
 		item = item->next;
 	}

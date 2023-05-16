@@ -44,6 +44,7 @@ Enemy_LRRH::Enemy_LRRH() : Entity(EntityType::ENEMYLRRH){
 	//Behavior Tree Node
 	behaviorTree = std::make_unique<BehaviorTree>(isEnemyTooClose);
 	isAlive = true;
+	finishAnimBool = false;
 }
 
 bool Enemy_LRRH::Awake()
@@ -83,6 +84,28 @@ bool Enemy_LRRH::Awake()
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.10f;
 
+	//ability
+	for (int i = 10; i < 12; i++)
+	{
+		abilityAnim.PushBack({ (i * 150), 235, 150, 195 });
+		
+	}
+	for (int i = 10; i < 11; i++)
+	{
+		abilityAnim.PushBack({ (i * 150), 525, 150, 208 });
+		
+	}
+	abilityAnim.loop = false;
+	abilityAnim.speed = 0.95f;
+
+	//arrow
+	for (int i = 12; i < 15; i++)
+	{
+		arrow.PushBack({ (i * 150), 61, 150, 679 });
+	}
+	arrow.loop = false;
+	arrow.speed = 0.20f;
+
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
 		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
@@ -112,9 +135,10 @@ bool Enemy_LRRH::Awake()
 	walkLeftAnim.speed = 0.15f;
 
 
-	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh.png");
+	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh-atack.png");
 
 	currentAnimation = &idleAnim;
+	abilityAnimation = &none;
 	return true;
 }
 
@@ -127,16 +151,59 @@ bool Enemy_LRRH::Start()
 bool Enemy_LRRH::Update(float dt)
 {
 	currentAnimation->Update();
+	abilityAnimation->Update();
+
 	return true;
 }
 
 bool Enemy_LRRH::PostUpdate()
 {
-	//Render
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+
+	if (currentAnimation == &abilityAnim)
+	{
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 13, position.y - (35 + 60), &rect);
+	}
+	else
+	{
+
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	}
+
+
+	if (currentAnimation == &abilityAnim)
+	{
+		if (abilityAnim.HasFinished())
+		{
+			finishAnimBool = true;
+			currentAnimation == &idleAnim;
+
+		}
+	}
+
+
+	if (finishAnimBool)
+	{
+		if (!arrow.HasFinished())
+		{
+			SDL_Rect rect = abilityAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, arrowPos.x-10, arrowPos.y - 600 + 75, &rect);
+		}
+
+		if (arrow.HasFinished())
+		{
+			abilityAnimation = &none;
+			abilityAnim.Reset();
+			arrow.Reset();
+			finishAnimBool = false;
+
+		}
+	}
 	return true;
 }
+
+
 
 bool Enemy_LRRH::CleanUp()
 {
