@@ -120,6 +120,7 @@ bool Timmy::Start()
 	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_yoyo.wav");
 	PrevPos = position;
 	frames = 0;
+	prehealth = health;
 	return true;
 }
 
@@ -230,12 +231,14 @@ bool Timmy::Update(float dt)
 
 		}
 
-
-
-		
-
 		PrevPos.x = position.x;
 		PrevPos.y = position.y;
+	}
+
+	if (health < prehealth || health <=0) {
+
+		currentAnimation = &takedmgAnim;
+		prehealth = health;
 	}
 
 	return true;

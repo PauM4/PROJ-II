@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "TeamManager.h"
+#include"BattleManager.h"
 Lrrh::Lrrh() : Entity(EntityType::LRRH)
 {
 	name.Create("lrrh");
@@ -16,6 +17,7 @@ Lrrh::Lrrh() : Entity(EntityType::LRRH)
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;
+	prehealth = health;
 }
 
 Lrrh::~Lrrh() {
@@ -61,6 +63,28 @@ bool Lrrh::Awake()
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
 
+	//ability
+	for (int i = 10; i < 12; i++)
+	{
+		abilityAnim.PushBack({ (i * 150), 235, 150, 195 });
+
+	}
+	for (int i = 10; i < 11; i++)
+	{
+		abilityAnim.PushBack({ (i * 150), 525, 150, 208 });
+
+	}
+	abilityAnim.loop = false;
+	abilityAnim.speed = 0.95f;
+
+	//arrow
+	for (int i = 12; i < 15; i++)
+	{
+		arrow.PushBack({ (i * 150), 61, 150, 679 });
+	}
+	arrow.loop = false;
+	arrow.speed = 0.20f;
+
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
 		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
@@ -91,6 +115,10 @@ bool Lrrh::Awake()
 
 	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh-atack.png");
 
+	currentAnimation = &idleAnim;
+	abilityAnimation = &none;
+
+	prehealth = health;
 	PrevPos = position;
 	return true;
 }
@@ -117,12 +145,27 @@ bool Lrrh::Update(float dt)
 		break; 
 
 	}
-	return true;
 
-	if (app->uiModule->currentMenuType == COMBAT) {
+
+	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsLrrhOnTeam) {
 		currentAnimation->Update();
 
-		if (position.x > PrevPos.x)
+		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (name == app->battleManager->currentTurn->name)
+			{
+				currentAnimation = &abilityAnim;
+				abilityAnimation = &arrow;
+
+				arrowPos.x = app->battleManager->targetPosForAnimation.x;
+				arrowPos.y = app->battleManager->targetPosForAnimation.y;
+
+			}
+
+
+		}
+
+		else if (position.x > PrevPos.x)
 		{
 			currentAnimation = &walkRightAnim;
 		}
@@ -155,16 +198,68 @@ bool Lrrh::Update(float dt)
 
 		}
 
+
+
 		PrevPos.x = position.x;
 		PrevPos.y = position.y;
 	}
 
+	if (health < prehealth)
+	{
+
+		currentAnimation = &takedmgAnim;
+		prehealth = health;
+	}
+
+	currentAnimation->Update();
+	abilityAnimation->Update();
+
+	return true;
 
 }
 
 bool Lrrh::PostUpdate()
 {
+	if (currentAnimation == &abilityAnim)
+	{
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 13, position.y - (35 + 60), &rect);
+	}
+	else if(app->uiModule->currentMenuType == COMBAT && app->teamManager->IsLrrhOnTeam) 
+	{
 
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	}
+
+
+	if (currentAnimation == &abilityAnim)
+	{
+		if (abilityAnim.HasFinished())
+		{
+			finishAnimBool = true;
+			currentAnimation == &idleAnim;
+
+		}
+	}
+
+	if (finishAnimBool)
+	{
+		if (!arrow.HasFinished())
+		{
+			SDL_Rect rect = abilityAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, arrowPos.x - 10, arrowPos.y - 600 + 75, &rect);
+		}
+
+		if (arrow.HasFinished())
+		{
+			abilityAnimation = &none;
+			abilityAnim.Reset();
+			arrow.Reset();
+			finishAnimBool = false;
+
+		}
+	}
 	return true;
 }
 

@@ -468,6 +468,7 @@ bool TeamManager::CleanUp()
 	statslist.Clear();
 	statslist2.Clear();
 
+
 	return true;
 }
 

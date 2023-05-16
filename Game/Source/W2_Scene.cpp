@@ -103,9 +103,7 @@ bool W2_Scene::Start()
 	{
 		app->LoadGameRequest();
 	}
-
-	player->ChangePosition(871, 3117);
-
+	player->ChangePosition(800, 3200);
 	pauseMenuActive = false;
 	exitButtonBool = false;
 	zorroDialogue = false;

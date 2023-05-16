@@ -182,6 +182,7 @@ public:
 	bool isPaused;
 	bool win;
 	bool lose;
+	bool actionfinish;
 	SDL_Timer enemyAreaTimer;
 	SDL_Timer enemyAttackTimer;
 	bool triggerMoveTimer;
