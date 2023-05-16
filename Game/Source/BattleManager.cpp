@@ -77,7 +77,7 @@ bool BattleManager::PreUpdate() {
 
 bool BattleManager::Update(float dt) {
 
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->uiModule->currentMenuType == COMBAT)
 		PauseMenuAppear();
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

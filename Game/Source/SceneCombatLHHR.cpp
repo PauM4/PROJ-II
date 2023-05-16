@@ -162,9 +162,7 @@ bool SceneCombatLHHR::CleanUp()
 
 	app->map->CleanUp();
 	app->entityManager->CleanUp();
-	app->battleManager->CleanUp();
-
-
+	app->battleManager->Disable();
 
 	SaveResult();
 
