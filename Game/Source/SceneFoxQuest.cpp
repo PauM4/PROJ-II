@@ -29,8 +29,8 @@ bool SceneFoxQuest::Awake(pugi::xml_node& config)
 	mapHeigth = 10;
 	app->render->camera.x = 0; 
 	app->render->camera.y = 0; 
-	rockTexture = app->tex->Load("Assets/Characters/Rocas_cueva.png");
-	mapTexture = app->tex->Load("Assets/Maps/World_01/Cueva_puzzle.png");
+	rockTexture = app->tex->Load("Assets/Maps/World_02/Assets/Rocas_cueva.png");
+	mapTexture = app->tex->Load("Assets/Maps/World_02/Assets/Cueva_puzzle.png");
 	movingRock = false; 
 	return true;
 }

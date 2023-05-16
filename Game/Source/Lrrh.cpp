@@ -88,7 +88,7 @@ bool Lrrh::Awake()
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
-	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh.png");
+	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh-atack.png");
 
 	PrevPos = position;
 	return true;
