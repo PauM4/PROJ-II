@@ -25,7 +25,7 @@ TeamManager::~TeamManager() {
 bool TeamManager::Awake(pugi::xml_node& config)
 {
 	lvlupplayerstate = false;
-
+	startstatsup = false;
 	//Load from xml
 	if (config.parent().child("timmy")) {
 		timmy = (Timmy*)app->entityManager->CreateEntity(EntityType::TIMMY);
@@ -46,10 +46,6 @@ bool TeamManager::Awake(pugi::xml_node& config)
 	if (config.parent().child("middlePig")) {
 		middlepig = (MiddlePig*)app->entityManager->CreateEntity(EntityType::MPIG);
 		middlepig->stats = config.parent().child("middlePig");
-	}
-	if (config.parent().child("peter")) {
-		peter = (Peter*)app->entityManager->CreateEntity(EntityType::PETER);
-		peter->stats = config.parent().child("peter");
 	}
 	
 	istimmyplayable = config.child("playable").attribute("istimmyplayable").as_bool();
@@ -352,7 +348,8 @@ bool TeamManager::Start()
 
 bool TeamManager::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+	if (startstatsup == true || app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+		startstatsup = false;
 		lvlupplayerstate = true;
 		for (int j = 0; j < statslist.Count(); j++) {
 			statslist2.At(j)->data.defense = statslist.At(j)->data->defense;
@@ -390,10 +387,7 @@ bool TeamManager::Update(float dt)
 		
 
 	}
-	if (yoyo.character == 0) {
-		int i = 0;
-		i++;
-	}
+
 	if (lvlupbool == true) {
 		if (cont < characters.Count()) {
 			if (LvlUpPoints > 0) {
@@ -473,12 +467,7 @@ bool TeamManager::CleanUp()
 	equipment.Clear();
 	statslist.Clear();
 	statslist2.Clear();
-	timmy->CleanUp();
-	bunny->CleanUp();
-	lrrh->CleanUp();
-	littlepig->CleanUp();
-	middlepig->CleanUp();
-	peter->CleanUp();
+
 	return true;
 }
 
@@ -652,12 +641,7 @@ void TeamManager::UpdateParty()
 			team.Add(middlepig);
 		}
 	}
-	if (ispeterplayable == true) {
-		characters.Add(peter);
-		if (IsPeterOnTeam == true) {
-			team.Add(peter);
-		}
-	}
+
 }
 
 bool TeamManager::SaveState(pugi::xml_node& data)
@@ -805,7 +789,7 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	statsnode.child("peter").append_attribute("Ab2Area") = peterstats.Ab2Area;
 	statsnode.child("peter").append_attribute("healingpower") = peterstats.healingpower;
 
-	app->LoadGameRequest();
+
 
 	return true;
 }
@@ -901,19 +885,6 @@ bool TeamManager::addallstats()
 			middlepig->Ab1Area += statslist.At(j)->data->Ab1Area;
 			middlepig->Ab2Area += statslist.At(j)->data->Ab2Area;
 			middlepig->healingpower += statslist.At(j)->data->healingpower;
-		}
-		if (statslist.At(j)->data->character == 6 && ispeterplayable == true) {
-			peter->defense += statslist.At(j)->data->defense;
-			peter->magic += statslist.At(j)->data->magic;
-			peter->speed += statslist.At(j)->data->speed;
-			peter->movement += statslist.At(j)->data->movement;
-			peter->attack += statslist.At(j)->data->attack;
-			peter->AttArea += statslist.At(j)->data->AttArea;
-			peter->Ab1Power += statslist.At(j)->data->Ab1Power;
-			peter->Ab2Power += statslist.At(j)->data->Ab2Power;
-			peter->Ab1Area += statslist.At(j)->data->Ab1Area;
-			peter->Ab2Area += statslist.At(j)->data->Ab2Area;
-			peter->healingpower += statslist.At(j)->data->healingpower;
 		}
 	}
 
@@ -1080,9 +1051,6 @@ void TeamManager::ApplyEquipedItemStats()
 			break;
 		case 5:
 			additemstats(middlepig, i);
-			break;
-		case 6:
-			additemstats(peter, i);
 			break;
 		}
 
