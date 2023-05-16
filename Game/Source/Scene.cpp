@@ -152,6 +152,8 @@ bool Scene::Start()
 		app->LoadGameRequest();
 		basicTutorialCounter = 2;
 	}
+	numEnteredQuestVillager = 0;
+	numEnteredQuestLHHR = 0;
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
@@ -256,6 +258,21 @@ bool Scene::Update(float dt)
 	MenuAppear();
 
 	MoveToBattleFromDialogue();
+
+	if (angryVillagerDefeated == true && numEnteredQuestVillager == 0) {
+		questList[currentQuestIndex].completed = true; 
+		numEnteredQuestVillager++;
+	}
+
+	if (LRRHDefeated == true && numEnteredQuestLHHR == 1) {
+		questList[currentQuestIndex].completed = true;
+		numEnteredQuestLHHR++;
+	}
+
+	if (talkedToGrandma == true && numEnteredQuestLHHR == 0) {
+		questList[currentQuestIndex].completed = true;
+		numEnteredQuestLHHR++;
+	}
 
 	// Check if the current quest is completed
 	if (questList[currentQuestIndex].completed || app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
@@ -663,6 +680,7 @@ void Scene::UpdateDialogueTree(int option)
 
 		case ColliderType::GRANDMA:
 			grandmaTree->Update(option);
+			talkedToGrandma = true;
 			break;
 
 		case ColliderType::LRRH:

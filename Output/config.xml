@@ -51,7 +51,7 @@
 
 	</scene>
 	<w2_scene name="Assets/Maps/World_02/scene_02.tmx" path="Assets/Maps/World_02/">
-		<player x="571" y="3117" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+		<player x="571" y="3117" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
 		
 		<!--Door to straw house -->
 		<door x="1259" y="2156" width="105" height="80" nextScene="6" nextPlayerX="8900" nextPlayerY="930"/>
