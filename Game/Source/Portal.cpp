@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "W2_Scene.h"
 
 Portal::Portal() : Entity(EntityType::PORTAL)
 {
@@ -92,11 +93,20 @@ void Portal::OnCollision(PhysBody* physA, PhysBody* physB)
 	{
 	case ColliderType::PLAYER:
 		LOG("Collision portal/player");
-
-		app->uiModule->doorPlayerPosition = true;
-		app->SaveGameRequest();
-
-		app->sceneManager->LoadScene((GameScene)nextScene);
+		switch (app->sceneManager->scene) {
+		case SCENE:
+			app->uiModule->doorPlayerPosition = true;
+			app->SaveGameRequest();
+			app->sceneManager->LoadScene((GameScene)nextScene);
+			break;
+		case W2_SCENE:
+			app->uiModule->doorPlayerPosition = true;
+			app->SaveGameRequest();
+			app->sceneManager->LoadScene((GameScene)nextScene);
+			app->w2_scene->player->ChangePosition(871, 3117);
+			break; 
+		}
+		
 		break;
 	}
 }
