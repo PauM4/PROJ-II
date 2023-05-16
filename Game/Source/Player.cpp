@@ -288,7 +288,21 @@ bool Player::Update(float dt)
 		app->teamManager->dentures.ininventory = true;
 		app->scene->chest3->isPicked = true;
 	}
-
+	if (isChest4Pickable)
+	{
+		app->teamManager->ironchestplate.ininventory = true;
+		app->w2_scene->chest4->isPicked = true;
+	}
+	if (isChest5Pickable)
+	{
+		app->teamManager->reversehat.ininventory = true;
+		app->w2_scene->chest5->isPicked = true;
+	}
+	if (isChest6Pickable)
+	{
+		app->teamManager->dentures.ininventory = true;
+		app->w2_scene->chest6->isPicked = true;
+	}
 	app->scene->chest3->isPicked;
 	
 	GodMode();
@@ -469,6 +483,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::CHEST3:
 			isChest3Pickable = true;
 			break;
+		case ColliderType::CHEST4:
+			isChest4Pickable = true;
+			break;
+		case ColliderType::CHEST5:
+			isChest5Pickable = true;
+			break;
+		case ColliderType::CHEST6:
+			isChest6Pickable = true;
+			break;
 		case ColliderType::BARRIER:
 			LOG("Collision BARRIER");
 			break;
@@ -574,6 +597,15 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::CHEST3:
 		isChest3Pickable = false;
+		break;
+	case ColliderType::CHEST4:
+		isChest4Pickable = false;
+		break;
+	case ColliderType::CHEST5:
+		isChest5Pickable = false;
+		break;
+	case ColliderType::CHEST6:
+		isChest6Pickable = false;
 		break;
 	case ColliderType::BARRIER:
 		break;

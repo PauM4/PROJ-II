@@ -6,6 +6,7 @@
 #include "Door.h"
 #include "NpcW2.h"
 #include "Portal.h"
+#include "Item.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -71,15 +72,18 @@ private:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
 	void MoveToBattleFromDialogue();
-
+	void LoadChests(pugi::xml_node& data);
 
 public:
 
 	Player* player;
 	NpcW2* npc;
 	List<Door*> doors;
-	Portal* portal;
+	List<Portal*> portals;
 
+	Item* chest4;
+	Item* chest5;
+	Item* chest6;
 
 	// A list of quests
 	std::vector<Quest> questList;
@@ -104,6 +108,13 @@ public:
 	SDL_Texture* eKeyTexture;
 	SDL_Texture* textDialogue;
 	bool inventoryOpen;
+
+	//chests
+	SDL_Texture* chestTexture;
+	SDL_Rect chestHRect;
+	SDL_Rect chestVRect;
+	SDL_Rect chestopenHRect;
+	SDL_Rect chestopenVRect;
 
 private:
 

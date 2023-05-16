@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "TeamManager.h"
+#include"BattleManager.h"
 Lrrh::Lrrh() : Entity(EntityType::LRRH)
 {
 	name.Create("lrrh");
@@ -16,6 +17,7 @@ Lrrh::Lrrh() : Entity(EntityType::LRRH)
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;
+	prehealth = health;
 }
 
 Lrrh::~Lrrh() {
@@ -26,28 +28,26 @@ bool Lrrh::Awake()
 {
 	if (app->teamManager->statsdone == false) {
 		id = 3;
-		position.x = parameters.attribute("x").as_int();
-		position.y = parameters.attribute("y").as_int();
-		 
-		health = stats.attribute("health").as_int();
-		maxHealth = stats.attribute("maxHealth").as_int();
-		defense = stats.attribute("defense").as_int();
-		magic = stats.attribute("magic").as_int();
-		stamina = stats.attribute("stamina").as_int();
-		maxStamina = stats.attribute("maxStamina").as_int();
-		speed = stats.attribute("speed").as_int();
-		attack = stats.attribute("attack").as_int();
-		AttArea = stats.attribute("AttArea").as_int();
-		Ab1Type = stats.attribute("Ab1Type").as_int();
-		Ab1Area = stats.attribute("Ab1Area").as_int();
-		Ab1RangeType = stats.attribute("Ab1RangeType").as_int();
-		Ab1Power = stats.attribute("Ab1Power").as_int();
-		Ab2Type = stats.attribute("Ab2Type").as_int();
-		Ab2Area = stats.attribute("Ab2Area").as_int();
-		Ab2RangeType = stats.attribute("Ab2RangeType").as_int();
-		Ab2Power = stats.attribute("Ab2Power").as_int();
-		healingpower = stats.attribute("healingpower").as_int();
-		movement = stats.attribute("movement").as_int();
+		health = 20;
+		maxHealth = 20;
+		defense = 3;
+		magic = 1;
+		stamina = 15;
+		maxStamina = 15;
+		speed = 6;
+		attack = 10;
+		AttArea = 2;
+		Ab1Type = 1;
+		Ab1Area = 3;
+		Ab1RangeType = 1;
+		Ab1Power = 18;
+		Ab2Type = 0;
+		Ab2Area = 0;
+		Ab2RangeType = 0;
+		Ab2Power = 0;
+		healingpower = 0;
+		movement = 3;
+
 		app->teamManager->statsdone = true;
 	}
 	idleAnim.PushBack({ 0, 0, 140, 140 });
@@ -59,6 +59,28 @@ bool Lrrh::Awake()
 	takedmgAnim.PushBack({ 150, 0, 140, 140 });
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
+
+	//ability
+	for (int i = 10; i < 12; i++)
+	{
+		abilityAnim.PushBack({ (i * 150), 235, 150, 195 });
+
+	}
+	for (int i = 10; i < 11; i++)
+	{
+		abilityAnim.PushBack({ (i * 150), 525, 150, 208 });
+
+	}
+	abilityAnim.loop = false;
+	abilityAnim.speed = 0.95f;
+
+	//arrow
+	for (int i = 12; i < 15; i++)
+	{
+		arrow.PushBack({ (i * 150), 61, 150, 679 });
+	}
+	arrow.loop = false;
+	arrow.speed = 0.20f;
 
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
@@ -90,6 +112,10 @@ bool Lrrh::Awake()
 
 	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh-atack.png");
 
+	currentAnimation = &idleAnim;
+	abilityAnimation = &none;
+
+	prehealth = health;
 	PrevPos = position;
 	return true;
 }
@@ -116,12 +142,27 @@ bool Lrrh::Update(float dt)
 		break; 
 
 	}
-	return true;
 
-	if (app->uiModule->currentMenuType == COMBAT) {
+
+	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsLrrhOnTeam) {
 		currentAnimation->Update();
 
-		if (position.x > PrevPos.x)
+		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (name == app->battleManager->currentTurn->name)
+			{
+				currentAnimation = &abilityAnim;
+				abilityAnimation = &arrow;
+
+				arrowPos.x = app->battleManager->targetPosForAnimation.x;
+				arrowPos.y = app->battleManager->targetPosForAnimation.y;
+
+			}
+
+
+		}
+
+		else if (position.x > PrevPos.x)
 		{
 			currentAnimation = &walkRightAnim;
 		}
@@ -154,16 +195,68 @@ bool Lrrh::Update(float dt)
 
 		}
 
+
+
 		PrevPos.x = position.x;
 		PrevPos.y = position.y;
 	}
 
+	if (health < prehealth)
+	{
+
+		currentAnimation = &takedmgAnim;
+		prehealth = health;
+	}
+
+	currentAnimation->Update();
+	abilityAnimation->Update();
+
+	return true;
 
 }
 
 bool Lrrh::PostUpdate()
 {
+	if (currentAnimation == &abilityAnim)
+	{
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 13, position.y - (35 + 60), &rect);
+	}
+	else if(app->uiModule->currentMenuType == COMBAT && app->teamManager->IsLrrhOnTeam) 
+	{
 
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	}
+
+
+	if (currentAnimation == &abilityAnim)
+	{
+		if (abilityAnim.HasFinished())
+		{
+			finishAnimBool = true;
+			currentAnimation == &idleAnim;
+
+		}
+	}
+
+	if (finishAnimBool)
+	{
+		if (!arrow.HasFinished())
+		{
+			SDL_Rect rect = abilityAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, arrowPos.x - 10, arrowPos.y - 600 + 75, &rect);
+		}
+
+		if (arrow.HasFinished())
+		{
+			abilityAnimation = &none;
+			abilityAnim.Reset();
+			arrow.Reset();
+			finishAnimBool = false;
+
+		}
+	}
 	return true;
 }
 

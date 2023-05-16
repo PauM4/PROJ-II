@@ -74,9 +74,6 @@
     <ClCompile Include="Source\MiddlePig.cpp">
       <Filter>Entities\Playable</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Peter.cpp">
-      <Filter>Entities\Playable</Filter>
-    </ClCompile>
     <ClCompile Include="Source\NpcW2.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
@@ -239,9 +236,6 @@
       <Filter>Entities\Playable</Filter>
     </ClInclude>
     <ClInclude Include="Source\MiddlePig.h">
-      <Filter>Entities\Playable</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Peter.h">
       <Filter>Entities\Playable</Filter>
     </ClInclude>
     <ClInclude Include="Source\NpcW2.h">
