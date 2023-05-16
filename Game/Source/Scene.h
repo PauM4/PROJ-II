@@ -163,6 +163,8 @@ public:
 	//Load FX rope
 	int ropeFX = -1;
 
+	int stepQuest; 
+
 	
 
 private:

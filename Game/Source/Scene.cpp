@@ -144,19 +144,7 @@ bool Scene::Start()
 
 	}
 
-	if (isNewGame)
-	{
-		player->ChangePosition(1868, 5608);
-		basicTutorialCounter = 0;
-		battleTutorialCounter = 0;
-		isNewGame = false;
-	}
-	else
-	{
-		app->LoadGameRequest();
-		basicTutorialCounter = 2;
-		battleTutorialCounter = 3;
-	}
+	stepQuest = 0; 
 	numEnteredQuestVillager = 0;
 	numEnteredQuestLHHR = 0;
 
@@ -230,6 +218,25 @@ bool Scene::Start()
 	secondQuestCollider = app->physics->CreateRectangleSensor(1756 + 443/2, 3968 + 101/2, 443, 101, bodyType::STATIC);
 	secondQuestCollider->ctype = ColliderType::SECQUESTCOLLIDER;
 
+	if (isNewGame)
+	{
+		player->ChangePosition(1868, 5608);
+		basicTutorialCounter = 0;
+		battleTutorialCounter = 0;
+		isNewGame = false;
+	}
+	else
+	{
+		app->LoadGameRequest();
+		basicTutorialCounter = 2;
+		battleTutorialCounter = 3;
+	}
+
+	for (int i = 0; i < stepQuest; i++) {
+		nextQuest();
+	}
+
+
 	return true;
 }
 
@@ -267,18 +274,21 @@ bool Scene::Update(float dt)
 	MoveToBattleFromDialogue();
 
 	if (angryVillagerDefeated == true && numEnteredQuestVillager == 0) {
-		questList[currentQuestIndex].completed = true; 
+		nextQuest();
 		numEnteredQuestVillager++;
+		stepQuest++; 
 	}
 
 	if (LRRHDefeated == true && numEnteredQuestLHHR == 1) {
-		questList[currentQuestIndex].completed = true;
+		nextQuest();
 		numEnteredQuestLHHR++;
+		stepQuest++;
 	}
 
 	if (talkedToGrandma == true && numEnteredQuestLHHR == 0) {
-		questList[currentQuestIndex].completed = true;
+		nextQuest();
 		numEnteredQuestLHHR++;
+		stepQuest++;
 	}
 
 	// Check if the current quest is completed
@@ -1027,6 +1037,8 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 	battleTutorialCounter = data.child("saveBattleTutoState").attribute("state").as_int();
 
+	stepQuest = data.child("stepQuest").attribute("num").as_int();
+
 	//LoadChests(data);
 
 
@@ -1070,6 +1082,10 @@ bool Scene::SaveState(pugi::xml_node& data)
 
 		pugi::xml_node saveBattleTutorialState = data.append_child("saveBattleTutoState");
 		saveBattleTutorialState.append_attribute("state") = battleTutorialCounter;
+
+		pugi::xml_node stepQuestState = data.append_child("stepQuest");
+		stepQuestState.append_attribute("num") = stepQuest;
+
 	}
 
 	return true;

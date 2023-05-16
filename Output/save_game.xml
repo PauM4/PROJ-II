@@ -17,7 +17,7 @@
 	<sceneFoxQuest />
 	<battleScene_Pigs />
 	<w2_scene>
-		<player x="5588" y="3123" />
+		<player x="710" y="3313" />
 	</w2_scene>
 	<w2_scene_maze>
 		<player />
@@ -31,7 +31,7 @@
 	<guiManager />
 	<teamManager>
 		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
-		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="true" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
+		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
 		<inventory>
 			<yoyo isobtained="true" character="1" />
 			<handsxd isobtained="true" character="2" />
@@ -57,7 +57,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-4394" y="-2553" />
+		<camera x="237" y="-2743" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

@@ -109,9 +109,6 @@ bool W2_Scene::Start()
 		app->LoadGameRequest();
 	}
 
-	//player->ChangePosition(871, 3117);
-	player->ChangePosition(5000, 3117);
-
 	pauseMenuActive = false;
 	exitButtonBool = false;
 	zorroDialogue = false;
@@ -549,7 +546,10 @@ bool W2_Scene::LoadState(pugi::xml_node& data)
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
-	//player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+	if (active)
+	{
+		player->ChangePosition(loadPlayerPosX, loadPlayerPosY);
+	}
 
 	pugi::xml_node battleInfo = data.parent().child("BattleInfo");
 	pigsDefeated = battleInfo.attribute("isPigDefeated").as_bool();
