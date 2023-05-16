@@ -470,12 +470,8 @@ bool TeamManager::CleanUp()
 	equipment.Clear();
 	statslist.Clear();
 	statslist2.Clear();
-	timmy->CleanUp();
-	bunny->CleanUp();
-	lrrh->CleanUp();
-	littlepig->CleanUp();
-	middlepig->CleanUp();
-	peter->CleanUp();
+
+
 	return true;
 }
 

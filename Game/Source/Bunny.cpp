@@ -18,6 +18,7 @@ Bunny::Bunny() : Entity(EntityType::BUNNY)
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;
+	prehealth = health;
 
 }
 
@@ -186,8 +187,15 @@ bool Bunny::Update(float dt)
 
 		}
 
+
 		PrevPos.x = position.x;
 		PrevPos.y = position.y;
+	}
+
+	if (health < prehealth) {
+
+		currentAnimation = &takedmgAnim;
+		prehealth = health;
 	}
 	return true;
 }
