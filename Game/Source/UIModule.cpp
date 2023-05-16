@@ -313,6 +313,23 @@ bool UIModule::PostUpdate()
 
 				app->scene->player->dialogueActivate = false;
 			}
+
+			// Tutorial Battle draw
+			if (app->scene->battleTutorialCounter == 0)
+			{
+				SDL_Rect rect = { 0, 0, 1920, 1080 };
+				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+			}
+			else if (app->scene->battleTutorialCounter == 1)
+			{
+				SDL_Rect rect = { 1920, 0, 1920, 1080 };
+				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+			}
+			else if (app->scene->battleTutorialCounter == 2)
+			{
+				SDL_Rect rect = { 3840, 0, 1920, 1080 };
+				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+			}
 		}
 
 
@@ -1105,6 +1122,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 		inventoryButtonsList.At(numOfItem)->data->text = "Unequipped";
 
 		//Unequip FX
+		app->audio->PlayFx(unequipitemFx);
 	} // If not equiped
 	else
 	{
@@ -1116,6 +1134,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 				&& app->teamManager->itemstoshow.At(i)->data->character != 0)
 			{
 				//Error FX
+				app->audio->PlayFx(errorFX);
 				return;
 			}
 		}
@@ -1123,6 +1142,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 		inventoryButtonsList.At(numOfItem)->data->text = "Equipped";
 
 		//Equip FX
+		app->audio->PlayFx(equipitemFx);
 	}
 }
 

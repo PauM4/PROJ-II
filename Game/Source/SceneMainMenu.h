@@ -4,7 +4,6 @@
 #include "Module.h"
 
 
-
 struct SDL_Texture;
 
 class SceneMainMenu : public Module
@@ -45,7 +44,7 @@ public:
 
 	SDL_Rect press_enterRect;
 
-	//Tween tittleAnim;
+	//Tween xavi;
 
 	bool creditsOpen;
 
