@@ -106,7 +106,9 @@ bool Scene::Awake(pugi::xml_node& config)
 	moveTutorialTextutre = app->tex->Load("Assets/UI/Movement_Guide.png");
 	interactTutorialTextutre = app->tex->Load("Assets/UI/Interact_Guide.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
+	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
 	currentQuestIndex = 0;
+	
 
 	return ret;
 
@@ -171,6 +173,10 @@ bool Scene::Start()
 
 	ropeX = -app->render->camera.x + 1078;
 	ropeY = -app->render->camera.y;
+
+	//Rect for chest Texture
+	chestHRect = {4, 36, 90, 77};
+	chestVRect = {15, 123, 71, 101};
 
 	ropeWin = false;
 	minigameActive = false;
@@ -409,6 +415,9 @@ bool Scene::PostUpdate()
 		return false;
 	}
 
+	app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
+	app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
+	app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 	return ret;
 }
 
@@ -456,6 +465,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(moveTutorialTextutre);
 	app->tex->UnLoad(interactTutorialTextutre);
 	app->tex->UnLoad(lvlupTexture);
+	app->tex->UnLoad(chestTexture);
 	
 
 	return true;

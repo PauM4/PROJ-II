@@ -165,11 +165,11 @@ bool BattleManager::Update(float dt) {
 							targets.At(i)->data->health = targets.At(i)->data->health - (currentTurn->attack - targets.At(i)->data->defense);
 							app->sceneBattle->TakeDamageAnimation(targets.At(i)->data->name.GetString());
 							if (actionType == ActionType::ABILITY) {
-
+								app->audio->PlayFx(currentTurn->abilityFx);
 								//audio ability
 							}
 							if (actionType == ActionType::ATTACK) {
-
+								app->audio->PlayFx(currentTurn->attackFx);
 								//adio attack
 							}
 						
@@ -260,7 +260,7 @@ bool BattleManager::Update(float dt) {
 						targets.Clear();
 						currentTurn->UseStamina(5);
 						entitylist = NULL;
-						
+						app->audio->PlayFx(currentTurn->abilityFx);
 						battleState = BattleState::INACTION;
 
 						

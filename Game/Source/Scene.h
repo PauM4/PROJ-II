@@ -138,6 +138,11 @@ public:
 	SDL_Rect ropeRect;
 	SDL_Rect keyRect;
 
+	//Chests
+	SDL_Texture* chestTexture;
+	SDL_Rect chestHRect;
+	SDL_Rect chestVRect;
+
 	bool angryVillagerDefeated, LRRHDefeated;
 
 	int numTimesAVDialogueTriggered, numTimesLRRHDialogueTriggered;

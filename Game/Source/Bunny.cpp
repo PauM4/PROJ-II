@@ -98,7 +98,8 @@ bool Bunny::Awake()
 bool Bunny::Start()
 {
 	PrevPos = position;
-
+	attackFx = app->audio->LoadFx("Assets/Sounds/FX/fx_attack.wav");
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_lightning.wav");
 	return true;
 }
 
