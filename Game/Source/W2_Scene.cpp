@@ -62,11 +62,45 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 
 	CreateDialogue(); //3MB
 
+	pugi::xml_node chestNode4 = config.child("chest4");
+	chest4 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	chest4->parameters = chestNode4;
+	chest4->position.x = chestNode4.attribute("x").as_int();
+	chest4->position.y = chestNode4.attribute("y").as_int();
+	chest4->width = chestNode4.attribute("width").as_int();
+	chest4->height = chestNode4.attribute("height").as_int();
+	chest4->chestId = chestNode4.attribute("id").as_int();
+	PhysBody* chest4PB = app->physics->CreateRectangleSensor(chest4->position.x + chest4->width / 2, chest4->position.y + chest4->height / 2, chest4->width, chest4->height, bodyType::STATIC);
+	chest4PB->ctype = ColliderType::CHEST4;
+
+	pugi::xml_node chestNode5 = config.child("chest5");
+	chest5 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	chest5->parameters = chestNode5;
+	chest5->position.x = chestNode5.attribute("x").as_int();
+	chest5->position.y = chestNode5.attribute("y").as_int();
+	chest5->width = chestNode5.attribute("width").as_int();
+	chest5->height = chestNode5.attribute("height").as_int();
+	chest5->chestId = chestNode5.attribute("id").as_int();
+	PhysBody* chest5PB = app->physics->CreateRectangleSensor(chest5->position.x + chest5->width / 2, chest5->position.y + chest5->height / 2, chest5->width, chest5->height, bodyType::STATIC);
+	chest5PB->ctype = ColliderType::CHEST5;
+
+	pugi::xml_node chestNode6 = config.child("chest6");
+	chest6 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	chest6->parameters = chestNode6;
+	chest6->position.x = chestNode6.attribute("x").as_int();
+	chest6->position.y = chestNode6.attribute("y").as_int();
+	chest6->width = chestNode6.attribute("width").as_int();
+	chest6->height = chestNode6.attribute("height").as_int();
+	chest6->chestId = chestNode6.attribute("id").as_int();
+	PhysBody* chest6PB = app->physics->CreateRectangleSensor(chest6->position.x + chest6->width / 2, chest6->position.y + chest6->height / 2, chest6->width, chest6->height, bodyType::STATIC);
+	chest6PB->ctype = ColliderType::CHEST6;
+
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters2_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
+	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
 
 	currentQuestIndex = 0;
 
@@ -147,6 +181,10 @@ bool W2_Scene::Start()
 	quest5.description = "Get through the portal";
 	questList.push_back(quest5);
 
+	chestHRect = { 4, 36, 90, 77 };
+	chestVRect = { 12, 135, 71, 101 };
+	chestopenHRect = { 105, 3, 88, 108 };
+	chestopenVRect = { 107, 134, 74, 100 };
 
 	return true;
 }
@@ -257,6 +295,13 @@ bool W2_Scene::PostUpdate()
 {
 	bool ret = true;
 
+	if (chest4->isPicked)app->render->DrawTexture(app->w2_scene->chestTexture, 1447, 2666, &app->w2_scene->chestopenHRect);
+	else app->render->DrawTexture(app->w2_scene->chestTexture, 1447, 2666, &app->w2_scene->chestHRect);
+	if (chest5->isPicked) app->render->DrawTexture(app->w2_scene->chestTexture, 3382, 2705, &app->w2_scene->chestopenHRect);
+	else app->render->DrawTexture(app->w2_scene->chestTexture, 3382, 2705, &app->w2_scene->chestHRect);
+	if (chest6->isPicked) app->render->DrawTexture(app->w2_scene->chestTexture, 2101, 1910, &app->w2_scene->chestopenVRect);
+	else app->render->DrawTexture(app->w2_scene->chestTexture, 2101, 1910, &app->w2_scene->chestVRect);
+
 	if (!godMode) app->map->PostDraw(player->position.y + 40);
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -314,7 +359,8 @@ bool W2_Scene::CleanUp()
 	app->tex->UnLoad(uiSpriteTexture);
 	app->tex->UnLoad(questUiTexture);
 	app->tex->UnLoad(lvlupTexture);
-	app->tex->UnLoad(eKeyTexture);	
+	app->tex->UnLoad(eKeyTexture);
+	app->tex->UnLoad(chestTexture);
 
 	return true;
 }
@@ -611,4 +657,13 @@ void W2_Scene::nextQuest() {
 		// If we've reached the end of the quest list, wrap around to the beginning
 		currentQuestIndex = 0;
 	}
+}
+
+// Code to Load Chests variables, encapsulated. It is called in LoadState() 
+void W2_Scene::LoadChests(pugi::xml_node& data)
+{
+	chest4->isPicked = data.child("chest4").attribute("isPicked").as_bool();
+	chest5->isPicked = data.child("chest5").attribute("isPicked").as_bool();
+	chest6->isPicked = data.child("chest6").attribute("isPicked").as_bool();
+
 }

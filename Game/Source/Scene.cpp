@@ -290,12 +290,6 @@ bool Scene::Update(float dt)
 	//Draw map
 	app->map->Draw();
 
-	if (chest1->isPicked)app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestopenHRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
-	if (chest2->isPicked) app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestopenVRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
-	if (chest3->isPicked) app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestopenHRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 
 
 	if(basicTutorialCounter < 2)
@@ -444,6 +438,13 @@ void Scene::AppearDialogue()
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+
+	if (chest1->isPicked)app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
+	if (chest2->isPicked) app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestopenVRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
+	if (chest3->isPicked) app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 
 	if (!godMode) app->map->PostDraw((player->position.y + 40));
 
