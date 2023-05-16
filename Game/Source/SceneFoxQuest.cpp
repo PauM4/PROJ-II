@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "Fonts.h"
+#include "SceneManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -24,8 +25,13 @@ SceneFoxQuest::~SceneFoxQuest()
 
 bool SceneFoxQuest::Awake(pugi::xml_node& config)
 {
-	mapLength = 8;
-	mapHeigth = 8;
+	mapLength = 10;
+	mapHeigth = 10;
+	app->render->camera.x = 0; 
+	app->render->camera.y = 0; 
+	rockTexture = app->tex->Load("Assets/Characters/Rocas_cueva.png");
+	mapTexture = app->tex->Load("Assets/Maps/World_01/Cueva_puzzle.png");
+	movingRock = false; 
 	return true;
 }
 
@@ -40,12 +46,51 @@ bool SceneFoxQuest::Start()
 			map[i][j]->x = i;
 			map[i][j]->y = j;
 			map[i][j]->state = TileState::EMPTY; 
+			if (i == 0 || i == 9 || j == 0 || j == 9) {
+				map[i][j]->state = TileState::WALL;
+			}
 		}
 	}
-	map[3][3]->state = TileState::PLAYER; 
-	map[0][1]->state = TileState::ROCK;
-	map[0][2]->state = TileState::ROCK;
-	map[1][0]->state = TileState::ROCK;
+	map[2][0]->state = TileState::EXIT; 
+	map[5][9]->state = TileState::ENTRANCE;
+	map[5][8]->state = TileState::PLAYER; 
+
+	map[1][7]->state = TileState::ROCK;
+	map[2][7]->state = TileState::ROCK;
+	map[3][7]->state = TileState::ROCK;
+
+	map[3][6]->state = TileState::PULLROCK; 
+	map[6][6]->state = TileState::ROCK;
+	map[7][6]->state = TileState::ROCK;
+
+	map[1][5]->state = TileState::ROCK;
+	map[2][5]->state = TileState::ROCK;
+	map[4][5]->state = TileState::ROCK;
+	map[5][5]->state = TileState::ROCK;
+	map[6][5]->state = TileState::PULLROCK; 
+	map[8][5]->state = TileState::ROCK;
+
+	map[1][4]->state = TileState::ROCK;
+	map[3][4]->state = TileState::ROCK; 
+	map[5][4]->state = TileState::ROCK;
+	map[7][4]->state = TileState::ROCK;
+
+	map[2][3]->state = TileState::ROCK;
+	map[3][3]->state = TileState::PULLROCK;
+	map[5][3]->state = TileState::ROCK;
+	map[6][3]->state = TileState::ROCK;
+	map[7][3]->state = TileState::CHEST;
+	map[8][3]->state = TileState::ROCK;
+
+	map[1][2]->state = TileState::ROCK;
+	map[3][2]->state = TileState::ROCK;
+	map[4][2]->state = TileState::ROCK;
+	map[5][2]->state = TileState::ROCK;
+	map[6][2]->state = TileState::ROCK;
+	map[7][2]->state = TileState::ROCK;
+	map[8][2]->state = TileState::ROCK;
+
+
 
 	player = new TilePlayer(); 
 
@@ -75,30 +120,58 @@ bool SceneFoxQuest::Update(float dt)
 		switch (player->direction) {
 		case Direction::RIGHT:
 			player->tilePos.x += 3; 
-			if (player->tilePos.x >= player->pos.x * 150) {
+			if (player->tilePos.x >= player->pos.x * 108 + 420) {
 				player->isMoving = false; 
-				player->currentAnimation = &player->idleAnim; 
+				if (movingRock == true) {
+					player->currentAnimation = &player->idleLeft;
+					player->direction = Direction::LEFT;
+					movingRock = false; 
+				}
+				else {
+					player->currentAnimation = &player->idleRight;
+				}
 			}
 			break; 
 		case Direction::LEFT:
 			player->tilePos.x -= 3;
-			if (player->tilePos.x <= player->pos.x * 150) {
+			if (player->tilePos.x <= player->pos.x * 108 + 420) {
 				player->isMoving = false;
-				player->currentAnimation = &player->idleAnim;
+				if (movingRock == true) {
+					player->currentAnimation = &player->idleRight;
+					player->direction = Direction::RIGHT;
+					movingRock = false;
+				}
+				else {
+					player->currentAnimation = &player->idleLeft;
+				}
 			}
 			break; 
 		case Direction::UP:
 			player->tilePos.y -= 3;
-			if (player->tilePos.y <= player->pos.y * 150) {
+			if (player->tilePos.y <= player->pos.y * 108) {
 				player->isMoving = false;
-				player->currentAnimation = &player->idleAnim;
+				if (movingRock == true) {
+					player->currentAnimation = &player->idleAnim;
+					player->direction = Direction::DOWN;
+					movingRock = false;
+				}
+				else {
+					player->currentAnimation = &player->idleUp;
+				}
 			}
 			break; 
 		case Direction::DOWN:
 			player->tilePos.y += 3;
-			if (player->tilePos.y >= player->pos.y * 150) {
+			if (player->tilePos.y >= player->pos.y * 108) {
 				player->isMoving = false;
-				player->currentAnimation = &player->idleAnim;
+				if (movingRock == true) {
+					player->currentAnimation = &player->idleUp;
+					player->direction = Direction::UP;
+					movingRock = false;
+				}
+				else {
+					player->currentAnimation = &player->idleAnim;
+				}
 			}
 			break; 
 		}
@@ -111,16 +184,23 @@ bool SceneFoxQuest::Update(float dt)
 bool SceneFoxQuest::PostUpdate()
 {
 	//Print all the map
+	SDL_Rect rectMap = { 0, 0, 1080, 1080 };
+	app->render->DrawTexture(mapTexture, 420, 0, &rectMap);
+
 	for (int i = 0; i < mapLength; i++) {
 		for (int j = 0; j < mapHeigth; j++) {
-			if (map[i][j]->state == TileState::PLAYER) {
-				player->Draw(); 
-			}
 			if (map[i][j]->state == TileState::ROCK) {
-
+				SDL_Rect rect = { 326,431,108,108 };
+				app->render->DrawTexture(rockTexture, i*108 + 420, j*108, &rect);
+			}
+			if (map[i][j]->state == TileState::PULLROCK) {
+				SDL_Rect rect = { 490,436,108,108 };
+				app->render->DrawTexture(rockTexture, i * 108 + 420, j * 108, &rect);
 			}
 		}
 	}
+
+	player->Draw();
 	return true;
 }
 
@@ -150,7 +230,7 @@ bool SceneFoxQuest::HitWall(int x, int y)
 
 bool SceneFoxQuest::HitRock(int x, int y)
 {
-	return map[x][y]->state == TileState::ROCK; 
+	return map[x][y]->state == TileState::ROCK || map[x][y]->state == TileState::PULLROCK;
 }
 
 void SceneFoxQuest::Movement()
@@ -179,6 +259,38 @@ void SceneFoxQuest::Movement()
 			player->direction = Direction::DOWN;
 		}
 	}
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		switch (player->direction) {
+		case Direction::LEFT:
+			if (map[player->pos.x - 1][player->pos.y]->state == TileState::PULLROCK) {
+				PullRock(1, 0, player->pos.x, player->pos.y);
+			}
+			break; 
+		case Direction::RIGHT:
+			if (map[player->pos.x + 1][player->pos.y]->state == TileState::PULLROCK) {
+				PullRock(-1, 0, player->pos.x, player->pos.y);
+			}
+			break; 
+		case Direction::UP:
+			if (map[player->pos.x][player->pos.y - 1]->state == TileState::PULLROCK) {
+				PullRock(0, 1, player->pos.x, player->pos.y);
+			}
+			break;
+		case Direction::DOWN:
+			if (map[player->pos.x][player->pos.y +1]->state == TileState::PULLROCK) {
+				PullRock(0, -1, player->pos.x, player->pos.y);
+			}
+			break;
+		}
+	}
+
+	if (map[player->pos.x][player->pos.y]->state == TileState::EXIT) {
+		app->sceneManager->LoadScene(GameScene::SCENE); //Change to world 2
+	}
+
+	if (map[player->pos.x][player->pos.y]->state == TileState::ENTRANCE) {
+		app->sceneManager->LoadScene(GameScene::SCENE); //Change to world 2
+	}
 }
 
 bool SceneFoxQuest::PushRock(int moveX, int moveY, int pX, int pY)
@@ -190,9 +302,50 @@ bool SceneFoxQuest::PushRock(int moveX, int moveY, int pX, int pY)
 	if (HitWall(newRockX, newRockY)||HitRock(newRockX, newRockY)) {
 		return false; 
 	}
-	map[pX][pY]->state = TileState::EMPTY; 
-	map[newRockX][newRockY]->state = TileState::ROCK; 
+	if (map[pX][pY]->state == TileState::ROCK) {
+		map[pX][pY]->state = TileState::EMPTY;
+		map[newRockX][newRockY]->state = TileState::ROCK;
+	}
+	else if (map[pX][pY]->state == TileState::PULLROCK) {
+		map[pX][pY]->state = TileState::EMPTY;
+		map[newRockX][newRockY]->state = TileState::PULLROCK;
+	}
+
 	LOG("PUSH ROCK");
+
+	return true;
+}
+
+bool SceneFoxQuest::PullRock(int moveX, int moveY, int pX, int pY)
+{
+	int newPlayerX = pX + moveX; 
+	int newPlayerY = pY + moveY; 
+	movingRock = true; 
+
+	//If rock is pushed into wall or rock, dont move it
+	if (HitWall(newPlayerX, newPlayerY) || HitRock(newPlayerX, newPlayerY)) {
+		return false;
+	}
+	player->isMoving = true; 
+	
+	map[pX][pY]->state = TileState::PULLROCK;
+	map[pX-moveX][pY- moveY]->state = TileState::EMPTY;
+	LOG("PULLED ROCK"); 
+
+	if (moveX == 1) {
+		player->direction = Direction::RIGHT;
+	}
+	else if (moveX == -1) {
+		player->direction = Direction::LEFT;
+	}
+	else if (moveY == 1) {
+		player->direction = Direction::DOWN;
+	}
+	else if (moveY == -1) {
+		player->direction = Direction::UP;
+	}
+	player->pos.x = newPlayerX;
+	player->pos.y = newPlayerY;
 
 	return true;
 }
@@ -208,6 +361,15 @@ TilePlayer::TilePlayer() {
 
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
+
+	idleUp.PushBack({0, 600, 150, 150});
+	idleUp.loop = true; 
+
+	idleLeft.PushBack({ 1350, 300, 150, 150 });
+	idleLeft.loop = true; 
+
+	idleRight.PushBack({ 1350, 450, 150, 150 });
+	idleRight.loop = true; 
 
 	for (int i = 0; i < 10; i++) 
 	{
@@ -257,27 +419,77 @@ void TilePlayer::Move(int x, int y) {
 	if (app->sceneFoxQuest->HitWall(newPlayerX, newPlayerY)) {
 		LOG("HIT WALL");
 		isMoving = false;
-		currentAnimation = &idleAnim;
+		if (x == 1) {
+			direction = Direction::RIGHT; 
+		}
+		else if(x == -1) {
+			direction = Direction::LEFT; 
+		}
+		else if (y == 1) {
+			direction = Direction::DOWN;
+		}
+		else if (y == -1) {
+			direction = Direction::UP; 
+		}
+
+		switch (direction) {
+		case Direction::RIGHT:
+			currentAnimation = &idleRight; 
+			break; 
+		case Direction::LEFT:
+			currentAnimation = &idleLeft; 
+			break; 
+		case Direction::UP:
+			currentAnimation = &idleUp;
+			break; 
+		case Direction::DOWN:
+			currentAnimation = &idleAnim;
+			break; 
+		}
 		return; 
 	}
 	if (app->sceneFoxQuest->HitRock(newPlayerX, newPlayerY)) {
 		if (!app->sceneFoxQuest->PushRock(x, y, newPlayerX, newPlayerY)){
 			LOG("CANT PUSH ROCK");
 			isMoving = false; 
-			currentAnimation = &idleAnim;
+			if (x == 1) {
+				direction = Direction::RIGHT;
+			}
+			else if (x == -1) {
+				direction = Direction::LEFT;
+			}
+			else if (y == 1) {
+				direction = Direction::DOWN;
+			}
+			else if (y == -1) {
+				direction = Direction::UP;
+			}
+			switch (direction) {
+			case Direction::RIGHT:
+				currentAnimation = &idleRight;
+				break;
+			case Direction::LEFT:
+				currentAnimation = &idleLeft;
+				break;
+			case Direction::UP:
+				currentAnimation = &idleUp;
+				break;
+			case Direction::DOWN:
+				currentAnimation = &idleAnim;
+				break;
+			}
 			return;
 		}
 	}
 
 	pos.x = newPlayerX; 
 	pos.y = newPlayerY; 
-
 	 
 }
 
 void TilePlayer::Draw() {
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, tilePos.x, tilePos.y, &rect);
+	app->render->DrawTexture(texture, tilePos.x - 20, tilePos.y - 15, &rect);
 	currentAnimation->Update(); 
 }
 
@@ -285,7 +497,6 @@ void TilePlayer::SetAnimation(int x, int y)
 {
 	if (x > 0) {
 		currentAnimation = &walkRightAnim; 
-		
 		LOG("Walking right");
 	}
 	else if (x < 0) {
@@ -310,8 +521,8 @@ void TilePlayer::SetPlayerPos(int x, int y)
 	pos.x = newPlayerX;
 	pos.y = newPlayerY;
 
-	tilePos.x = pos.x * 150; 
-	tilePos.y = pos.y * 150;
+	tilePos.x = pos.x * 108 + 420; 
+	tilePos.y = pos.y * 108;
 }
 
 bool TilePlayer::CleanUp()

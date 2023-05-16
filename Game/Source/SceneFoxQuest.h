@@ -14,7 +14,10 @@ enum class TileState {
 	PLAYER, 
 	WALL, 
 	ROCK,
+	PULLROCK,
 	EMPTY,
+	ENTRANCE, 
+	EXIT,
 	CHEST
 };
 
@@ -56,6 +59,9 @@ public:
 	Animation walkRightAnim;
 	Animation walkLeftAnim;
 	Animation idleAnim;
+	Animation idleUp; 
+	Animation idleRight; 
+	Animation idleLeft; 
 	Direction direction; 
 	bool isMoving; 
 
@@ -97,14 +103,22 @@ public:
 	
 	void Movement(); 
 
-	bool PushRock(int moveX, int moveY, int pX, int pY); 
+	bool PushRock(int moveX, int moveY, int pX, int pY);
+
+	bool PullRock(int moveX, int moveY, int pX, int pY);
 
 
 
 public:
-	Tile* map[8][8] = {0};
+	Tile* map[10][10] = {0};
 
 	TilePlayer* player;  
+
+	SDL_Texture* rockTexture; 
+
+	SDL_Texture* mapTexture; 
+
+	bool movingRock; 
 private:
 
 	int mapLength; 
