@@ -163,7 +163,7 @@ bool Scene::Start()
 	numTimesAVDialogueTriggered = 0;
 	numTimesLRRHDialogueTriggered = 0;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.2f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.1f);
 
 	// Rect for Rope texture
 	ropeRect = { 0, 0, 177, 971};
