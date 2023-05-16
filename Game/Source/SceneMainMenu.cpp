@@ -32,8 +32,12 @@ bool SceneMainMenu::Awake(pugi::xml_node& config)
 bool SceneMainMenu::Start()
 {	
 	mainMenu_image = app->tex->Load("Assets/UI/A_MainMenuBackground_SceneMainMenu.png");
+	mainMenu_image_tittle = app->tex->Load("Assets/UI/TittleScreen_Tittle.png");
+	UI_spritesheet_final = app->tex->Load("Assets/UI/UI_Spritesheet_FINAL.png");
 	mainMenuRipped_image = app->tex->Load("Assets/UI/A_MainMenuRipped_SceneManager.png");
 	credits_image = app->tex->Load("Assets/UI/A_Credits_MainMenu.png");
+
+	press_enterRect = { 3487, 2199, 351, 40 };
 
 	w = app->win->width;
 	h = app->win->height;
@@ -94,6 +98,7 @@ bool SceneMainMenu::PostUpdate()
 	else
 	{
 		app->render->DrawTexture(mainMenu_image, 0, 0, NULL);
+		//app->render->DrawTexture(UI_spritesheet_final, 786, 453, &press_enterRect);
 	}
 
 	if (creditsOpen)
@@ -113,8 +118,10 @@ bool SceneMainMenu::CleanUp()
 {
 	LOG("Freeing sceneMainMenu");	
 	app->tex->UnLoad(mainMenu_image);
+	app->tex->UnLoad(mainMenu_image_tittle);
 	app->tex->UnLoad(credits_image);
 	app->tex->UnLoad(mainMenuRipped_image);
+	
 
 	return true;
 }

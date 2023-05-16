@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+
+
 struct SDL_Texture;
 
 class SceneMainMenu : public Module
@@ -36,8 +38,14 @@ public:
 public:
 	
 	SDL_Texture* mainMenu_image;
+	SDL_Texture* mainMenu_image_tittle;
+	SDL_Texture* UI_spritesheet_final;
 	SDL_Texture* mainMenuRipped_image;
 	SDL_Texture* credits_image;
+
+	SDL_Rect press_enterRect;
+
+	//Tween tittleAnim;
 
 	bool creditsOpen;
 

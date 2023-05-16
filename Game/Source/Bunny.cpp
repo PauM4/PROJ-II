@@ -29,7 +29,6 @@ bool Bunny::Awake()
 		id = 1;
 		position.x = parameters.attribute("x").as_int();
 		position.y = parameters.attribute("y").as_int();
-		level = stats.attribute("level").as_int();
 		health = stats.attribute("health").as_int();
 		maxHealth = stats.attribute("maxHealth").as_int();
 		defense = stats.attribute("defense").as_int();
@@ -89,7 +88,7 @@ bool Bunny::Awake()
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
-	texture = app->tex->Load("Assets/Characters/F_sprites_bunny.png");
+	texture = app->tex->Load("Assets/Characters/F_sprites_bunny-atack.png");
 	currentAnimation = &idleAnim;
 	PrevPos = position;
 	return true;

@@ -45,7 +45,7 @@ bool Enemy_LittlePig::Awake()
 	id = 3;
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
-	level = stats.attribute("level").as_int();
+	 
 	health = stats.attribute("health").as_int();
 	maxHealth = stats.attribute("maxHealth").as_int();
 	defense = stats.attribute("defense").as_int();

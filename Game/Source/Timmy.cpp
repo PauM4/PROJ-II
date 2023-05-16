@@ -27,7 +27,6 @@ bool Timmy::Awake()
 {
 	if (app->teamManager->statsdone == false) {
 		id = 1;
-		level = stats.attribute("level").as_int();
 		health = stats.attribute("health").as_int();
 		maxHealth = stats.attribute("maxHealth").as_int();
 		defense = stats.attribute("defense").as_int();
@@ -51,6 +50,12 @@ bool Timmy::Awake()
 	}
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
+
+	attackDAnim.PushBack({ 59, 889, 150, 155 });
+	attackUAnim.PushBack({ 2250, 1050, 150, 155 });
+	attackRAnim.PushBack({ 677, 848, 150, 155 });
+	attackLAnim.PushBack({ 370, 847, 150, 155 });
+
 
 	takedmgAnim.PushBack({ 150, 0, 140, 140 });
 	takedmgAnim.PushBack({ 150, 0, 140, 140 });
@@ -87,7 +92,7 @@ bool Timmy::Awake()
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
-	texture = app->tex->Load("Assets/Characters/Medidas_sprites_anim-sombra_def.png");
+	texture = app->tex->Load("Assets/Characters/F_sprites_timmy-atack.png");
 	currentAnimation = &idleAnim;
 	PrevPos = position;
 	return true;

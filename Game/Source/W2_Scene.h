@@ -56,6 +56,8 @@ public:
 
 	void nextQuest();
 
+	bool CheckInsideBoundaries();
+
 	std::vector<std::string> GetDialogue() { return dialogue; }
 
 
@@ -91,6 +93,7 @@ public:
 
 	// New Game things
 	bool isNewGame;
+	bool zorroDialogue;
 
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;
@@ -98,7 +101,6 @@ public:
 	SDL_Texture* lvlupTexture;
 	SDL_Texture* eKeyTexture;
 	SDL_Texture* textDialogue;
-	Tween eKeyAnim;
 	bool inventoryOpen;
 
 private:
