@@ -55,6 +55,10 @@ bool Scene::Awake(pugi::xml_node& config)
 		doors.Add(door);
 	}
 
+	portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
+	portal->parameters = config.child("portal");
+
+
 	pugi::xml_node chestNode1 = config.child("chest1");
 	chest1 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 	chest1->parameters = chestNode1;

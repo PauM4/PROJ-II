@@ -6,6 +6,7 @@
 #include "Door.h"
 #include "Npc.h"
 #include "Item.h"
+#include "Portal.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -101,6 +102,7 @@ public:
 	Player* player;
 	Npc* npc1;
 	List<Door*> doors;
+	Portal* portal;
 	Item* chest1;
 	Item* chest2;
 	Item* chest3;

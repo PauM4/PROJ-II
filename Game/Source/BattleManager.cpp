@@ -18,6 +18,8 @@
 #include "Log.h"
 #include"Enemy_AngryVillager.h"
 #include "SceneBattle.h"
+#include "SceneCombatLHHR.h"
+#include"BattleScene_Pigs.h"
 
 
 BattleManager::BattleManager(bool isActive) : Module(isActive) {
@@ -258,6 +260,7 @@ bool BattleManager::Update(float dt) {
 					if (enemyAttackTimer.Test() == FIN) {
 						entitylist->data->health = entitylist->data->health - (currentTurn->attack - entitylist->data->defense);
 						app->sceneBattle->TakeDamageAnimation(targets.start->data->name.GetString());
+						targetPosForAIAnimation = entitylist->data->position;
 						targets.Clear();
 						currentTurn->UseStamina(5);
 						entitylist = NULL;
@@ -363,7 +366,10 @@ bool BattleManager::PostUpdate() {
 	}
 
 	for (ListItem<Entity*>* entiyItem = enemies.start; entiyItem != NULL; entiyItem = entiyItem->next){
-		app->sceneBattle->UpdateAnimation(entiyItem->data->name.GetString());
+		if(app->sceneBattle->active)app->sceneBattle->UpdateAnimation(entiyItem->data->name.GetString());
+		if(app->sceneCombatLHHR->active)app->sceneCombatLHHR->UpdateAnimation(entiyItem->data->name.GetString());
+		if (app->battleScene_Pigs->active)app->battleScene_Pigs->UpdateAnimation(entiyItem->data->name.GetString());
+		
     }
 	
 	UIStatsForBattle();

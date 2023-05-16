@@ -47,6 +47,15 @@ public:
 	Animation walkLeftAnim;
 	Animation idleAnim;
 	Animation takedmgAnim;
+	Animation abilityAnim;
+
+	Animation* abilityAnimation;
+	Animation arrow;
+	Animation none;
+
+	iPoint arrowPos;
+
+	bool finishAnimBool;
 
 private:
 

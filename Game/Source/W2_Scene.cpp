@@ -54,6 +54,10 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 		doors.Add(door);
 	}
 
+	portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
+	portal->parameters = config.child("portal");
+
+
 	app->entityManager->Awake(config);
 
 	CreateDialogue(); //3MB
@@ -115,8 +119,6 @@ bool W2_Scene::Start()
 	numTimesPigsDialogueTriggered = 0;
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_pigs_world.ogg", 0.1f);
-
-	player->ChangePosition(5258, 3101);
 
 	Quest quest1;
 	quest1.completed = false;

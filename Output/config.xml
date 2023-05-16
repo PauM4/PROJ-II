@@ -45,6 +45,9 @@
 		<!-- Chest 3-->
 		<chest3 x="4125" y="1006" width="100" height="75" isPicked="false" id="2"/>
 
+		<!--Portal to w2-->
+		<portal x="8087" y="603" width="67" height="236" nextScene="9" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
+
 
 	</scene>
 	<w2_scene name="Assets/Maps/World_02/scene_02.tmx" path="Assets/Maps/World_02/">
@@ -62,6 +65,9 @@
 		<door x="5100" y="2211" width="227" height="75" nextScene="6" nextPlayerX="9700" nextPlayerY="4230"/>
 		<!--Door from brick house -->
 		<door x="9758" y="4172" width="44" height="120" nextScene="6" nextPlayerX="5200" nextPlayerY="2336"/>
+
+		<!--Portal to w1-->
+		<portal x="592" y="2996" width="124" height="240" nextScene="3" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
 		
     <npcW2 npcW2TexturePath="Assets/Characters/Characters_popups.png" />
 	</w2_scene>
@@ -76,7 +82,6 @@
 	<sceneGrandma name="Assets/Maps/World_01/town_house.tmx" path="Assets/Maps/World_01/">
 		<player x="532" y="882" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 		<door x="480" y="1030" width="58" height="95" nextScene="3" nextPlayerX="0" nextPlayerY="0" />
-		<portal x="480" y="361" width="58" height="97" nextScene="8" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 		<npc npcTexturePath ="Assets/Characters/Characters_popups.png"/>
 	</sceneGrandma>
 	<sceneBattle name="Assets/Maps/World_01/test.tmx" path="Assets/Maps/World_01/">
@@ -108,8 +113,8 @@
 			<club ininventory="false" type="1" weaponuser="4" character="0" name="club" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<knife ininventory="false" type="1" weaponuser="5" character="0" name="knife" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<shotgun ininventory="false" type="1" weaponuser="6" character="0" name="shotgun" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
-			<ironchestplate ininventory="false" type="2" weaponuser="0" character="0" name="ironchestplate" defense="2" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
-			<reversehat ininventory="false" type="2" weaponuser="0" character="0" name="reversehat" defense="1" magic="0" speed="2" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<ironchestplate ininventory="true" type="2" weaponuser="0" character="0" name="ironchestplate" defense="2" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<reversehat ininventory="true" type="2" weaponuser="0" character="0" name="reversehat" defense="1" magic="0" speed="2" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<talisman ininventory="false" type="3" weaponuser="0" character="0" name="talisman" defense="1" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<susjar ininventory="false" type="3" weaponuser="0" character="0" name="susjar" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<dentures ininventory="false" type="3" weaponuser="0" character="0" name="dentures" defense="0" magic="0" speed="0" movement="0" attack="1" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />

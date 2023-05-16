@@ -29,7 +29,12 @@ bool Portal::Awake() {
 	nextY = parameters.attribute("nextPlayerY").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 
-	idleAnim.PushBack({ 0, 0, 150, 150 });
+	for (int i = 0; i < 5; i++) 
+	{
+		idleAnim.PushBack({ (i * 282), 111, 282, 354 });
+	}
+	idleAnim.loop = true;
+	idleAnim.speed = 0.30f;
 
 	return true;
 }
@@ -53,6 +58,7 @@ bool Portal::Update(float dt)
 	//Toggle godMode
 
 	if ((app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)) godMode = !godMode;
+	currentAnimation->Update();
 	return true;
 }
 
