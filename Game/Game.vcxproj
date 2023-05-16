@@ -152,7 +152,7 @@
     <ClCompile Include="Source\UriBehaviorTree.cpp" />
     <ClCompile Include="Source\W2_Scene.cpp" />
     <ClCompile Include="Source\W3_Scene.cpp" />
-    <ClCompile Include="Source\W3_Scene_Maze.cpp" />
+    <ClCompile Include="Source\W2_Scene_Maze.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\BattleManager.h" />
@@ -213,7 +213,7 @@
     <ClInclude Include="Source\UriBehaviorTree.h" />
     <ClInclude Include="Source\W2_Scene.h" />
     <ClInclude Include="Source\W3_Scene.h" />
-    <ClInclude Include="Source\W3_Scene_Maze.h" />
+    <ClInclude Include="Source\W2_Scene_Maze.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />
     <ClInclude Include="Source\List.h" />

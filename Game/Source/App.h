@@ -31,6 +31,7 @@ class SceneGrandma;
 
 //World_02
 class W2_Scene;
+class W2_Scene_Maze;
 
 //World_03
 class W3_Scene;
@@ -133,6 +134,7 @@ public:
 
 	//World_02
 	W2_Scene* w2_scene;
+	W2_Scene_Maze* w2_scene_maze;
 
 	//World_03
 	W3_Scene* w3_scene;

@@ -992,6 +992,13 @@ void TeamManager::loadinventory() {
 		}
 	}
 
+	if (bow.ininventory == true) {
+		inventory.Add(bow);
+		if (bow.character != 0) {
+			equipment.Add(bow);
+		}
+	}
+
 	if (club.ininventory == true) {
 		inventory.Add(club);
 		if (club.character != 0) {

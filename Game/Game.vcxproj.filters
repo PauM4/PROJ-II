@@ -89,9 +89,6 @@
     <ClCompile Include="Source\W3_Scene.cpp">
       <Filter>Scenes\W3</Filter>
     </ClCompile>
-    <ClCompile Include="Source\W3_Scene_Maze.cpp">
-      <Filter>Scenes\W3</Filter>
-    </ClCompile>
     <ClCompile Include="Source\W2_Scene.cpp">
       <Filter>Scenes\W2</Filter>
     </ClCompile>
@@ -127,6 +124,9 @@
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
     <ClCompile Include="Source\BattleScene_Pigs.cpp">
+      <Filter>Scenes\W2</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\W2_Scene_Maze.cpp">
       <Filter>Scenes\W2</Filter>
     </ClCompile>
   </ItemGroup>
@@ -254,9 +254,6 @@
     <ClInclude Include="Source\W3_Scene.h">
       <Filter>Scenes\W3</Filter>
     </ClInclude>
-    <ClInclude Include="Source\W3_Scene_Maze.h">
-      <Filter>Scenes\W3</Filter>
-    </ClInclude>
     <ClInclude Include="Source\W2_Scene.h">
       <Filter>Scenes\W2</Filter>
     </ClInclude>
@@ -291,6 +288,9 @@
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
     <ClInclude Include="Source\BattleScene_Pigs.h">
+      <Filter>Scenes\W2</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\W2_Scene_Maze.h">
       <Filter>Scenes\W2</Filter>
     </ClInclude>
   </ItemGroup>

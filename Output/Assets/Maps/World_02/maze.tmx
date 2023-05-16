@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="59" nextobjectid="149">
  <imagelayer id="2" name="BG">
-  <image source="Assets/Maps/World_02/maze.png"/>
+  <image source="Assets/Maps/World_02/Assets/maze.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
