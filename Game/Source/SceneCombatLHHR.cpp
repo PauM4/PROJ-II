@@ -96,10 +96,10 @@ bool SceneCombatLHHR::Start()
 
 
 
-	// Tell to UIModule which currentMenuType
-	app->uiModule->currentMenuType = COMBAT;
-	// Call this function only when buttons change
-	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+	//// Tell to UIModule which currentMenuType
+	//app->uiModule->currentMenuType = COMBAT;
+	//// Call this function only when buttons change
+	//app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 
 
@@ -159,12 +159,10 @@ bool SceneCombatLHHR::CleanUp()
 {
 	LOG("Freeing SceneCombatLHHR");
 
-	app->pathfinding->ClearLastPath();
+
 	app->map->CleanUp();
 	app->entityManager->CleanUp();
-	app->battleManager->CleanUp();
-
-
+	app->battleManager->Disable();
 
 	SaveResult();
 
@@ -299,6 +297,10 @@ void SceneCombatLHHR::SaveResult()
 	if (app->battleManager->win)
 	{
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "true");
+		app->teamManager->islrrhplayable = true;
+		app->teamManager->bow.ininventory = true;
+		app->teamManager->bow.character = 3;
+		app->teamManager->UpdateParty();
 	}
 	else if (app->battleManager->lose)
 	{

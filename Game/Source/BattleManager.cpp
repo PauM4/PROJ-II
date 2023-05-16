@@ -61,6 +61,8 @@ bool BattleManager::Start() {
 	origin = currentTurn->tilePos;
 	pathIndex = 1;
 	triggerMoveTimer = false;
+	win = false;
+	lose = false;
 	battleState = BattleState::THINKING;
 	return true;
 }
@@ -75,7 +77,7 @@ bool BattleManager::PreUpdate() {
 
 bool BattleManager::Update(float dt) {
 
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->uiModule->currentMenuType == COMBAT)
 		PauseMenuAppear();
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -83,18 +85,12 @@ bool BattleManager::Update(float dt) {
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		if (godMode)
-		{
-			godMode = false;
-		}
-		else
-		{
-			godMode = false;
-		}
+		godMode = !godMode;
 	}
 
-	if (godMode)
+	if (godMode) {
 		GodMode();
+	}
 
 	UpdateEntitiesTilePos();
 
@@ -363,8 +359,9 @@ bool BattleManager::Update(float dt) {
 
 	case BattleState::WIN:
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-			app->teamManager->startstatsup = true;
+			app->teamManager->arasiva = true;
 			app->sceneManager->LoadScene(GameScene::SCENE);
+
 		}
 
 		break;
@@ -403,12 +400,22 @@ bool BattleManager::PostUpdate() {
 	UIStatsForBattle();
 	DisplayTurnList();
 
+	
+
 	//app->render->DrawRectangle({ int(allies.start->data->position.x) + 35, int(allies.start->data->position.y) + 35, 50, 50 }, 0, 233, 0, 250, true);
 	//app->render->DrawRectangle({ int(enemies.start->data->position.x) + 35, int(enemies.start->data->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
 	return true;
 }
 
+void BattleManager::DrawResult() {
 
+	if (win) {
+		app->render->DrawTexture(winScreen, 0, 0);
+	}
+	if (lose) {
+		app->render->DrawTexture(loseScreen, 0, 0);
+	}
+}
 
 bool BattleManager::CleanUp() {
 
@@ -937,11 +944,14 @@ void BattleManager::CheckWinCondition()
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 		app->audio->PlayFx(looseFx);
 		battleState = BattleState::LOSE;
+		lose = true;
 	}
 	
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 		app->audio->PlayFx(victoryFx);
 		battleState = BattleState::WIN;
+		win = true;
+
 
 	}
 	

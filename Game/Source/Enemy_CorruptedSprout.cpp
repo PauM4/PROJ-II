@@ -124,8 +124,10 @@ bool Enemy_CorruptedSprout::Update(float dt)
 bool Enemy_CorruptedSprout::PostUpdate()
 {
 	//Render
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	if (health > 0) {
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	}
 	return true;
 }
 

@@ -144,19 +144,7 @@ bool Scene::Start()
 
 	}
 
-	if (isNewGame)
-	{
-		player->ChangePosition(1868, 5608);
-		basicTutorialCounter = 0;
-		battleTutorialCounter = 0;
-		isNewGame = false;
-	}
-	else
-	{
-		app->LoadGameRequest();
-		basicTutorialCounter = 2;
-		battleTutorialCounter = 3;
-	}
+	stepQuest = 0; 
 	numEnteredQuestVillager = 0;
 	numEnteredQuestLHHR = 0;
 
@@ -230,6 +218,25 @@ bool Scene::Start()
 	secondQuestCollider = app->physics->CreateRectangleSensor(1756 + 443/2, 3968 + 101/2, 443, 101, bodyType::STATIC);
 	secondQuestCollider->ctype = ColliderType::SECQUESTCOLLIDER;
 
+	if (isNewGame)
+	{
+		player->ChangePosition(1868, 5608);
+		basicTutorialCounter = 0;
+		battleTutorialCounter = 0;
+		isNewGame = false;
+	}
+	else
+	{
+		app->LoadGameRequest();
+		basicTutorialCounter = 2;
+		battleTutorialCounter = 3;
+	}
+
+	for (int i = 0; i < stepQuest; i++) {
+		nextQuest();
+	}
+
+
 	return true;
 }
 
@@ -247,9 +254,11 @@ bool Scene::Update(float dt)
 
 	std::cout << "X: " << player->position.x << std::endl;
 	std::cout << "Y: " << player->position.y << std::endl;
-
 	Camera();
-
+	if (app->teamManager->arasiva == true) {
+		app->teamManager->startstatsup = true;
+		app->teamManager->arasiva = false;
+	}
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
@@ -267,18 +276,21 @@ bool Scene::Update(float dt)
 	MoveToBattleFromDialogue();
 
 	if (angryVillagerDefeated == true && numEnteredQuestVillager == 0) {
-		questList[currentQuestIndex].completed = true; 
+		nextQuest();
 		numEnteredQuestVillager++;
+		stepQuest++; 
 	}
 
 	if (LRRHDefeated == true && numEnteredQuestLHHR == 1) {
-		questList[currentQuestIndex].completed = true;
+		nextQuest();
 		numEnteredQuestLHHR++;
+		stepQuest++;
 	}
 
 	if (talkedToGrandma == true && numEnteredQuestLHHR == 0) {
-		questList[currentQuestIndex].completed = true;
+		nextQuest();
 		numEnteredQuestLHHR++;
+		stepQuest++;
 	}
 
 	// Check if the current quest is completed
@@ -290,12 +302,6 @@ bool Scene::Update(float dt)
 	//Draw map
 	app->map->Draw();
 
-	if (chest1->isPicked)app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestopenHRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
-	if (chest2->isPicked) app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestopenVRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
-	if (chest3->isPicked) app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestopenHRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 
 
 	if(basicTutorialCounter < 2)
@@ -317,7 +323,7 @@ bool Scene::Update(float dt)
 	}
 
 	// If talking to AngryVillager, player can next tutorial
-	if (player->playerState == player->PlayerState::NPC_INTERACT && GetPlayerLastCollision() == ColliderType::ANGRYVILLAGER)
+	if (player->playerState == player->PlayerState::NPC_INTERACT && isTalkingToAngry)
 	{
 		if (battleTutorialCounter <= 3)
 		{
@@ -327,7 +333,6 @@ bool Scene::Update(float dt)
 			}
 		}
 	}
-	
 
 	UpdateMinigameLogic(dt);
 
@@ -444,6 +449,13 @@ void Scene::AppearDialogue()
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+
+	if (chest1->isPicked)app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
+	if (chest2->isPicked) app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestopenVRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
+	if (chest3->isPicked) app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 
 	if (!godMode) app->map->PostDraw((player->position.y + 40));
 
@@ -1027,6 +1039,8 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 	battleTutorialCounter = data.child("saveBattleTutoState").attribute("state").as_int();
 
+	stepQuest = data.child("stepQuest").attribute("num").as_int();
+
 	//LoadChests(data);
 
 
@@ -1070,6 +1084,10 @@ bool Scene::SaveState(pugi::xml_node& data)
 
 		pugi::xml_node saveBattleTutorialState = data.append_child("saveBattleTutoState");
 		saveBattleTutorialState.append_attribute("state") = battleTutorialCounter;
+
+		pugi::xml_node stepQuestState = data.append_child("stepQuest");
+		stepQuestState.append_attribute("num") = stepQuest;
+
 	}
 
 	return true;
@@ -1159,6 +1177,8 @@ void Scene::UpdateMinigameLogic(float dt)
 
 		if (ropeWin)
 		{
+			app->teamManager->talisman.ininventory = true;
+			app->teamManager->loadinventory();
 			minigameActive = false;
 			// Then disable minigame
 			// Tell to UIModule which currentMenuType

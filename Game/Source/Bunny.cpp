@@ -18,7 +18,7 @@ Bunny::Bunny() : Entity(EntityType::BUNNY)
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;
-	prehealth = health;
+	
 
 }
 
@@ -30,8 +30,6 @@ bool Bunny::Awake()
 {
 	if (app->teamManager->statsdone == false) {
 		id = 1;
-		position.x = parameters.attribute("x").as_int();
-		position.y = parameters.attribute("y").as_int();
 		health = 21;
 		maxHealth = 21;
 		defense = 1;
@@ -115,6 +113,7 @@ bool Bunny::Start()
 	PrevPos = position;
 	attackFx = app->audio->LoadFx("Assets/Sounds/FX/fx_attack.wav");
 	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_lightning.wav");
+	prehealth = health;
 	return true;
 }
 
@@ -202,21 +201,23 @@ bool Bunny::Update(float dt)
 
 bool Bunny::PostUpdate()
 {
-	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsBunnyOnTeam) {
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
-	}
+	if (health > 0) {
+		if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsBunnyOnTeam) {
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+		}
 
-	if (abilityAnimation != &none)
-	{
-		SDL_Rect rect = abilityAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, thunderPos.x, thunderPos.y - 600+150, &rect);
-
-		if (thunder.HasFinished())
+		if (abilityAnimation != &none)
 		{
-			abilityAnimation = &none;
-			abilityAnimation->Reset();
+			SDL_Rect rect = abilityAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, thunderPos.x, thunderPos.y - 600 + 150, &rect);
 
+			if (thunder.HasFinished())
+			{
+				abilityAnimation = &none;
+				abilityAnimation->Reset();
+
+			}
 		}
 	}
 

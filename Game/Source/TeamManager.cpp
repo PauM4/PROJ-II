@@ -11,6 +11,8 @@
 #include "Bunny.h"
 #include "Fonts.h"
 #include "UIModule.h"
+#include "W2_Scene.h"
+#include"BattleManager.h"
 
 TeamManager::TeamManager(bool isActive) : Module (isActive)
 {
@@ -348,7 +350,8 @@ bool TeamManager::Start()
 
 bool TeamManager::Update(float dt)
 {
-	if (startstatsup == true || app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+
+	if (startstatsup == true) {
 		startstatsup = false;
 		lvlupplayerstate = true;
 		for (int j = 0; j < statslist.Count(); j++) {
@@ -455,6 +458,8 @@ bool TeamManager::Update(float dt)
 
 bool TeamManager::PostUpdate()
 {
+	if (app->uiModule->currentMenuType == COMBAT) { app->battleManager->DrawResult(); }
+
 
 	return true;
 }
@@ -952,6 +957,9 @@ void TeamManager::PrintLvlUpText()
 }
 
 void TeamManager::loadinventory() {
+
+	inventory.Clear();
+	equipment.Clear();
 
 	if (yoyo.ininventory == true) {
 		inventory.Add(&yoyo);
