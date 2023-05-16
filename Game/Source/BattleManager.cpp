@@ -260,6 +260,7 @@ bool BattleManager::Update(float dt) {
 					if (enemyAttackTimer.Test() == FIN) {
 						entitylist->data->health = entitylist->data->health - (currentTurn->attack - entitylist->data->defense);
 						app->sceneBattle->TakeDamageAnimation(targets.start->data->name.GetString());
+						targetPosForAIAnimation = entitylist->data->position;
 						targets.Clear();
 						currentTurn->UseStamina(5);
 						entitylist = NULL;
