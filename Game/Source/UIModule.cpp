@@ -563,6 +563,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		if (currentMenuType == INVENTORY || currentMenuType == PARTY)
 		{
 			app->teamManager->UpdateParty();
+			app->teamManager->ApplyEquipedItemStats();
 
 			if (app->teamManager->team.Count() > 0 && app->teamManager->team.Count() < 4)
 			{

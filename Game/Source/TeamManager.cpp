@@ -958,6 +958,9 @@ void TeamManager::PrintLvlUpText()
 
 void TeamManager::loadinventory() {
 
+	inventory.Clear();
+	equipment.Clear();
+
 	if (yoyo.ininventory == true) {
 		inventory.Add(&yoyo);
 		if (yoyo.character != 0) {
