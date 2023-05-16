@@ -247,9 +247,11 @@ bool Scene::Update(float dt)
 
 	std::cout << "X: " << player->position.x << std::endl;
 	std::cout << "Y: " << player->position.y << std::endl;
-
 	Camera();
-
+	if (app->teamManager->arasiva == true) {
+		app->teamManager->startstatsup = true;
+		app->teamManager->arasiva = false;
+	}
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{

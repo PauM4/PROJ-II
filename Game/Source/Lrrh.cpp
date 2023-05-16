@@ -28,9 +28,6 @@ bool Lrrh::Awake()
 {
 	if (app->teamManager->statsdone == false) {
 		id = 3;
-		position.x = parameters.attribute("x").as_int();
-		position.y = parameters.attribute("y").as_int();
-		 
 		health = 20;
 		maxHealth = 20;
 		defense = 3;

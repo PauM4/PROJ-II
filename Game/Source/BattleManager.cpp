@@ -363,7 +363,7 @@ bool BattleManager::Update(float dt) {
 
 	case BattleState::WIN:
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-			app->teamManager->startstatsup = true;
+			app->teamManager->arasiva = true;
 			app->sceneManager->LoadScene(GameScene::SCENE);
 		}
 

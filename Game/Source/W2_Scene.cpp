@@ -10,7 +10,7 @@
 #include "PathFinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
-
+#include "TeamManager.h"
 #include "Defs.h"
 
 #include "Defs.h"
@@ -208,7 +208,10 @@ bool W2_Scene::Update(float dt)
 {
 	//std::cout << "X: " << player->position.x << std::endl;
 	//std::cout << "Y: " << player->position.y << std::endl;
-
+	if (app->teamManager->arasiva == true) {
+		app->teamManager->startstatsup = true;
+		app->teamManager->arasiva = false;
+	}
 
 	Camera();
 

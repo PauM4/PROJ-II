@@ -30,8 +30,6 @@ bool Bunny::Awake()
 {
 	if (app->teamManager->statsdone == false) {
 		id = 1;
-		position.x = parameters.attribute("x").as_int();
-		position.y = parameters.attribute("y").as_int();
 		health = 21;
 		maxHealth = 21;
 		defense = 1;
