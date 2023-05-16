@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1860" y="5273" />
+		<player x="7427" y="5103" x="7443" y="5044" />
 		<rope_minigame rope_minigame_state="false" />
 		<chests>
 			<chest1 isPicked="false" />
@@ -44,7 +44,7 @@
 			<club isobtained="false" character="0" />
 			<knife isobtained="false" character="0" />
 			<shotgun isobtained="false" character="0" />
-			<ironchestplate isobtained="true" character="0" />
+			<ironchestplate isobtained="false" character="0" />
 			<reversehat isobtained="false" character="0" />
 			<susjar isobtained="false" character="0" />
 			<dentures isobtained="false" character="0" />
@@ -62,7 +62,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-884" y="-4765" />
+		<camera x="-6467" y="-4523" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>
