@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "TeamManager.h"
+#include "BattleManager.h"
 
 Timmy::Timmy() : Entity(EntityType::TIMMY)
 {
@@ -152,7 +153,36 @@ bool Timmy::Update(float dt)
 	if (app->uiModule->currentMenuType == COMBAT) {
 		currentAnimation->Update();
 
-		if (position.x > PrevPos.x)
+		if (app->battleManager->actionType == ActionType::ATTACK && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (this->name == app->battleManager->currentTurn->name)
+			{
+				animDirection = CheckDirection();
+
+				switch (animDirection)
+				{
+				case AnimDirection::DOWN:
+					currentAnimation = &attackDAnim;
+					break;
+				case AnimDirection::UP:
+					currentAnimation = &attackUAnim;
+					break;
+				case AnimDirection::RIGHT:
+					currentAnimation = &attackRAnim;
+					break;
+				case AnimDirection::LEFT:
+					currentAnimation = &attackLAnim;
+					break;
+				}
+			}
+			
+
+		}
+		else if (app->battleManager->actionType == ActionType::ABILITY)
+		{
+
+		}
+		else if (position.x > PrevPos.x)
 		{
 			currentAnimation = &walkRightAnim;
 		}
@@ -185,6 +215,10 @@ bool Timmy::Update(float dt)
 
 		}
 
+
+
+		
+
 		PrevPos.x = position.x;
 		PrevPos.y = position.y;
 	}
@@ -192,6 +226,29 @@ bool Timmy::Update(float dt)
 	return true;
 }
 
+AnimDirection Timmy::CheckDirection()
+{
+	iPoint dist;
+	
+	dist.x = app->battleManager->targetPosForAnimation.x - app->battleManager->currentTurn->tilePos.x;
+	dist.y = app->battleManager->targetPosForAnimation.y - app->battleManager->currentTurn->tilePos.y;
+
+
+	int xDir = 0;
+	int yDir = 0;
+	xDir = (dist.x > 0) ? 1 : -1;
+	yDir = (dist.y > 0) ? 1 : -1;
+
+	if (dist.x == 0) xDir = 0;
+	if (dist.y == 0) yDir = 0;
+
+	if (xDir == 1) return AnimDirection::RIGHT;
+	if (xDir == -1) return AnimDirection::LEFT;
+	if (yDir == 1) return AnimDirection::DOWN;
+	if (yDir == -1) return AnimDirection::UP;
+
+	return AnimDirection::NONE;
+}
 bool Timmy::PostUpdate()
 {
 	if (app->uiModule->currentMenuType == COMBAT) {

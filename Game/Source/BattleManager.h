@@ -152,7 +152,9 @@ public:
 	//and updates battle state
 	BattleState CheckState();
 
-private:
+public:
+
+	iPoint targetPosForAnimation;
 
 public:
 	TileData combatMap[16][9];

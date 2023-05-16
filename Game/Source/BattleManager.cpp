@@ -172,6 +172,7 @@ bool BattleManager::Update(float dt) {
 								app->audio->PlayFx(currentTurn->attackFx);
 								//adio attack
 							}
+							targetPosForAnimation = targets.At(i)->data->tilePos;
 						
 							currentTurn->UseStamina(5);
 							battleState = BattleState::INACTION;
