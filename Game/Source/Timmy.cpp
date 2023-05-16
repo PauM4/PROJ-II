@@ -189,9 +189,13 @@ bool Timmy::Update(float dt)
 			
 
 		}
-		else if (app->battleManager->actionType == ActionType::ABILITY)
+		else if (app->battleManager->actionType == ActionType::ABILITY && app->battleManager->battleState == BattleState::INACTION)
 		{
-			currentAnimation = &abilityAnim;
+			if (this->name == app->battleManager->currentTurn->name)
+			{
+				currentAnimation = &abilityAnim;
+			}
+			
 		}
 		else if (position.x > PrevPos.x)
 		{
@@ -241,8 +245,8 @@ AnimDirection Timmy::CheckDirection()
 {
 	iPoint dist;
 	
-	dist.x = app->battleManager->targetPosForAnimation.x - app->battleManager->currentTurn->tilePos.x;
-	dist.y = app->battleManager->targetPosForAnimation.y - app->battleManager->currentTurn->tilePos.y;
+	dist.x = app->battleManager->targetPosForAnimation.x - app->battleManager->currentTurn->position.x;
+	dist.y = app->battleManager->targetPosForAnimation.y - app->battleManager->currentTurn->position.y;
 
 
 	int xDir = 0;

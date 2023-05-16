@@ -9,6 +9,8 @@
 #include "Point.h"
 #include "Physics.h"
 #include "TeamManager.h"
+#include "BattleManager.h"
+
 Bunny::Bunny() : Entity(EntityType::BUNNY)
 {
 	name.Create("bunny");
@@ -60,6 +62,18 @@ bool Bunny::Awake()
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
 
+	abilityAnim.PushBack({ 300, 0, 140, 140 });
+	abilityAnim.PushBack({ 450, 0, 140, 140 });
+	abilityAnim.loop = false;
+	abilityAnim.speed = 0.75;
+	
+	for (int i = 4; i < 8; i++) //penutlima:cabezon
+	{
+		thunder.PushBack({ (i*150), 0, 150, 600 });
+	}
+	thunder.loop = false;
+	thunder.speed = 0.55;
+
 	for (int i = 0; i < 4; i++) //penutlima:cabezon
 	{
 		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
@@ -90,6 +104,7 @@ bool Bunny::Awake()
 
 	texture = app->tex->Load("Assets/Characters/F_sprites_bunny-atack.png");
 	currentAnimation = &idleAnim;
+	abilityAnimation = &none;
 	PrevPos = position;
 	return true;
 }
@@ -121,8 +136,25 @@ bool Bunny::Update(float dt)
 	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsBunnyOnTeam) {
 
 		currentAnimation->Update();
+		abilityAnimation->Update();
+		
+		abilityAnimation = &none;
 
-		if (position.x > PrevPos.x)
+		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (this->name == app->battleManager->currentTurn->name)
+			{
+				currentAnimation = &abilityAnim;
+				abilityAnimation = &thunder;
+
+				thunderPos.x = app->battleManager->targetPosForAnimation.x;
+				thunderPos.y = app->battleManager->targetPosForAnimation.y;
+
+			}
+
+
+		}
+		else if (position.x > PrevPos.x)
 		{
 			currentAnimation = &walkRightAnim;
 		}
@@ -166,6 +198,14 @@ bool Bunny::PostUpdate()
 	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsBunnyOnTeam) {
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	}
+
+	if (abilityAnimation != &none)
+	{
+		SDL_Rect rect = abilityAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, thunderPos.x, thunderPos.y + 600-150, &rect);
+
+		if (thunder.HasFinished()) abilityAnimation = &none;
 	}
 
 	return true;
