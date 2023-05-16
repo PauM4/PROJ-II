@@ -27,6 +27,16 @@ enum CurrentMenuType
 	PARTY
 };
 
+enum WhatInventoryImIn
+{
+	NO,
+	TIMMY,
+	BUNNY,
+	LRRH,
+	LPIG,
+	MPIG
+};
+
 class UIModule : public Module
 {
 public:
@@ -52,6 +62,8 @@ public:
 
 	// Called before all Updates
 	bool PostUpdate();
+
+	void PrintItemName();
 
 	// Called before quitting
 	bool CleanUp();
@@ -80,6 +92,7 @@ private:
 public:
 
 	int currentMenuType;
+	int whatInventoryImIn;
 
 	// Buttons list
 
@@ -169,7 +182,7 @@ public:
 
 
 	List<GuiButton*> buttonsList;
-
+	List<GuiButton*> inventoryButtonsList;
 
 	bool quitButtonBool;
 

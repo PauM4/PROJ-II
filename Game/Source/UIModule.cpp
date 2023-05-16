@@ -141,6 +141,21 @@ bool UIModule::Start()
 
 	AddButtonsToList();
 
+	inventoryButtonsList.Add(item_1_button);
+	inventoryButtonsList.Add(item_2_button);
+	inventoryButtonsList.Add(item_3_button);
+	inventoryButtonsList.Add(item_4_button);
+	inventoryButtonsList.Add(item_5_button);
+	inventoryButtonsList.Add(item_6_button);
+	inventoryButtonsList.Add(item_7_button);
+	inventoryButtonsList.Add(item_8_button);
+	inventoryButtonsList.Add(item_9_button);
+	inventoryButtonsList.Add(item_10_button);
+	inventoryButtonsList.Add(item_11_button);
+	inventoryButtonsList.Add(item_12_button);
+
+	whatInventoryImIn = NO;
+
 	// When creating a new button, iniciate it in NONE state
 
 	DisableButtonsToNone();
@@ -220,78 +235,23 @@ bool UIModule::PostUpdate()
 
 		if (timmyItem)
 		{
-			int j = 0;
-			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
-				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 1) {
-					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 1) {
-						app->teamManager->itemstoshow.Clear();
-						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
-						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
-						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
-						j += 50;
-					}
-				}
-			}
+			PrintItemName();
 		}
 		if (bunnyItem)
 		{
-			int j = 0;
-			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
-				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 2) {
-					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 2) {
-						app->teamManager->itemstoshow.Clear();
-						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
-						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
-						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
-						j += 50;
-					}
-				}
-			}
+			PrintItemName();
 		}
 		if (lrrhItem)
 		{
-			int j = 0;
-			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
-				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 3) {
-					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 3) {
-						app->teamManager->itemstoshow.Clear();
-						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
-						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
-						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
-						j += 50;
-					}
-				}
-			}
+			PrintItemName();
 		}
 		if (lpigItem)
 		{
-			int j = 0;
-			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
-				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 4) {
-					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 4) {
-						app->teamManager->itemstoshow.Clear();
-						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
-						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
-						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
-						j += 50;
-					}
-				}
-			}
+			PrintItemName();
 		}
 		if (mpigItem)
 		{
-			int j = 0;
-			for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
-				if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 5) {
-					if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 5) {
-						app->teamManager->itemstoshow.Clear();
-						app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
-						const char* itemname = app->teamManager->inventory.At(i)->data.name.c_str();
-						app->fonts->DrawText(itemname, 640, 150 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
-						j += 50;
-					}
-				}
-			}
+			PrintItemName();
 		}
 
 	}
@@ -407,6 +367,17 @@ bool UIModule::PostUpdate()
 
 
 	return ret;
+}
+
+void UIModule::PrintItemName()
+{
+	int j = 0;
+	for (int i = 0; i < app->teamManager->itemstoshow.Count(); ++i)
+	{
+		const char* itemname = app->teamManager->itemstoshow.At(i)->data.name.c_str();
+		app->fonts->DrawText(itemname, 800, 350 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+		j += 50;
+	}
 }
 
 
@@ -564,6 +535,12 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 				app->audio->PlayFx(errorFX);
 				errorWhenParty = true;
 			}
+			// False all to clean states
+			timmyItem = false;
+			bunnyItem = false;
+			lrrhItem = false;
+			lpigItem = false;
+			mpigItem = false;
 		}
 
 		break;
@@ -859,20 +836,52 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	// Inventory Buttons
 	switch (control->id)
 	{
+	// Timmy
 	case 73:
-
 		timmyItem = true;
 		bunnyItem = false;
 		lrrhItem = false;
 		lpigItem = false;
 		mpigItem = false;
+
+		whatInventoryImIn = TIMMY;
+
+		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+			if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 1) {
+				if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 1)
+				{
+					app->teamManager->itemstoshow.Clear();
+					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+				}
+			}
+		}
+
+		for (int i = 0; i < app->teamManager->itemstoshow.Count(); ++i)
+		{
+			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
+		}
+
 		break;
+	// Bunny
 	case 74:
 		bunnyItem = true;
 		timmyItem = false;
 		lrrhItem = false;
 		lpigItem = false;
 		mpigItem = false;
+
+		whatInventoryImIn = BUNNY;
+
+		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+			if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 2) {
+				if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 2)
+				{
+					app->teamManager->itemstoshow.Clear();
+					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+				}
+			}
+		}
+
 		break;
 	case 75:
 		lrrhItem = true;
@@ -880,6 +889,19 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		timmyItem = false;
 		lpigItem = false;
 		mpigItem = false;
+
+		whatInventoryImIn = LRRH;
+
+		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+			if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 3) {
+				if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 3)
+				{
+					app->teamManager->itemstoshow.Clear();
+					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+				}
+			}
+		}
+
 		break;
 	case 76:
 		lpigItem = true;
@@ -887,6 +909,19 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		lrrhItem = false;
 		timmyItem = false;
 		mpigItem = false;
+
+		whatInventoryImIn = LPIG;
+
+		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+			if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 4) {
+				if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 4)
+				{
+					app->teamManager->itemstoshow.Clear();
+					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+				}
+			}
+		}
+
 		break;
 	case 77:
 		mpigItem = true;
@@ -894,6 +929,66 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		lrrhItem = false;
 		lpigItem = false;
 		timmyItem = false;
+
+		whatInventoryImIn = MPIG;
+
+		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
+			if (app->teamManager->inventory.At(i)->data.character == 0 || app->teamManager->inventory.At(i)->data.character == 5) {
+				if (app->teamManager->inventory.At(i)->data.weaponuser == 0 || app->teamManager->inventory.At(i)->data.weaponuser == 5)
+				{
+					app->teamManager->itemstoshow.Clear();
+					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
+				}
+			}
+		}
+
+		break;
+	}
+	// Item buttons
+	switch (control->id)
+	{
+	case 78:
+		// If equiped
+		if (app->teamManager->itemstoshow.At(0)->data.character != 0)
+		{
+			app->teamManager->itemstoshow.At(0)->data.character = 0;
+		} // If not equiped
+		else
+		{
+			// Check all items in inventory
+			for (int i = 0; i < app->teamManager->itemstoshow.Count(); ++i)
+			{
+				if (app->teamManager->itemstoshow.At(i)->data.type == app->teamManager->itemstoshow.At(0)->data.type
+					&& app->teamManager->itemstoshow.At(i)->data.character != 0)
+				{
+					break;
+				}
+			}
+			app->teamManager->itemstoshow.At(0)->data.character = whatInventoryImIn;
+		}
+		
+		break;
+	case 79:
+		break;
+	case 80:
+		break;
+	case 81:
+		break;
+	case 82:
+		break;
+	case 83:
+		break;
+	case 84:
+		break;
+	case 85:
+		break;
+	case 86:
+		break;
+	case 87:
+		break;
+	case 88:
+		break;
+	case 89:
 		break;
 	}
 
@@ -945,22 +1040,22 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 		inventory_timmy_button->state = GuiControlState::NORMAL;
 		inventory_bunny_button->state = GuiControlState::NORMAL;
-		inventory_lrrh_button->state = GuiControlState::NORMAL;
-		inventory_Lpig_button->state = GuiControlState::NORMAL;
-		inventory_Mpig_button->state = GuiControlState::NORMAL;
+		if (app->teamManager->islrrhplayable)
+		{
+			inventory_lrrh_button->state = GuiControlState::NORMAL;
+		}
+		else inventory_lrrh_button->state = GuiControlState::NONE;
+		if (app->teamManager->islilpigplayable)
+		{
+			inventory_Lpig_button->state = GuiControlState::NORMAL;
 
-		item_1_button->state = GuiControlState::NORMAL;
-		item_2_button->state = GuiControlState::NORMAL;
-		item_3_button->state = GuiControlState::NORMAL;
-		item_4_button->state = GuiControlState::NORMAL;
-		item_5_button->state = GuiControlState::NORMAL;
-		item_6_button->state = GuiControlState::NORMAL;
-		item_7_button->state = GuiControlState::NORMAL;
-		item_8_button->state = GuiControlState::NORMAL;
-		item_9_button->state = GuiControlState::NORMAL;
-		item_10_button->state = GuiControlState::NORMAL;
-		item_11_button->state = GuiControlState::NORMAL;
-		item_12_button->state = GuiControlState::NORMAL;
+		}
+		else inventory_Lpig_button->state = GuiControlState::NONE;
+		if (app->teamManager->ismidpigplayable)
+		{
+			inventory_Mpig_button->state = GuiControlState::NORMAL;
+		}
+		else inventory_Mpig_button->state = GuiControlState::NONE;
 
 		break;
 	case PARTY:
