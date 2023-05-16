@@ -51,6 +51,7 @@
 
 	</scene>
 	<w2_scene name="Assets/Maps/World_02/scene_02.tmx" path="Assets/Maps/World_02/">
+		
 		<player x="571" y="3117" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 		
 		<!--Door to straw house -->
@@ -65,19 +66,30 @@
 		<door x="5100" y="2211" width="227" height="75" nextScene="6" nextPlayerX="9700" nextPlayerY="4230"/>
 		<!--Door from brick house -->
 		<door x="9758" y="4172" width="44" height="120" nextScene="6" nextPlayerX="5200" nextPlayerY="2336"/>
-
+		
+		<!--Door to maze -->
+		<portal x="1532" y="4578" width="276" height="122" nextScene="12" nextPlayerX="0" nextPlayerY="0"/>
+		
 		<!--Portal to w1-->
 		<portal x="592" y="2996" width="124" height="240" nextScene="3" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
 		
-    <npcW2 npcW2TexturePath="Assets/Characters/Characters_popups.png" />
+		<npcW2 npcW2TexturePath="Assets/Characters/Characters_popups.png" />
+		
 	</w2_scene>
+	
+	<w2_scene_maze name="Assets/Maps/World_02/maze.tmx" path="Assets/Maps/World_02/">
+		
+		<player x="1670" y="140" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+		<!--Door to scene_02 -->
+		<door x="1259" y="2156" width="105" height="80" nextScene="6" nextPlayerX="8900" nextPlayerY="930"/>
+		
+	</w2_scene_maze>
+	
 	<w3_scene name="Assets/Maps/World_03/scene_01.tmx" path="Assets/Maps/World_03/">
 		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 	</w3_scene>
 
-	<w3_scene_maze name="Assets/Maps/World_02/maze.tmx" path="Assets/Maps/World_02/">
-		<player x="1670" y="140" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
-	</w3_scene_maze>
+	
 	
 	<sceneGrandma name="Assets/Maps/World_01/town_house.tmx" path="Assets/Maps/World_01/">
 		<player x="532" y="882" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />

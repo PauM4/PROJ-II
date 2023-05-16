@@ -997,39 +997,42 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 bool Scene::SaveState(pugi::xml_node& data)
 {
-	// PLAYER
-	pugi::xml_node playerNode = data.append_child("player");
+	if (active) {
+		// PLAYER
+		pugi::xml_node playerNode = data.append_child("player");
 
-	// If door, save mes lluny
-	if (app->uiModule->doorPlayerPosition)
-	{
-		playerNode.append_attribute("x") = player->position.x;
-		playerNode.append_attribute("y") = player->position.y + 75;
-		app->uiModule->doorPlayerPosition = false;
+		// If door, save mes lluny
+		if (app->uiModule->doorPlayerPosition)
+		{
+			playerNode.append_attribute("x") = player->position.x;
+			playerNode.append_attribute("y") = player->position.y + 75;
+			app->uiModule->doorPlayerPosition = false;
+		}
+
+		if (active)
+		{
+			playerNode.append_attribute("x") = player->position.x + 16;
+			playerNode.append_attribute("y") = player->position.y + 16;
+		}
+
+
+		// Save Minigame has been Completed
+		pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");
+		ropeMinigameNode.append_attribute("rope_minigame_state") = ropeWin;
+
+		// CHESTS
+		pugi::xml_node chestGameSave = data.append_child("chests");
+
+		pugi::xml_node chestNodeSave1 = chestGameSave.append_child("chest1");
+		chestNodeSave1.append_attribute("isPicked").set_value(chest1->isPicked);
+
+		pugi::xml_node chestNodeSave2 = chestGameSave.append_child("chest2");
+		chestNodeSave2.append_attribute("isPicked").set_value(chest2->isPicked);
+
+		pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
+		chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
 	}
 	
-	if (active)
-	{
-		playerNode.append_attribute("x") = player->position.x + 16;
-		playerNode.append_attribute("y") = player->position.y + 16;
-	}
-	
-	
-	// Save Minigame has been Completed
-	pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");
-	ropeMinigameNode.append_attribute("rope_minigame_state") = ropeWin;
-
-	// CHESTS
-	pugi::xml_node chestGameSave = data.append_child("chests");
-
-	pugi::xml_node chestNodeSave1 = chestGameSave.append_child("chest1");
-	chestNodeSave1.append_attribute("isPicked").set_value(chest1->isPicked);
-
-	pugi::xml_node chestNodeSave2 = chestGameSave.append_child("chest2");
-	chestNodeSave2.append_attribute("isPicked").set_value(chest2->isPicked);
-
-	pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
-	chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
 	
 
 	return true;
