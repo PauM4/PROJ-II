@@ -49,12 +49,6 @@ bool NpcW2::Start() {
 
 bool NpcW2::Update(float dt)
 {
-
-	return true;
-}
-
-bool NpcW2::PostUpdate()
-{
 	currentAnimation = &pigsAnimation;
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	app->render->DrawTexture(npcW2Texture, posPigs.x - 13, posPigs.y - 86, &rect);
@@ -62,6 +56,12 @@ bool NpcW2::PostUpdate()
 	currentAnimation = &zorroAnimation;
 	rect = currentAnimation->GetCurrentFrame();
 	app->render->DrawTexture(npcW2Texture, posZorro.x - 13, posZorro.y - 86, &rect);
+	return true;
+}
+
+bool NpcW2::PostUpdate()
+{
+	
 
 	return true;
 }

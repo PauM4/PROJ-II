@@ -71,12 +71,6 @@ bool Npc::Start() {
 
 bool Npc::Update(float dt)
 {
-
-	return true;
-}
-
-bool Npc::PostUpdate()
-{
 	currentAnimation = &angryVillagerAnimation;
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	app->render->DrawTexture(npcTexture, posAngryVillager.x - 13, posAngryVillager.y - 86, &rect);
@@ -91,7 +85,14 @@ bool Npc::PostUpdate()
 
 	currentAnimation = &lrrhAnimation;
 	rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(npcTexture, posLRRH.x - 23, posLRRH.y-90, &rect);
+	app->render->DrawTexture(npcTexture, posLRRH.x - 23, posLRRH.y - 90, &rect);
+
+	return true;
+}
+
+bool Npc::PostUpdate()
+{
+	
 
 	
 
