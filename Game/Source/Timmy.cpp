@@ -69,6 +69,17 @@ bool Timmy::Awake()
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
 
+
+	abilityAnim.PushBack({1671,94,404,404 });
+	abilityAnim.PushBack({ 1671,541,404,404 });
+	abilityAnim.PushBack({ 1671,94,404,404 });
+	abilityAnim.PushBack({ 1671,541,404,404 });
+	abilityAnim.PushBack({ 1671,94,404,404 });
+	abilityAnim.PushBack({ 1671,541,404,404 });
+	abilityAnim.loop = true;
+	abilityAnim.speed = 0.05f;
+
+
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
 		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
@@ -180,7 +191,7 @@ bool Timmy::Update(float dt)
 		}
 		else if (app->battleManager->actionType == ActionType::ABILITY)
 		{
-
+			currentAnimation = &abilityAnim;
 		}
 		else if (position.x > PrevPos.x)
 		{
@@ -251,10 +262,21 @@ AnimDirection Timmy::CheckDirection()
 }
 bool Timmy::PostUpdate()
 {
-	if (app->uiModule->currentMenuType == COMBAT) {
+	if (currentAnimation == &abilityAnim)
+	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+		app->render->DrawTexture(texture, position.x - (13+125), position.y - (35+125), &rect);
 	}
+	else
+	{
+		if (app->uiModule->currentMenuType == COMBAT) {
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+		}
+	}
+	
+
+	
 
 	return true;
 }
