@@ -18,7 +18,7 @@ Bunny::Bunny() : Entity(EntityType::BUNNY)
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;
-	prehealth = health;
+	
 
 }
 
@@ -115,6 +115,7 @@ bool Bunny::Start()
 	PrevPos = position;
 	attackFx = app->audio->LoadFx("Assets/Sounds/FX/fx_attack.wav");
 	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_lightning.wav");
+	prehealth = health;
 	return true;
 }
 

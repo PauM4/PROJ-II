@@ -83,18 +83,12 @@ bool BattleManager::Update(float dt) {
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		if (godMode)
-		{
-			godMode = false;
-		}
-		else
-		{
-			godMode = false;
-		}
+		godMode = !godMode;
 	}
 
-	if (godMode)
+	if (godMode) {
 		GodMode();
+	}
 
 	UpdateEntitiesTilePos();
 
