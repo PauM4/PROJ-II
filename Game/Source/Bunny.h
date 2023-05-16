@@ -46,6 +46,8 @@ public:
 	Animation walkLeftAnim;
 	Animation idleAnim;
 	Animation takedmgAnim;
+	Animation attackAnim;
+	Animation abilityAnim;
 
 private:
 

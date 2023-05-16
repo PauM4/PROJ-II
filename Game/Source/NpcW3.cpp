@@ -85,12 +85,6 @@ bool NpcW3::Start() {
 
 bool NpcW3::Update(float dt)
 {
-
-	return true;
-}
-
-bool NpcW3::PostUpdate()
-{
 	currentAnimation = &deadVillagerAnimation;
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	app->render->DrawTexture(NpcW3Texture, posDeadVillager.x - 13, posDeadVillager.y - 86, &rect);
@@ -119,6 +113,12 @@ bool NpcW3::PostUpdate()
 	currentAnimation = &sheepDAnimation;
 	rect = currentAnimation->GetCurrentFrame();
 	app->render->DrawTexture(NpcW3Texture, posSheepD.x - 60, posSheepD.y - 96, &rect);
+	return true;
+}
+
+bool NpcW3::PostUpdate()
+{
+	
 
 
 	return true;

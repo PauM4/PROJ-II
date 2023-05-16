@@ -12,6 +12,8 @@
 #include "Fonts.h"
 
 #include "Defs.h"
+
+#include "Defs.h"
 #include "Log.h"
 
 W2_Scene::W2_Scene(bool isActive) : Module(isActive)
@@ -29,6 +31,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	LOG("Loading W2_Scene");
 	bool ret = true;
 
+	
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 	
@@ -92,6 +95,7 @@ bool W2_Scene::Start()
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
+	zorroDialogue = false;
 
 	// Tell to UIModule which currentMenuType
 	app->uiModule->currentMenuType = DISABLED;
@@ -147,8 +151,8 @@ bool W2_Scene::PreUpdate()
 // Called each loop iteration
 bool W2_Scene::Update(float dt)
 {
-	std::cout << "X: " << player->position.x << std::endl;
-	std::cout << "Y: " << player->position.y << std::endl;
+	//std::cout << "X: " << player->position.x << std::endl;
+	//std::cout << "Y: " << player->position.y << std::endl;
 
 
 	Camera();
@@ -176,6 +180,8 @@ bool W2_Scene::Update(float dt)
 		app->render->camera.x -= ceil(speed);
 
 	GodMode();
+
+	MoveToBattleFromDialogue();
 
 
 	// Check if the current quest is completed
@@ -212,6 +218,8 @@ bool W2_Scene::Update(float dt)
 
 	// Draw map
 	app->map->Draw();
+
+
 
 	return true;
 }
@@ -319,7 +327,7 @@ void W2_Scene::GodMode()
 //Updates the camera position based on the player's position. If god mode is on, the camera follows the player's position without any boundaries. If god mode is off, the camera follows the player's position while respecting the game's boundaries.
 void W2_Scene::Camera()
 {
-	if (godMode)
+	if (godMode && CheckInsideBoundaries())
 	{
 		app->render->FollowObject(-(int)player->position.x, -(int)player->position.y - 35,
 			app->render->camera.w / 2, app->render->camera.h / 2);
@@ -327,11 +335,23 @@ void W2_Scene::Camera()
 	else
 	{
 		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2, -4254, -93, -3624, -1212);
+			app->render->camera.w / 2, app->render->camera.h / 2, -4394, -93, -3674, -1212);
 	}
 
 }
 
+bool W2_Scene::CheckInsideBoundaries()
+{	
+	bool insideX = (player->position.x == clamp(player->position.x, 93, 4394+(1920)));
+	bool insideY = (player->position.y == clamp(player->position.y, 1212, 3674+1080));
+	
+	if (insideX && insideY)
+	{
+		return true;
+	}
+	
+	return false;
+}
 
 //Runs a dialogue tree for a specific NPC, identified using a ColliderType enum. This function delegates the NPC specific behavior to other functions based on the enum passed in.
 void W2_Scene::RunDialogueTree(ColliderType NPC)
@@ -412,10 +432,10 @@ void W2_Scene::CreateDialogue()
 
 	if (!pigsDefeated)
 	{
-		// - Angry Villager Post Tutorial
+		// - Pigs Pre Battle
 	//3rd level
 		auto secondOption1PT = std::make_shared<DialogueNode>();
-		secondOption1PT->SetText("What happened here? The houses are destroyed.");
+		secondOption1PT->SetText("OMGGG!");
 
 		auto secondOption2PT = std::make_shared<DialogueNode>();
 		secondOption2PT->SetText("How could you do that? You're monsters and you'll be the next ones to become bacon.");
@@ -499,9 +519,9 @@ void W2_Scene::CreateDialogue()
 		pigsTree->SetRoot(firstNodePigsAC);
 	}
 
-	//sheeps
 	auto zorroNode = std::make_shared<DialogueNode>();
 	zorroNode->SetText("If you keep going this way, you will come across a cave, full of challenges and mysteries. Help Me!");
+	zorroNode->ActivateNode();
 	zorroTree = std::make_shared<DialogueTree>();
 	zorroTree->SetRoot(zorroNode);
 
@@ -546,14 +566,14 @@ void W2_Scene::MoveToBattleFromDialogue()
 {
 	if (numTimesPigsDialogueTriggered == 1 && !pigsDefeated)
 	{
-		timerToPigsCombat.Start(2.0f);
+		timerToPigsCombat.Start(3.0f);
 		numTimesPigsDialogueTriggered = 0;
 	}
 
 	if (timerToPigsCombat.Test() == estadoTimerP::FIN)
 	{
 		//Teleportar a GameScene::Pigcombat
-		//doors.At(0)->data->TriggerDoor(GameScene::BATTLE);
+		app->sceneManager->LoadScene(GameScene::COMBATOINK);
 	}
 
 
