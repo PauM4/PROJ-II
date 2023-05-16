@@ -47,6 +47,13 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 		player->position.y = config.child("player").attribute("y").as_int();
 	}
 
+	for (pugi::xml_node doorNode = config.child("door"); doorNode; doorNode = doorNode.next_sibling("door")) {
+		Door* door = (Door*)app->entityManager->CreateEntity(EntityType::DOOR);
+		door->parameters = doorNode;
+
+		doors.Add(door);
+	}
+
 	app->entityManager->Awake(config);
 
 	CreateDialogue(); //3MB

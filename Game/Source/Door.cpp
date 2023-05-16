@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Scene.h"
+#include "W2_Scene.h"
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
@@ -87,7 +88,12 @@ void Door::OnCollision(PhysBody* physA, PhysBody* physB)
 		switch (app->sceneManager->scene) {
 		case SCENE:
 			app->scene->player->ChangePosition(nextX, nextY);
+			break; 
+		case W2_SCENE:
+			app->w2_scene->player->ChangePosition(nextX, nextY);
+			break;
 		}
+	
 		break;
 	}
 }

@@ -49,6 +49,20 @@
 	</scene>
 	<w2_scene name="Assets/Maps/World_02/scene_02.tmx" path="Assets/Maps/World_02/">
 		<player x="571" y="3117" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+		
+		<!--Door to straw house -->
+		<door x="1259" y="2156" width="105" height="80" nextScene="6" nextPlayerX="8900" nextPlayerY="930"/>
+		<!--Door from straw house -->
+		<door x="8844" y="982" width="140" height="26" nextScene="6" nextPlayerX="1320" nextPlayerY="2290"/>
+		<!--Door to wooden house -->
+		<door x="3058" y="2139" width="142" height="93" nextScene="6" nextPlayerX="8764" nextPlayerY="2900"/>
+		<!--Door from wooden house -->
+		<door x="8718" y="2968" width="176" height="40" nextScene="6" nextPlayerX="3100" nextPlayerY="2280"/>
+		<!--Door to brick house -->
+		<door x="5100" y="2211" width="227" height="75" nextScene="6" nextPlayerX="9700" nextPlayerY="4230"/>
+		<!--Door from brick house -->
+		<door x="9758" y="4172" width="44" height="120" nextScene="6" nextPlayerX="5200" nextPlayerY="2336"/>
+		
     <npcW2 npcW2TexturePath="Assets/Characters/Characters_popups.png" />
 	</w2_scene>
 	<w3_scene name="Assets/Maps/World_03/scene_01.tmx" path="Assets/Maps/World_03/">
