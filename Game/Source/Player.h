@@ -139,6 +139,9 @@ private:
 	bool isChest1Pickable;
 	bool isChest2Pickable;
 	bool isChest3Pickable;
+	bool isChest4Pickable;
+	bool isChest5Pickable;
+	bool isChest6Pickable;
 
 
 };

@@ -139,6 +139,7 @@ public:
 	// Battle tutorial
 	SDL_Texture* battleTutoTexture;
 	int battleTutorialCounter;
+	bool isTalkingToAngry;
 
 	// Rope minigame
 	SDL_Texture* ropeTexture;

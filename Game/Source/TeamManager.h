@@ -154,7 +154,7 @@ public:
 	bool statsdone = false;
 
 	bool startstatsup = false;
-	
+	bool arasiva = false;
 	bool defenseup;
 	bool magicup;
 	bool speedup;
