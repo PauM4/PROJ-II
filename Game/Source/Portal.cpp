@@ -103,7 +103,6 @@ void Portal::OnCollision(PhysBody* physA, PhysBody* physB)
 			app->uiModule->doorPlayerPosition = true;
 			app->SaveGameRequest();
 			app->sceneManager->LoadScene((GameScene)nextScene);
-			app->w2_scene->player->ChangePosition(871, 3117);
 			break; 
 		}
 		

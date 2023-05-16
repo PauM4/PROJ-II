@@ -78,7 +78,7 @@ public:
 	Player* player;
 	NpcW2* npc;
 	List<Door*> doors;
-	Portal* portal;
+	List<Portal*> portals;
 
 
 	// A list of quests

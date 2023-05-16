@@ -55,8 +55,10 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	}
 
 	for (pugi::xml_node doorNode = config.child("portal"); doorNode; doorNode = doorNode.next_sibling("portal")) {
-		portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
-		portal->parameters = config.child("portal");
+		Portal* portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
+		portal->parameters = doorNode; 
+
+		portals.Add(portal);
 	}
 	
 
@@ -108,6 +110,7 @@ bool W2_Scene::Start()
 	}
 
 	//player->ChangePosition(871, 3117);
+	player->ChangePosition(5000, 3117);
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
