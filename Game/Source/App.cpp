@@ -474,7 +474,7 @@ bool App::SaveToFile()
 	ListItem<Module*>* item;
 	item = modules.start;
 
-	while (item != NULL)
+	while (item != NULL && item->data->active)
 	{
 		ret = item->data->SaveState(saveStateNode.append_child(item->data->name.GetString()));
 		item = item->next;
