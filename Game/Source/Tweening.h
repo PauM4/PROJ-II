@@ -38,8 +38,6 @@ enum Easings
 
 };
 
-
-
 class Tween
 {
 public:

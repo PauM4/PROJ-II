@@ -98,7 +98,6 @@ public:
 	SDL_Texture* lvlupTexture;
 	SDL_Texture* eKeyTexture;
 	SDL_Texture* textDialogue;
-	Tween eKeyAnim;
 	bool inventoryOpen;
 
 private:
