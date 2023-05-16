@@ -390,7 +390,10 @@ bool TeamManager::Update(float dt)
 		
 
 	}
-
+	if (yoyo.character == 0) {
+		int i = 0;
+		i++;
+	}
 	if (lvlupbool == true) {
 		if (cont < characters.Count()) {
 			if (LvlUpPoints > 0) {
@@ -806,17 +809,17 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 bool TeamManager::additemstats(Entity* ent, int i)
 {
 
-	ent->defense += equipment.At(i)->data.defense;
-	ent->magic += equipment.At(i)->data.magic;
-	ent->speed += equipment.At(i)->data.speed;
-	ent->movement += equipment.At(i)->data.movement;
-	ent->attack += equipment.At(i)->data.attack;
-	ent->AttArea += equipment.At(i)->data.AttArea;
-	ent->Ab1Power += equipment.At(i)->data.Ab1Power;
-	ent->Ab2Power += equipment.At(i)->data.Ab2Power;
-	ent->Ab1Area += equipment.At(i)->data.Ab1Area;
-	ent->Ab2Area += equipment.At(i)->data.Ab2Area;
-	ent->healingpower += equipment.At(i)->data.healingpower;
+	ent->defense += equipment.At(i)->data->defense;
+	ent->magic += equipment.At(i)->data->magic;
+	ent->speed += equipment.At(i)->data->speed;
+	ent->movement += equipment.At(i)->data->movement;
+	ent->attack += equipment.At(i)->data->attack;
+	ent->AttArea += equipment.At(i)->data->AttArea;
+	ent->Ab1Power += equipment.At(i)->data->Ab1Power;
+	ent->Ab2Power += equipment.At(i)->data->Ab2Power;
+	ent->Ab1Area += equipment.At(i)->data->Ab1Area;
+	ent->Ab2Area += equipment.At(i)->data->Ab2Area;
+	ent->healingpower += equipment.At(i)->data->healingpower;
 
 	return false;
 }
@@ -975,79 +978,79 @@ void TeamManager::PrintLvlUpText()
 void TeamManager::loadinventory() {
 
 	if (yoyo.ininventory == true) {
-		inventory.Add(yoyo);
+		inventory.Add(&yoyo);
 		if (yoyo.character != 0) {
-			equipment.Add(yoyo);
+			equipment.Add(&yoyo);
 		}
 	}
 
 	if (handsxd.ininventory == true) {
-		inventory.Add(handsxd);
+		inventory.Add(&handsxd);
 		if (handsxd.character != 0) {
-			equipment.Add(handsxd);
+			equipment.Add(&handsxd);
 		}
 	}
 
 	if (bow.ininventory == true) {
-		inventory.Add(bow);
+		inventory.Add(&bow);
 		if (bow.character != 0) {
-			equipment.Add(bow);
+			equipment.Add(&bow);
 		}
 	}
 
 	if (club.ininventory == true) {
-		inventory.Add(club);
+		inventory.Add(&club);
 		if (club.character != 0) {
-			equipment.Add(club);
+			equipment.Add(&club);
 		}
 	}
 
 	if (knife.ininventory == true) {
-		inventory.Add(knife);
+		inventory.Add(&knife);
 		if (knife.character != 0) {
-			equipment.Add(knife);
+			equipment.Add(&knife);
 		}
 	}
 
 	if (shotgun.ininventory == true) {
-		inventory.Add(shotgun);
+		inventory.Add(&shotgun);
 		if (shotgun.character != 0) {
-			equipment.Add(shotgun);
+			equipment.Add(&shotgun);
 		}
 	}
 
 	if (ironchestplate.ininventory == true) {
-		inventory.Add(ironchestplate);
+		inventory.Add(&ironchestplate);
 		if (ironchestplate.character != 0) {
-			equipment.Add(ironchestplate);
+			equipment.Add(&ironchestplate);
 		}
 	}
 
 	if (reversehat.ininventory == true) {
-		inventory.Add(reversehat);
+		inventory.Add(&reversehat);
 		if (reversehat.character != 0) {
-			equipment.Add(reversehat);
+			equipment.Add(&reversehat);
 		}
 	}
 
 	if (susjar.ininventory == true) {
-		inventory.Add(susjar);
+		inventory.Add(&susjar);
 		if (susjar.character != 0) {
-			equipment.Add(susjar);
+			equipment.Add(&susjar);
 		}
 	}
 
 	if (dentures.ininventory == true) {
-		inventory.Add(dentures);
+		inventory.Add(&dentures);
 		if (dentures.character != 0) {
-			equipment.Add(dentures);
+			equipment.Add(&dentures);
 		}
 	}
 
 	if (talisman.ininventory == true) {
-		inventory.Add(talisman);
+		inventory.Add(&talisman);
 		if (talisman.character != 0) {
-			equipment.Add(talisman);
+			equipment.Add(&talisman);
 		}
 	}
 
@@ -1057,7 +1060,7 @@ void TeamManager::ApplyEquipedItemStats()
 {
 	for (int i = 0; i < equipment.Count(); i++) {
 
-		switch (equipment.At(i)->data.character)
+		switch (equipment.At(i)->data->character)
 		{
 		case 1:
 			additemstats(timmy, i);

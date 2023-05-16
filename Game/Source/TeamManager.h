@@ -119,9 +119,9 @@ public:
 	item susjar;
 	item dentures;
 
-	List<item> inventory;
-	List<item> equipment;
-	List<item> itemstoshow;
+	List<item*> inventory;
+	List<item*> equipment;
+	List<item*> itemstoshow;
 	stats timmystats;
 	stats bunnystats;
 	stats lrrhstats;

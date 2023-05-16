@@ -111,8 +111,11 @@ bool Scene::Awake(pugi::xml_node& config)
 	interactTutorialTextutre = app->tex->Load("Assets/UI/Interact_Guide.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
+
+	battleTutoTexture = app->tex->Load("Assets/UI/battleTutorial.png");
+
 	currentQuestIndex = 0;
-	
+	battleTutorialCounter = 0;	
 
 	return ret;
 
@@ -145,13 +148,17 @@ bool Scene::Start()
 	{
 		player->ChangePosition(1868, 5608);
 		basicTutorialCounter = 0;
+		battleTutorialCounter = 0;
 		isNewGame = false;
 	}
 	else
 	{
 		app->LoadGameRequest();
 		basicTutorialCounter = 2;
+		battleTutorialCounter = 3;
 	}
+	numEnteredQuestVillager = 0;
+	numEnteredQuestLHHR = 0;
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
@@ -180,7 +187,9 @@ bool Scene::Start()
 
 	//Rect for chest Texture
 	chestHRect = {4, 36, 90, 77};
-	chestVRect = {15, 123, 71, 101};
+	chestVRect = {12, 135, 71, 101};
+	chestopenHRect = { 105, 3, 88, 108 };
+	chestopenVRect = { 107, 134, 74, 100 };
 
 	ropeWin = false;
 	minigameActive = false;
@@ -257,23 +266,39 @@ bool Scene::Update(float dt)
 
 	MoveToBattleFromDialogue();
 
+	if (angryVillagerDefeated == true && numEnteredQuestVillager == 0) {
+		questList[currentQuestIndex].completed = true; 
+		numEnteredQuestVillager++;
+	}
+
+	if (LRRHDefeated == true && numEnteredQuestLHHR == 1) {
+		questList[currentQuestIndex].completed = true;
+		numEnteredQuestLHHR++;
+	}
+
+	if (talkedToGrandma == true && numEnteredQuestLHHR == 0) {
+		questList[currentQuestIndex].completed = true;
+		numEnteredQuestLHHR++;
+	}
+
 	// Check if the current quest is completed
 	if (questList[currentQuestIndex].completed || app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
 		// If it is, move to the next quest
 		nextQuest();
 	}
 
+	//Draw map
 	app->map->Draw();
 
-	// Tutorial SCREENS when NewGame
-	if (basicTutorialCounter >= 2)
-	{
-		// Draw map
-		
-		TweenyTestWithU();
+	if (chest1->isPicked)app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
+	if (chest2->isPicked) app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestopenVRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
+	if (chest3->isPicked) app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 
-	}
-	else
+
+	if(basicTutorialCounter < 2)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
@@ -291,6 +316,18 @@ bool Scene::Update(float dt)
 
 	}
 
+	// If talking to AngryVillager, player can next tutorial
+	if (player->playerState == player->PlayerState::NPC_INTERACT && GetPlayerLastCollision() == ColliderType::ANGRYVILLAGER)
+	{
+		if (battleTutorialCounter <= 3)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+			{
+				battleTutorialCounter++;
+			}
+		}
+	}
+	
 
 	UpdateMinigameLogic(dt);
 
@@ -419,9 +456,6 @@ bool Scene::PostUpdate()
 		return false;
 	}
 
-	app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
-	app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
-	app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 	return ret;
 }
 
@@ -470,6 +504,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(interactTutorialTextutre);
 	app->tex->UnLoad(lvlupTexture);
 	app->tex->UnLoad(chestTexture);
+	app->tex->UnLoad(battleTutoTexture);
 	
 
 	return true;
@@ -663,6 +698,7 @@ void Scene::UpdateDialogueTree(int option)
 
 		case ColliderType::GRANDMA:
 			grandmaTree->Update(option);
+			talkedToGrandma = true;
 			break;
 
 		case ColliderType::LRRH:
@@ -989,6 +1025,8 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 	ropeWin = data.child("rope_minigame").attribute("rope_minigame_state").as_bool();
 
+	battleTutorialCounter = data.child("saveBattleTutoState").attribute("state").as_int();
+
 	//LoadChests(data);
 
 
@@ -997,40 +1035,45 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 bool Scene::SaveState(pugi::xml_node& data)
 {
-	// PLAYER
-	pugi::xml_node playerNode = data.append_child("player");
-
-	// If door, save mes lluny
-	if (app->uiModule->doorPlayerPosition)
+	if (active) 
 	{
-		playerNode.append_attribute("x") = player->position.x;
-		playerNode.append_attribute("y") = player->position.y + 75;
-		app->uiModule->doorPlayerPosition = false;
+		// PLAYER
+		pugi::xml_node playerNode = data.append_child("player");
+
+		// If door, save mes lluny
+		if (app->uiModule->doorPlayerPosition)
+		{
+			playerNode.append_attribute("x") = player->position.x;
+			playerNode.append_attribute("y") = player->position.y + 75;
+			app->uiModule->doorPlayerPosition = false;
+		}
+
+		if (active)
+		{
+			playerNode.append_attribute("x") = player->position.x + 16;
+			playerNode.append_attribute("y") = player->position.y + 16;
+		}
+
+
+		// Save Minigame has been Completed
+		pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");
+		ropeMinigameNode.append_attribute("rope_minigame_state") = ropeWin;
+
+		// CHESTS
+		pugi::xml_node chestGameSave = data.append_child("chests");
+
+		pugi::xml_node chestNodeSave1 = chestGameSave.append_child("chest1");
+		chestNodeSave1.append_attribute("isPicked").set_value(chest1->isPicked);
+
+		pugi::xml_node chestNodeSave2 = chestGameSave.append_child("chest2");
+		chestNodeSave2.append_attribute("isPicked").set_value(chest2->isPicked);
+
+		pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
+		chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
+
+		pugi::xml_node saveBattleTutorialState = data.append_child("saveBattleTutoState");
+		saveBattleTutorialState.append_attribute("state") = battleTutorialCounter;
 	}
-	
-	if (active)
-	{
-		playerNode.append_attribute("x") = player->position.x + 16;
-		playerNode.append_attribute("y") = player->position.y + 16;
-	}
-	
-	
-	// Save Minigame has been Completed
-	pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");
-	ropeMinigameNode.append_attribute("rope_minigame_state") = ropeWin;
-
-	// CHESTS
-	pugi::xml_node chestGameSave = data.append_child("chests");
-
-	pugi::xml_node chestNodeSave1 = chestGameSave.append_child("chest1");
-	chestNodeSave1.append_attribute("isPicked").set_value(chest1->isPicked);
-
-	pugi::xml_node chestNodeSave2 = chestGameSave.append_child("chest2");
-	chestNodeSave2.append_attribute("isPicked").set_value(chest2->isPicked);
-
-	pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
-	chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
-	
 
 	return true;
 }

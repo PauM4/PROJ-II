@@ -11,13 +11,14 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1857" y="5608" />
+		<player x="7428" y="5103" x="7444" y="5044" />
 		<rope_minigame rope_minigame_state="false" />
 		<chests>
 			<chest1 isPicked="false" />
 			<chest2 isPicked="false" />
 			<chest3 isPicked="false" />
 		</chests>
+		<saveBattleTutoState state="3" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -27,6 +28,9 @@
 	<w2_scene>
 		<player />
 	</w2_scene>
+	<w2_scene_maze>
+		<player />
+	</w2_scene_maze>
 	<w3_scene>
 		<player />
 	</w3_scene>
@@ -44,8 +48,8 @@
 			<club isobtained="false" character="0" />
 			<knife isobtained="false" character="0" />
 			<shotgun isobtained="false" character="0" />
-			<ironchestplate isobtained="true" character="0" />
-			<reversehat isobtained="true" character="0" />
+			<ironchestplate isobtained="false" character="0" />
+			<reversehat isobtained="false" character="0" />
 			<susjar isobtained="false" character="0" />
 			<dentures isobtained="false" character="0" />
 			<talisman isobtained="false" character="0" />
@@ -62,7 +66,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-881" y="-4974" />
+		<camera x="-6468" y="-4533" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="false" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

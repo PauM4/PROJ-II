@@ -93,6 +93,11 @@ bool SceneManager::PreUpdate()
 		app->sceneManager->isBattle = true;
 		scene = GameScene::COMBATOINK;
 	}
+	if ((app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = false;
+		scene = GameScene::W2_SCENE_MAZE;
+	}
 
 	switch (scene) {
 	case GameScene::INTRO:
@@ -186,6 +191,14 @@ bool SceneManager::Update(float dt)
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->w2_scene, 20)) {
 				currentScene = (Module*)app->w2_scene;
 				LOG("W2_SCENE");
+			}
+		}
+		break;
+	case GameScene::W2_SCENE_MAZE:
+		if (currentScene != (Module*)app->w2_scene_maze) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->w2_scene_maze, 20)) {
+				currentScene = (Module*)app->w2_scene_maze;
+				LOG("W2_SCENE_MAZE");
 			}
 		}
 		break;

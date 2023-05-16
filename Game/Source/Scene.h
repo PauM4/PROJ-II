@@ -114,6 +114,7 @@ public:
 
 	// The index of the current quest
 	int currentQuestIndex;
+	int numEnteredQuestVillager, numEnteredQuestLHHR;
 
 	// Counter that triggers the tutorial screens when new Game
 	// Number 2 means --> don't appear the tutorial
@@ -135,6 +136,10 @@ public:
 	SDL_Texture* interactTutorialTextutre;
 	SDL_Texture* lvlupTexture;
 
+	// Battle tutorial
+	SDL_Texture* battleTutoTexture;
+	int battleTutorialCounter;
+
 	// Rope minigame
 	SDL_Texture* ropeTexture;
 	Animation pressKeyAnim;
@@ -146,8 +151,11 @@ public:
 	SDL_Texture* chestTexture;
 	SDL_Rect chestHRect;
 	SDL_Rect chestVRect;
+	SDL_Rect chestopenHRect;
+	SDL_Rect chestopenVRect;
 
 	bool angryVillagerDefeated, LRRHDefeated;
+	bool talkedToGrandma;
 
 	int numTimesAVDialogueTriggered, numTimesLRRHDialogueTriggered;
 	SDL_Timer timerToSceneBattle, timerToLRRHCombat;

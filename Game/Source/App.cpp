@@ -16,6 +16,7 @@
 
 //World_02
 #include "W2_Scene.h"
+#include "W2_Scene_Maze.h"
 
 //World_03
 #include "W3_Scene.h"
@@ -71,6 +72,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	//World_02
 	w2_scene = new W2_Scene(false);
+	w2_scene_maze = new W2_Scene_Maze(false);
 
 	//World_03
 	w3_scene = new W3_Scene(false);
@@ -109,6 +111,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	//World_02
 	AddModule(w2_scene);
+	AddModule(w2_scene_maze);
 
 	//World_03
 	AddModule(w3_scene);
