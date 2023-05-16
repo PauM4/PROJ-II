@@ -136,6 +136,10 @@ public:
 	SDL_Texture* interactTutorialTextutre;
 	SDL_Texture* lvlupTexture;
 
+	// Battle tutorial
+	SDL_Texture* battleTutoTexture;
+	int battleTutorialCounter;
+
 	// Rope minigame
 	SDL_Texture* ropeTexture;
 	Animation pressKeyAnim;

@@ -111,8 +111,11 @@ bool Scene::Awake(pugi::xml_node& config)
 	interactTutorialTextutre = app->tex->Load("Assets/UI/Interact_Guide.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
+
+	battleTutoTexture = app->tex->Load("Assets/UI/battleTutorial.png");
+
 	currentQuestIndex = 0;
-	
+	battleTutorialCounter = 0;	
 
 	return ret;
 
@@ -145,12 +148,14 @@ bool Scene::Start()
 	{
 		player->ChangePosition(1868, 5608);
 		basicTutorialCounter = 0;
+		battleTutorialCounter = 0;
 		isNewGame = false;
 	}
 	else
 	{
 		app->LoadGameRequest();
 		basicTutorialCounter = 2;
+		battleTutorialCounter = 3;
 	}
 	numEnteredQuestVillager = 0;
 	numEnteredQuestLHHR = 0;
@@ -284,15 +289,7 @@ bool Scene::Update(float dt)
 
 	app->map->Draw();
 
-	// Tutorial SCREENS when NewGame
-	if (basicTutorialCounter >= 2)
-	{
-		// Draw map
-		
-		TweenyTestWithU();
-
-	}
-	else
+	if(basicTutorialCounter < 2)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
@@ -310,6 +307,18 @@ bool Scene::Update(float dt)
 
 	}
 
+	// If talking to AngryVillager, player can next tutorial
+	if (player->playerState == player->PlayerState::NPC_INTERACT && GetPlayerLastCollision() == ColliderType::ANGRYVILLAGER)
+	{
+		if (battleTutorialCounter <= 3)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+			{
+				battleTutorialCounter++;
+			}
+		}
+	}
+	
 
 	UpdateMinigameLogic(dt);
 
@@ -493,6 +502,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(interactTutorialTextutre);
 	app->tex->UnLoad(lvlupTexture);
 	app->tex->UnLoad(chestTexture);
+	app->tex->UnLoad(battleTutoTexture);
 	
 
 	return true;
@@ -1013,6 +1023,8 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 	ropeWin = data.child("rope_minigame").attribute("rope_minigame_state").as_bool();
 
+	battleTutorialCounter = data.child("saveBattleTutoState").attribute("state").as_int();
+
 	//LoadChests(data);
 
 
@@ -1021,7 +1033,8 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 bool Scene::SaveState(pugi::xml_node& data)
 {
-	if (active) {
+	if (active) 
+	{
 		// PLAYER
 		pugi::xml_node playerNode = data.append_child("player");
 
@@ -1055,9 +1068,10 @@ bool Scene::SaveState(pugi::xml_node& data)
 
 		pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
 		chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
+
+		pugi::xml_node saveBattleTutorialState = data.append_child("saveBattleTutoState");
+		saveBattleTutorialState.append_attribute("state") = battleTutorialCounter;
 	}
-	
-	
 
 	return true;
 }
