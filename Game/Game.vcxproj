@@ -129,7 +129,6 @@
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerformanceBar2.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
-    <ClCompile Include="Source\Peter.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Portal.cpp" />
     <ClCompile Include="Source\SceneCombatLHHR.cpp" />
@@ -184,7 +183,6 @@
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerformanceBar2.h" />
     <ClInclude Include="Source\PerfTimer.h" />
-    <ClInclude Include="Source\Peter.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Portal.h" />
     <ClInclude Include="Source\SceneCombatLHHR.h" />

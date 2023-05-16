@@ -120,7 +120,7 @@
 	</battleScene_Pigs>
 	
 	<teamManager>
-		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
+		<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
 		<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnteam="false" />
 		<item>
 			<yoyo ininventory="true" type="1" weaponuser="1" character="1" name="Yo-Yo" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
@@ -139,14 +139,14 @@
 	<battleScene_Pigs name="Assets/Maps/World_01/LRH.tmx" path="Assets/Maps/World_01/">
 
 	</battleScene_Pigs>
-	<timmy level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
-	<bunny level="1" health="21" maxHealth="21" defense="1" magic="7" stamina="15" maxStamina="15" speed="8" attack="8" AttArea="3" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="20" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
+	<timmy level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="8" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
+	<bunny level="1" health="21" maxHealth="21" defense="1" magic="7" stamina="15" maxStamina="15" speed="8" attack="8" AttArea="3" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="10" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
 	<enemy_angryVillager level="1" health="40" maxHealth="40" defense="4" magic="5" stamina="15" maxStamina="15" speed="7" attack="8" AttArea="3" Ab1Type="3" Ab1Area="1" Ab1RangeType="3" Ab1Power="2" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
 	<enemy_lrrh level="1" health="40" maxHealth="40" defense="4" magic="5" stamina="15" maxStamina="15" speed="7" attack="8" AttArea="4" Ab1Type="3" Ab1Area="1" Ab1RangeType="3" Ab1Power="2" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
 	<sprout level="1" health="15" maxHealth="15" defense="4" magic="5" stamina="15" maxStamina="15" speed="7" attack="8" AttArea="4" Ab1Type="3" Ab1Area="1" Ab1RangeType="3" Ab1Power="2" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
 	<lrrh level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
-	<enemy_littlePig level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
-	<enemy_middlePig level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
+	<enemy_littlePig level="1" health="20" maxHealth="20" defense="10" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
+	<enemy_middlePig level="1" health="20" maxHealth="20" defense="10" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
 	<littlePig level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
 	<middlePig level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
 	<peter level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />

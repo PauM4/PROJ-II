@@ -62,6 +62,8 @@ public:
 	
 	AnimDirection animDirection;
 
+	int prehealth;
+
 private:
 
 	
