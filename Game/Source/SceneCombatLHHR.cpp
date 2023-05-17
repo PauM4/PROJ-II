@@ -298,6 +298,7 @@ void SceneCombatLHHR::SaveResult()
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "true");
 		app->UpdateXMLAttributeFromNode("save_game.xml", "playable", "islrrhplayable", "true");
 		app->teamManager->islrrhplayable = true;
+
 	}
 	else if (app->battleManager->lose)
 	{

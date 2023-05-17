@@ -63,7 +63,7 @@
 		</stats>
 	</teamManager>
 	<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
-	<onteam IstimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
+	<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
 	<UIModule />
 	<fadeToBlack />
 	<renderer>

@@ -64,6 +64,8 @@ bool BattleManager::Start() {
 	win = false;
 	lose = false;
 	battleState = BattleState::THINKING;
+	app->SaveGameRequest();
+
 	return true;
 }
 

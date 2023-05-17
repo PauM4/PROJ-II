@@ -92,7 +92,6 @@ bool SceneBattle::Start() {
 	
 	//bunnyPrevPos = bunny->position;
 	villagerPrevPos = villager->position;
-
 	return true;
 }
 

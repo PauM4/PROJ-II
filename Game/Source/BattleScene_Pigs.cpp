@@ -300,6 +300,10 @@ void BattleScene_Pigs::SaveResult()
 	if (app->battleManager->win)
 	{
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isPigDefeated", "true");
+		app->UpdateXMLAttributeFromNode("save_game.xml", "playable", "islilpigplayable", "true");
+		app->UpdateXMLAttributeFromNode("save_game.xml", "playable", "ismidpigplayable", "true");
+		app->teamManager->islilpigplayable = true;
+		app->teamManager->ismidpigplayable = true;
 	}
 	else if (app->battleManager->lose)
 	{

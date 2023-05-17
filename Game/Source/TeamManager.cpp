@@ -488,7 +488,7 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	ismidpigplayable = data.parent().child("playable").attribute("ismidpigplayable").as_bool();
 	ispeterplayable = data.parent().child("playable").attribute("ispeterplayable").as_bool();
 	//Load characters the team
-	IsTimmyOnTeam = true;
+	IsTimmyOnTeam = data.parent().child("onteam").attribute("IsTimmyOnTeam").as_bool();
 	IsBunnyOnTeam = data.parent().child("onteam").attribute("IsBunnyOnTeam").as_bool();
 	IsLrrhOnTeam = data.parent().child("onteam").attribute("IsLrrhOnTeam").as_bool();
 	IsLilPigOnTeam = data.parent().child("onteam").attribute("IsLilPigOnTeam").as_bool();
@@ -584,13 +584,14 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 		bow.ininventory = true;
 		bow.character = 3;
 	}
-
-	club.ininventory = data.child("inventory").child("club").attribute("isobtained").as_bool();
-	club.character = data.child("inventory").child("club").attribute("character").as_int();
-	
-	knife.ininventory = data.child("inventory").child("knife").attribute("isobtained").as_bool();
-	knife.character = data.child("inventory").child("knife").attribute("character").as_int();
-
+	if (islilpigplayable == true) {
+		knife.ininventory = true;
+		knife.character = 4;
+	}
+	if (ismidpigplayable == true) {
+		club.ininventory = true;
+		club.character = 5;
+	}
 	shotgun.ininventory = data.child("inventory").child("shotgun").attribute("isobtained").as_bool();
 	shotgun.character = data.child("inventory").child("shotgun").attribute("character").as_int();
 	
@@ -664,7 +665,7 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 
 	//Save characters in team
 	pugi::xml_node onteam = data.parent().append_child("onteam");	
-	onteam.append_attribute("IstimmyOnTeam") = IsTimmyOnTeam;
+	onteam.append_attribute("IsTimmyOnTeam") = IsTimmyOnTeam;
 	onteam.append_attribute("IsBunnyOnTeam") = IsBunnyOnTeam;
 	onteam.append_attribute("IsLrrhOnTeam") = IsLrrhOnTeam;
 	onteam.append_attribute("IsLilPigOnTeam") = IsLilPigOnTeam;
