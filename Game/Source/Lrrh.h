@@ -32,6 +32,8 @@ public:
 
 	void TakeDamageAnimation();
 
+	void ResetStats();
+
 
 private:
 	

@@ -25,29 +25,7 @@ LittlePig::~LittlePig() {
 
 bool LittlePig::Awake()
 {
-	if (app->teamManager->statsdone == false) {
-		id = 1;
-		health = 20;
-		maxHealth = 20;
-		defense = 3;
-		magic = 1;
-		stamina = 15;
-		maxStamina = 15;
-		speed = 6;
-		attack = 10;
-		AttArea = 2;
-		Ab1Type = 1;
-		Ab1Area = 3;
-		Ab1RangeType = 1;
-		Ab1Power = 18;
-		Ab2Type = 0;
-		Ab2Area = 0;
-		Ab2RangeType = 0;
-		Ab2Power = 0;
-		healingpower = 0;
-		movement = 3;
-		app->teamManager->statsdone = true;
-	}
+
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
 
@@ -236,4 +214,27 @@ void LittlePig::TakeDamageAnimation()
 
 	currentAnimation = &takedmgAnim;
 
+}
+
+void LittlePig::ResetStats() {
+	id = 1;
+	health = 20;
+	maxHealth = 20;
+	defense = 3;
+	magic = 1;
+	stamina = 15;
+	maxStamina = 15;
+	speed = 6;
+	attack = 10;
+	AttArea = 2;
+	Ab1Type = 1;
+	Ab1Area = 3;
+	Ab1RangeType = 1;
+	Ab1Power = 18;
+	Ab2Type = 0;
+	Ab2Area = 0;
+	Ab2RangeType = 0;
+	Ab2Power = 0;
+	healingpower = 0;
+	movement = 3;
 }

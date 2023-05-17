@@ -824,7 +824,8 @@ bool TeamManager::addallstats()
 	
 	for (int i = 0; i < characters.Count(); i++) {
 		statsdone = false;
-		characters.At(i)->data->Awake();
+		characters.At(i)->data->ResetStats();
+		
 	}
 	for (int j = 0; j < statslist.Count(); j++) {
 

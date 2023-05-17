@@ -146,6 +146,7 @@ bool W2_Scene::Start()
 	}
 	else
 	{
+		app->teamManager->Enable();
 		app->LoadGameRequest();
 	}
 

@@ -28,29 +28,6 @@ Bunny::~Bunny() {
 
 bool Bunny::Awake()
 {
-	if (app->teamManager->statsdone == false) {
-		id = 1;
-		health = 21;
-		maxHealth = 21;
-		defense = 1;
-		magic = 7;
-		stamina = 15;
-		maxStamina = 15;
-		speed = 8;
-		attack = 8;
-		AttArea = 3;
-		Ab1Type = 1;
-		Ab1Area = 3;
-		Ab1RangeType = 1;
-		Ab1Power = 20;
-		Ab2Type = 0;
-		Ab2Area = 0;
-		Ab2RangeType = 0;
-		Ab2Power = 0;
-		healingpower = 0;
-		movement = 4;
-		app->teamManager->statsdone = true;
-	}
 
 	idleAnim.PushBack({ 0, 0, 140, 140 });
 	idleAnim.loop = true;
@@ -287,4 +264,28 @@ void Bunny::TakeDamageAnimation()
 
 	currentAnimation = &takedmgAnim;
 
+}
+
+void Bunny::ResetStats() {
+
+	id = 1;
+	health = 21;
+	maxHealth = 21;
+	defense = 1;
+	magic = 7;
+	stamina = 15;
+	maxStamina = 15;
+	speed = 8;
+	attack = 8;
+	AttArea = 3;
+	Ab1Type = 1;
+	Ab1Area = 3;
+	Ab1RangeType = 1;
+	Ab1Power = 20;
+	Ab2Type = 0;
+	Ab2Area = 0;
+	Ab2RangeType = 0;
+	Ab2Power = 0;
+	healingpower = 0;
+	movement = 4;
 }

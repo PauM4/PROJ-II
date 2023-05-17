@@ -31,7 +31,6 @@ bool SceneCombatLHHR::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
-
 	mapName = config.attribute("name").as_string();
 	mapFolder = config.attribute("path").as_string();
 
@@ -297,7 +296,8 @@ void SceneCombatLHHR::SaveResult()
 	if (app->battleManager->win)
 	{
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "true");
-		app->UpdateXMLAttributeFromNode("save_game.xml", "playable", "islrrhplayable", "false");
+		app->UpdateXMLAttributeFromNode("save_game.xml", "playable", "islrrhplayable", "true");
+		app->teamManager->islrrhplayable = true;
 	}
 	else if (app->battleManager->lose)
 	{

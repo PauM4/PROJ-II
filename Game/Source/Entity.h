@@ -138,6 +138,8 @@ public:
 
 	virtual void Movement() { return; };
 
+	virtual void ResetStats() { return; };
+
 	bool TakeDamage(uint reciveattack) {
 
 		health = health - (reciveattack - defense);

@@ -238,6 +238,7 @@ bool Scene::Start()
 	}
 	else
 	{
+		app->teamManager->Enable();
 		app->LoadGameRequest();
 		basicTutorialCounter = 2;
 		battleTutorialCounter = 3;

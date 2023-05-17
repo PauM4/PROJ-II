@@ -40,6 +40,8 @@ public:
 
 	void TakeDamageAnimation();
 
+	void ResetStats() override;
+
 	AnimDirection CheckDirection();
 
 private:
