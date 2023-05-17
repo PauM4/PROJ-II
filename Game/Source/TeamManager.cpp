@@ -573,8 +573,6 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	addallstats();
 
 	//Load inventory
-	inventory.Clear();
-	equipment.Clear();
 	yoyo.ininventory = data.child("inventory").child("yoyo").attribute("isobtained").as_bool();
 	yoyo.character = data.child("inventory").child("yoyo").attribute("character").as_int();
 

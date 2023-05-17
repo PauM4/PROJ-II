@@ -239,30 +239,35 @@ bool UIModule::PostUpdate()
 		{
 			app->fonts->DrawText("Timmy's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
 			PrintItemName();
+			PrintStats(0);
 		}
 		if (bunnyItem)
 		{
 			app->fonts->DrawText("Bunny's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
-
 			PrintItemName();
+			PrintStats(1);
 		}
 		if (lrrhItem)
 		{
 			app->fonts->DrawText("Reed Hoodie's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
 
 			PrintItemName();
+			PrintStats(2);
 		}
 		if (lpigItem)
 		{
 			app->fonts->DrawText("Little Pig's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
 
 			PrintItemName();
+			PrintStats(3);
+
 		}
 		if (mpigItem)
 		{
 			app->fonts->DrawText("Middle Pig's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
 
 			PrintItemName();
+			PrintStats(4);
 		}
 
 	}
@@ -422,7 +427,47 @@ void UIModule::PrintItemName()
 	}
 }
 
+void UIModule::PrintStats(int id) {
 
+	
+	std::string defenSestring = std::to_string(app->teamManager->characters.At(id)->data->defense);
+	const char* defChar = defenSestring.c_str();
+	app->fonts->DrawText("Defense: ", -app->render->camera.x + 1200, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(defChar, -app->render->camera.x + 1360, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
+
+	std::string magicString = std::to_string(app->teamManager->characters.At(id)->data->magic);
+	const char* magicChar = magicString.c_str();
+	app->fonts->DrawText("Magic: ", -app->render->camera.x + 1200, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(magicChar, -app->render->camera.x + 1360, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
+
+	std::string speedString = std::to_string(app->teamManager->characters.At(id)->data->speed);
+	const char* speedChar = speedString.c_str();
+	app->fonts->DrawText("Speed: ", -app->render->camera.x + 1200, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(speedChar, -app->render->camera.x + 1360, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
+
+	std::string movementString = std::to_string(app->teamManager->characters.At(id)->data->movement);
+	const char* movementChar = movementString.c_str();
+	app->fonts->DrawText("Movement: ", -app->render->camera.x + 1200, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(movementChar, -app->render->camera.x + 1360, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
+
+
+	std::string attackString = std::to_string(app->teamManager->characters.At(id)->data->attack);
+	const char* attackChar = attackString.c_str();
+	app->fonts->DrawText("Attack: ", -app->render->camera.x + 1200, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(attackChar, -app->render->camera.x + 1360, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
+
+	std::string abilityString = std::to_string(app->teamManager->characters.At(id)->data->Ab1Power);
+	const char* abilityChar = abilityString.c_str();
+	app->fonts->DrawText("Ability Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(abilityChar, -app->render->camera.x + 1360, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
+
+	std::string healPowString = std::to_string(app->teamManager->characters.At(id)->data->healingpower);
+	const char* healPowChar = healPowString.c_str();
+	app->fonts->DrawText("Healing Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(healPowChar, -app->render->camera.x + 1360, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+
+
+}
 // Called before quitting
 bool UIModule::CleanUp()
 {
@@ -1122,7 +1167,9 @@ void UIModule::EquipUnequipItem(int numOfItem)
 		app->teamManager->itemstoshow.At(numOfItem)->data->character = 0;
 
 		inventoryButtonsList.At(numOfItem)->data->text = "Unequipped";
-
+		app->teamManager->addallstats();
+		app->teamManager->loadinventory();
+		app->teamManager->ApplyEquipedItemStats();
 		//Unequip FX
 		app->audio->PlayFx(unequipitemFx);
 	} // If not equiped
@@ -1142,6 +1189,9 @@ void UIModule::EquipUnequipItem(int numOfItem)
 		}
 		app->teamManager->itemstoshow.At(numOfItem)->data->character = whatInventoryImIn;
 		inventoryButtonsList.At(numOfItem)->data->text = "Equipped";
+		app->teamManager->addallstats();
+		app->teamManager->loadinventory();
+		app->teamManager->ApplyEquipedItemStats();
 
 		//Equip FX
 		app->audio->PlayFx(equipitemFx);
