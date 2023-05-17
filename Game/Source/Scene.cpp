@@ -69,6 +69,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	chest1->chestId = chestNode1.attribute("id").as_int();
 	PhysBody* chest1PB = app->physics->CreateRectangleSensor(chest1->position.x + chest1->width / 2, chest1->position.y + chest1->height / 2, chest1->width, chest1->height, bodyType::STATIC);
 	chest1PB->ctype = ColliderType::CHEST1;
+	PhysBody* chest1Col = app->physics->CreateRectangle(chest1->position.x + chest1->width / 2, chest1->position.y + chest1->height / 2, chest1->width, chest1->height, bodyType::STATIC);
+	chest1Col->ctype = ColliderType::UNKNOWN;
 
 	pugi::xml_node chestNode2 = config.child("chest2");
 	chest2 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
@@ -80,6 +82,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	chest2->chestId = chestNode2.attribute("id").as_int();
 	PhysBody* chest2PB = app->physics->CreateRectangleSensor(chest2->position.x + chest2->width / 2, chest2->position.y + chest2->height / 2, chest2->width, chest2->height, bodyType::STATIC);
 	chest2PB->ctype = ColliderType::CHEST2;
+	PhysBody* chest2Col = app->physics->CreateRectangle(chest2->position.x + chest2->width / 2, chest2->position.y + chest2->height / 2, chest2->width, chest2->height, bodyType::STATIC);
+	chest2Col->ctype = ColliderType::UNKNOWN;
 
 	pugi::xml_node chestNode3 = config.child("chest3");
 	chest3 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
@@ -91,6 +95,9 @@ bool Scene::Awake(pugi::xml_node& config)
 	chest3->chestId = chestNode3.attribute("id").as_int();
 	PhysBody* chest3PB = app->physics->CreateRectangleSensor(chest3->position.x + chest3->width / 2, chest3->position.y + chest3->height / 2, chest3->width, chest3->height, bodyType::STATIC);
 	chest3PB->ctype = ColliderType::CHEST3;
+	PhysBody* chest3Col = app->physics->CreateRectangle(chest3->position.x + chest3->width / 2, chest3->position.y + chest3->height / 2, chest3->width, chest3->height, bodyType::STATIC);
+	chest3Col->ctype = ColliderType::UNKNOWN;
+
 
 	pressKeyAnim.PushBack({ 0, 0, 485, 734 });
 	pressKeyAnim.PushBack({ 485, 0, 485, 735 });
@@ -302,7 +309,12 @@ bool Scene::Update(float dt)
 	//Draw map
 	app->map->Draw();
 
-
+	if (chest1->isPicked)app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
+	if (chest2->isPicked) app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestopenVRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
+	if (chest3->isPicked) app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestopenHRect);
+	else app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
 
 	if(basicTutorialCounter < 2)
 	{
@@ -450,12 +462,7 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (chest1->isPicked)app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestopenHRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
-	if (chest2->isPicked) app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestopenVRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
-	if (chest3->isPicked) app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestopenHRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
+
 
 	if (!godMode) app->map->PostDraw((player->position.y + 40));
 

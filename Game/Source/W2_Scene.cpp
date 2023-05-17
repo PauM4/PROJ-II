@@ -77,6 +77,8 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	chest4->chestId = chestNode4.attribute("id").as_int();
 	PhysBody* chest4PB = app->physics->CreateRectangleSensor(chest4->position.x + chest4->width / 2, chest4->position.y + chest4->height / 2, chest4->width, chest4->height, bodyType::STATIC);
 	chest4PB->ctype = ColliderType::CHEST4;
+	PhysBody* chest4Col = app->physics->CreateRectangle(chest4->position.x + chest4->width / 2, chest4->position.y + chest4->height / 2, chest4->width, chest4->height, bodyType::STATIC);
+	chest4Col->ctype = ColliderType::UNKNOWN;
 
 	pugi::xml_node chestNode5 = config.child("chest5");
 	chest5 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
@@ -88,6 +90,8 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	chest5->chestId = chestNode5.attribute("id").as_int();
 	PhysBody* chest5PB = app->physics->CreateRectangleSensor(chest5->position.x + chest5->width / 2, chest5->position.y + chest5->height / 2, chest5->width, chest5->height, bodyType::STATIC);
 	chest5PB->ctype = ColliderType::CHEST5;
+	PhysBody* chest5Col = app->physics->CreateRectangle(chest5->position.x + chest5->width / 2, chest5->position.y + chest5->height / 2, chest5->width, chest5->height, bodyType::STATIC);
+	chest5Col->ctype = ColliderType::UNKNOWN;
 
 	pugi::xml_node chestNode6 = config.child("chest6");
 	chest6 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
@@ -99,6 +103,8 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	chest6->chestId = chestNode6.attribute("id").as_int();
 	PhysBody* chest6PB = app->physics->CreateRectangleSensor(chest6->position.x + chest6->width / 2, chest6->position.y + chest6->height / 2, chest6->width, chest6->height, bodyType::STATIC);
 	chest6PB->ctype = ColliderType::CHEST6;
+	PhysBody* chest6Col = app->physics->CreateRectangle(chest6->position.x + chest6->width / 2, chest6->position.y + chest6->height / 2, chest6->width, chest6->height, bodyType::STATIC);
+	chest6Col->ctype = ColliderType::UNKNOWN;
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters2_popupsDialogueCut.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
@@ -275,6 +281,12 @@ bool W2_Scene::Update(float dt)
 	app->map->Draw();
 
 
+	if (chest4->isPicked)app->render->DrawTexture(app->w2_scene->chestTexture, 1447, 2666, &app->w2_scene->chestopenHRect);
+	else app->render->DrawTexture(app->w2_scene->chestTexture, 1447, 2666, &app->w2_scene->chestHRect);
+	if (chest5->isPicked) app->render->DrawTexture(app->w2_scene->chestTexture, 3382, 2705, &app->w2_scene->chestopenHRect);
+	else app->render->DrawTexture(app->w2_scene->chestTexture, 3382, 2705, &app->w2_scene->chestHRect);
+	if (chest6->isPicked) app->render->DrawTexture(app->w2_scene->chestTexture, 2101, 1910, &app->w2_scene->chestopenVRect);
+	else app->render->DrawTexture(app->w2_scene->chestTexture, 2101, 1910, &app->w2_scene->chestVRect);
 
 	return true;
 }
@@ -301,12 +313,6 @@ bool W2_Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (chest4->isPicked)app->render->DrawTexture(app->w2_scene->chestTexture, 1447, 2666, &app->w2_scene->chestopenHRect);
-	else app->render->DrawTexture(app->w2_scene->chestTexture, 1447, 2666, &app->w2_scene->chestHRect);
-	if (chest5->isPicked) app->render->DrawTexture(app->w2_scene->chestTexture, 3382, 2705, &app->w2_scene->chestopenHRect);
-	else app->render->DrawTexture(app->w2_scene->chestTexture, 3382, 2705, &app->w2_scene->chestHRect);
-	if (chest6->isPicked) app->render->DrawTexture(app->w2_scene->chestTexture, 2101, 1910, &app->w2_scene->chestopenVRect);
-	else app->render->DrawTexture(app->w2_scene->chestTexture, 2101, 1910, &app->w2_scene->chestVRect);
 
 	if (!godMode) app->map->PostDraw(player->position.y + 40);
 
