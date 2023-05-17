@@ -563,6 +563,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		if (currentMenuType == INVENTORY || currentMenuType == PARTY)
 		{
 			app->teamManager->UpdateParty();
+			app->teamManager->ApplyEquipedItemStats();
 
 			if (app->teamManager->team.Count() > 0 && app->teamManager->team.Count() < 4)
 			{
@@ -1377,7 +1378,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (indexDialogueOverTime <= dialogue[0].length())
 	{
 		//De haber llegado al final el cronónmetro:
-		//Pedirle a la función que nos dé el trozo que se tiene que pintar en este frame
+		//Pedirle a la función que nos de el trozo que se tiene que pintar en este frame
 		if (textDialogueTimer.Test() == estadoTimerP::FIN)
 		{
 			indexDialogueOverTime++;

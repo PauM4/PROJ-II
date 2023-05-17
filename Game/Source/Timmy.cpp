@@ -141,26 +141,7 @@ bool Timmy::Update(float dt)
 		break; 
 
 	}
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
-
-		currentAnimation = &attackUAnim;
-
-	}
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
-
-		currentAnimation = &attackRAnim;
-
-	}
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
-
-		currentAnimation = &attackLAnim;
-
-	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
-
-		currentAnimation = &attackDAnim;
-
-	}
+	
 
 	if (app->uiModule->currentMenuType == COMBAT) {
 		currentAnimation->Update();
@@ -269,19 +250,20 @@ AnimDirection Timmy::CheckDirection()
 }
 bool Timmy::PostUpdate()
 {
-	if (currentAnimation == &abilityAnim)
-	{
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - (13+125), position.y - (35+125), &rect);
-	}
-	else
-	{
-		if (app->uiModule->currentMenuType == COMBAT) {
+	if (health > 0) {
+		if (currentAnimation == &abilityAnim)
+		{
 			SDL_Rect rect = currentAnimation->GetCurrentFrame();
-			app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+			app->render->DrawTexture(texture, position.x - (13 + 125), position.y - (35 + 125), &rect);
+		}
+		else
+		{
+			if (app->uiModule->currentMenuType == COMBAT) {
+				SDL_Rect rect = currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+			}
 		}
 	}
-	
 
 	
 

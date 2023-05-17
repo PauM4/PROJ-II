@@ -12,6 +12,7 @@
 #include "Fonts.h"
 #include "UIModule.h"
 #include "W2_Scene.h"
+#include"BattleManager.h"
 
 TeamManager::TeamManager(bool isActive) : Module (isActive)
 {
@@ -457,6 +458,8 @@ bool TeamManager::Update(float dt)
 
 bool TeamManager::PostUpdate()
 {
+	if (app->uiModule->currentMenuType == COMBAT) { app->battleManager->DrawResult(); }
+
 
 	return true;
 }
@@ -478,19 +481,19 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 {
 	
 	//Load unlocked characters
-	istimmyplayable = data.child("playable").attribute("istimmyplayable").as_bool();
-	isbunnyplayable = data.child("playable").attribute("isbunnyplayable").as_bool();
-	islrrhplayable = data.child("playable").attribute("islrrhplayable").as_bool();
-	islilpigplayable = data.child("playable").attribute("islilpigplayable").as_bool();
-	ismidpigplayable = data.child("playable").attribute("ismidpigplayable").as_bool();
-	ispeterplayable = data.child("playable").attribute("ispeterplayable").as_bool();
+	istimmyplayable = data.parent().child("playable").attribute("istimmyplayable").as_bool();
+	isbunnyplayable = data.parent().child("playable").attribute("isbunnyplayable").as_bool();
+	islrrhplayable = data.parent().child("playable").attribute("islrrhplayable").as_bool();
+	islilpigplayable = data.parent().child("playable").attribute("islilpigplayable").as_bool();
+	ismidpigplayable = data.parent().child("playable").attribute("ismidpigplayable").as_bool();
+	ispeterplayable = data.parent().child("playable").attribute("ispeterplayable").as_bool();
 	//Load characters the team
-	IsTimmyOnTeam = data.child("onteam").attribute("IsTimmyOnTeam").as_bool();
-	IsBunnyOnTeam = data.child("onteam").attribute("IsBunnyOnTeam").as_bool();
-	IsLrrhOnTeam = data.child("onteam").attribute("IsLrrhOnTeam").as_bool();
-	IsLilPigOnTeam = data.child("onteam").attribute("IsLilPigOnTeam").as_bool();
-	IsMidPigOnTeam = data.child("onteam").attribute("IsMidPigOnTeam").as_bool();
-	IsPeterOnTeam = data.child("onteam").attribute("IsPeterOnTeam").as_bool();
+	IsTimmyOnTeam = data.parent().child("onteam").attribute("IsTimmyOnTeam").as_bool();
+	IsBunnyOnTeam = data.parent().child("onteam").attribute("IsBunnyOnTeam").as_bool();
+	IsLrrhOnTeam = data.parent().child("onteam").attribute("IsLrrhOnTeam").as_bool();
+	IsLilPigOnTeam = data.parent().child("onteam").attribute("IsLilPigOnTeam").as_bool();
+	IsMidPigOnTeam = data.parent().child("onteam").attribute("IsMidPigOnTeam").as_bool();
+	IsPeterOnTeam = data.parent().child("onteam").attribute("IsPeterOnTeam").as_bool();
 	//Add characters and team to the lists
 	UpdateParty();
 	//Load Stats
@@ -577,9 +580,10 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 
 	handsxd.ininventory = data.child("inventory").child("handsxd").attribute("isobtained").as_bool();
 	handsxd.character = data.child("inventory").child("handsxd").attribute("character").as_int();
-
-	bow.ininventory = data.child("inventory").child("bow").attribute("isobtained").as_bool();
-	bow.character = data.child("inventory").child("bow").attribute("character").as_int();
+	if (islrrhplayable == true) {
+		bow.ininventory = true;
+		bow.character = 3;
+	}
 
 	club.ininventory = data.child("inventory").child("club").attribute("isobtained").as_bool();
 	club.character = data.child("inventory").child("club").attribute("character").as_int();
@@ -650,7 +654,7 @@ void TeamManager::UpdateParty()
 bool TeamManager::SaveState(pugi::xml_node& data)
 {
 	//Save unlocked characters
-	pugi::xml_node playable = data.append_child("playable");
+	pugi::xml_node playable = data.parent().append_child("playable");
 	playable.append_attribute("istimmyplayable") = istimmyplayable;
 	playable.append_attribute("isbunnyplayable") = isbunnyplayable;
 	playable.append_attribute("islrrhplayable") = islrrhplayable;
@@ -659,8 +663,7 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	playable.append_attribute("ispeterplayable") = ispeterplayable;
 
 	//Save characters in team
-	pugi::xml_node onteam = data.append_child("onteam");
-	onteam.append_attribute("IsTimmyOnTeam") = IsTimmyOnTeam;
+	pugi::xml_node onteam = data.parent().append_child("onteam");	
 	onteam.append_attribute("IsBunnyOnTeam") = IsBunnyOnTeam;
 	onteam.append_attribute("IsLrrhOnTeam") = IsLrrhOnTeam;
 	onteam.append_attribute("IsLilPigOnTeam") = IsLilPigOnTeam;
@@ -954,6 +957,9 @@ void TeamManager::PrintLvlUpText()
 }
 
 void TeamManager::loadinventory() {
+
+	inventory.Clear();
+	equipment.Clear();
 
 	if (yoyo.ininventory == true) {
 		inventory.Add(&yoyo);

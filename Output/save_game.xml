@@ -18,7 +18,7 @@
 			<chest2 isPicked="false" />
 			<chest3 isPicked="false" />
 		</chests>
-		<saveBattleTutoState state="0" />
+		<saveBattleTutoState state="3" />
 		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
@@ -56,8 +56,8 @@
 			<talisman isobtained="false" character="0" />
 		</inventory>
 		<stats>
-			<timmy defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
-			<bunny defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
+			<timmy defense="1" magic="1" speed="1" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
+			<bunny defense="0" magic="1" speed="1" movement="1" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<lrrh defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<littlePig defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<middlePig defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
@@ -67,7 +67,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-93" y="-2590" />
+		<camera x="-6599" y="-89" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
+	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="false" isPigDefeated="false" isPereDefeated="" isWolfDefeated="" />
 </save_state>

@@ -25,7 +25,7 @@ bool Npc::Awake() {
 	case SCENE:
 		posAngryVillager.x = 7382, posAngryVillager.y = 4934;
 
-		posTalismanVillager.x = 1820, posTalismanVillager.y = 1408;
+		posTalismanVillager.x = 1730, posTalismanVillager.y = 1408;
 
 		posGrandma.x = 7069, posGrandma.y = 2960;
 
