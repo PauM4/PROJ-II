@@ -26,7 +26,9 @@
 	<sceneGrandma />
 	<sceneFoxQuest />
 	<battleScene_Pigs />
-	<w2_scene />
+	<w2_scene>
+		<player x="1680" y="4613" />
+	</w2_scene>
 	<w2_scene_maze>
 		<player />
 	</w2_scene_maze>
@@ -47,10 +49,10 @@
 			<club isobtained="false" character="0" />
 			<knife isobtained="false" character="0" />
 			<shotgun isobtained="false" character="0" />
-			<ironchestplate isobtained="false" character="0" />
-			<reversehat isobtained="false" character="0" />
+			<ironchestplate isobtained="true" character="0" />
+			<reversehat isobtained="true" character="0" />
 			<susjar isobtained="false" character="0" />
-			<dentures isobtained="false" character="0" />
+			<dentures isobtained="true" character="0" />
 			<talisman isobtained="false" character="0" />
 		</inventory>
 		<stats>
