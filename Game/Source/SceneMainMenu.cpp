@@ -121,6 +121,7 @@ bool SceneMainMenu::CleanUp()
 	app->tex->UnLoad(mainMenu_image_tittle);
 	app->tex->UnLoad(credits_image);
 	app->tex->UnLoad(mainMenuRipped_image);
+	app->tex->UnLoad(UI_spritesheet_final);
 	
 
 	return true;

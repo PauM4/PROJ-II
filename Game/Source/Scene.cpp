@@ -1056,46 +1056,44 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 bool Scene::SaveState(pugi::xml_node& data)
 {
-	if (active) 
-	{
-		// PLAYER
-		pugi::xml_node playerNode = data.append_child("player");
+	// PLAYER
+	pugi::xml_node playerNode = data.append_child("player");
 
-		// If door, save mes lluny
-		if (app->uiModule->doorPlayerPosition)
-		{
-			playerNode.append_attribute("x") = player->position.x;
-			playerNode.append_attribute("y") = player->position.y + 75;
+	// If door, save mes lluny
+	if (app->uiModule->doorPlayerPosition)
+	{
+		if (player != nullptr) {
+			playerNode.append_attribute("x") = player->position.x - 100;
+			playerNode.append_attribute("y") = player->position.y;
 			app->uiModule->doorPlayerPosition = false;
 		}
-		else {
+	}
+	else {
+		if (player != nullptr) {
 			playerNode.append_attribute("x") = player->position.x + 16;
 			playerNode.append_attribute("y") = player->position.y + 16;
 		}
-
-		// Save Minigame has been Completed
-		pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");
-		ropeMinigameNode.append_attribute("rope_minigame_state") = ropeWin;
-
-		// CHESTS
-		pugi::xml_node chestGameSave = data.append_child("chests");
-
-		pugi::xml_node chestNodeSave1 = chestGameSave.append_child("chest1");
-		chestNodeSave1.append_attribute("isPicked").set_value(chest1->isPicked);
-
-		pugi::xml_node chestNodeSave2 = chestGameSave.append_child("chest2");
-		chestNodeSave2.append_attribute("isPicked").set_value(chest2->isPicked);
-
-		pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
-		chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
-
-		pugi::xml_node saveBattleTutorialState = data.append_child("saveBattleTutoState");
-		saveBattleTutorialState.append_attribute("state") = battleTutorialCounter;
-
-		pugi::xml_node stepQuestState = data.append_child("stepQuest");
-		stepQuestState.append_attribute("num") = stepQuest;
-
+		
 	}
+	// Save Minigame has been Completed
+	pugi::xml_node ropeMinigameNode = data.append_child("rope_minigame");
+	ropeMinigameNode.append_attribute("rope_minigame_state") = ropeWin;
+	// CHESTS
+	pugi::xml_node chestGameSave = data.append_child("chests");
+	pugi::xml_node chestNodeSave1 = chestGameSave.append_child("chest1");
+	chestNodeSave1.append_attribute("isPicked").set_value(chest1->isPicked);
+	pugi::xml_node chestNodeSave2 = chestGameSave.append_child("chest2");
+	chestNodeSave2.append_attribute("isPicked").set_value(chest2->isPicked);
+	pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
+	chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
+
+	pugi::xml_node saveBattleTutorialState = data.append_child("saveBattleTutoState");
+	saveBattleTutorialState.append_attribute("state") = battleTutorialCounter;
+
+	pugi::xml_node stepQuestState = data.append_child("stepQuest");
+	stepQuestState.append_attribute("num") = stepQuest;
+
+	
 
 	return true;
 }
