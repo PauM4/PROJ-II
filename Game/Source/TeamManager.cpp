@@ -664,6 +664,7 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 
 	//Save characters in team
 	pugi::xml_node onteam = data.parent().append_child("onteam");	
+	onteam.append_attribute("IstimmyOnTeam") = IsTimmyOnTeam;
 	onteam.append_attribute("IsBunnyOnTeam") = IsBunnyOnTeam;
 	onteam.append_attribute("IsLrrhOnTeam") = IsLrrhOnTeam;
 	onteam.append_attribute("IsLilPigOnTeam") = IsLilPigOnTeam;
