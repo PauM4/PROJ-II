@@ -257,31 +257,37 @@ bool Player::Update(float dt)
 		{
 			app->teamManager->ironchestplate.ininventory = true;
 			app->scene->chest1->isPicked = true;
+			app->teamManager->loadinventory();
 		}
 		if (isChest2Pickable)
 		{
 			app->teamManager->reversehat.ininventory = true;
 			app->scene->chest2->isPicked = true;
+			app->teamManager->loadinventory();
 		}
 		if (isChest3Pickable)
 		{
 			app->teamManager->dentures.ininventory = true;
 			app->scene->chest3->isPicked = true;
+			app->teamManager->loadinventory();
 		}
 		if (isChest4Pickable)
 		{
 			app->teamManager->ironchestplate.ininventory = true;
 			app->w2_scene->chest4->isPicked = true;
+			app->teamManager->loadinventory();
 		}
 		if (isChest5Pickable)
 		{
 			app->teamManager->reversehat.ininventory = true;
 			app->w2_scene->chest5->isPicked = true;
+			app->teamManager->loadinventory();
 		}
 		if (isChest6Pickable)
 		{
 			app->teamManager->dentures.ininventory = true;
 			app->w2_scene->chest6->isPicked = true;
+			app->teamManager->loadinventory();
 		}
 
 		break;
