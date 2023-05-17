@@ -14,7 +14,21 @@ Timmy and the Corrupted Dreamland is a turn-based combat RPG video game, set in 
   - Possibility of knowing an alternative history of the classic stories
   - Elaborated and original story
   - Unique and completely original art style
- 
+  - NEW! : Inventory
+  - NEW! : Super Team Manager
+  - NEW! : New Enemies
+   +6 items
+   Party and character stats
+   +3 quests
+   3 unique puzzles
+   New characters
+   New Music
+   New SFX
+   New battle animations
+   Level Up system
+   New Battles
+   2n World
+
 ## Controls
 
  - ENTER:
