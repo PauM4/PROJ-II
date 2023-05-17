@@ -171,6 +171,8 @@ bool SceneBattle::CleanUp(){
 	app->entityManager->CleanUp(); 
 	app->battleManager->Disable(); 
 
+	SaveResult();
+
 	return true;
 }
 

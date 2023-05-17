@@ -228,6 +228,10 @@ bool Scene::Start()
 	if (isNewGame)
 	{
 		player->ChangePosition(1868, 5608);
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isAngryVillagerDefeated", "");
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "");
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isPigDefeated", "");
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "");
 		basicTutorialCounter = 0;
 		battleTutorialCounter = 0;
 		isNewGame = false;
