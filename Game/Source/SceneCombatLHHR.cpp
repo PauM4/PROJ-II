@@ -297,10 +297,7 @@ void SceneCombatLHHR::SaveResult()
 	if (app->battleManager->win)
 	{
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "true");
-		app->teamManager->islrrhplayable = true;
-		app->teamManager->bow.ininventory = true;
-		app->teamManager->bow.character = 3;
-		app->teamManager->UpdateParty();
+		app->UpdateXMLAttributeFromNode("save_game.xml", "playable", "islrrhplayable", "true");
 	}
 	else if (app->battleManager->lose)
 	{
