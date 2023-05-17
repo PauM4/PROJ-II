@@ -246,7 +246,7 @@ bool Scene::Start()
 	for (int i = 0; i < stepQuest; i++) {
 		nextQuest();
 	}
-
+	
 
 	return true;
 }

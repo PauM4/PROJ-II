@@ -488,7 +488,7 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	ismidpigplayable = data.parent().child("playable").attribute("ismidpigplayable").as_bool();
 	ispeterplayable = data.parent().child("playable").attribute("ispeterplayable").as_bool();
 	//Load characters the team
-	IsTimmyOnTeam = data.parent().child("onteam").attribute("IsTimmyOnTeam").as_bool();
+	IsTimmyOnTeam = true;
 	IsBunnyOnTeam = data.parent().child("onteam").attribute("IsBunnyOnTeam").as_bool();
 	IsLrrhOnTeam = data.parent().child("onteam").attribute("IsLrrhOnTeam").as_bool();
 	IsLilPigOnTeam = data.parent().child("onteam").attribute("IsLilPigOnTeam").as_bool();
