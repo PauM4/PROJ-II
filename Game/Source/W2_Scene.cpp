@@ -608,21 +608,26 @@ bool W2_Scene::LoadState(pugi::xml_node& data)
 
 bool W2_Scene::SaveState(pugi::xml_node& data)
 {
-	if (active) {
-		pugi::xml_node playerNode = data.append_child("player");
+	
+	pugi::xml_node playerNode = data.append_child("player");
 
-		// If door, save mes lluny
-		if (app->uiModule->doorPlayerPosition)
-		{
+	// If door, save mes lluny
+	if (app->uiModule->doorPlayerPosition)
+	{
+		if (player != nullptr) {
 			playerNode.append_attribute("x") = player->position.x;
 			playerNode.append_attribute("y") = player->position.y + 75;
 			app->uiModule->doorPlayerPosition = false;
 		}
-		else {
+	
+	}
+	else {
+		if (player != nullptr) {
 			playerNode.append_attribute("x") = player->position.x;
 			playerNode.append_attribute("y") = player->position.y;
 		}
 	}
+	
 	
 
 	return true;
