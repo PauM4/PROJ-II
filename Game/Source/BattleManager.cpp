@@ -493,13 +493,13 @@ void BattleManager::UIStatsForBattle()
 	app->fonts->DrawText("--- NEXT  TURN --- ", 80, 100, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
 	if (turnList.Count() > 1) {
-		int x = 1;
+	/*	int x = 1;
 
 			while (turnList.At(x)==nullptr && x <=turnList.Count())
 			{
 				x++;
-			}
-			app->fonts->DrawText(turnList.At(x)->data->namechar.GetString(), 110, 125, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+			}*/
+			app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 110, 125, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
 	}
 
@@ -1006,7 +1006,13 @@ void BattleManager::LiveCondition() {
 		}
 		if (ally->data->isAlive == false) {
 			app->audio->PlayFx(deathFx);
-			turnList.Del(ally);
+			allies.Del(ally);
+			turnList.Clear();
+			MakeTurnList();
+			while (currentTurn != turnList.start->data)
+			{
+				UpdateTurnList();
+			}
 			
 		 }
 	}
@@ -1020,7 +1026,14 @@ void BattleManager::LiveCondition() {
 		if (enemy->data->isAlive == false) {
 			app->audio->PlayFx(deathFx);
 		
-			turnList.Del(enemy);
+			enemies.Del(enemy);
+			turnList.Clear();
+			MakeTurnList();
+			while (currentTurn!=turnList.start->data)
+			{
+				UpdateTurnList();
+			}
+			
 			
 		
 		}
