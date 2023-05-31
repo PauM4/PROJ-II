@@ -65,6 +65,8 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	void PrintItemImages(int i);
+
 	void PrintItemName();
 
 	void PrintStats(int id);
@@ -211,6 +213,18 @@ public:
 	int unequipitemFx = -1;
 
 	bool errorWhenParty;
+
+	SDL_Rect yoyoRect;
+	SDL_Rect bunnyHandRect;
+	SDL_Rect bowRect;
+	SDL_Rect knifeRect;
+	SDL_Rect clubRect;
+	SDL_Rect shotgunRect;
+	SDL_Rect ironchestRect;
+	SDL_Rect revhatRect;
+	SDL_Rect talismanRect;
+	SDL_Rect susjarRect;
+	SDL_Rect denturesRect;
 
 private:
 

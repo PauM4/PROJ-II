@@ -121,6 +121,8 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	battleTutoTexture = app->tex->Load("Assets/UI/battleTutorial.png");
 
+	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
+
 	currentQuestIndex = 0;
 	battleTutorialCounter = 0;	
 

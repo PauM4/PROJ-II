@@ -166,6 +166,9 @@ public:
 
 	int stepQuest; 
 
+	// Inventory Items Texture
+	SDL_Texture* inventoryItemsTexture;
+
 	
 
 private:

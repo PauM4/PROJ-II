@@ -171,6 +171,19 @@ bool UIModule::Start()
 	indexDialogueOverTime = 0;
 	timeToRefreshDialogue = 0.01f; 
 
+	// Rects for inventory items images
+	yoyoRect = { 7, 5, 200, 200 };
+	bowRect = { 167, 0, 200, 200 };
+	bunnyHandRect = { 360, 0, 200, 200 };
+	clubRect = { 560, 0, 200, 200 };
+	knifeRect = {742, 0, 200, 200};
+	shotgunRect = {0, 175, 200, 200};
+	ironchestRect = { 220, 175, 200, 200 };
+	revhatRect = { 406, 175, 200, 200 };
+	talismanRect = { 595, 175, 200, 200 };
+	susjarRect = { 925, 3, 200, 200 };
+	denturesRect = { 792, 165, 200, 200 };
+
 	
 	return true;
 }
@@ -284,6 +297,8 @@ bool UIModule::PostUpdate()
 				{
 					PrintNegativeItemStats(inventoryButtonsList.At(i)->data->id - 78);
 				}
+
+				PrintItemImages(i);
 			}
 		}
 
@@ -419,6 +434,54 @@ bool UIModule::PostUpdate()
 	return ret;
 }
 
+void UIModule::PrintItemImages(int i)
+{
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "bow")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "knife")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "club")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "shotgun")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "talisman")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "susjar")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "dentures")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+	}
+}
+
 void UIModule::PrintItemName()
 {
 	int j = 0;
@@ -449,39 +512,39 @@ void UIModule::PrintStats(int id) {
 	
 	std::string defenSestring = std::to_string(app->teamManager->characters.At(id)->data->defense);
 	const char* defChar = defenSestring.c_str();
-	app->fonts->DrawText("Defense: ", -app->render->camera.x + 1200, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(defChar, -app->render->camera.x + 1360, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Defense: ", -app->render->camera.x + 1200, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(defChar, -app->render->camera.x + 1360, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
 
 	std::string magicString = std::to_string(app->teamManager->characters.At(id)->data->magic);
 	const char* magicChar = magicString.c_str();
-	app->fonts->DrawText("Magic: ", -app->render->camera.x + 1200, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(magicChar, -app->render->camera.x + 1360, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Magic: ", -app->render->camera.x + 1200, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(magicChar, -app->render->camera.x + 1360, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
 
 	std::string speedString = std::to_string(app->teamManager->characters.At(id)->data->speed);
 	const char* speedChar = speedString.c_str();
-	app->fonts->DrawText("Speed: ", -app->render->camera.x + 1200, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(speedChar, -app->render->camera.x + 1360, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Speed: ", -app->render->camera.x + 1200, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(speedChar, -app->render->camera.x + 1360, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
 
 	std::string movementString = std::to_string(app->teamManager->characters.At(id)->data->movement);
 	const char* movementChar = movementString.c_str();
-	app->fonts->DrawText("Movement: ", -app->render->camera.x + 1200, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(movementChar, -app->render->camera.x + 1360, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Movement: ", -app->render->camera.x + 1200, -app->render->camera.y + 750, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(movementChar, -app->render->camera.x + 1360, -app->render->camera.y + 750, 100, 100, { 0, 0, 0 });
 
 
 	std::string attackString = std::to_string(app->teamManager->characters.At(id)->data->attack);
 	const char* attackChar = attackString.c_str();
-	app->fonts->DrawText("Attack: ", -app->render->camera.x + 1200, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(attackChar, -app->render->camera.x + 1360, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Attack: ", -app->render->camera.x + 1200, -app->render->camera.y + 800, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(attackChar, -app->render->camera.x + 1360, -app->render->camera.y + 800, 100, 100, { 0, 0, 0 });
 
 	std::string abilityString = std::to_string(app->teamManager->characters.At(id)->data->Ab1Power);
 	const char* abilityChar = abilityString.c_str();
-	app->fonts->DrawText("Ability Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(abilityChar, -app->render->camera.x + 1360, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Ability Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 850, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(abilityChar, -app->render->camera.x + 1360, -app->render->camera.y + 850, 100, 100, { 0, 0, 0 });
 
 	std::string healPowString = std::to_string(app->teamManager->characters.At(id)->data->healingpower);
 	const char* healPowChar = healPowString.c_str();
-	app->fonts->DrawText("Healing Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(healPowChar, -app->render->camera.x + 1360, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Healing Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 900, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(healPowChar, -app->render->camera.x + 1360, -app->render->camera.y + 900, 100, 100, { 0, 0, 0 });
 
 
 }
@@ -494,56 +557,56 @@ void UIModule::PrintPositiveItemStats(int id) {
 	{
 		std::string defenSestring = std::to_string(app->teamManager->itemstoshow.At(id)->data->defense);
 		const char* defChar = defenSestring.c_str();
-		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 400, 100, 100, greenColor);
-		app->fonts->DrawText(defChar, -app->render->camera.x + 1420, -app->render->camera.y + 400, 100, 100, greenColor);
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 600, 100, 100, greenColor);
+		app->fonts->DrawText(defChar, -app->render->camera.x + 1420, -app->render->camera.y + 600, 100, 100, greenColor);
 	}	
 
 	if (app->teamManager->itemstoshow.At(id)->data->magic != 0)
 	{
 		std::string magicString = std::to_string(app->teamManager->itemstoshow.At(id)->data->magic);
 		const char* magicChar = magicString.c_str();
-		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 450, 100, 100, greenColor);
-		app->fonts->DrawText(magicChar, -app->render->camera.x + 1420, -app->render->camera.y + 450, 100, 100, greenColor);
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 650, 100, 100, greenColor);
+		app->fonts->DrawText(magicChar, -app->render->camera.x + 1420, -app->render->camera.y + 650, 100, 100, greenColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->speed != 0)
 	{
 		std::string speedString = std::to_string(app->teamManager->itemstoshow.At(id)->data->speed);
 		const char* speedChar = speedString.c_str();
-		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 500, 100, 100, greenColor);
-		app->fonts->DrawText(speedChar, -app->render->camera.x + 1420, -app->render->camera.y + 500, 100, 100, greenColor);
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 700, 100, 100, greenColor);
+		app->fonts->DrawText(speedChar, -app->render->camera.x + 1420, -app->render->camera.y + 700, 100, 100, greenColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->movement != 0)
 	{
 		std::string movementString = std::to_string(app->teamManager->itemstoshow.At(id)->data->movement);
 		const char* movementChar = movementString.c_str();
-		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 550, 100, 100, greenColor);
-		app->fonts->DrawText(movementChar, -app->render->camera.x + 1420, -app->render->camera.y + 550, 100, 100, greenColor);
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 750, 100, 100, greenColor);
+		app->fonts->DrawText(movementChar, -app->render->camera.x + 1420, -app->render->camera.y + 750, 100, 100, greenColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->attack != 0)
 	{
 		std::string attackString = std::to_string(app->teamManager->itemstoshow.At(id)->data->attack);
 		const char* attackChar = attackString.c_str();
-		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 600, 100, 100, greenColor);
-		app->fonts->DrawText(attackChar, -app->render->camera.x + 1420, -app->render->camera.y + 600, 100, 100, greenColor);
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 800, 100, 100, greenColor);
+		app->fonts->DrawText(attackChar, -app->render->camera.x + 1420, -app->render->camera.y + 800, 100, 100, greenColor);
 	}
 
 	if(app->teamManager->itemstoshow.At(id)->data->Ab1Power != 0)
 	{
 		std::string abilityString = std::to_string(app->teamManager->itemstoshow.At(id)->data->Ab1Power);
 		const char* abilityChar = abilityString.c_str();
-		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 650, 100, 100, greenColor);
-		app->fonts->DrawText(abilityChar, -app->render->camera.x + 1420, -app->render->camera.y + 650, 100, 100, greenColor);
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 850, 100, 100, greenColor);
+		app->fonts->DrawText(abilityChar, -app->render->camera.x + 1420, -app->render->camera.y + 850, 100, 100, greenColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->healingpower != 0)
 	{
 		std::string healPowString = std::to_string(app->teamManager->itemstoshow.At(id)->data->healingpower);
 		const char* healPowChar = healPowString.c_str();
-		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 700, 100, 100, greenColor);
-		app->fonts->DrawText(healPowChar, -app->render->camera.x + 1420, -app->render->camera.y + 700, 100, 100, greenColor);
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 900, 100, 100, greenColor);
+		app->fonts->DrawText(healPowChar, -app->render->camera.x + 1420, -app->render->camera.y + 900, 100, 100, greenColor);
 	}
 
 
@@ -557,56 +620,56 @@ void UIModule::PrintNegativeItemStats(int id) {
 	{
 		std::string defenSestring = std::to_string(app->teamManager->itemstoshow.At(id)->data->defense);
 		const char* defChar = defenSestring.c_str();
-		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 400, 100, 100, redColor);
-		app->fonts->DrawText(defChar, -app->render->camera.x + 1420, -app->render->camera.y + 400, 100, 100, redColor);
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 600, 100, 100, redColor);
+		app->fonts->DrawText(defChar, -app->render->camera.x + 1420, -app->render->camera.y + 600, 100, 100, redColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->magic != 0)
 	{
 		std::string magicString = std::to_string(app->teamManager->itemstoshow.At(id)->data->magic);
 		const char* magicChar = magicString.c_str();
-		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 450, 100, 100, redColor);
-		app->fonts->DrawText(magicChar, -app->render->camera.x + 1420, -app->render->camera.y + 450, 100, 100, redColor);
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 650, 100, 100, redColor);
+		app->fonts->DrawText(magicChar, -app->render->camera.x + 1420, -app->render->camera.y + 650, 100, 100, redColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->speed != 0)
 	{
 		std::string speedString = std::to_string(app->teamManager->itemstoshow.At(id)->data->speed);
 		const char* speedChar = speedString.c_str();
-		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 500, 100, 100, redColor);
-		app->fonts->DrawText(speedChar, -app->render->camera.x + 1420, -app->render->camera.y + 500, 100, 100, redColor);
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 700, 100, 100, redColor);
+		app->fonts->DrawText(speedChar, -app->render->camera.x + 1420, -app->render->camera.y + 700, 100, 100, redColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->movement != 0)
 	{
 		std::string movementString = std::to_string(app->teamManager->itemstoshow.At(id)->data->movement);
 		const char* movementChar = movementString.c_str();
-		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 550, 100, 100, redColor);
-		app->fonts->DrawText(movementChar, -app->render->camera.x + 1420, -app->render->camera.y + 550, 100, 100, redColor);
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 750, 100, 100, redColor);
+		app->fonts->DrawText(movementChar, -app->render->camera.x + 1420, -app->render->camera.y + 750, 100, 100, redColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->attack != 0)
 	{
 		std::string attackString = std::to_string(app->teamManager->itemstoshow.At(id)->data->attack);
 		const char* attackChar = attackString.c_str();
-		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 600, 100, 100, redColor);
-		app->fonts->DrawText(attackChar, -app->render->camera.x + 1420, -app->render->camera.y + 600, 100, 100, redColor);
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 800, 100, 100, redColor);
+		app->fonts->DrawText(attackChar, -app->render->camera.x + 1420, -app->render->camera.y + 800, 100, 100, redColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->Ab1Power != 0)
 	{
 		std::string abilityString = std::to_string(app->teamManager->itemstoshow.At(id)->data->Ab1Power);
 		const char* abilityChar = abilityString.c_str();
-		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 650, 100, 100, redColor);
-		app->fonts->DrawText(abilityChar, -app->render->camera.x + 1420, -app->render->camera.y + 650, 100, 100, redColor);
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 850, 100, 100, redColor);
+		app->fonts->DrawText(abilityChar, -app->render->camera.x + 1420, -app->render->camera.y + 850, 100, 100, redColor);
 	}
 
 	if (app->teamManager->itemstoshow.At(id)->data->healingpower != 0)
 	{
 		std::string healPowString = std::to_string(app->teamManager->itemstoshow.At(id)->data->healingpower);
 		const char* healPowChar = healPowString.c_str();
-		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 700, 100, 100, redColor);
-		app->fonts->DrawText(healPowChar, -app->render->camera.x + 1420, -app->render->camera.y + 700, 100, 100, redColor);
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 900, 100, 100, redColor);
+		app->fonts->DrawText(healPowChar, -app->render->camera.x + 1420, -app->render->camera.y + 900, 100, 100, redColor);
 	}
 
 
