@@ -71,6 +71,9 @@ bool UIModule::Start()
 	textureA = app->tex->Load("Assets/UI/UI_Spritesheet_FINAL.png");
 	playButtonTexture = app->tex->Load("Assets/UI/playButton.png");
 
+	sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, textureA, "", { 100, 100, 100, 100 }, this);
+	sliderTest->state = GuiControlState::NORMAL;
+
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "Play", { 720, 400, 545, 277 }, this);
 	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, textureA,"Options", { 920, 640, 120,30 }, this);
 	mainmenu_credits_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, textureA,"Credits", { 920, 680, 120,30 }, this);

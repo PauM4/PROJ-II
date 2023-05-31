@@ -39,16 +39,16 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, SDL_Textur
 		guiControl = new GuiButton(id, bounds, tex, text);
 
 		break;
+	case GuiControlType::SLIDER:
+
+		guiControl = new GuiSlider(id, bounds, tex, text);
+
+		break;
 	/*case GuiControlType::TOGGLE:
 		break;
 	case GuiControlType::CHECKBOX:
 
 		guiControl = new GuiCheckBox(id, bounds, tex, text);
-
-		break;
-	case GuiControlType::SLIDER:
-
-		guiControl = new GuiSlider(id, bounds, tex, text);
 
 		break;
 	case GuiControlType::SLIDERBAR:
