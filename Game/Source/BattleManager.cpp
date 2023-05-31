@@ -491,8 +491,16 @@ void BattleManager::UIStatsForBattle()
 	// UI Stats for Battle
 
 	app->fonts->DrawText("--- NEXT  TURN --- ", 80, 100, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
 	if (turnList.Count() > 1) {
-		app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 110, 125, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		int x = 1;
+
+			while (turnList.At(x)==nullptr && x <=turnList.Count())
+			{
+				x++;
+			}
+			app->fonts->DrawText(turnList.At(x)->data->namechar.GetString(), 110, 125, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
 	}
 
 	for (ListItem<Entity*>* allyItem = allies.start; allyItem != NULL; allyItem = allyItem->next) {
@@ -838,7 +846,15 @@ bool BattleManager::UpdateTurnList() {
 
 	currentTurn = turnList.start->data;
 
-	return true;
+	if (currentTurn != nullptr) {
+		return true;
+	}
+	else{
+		UpdateTurnList();
+	}
+
+
+	
 }
 
 bool BattleManager::DisplayTurnList() {
@@ -944,17 +960,36 @@ void BattleManager::CheckWinCondition()
 	LiveCondition();
 
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
-		app->audio->PlayFx(looseFx);
-		battleState = BattleState::LOSE;
-		lose = true;
+
+		if (lose == false) {
+			if (changeScreenTimer == -1) {
+				changeScreenTimer = 100;
+			}
+
+			changeScreenTimer--;
+			if (changeScreenTimer == 0) {
+				app->audio->PlayFx(looseFx);
+				battleState = BattleState::LOSE;
+				lose = true;
+			}
+		}
 	}
 	
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-		app->audio->PlayFx(victoryFx);
-		battleState = BattleState::WIN;
-		win = true;
+		
+		if (lose == false) {
+			if (changeScreenTimer == -1) {
+				changeScreenTimer = 100;
+			}
 
+			changeScreenTimer--;
+			if (changeScreenTimer == 0) {
+				app->audio->PlayFx(victoryFx);
+				battleState = BattleState::WIN;
+				win = true;
 
+			}
+		}
 	}
 	
 }
@@ -971,9 +1006,8 @@ void BattleManager::LiveCondition() {
 		}
 		if (ally->data->isAlive == false) {
 			app->audio->PlayFx(deathFx);
-			allies.Del(ally);
-			turnList.Clear();
-			MakeTurnList();
+			turnList.Del(ally);
+			
 		 }
 	}
 	for (ListItem<Entity*>* enemy = enemies.start; enemy != NULL; enemy = enemy->next) {
@@ -985,9 +1019,10 @@ void BattleManager::LiveCondition() {
 		}
 		if (enemy->data->isAlive == false) {
 			app->audio->PlayFx(deathFx);
-			enemies.Del(enemy);
-			turnList.Clear();
-			MakeTurnList();
+		
+			turnList.Del(enemy);
+			
+		
 		}
 	}
 }
