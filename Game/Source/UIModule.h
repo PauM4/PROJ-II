@@ -68,6 +68,8 @@ public:
 	void PrintItemName();
 
 	void PrintStats(int id);
+	void PrintPositiveItemStats(int id);
+	void PrintNegativeItemStats(int id);
 	// Called before quitting
 	bool CleanUp();
 

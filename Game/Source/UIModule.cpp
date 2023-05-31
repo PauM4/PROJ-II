@@ -225,6 +225,7 @@ bool UIModule::PostUpdate()
 
 	if (currentMenuType == INVENTORY)
 	{
+		
 		if (app->scene->active)
 		{
 			app->render->DrawTexture(app->scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
@@ -268,6 +269,22 @@ bool UIModule::PostUpdate()
 
 			PrintItemName();
 			PrintStats(4);
+		}
+
+		for (int i = 0; i < 12; ++i)
+		{
+			if (inventoryButtonsList.At(i)->data->state == GuiControlState::FOCUSED)
+			{
+				if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->character == 0)
+				{
+					// Draw how many stats are added
+					PrintPositiveItemStats(inventoryButtonsList.At(i)->data->id - 78);
+				}
+				else
+				{
+					PrintNegativeItemStats(inventoryButtonsList.At(i)->data->id - 78);
+				}
+			}
 		}
 
 	}
@@ -468,6 +485,133 @@ void UIModule::PrintStats(int id) {
 
 
 }
+
+void UIModule::PrintPositiveItemStats(int id) {
+
+	SDL_Color greenColor = { 0, 255, 0 };
+
+	if (app->teamManager->itemstoshow.At(id)->data->defense != 0)
+	{
+		std::string defenSestring = std::to_string(app->teamManager->itemstoshow.At(id)->data->defense);
+		const char* defChar = defenSestring.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 400, 100, 100, greenColor);
+		app->fonts->DrawText(defChar, -app->render->camera.x + 1420, -app->render->camera.y + 400, 100, 100, greenColor);
+	}	
+
+	if (app->teamManager->itemstoshow.At(id)->data->magic != 0)
+	{
+		std::string magicString = std::to_string(app->teamManager->itemstoshow.At(id)->data->magic);
+		const char* magicChar = magicString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 450, 100, 100, greenColor);
+		app->fonts->DrawText(magicChar, -app->render->camera.x + 1420, -app->render->camera.y + 450, 100, 100, greenColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->speed != 0)
+	{
+		std::string speedString = std::to_string(app->teamManager->itemstoshow.At(id)->data->speed);
+		const char* speedChar = speedString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 500, 100, 100, greenColor);
+		app->fonts->DrawText(speedChar, -app->render->camera.x + 1420, -app->render->camera.y + 500, 100, 100, greenColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->movement != 0)
+	{
+		std::string movementString = std::to_string(app->teamManager->itemstoshow.At(id)->data->movement);
+		const char* movementChar = movementString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 550, 100, 100, greenColor);
+		app->fonts->DrawText(movementChar, -app->render->camera.x + 1420, -app->render->camera.y + 550, 100, 100, greenColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->attack != 0)
+	{
+		std::string attackString = std::to_string(app->teamManager->itemstoshow.At(id)->data->attack);
+		const char* attackChar = attackString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 600, 100, 100, greenColor);
+		app->fonts->DrawText(attackChar, -app->render->camera.x + 1420, -app->render->camera.y + 600, 100, 100, greenColor);
+	}
+
+	if(app->teamManager->itemstoshow.At(id)->data->Ab1Power != 0)
+	{
+		std::string abilityString = std::to_string(app->teamManager->itemstoshow.At(id)->data->Ab1Power);
+		const char* abilityChar = abilityString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 650, 100, 100, greenColor);
+		app->fonts->DrawText(abilityChar, -app->render->camera.x + 1420, -app->render->camera.y + 650, 100, 100, greenColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->healingpower != 0)
+	{
+		std::string healPowString = std::to_string(app->teamManager->itemstoshow.At(id)->data->healingpower);
+		const char* healPowChar = healPowString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 700, 100, 100, greenColor);
+		app->fonts->DrawText(healPowChar, -app->render->camera.x + 1420, -app->render->camera.y + 700, 100, 100, greenColor);
+	}
+
+
+}
+
+void UIModule::PrintNegativeItemStats(int id) {
+
+	SDL_Color redColor = { 255, 0, 0 };
+
+	if (app->teamManager->itemstoshow.At(id)->data->defense != 0)
+	{
+		std::string defenSestring = std::to_string(app->teamManager->itemstoshow.At(id)->data->defense);
+		const char* defChar = defenSestring.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 400, 100, 100, redColor);
+		app->fonts->DrawText(defChar, -app->render->camera.x + 1420, -app->render->camera.y + 400, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->magic != 0)
+	{
+		std::string magicString = std::to_string(app->teamManager->itemstoshow.At(id)->data->magic);
+		const char* magicChar = magicString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 450, 100, 100, redColor);
+		app->fonts->DrawText(magicChar, -app->render->camera.x + 1420, -app->render->camera.y + 450, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->speed != 0)
+	{
+		std::string speedString = std::to_string(app->teamManager->itemstoshow.At(id)->data->speed);
+		const char* speedChar = speedString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 500, 100, 100, redColor);
+		app->fonts->DrawText(speedChar, -app->render->camera.x + 1420, -app->render->camera.y + 500, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->movement != 0)
+	{
+		std::string movementString = std::to_string(app->teamManager->itemstoshow.At(id)->data->movement);
+		const char* movementChar = movementString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 550, 100, 100, redColor);
+		app->fonts->DrawText(movementChar, -app->render->camera.x + 1420, -app->render->camera.y + 550, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->attack != 0)
+	{
+		std::string attackString = std::to_string(app->teamManager->itemstoshow.At(id)->data->attack);
+		const char* attackChar = attackString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 600, 100, 100, redColor);
+		app->fonts->DrawText(attackChar, -app->render->camera.x + 1420, -app->render->camera.y + 600, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->Ab1Power != 0)
+	{
+		std::string abilityString = std::to_string(app->teamManager->itemstoshow.At(id)->data->Ab1Power);
+		const char* abilityChar = abilityString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 650, 100, 100, redColor);
+		app->fonts->DrawText(abilityChar, -app->render->camera.x + 1420, -app->render->camera.y + 650, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->healingpower != 0)
+	{
+		std::string healPowString = std::to_string(app->teamManager->itemstoshow.At(id)->data->healingpower);
+		const char* healPowChar = healPowString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 700, 100, 100, redColor);
+		app->fonts->DrawText(healPowChar, -app->render->camera.x + 1420, -app->render->camera.y + 700, 100, 100, redColor);
+	}
+
+
+}
+
 // Called before quitting
 bool UIModule::CleanUp()
 {
