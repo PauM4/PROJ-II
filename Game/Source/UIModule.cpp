@@ -450,19 +450,19 @@ void UIModule::PrintItemImages(int i)
 	{
 		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "bow")
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
 	{
 		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "knife")
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
 	{
 		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "club")
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
 	{
 		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "shotgun")
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
 	{
 		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
 	}
@@ -474,15 +474,15 @@ void UIModule::PrintItemImages(int i)
 	{
 		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "talisman")
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
 	{
 		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "susjar")
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
 	{
 		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "dentures")
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
 	{
 		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
 	}
@@ -507,8 +507,14 @@ void UIModule::PrintItemName()
 		if (app->teamManager->itemstoshow.At(i)->data->type == 3) {
 			itemtype = "Trinket  - ";
 		}
-		app->fonts->DrawText(itemtype, 650, 350 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
-		app->fonts->DrawText(itemname, 800, 350 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+		if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
+			app->fonts->DrawText(itemtype, 650, 350 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+			app->fonts->DrawText(itemname, 800, 350 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+		}
+		if (app->teamManager->itemstoshow.At(i)->data->character == 0) {
+			app->fonts->DrawText(itemtype, 650, 350 + j, 100, 100, { 100, 100, 100 }, app->fonts->gameFont, true);
+			app->fonts->DrawText(itemname, 800, 350 + j, 100, 100, { 100, 100, 100 }, app->fonts->gameFont, true);
+		}
 		j += 50;
 	}
 }
@@ -1166,11 +1172,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -1204,11 +1210,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -1221,12 +1227,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mpigItem = false;
 
 		whatInventoryImIn = LRRH;
-
+		app->teamManager->itemstoshow.Clear();
 		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
 			if (app->teamManager->inventory.At(i)->data->character == 0 || app->teamManager->inventory.At(i)->data->character == 3) {
 				if (app->teamManager->inventory.At(i)->data->weaponuser == 0 || app->teamManager->inventory.At(i)->data->weaponuser == 3)
 				{
-					app->teamManager->itemstoshow.Clear();
 					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
 				}
 			}
@@ -1241,11 +1246,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -1258,12 +1263,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mpigItem = false;
 
 		whatInventoryImIn = LPIG;
-
+		app->teamManager->itemstoshow.Clear();
 		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
 			if (app->teamManager->inventory.At(i)->data->character == 0 || app->teamManager->inventory.At(i)->data->character == 4) {
 				if (app->teamManager->inventory.At(i)->data->weaponuser == 0 || app->teamManager->inventory.At(i)->data->weaponuser == 4)
 				{
-					app->teamManager->itemstoshow.Clear();
 					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
 				}
 			}
@@ -1278,11 +1282,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -1295,12 +1299,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		timmyItem = false;
 
 		whatInventoryImIn = MPIG;
-
+		app->teamManager->itemstoshow.Clear();
 		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
 			if (app->teamManager->inventory.At(i)->data->character == 0 || app->teamManager->inventory.At(i)->data->character == 5) {
 				if (app->teamManager->inventory.At(i)->data->weaponuser == 0 || app->teamManager->inventory.At(i)->data->weaponuser == 5)
 				{
-					app->teamManager->itemstoshow.Clear();
 					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
 				
 				}
@@ -1316,11 +1319,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -1379,7 +1382,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 	{
 		app->teamManager->itemstoshow.At(numOfItem)->data->character = 0;
 
-		inventoryButtonsList.At(numOfItem)->data->text = "Unequipped";
+		inventoryButtonsList.At(numOfItem)->data->text = "Equip";
 		app->teamManager->addallstats();
 		app->teamManager->loadinventory();
 		app->teamManager->ApplyEquipedItemStats();
@@ -1401,7 +1404,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 			}
 		}
 		app->teamManager->itemstoshow.At(numOfItem)->data->character = whatInventoryImIn;
-		inventoryButtonsList.At(numOfItem)->data->text = "Equipped";
+		inventoryButtonsList.At(numOfItem)->data->text = "Unequip";
 		app->teamManager->addallstats();
 		app->teamManager->loadinventory();
 		app->teamManager->ApplyEquipedItemStats();
