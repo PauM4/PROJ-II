@@ -1,107 +1,113 @@
-#include "GuiCheckBox.h"
-#include "App.h"
-#include "Scene.h"
-#include "GuiManager.h"
-#include "Audio.h"
-#include "Window.h"
-
-GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds) : GuiControl(GuiControlType::CHECKBOX, id)
-{
-    this->bounds = bounds;
-}
-
-GuiCheckBox::~GuiCheckBox()
-{
-}
-
-bool GuiCheckBox::Update(Input* input, float dt)
-{
-    if (state != GuiControlState::DISABLED)
-    {
-        int mouseX, mouseY;
-        input->GetMousePosition(mouseX, mouseY);
-
-        // Check collision between mouse and button bounds
-        if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) &&
-            (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
-        {
-            state = GuiControlState::FOCUSED;
-
-            if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
-            {
-                state = GuiControlState::PRESSED;
-            }
-
-            // If mouse button pressed -> Generate event!
-            if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP)
-            {
-                state = GuiControlState::SELECTED;
-            }
-        }
-        else state = GuiControlState::NORMAL;
-    }
-
-    return false;
-}
-
-bool GuiCheckBox::Draw(Render* render)
-{
-
-    // Draw the right button depending on state
-    switch (state)
-    {
-    case GuiControlState::DISABLED:
-        break;
-
-    case GuiControlState::NORMAL:
-        if (!checked) render->DrawTexture(texture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, &SDL_Rect({ 0,0,20,20 }), 0, 0, 0, 0);
-        else render->DrawTexture(texture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, &SDL_Rect({ 60,0,20,20 }), 0, 0, 0, 0);
-        break;
-
-    case GuiControlState::FOCUSED:
-        if (!checked) render->DrawTexture(texture, bounds.x, bounds.y, &SDL_Rect({ 20,0,20,20 }), 0, 0, 0, 0);
-        else render->DrawTexture(texture, bounds.x, bounds.y, &SDL_Rect({ 80,0,20,20 }), 0, 0, 0, 0);
-        break;
-
-    case GuiControlState::PRESSED:
-        if (!checked) render->DrawTexture(texture, bounds.x, bounds.y, &SDL_Rect({ 40,0,20,20 }), 0, 0, 0, 0);
-        else render->DrawTexture(texture, bounds.x, bounds.y, &SDL_Rect({ 100,0,20,20 }), 0, 0, 0, 0);
-        break;
-
-    case GuiControlState::SELECTED:
-        NotifyObserver();
-        break;
-
-    default:
-        break;
-    }
-    return false;
-}
-
-bool GuiCheckBox::DrawDebug(Render* render)
-{
-    int scale = app->win->GetScale();
-
-    SDL_Rect drawBounds = SDL_Rect({ bounds.x * scale - app->render->camera.x, bounds.y * scale - app->render->camera.y, bounds.w * scale, bounds.h * scale });
-
-    switch (state)
-    {
-    case GuiControlState::DISABLED:
-        render->DrawRectangle(drawBounds, 255, 0, 0, 128, true, false);
-        break;
-    case GuiControlState::FOCUSED:
-        render->DrawRectangle(drawBounds, 0, 255, 0, 128, true, false);
-        break;
-    case GuiControlState::NORMAL:
-        render->DrawRectangle(drawBounds, 0, 0, 255, 128, true, false);
-        break;
-    case GuiControlState::PRESSED:
-        render->DrawRectangle(drawBounds, 255, 255, 0, 128, true, false);
-        break;
-    case GuiControlState::SELECTED:
-        render->DrawRectangle(drawBounds, 0, 255, 255, 128, true, false);
-        break;
-    }
-
-    return true;
-}
+//#include "GuiCheckBox.h"
+//#include "Render.h"
+//#include "App.h"
+//#include "Audio.h"
+//#include "Log.h"
+//
+//GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds, SDL_Texture* tex, const char* text) : GuiControl(GuiControlType::CHECKBOX, id)
+//{
+//	this->bounds = bounds;
+//	this->text = text;
+//	this->tex = tex;
+//
+//	canClick = true;
+//	drawBasic = false;
+//	crossed = false;
+//	debug = false;
+//
+//	buttonHovering = app->audio->LoadFx("Assets/Audio/Fx/HoveringButton.wav");
+//	hoverOnce = false;
+//
+//	buttonPressed = app->audio->LoadFx("Assets/Audio/Fx/PressingButton.wav");
+//	pressedOnce = false;
+//
+//}
+//
+//GuiCheckBox::~GuiCheckBox()
+//{
+//
+//}
+//
+//bool GuiCheckBox::Update(float dt)
+//{
+//	if (state != GuiControlState::DISABLED)
+//	{
+//		// Update the state of the GUiButton according to the mouse position
+//		app->input->GetMousePosition(mouseX, mouseY);
+//
+//		GuiControlState previousState = state;
+//
+//		// I'm inside the limitis of the button
+//		if (mouseX >= bounds.x && mouseX <= bounds.x + bounds.w &&
+//			mouseY >= bounds.y && mouseY <= bounds.y + bounds.h) {
+//
+//			state = GuiControlState::FOCUSED;
+//			if (previousState != state) {
+//				LOG("Change state from %d to %d", previousState, state);
+//			}
+//
+//			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN) {
+//				state = GuiControlState::PRESSED;
+//			}
+//
+//			//
+//			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
+//				NotifyObserver();
+//			}
+//		}
+//		else {
+//			state = GuiControlState::NORMAL;
+//		}
+//	}
+//
+//	if (state == GuiControlState::PRESSED) {
+//		if (crossed) crossed = false;
+//		else crossed = true;
+//	}
+//
+//	return false;
+//}
+//
+//bool GuiCheckBox::Draw(Render* render)
+//{
+//	// Draw the button according the GuiControl State
+//
+//	rect.x = 0;
+//	rect.y = 0;
+//	rect.w = bounds.w;
+//	rect.h = bounds.h;
+//
+//	switch (state)
+//	{
+//	case GuiControlState::DISABLED:
+//
+//		//render->DrawRectangle(bounds, 200, 200, 200, 255, true, false);
+//		break;
+//	case GuiControlState::NORMAL:
+//
+//		//render->DrawRectangle(bounds, 0, 0, 255, 255, true, false);
+//		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
+//
+//		break;
+//	case GuiControlState::FOCUSED:
+//
+//		rect.y = bounds.h;
+//		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
+//
+//		break;
+//	case GuiControlState::PRESSED:
+//
+//		rect.y = bounds.h * 2;
+//		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
+//		break;
+//	}
+//
+//	if (crossed && state != GuiControlState::DISABLED) {
+//		SDL_Rect cross = { 0,bounds.h * 3,bounds.w,bounds.h };
+//		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &cross);
+//	}
+//
+//	app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });
+//
+//	return false;
+//}

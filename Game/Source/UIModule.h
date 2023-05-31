@@ -183,6 +183,9 @@ public:
 	GuiButton* item_11_button;
 	GuiButton* item_12_button;
 
+	SDL_Texture* textureA;
+	SDL_Texture* playButtonTexture;
+
 	bool timmyItem;
 	bool bunnyItem;
 	bool lrrhItem;

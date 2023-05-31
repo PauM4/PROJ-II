@@ -1,33 +1,41 @@
-#ifndef __GUISLIDER_H__
-#define __GUISLIDER_H__
+#pragma once
 
 #include "GuiControl.h"
 
 #include "Point.h"
 #include "SString.h"
+#include "Textures.h"
 
 class GuiSlider : public GuiControl
 {
 public:
 
-    GuiSlider(uint32 id, SDL_Rect bounds);
-    virtual ~GuiSlider();
+	GuiSlider(uint32 id, SDL_Rect bounds, SDL_Texture* tex, const char* text);
+	virtual ~GuiSlider();
 
-    bool Update(Input* input, float dt);
-    bool Draw(Render* render);
-    bool DrawDebug(Render* render);
+	bool Update(float dt);
+	bool Draw(Render* render);
 
-    float value;
-    int sliderPosx;
-    float unit;
+	int mouseX, mouseY;
+	unsigned int click;
 
-private:
+	bool canClick = true;
+	bool drawBasic = false;
+	SDL_Texture* tex;
+	SDL_Rect rect;
 
-    // GuiSlider specific properties
-    // Maybe some animation properties for state change?
+	int x;
+	int y;
+	int posx;
+	int posy;
+	int x1;
+	int y1;
+	int x2;
+	int y2;
 
-    int minValue;
-    int maxValue;
+	bool debug;
+
+	uint buttonHovering;
+	bool hoverOnce;
+
 };
-
-#endif // __GUISLIDER_H__
