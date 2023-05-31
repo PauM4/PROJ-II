@@ -117,6 +117,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	moveTutorialTextutre = app->tex->Load("Assets/UI/Movement_Guide.png");
 	interactTutorialTextutre = app->tex->Load("Assets/UI/Interact_Guide.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
+	inventoryScrollTexture = app->tex->Load("Assets/UI/inventoryScroll.png");
 	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
 
 	battleTutoTexture = app->tex->Load("Assets/UI/battleTutorial.png");
@@ -529,6 +530,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(moveTutorialTextutre);
 	app->tex->UnLoad(interactTutorialTextutre);
 	app->tex->UnLoad(lvlupTexture);
+	app->tex->UnLoad(inventoryScrollTexture);
 	app->tex->UnLoad(chestTexture);
 	app->tex->UnLoad(battleTutoTexture);
 	

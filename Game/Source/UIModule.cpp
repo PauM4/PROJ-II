@@ -241,11 +241,11 @@ bool UIModule::PostUpdate()
 		
 		if (app->scene->active)
 		{
-			app->render->DrawTexture(app->scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+			app->render->DrawTexture(app->scene->inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
 		if (app->w2_scene->active)
 		{
-			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+			app->render->DrawTexture(app->w2_scene->inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
 		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 

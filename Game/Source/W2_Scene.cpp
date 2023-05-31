@@ -112,6 +112,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
 	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
+	inventoryScrollTexture = app->tex->Load("Assets/UI/inventoryScroll.png");
 
 	currentQuestIndex = 0;
 
@@ -361,6 +362,7 @@ bool W2_Scene::CleanUp()
 	app->tex->UnLoad(uiSpriteTexture);
 	app->tex->UnLoad(questUiTexture);
 	app->tex->UnLoad(lvlupTexture);
+	app->tex->UnLoad(inventoryScrollTexture);
 	app->tex->UnLoad(eKeyTexture);
 	app->tex->UnLoad(chestTexture);
 
