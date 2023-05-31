@@ -25,7 +25,7 @@ bool GuiManager::Start()
 	return true;
 }
 
-GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer, SDL_Rect sliderBounds)
+GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, SDL_Texture* tex, const char* text, SDL_Rect bounds, Module* observer, SDL_Rect sliderBounds)
 {
 	// L15: DONE1: Create a GUI control and add it to the list of controls
 
@@ -35,21 +35,23 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	switch (type)
 	{
 	case GuiControlType::BUTTON:
-		guiControl = new GuiButton(id, bounds, text);
-		break;
-	case GuiControlType::CHECKBOX:
-		guiControl = new GuiCheckBox(id, bounds);
-		guiControl->SetObserver((Module*)app->scene);
+
+		guiControl = new GuiButton(id, bounds, tex, text);
+
 		break;
 	case GuiControlType::SLIDER:
-		guiControl = new GuiSlider(id, bounds);
-		guiControl->SetObserver((Module*)app->scene);
+
+		guiControl = new GuiSlider(id, bounds, tex, text);
+
 		break;
-	/*
-	case GuiControlType::TOGGLE:
+	/*case GuiControlType::TOGGLE:
+		break;
+	case GuiControlType::CHECKBOX:
+
+		guiControl = new GuiCheckBox(id, bounds, tex, text);
+
 		break;
 	case GuiControlType::SLIDERBAR:
-		guiControl = (GuiControl*) new GuiSliderBar(id, bounds, sliderBounds);
 		break;
 	case GuiControlType::COMBOBOX:
 		break;
@@ -62,8 +64,8 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	case GuiControlType::SPINNER:
 		break;
 	default:
-		break;
-		*/
+		break;*/
+			
 	}
 
 	//Set the observer

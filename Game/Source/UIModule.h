@@ -182,6 +182,10 @@ public:
 	GuiButton* item_10_button;
 	GuiButton* item_11_button;
 	GuiButton* item_12_button;
+	GuiSlider* sliderTest;
+
+	SDL_Texture* textureA;
+	SDL_Texture* playButtonTexture;
 
 	bool timmyItem;
 	bool bunnyItem;

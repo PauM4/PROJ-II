@@ -1,29 +1,37 @@
-#ifndef __GUICHECKBOX_H__
-#define __GUICHECKBOX_H__
-
-#include "GuiControl.h"
-
-#include "Point.h"
-#include "SString.h"
-
-class GuiCheckBox : public GuiControl
-{
-public:
-
-    GuiCheckBox(uint32 id, SDL_Rect bounds);
-    virtual ~GuiCheckBox();
-
-    bool Update(Input* input, float dt);
-    bool Draw(Render* render);
-    bool DrawDebug(Render* render);
-
-private:
-
-    // GuiCheckBox specific properties
-    // Maybe some animation properties for state change?
-    bool checked = false;
-
-    bool playFxOnce = true;
-};
-
-#endif // __GUICHECKBOX_H__
+//#pragma once
+//
+//#include "GuiControl.h"
+//
+//#include "Point.h"
+//#include "SString.h"
+//
+//class GuiCheckBox : public GuiControl
+//{
+//public:
+//
+//	GuiCheckBox(uint32 id, SDL_Rect bounds, SDL_Texture* tex, const char* text);
+//	virtual ~GuiCheckBox();
+//
+//	bool Update(float dt);
+//	bool Draw(Render* render);
+//
+//	int mouseX, mouseY;
+//	unsigned int click;
+//
+//	bool canClick = true;
+//	bool drawBasic = false;
+//
+//	SDL_Texture* tex;
+//	SDL_Rect rect;
+//
+//	bool crossed;
+//
+//	bool debug;
+//
+//	uint buttonHovering;
+//	bool hoverOnce;
+//
+//	uint buttonPressed;
+//	bool pressedOnce;
+//
+//};
