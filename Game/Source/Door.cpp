@@ -6,6 +6,7 @@
 #include "Render.h"
 #include "Scene.h"
 #include "W2_Scene.h"
+#include "W2_Scene_Maze.h"
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"

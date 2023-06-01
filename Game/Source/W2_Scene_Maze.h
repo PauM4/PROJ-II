@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Door.h"
 #include "NpcW3.h"
+#include "Portal.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -69,6 +70,8 @@ public:
 	bool isNewGame;
 
 	SDL_Texture* uiSpriteTexture;
+
+	Portal* portal;
 
 private:
 

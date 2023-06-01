@@ -154,6 +154,11 @@ bool W2_Scene::Start()
 	exitButtonBool = false;
 	zorroDialogue = false;
 
+	takePortal = false; 
+	enteredThirdHouse = false; 
+	firstKeyPicked = false; 
+	secondKeyPicked = false; 
+
 	// Tell to UIModule which currentMenuType
 	app->uiModule->currentMenuType = DISABLED;
 	// Call this function only when buttons change
@@ -168,28 +173,33 @@ bool W2_Scene::Start()
 
 	Quest quest1;
 	quest1.completed = false;
-	quest1.description = "Leave the forest and find the magic wand";
+	quest1.description = "Explore the meadow";
 	questList.push_back(quest1);
 
 	Quest quest2;
 	quest2.completed = false;
-	quest2.description = "Look for help in the village";
+	quest2.description = "Go investigate the next house";
 	questList.push_back(quest2);
 
 	Quest quest3;
 	quest3.completed = false;
-	quest3.description = "Look for the Little Red Riding Hood grandma";
+	quest3.description = "Investigate what happened to the third pig";
 	questList.push_back(quest3);
 
 	Quest quest4;
 	quest4.completed = false;
-	quest4.description = "Go save LRRH";
+	quest4.description = "Fight and cure the little pigs";
 	questList.push_back(quest4);
 
 	Quest quest5;
 	quest5.completed = false;
-	quest5.description = "Get through the portal";
+	quest5.description = "Catch the wolf!";
 	questList.push_back(quest5);
+
+	Quest quest6;
+	quest6.completed = false;
+	quest6.description = "You have nothing to do here";
+	questList.push_back(quest6);
 
 	chestHRect = { 4, 36, 90, 77 };
 	chestVRect = { 12, 135, 71, 101 };
@@ -239,6 +249,22 @@ bool W2_Scene::Update(float dt)
 	if (questList[currentQuestIndex].completed || app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
 		// If it is, move to the next quest
 		nextQuest();
+	}
+
+	if (firstKeyPicked == true && currentQuestIndex == 1) {
+		questList[currentQuestIndex].completed = true;
+	}
+	if (secondKeyPicked == true && currentQuestIndex == 2) {
+		questList[currentQuestIndex].completed = true;
+	}
+	if (enteredThirdHouse == true && currentQuestIndex == 3) {
+		questList[currentQuestIndex].completed = true;
+	}
+	if (pigsDefeated == true && currentQuestIndex == 4) {
+		questList[currentQuestIndex].completed = true;
+	}
+	if (takePortal == true && currentQuestIndex == 4) {
+		questList[currentQuestIndex].completed = true;
 	}
 
 	// Menu appear

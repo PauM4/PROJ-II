@@ -100,6 +100,7 @@ public:
 	// New Game things
 	bool isNewGame;
 	bool zorroDialogue;
+	bool takePortal, firstKeyPicked, secondKeyPicked, enteredThirdHouse;
 
 	SDL_Texture* npcPopUpTexture;
 	SDL_Texture* uiSpriteTexture;

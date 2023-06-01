@@ -41,6 +41,9 @@ bool W2_Scene_Maze::Awake(pugi::xml_node& config)
 		player->position.y = config.child("player").attribute("y").as_int();
 	}
 
+	portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
+	portal->parameters = config.child("portal");
+
 	app->entityManager->Awake(config);
 
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
@@ -72,7 +75,7 @@ bool W2_Scene_Maze::Start()
 
 	if (isNewGame)
 	{
-		player->ChangePosition(1868, 5608);
+		player->ChangePosition(1648, 176);
 		isNewGame = false;
 	}
 	else

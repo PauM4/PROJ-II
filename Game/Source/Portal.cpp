@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "W2_Scene.h"
+#include "W2_Scene_Maze.h"
 
 Portal::Portal() : Entity(EntityType::PORTAL)
 {
@@ -95,15 +96,22 @@ void Portal::OnCollision(PhysBody* physA, PhysBody* physB)
 		LOG("Collision portal/player");
 		switch (app->sceneManager->scene) {
 		case SCENE:
+			app->scene->takePortal = true; 
 			app->uiModule->doorPlayerPosition = true;
 			app->SaveGameRequest();
 			app->sceneManager->LoadScene((GameScene)nextScene);
 			break;
 		case W2_SCENE:
+			app->w2_scene->takePortal = true;
 			app->uiModule->doorPlayerPosition = true;
 			app->SaveGameRequest();
 			app->sceneManager->LoadScene((GameScene)nextScene);
 			break; 
+		case W2_SCENE_MAZE:
+			app->uiModule->doorPlayerPosition = true;
+			app->SaveGameRequest();
+			app->sceneManager->LoadScene((GameScene)nextScene);
+			break;
 		}
 		
 		break;

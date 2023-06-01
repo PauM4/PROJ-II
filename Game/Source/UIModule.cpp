@@ -13,6 +13,7 @@
 #include "SceneMainMenu.h"
 #include "Scene.h"
 #include "W2_Scene.h"
+#include "W2_Scene_Maze.h"
 #include "Player.h"
 #include "Npc.h"
 #include <iostream>
@@ -534,6 +535,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	case 5:
 		app->scene->isNewGame = true;
 		app->w2_scene->isNewGame = true; 
+		app->w2_scene_maze->isNewGame = true; 
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;
 		app->teamManager->Disable();

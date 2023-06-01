@@ -124,6 +124,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	currentQuestIndex = 0;
 	battleTutorialCounter = 0;	
 
+	takePortal = false; 
+
 	return ret;
 
 }
@@ -150,10 +152,6 @@ bool Scene::Start()
 		RELEASE_ARRAY(data);
 
 	}
-
-	stepQuest = 0; 
-	numEnteredQuestVillager = 0;
-	numEnteredQuestLHHR = 0;
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
@@ -222,6 +220,11 @@ bool Scene::Start()
 	quest5.description = "Get through the portal";
 	questList.push_back(quest5);
 
+	Quest quest6; 
+	quest6.completed = false;
+	quest6.description = "You have nothing to do here";
+	questList.push_back(quest6);
+
 	secondQuestCollider = app->physics->CreateRectangleSensor(1756 + 443/2, 3968 + 101/2, 443, 101, bodyType::STATIC);
 	secondQuestCollider->ctype = ColliderType::SECQUESTCOLLIDER;
 
@@ -242,12 +245,7 @@ bool Scene::Start()
 		app->LoadGameRequest();
 		basicTutorialCounter = 2;
 		battleTutorialCounter = 3;
-	}
-
-	for (int i = 0; i < stepQuest; i++) {
-		nextQuest();
-	}
-	
+	}	
 
 	return true;
 }
@@ -287,32 +285,27 @@ bool Scene::Update(float dt)
 
 	MoveToBattleFromDialogue();
 
-	if (angryVillagerDefeated == true && numEnteredQuestVillager == 0) {
-		nextQuest();
-		numEnteredQuestVillager++;
-		stepQuest++; 
-	}
-
-	if (LRRHDefeated == true && numEnteredQuestLHHR == 1) {
-		nextQuest();
-		numEnteredQuestLHHR++;
-		stepQuest++;
-	}
-
-	if (talkedToGrandma == true && numEnteredQuestLHHR == 0) {
-		nextQuest();
-		numEnteredQuestLHHR++;
-		stepQuest++;
-	}
-
 	// Check if the current quest is completed
 	if (questList[currentQuestIndex].completed || app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
 		// If it is, move to the next quest
 		nextQuest();
 	}
+	if (angryVillagerDefeated == true && currentQuestIndex == 1) {
+		questList[currentQuestIndex].completed = true; 
+	}
+	if (talkedToGrandma == true && currentQuestIndex == 2) {
+		questList[currentQuestIndex].completed = true;
+	}
+	if (LRRHDefeated == true && currentQuestIndex == 3) {
+		questList[currentQuestIndex].completed = true;
+	}
+	if (takePortal == true && currentQuestIndex == 4) {
+		questList[currentQuestIndex].completed = true;
+	}
 
 	//Draw map
 	app->map->Draw();
+
 
 	if (chest1->isPicked)app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestopenHRect);
 	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
@@ -1051,7 +1044,7 @@ bool Scene::LoadState(pugi::xml_node& data)
 
 	battleTutorialCounter = data.child("saveBattleTutoState").attribute("state").as_int();
 
-	stepQuest = data.child("stepQuest").attribute("num").as_int();
+	currentQuestIndex = data.child("stepQuest").attribute("num").as_int();
 
 	//LoadChests(data);
 
@@ -1096,7 +1089,7 @@ bool Scene::SaveState(pugi::xml_node& data)
 	saveBattleTutorialState.append_attribute("state") = battleTutorialCounter;
 
 	pugi::xml_node stepQuestState = data.append_child("stepQuest");
-	stepQuestState.append_attribute("num") = stepQuest;
+	stepQuestState.append_attribute("num") = currentQuestIndex;
 
 	
 

@@ -21,17 +21,15 @@ Npc::~Npc() {
 bool Npc::Awake() {
 
 	npcTexturePath = parameters.attribute("npcTexturePath").as_string();
-	switch (app->sceneManager->scene) {
-	case SCENE:
-		posAngryVillager.x = 7382, posAngryVillager.y = 4934;
+	
+	posAngryVillager.x = 7382, posAngryVillager.y = 4934;
 
-		posTalismanVillager.x = 1730, posTalismanVillager.y = 1408;
+	posTalismanVillager.x = 1730, posTalismanVillager.y = 1408;
 
-		posGrandma.x = 7069, posGrandma.y = 2960;
+	posGrandma.x = 7069, posGrandma.y = 2960;
 
-		posLRRH.x = 7224, posLRRH.y = 457;
-		break; 
-	}
+	posLRRH.x = 7224, posLRRH.y = 457;
+	
 	
 
 	angryVillagerAnimation.PushBack({ 284,55,127,189 });

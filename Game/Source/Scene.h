@@ -114,7 +114,6 @@ public:
 
 	// The index of the current quest
 	int currentQuestIndex;
-	int numEnteredQuestVillager, numEnteredQuestLHHR;
 
 	// Counter that triggers the tutorial screens when new Game
 	// Number 2 means --> don't appear the tutorial
@@ -157,6 +156,7 @@ public:
 
 	bool angryVillagerDefeated, LRRHDefeated;
 	bool talkedToGrandma;
+	bool takePortal; 
 
 	int numTimesAVDialogueTriggered, numTimesLRRHDialogueTriggered;
 	SDL_Timer timerToSceneBattle, timerToLRRHCombat;
@@ -164,7 +164,6 @@ public:
 	//Load FX rope
 	int ropeFX = -1;
 
-	int stepQuest; 
 
 	
 
