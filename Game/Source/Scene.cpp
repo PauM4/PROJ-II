@@ -388,6 +388,36 @@ void Scene::MenuAppear()
 			app->audio->SetMusicVolume(32);
 		}
 	}
+	if (app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN && !app->teamManager->lvlupbool)
+	{
+		// If player is in pause, close it
+		if (player->playerState == player->PlayerState::PAUSE)
+		{
+			player->playerState = player->playerPrevState;
+
+			app->uiModule->currentMenuType = DISABLED;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			// Max volume
+			app->audio->SetMusicVolume(128);
+
+		}
+		// If player is NOT in pause, open it
+		else
+		{
+			// Save previous state to go back
+			player->playerPrevState = player->playerState;
+			player->playerState = player->PlayerState::PAUSE;
+
+			app->uiModule->currentMenuType = INVENTORY;
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+			// Mid-Low volume
+			app->audio->SetMusicVolume(32);
+		}
+	}
 }
 
 void Scene::TweenyTestWithU()
