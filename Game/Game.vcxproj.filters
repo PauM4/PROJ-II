@@ -19,8 +19,6 @@
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
-    <ClCompile Include="Source\GuiButton.cpp" />
-    <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\SDL_Timer.cpp">
       <Filter>Utils</Filter>
@@ -126,8 +124,18 @@
     <ClCompile Include="Source\W2_Scene_Maze.cpp">
       <Filter>Scenes\W2</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GuiCheckBox.cpp" />
-    <ClCompile Include="Source\GuiSlider.cpp" />
+    <ClCompile Include="Source\GuiButton.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiCheckBox.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiManager.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiSlider.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -172,9 +180,6 @@
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Timer.h" />
-    <ClInclude Include="Source\GuiButton.h" />
-    <ClInclude Include="Source\GuiControl.h" />
-    <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\Fonts.h" />
     <ClInclude Include="Source\SDL_Timer.h">
       <Filter>Utils</Filter>
@@ -289,8 +294,21 @@
     <ClInclude Include="Source\W2_Scene_Maze.h">
       <Filter>Scenes\W2</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GuiCheckBox.h" />
-    <ClInclude Include="Source\GuiSlider.h" />
+    <ClInclude Include="Source\GuiSlider.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiButton.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiCheckBox.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiControl.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiManager.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -322,6 +340,9 @@
     </Filter>
     <Filter Include="Scenes\W3">
       <UniqueIdentifier>{82d9b662-2ab7-4aa5-a1a7-b57eaacc49e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{87a7ce3b-7584-4d96-abee-c045359adbe5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -67,7 +67,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-667" y="-3674" />
+		<camera x="0" y="0" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

@@ -134,6 +134,7 @@ public:
 	SDL_Texture* moveTutorialTextutre;
 	SDL_Texture* interactTutorialTextutre;
 	SDL_Texture* lvlupTexture;
+	SDL_Texture* inventoryScrollTexture;
 
 	// Battle tutorial
 	SDL_Texture* battleTutoTexture;
@@ -164,6 +165,9 @@ public:
 	//Load FX rope
 	int ropeFX = -1;
 
+
+	// Inventory Items Texture
+	SDL_Texture* inventoryItemsTexture;
 
 	
 

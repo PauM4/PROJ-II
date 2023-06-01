@@ -7,10 +7,10 @@
 #include "Fonts.h"
 #include "TeamManager.h"
 
-GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
-{
+GuiButton::GuiButton(uint32 id, SDL_Rect bounds, SDL_Texture* tex, const char* text) : GuiControl(GuiControlType::BUTTON, id) {
 	this->bounds = bounds;
 	this->text = text;
+	this->tex = tex;
 
 	canClick = true;
 	drawBasic = false;
@@ -69,6 +69,11 @@ bool GuiButton::Draw(Render* render)
 {
 	//L15: DONE 4: Draw the button according the GuiControl State
 
+	rect.x = 0;
+	rect.y = 0;
+	rect.w = bounds.w;
+	rect.h = bounds.h;
+
 	switch (state)
 	{
 	case GuiControlState::DISABLED:
@@ -76,14 +81,19 @@ bool GuiButton::Draw(Render* render)
 		break;
 	case GuiControlState::NORMAL:
 		//render->DrawRectangle(bounds, 128, 64, 0, 255, true, false);
+		render->DrawTexture(tex, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, &rect);
 		render->DrawTexture(app->guiManager->buttonNormalTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	case GuiControlState::FOCUSED:
 		//render->DrawRectangle(bounds, 244, 168, 92, 255, true, false);
+		rect.y = bounds.h;
+		render->DrawTexture(tex, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, &rect);
 		render->DrawTexture(app->guiManager->buttonHoverTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	case GuiControlState::PRESSED:
+		rect.y = bounds.h * 2;
 		//render->DrawRectangle(bounds, 52, 26, 0, 255, true, false);
+		render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
 		render->DrawTexture(app->guiManager->buttonPressedTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	}

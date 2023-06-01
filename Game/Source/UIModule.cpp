@@ -69,78 +69,84 @@ bool UIModule::Start()
 	uint w, h;
 	app->win->GetWindowSize(w, h);
 
-	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 920, 600, 120,30 }, this);
-	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 920, 640, 120,30 }, this);
-	mainmenu_credits_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "Credits", { 920, 680, 120,30 }, this);
-	mainmenu_quit_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "Quit", { 920, 720, 120, 30 }, this);
-	mainmenu_newGame_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "New Game", { 920, 640, 120,30 }, this);
-	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "Continue", { 920, 680, 120,30 }, this);
-	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "Return", { 920, 925, 120,30 }, this);
+	textureA = app->tex->Load("Assets/UI/UI_Spritesheet_FINAL.png");
+	playButtonTexture = app->tex->Load("Assets/UI/playButton.png");
 
-	pausemenu_resume_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, "Resume", { 1620, 80, 120,30 }, this);
-	pausemenu_inventory_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, "Inventory", { 1620, 115, 120,30 }, this);
-	pausemenu_party_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 24, "Party", { 1620, 150, 120,30 }, this);
-	pausemenu_save_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "Save", { 1620, 185, 120,30 }, this);
-	pausemenu_load_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Load", { 1620, 220, 120,30 }, this);
-	pausemenu_options_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "Options", { 1620, 255, 120,30 }, this);
-	pausemenu_return_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, "Return", { 1620, 80, 120,30 }, this);
-	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "Main Menu", { 1620, 290, 120,30 }, this);
-	pausemenu_quit_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "Quit", { 1620, 325, 120, 30 }, this);
+	sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, textureA, "", { 100, 100, 100, 100 }, this);
+	sliderTest->state = GuiControlState::NORMAL;
 
-	pausemenuCombat_resume_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, "Resume", { 1620, 80, 120,30 }, this);
-	pausemenuCombat_options_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Options", { 1620, 115, 120,30 }, this);
-	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Main Menu", { 1620, 150, 120,30 }, this);
-	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Return", { 1620, 80, 120,30 }, this);
-	pausemenuCombat_quit_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Quit", { 1620, 255, 120, 30 }, this);
+	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "Play", { 720, 400, 545, 277 }, this);
+	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, textureA,"Options", { 920, 640, 120,30 }, this);
+	mainmenu_credits_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, textureA,"Credits", { 920, 680, 120,30 }, this);
+	mainmenu_quit_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, textureA,"Quit", { 920, 720, 120, 30 }, this);
+	mainmenu_newGame_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, textureA,"New Game", { 920, 640, 120,30 }, this);
+	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, textureA, "Continue", { 920, 680, 120,30 }, this);
+	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, textureA,"Return", { 920, 925, 120,30 }, this);
 
-	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, "Attack", { 100, 780, 100, 30 }, app->battleManager);
-	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, "Ability", { 100, 815, 100, 30 }, app->battleManager);
-	combat_move_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, "Move", { 100, 850, 100, 30 }, app->battleManager);
-	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, "End Turn", { 100, 885, 100, 30 }, app->battleManager);
+	pausemenu_resume_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, textureA, "Resume", { 1620, 80, 120,30 }, this);
+	pausemenu_inventory_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, textureA, "Inventory", { 1620, 115, 120,30 }, this);
+	pausemenu_party_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 24, textureA, "Party", { 1620, 150, 120,30 }, this);
+	pausemenu_save_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, textureA, "Save", { 1620, 185, 120,30 }, this);
+	pausemenu_load_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, textureA, "Load", { 1620, 220, 120,30 }, this);
+	pausemenu_options_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, textureA, "Options", { 1620, 255, 120,30 }, this);
+	pausemenu_return_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, textureA, "Return", { 1620, 80, 120,30 }, this);
+	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, textureA, "Main Menu", { 1620, 290, 120,30 }, this);
+	pausemenu_quit_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, textureA, "Quit", { 1620, 325, 120, 30 }, this);
 
-	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "", { 100, 900, 800, 30 }, app->scene);
-	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "", { 100, 950, 800, 30 }, app->scene);
-	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "", { 1000, 900, 800, 30 }, app->scene);
-	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, "", { 1000, 950, 800, 30 }, app->scene);
+	pausemenuCombat_resume_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, textureA, "Resume", { 1620, 80, 120,30 }, this);
+	pausemenuCombat_options_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, textureA, "Options", { 1620, 115, 120,30 }, this);
+	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, textureA, "Main Menu", { 1620, 150, 120,30 }, this);
+	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, textureA, "Return", { 1620, 80, 120,30 }, this);
+	pausemenuCombat_quit_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, textureA, "Quit", { 1620, 255, 120, 30 }, this);
 
-	dialog2_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 30, "", { 100, 900, 800, 30 }, app->w2_scene);
-	dialog2_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 31, "", { 100, 950, 800, 30 }, app->w2_scene);
-	dialog2_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 32, "", { 1000, 900, 800, 30 }, app->w2_scene);
-	dialog2_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 33, "", { 1000, 950, 800, 30 }, app->w2_scene);
+	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, textureA, "Attack", { 100, 780, 100, 30 }, app->battleManager);
+	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, textureA, "Ability", { 100, 815, 100, 30 }, app->battleManager);
+	combat_move_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, textureA, "Move", { 100, 850, 100, 30 }, app->battleManager);
+	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, textureA, "End Turn", { 100, 885, 100, 30 }, app->battleManager);
 
-	levelup_defenseUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, "+", { 900, 400, 100, 30 }, this);
-	levelup_magicUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, "+", { 900, 450, 100, 30 }, this);
-	levelup_speedUp_button =        (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, "+", { 900, 500, 100, 30 }, this);
-	levelup_movementUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, "+", { 900, 550, 100, 30 }, this);
-	levelup_attackUp_button =       (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, "+", { 900, 600, 100, 30 }, this);
-	levelup_AB1PowerUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, "+", { 900, 650, 100, 30 }, this);
-	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, "+", { 900, 700, 100, 30 }, this);
+	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, textureA, "", { 100, 900, 800, 30 }, app->scene);
+	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, textureA, "", { 100, 950, 800, 30 }, app->scene);
+	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, textureA, "", { 1000, 900, 800, 30 }, app->scene);
+	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, textureA, "", { 1000, 950, 800, 30 }, app->scene);
 
-	party_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 67, "Unavailable", { 1000, 400, 100, 30 }, this);
-	party_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 68, "Unavailable", { 1000, 450, 100, 30 }, this);
-	party_lrrh_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 69, "Unavailable", { 1000, 500, 100, 30 }, this);
-	party_Lpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 70, "Unavailable", { 1000, 550, 100, 30 }, this);
-	party_Mpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 71, "Unavailable", { 1000, 600, 100, 30 }, this);
-	party_peter_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 72, "Unavailable", { 1000, 650, 100, 30 }, this);
+	dialog2_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 30, textureA, "", { 100, 900, 800, 30 }, app->w2_scene);
+	dialog2_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 31, textureA, "", { 100, 950, 800, 30 }, app->w2_scene);
+	dialog2_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 32, textureA, "", { 1000, 900, 800, 30 }, app->w2_scene);
+	dialog2_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 33, textureA, "", { 1000, 950, 800, 30 }, app->w2_scene);
 
-	inventory_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 73, "Timmy", { 300, 400, 100, 30 }, this);
-	inventory_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 74, "Bunny", { 300, 450, 100, 30 }, this);
-	inventory_lrrh_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 75, "LHRR", { 300, 500, 100, 30 }, this);
-	inventory_Lpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 76, "L. Pig", { 300, 550, 100, 30 }, this);
-	inventory_Mpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 77, "M. Pig", { 300, 600, 100, 30 }, this);
+	levelup_defenseUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, textureA, "+", { 900, 400, 100, 30 }, this);
+	levelup_magicUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, textureA, "+", { 900, 450, 100, 30 }, this);
+	levelup_speedUp_button =        (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, textureA, "+", { 900, 500, 100, 30 }, this);
+	levelup_movementUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, textureA, "+", { 900, 550, 100, 30 }, this);
+	levelup_attackUp_button =       (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, textureA, "+", { 900, 600, 100, 30 }, this);
+	levelup_AB1PowerUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, textureA, "+", { 900, 650, 100, 30 }, this);
+	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, textureA, "+", { 900, 700, 100, 30 }, this);
 
-	item_1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 78, "+", { 960, 350, 100, 30 }, this);
-	item_2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 79, "+", { 960, 400, 100, 30 }, this);
-	item_3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 80, "+", { 960, 450, 100, 30 }, this);
-	item_4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, "+", { 960, 500, 100, 30 }, this);
-	item_5_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, "+", { 960, 550, 100, 30 }, this);
-	item_6_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 83, "+", { 960, 600, 100, 30 }, this);
-	item_7_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 84, "+", { 960, 650, 100, 30 }, this);
-	item_8_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 85, "+", { 960, 700, 100, 30 }, this);
-	item_9_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 86, "+", { 960, 750, 100, 30 }, this);
-	item_10_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 87, "+", { 960, 800, 100, 30 }, this);
-	item_11_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 88, "+", { 960, 850, 100, 30 }, this);
-	item_12_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 89, "+	", { 960, 900, 100, 30 }, this);
+	party_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 67, textureA, "Unavailable", { 1000, 400, 100, 30 }, this);
+	party_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 68, textureA, "Unavailable", { 1000, 450, 100, 30 }, this);
+	party_lrrh_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 69, textureA, "Unavailable", { 1000, 500, 100, 30 }, this);
+	party_Lpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 70, textureA, "Unavailable", { 1000, 550, 100, 30 }, this);
+	party_Mpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 71, textureA, "Unavailable", { 1000, 600, 100, 30 }, this);
+	party_peter_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 72, textureA, "Unavailable", { 1000, 650, 100, 30 }, this);
+
+	inventory_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 73, textureA, "Timmy", { 300, 400, 100, 30 }, this);
+	inventory_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 74, textureA, "Bunny", { 300, 450, 100, 30 }, this);
+	inventory_lrrh_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 75, textureA, "LHRR", { 300, 500, 100, 30 }, this);
+	inventory_Lpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 76, textureA, "L. Pig", { 300, 550, 100, 30 }, this);
+	inventory_Mpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 77, textureA, "M. Pig", { 300, 600, 100, 30 }, this);
+
+	item_1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 78, NULL, "+", { 960, 350, 100, 30 }, this);
+	item_2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 79, NULL, "+", { 960, 400, 100, 30 }, this);
+	item_3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 80, NULL, "+", { 960, 450, 100, 30 }, this);
+	item_4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, NULL, "+", { 960, 500, 100, 30 }, this);
+	item_5_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, NULL, "+", { 960, 550, 100, 30 }, this);
+	item_6_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 83, NULL, "+", { 960, 600, 100, 30 }, this);
+	item_7_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 84, NULL, "+", { 960, 650, 100, 30 }, this);
+	item_8_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 85, NULL, "+", { 960, 700, 100, 30 }, this);
+	item_9_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 86, NULL, "+", { 960, 750, 100, 30 }, this);
+	item_10_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 87, NULL, "+", { 960, 800, 100, 30 }, this);
+	item_11_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 88, NULL, "+", { 960, 850, 100, 30 }, this);
+	item_12_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 89, NULL, "+	", { 960, 900, 100, 30 }, this);
 
 	AddButtonsToList();
 
@@ -171,6 +177,19 @@ bool UIModule::Start()
 	dialogueHasChanged = false;
 	indexDialogueOverTime = 0;
 	timeToRefreshDialogue = 0.01f; 
+
+	// Rects for inventory items images
+	yoyoRect = { 7, 5, 200, 200 };
+	bowRect = { 167, 0, 200, 200 };
+	bunnyHandRect = { 360, 0, 200, 200 };
+	clubRect = { 560, 0, 200, 200 };
+	knifeRect = {742, 0, 200, 200};
+	shotgunRect = {0, 175, 200, 200};
+	ironchestRect = { 220, 175, 200, 200 };
+	revhatRect = { 406, 175, 200, 200 };
+	talismanRect = { 595, 175, 200, 200 };
+	susjarRect = { 925, 3, 200, 200 };
+	denturesRect = { 792, 165, 200, 200 };
 
 	
 	return true;
@@ -226,13 +245,14 @@ bool UIModule::PostUpdate()
 
 	if (currentMenuType == INVENTORY)
 	{
+		
 		if (app->scene->active)
 		{
-			app->render->DrawTexture(app->scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+			app->render->DrawTexture(app->scene->inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
 		if (app->w2_scene->active)
 		{
-			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+			app->render->DrawTexture(app->w2_scene->inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
 		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 
@@ -269,6 +289,24 @@ bool UIModule::PostUpdate()
 
 			PrintItemName();
 			PrintStats(4);
+		}
+
+		for (int i = 0; i < 12; ++i)
+		{
+			if (inventoryButtonsList.At(i)->data->state == GuiControlState::FOCUSED)
+			{
+				if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->character == 0)
+				{
+					// Draw how many stats are added
+					PrintPositiveItemStats(inventoryButtonsList.At(i)->data->id - 78);
+				}
+				else
+				{
+					PrintNegativeItemStats(inventoryButtonsList.At(i)->data->id - 78);
+				}
+
+				PrintItemImages(i);
+			}
 		}
 
 	}
@@ -403,6 +441,54 @@ bool UIModule::PostUpdate()
 	return ret;
 }
 
+void UIModule::PrintItemImages(int i)
+{
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
+	}
+	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
+	{
+		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+	}
+}
+
 void UIModule::PrintItemName()
 {
 	int j = 0;
@@ -422,8 +508,14 @@ void UIModule::PrintItemName()
 		if (app->teamManager->itemstoshow.At(i)->data->type == 3) {
 			itemtype = "Trinket  - ";
 		}
-		app->fonts->DrawText(itemtype, 650, 350 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
-		app->fonts->DrawText(itemname, 800, 350 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+		if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
+			app->fonts->DrawText(itemtype, 650, 350 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+			app->fonts->DrawText(itemname, 800, 350 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
+		}
+		if (app->teamManager->itemstoshow.At(i)->data->character == 0) {
+			app->fonts->DrawText(itemtype, 650, 350 + j, 100, 100, { 100, 100, 100 }, app->fonts->gameFont, true);
+			app->fonts->DrawText(itemname, 800, 350 + j, 100, 100, { 100, 100, 100 }, app->fonts->gameFont, true);
+		}
 		j += 50;
 	}
 }
@@ -433,42 +525,169 @@ void UIModule::PrintStats(int id) {
 	
 	std::string defenSestring = std::to_string(app->teamManager->characters.At(id)->data->defense);
 	const char* defChar = defenSestring.c_str();
-	app->fonts->DrawText("Defense: ", -app->render->camera.x + 1200, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(defChar, -app->render->camera.x + 1360, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Defense: ", -app->render->camera.x + 1200, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(defChar, -app->render->camera.x + 1360, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
 
 	std::string magicString = std::to_string(app->teamManager->characters.At(id)->data->magic);
 	const char* magicChar = magicString.c_str();
-	app->fonts->DrawText("Magic: ", -app->render->camera.x + 1200, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(magicChar, -app->render->camera.x + 1360, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Magic: ", -app->render->camera.x + 1200, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(magicChar, -app->render->camera.x + 1360, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
 
 	std::string speedString = std::to_string(app->teamManager->characters.At(id)->data->speed);
 	const char* speedChar = speedString.c_str();
-	app->fonts->DrawText("Speed: ", -app->render->camera.x + 1200, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(speedChar, -app->render->camera.x + 1360, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Speed: ", -app->render->camera.x + 1200, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(speedChar, -app->render->camera.x + 1360, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
 
 	std::string movementString = std::to_string(app->teamManager->characters.At(id)->data->movement);
 	const char* movementChar = movementString.c_str();
-	app->fonts->DrawText("Movement: ", -app->render->camera.x + 1200, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(movementChar, -app->render->camera.x + 1360, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Movement: ", -app->render->camera.x + 1200, -app->render->camera.y + 750, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(movementChar, -app->render->camera.x + 1360, -app->render->camera.y + 750, 100, 100, { 0, 0, 0 });
 
 
 	std::string attackString = std::to_string(app->teamManager->characters.At(id)->data->attack);
 	const char* attackChar = attackString.c_str();
-	app->fonts->DrawText("Attack: ", -app->render->camera.x + 1200, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(attackChar, -app->render->camera.x + 1360, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Attack: ", -app->render->camera.x + 1200, -app->render->camera.y + 800, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(attackChar, -app->render->camera.x + 1360, -app->render->camera.y + 800, 100, 100, { 0, 0, 0 });
 
 	std::string abilityString = std::to_string(app->teamManager->characters.At(id)->data->Ab1Power);
 	const char* abilityChar = abilityString.c_str();
-	app->fonts->DrawText("Ability Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(abilityChar, -app->render->camera.x + 1360, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Ability Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 850, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(abilityChar, -app->render->camera.x + 1360, -app->render->camera.y + 850, 100, 100, { 0, 0, 0 });
 
 	std::string healPowString = std::to_string(app->teamManager->characters.At(id)->data->healingpower);
 	const char* healPowChar = healPowString.c_str();
-	app->fonts->DrawText("Healing Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(healPowChar, -app->render->camera.x + 1360, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Healing Power: ", -app->render->camera.x + 1200, -app->render->camera.y + 900, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(healPowChar, -app->render->camera.x + 1360, -app->render->camera.y + 900, 100, 100, { 0, 0, 0 });
 
 
 }
+
+void UIModule::PrintPositiveItemStats(int id) {
+
+	SDL_Color greenColor = { 0, 255, 0 };
+
+	if (app->teamManager->itemstoshow.At(id)->data->defense != 0)
+	{
+		std::string defenSestring = std::to_string(app->teamManager->itemstoshow.At(id)->data->defense);
+		const char* defChar = defenSestring.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 600, 100, 100, greenColor);
+		app->fonts->DrawText(defChar, -app->render->camera.x + 1420, -app->render->camera.y + 600, 100, 100, greenColor);
+	}	
+
+	if (app->teamManager->itemstoshow.At(id)->data->magic != 0)
+	{
+		std::string magicString = std::to_string(app->teamManager->itemstoshow.At(id)->data->magic);
+		const char* magicChar = magicString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 650, 100, 100, greenColor);
+		app->fonts->DrawText(magicChar, -app->render->camera.x + 1420, -app->render->camera.y + 650, 100, 100, greenColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->speed != 0)
+	{
+		std::string speedString = std::to_string(app->teamManager->itemstoshow.At(id)->data->speed);
+		const char* speedChar = speedString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 700, 100, 100, greenColor);
+		app->fonts->DrawText(speedChar, -app->render->camera.x + 1420, -app->render->camera.y + 700, 100, 100, greenColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->movement != 0)
+	{
+		std::string movementString = std::to_string(app->teamManager->itemstoshow.At(id)->data->movement);
+		const char* movementChar = movementString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 750, 100, 100, greenColor);
+		app->fonts->DrawText(movementChar, -app->render->camera.x + 1420, -app->render->camera.y + 750, 100, 100, greenColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->attack != 0)
+	{
+		std::string attackString = std::to_string(app->teamManager->itemstoshow.At(id)->data->attack);
+		const char* attackChar = attackString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 800, 100, 100, greenColor);
+		app->fonts->DrawText(attackChar, -app->render->camera.x + 1420, -app->render->camera.y + 800, 100, 100, greenColor);
+	}
+
+	if(app->teamManager->itemstoshow.At(id)->data->Ab1Power != 0)
+	{
+		std::string abilityString = std::to_string(app->teamManager->itemstoshow.At(id)->data->Ab1Power);
+		const char* abilityChar = abilityString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 850, 100, 100, greenColor);
+		app->fonts->DrawText(abilityChar, -app->render->camera.x + 1420, -app->render->camera.y + 850, 100, 100, greenColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->healingpower != 0)
+	{
+		std::string healPowString = std::to_string(app->teamManager->itemstoshow.At(id)->data->healingpower);
+		const char* healPowChar = healPowString.c_str();
+		app->fonts->DrawText("+ ", -app->render->camera.x + 1400, -app->render->camera.y + 900, 100, 100, greenColor);
+		app->fonts->DrawText(healPowChar, -app->render->camera.x + 1420, -app->render->camera.y + 900, 100, 100, greenColor);
+	}
+
+
+}
+
+void UIModule::PrintNegativeItemStats(int id) {
+
+	SDL_Color redColor = { 255, 0, 0 };
+
+	if (app->teamManager->itemstoshow.At(id)->data->defense != 0)
+	{
+		std::string defenSestring = std::to_string(app->teamManager->itemstoshow.At(id)->data->defense);
+		const char* defChar = defenSestring.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 600, 100, 100, redColor);
+		app->fonts->DrawText(defChar, -app->render->camera.x + 1420, -app->render->camera.y + 600, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->magic != 0)
+	{
+		std::string magicString = std::to_string(app->teamManager->itemstoshow.At(id)->data->magic);
+		const char* magicChar = magicString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 650, 100, 100, redColor);
+		app->fonts->DrawText(magicChar, -app->render->camera.x + 1420, -app->render->camera.y + 650, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->speed != 0)
+	{
+		std::string speedString = std::to_string(app->teamManager->itemstoshow.At(id)->data->speed);
+		const char* speedChar = speedString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 700, 100, 100, redColor);
+		app->fonts->DrawText(speedChar, -app->render->camera.x + 1420, -app->render->camera.y + 700, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->movement != 0)
+	{
+		std::string movementString = std::to_string(app->teamManager->itemstoshow.At(id)->data->movement);
+		const char* movementChar = movementString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 750, 100, 100, redColor);
+		app->fonts->DrawText(movementChar, -app->render->camera.x + 1420, -app->render->camera.y + 750, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->attack != 0)
+	{
+		std::string attackString = std::to_string(app->teamManager->itemstoshow.At(id)->data->attack);
+		const char* attackChar = attackString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 800, 100, 100, redColor);
+		app->fonts->DrawText(attackChar, -app->render->camera.x + 1420, -app->render->camera.y + 800, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->Ab1Power != 0)
+	{
+		std::string abilityString = std::to_string(app->teamManager->itemstoshow.At(id)->data->Ab1Power);
+		const char* abilityChar = abilityString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 850, 100, 100, redColor);
+		app->fonts->DrawText(abilityChar, -app->render->camera.x + 1420, -app->render->camera.y + 850, 100, 100, redColor);
+	}
+
+	if (app->teamManager->itemstoshow.At(id)->data->healingpower != 0)
+	{
+		std::string healPowString = std::to_string(app->teamManager->itemstoshow.At(id)->data->healingpower);
+		const char* healPowChar = healPowString.c_str();
+		app->fonts->DrawText("- ", -app->render->camera.x + 1400, -app->render->camera.y + 900, 100, 100, redColor);
+		app->fonts->DrawText(healPowChar, -app->render->camera.x + 1420, -app->render->camera.y + 900, 100, 100, redColor);
+	}
+
+
+}
+
 // Called before quitting
 bool UIModule::CleanUp()
 {
@@ -955,11 +1174,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -993,11 +1212,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -1010,12 +1229,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mpigItem = false;
 
 		whatInventoryImIn = LRRH;
-
+		app->teamManager->itemstoshow.Clear();
 		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
 			if (app->teamManager->inventory.At(i)->data->character == 0 || app->teamManager->inventory.At(i)->data->character == 3) {
 				if (app->teamManager->inventory.At(i)->data->weaponuser == 0 || app->teamManager->inventory.At(i)->data->weaponuser == 3)
 				{
-					app->teamManager->itemstoshow.Clear();
 					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
 				}
 			}
@@ -1030,11 +1248,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -1047,12 +1265,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mpigItem = false;
 
 		whatInventoryImIn = LPIG;
-
+		app->teamManager->itemstoshow.Clear();
 		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
 			if (app->teamManager->inventory.At(i)->data->character == 0 || app->teamManager->inventory.At(i)->data->character == 4) {
 				if (app->teamManager->inventory.At(i)->data->weaponuser == 0 || app->teamManager->inventory.At(i)->data->weaponuser == 4)
 				{
-					app->teamManager->itemstoshow.Clear();
 					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
 				}
 			}
@@ -1067,11 +1284,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -1084,12 +1301,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		timmyItem = false;
 
 		whatInventoryImIn = MPIG;
-
+		app->teamManager->itemstoshow.Clear();
 		for (int i = 0; i < app->teamManager->inventory.Count(); i++) {
 			if (app->teamManager->inventory.At(i)->data->character == 0 || app->teamManager->inventory.At(i)->data->character == 5) {
 				if (app->teamManager->inventory.At(i)->data->weaponuser == 0 || app->teamManager->inventory.At(i)->data->weaponuser == 5)
 				{
-					app->teamManager->itemstoshow.Clear();
 					app->teamManager->itemstoshow.Add(app->teamManager->inventory.At(i)->data);
 				
 				}
@@ -1105,11 +1321,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			inventoryButtonsList.At(i)->data->state = GuiControlState::NORMAL;
 			if (app->teamManager->itemstoshow.At(i)->data->character != 0) {
 
-				inventoryButtonsList.At(i)->data->text = "Equipped";
+				inventoryButtonsList.At(i)->data->text = "Unequip";
 			}
 			else {
 
-				inventoryButtonsList.At(i)->data->text = "Unequipped";
+				inventoryButtonsList.At(i)->data->text = "Equip";
 			}
 		}
 
@@ -1168,7 +1384,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 	{
 		app->teamManager->itemstoshow.At(numOfItem)->data->character = 0;
 
-		inventoryButtonsList.At(numOfItem)->data->text = "Unequipped";
+		inventoryButtonsList.At(numOfItem)->data->text = "Equip";
 		app->teamManager->addallstats();
 		app->teamManager->loadinventory();
 		app->teamManager->ApplyEquipedItemStats();
@@ -1190,7 +1406,7 @@ void UIModule::EquipUnequipItem(int numOfItem)
 			}
 		}
 		app->teamManager->itemstoshow.At(numOfItem)->data->character = whatInventoryImIn;
-		inventoryButtonsList.At(numOfItem)->data->text = "Equipped";
+		inventoryButtonsList.At(numOfItem)->data->text = "Unequip";
 		app->teamManager->addallstats();
 		app->teamManager->loadinventory();
 		app->teamManager->ApplyEquipedItemStats();

@@ -108,6 +108,7 @@ public:
 	SDL_Texture* lvlupTexture;
 	SDL_Texture* eKeyTexture;
 	SDL_Texture* textDialogue;
+	SDL_Texture* inventoryScrollTexture;
 	bool inventoryOpen;
 
 	//chests

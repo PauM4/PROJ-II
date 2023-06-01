@@ -190,6 +190,8 @@ public:
 	bool triggerMoveTimer;
 	bool displayEnemyAttackAreaOnce = false;
 
+	int changeScreenTimer;
+
 
 	//Pathfinding varibles
 	iPoint origin;
