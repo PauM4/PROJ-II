@@ -43,6 +43,8 @@ bool BattleScene_Pigs::Awake(pugi::xml_node& config) {
 	int i = 0;
 	
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
+		teamItem->data->health = teamItem->data->maxHealth;
+		teamItem->data->isAlive = true;
 		app->battleManager->AddCharacter(teamItem->data, 4, 3 + i, false);
 		app->entityManager->AddEntity(teamItem->data);
 		i++;

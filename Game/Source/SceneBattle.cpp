@@ -42,6 +42,8 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 	//Add allies from teamManager
 	int i = 0;
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
+		teamItem->data->health = teamItem->data->maxHealth;
+		teamItem->data->isAlive = true;
 		app->battleManager->AddCharacter(teamItem->data, 7+i, 6, false);
 		app->entityManager->AddEntity(teamItem->data);
 		i++;
