@@ -292,7 +292,7 @@ bool W2_Scene::Update(float dt)
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN && !app->teamManager->lvlupbool)
+	if (app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN && !app->teamManager->lvlupbool)
 	{
 		// If player is in pause, close it
 		if (player->playerState == player->PlayerState::PAUSE)
