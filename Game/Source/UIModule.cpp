@@ -71,17 +71,23 @@ bool UIModule::Start()
 
 	textureA = app->tex->Load("Assets/UI/UI_Spritesheet_FINAL.png");
 	playButtonTexture = app->tex->Load("Assets/UI/playButton.png");
+	optionsButtonTexture = app->tex->Load("Assets/UI/optionsButton.png");
+	creditsButtonTexture = app->tex->Load("Assets/UI/creditsButton.png");
+	quitButtonTexture = app->tex->Load("Assets/UI/quitButton.png");
+	newgameButtonsTexture = app->tex->Load("Assets/UI/newgameButtons.png");
+	continueButtonsTexture = app->tex->Load("Assets/UI/continueButtons.png");
+	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
 
 	sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, textureA, "", { 100, 100, 100, 100 }, this);
 	sliderTest->state = GuiControlState::NORMAL;
 
-	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "Play", { 720, 400, 545, 277 }, this);
-	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, textureA,"Options", { 920, 640, 120,30 }, this);
-	mainmenu_credits_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, textureA,"Credits", { 920, 680, 120,30 }, this);
-	mainmenu_quit_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, textureA,"Quit", { 920, 720, 120, 30 }, this);
-	mainmenu_newGame_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, textureA,"New Game", { 920, 640, 120,30 }, this);
-	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, textureA, "Continue", { 920, 680, 120,30 }, this);
-	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, textureA,"Return", { 920, 925, 120,30 }, this);
+	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
+	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, optionsButtonTexture,"", { 690, 640, 540, 136 }, this);
+	mainmenu_credits_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, creditsButtonTexture,"", { 800, 800, 302,87 }, this);
+	mainmenu_quit_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, quitButtonTexture,"", { 860, 900, 195, 90 }, this);
+	mainmenu_newGame_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, newgameButtonsTexture,"", { 800, 640, 340, 89 }, this);
+	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, continueButtonsTexture, "", { 800, 740, 340, 89 }, this);
+	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, returnButtonTexture,"", { 800, 925, 340,89 }, this);
 
 	pausemenu_resume_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, textureA, "Resume", { 1620, 80, 120,30 }, this);
 	pausemenu_inventory_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, textureA, "Inventory", { 1620, 115, 120,30 }, this);

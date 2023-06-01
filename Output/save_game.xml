@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1741" y="5592" />
+		<player x="8028" y="709" />
 		<rope_minigame rope_minigame_state="false" />
 		<chests>
 			<chest1 isPicked="false" />
@@ -19,7 +19,7 @@
 			<chest3 isPicked="false" />
 		</chests>
 		<saveBattleTutoState state="0" />
-		<stepQuest num="0" />
+		<stepQuest num="1" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -27,7 +27,7 @@
 	<sceneFoxQuest />
 	<battleScene_Pigs />
 	<w2_scene>
-		<player x="1625" y="4601" />
+		<player x="5585" y="3094" />
 	</w2_scene>
 	<w2_scene_maze>
 		<player />
@@ -50,7 +50,7 @@
 			<ironchestplate isobtained="false" character="0" />
 			<reversehat isobtained="false" character="0" />
 			<susjar isobtained="false" character="0" />
-			<dentures isobtained="false" character="0" />
+			<dentures isobtained="true" character="0" />
 			<talisman isobtained="false" character="0" />
 		</inventory>
 		<stats>
@@ -67,7 +67,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-4394" y="-2599" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

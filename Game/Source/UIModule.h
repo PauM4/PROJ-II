@@ -186,6 +186,12 @@ public:
 
 	SDL_Texture* textureA;
 	SDL_Texture* playButtonTexture;
+	SDL_Texture* optionsButtonTexture;
+	SDL_Texture* creditsButtonTexture;
+	SDL_Texture* quitButtonTexture;
+	SDL_Texture* newgameButtonsTexture;
+	SDL_Texture* continueButtonsTexture;
+	SDL_Texture* returnButtonTexture;
 
 	bool timmyItem;
 	bool bunnyItem;
