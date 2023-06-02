@@ -113,6 +113,18 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
 	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
 	inventoryScrollTexture = app->tex->Load("Assets/UI/inventoryScroll.png");
+	keyTexture = app->tex->Load("Assets/UI/Key.png");
+	brokenkeyTexture = app->tex->Load("Assets/UI/BrokenKey.png");
+
+	key1interact = false;
+	key2interact = false;
+	key1state = false;
+	key2state = false;
+	key1collider = app->physics->CreateRectangleSensor(8820, 537, 100,60, bodyType::STATIC);
+	key2collider = app->physics->CreateRectangleSensor(8200, 1200, 30, 30, bodyType::STATIC);
+
+	key1collider->ctype = ColliderType::KEY1COLIDER;
+	key2collider->ctype = ColliderType::KEY2COLIDER;
 
 	currentQuestIndex = 0;
 
@@ -124,6 +136,7 @@ bool W2_Scene::Start()
 {
 	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	app->entityManager->Start();
+	chestFX = app->audio->LoadFx("Assets/Sounds/FX/fx_open_chest.wav");
 
 	// L03: DONE: Load map
 	bool retLoad = app->map->Load(mapName, mapFolder);
@@ -240,7 +253,22 @@ bool W2_Scene::Update(float dt)
 		app->LoadGameRequest();
 
 
+	if (key1interact == true) {
 
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+			if (key1state == false) {
+				app->audio->PlayFx(chestFX);
+			}
+			key1state = true;
+		}
+
+	}
+	if (key2interact == true) {
+
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		key2state = true;
+
+	}
 	GodMode();
 
 	MoveToBattleFromDialogue();
@@ -372,6 +400,12 @@ bool W2_Scene::PostUpdate()
 		return false;
 	}
 
+	if (key1state == true || key2state == true)
+		app->render->DrawTexture(brokenkeyTexture, -app->render->camera.x + 1490, -app->render->camera.y + 900);
+
+	if (key1state == true && key2state == true)
+		app->render->DrawTexture(keyTexture, -app->render->camera.x + 1490, -app->render->camera.y + 900);
+
 	
 
 	return ret;
@@ -410,9 +444,9 @@ bool W2_Scene::CleanUp()
 	LOG("Freeing scene");
 	//app->fonts->Unload(font);
 	app->map->CleanUp(); 
-	app->entityManager->CleanUp(); 
+	app->entityManager->CleanUp();
 	app->physics->Disable();
-
+	
 	app->tex->UnLoad(npcPopUpTexture);
 	app->tex->UnLoad(uiSpriteTexture);
 	app->tex->UnLoad(questUiTexture);
@@ -420,6 +454,8 @@ bool W2_Scene::CleanUp()
 	app->tex->UnLoad(inventoryScrollTexture);
 	app->tex->UnLoad(eKeyTexture);
 	app->tex->UnLoad(chestTexture);
+	app->tex->UnLoad(keyTexture);
+	app->tex->UnLoad(brokenkeyTexture);
 
 	return true;
 }

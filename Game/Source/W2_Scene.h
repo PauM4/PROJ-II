@@ -109,7 +109,18 @@ public:
 	SDL_Texture* eKeyTexture;
 	SDL_Texture* textDialogue;
 	SDL_Texture* inventoryScrollTexture;
+	SDL_Texture* keyTexture;
+	SDL_Texture* brokenkeyTexture;
+
 	bool inventoryOpen;
+	
+	bool key1interact;
+	bool key2interact;
+	bool key1state;
+	bool key2state;
+
+	PhysBody* key1collider;
+	PhysBody* key2collider;
 
 	//chests
 	SDL_Texture* chestTexture;
@@ -130,7 +141,7 @@ private:
 	// L12: Debug pathfing
 	iPoint origin;
 	bool originSelected = false;
-
+	int chestFX = -1;
 	//Fonts
 	int font;
 

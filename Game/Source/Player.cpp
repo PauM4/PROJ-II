@@ -183,7 +183,6 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {	
-
 	currentAnimation->Update();
 	bunnyCurrentAnimation->Update();
 
@@ -340,7 +339,14 @@ bool Player::Update(float dt)
 	{
 		app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
 	}
-
+	if (app->w2_scene->key1interact && app->w2_scene->key1state == false)
+	{
+		app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
+	}
+	if (app->w2_scene->key2interact && app->w2_scene->key2state == false)
+	{
+		app->render->DrawTexture(eKeyTexture, position.x + 60, position.y - 60, NULL);
+	}
 	return true;
 }
 
@@ -582,6 +588,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				app->scene->secondQuestCollider->body->SetActive(false);
 			}
 			break;
+
+		case ColliderType::KEY1COLIDER:
+			LOG("Collision key1colider");
+			app->w2_scene->key1interact = true;
+			break;
+		case ColliderType::KEY2COLIDER:
+			LOG("Collision key2colider");
+			app->w2_scene->key2interact = true;
+			break;
 	}
 }
 
@@ -634,6 +649,12 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::GRANDMA:
 		npcInteractAvailable = false;
+		break;
+	case ColliderType::KEY1COLIDER:
+		app->w2_scene->key1interact = false;
+		break;
+	case ColliderType::KEY2COLIDER:
+		app->w2_scene->key2interact = false;
 		break;
 	default:
 		break;
