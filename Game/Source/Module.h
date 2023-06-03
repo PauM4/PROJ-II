@@ -2,6 +2,7 @@
 #define __MODULE_H__
 
 #include "SString.h"
+#include "Tweening.h"
 
 #include "PugiXml/src/pugixml.hpp"
 

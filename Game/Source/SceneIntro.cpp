@@ -31,7 +31,9 @@ bool SceneIntro::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneIntro::Start()
 {	
-	logo_image = app->tex->Load("Assets/UI/A_ElectronicFarts_SceneIntro.png");
+	logo_image = app->tex->Load("Assets/UI/logo.png");
+	logo_background = app->tex->Load("Assets/UI/logo_background.png");
+	logo_title = app->tex->Load("Assets/UI/logo_title.png");
 
 	w = app->win->width;
 	h = app->win->height;
@@ -46,6 +48,16 @@ bool SceneIntro::Start()
 
 	app->audio->PlayMusic("Assets/Sounds/Music/intro_audio.ogg", 0.1f);
 
+	logo_animation_picture.Set();
+	logo_animation_picture.smoothness = 4;
+	logo_animation_picture.AddTween(100, 50, EXPONENTIAL_OUT);
+
+	logo_animation_title.Set();
+	logo_animation_title.smoothness = 4;
+	logo_animation_title.AddTween(100, 50, EXPONENTIAL_OUT);
+
+	
+
 	return true;
 }
 
@@ -58,6 +70,19 @@ bool SceneIntro::PreUpdate()
 // Called each loop iteration
 bool SceneIntro::Update(float dt)
 {
+	logo_animation_picture.Step(1, false);
+	logo_animation_title.Step(1, false);
+
+	logo_animation_picture.Foward();
+	logo_animation_title.Foward();
+
+	int offset = 720;
+
+	float point = logo_animation_picture.GetPoint();
+	
+	app->render->DrawTexture(logo_background, 0, 0, NULL);
+	app->render->DrawTexture(logo_image, -(offset + point * (0 - offset)), 0);
+	app->render->DrawTexture(logo_title, offset + point * (0 - offset), 0);
 
 	return true;
 }
@@ -67,8 +92,7 @@ bool SceneIntro::PostUpdate()
 {
 	bool ret = true;
 
-	app->render->DrawTexture(logo_image, 0, 0, NULL);
-
+	
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 

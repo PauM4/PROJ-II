@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+
+
 struct SDL_Texture;
 
 class SceneIntro : public Module
@@ -36,9 +38,14 @@ public:
 public:
 	
 	SDL_Texture* logo_image;
+	SDL_Texture* logo_background;
+	SDL_Texture* logo_title;
 
 	// Window width and height
 	int w, h;
+
+	Tween logo_animation_picture;
+	Tween logo_animation_title;
 
 private:
 

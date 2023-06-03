@@ -264,7 +264,6 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-
 	std::cout << "X: " << player->position.x << std::endl;
 	std::cout << "Y: " << player->position.y << std::endl;
 	Camera();
