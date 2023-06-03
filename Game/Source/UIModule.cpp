@@ -264,26 +264,27 @@ bool UIModule::PostUpdate()
 
 		if (timmyItem)
 		{
-			app->fonts->DrawText("Timmy's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
+			SDL_Rect a = {47, 53, 86, 92 };
+			app->fonts->DrawText("Timmy", 390, 330, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
 			PrintItemName();
 			PrintStats(0);
 		}
 		if (bunnyItem)
 		{
-			app->fonts->DrawText("Bunny's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
+			app->fonts->DrawText("Bunny", 390, 330, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
 			PrintItemName();
 			PrintStats(1);
 		}
 		if (lrrhItem)
 		{
-			app->fonts->DrawText("Reed Hoodie's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
+			app->fonts->DrawText("Reed Hoodie", 390, 330, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
 
 			PrintItemName();
 			PrintStats(2);
 		}
 		if (lpigItem)
 		{
-			app->fonts->DrawText("Little Pig's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
+			app->fonts->DrawText("Little Pig", 390, 330, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
 
 			PrintItemName();
 			PrintStats(3);
@@ -291,7 +292,7 @@ bool UIModule::PostUpdate()
 		}
 		if (mpigItem)
 		{
-			app->fonts->DrawText("Middle Pig's Inventory", 230, 290, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
+			app->fonts->DrawText("Middle Pig", 390, 330, 100, 100, { 0, 0, 0 }, app->fonts->gameFontNotThatBig, true);
 
 			PrintItemName();
 			PrintStats(4);
