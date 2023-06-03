@@ -112,6 +112,7 @@ public:
 	item knife;
 	item shotgun;
 	item ironchestplate;
+	item ironchestplate2;
 	item reversehat;
 	item talisman;
 	item susjar;

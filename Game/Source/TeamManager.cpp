@@ -199,6 +199,25 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		ironchestplate.Ab2Area = newnode.attribute("Ab2Area").as_int();
 		ironchestplate.healingpower = newnode.attribute("healingpower").as_int();
 	}
+	if (config.child("item").child("ironchestplate2")) {
+		pugi::xml_node newnode = config.child("item").child("ironchestplate");
+		ironchestplate2.ininventory = newnode.attribute("ininventory").as_bool();
+		ironchestplate2.type = newnode.attribute("type").as_int();
+		ironchestplate2.weaponuser = newnode.attribute("weaponuser").as_int();
+		ironchestplate2.character = newnode.attribute("character").as_int();
+		ironchestplate2.name = newnode.attribute("name").as_string();
+		ironchestplate2.defense = newnode.attribute("defense").as_int();
+		ironchestplate2.magic = newnode.attribute("magic").as_int();
+		ironchestplate2.speed = newnode.attribute("speed").as_int();
+		ironchestplate2.movement = newnode.attribute("movement").as_int();
+		ironchestplate2.attack = newnode.attribute("attack").as_int();
+		ironchestplate2.AttArea = newnode.attribute("AttArea").as_int();
+		ironchestplate2.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		ironchestplate2.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		ironchestplate2.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		ironchestplate2.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		ironchestplate2.healingpower = newnode.attribute("healingpower").as_int();
+	}
 	if (config.child("item").child("reversehat")) {
 		pugi::xml_node newnode = config.child("item").child("reversehat");
 		reversehat.ininventory = newnode.attribute("ininventory").as_bool();
@@ -596,6 +615,9 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	ironchestplate.ininventory = data.child("inventory").child("ironchestplate").attribute("isobtained").as_bool();
 	ironchestplate.character = data.child("inventory").child("ironchestplate").attribute("character").as_int();
 	
+	ironchestplate2.ininventory = data.child("inventory").child("ironchestplate2").attribute("isobtained").as_bool();
+	ironchestplate2.character = data.child("inventory").child("ironchestplate2").attribute("character").as_int();
+
 	reversehat.ininventory = data.child("inventory").child("reversehat").attribute("isobtained").as_bool();
 	reversehat.character = data.child("inventory").child("reversehat").attribute("character").as_int();
 
@@ -699,6 +721,10 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	inventory.append_child("ironchestplate");
 	inventory.child("ironchestplate").append_attribute("isobtained") = ironchestplate.ininventory;
 	inventory.child("ironchestplate").append_attribute("character") = ironchestplate.character;
+
+	inventory.append_child("ironchestplate2");
+	inventory.child("ironchestplate2").append_attribute("isobtained") = ironchestplate2.ininventory;
+	inventory.child("ironchestplate2").append_attribute("character") = ironchestplate2.character;
 
 	inventory.append_child("reversehat");
 	inventory.child("reversehat").append_attribute("isobtained") = reversehat.ininventory;
@@ -1008,6 +1034,13 @@ void TeamManager::loadinventory() {
 		inventory.Add(&ironchestplate);
 		if (ironchestplate.character != 0) {
 			equipment.Add(&ironchestplate);
+		}
+	}
+
+	if (ironchestplate2.ininventory == true) {
+		inventory.Add(&ironchestplate2);
+		if (ironchestplate2.character != 0) {
+			equipment.Add(&ironchestplate2);
 		}
 	}
 

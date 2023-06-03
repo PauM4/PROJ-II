@@ -272,7 +272,7 @@ bool Player::Update(float dt)
 		}
 		if (isChest4Pickable)
 		{
-			app->teamManager->ironchestplate.ininventory = true;
+			app->teamManager->ironchestplate2.ininventory = true;
 			app->w2_scene->chest4->isPicked = true;
 			app->teamManager->loadinventory();
 		}
