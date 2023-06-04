@@ -11,14 +11,14 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="7758" y="717" />
+		<player x="7403" y="5044" />
 		<rope_minigame rope_minigame_state="false" />
 		<chests>
 			<chest1 isPicked="false" />
 			<chest2 isPicked="false" />
 			<chest3 isPicked="false" />
 		</chests>
-		<saveBattleTutoState state="0" />
+		<saveBattleTutoState state="3" />
 		<stepQuest num="1" />
 	</scene>
 	<scenecombatLHHR />
@@ -43,7 +43,7 @@
 		<inventory>
 			<yoyo isobtained="true" character="1" />
 			<handsxd isobtained="true" character="2" />
-			<bow isobtained="true" character="3" />
+			<bow isobtained="false" character="0" />
 			<club isobtained="false" character="0" />
 			<knife isobtained="false" character="0" />
 			<shotgun isobtained="false" character="0" />
@@ -63,12 +63,12 @@
 			<peter defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 		</stats>
 	</teamManager>
-	<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" islilpigplayable="true" ismidpigplayable="true" ispeterplayable="false" />
+	<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
 	<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="true" isLRRHDefeated="true" isPigDefeated="true" isPereDefeated="" isWolfDefeated="" />
+	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

@@ -105,6 +105,8 @@ bool SceneIntro::CleanUp()
 {
 	LOG("Freeing sceneIntro");
 	app->tex->UnLoad(logo_image);
+	app->tex->UnLoad(logo_background);
+	app->tex->UnLoad(logo_title);
 
 	return true;
 }
