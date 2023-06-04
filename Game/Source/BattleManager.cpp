@@ -66,6 +66,14 @@ bool BattleManager::Start() {
 	battleState = BattleState::THINKING;
 	app->SaveGameRequest();
 
+	lose_screen_animation.Set();
+	lose_screen_animation.smoothness = 4;
+	lose_screen_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
+	win_screen_animation.Set();
+	win_screen_animation.smoothness = 4;
+	win_screen_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
 	return true;
 }
 
@@ -412,10 +420,25 @@ bool BattleManager::PostUpdate() {
 void BattleManager::DrawResult() {
 
 	if (win) {
-		app->render->DrawTexture(winScreen, 0, 0);
+		win_screen_animation.Step(1, false);
+		win_screen_animation.Foward();
+
+		int offset = 720;
+		float point = win_screen_animation.GetPoint();
+
+		app->render->DrawTexture(winScreen, 0, -(offset + point * (0 - offset)));
+
+		//app->render->DrawTexture(winScreen, 0, 0);
 	}
 	if (lose) {
-		app->render->DrawTexture(loseScreen, 0, 0);
+		lose_screen_animation.Step(1, false);
+		lose_screen_animation.Foward();
+
+		int offset = 720;
+		float point = lose_screen_animation.GetPoint();
+
+		app->render->DrawTexture(loseScreen, 0, offset + point * (0 - offset));
+		//app->render->DrawTexture(loseScreen, 0, 0);
 	}
 }
 

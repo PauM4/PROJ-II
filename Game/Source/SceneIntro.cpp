@@ -50,11 +50,11 @@ bool SceneIntro::Start()
 
 	logo_animation_picture.Set();
 	logo_animation_picture.smoothness = 4;
-	logo_animation_picture.AddTween(100, 50, EXPONENTIAL_OUT);
+	logo_animation_picture.AddTween(100, 70, EXPONENTIAL_OUT);
 
 	logo_animation_title.Set();
 	logo_animation_title.smoothness = 4;
-	logo_animation_title.AddTween(100, 50, EXPONENTIAL_OUT);
+	logo_animation_title.AddTween(100, 70, EXPONENTIAL_OUT);
 
 	
 
