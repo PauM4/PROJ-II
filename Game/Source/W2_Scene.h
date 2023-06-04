@@ -111,6 +111,7 @@ public:
 	SDL_Texture* inventoryScrollTexture;
 	SDL_Texture* keyTexture;
 	SDL_Texture* brokenkeyTexture;
+	SDL_Texture* assets;
 
 	bool inventoryOpen;
 	
@@ -121,7 +122,7 @@ public:
 
 	PhysBody* key1collider;
 	PhysBody* key2collider;
-
+	PhysBody* doorcollider;
 	//chests
 	SDL_Texture* chestTexture;
 	SDL_Rect chestHRect;

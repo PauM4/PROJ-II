@@ -32,6 +32,8 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	bool Play1Fx(unsigned int fx, int repeat = 0);
+
 	// 0 no audio, 128 max audio
 	void SetMusicVolume(int volume);
 
