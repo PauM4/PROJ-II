@@ -182,6 +182,11 @@ bool SceneFoxQuest::Update(float dt)
 		
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+		CleanUp(); 
+		Start();
+	}
+
 	return true;
 }
 
