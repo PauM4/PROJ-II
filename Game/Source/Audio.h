@@ -38,8 +38,8 @@ public:
 	void SetMusicVolume(int volume);
 
 private:
-
 	_Mix_Music* music;
+public:
 	List<Mix_Chunk*>	fx;
 };
 

@@ -18,6 +18,8 @@
 #include "Npc.h"
 #include <iostream>
 
+#include "SDL_mixer/include/SDL_mixer.h"
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -90,7 +92,7 @@ bool UIModule::Start()
 	mainmenu_quit_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, quitButtonTexture,"", { 860, 900, 195, 90 }, this);
 	mainmenu_newGame_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, newgameButtonsTexture,"", { 800, 640, 340, 89 }, this);
 	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, continueButtonsTexture, "", { 800, 740, 340, 89 }, this);
-	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, returnButtonTexture,"", { 800, 925, 340,89 }, this);
+	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, returnButtonTexture,"", { 800, 950, 340,89 }, this);
 
 	pausemenu_resume_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, textureA, "Resume", { 1620, 80, 120,30 }, this);
 	pausemenu_inventory_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, textureA, "Inventory", { 1620, 115, 120,30 }, this);
@@ -98,14 +100,14 @@ bool UIModule::Start()
 	pausemenu_save_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, textureA, "Save", { 1620, 185, 120,30 }, this);
 	pausemenu_load_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, textureA, "Load", { 1620, 220, 120,30 }, this);
 	pausemenu_options_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, textureA, "Options", { 1620, 255, 120,30 }, this);
-	pausemenu_return_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, textureA, "Return", { 1620, 80, 120,30 }, this);
+	pausemenu_return_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, returnButtonTexture, "", { 800, 950, 340,89 }, this);
 	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, textureA, "Main Menu", { 1620, 290, 120,30 }, this);
 	pausemenu_quit_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, textureA, "Quit", { 1620, 325, 120, 30 }, this);
 
 	pausemenuCombat_resume_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, textureA, "Resume", { 1620, 80, 120,30 }, this);
 	pausemenuCombat_options_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, textureA, "Options", { 1620, 115, 120,30 }, this);
 	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, textureA, "Main Menu", { 1620, 150, 120,30 }, this);
-	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, textureA, "Return", { 1620, 80, 120,30 }, this);
+	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, returnButtonTexture, "", { 800, 950, 340,89 }, this);
 	pausemenuCombat_quit_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, textureA, "Quit", { 1620, 255, 120, 30 }, this);
 
 	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, textureA, "Attack", { 100, 780, 100, 30 }, app->battleManager);
@@ -157,16 +159,15 @@ bool UIModule::Start()
 	item_11_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 88, NULL, "+", { 960, 850, 100, 30 }, this);
 	item_12_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 89, NULL, "+	", { 960, 900, 100, 30 }, this);
 
-	sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, sliderTexture, "", { 1258, 383, 60, 176}, this);
-	sliderTest->state = GuiControlState::NONE;
-	// Rect: 540, 79
-	// INICI: 1258, 383; 592
-	// FINAL: 1659, 383; 592
+	musicSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, sliderTexture, "", { 1659, 383, 60, 176}, this);
+	musicSlider->state = GuiControlState::NONE;
+	fxSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1235, sliderTexture, "", { 1659, 592, 60, 176 }, this);
+	fxSlider->state = GuiControlState::NONE;
 
-	checkBoxTest = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 4321, checkboxTexture, "", { 678, 408, 162, 131}, this);
-	checkBoxTest->state = GuiControlState::NONE;
-
-	// 678 617
+	fullScreenCheckBox = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 4321, checkboxTexture, "", { 678, 408, 162, 131}, this);
+	fullScreenCheckBox->state = GuiControlState::NONE;
+	vsyncCheckBox = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 4322, checkboxTexture, "", { 678, 617, 162, 131 }, this);
+	vsyncCheckBox->state = GuiControlState::NONE;
 
 	AddButtonsToList();
 
@@ -224,8 +225,10 @@ void UIModule::DisableButtonsToNone()
 
 	}
 
-	sliderTest->state = GuiControlState::NONE;
-	checkBoxTest->state = GuiControlState::NONE;
+	musicSlider->state = GuiControlState::NONE;
+	fxSlider->state = GuiControlState::NONE;
+	fullScreenCheckBox->state = GuiControlState::NONE;
+	vsyncCheckBox->state = GuiControlState::NONE;
 }
 
 // Called each loop iteration
@@ -237,6 +240,33 @@ bool UIModule::PreUpdate()
 // Called each loop iteration
 bool UIModule::Update(float dt)
 {
+
+	// OPTIONS MENU LOGIC
+	if (fullScreenCheckBox->crossed)
+	{
+		SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		SDL_RenderSetLogicalSize(app->render->renderer, 1920, 1080);
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(app->win->window, 0);
+	}
+
+	if (vsyncCheckBox->crossed) {
+
+		SDL_GL_SetSwapInterval(1);
+	}
+	else 
+	{
+		SDL_GL_SetSwapInterval(0);
+	}
+
+	Mix_VolumeMusic((musicSlider->bounds.x - 1258) * (128 - 0) / (1659 - 1258) + 0);
+
+	for (int i = 0; i < app->audio->fx.Count(); i++) {
+
+		Mix_VolumeChunk(app->audio->fx.At(i)->data, (fxSlider->bounds.x - 1258) * (128 - 0) / (1659 - 1258) + 0);
+	}
 
 	// If Quit button is pressed in Main Menu or Pause, close app
 	if (quitButtonBool)
@@ -368,7 +398,7 @@ bool UIModule::PostUpdate()
 		}
 	}
 
-	if (currentMenuType == OPTIONS_GAME || currentMenuType == OPTIONS_MAIN)
+	if (currentMenuType == OPTIONS_GAME || currentMenuType == OPTIONS_MAIN || currentMenuType == OPTIONS_COMBAT)
 	{
 		app->render->DrawTexture(optionsBgTexture, -app->render->camera.x, -app->render->camera.y, NULL);
 	}
@@ -808,8 +838,10 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_newGame_button->state = GuiControlState::NONE;
 		mainmenu_return_button->state = GuiControlState::NONE;
-		sliderTest->state = GuiControlState::NONE;
-		checkBoxTest->state = GuiControlState::NONE;
+		musicSlider->state = GuiControlState::NONE;
+		fullScreenCheckBox->state = GuiControlState::NONE;
+		fullScreenCheckBox->state = GuiControlState::NONE;
+		vsyncCheckBox->state = GuiControlState::NONE;
 
 		mainmenu_play_button->state = GuiControlState::NORMAL;
 		mainmenu_credits_button->state = GuiControlState::NORMAL;
@@ -892,8 +924,10 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else
 		{
-			sliderTest->state = GuiControlState::NONE;
-			checkBoxTest->state = GuiControlState::NONE;
+			musicSlider->state = GuiControlState::NONE;
+			fxSlider->state = GuiControlState::NONE;
+			fullScreenCheckBox->state = GuiControlState::NONE;
+			vsyncCheckBox->state = GuiControlState::NONE;
 
 			DisableButtonsToNone();
 
@@ -964,6 +998,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	case 101:
 		pausemenuCombat_return_button->state = GuiControlState::NORMAL;
 
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = OPTIONS_COMBAT;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 		pausemenuCombat_resume_button->state = GuiControlState::NONE;
 		pausemenuCombat_options_button->state = GuiControlState::NONE;
@@ -976,6 +1015,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		pausemenuCombat_options_button->state = GuiControlState::NORMAL;
 		pausemenuCombat_quit_button->state = GuiControlState::NORMAL;
 		pausemenuCombat_backtomain_button->state = GuiControlState::NORMAL;
+
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = COMBAT_PAUSE;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 		pausemenuCombat_return_button->state = GuiControlState::NONE;
 		break;
@@ -1507,16 +1551,31 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		DisableButtonsToNone();
 		pausemenu_return_button->state = GuiControlState::NORMAL;
 
-		sliderTest->state = GuiControlState::NORMAL;
-		checkBoxTest->state = GuiControlState::NORMAL;
+		musicSlider->state = GuiControlState::NORMAL;
+		fxSlider->state = GuiControlState::NORMAL;
+		fullScreenCheckBox->state = GuiControlState::NORMAL;
+		vsyncCheckBox->state = GuiControlState::NORMAL;
 		break;
 
 	case OPTIONS_MAIN:
 		DisableButtonsToNone();
 
 		mainmenu_return_button->state = GuiControlState::NORMAL;
-		sliderTest->state = GuiControlState::NORMAL;
-		checkBoxTest->state = GuiControlState::NORMAL;
+		musicSlider->state = GuiControlState::NORMAL;
+		fxSlider->state = GuiControlState::NORMAL;
+		fullScreenCheckBox->state = GuiControlState::NORMAL;
+		vsyncCheckBox->state = GuiControlState::NORMAL;
+
+		break;
+	case OPTIONS_COMBAT:
+
+		DisableButtonsToNone();
+		pausemenuCombat_return_button->state = GuiControlState::NORMAL;
+
+		musicSlider->state = GuiControlState::NORMAL;
+		fxSlider->state = GuiControlState::NORMAL;
+		fullScreenCheckBox->state = GuiControlState::NORMAL;
+		vsyncCheckBox->state = GuiControlState::NORMAL;
 
 		break;
 

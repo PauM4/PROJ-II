@@ -28,7 +28,8 @@ enum CurrentMenuType
 	INVENTORY,
 	PARTY,
 	OPTIONS_MAIN,
-	OPTIONS_GAME
+	OPTIONS_GAME,
+	OPTIONS_COMBAT
 };
 
 enum WhatInventoryImIn
@@ -186,11 +187,13 @@ public:
 	GuiButton* item_12_button;
 
 	// Options Menu
-	GuiSlider* sliderTest;
+	GuiSlider* musicSlider;
+	GuiSlider* fxSlider;
+	GuiCheckBox* fullScreenCheckBox;
+	GuiCheckBox* vsyncCheckBox;
 	SDL_Texture* sliderTexture;
 	SDL_Texture* optionsBgTexture;
 	SDL_Texture* checkboxTexture;
-	GuiCheckBox* checkBoxTest;
 
 	SDL_Texture* textureA;
 	SDL_Texture* playButtonTexture;
