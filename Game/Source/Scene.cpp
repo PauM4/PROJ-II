@@ -109,7 +109,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	CreateDialogue(); //3MB
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
-	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	ropeTexture = app->tex->Load("Assets/UI/ropeImage.png");
 	pressKeyTexture = app->tex->Load("Assets/UI/pressEanimation.png");
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
@@ -334,17 +333,7 @@ bool Scene::Update(float dt)
 
 	}
 
-	// If talking to AngryVillager, player can next tutorial
-	if (player->playerState == player->PlayerState::NPC_INTERACT && isTalkingToAngry)
-	{
-		if (battleTutorialCounter <= 3)
-		{
-			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-			{
-				battleTutorialCounter++;
-			}
-		}
-	}
+
 
 	UpdateMinigameLogic(dt);
 
@@ -545,7 +534,6 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 
 	app->tex->UnLoad(npcPopUpTexture);
-	app->tex->UnLoad(uiSpriteTexture);
 	app->tex->UnLoad(ropeTexture);
 	app->tex->UnLoad(pressKeyTexture);
 	app->tex->UnLoad(questUiTexture);
@@ -555,6 +543,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(inventoryScrollTexture);
 	app->tex->UnLoad(chestTexture);
 	app->tex->UnLoad(battleTutoTexture);
+	app->tex->UnLoad(inventoryItemsTexture);
 	
 
 	return true;

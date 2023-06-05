@@ -83,6 +83,7 @@ bool UIModule::Start()
 	newgameButtonsTexture = app->tex->Load("Assets/UI/newgameButtons.png");
 	continueButtonsTexture = app->tex->Load("Assets/UI/continueButtons.png");
 	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
+	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 
 	
 
@@ -407,6 +408,28 @@ bool UIModule::PostUpdate()
 
 	// SCENE 1 UI
 	if (app->scene->active) {
+
+
+		// CHESTS UI to draw over the player and the map
+		if (app->scene->player->playerState == app->scene->player->ITEM_INTERACT)
+		{
+			if (app->scene->player->isChest1Pickable)
+			{
+				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->ironchestRect);
+				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
+			}
+			if (app->scene->player->isChest2Pickable)
+			{
+				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->revhatRect);
+				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
+			}
+			if (app->scene->player->isChest3Pickable)
+			{
+				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->denturesRect);
+				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
+			}
+		}
+
 		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT && currentMenuType != ROPE_MINIGAME)
 		{
 			PrintDialogue(app->scene->GetDialogue());
@@ -417,22 +440,7 @@ bool UIModule::PostUpdate()
 				app->scene->player->dialogueActivate = false;
 			}
 
-			// Tutorial Battle draw
-			if (app->scene->battleTutorialCounter == 0 && app->scene->isTalkingToAngry)
-			{
-				SDL_Rect rect = { 0, 0, 1920, 1080 };
-				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
-			}
-			else if (app->scene->battleTutorialCounter == 1 && app->scene->isTalkingToAngry)
-			{
-				SDL_Rect rect = { 1920, 0, 1920, 1080 };
-				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
-			}
-			else if (app->scene->battleTutorialCounter == 2 && app->scene->isTalkingToAngry)
-			{
-				SDL_Rect rect = { 3840, 0, 1920, 1080 };
-				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
-			}
+		
 		}
 
 
@@ -474,6 +482,27 @@ bool UIModule::PostUpdate()
 
 	// SCENE 2 UI
 	if (app->w2_scene->active) {
+
+		// CHESTS UI to draw over the player and the map
+		if (app->w2_scene->player->playerState == app->w2_scene->player->ITEM_INTERACT)
+		{
+			if (app->w2_scene->player->isChest4Pickable)
+			{
+				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->ironchestRect);
+				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
+			}
+			if (app->w2_scene->player->isChest5Pickable)
+			{
+				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->susjarRect);
+				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
+			}
+			if (app->w2_scene->player->isChest6Pickable)
+			{
+				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->denturesRect);
+				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
+			}
+		}
+
 		if (app->w2_scene->player->playerState == app->w2_scene->player->PlayerState::NPC_INTERACT)
 		{
 			PrintDialogue2(app->w2_scene->GetDialogue());
@@ -496,56 +525,126 @@ bool UIModule::PostUpdate()
 
 	}
 
+	if (app->sceneBattle->active) {
+		// Tutorial Battle draw
+		if (app->scene->battleTutorialCounter == 0 && app->scene->isTalkingToAngry)
+		{
+			SDL_Rect rect = { 0, 0, 1920, 1080 };
+			app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+		}
+		else if (app->scene->battleTutorialCounter == 1 && app->scene->isTalkingToAngry)
+		{
+			SDL_Rect rect = { 1920, 0, 1920, 1080 };
+			app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+		}
+		else if (app->scene->battleTutorialCounter == 2 && app->scene->isTalkingToAngry)
+		{
+			SDL_Rect rect = { 3840, 0, 1920, 1080 };
+			app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+		}
 
+	}
 	return ret;
 }
 
 void UIModule::PrintItemImages(int i)
 {
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+	if (app->scene->active)
 	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+		}
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+
+	if (app->w2_scene->active)
 	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+		}
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
-	}
+	
 }
 
 void UIModule::PrintItemName()
@@ -764,6 +863,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(continueButtonsTexture);
 	app->tex->UnLoad(returnButtonTexture);
 	app->tex->UnLoad(checkboxTexture);
+	app->tex->UnLoad(uiSpriteTexture);
 
 	return true;
 }
@@ -1761,7 +1861,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 	// Draw dialogue text image
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
-	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
 	//---------------------
 	// Dialogue text block
@@ -1811,7 +1911,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
@@ -1825,7 +1925,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 2))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
@@ -1839,7 +1939,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 3))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
@@ -1853,7 +1953,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 4))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
@@ -1901,7 +2001,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 
 	// Draw dialogue text image
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
-	app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
 	//---------------------
 	// Dialogue text block
@@ -1951,7 +2051,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
@@ -1965,7 +2065,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 2))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
@@ -1979,7 +2079,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 3))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
@@ -1993,7 +2093,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 4))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);

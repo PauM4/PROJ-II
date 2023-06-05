@@ -50,7 +50,6 @@ bool W3_Scene::Awake(pugi::xml_node& config)
 	CreateDialogue(); //3MB
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
-	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 
 	return ret;
 }
@@ -237,7 +236,6 @@ bool W3_Scene::CleanUp()
 	app->physics->Disable();
 
 	app->tex->UnLoad(npcPopUpTexture);
-	app->tex->UnLoad(uiSpriteTexture);
 	
 
 	return true;

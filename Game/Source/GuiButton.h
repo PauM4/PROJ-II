@@ -26,6 +26,8 @@ public:
 	SDL_Rect rect;
 
 	uint audioFxId;
+	bool hoverOnce;
+	bool pressedOnce;
 
 };
 

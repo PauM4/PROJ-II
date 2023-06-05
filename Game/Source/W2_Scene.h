@@ -103,7 +103,6 @@ public:
 	bool takePortal, firstKeyPicked, secondKeyPicked, enteredThirdHouse;
 
 	SDL_Texture* npcPopUpTexture;
-	SDL_Texture* uiSpriteTexture;
 	SDL_Texture* questUiTexture;
 	SDL_Texture* lvlupTexture;
 	SDL_Texture* eKeyTexture;
@@ -130,6 +129,10 @@ public:
 	SDL_Rect chestopenHRect;
 	SDL_Rect chestopenVRect;
 
+	// ITEMS UI
+	SDL_Texture* inventoryItemsTexture;
+
+
 private:
 
 	SString mapName;
@@ -154,6 +157,7 @@ private:
 	std::vector<std::string> dialogue;
 
 	bool godMode;
+
 
 
 };

@@ -206,6 +206,9 @@ public:
 
 	SDL_Texture* pauseButtonsTexture;
 
+	SDL_Texture* uiSpriteTexture;
+
+
 	bool timmyItem;
 	bool bunnyItem;
 	bool lrrhItem;
