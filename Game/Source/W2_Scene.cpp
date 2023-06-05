@@ -235,8 +235,8 @@ bool W2_Scene::PreUpdate()
 // Called each loop iteration
 bool W2_Scene::Update(float dt)
 {
-	//std::cout << "X: " << player->position.x << std::endl;
-	//std::cout << "Y: " << player->position.y << std::endl;
+	std::cout << "X: " << player->position.x << std::endl;
+	std::cout << "Y: " << player->position.y << std::endl;
 	if (app->teamManager->arasiva == true) {
 		app->teamManager->startstatsup = true;
 		app->teamManager->arasiva = false;
@@ -510,15 +510,15 @@ void W2_Scene::Camera()
 	else
 	{
 		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2, -4394, -93, -3674, -1212);
+			app->render->camera.w / 2, app->render->camera.h / 2, -4394, -3, -3674, -24);
 	}
 
 }
 
 bool W2_Scene::CheckInsideBoundaries()
 {	
-	bool insideX = (player->position.x == clamp(player->position.x, 93, 4394+(1920)));
-	bool insideY = (player->position.y == clamp(player->position.y, 1212, 3674+1080));
+	bool insideX = (player->position.x == clamp(player->position.x, 3, 4394+(1920)));
+	bool insideY = (player->position.y == clamp(player->position.y, 24, 3674+1080));
 	
 	if (insideX && insideY)
 	{
