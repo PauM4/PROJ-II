@@ -417,7 +417,22 @@ bool UIModule::PostUpdate()
 				app->scene->player->dialogueActivate = false;
 			}
 
-		
+			// Tutorial Battle draw
+			if (app->scene->battleTutorialCounter == 0 && app->scene->isTalkingToAngry)
+			{
+				SDL_Rect rect = { 0, 0, 1920, 1080 };
+				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+			}
+			else if (app->scene->battleTutorialCounter == 1 && app->scene->isTalkingToAngry)
+			{
+				SDL_Rect rect = { 1920, 0, 1920, 1080 };
+				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+			}
+			else if (app->scene->battleTutorialCounter == 2 && app->scene->isTalkingToAngry)
+			{
+				SDL_Rect rect = { 3840, 0, 1920, 1080 };
+				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+			}
 		}
 
 
@@ -481,25 +496,7 @@ bool UIModule::PostUpdate()
 
 	}
 
-	if (app->sceneBattle->active) {
-		// Tutorial Battle draw
-		if (app->scene->battleTutorialCounter == 0 && app->scene->isTalkingToAngry)
-		{
-			SDL_Rect rect = { 0, 0, 1920, 1080 };
-			app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
-		}
-		else if (app->scene->battleTutorialCounter == 1 && app->scene->isTalkingToAngry)
-		{
-			SDL_Rect rect = { 1920, 0, 1920, 1080 };
-			app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
-		}
-		else if (app->scene->battleTutorialCounter == 2 && app->scene->isTalkingToAngry)
-		{
-			SDL_Rect rect = { 3840, 0, 1920, 1080 };
-			app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
-		}
 
-	}
 	return ret;
 }
 

@@ -40,7 +40,7 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 	mapFolder = config.attribute("path").as_string();
 	
 	//Add allies from teamManager
-	int i = 0;	
+	int i = 0;
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
 		teamItem->data->health = teamItem->data->maxHealth;
 		teamItem->data->isAlive = true;
@@ -66,8 +66,6 @@ bool SceneBattle::Awake(pugi::xml_node& config) {
 
 	app->entityManager->Awake(config);
 	app->battleManager->Enable();
-
-	app->scene->battleTutoTexture = app->tex->Load("Assets/UI/battleTutorial.png");
 	
 	return ret;
 }
@@ -96,8 +94,6 @@ bool SceneBattle::Start() {
 	
 	//bunnyPrevPos = bunny->position;
 	villagerPrevPos = villager->position;
-
-	app->scene->battleTutorialCounter = 0;
 	return true;
 }
 
@@ -117,13 +113,7 @@ bool SceneBattle::PreUpdate() {
 // Called each loop iteration
 bool SceneBattle::Update(float dt) {
 
-	if (app->scene->battleTutorialCounter < 3)
-	{
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-		{
-			app->scene->battleTutorialCounter++;
-		}
-	}
+	
 
 	app->map->Draw();
 	return true;
@@ -162,8 +152,6 @@ bool SceneBattle::PostUpdate() {
 
 	bool ret = true;
 
-
-
 	
 	return ret;
 }
@@ -183,7 +171,6 @@ bool SceneBattle::CleanUp(){
 	app->map->CleanUp();
 	app->entityManager->CleanUp(); 
 	app->battleManager->Disable(); 
-	app->tex->UnLoad(app->scene->battleTutoTexture);
 
 	SaveResult();
 

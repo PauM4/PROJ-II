@@ -387,9 +387,6 @@ bool BattleManager::Update(float dt) {
 	}
 	UpdateCombatMap();
 
-	if (!app->sceneBattle->active) {
-		app->scene->battleTutorialCounter = 3;
-	}
 
 	return true;
 }
@@ -413,7 +410,7 @@ bool BattleManager::PostUpdate() {
 	UIStatsForBattle();
 	DisplayTurnList();
 
-
+	
 
 	//app->render->DrawRectangle({ int(allies.start->data->position.x) + 35, int(allies.start->data->position.y) + 35, 50, 50 }, 0, 233, 0, 250, true);
 	//app->render->DrawRectangle({ int(enemies.start->data->position.x) + 35, int(enemies.start->data->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
@@ -466,7 +463,7 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
-	if (battleState != BattleState::INACTION && !currentTurn->isEnemy && app->scene->battleTutorialCounter==3) {
+	if (battleState != BattleState::INACTION && !currentTurn->isEnemy) {
 		switch (control->id)
 		{
 			// Attack
