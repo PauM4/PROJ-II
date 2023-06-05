@@ -69,6 +69,10 @@ bool UIModule::Start()
 	uint w, h;
 	app->win->GetWindowSize(w, h);
 
+	optionsBgTexture = app->tex->Load("Assets/UI/options_background.png");
+	checkboxTexture = app->tex->Load("Assets/UI/checkbox.png");
+	sliderTexture = app->tex->Load("Assets/UI/sliderbar.png");
+
 	textureA = app->tex->Load("Assets/UI/UI_Spritesheet_FINAL.png");
 	playButtonTexture = app->tex->Load("Assets/UI/playButton.png");
 	optionsButtonTexture = app->tex->Load("Assets/UI/optionsButton.png");
@@ -78,8 +82,7 @@ bool UIModule::Start()
 	continueButtonsTexture = app->tex->Load("Assets/UI/continueButtons.png");
 	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
 
-	//sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, textureA, "", { 100, 100, 100, 100 }, this);
-	//sliderTest->state = GuiControlState::NORMAL;
+	
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
 	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, optionsButtonTexture,"", { 690, 640, 540, 136 }, this);
@@ -154,6 +157,17 @@ bool UIModule::Start()
 	item_11_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 88, NULL, "+", { 960, 850, 100, 30 }, this);
 	item_12_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 89, NULL, "+	", { 960, 900, 100, 30 }, this);
 
+	sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, sliderTexture, "", { 1258, 383, 60, 176}, this);
+	sliderTest->state = GuiControlState::NONE;
+	// Rect: 540, 79
+	// INICI: 1258, 383; 592
+	// FINAL: 1659, 383; 592
+
+	checkBoxTest = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 4321, checkboxTexture, "", { 678, 408, 162, 131}, this);
+	checkBoxTest->state = GuiControlState::NONE;
+
+	// 678 617
+
 	AddButtonsToList();
 
 	inventoryButtonsList.Add(item_1_button);
@@ -209,6 +223,9 @@ void UIModule::DisableButtonsToNone()
 		button->state = GuiControlState::NONE;
 
 	}
+
+	sliderTest->state = GuiControlState::NONE;
+	checkBoxTest->state = GuiControlState::NONE;
 }
 
 // Called each loop iteration
@@ -349,6 +366,11 @@ bool UIModule::PostUpdate()
 			app->fonts->DrawText(charactername, 800, 400 + j, 100, 100, { 0, 0, 0 }, app->fonts->gameFont, true);
 			j += 50;
 		}
+	}
+
+	if (currentMenuType == OPTIONS_GAME || currentMenuType == OPTIONS_MAIN)
+	{
+		app->render->DrawTexture(optionsBgTexture, -app->render->camera.x, -app->render->camera.y, NULL);
 	}
 
 	app->guiManager->Draw();
@@ -702,7 +724,7 @@ bool UIModule::CleanUp()
 	app->guiManager->guiControlsList.Clear();
 	buttonsList.Clear();
 
-
+	app->tex->UnLoad(optionsBgTexture);
 	app->tex->UnLoad(textureA);
 	app->tex->UnLoad(playButtonTexture);
 	app->tex->UnLoad(optionsButtonTexture);
@@ -711,6 +733,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(newgameButtonsTexture);
 	app->tex->UnLoad(continueButtonsTexture);
 	app->tex->UnLoad(returnButtonTexture);
+	app->tex->UnLoad(checkboxTexture);
 
 	return true;
 }
@@ -737,14 +760,10 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// When options pressed, go to options (image with settings)
 	case 2:
-		mainmenu_return_button->state = GuiControlState::NORMAL;
-
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = OPTIONS_MAIN;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 		break;
 
@@ -789,13 +808,21 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_newGame_button->state = GuiControlState::NONE;
 		mainmenu_return_button->state = GuiControlState::NONE;
+		sliderTest->state = GuiControlState::NONE;
+		checkBoxTest->state = GuiControlState::NONE;
 
 		mainmenu_play_button->state = GuiControlState::NORMAL;
 		mainmenu_credits_button->state = GuiControlState::NORMAL;
 		mainmenu_options_button->state = GuiControlState::NORMAL;
 		mainmenu_quit_button->state = GuiControlState::NORMAL;
 
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = MAIN;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 		app->sceneMainMenu->creditsOpen = false;
+		/*app->sceneMainMenu->settingsOpen = false;*/
 		break;
 	}
 
@@ -828,16 +855,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// When options pressed, go to options (image with settings)
 	case 9:
-		pausemenu_return_button->state = GuiControlState::NORMAL;
 
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = OPTIONS_GAME;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 		break;
 		// Return pressed --> return from options or Inventory or Party to pause menu
@@ -868,6 +890,19 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			lpigItem = false;
 			mpigItem = false;
 		}
+		else
+		{
+			sliderTest->state = GuiControlState::NONE;
+			checkBoxTest->state = GuiControlState::NONE;
+
+			DisableButtonsToNone();
+
+			// Tell to UIModule which currentMenuType
+			app->uiModule->currentMenuType = PAUSE;
+			// Call this function only when buttons change
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+		}
+
 
 		break;
 		//Back to Main Menu
@@ -1468,6 +1503,23 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		pausemenu_party_button->state = GuiControlState::NORMAL;
 
 		break;
+	case OPTIONS_GAME:
+		DisableButtonsToNone();
+		pausemenu_return_button->state = GuiControlState::NORMAL;
+
+		sliderTest->state = GuiControlState::NORMAL;
+		checkBoxTest->state = GuiControlState::NORMAL;
+		break;
+
+	case OPTIONS_MAIN:
+		DisableButtonsToNone();
+
+		mainmenu_return_button->state = GuiControlState::NORMAL;
+		sliderTest->state = GuiControlState::NORMAL;
+		checkBoxTest->state = GuiControlState::NORMAL;
+
+		break;
+
 	case INVENTORY:
 
 		DisableButtonsToNone();

@@ -26,7 +26,9 @@ enum CurrentMenuType
 	DISABLED,
 	LEVEL_UP,
 	INVENTORY,
-	PARTY
+	PARTY,
+	OPTIONS_MAIN,
+	OPTIONS_GAME
 };
 
 enum WhatInventoryImIn
@@ -182,7 +184,13 @@ public:
 	GuiButton* item_10_button;
 	GuiButton* item_11_button;
 	GuiButton* item_12_button;
+
+	// Options Menu
 	GuiSlider* sliderTest;
+	SDL_Texture* sliderTexture;
+	SDL_Texture* optionsBgTexture;
+	SDL_Texture* checkboxTexture;
+	GuiCheckBox* checkBoxTest;
 
 	SDL_Texture* textureA;
 	SDL_Texture* playButtonTexture;
@@ -192,6 +200,8 @@ public:
 	SDL_Texture* newgameButtonsTexture;
 	SDL_Texture* continueButtonsTexture;
 	SDL_Texture* returnButtonTexture;
+
+	SDL_Texture* pauseButtonsTexture;
 
 	bool timmyItem;
 	bool bunnyItem;
