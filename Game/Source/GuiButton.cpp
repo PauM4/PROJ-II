@@ -12,6 +12,9 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, SDL_Texture* tex, const char* t
 	this->text = text;
 	this->tex = tex;
 
+	hoverOnce = false;
+	pressedOnce = false;
+
 	canClick = true;
 	drawBasic = false;
 }
@@ -37,7 +40,6 @@ bool GuiButton::Update(float dt)
 			state = GuiControlState::FOCUSED;
 			if (previousState != state) {
 				LOG("Change state from %d to %d", previousState, state);
-				app->audio->PlayFx(app->guiManager->hoverFxId);
 			}
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT) {
@@ -82,18 +84,28 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::NORMAL:
 		//render->DrawRectangle(bounds, 128, 64, 0, 255, true, false);
 		render->DrawTexture(tex, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, &rect);
+		hoverOnce = false;
+		pressedOnce = false;
 		//render->DrawTexture(app->guiManager->buttonNormalTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	case GuiControlState::FOCUSED:
 		//render->DrawRectangle(bounds, 244, 168, 92, 255, true, false);
 		rect.y = bounds.h;
 		render->DrawTexture(tex, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, &rect);
+		if (!hoverOnce) {
+			app->audio->PlayFx(app->guiManager->hoverFxId);
+			hoverOnce = true;
+		}
 		//render->DrawTexture(app->guiManager->buttonHoverTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	case GuiControlState::PRESSED:
 		rect.y = bounds.h * 2;
 		//render->DrawRectangle(bounds, 52, 26, 0, 255, true, false);
 		render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
+		if (!pressedOnce) {
+			app->audio->PlayFx(app->guiManager->pressedFxId);
+			pressedOnce = true;
+		}
 		//render->DrawTexture(app->guiManager->buttonPressedTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	}

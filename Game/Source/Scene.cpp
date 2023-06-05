@@ -109,7 +109,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	CreateDialogue(); //3MB
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
-	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	ropeTexture = app->tex->Load("Assets/UI/ropeImage.png");
 	pressKeyTexture = app->tex->Load("Assets/UI/pressEanimation.png");
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
@@ -334,17 +333,7 @@ bool Scene::Update(float dt)
 
 	}
 
-	// If talking to AngryVillager, player can next tutorial
-	if (player->playerState == player->PlayerState::NPC_INTERACT && isTalkingToAngry)
-	{
-		if (battleTutorialCounter <= 3)
-		{
-			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-			{
-				battleTutorialCounter++;
-			}
-		}
-	}
+
 
 	UpdateMinigameLogic(dt);
 
@@ -545,7 +534,6 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 
 	app->tex->UnLoad(npcPopUpTexture);
-	app->tex->UnLoad(uiSpriteTexture);
 	app->tex->UnLoad(ropeTexture);
 	app->tex->UnLoad(pressKeyTexture);
 	app->tex->UnLoad(questUiTexture);
@@ -555,6 +543,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(inventoryScrollTexture);
 	app->tex->UnLoad(chestTexture);
 	app->tex->UnLoad(battleTutoTexture);
+	app->tex->UnLoad(inventoryItemsTexture);
 	
 
 	return true;
@@ -1080,6 +1069,75 @@ bool Scene::LoadState(pugi::xml_node& data)
 	currentQuestIndex = data.child("stepQuest").attribute("num").as_int();
 
 	//LoadChests(data);
+	if (LRRHDefeated)
+	{
+		littleRedTree->~DialogueTree(); 
+
+		//LittleRedAfterCombat
+		auto fristNodeLRAC = std::make_shared<DialogueNode>();
+		fristNodeLRAC->SetText("I want to join your group to help you. I realize that I have been acting wrongly. The wolf corrupted me with his magic and made me do terrible things. I thought I was protecting the portal, but in reality, I was hurting others. I cannot justify my actions, but I want to make amends and restore peace to the world of dreams.I want to join your group to fight together against the wolf and stop his evil plan. Together we can do it.");
+		fristNodeLRAC->ActivateNode();
+
+		littleRedTree = std::make_shared<DialogueTree>();
+		littleRedTree->SetRoot(fristNodeLRAC);
+	}
+
+	if (angryVillagerDefeated)
+	{
+		angryVillagerTreePT->~DialogueTree();
+
+		// - Angry Villager Post Tutorial
+		//3rd level
+		auto secondOption1PT = std::make_shared<DialogueNode>();
+		secondOption1PT->SetText("Nod silently and look concerned. -Leave it to me.-");
+
+		auto secondOption2PT = std::make_shared<DialogueNode>();
+		secondOption2PT->SetText("Yawn and stretch, showing disinterest while saying, -Okay...sure.-");
+
+		auto secondOption3PT = std::make_shared<DialogueNode>();
+		secondOption3PT->SetText("What a bunch of cowards! You're all hiding in your homes! . I'll take care of her myself.");
+
+		auto secondOption4PT = std::make_shared<DialogueNode>();
+		secondOption4PT->SetText("L - Little Red ? Killing animals ? That's terrifying... I-I'll try to talk to her.");
+
+		//2nd level
+		auto AVillagerToOptionPT = std::make_shared<DialogueNode>();
+		AVillagerToOptionPT->SetText("It all started with Little Red. She's gone mad and started killing the animals in the forest. We've tried talking to her grandmother, but she won't do anything to stop her. Now the villagers are angry and scared, looking for someone to blame. Little Red is dangerous and unpredictable, and we fear for our safety. That's why we're all holed up in our homes");
+		AVillagerToOptionPT->AddChild(secondOption1PT);
+		AVillagerToOptionPT->AddChild(secondOption2PT);
+		AVillagerToOptionPT->AddChild(secondOption3PT);
+		AVillagerToOptionPT->AddChild(secondOption4PT);
+
+		//1rst level
+		auto firstOption1PT = std::make_shared<DialogueNode>();
+		firstOption1PT->SetText("What's going on? Why is everyone hiding in their houses?");
+		firstOption1PT->AddChild(AVillagerToOptionPT);
+
+		auto firstOption2PT = std::make_shared<DialogueNode>();
+		firstOption2PT->SetText("Sounds like a tough situation. What can I do to assist?");
+		firstOption2PT->AddChild(AVillagerToOptionPT);
+
+		auto firstOption3PT = std::make_shared<DialogueNode>();
+		firstOption3PT->SetText("Just tell me what I need to know. I'll take care of it myself!");
+		firstOption3PT->AddChild(AVillagerToOptionPT);
+
+		auto firstOption4PT = std::make_shared<DialogueNode>();
+		firstOption4PT->SetText("I don't really care about what's going on. But I guess I'll have to help, what a drag.");
+		firstOption4PT->AddChild(AVillagerToOptionPT);
+
+		//Root
+		auto firstNodeAngryVillagerPT = std::make_shared<DialogueNode>();
+		firstNodeAngryVillagerPT->SetText("I can't believe it. You beat me fair and square. I guess I underestimated you. Listen, I'm sorry for being so hostile before. It's just that we're all on edge here. The situation is dire.");
+		firstNodeAngryVillagerPT->AddChild(firstOption1PT);
+		firstNodeAngryVillagerPT->AddChild(firstOption2PT);
+		firstNodeAngryVillagerPT->AddChild(firstOption3PT);
+		firstNodeAngryVillagerPT->AddChild(firstOption4PT);
+		firstNodeAngryVillagerPT->ActivateNode();
+
+		//Tree
+		angryVillagerTreePT = std::make_shared<DialogueTree>();
+		angryVillagerTreePT->SetRoot(firstNodeAngryVillagerPT);
+	}
 
 
 	return true;

@@ -66,6 +66,14 @@ bool BattleManager::Start() {
 	battleState = BattleState::THINKING;
 	app->SaveGameRequest();
 
+	lose_screen_animation.Set();
+	lose_screen_animation.smoothness = 4;
+	lose_screen_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
+	win_screen_animation.Set();
+	win_screen_animation.smoothness = 4;
+	win_screen_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
 	return true;
 }
 
@@ -379,6 +387,9 @@ bool BattleManager::Update(float dt) {
 	}
 	UpdateCombatMap();
 
+	if (!app->sceneBattle->active) {
+		app->scene->battleTutorialCounter = 3;
+	}
 
 	return true;
 }
@@ -402,7 +413,7 @@ bool BattleManager::PostUpdate() {
 	UIStatsForBattle();
 	DisplayTurnList();
 
-	
+
 
 	//app->render->DrawRectangle({ int(allies.start->data->position.x) + 35, int(allies.start->data->position.y) + 35, 50, 50 }, 0, 233, 0, 250, true);
 	//app->render->DrawRectangle({ int(enemies.start->data->position.x) + 35, int(enemies.start->data->position.y) + 35, 50, 50 }, 255, 233, 0, 250, true);
@@ -412,10 +423,25 @@ bool BattleManager::PostUpdate() {
 void BattleManager::DrawResult() {
 
 	if (win) {
-		app->render->DrawTexture(winScreen, 0, 0);
+		win_screen_animation.Step(1, false);
+		win_screen_animation.Foward();
+
+		int offset = 720;
+		float point = win_screen_animation.GetPoint();
+
+		app->render->DrawTexture(winScreen, 0, -(offset + point * (0 - offset)));
+
+		//app->render->DrawTexture(winScreen, 0, 0);
 	}
 	if (lose) {
-		app->render->DrawTexture(loseScreen, 0, 0);
+		lose_screen_animation.Step(1, false);
+		lose_screen_animation.Foward();
+
+		int offset = 720;
+		float point = lose_screen_animation.GetPoint();
+
+		app->render->DrawTexture(loseScreen, 0, offset + point * (0 - offset));
+		//app->render->DrawTexture(loseScreen, 0, 0);
 	}
 }
 
@@ -440,7 +466,7 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
-	if (battleState != BattleState::INACTION && !currentTurn->isEnemy) {
+	if (battleState != BattleState::INACTION && !currentTurn->isEnemy && app->scene->battleTutorialCounter==3) {
 		switch (control->id)
 		{
 			// Attack

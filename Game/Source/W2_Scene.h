@@ -103,7 +103,6 @@ public:
 	bool takePortal, firstKeyPicked, secondKeyPicked, enteredThirdHouse;
 
 	SDL_Texture* npcPopUpTexture;
-	SDL_Texture* uiSpriteTexture;
 	SDL_Texture* questUiTexture;
 	SDL_Texture* lvlupTexture;
 	SDL_Texture* eKeyTexture;
@@ -111,6 +110,7 @@ public:
 	SDL_Texture* inventoryScrollTexture;
 	SDL_Texture* keyTexture;
 	SDL_Texture* brokenkeyTexture;
+	SDL_Texture* assets;
 
 	bool inventoryOpen;
 	
@@ -121,13 +121,17 @@ public:
 
 	PhysBody* key1collider;
 	PhysBody* key2collider;
-
+	PhysBody* doorcollider;
 	//chests
 	SDL_Texture* chestTexture;
 	SDL_Rect chestHRect;
 	SDL_Rect chestVRect;
 	SDL_Rect chestopenHRect;
 	SDL_Rect chestopenVRect;
+
+	// ITEMS UI
+	SDL_Texture* inventoryItemsTexture;
+
 
 private:
 
@@ -153,6 +157,7 @@ private:
 	std::vector<std::string> dialogue;
 
 	bool godMode;
+
 
 
 };

@@ -1,390 +1,390 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="81" nextobjectid="278">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="81" nextobjectid="279">
  <imagelayer id="2" name="BG">
-  <image source="Assets/Maps/World_02/Assets/Fondo_map_cerditos.png" width="6319" height="4736"/>
+  <image source="Assets/Maps/World_02/Assets/Fondo_map_cerditos.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="9" name="Cave">
-  <image source="Assets/Maps/World_02/Assets/Mapa_Cerditos_Arboles_Y_Montaña.png" width="6319" height="4736"/>
+  <image source="Assets/Maps/World_02/Assets/Mapa_Cerditos_Arboles_Y_Montaña.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="false"/>
   </properties>
  </imagelayer>
  <imagelayer id="10" name="hayHouse" offsetx="1014" offsety="1472">
-  <image source="Assets/Maps/World_02/Assets/hayHouse.png" width="540" height="784"/>
+  <image source="Assets/Maps/World_02/Assets/hayHouse.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="11" name="woodHouse" offsetx="2892" offsety="1590">
-  <image source="Assets/Maps/World_02/Assets/woodHouse.png" width="838" height="661"/>
+  <image source="Assets/Maps/World_02/Assets/woodHouse.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="14" name="mazeSign" offsetx="1214" offsety="3590">
-  <image source="Assets/Maps/World_02/Assets/maze_sign.png" width="315" height="339"/>
+  <image source="Assets/Maps/World_02/Assets/maze_sign.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="15" name="hayInterior" offsetx="8000" offsety="0">
-  <image source="Assets/Maps/World_02/Assets/Interior_Paja.png" width="1920" height="1080"/>
+  <image source="Assets/Maps/World_02/Assets/Interior_Paja.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="17" name="woodInterior" offsetx="8000" offsety="2000">
-  <image source="Assets/Maps/World_02/Assets/Interior_Madera.png" width="1920" height="1080"/>
+  <image source="Assets/Maps/World_02/Assets/Interior_Madera.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="16" name="brickInterior" offsetx="8000" offsety="3824">
-  <image source="Assets/Maps/World_02/Assets/Interior_Cerdo_Grande.png" width="1920" height="1080"/>
+  <image source="Assets/Maps/World_02/Assets/Interior_Cerdo_Grande.png"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="19" name="tree" offsetx="535.636" offsety="-109.879">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="30" name="Copy of tree" offsetx="5863.64" offsety="-149.879">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="29" name="Copy of tree" offsetx="5319.64" offsety="-133.879">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="27" name="Copy of tree" offsetx="4279.64" offsety="-93.8788">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="22" name="Copy of tree" offsetx="1583.64" offsety="-109.879">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="26" name="Copy of tree" offsetx="3799.64" offsety="-85.8788">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="28" name="Copy of tree" offsetx="4751.64" offsety="-157.879">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="25" name="Copy of tree" offsetx="3215.64" offsety="-101.879">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="24" name="Copy of tree" offsetx="2607.64" offsety="-133.879">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="21" name="Copy of tree" offsetx="1015.64" offsety="-157.879">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="20" name="Copy of tree" offsetx="-72.3636" offsety="-141.879">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="42" name="Copy of tree" offsetx="263.636" offsety="266.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="41" name="Copy of Copy of tree" offsetx="5551.64" offsety="274.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="40" name="Copy of Copy of tree" offsetx="4807.64" offsety="202.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="39" name="Copy of Copy of tree" offsetx="4007.64" offsety="298.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="38" name="Copy of Copy of tree" offsetx="1695.64" offsety="234.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="37" name="Copy of Copy of tree" offsetx="2495.64" offsety="234.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="35" name="Copy of Copy of tree" offsetx="3271.64" offsety="250.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="32" name="Copy of Copy of tree" offsetx="991.636" offsety="290.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="31" name="Copy of Copy of tree" offsetx="-360.364" offsety="202.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="54" name="Copy of Copy of tree" offsetx="639.636" offsety="546.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="53" name="Copy of Copy of Copy of tree" offsetx="5831.64" offsety="610.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="52" name="Copy of Copy of Copy of tree" offsetx="5351.64" offsety="570.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="51" name="Copy of Copy of Copy of tree" offsetx="4311.64" offsety="610.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="50" name="Copy of Copy of Copy of tree" offsetx="1535.64" offsety="594.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="48" name="Copy of Copy of Copy of tree" offsetx="4807.64" offsety="546.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="47" name="Copy of Copy of Copy of tree" offsetx="3023.64" offsety="562.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="45" name="Copy of Copy of Copy of tree" offsetx="2079.64" offsety="538.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="43" name="Copy of Copy of Copy of tree" offsetx="-160.364" offsety="546.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="66" name="Copy of Copy of Copy of tree" offsetx="255.636" offsety="906.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="65" name="Copy of Copy of Copy of Copy of tree" offsetx="5663.64" offsety="946.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="64" name="Copy of Copy of Copy of Copy of tree" offsetx="5007.64" offsety="866.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="63" name="Copy of Copy of Copy of Copy of tree" offsetx="3999.64" offsety="922.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="62" name="Copy of Copy of Copy of Copy of tree" offsetx="1183.64" offsety="914.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="61" name="Copy of Copy of Copy of Copy of tree" offsetx="3399.64" offsety="906.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="60" name="Copy of Copy of Copy of Copy of tree" offsetx="4519.64" offsety="994.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="59" name="Copy of Copy of Copy of Copy of tree" offsetx="2839.64" offsety="874.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="58" name="Copy of Copy of Copy of Copy of tree" offsetx="2391.64" offsety="978.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="57" name="Copy of Copy of Copy of Copy of tree" offsetx="1751.64" offsety="946.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="56" name="Copy of Copy of Copy of Copy of tree" offsetx="719.636" offsety="906.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="55" name="Copy of Copy of Copy of Copy of tree" offsetx="-352.364" offsety="874.121">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="67" name="Copy of tree" offsetx="2127.64" offsety="1122.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="69" name="Copy of Copy of tree" offsetx="5503.64" offsety="1154.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="70" name="Copy of Copy of Copy of tree" offsetx="-136.364" offsety="1234.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="71" name="Copy of Copy of Copy of Copy of tree" offsetx="-392.364" offsety="1578.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="72" name="Copy of Copy of Copy of Copy of Copy of tree" offsetx="-160.364" offsety="2034.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="73" name="Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="-320.364" offsety="2434.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="74" name="Copy of Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="-480.364" offsety="2810.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="75" name="Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="-160.364" offsety="3258.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="76" name="Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="143.636" offsety="3642.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="77" name="Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="-320.364" offsety="3794.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="68" name="Copy of Copy of tree" offsetx="3839.64" offsety="1114.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="78" name="Copy of Copy of Copy of tree" offsetx="2543.64" offsety="3922.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="79" name="Copy of Copy of Copy of Copy of tree" offsetx="3151.64" offsety="3306.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="80" name="Copy of Copy of Copy of Copy of Copy of tree" offsetx="3551.64" offsety="4010.12">
-  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <image source="Assets/Maps/World_02/Assets/tree.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="12" name="brickHouse" offsetx="4792" offsety="648">
-  <image source="Assets/Maps/World_02/Assets/bricksHouse.png" width="1340" height="1652"/>
+  <image source="Assets/Maps/World_02/Assets/bricksHouse.png"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -523,6 +523,7 @@
   <object id="275" x="3422.55" y="3724.36" width="272" height="160"/>
   <object id="276" x="3818.55" y="4426.06" width="272" height="160"/>
   <object id="277" x="2806.42" y="4338.18" width="272" height="160"/>
+  <object id="278" x="8661" y="2403" width="384" height="80"/>
  </objectgroup>
  <objectgroup color="#00ff00" id="4" name="Doors">
   <properties>

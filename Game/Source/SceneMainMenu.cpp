@@ -12,7 +12,9 @@
 
 SceneMainMenu::SceneMainMenu(bool isActive) : Module(isActive)
 {
+	
 	name.Create("sceneMainMenu");
+	
 }
 
 // Destructor
@@ -24,6 +26,14 @@ bool SceneMainMenu::Awake(pugi::xml_node& config)
 {
 	LOG("Loading SceneMainMenu");
 	bool ret = true;
+	press_enter = app->tex->Load("Assets/UI/press_enter.png");
+
+	press_enter_animation.PushBack({ 0, 0, 1920, 1080 });
+	press_enter_animation.PushBack({ 1930, 0, 1920, 1080 });
+	press_enter_animation.loop = true;
+	press_enter_animation.speed = 0.02f;
+
+	currentAnimation = &press_enter_animation;
 
 	return ret;
 }
@@ -31,8 +41,13 @@ bool SceneMainMenu::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool SceneMainMenu::Start()
 {	
-	mainMenu_image = app->tex->Load("Assets/UI/A_MainMenuBackground_SceneMainMenu.png");
+	
+	mainMenu_left = app->tex->Load("Assets/UI/main_title_left.png");
+	mainMenu_right = app->tex->Load("Assets/UI/main_title_right.png");
+
 	mainMenu_image_tittle = app->tex->Load("Assets/UI/TittleScreen_Tittle.png");
+	
+
 	UI_spritesheet_final = app->tex->Load("Assets/UI/UI_Spritesheet_FINAL.png");
 	mainMenuRipped_image = app->tex->Load("Assets/UI/A_MainMenuRipped_SceneManager.png");
 	credits_image = app->tex->Load("Assets/UI/A_Credits_MainMenu.png");
@@ -55,6 +70,14 @@ bool SceneMainMenu::Start()
 	creditsOpen = false;
 	returnPressed = false;
 
+	left_animation.Set();
+	left_animation.smoothness = 4;
+	left_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
+	right_animation.Set();
+	right_animation.smoothness = 4;
+	right_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
 	return true;
 }
 
@@ -67,7 +90,7 @@ bool SceneMainMenu::PreUpdate()
 // Called each loop iteration
 bool SceneMainMenu::Update(float dt)
 {
-
+	currentAnimation->Update();
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		// Tell to UIModule which currentMenuType
@@ -93,12 +116,29 @@ bool SceneMainMenu::PostUpdate()
 
 	if (returnPressed)
 	{
+		left_animation.Step(1, false);
+		right_animation.Step(-1, false);
+
+		left_animation.Foward();
+		right_animation.Foward();
+
+		int offset = 162;
+		int offset2 = 194;
+
+		float point = left_animation.GetPoint();
+
 		app->render->DrawTexture(mainMenuRipped_image, 0, 0, NULL);
+
+		app->render->DrawTexture(mainMenu_left, -(offset2 + point * (offset2)), 0);
+		app->render->DrawTexture(mainMenu_right, offset + point * (offset), 0);
 	}
 	else
 	{
-		app->render->DrawTexture(mainMenu_image, 0, 0, NULL);
-		//app->render->DrawTexture(UI_spritesheet_final, 786, 453, &press_enterRect);
+		app->render->DrawTexture(mainMenu_left, 0, 0, NULL);
+		app->render->DrawTexture(mainMenu_right, 0, 0, NULL);
+
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(press_enter, 0, 0, &rect);
 	}
 
 	if (creditsOpen)
@@ -117,7 +157,8 @@ bool SceneMainMenu::PostUpdate()
 bool SceneMainMenu::CleanUp()
 {
 	LOG("Freeing sceneMainMenu");	
-	app->tex->UnLoad(mainMenu_image);
+	app->tex->UnLoad(mainMenu_left);
+	app->tex->UnLoad(mainMenu_right);
 	app->tex->UnLoad(mainMenu_image_tittle);
 	app->tex->UnLoad(credits_image);
 	app->tex->UnLoad(mainMenuRipped_image);

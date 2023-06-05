@@ -177,7 +177,20 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+bool Audio::Play1Fx(unsigned int id, int repeat)
+{
+	bool ret = false;
 
+	if (!active)
+		return false;
+
+	if (id > 0 && id <= fx.Count())
+	{
+		Mix_PlayChannel(-1, fx[id - 1], repeat);
+	}
+
+	return ret;
+}
 // 0 no audio, 128 max audio
 void Audio::SetMusicVolume(int volume)
 {

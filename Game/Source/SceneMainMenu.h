@@ -2,7 +2,7 @@
 #define __SCENEMAINMENU_H__
 
 #include "Module.h"
-//#include "Tweening.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -36,11 +36,15 @@ public:
 
 public:
 	
-	SDL_Texture* mainMenu_image;
+	SDL_Texture* mainMenu_left;
+	SDL_Texture* mainMenu_right;
+	SDL_Texture* press_enter;
 	SDL_Texture* mainMenu_image_tittle;
 	SDL_Texture* UI_spritesheet_final;
 	SDL_Texture* mainMenuRipped_image;
 	SDL_Texture* credits_image;
+
+	//Animation press_enter;
 
 	SDL_Rect press_enterRect;
 
@@ -53,6 +57,12 @@ public:
 
 	// Bool to transition between ripped and not in main menu
 	bool returnPressed;
+	
+	Tween left_animation;
+	Tween right_animation;
+
+	Animation* currentAnimation;
+	Animation press_enter_animation;
 
 private:
 

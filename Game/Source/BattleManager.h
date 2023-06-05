@@ -209,6 +209,9 @@ public:
 	int moveFx = -1;
 	int victoryFx = -1;
 	int looseFx = -1;
+
+	Tween lose_screen_animation;
+	Tween win_screen_animation;
 };
 
 
