@@ -79,7 +79,7 @@ bool UIModule::Start()
 	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
 
 	//sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, textureA, "", { 100, 100, 100, 100 }, this);
-	sliderTest->state = GuiControlState::NORMAL;
+	//sliderTest->state = GuiControlState::NORMAL;
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
 	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, optionsButtonTexture,"", { 690, 640, 540, 136 }, this);
@@ -702,6 +702,15 @@ bool UIModule::CleanUp()
 	app->guiManager->guiControlsList.Clear();
 	buttonsList.Clear();
 
+
+	app->tex->UnLoad(textureA);
+	app->tex->UnLoad(playButtonTexture);
+	app->tex->UnLoad(optionsButtonTexture);
+	app->tex->UnLoad(creditsButtonTexture);
+	app->tex->UnLoad(quitButtonTexture);
+	app->tex->UnLoad(newgameButtonsTexture);
+	app->tex->UnLoad(continueButtonsTexture);
+	app->tex->UnLoad(returnButtonTexture);
 
 	return true;
 }
