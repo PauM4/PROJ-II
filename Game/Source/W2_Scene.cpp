@@ -116,6 +116,8 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	keyTexture = app->tex->Load("Assets/UI/Key.png");
 	brokenkeyTexture = app->tex->Load("Assets/UI/BrokenKey.png");
 	assets = app->tex->Load("Assets/Maps/Assets.png");
+	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
+
 
 	key1interact = false;
 	key2interact = false;

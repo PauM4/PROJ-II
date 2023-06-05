@@ -545,6 +545,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(inventoryScrollTexture);
 	app->tex->UnLoad(chestTexture);
 	app->tex->UnLoad(battleTutoTexture);
+	app->tex->UnLoad(inventoryItemsTexture);
 	
 
 	return true;

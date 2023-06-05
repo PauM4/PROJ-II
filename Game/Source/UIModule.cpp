@@ -407,6 +407,28 @@ bool UIModule::PostUpdate()
 
 	// SCENE 1 UI
 	if (app->scene->active) {
+
+
+		// CHESTS UI to draw over the player and the map
+		if (app->scene->player->playerState == app->scene->player->ITEM_INTERACT)
+		{
+			if (app->scene->player->isChest1Pickable)
+			{
+				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->ironchestRect);
+				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
+			}
+			if (app->scene->player->isChest2Pickable)
+			{
+				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->revhatRect);
+				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
+			}
+			if (app->scene->player->isChest3Pickable)
+			{
+				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->denturesRect);
+				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
+			}
+		}
+
 		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT && currentMenuType != ROPE_MINIGAME)
 		{
 			PrintDialogue(app->scene->GetDialogue());
@@ -459,6 +481,27 @@ bool UIModule::PostUpdate()
 
 	// SCENE 2 UI
 	if (app->w2_scene->active) {
+
+		// CHESTS UI to draw over the player and the map
+		if (app->w2_scene->player->playerState == app->w2_scene->player->ITEM_INTERACT)
+		{
+			if (app->w2_scene->player->isChest4Pickable)
+			{
+				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->ironchestRect);
+				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
+			}
+			if (app->w2_scene->player->isChest5Pickable)
+			{
+				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->susjarRect);
+				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
+			}
+			if (app->w2_scene->player->isChest6Pickable)
+			{
+				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->denturesRect);
+				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
+			}
+		}
+
 		if (app->w2_scene->player->playerState == app->w2_scene->player->PlayerState::NPC_INTERACT)
 		{
 			PrintDialogue2(app->w2_scene->GetDialogue());
@@ -505,50 +548,102 @@ bool UIModule::PostUpdate()
 
 void UIModule::PrintItemImages(int i)
 {
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+	if (app->scene->active)
 	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+		}
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+
+	if (app->w2_scene->active)
 	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+		}
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
-	}
+	
 }
 
 void UIModule::PrintItemName()

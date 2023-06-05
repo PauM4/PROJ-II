@@ -130,6 +130,10 @@ public:
 	SDL_Rect chestopenHRect;
 	SDL_Rect chestopenVRect;
 
+	// ITEMS UI
+	SDL_Texture* inventoryItemsTexture;
+
+
 private:
 
 	SString mapName;
@@ -154,6 +158,7 @@ private:
 	std::vector<std::string> dialogue;
 
 	bool godMode;
+
 
 
 };
