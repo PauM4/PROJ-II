@@ -78,7 +78,7 @@ bool UIModule::Start()
 	continueButtonsTexture = app->tex->Load("Assets/UI/continueButtons.png");
 	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
 
-	sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, textureA, "", { 100, 100, 100, 100 }, this);
+	//sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, textureA, "", { 100, 100, 100, 100 }, this);
 	sliderTest->state = GuiControlState::NORMAL;
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
