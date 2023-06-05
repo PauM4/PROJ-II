@@ -334,17 +334,7 @@ bool Scene::Update(float dt)
 
 	}
 
-	// If talking to AngryVillager, player can next tutorial
-	if (player->playerState == player->PlayerState::NPC_INTERACT && isTalkingToAngry)
-	{
-		if (battleTutorialCounter <= 3)
-		{
-			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-			{
-				battleTutorialCounter++;
-			}
-		}
-	}
+
 
 	UpdateMinigameLogic(dt);
 

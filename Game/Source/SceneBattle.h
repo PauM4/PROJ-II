@@ -61,6 +61,7 @@ private:
 	Enemy_AngryVillager* villager;
 	Bunny* bunny;
 
+
 	iPoint bunnyPrevPos, villagerPrevPos;
 	bool timmyPrevPosBool, bunnyPrevPosBool, villagerPrevPosBool;
 
@@ -69,6 +70,7 @@ private:
 public:
 	bool conditionToRangeChecker;
 	bool noStaminaToMove;
+	
 	
 };
 
