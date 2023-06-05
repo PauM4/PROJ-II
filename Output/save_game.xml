@@ -18,7 +18,7 @@
 			<chest2 isPicked="false" />
 			<chest3 isPicked="false" />
 		</chests>
-		<saveBattleTutoState state="0" />
+		<saveBattleTutoState state="3" />
 		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
@@ -68,7 +68,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-881" y="-4974" />
+		<camera x="0" y="0" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

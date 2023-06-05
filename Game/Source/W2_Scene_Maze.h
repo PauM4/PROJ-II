@@ -69,7 +69,6 @@ public:
 	// New Game things
 	bool isNewGame;
 
-	SDL_Texture* uiSpriteTexture;
 
 	SDL_Texture* fog;
 

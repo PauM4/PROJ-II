@@ -127,7 +127,6 @@ public:
 	bool isNewGame;
 
 	SDL_Texture* npcPopUpTexture;
-	SDL_Texture* uiSpriteTexture;
 	SDL_Texture* questUiTexture;
 
 	// Basic Tutorials

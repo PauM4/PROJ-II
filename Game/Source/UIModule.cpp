@@ -18,6 +18,8 @@
 #include "Npc.h"
 #include <iostream>
 
+#include "SDL_mixer/include/SDL_mixer.h"
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -69,6 +71,10 @@ bool UIModule::Start()
 	uint w, h;
 	app->win->GetWindowSize(w, h);
 
+	optionsBgTexture = app->tex->Load("Assets/UI/options_background.png");
+	checkboxTexture = app->tex->Load("Assets/UI/checkbox.png");
+	sliderTexture = app->tex->Load("Assets/UI/sliderbar.png");
+
 	textureA = app->tex->Load("Assets/UI/UI_Spritesheet_FINAL.png");
 	playButtonTexture = app->tex->Load("Assets/UI/playButton.png");
 	optionsButtonTexture = app->tex->Load("Assets/UI/optionsButton.png");
@@ -77,9 +83,9 @@ bool UIModule::Start()
 	newgameButtonsTexture = app->tex->Load("Assets/UI/newgameButtons.png");
 	continueButtonsTexture = app->tex->Load("Assets/UI/continueButtons.png");
 	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
+	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 
-	//sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, textureA, "", { 100, 100, 100, 100 }, this);
-	//sliderTest->state = GuiControlState::NORMAL;
+	
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
 	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, optionsButtonTexture,"", { 690, 640, 540, 136 }, this);
@@ -87,7 +93,7 @@ bool UIModule::Start()
 	mainmenu_quit_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, quitButtonTexture,"", { 860, 900, 195, 90 }, this);
 	mainmenu_newGame_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, newgameButtonsTexture,"", { 800, 640, 340, 89 }, this);
 	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, continueButtonsTexture, "", { 800, 740, 340, 89 }, this);
-	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, returnButtonTexture,"", { 800, 925, 340,89 }, this);
+	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, returnButtonTexture,"", { 800, 950, 340,89 }, this);
 
 	pausemenu_resume_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, textureA, "Resume", { 1620, 80, 120,30 }, this);
 	pausemenu_inventory_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, textureA, "Inventory", { 1620, 115, 120,30 }, this);
@@ -95,14 +101,14 @@ bool UIModule::Start()
 	pausemenu_save_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, textureA, "Save", { 1620, 185, 120,30 }, this);
 	pausemenu_load_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, textureA, "Load", { 1620, 220, 120,30 }, this);
 	pausemenu_options_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, textureA, "Options", { 1620, 255, 120,30 }, this);
-	pausemenu_return_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, textureA, "Return", { 1620, 80, 120,30 }, this);
+	pausemenu_return_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, returnButtonTexture, "", { 800, 950, 340,89 }, this);
 	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, textureA, "Main Menu", { 1620, 290, 120,30 }, this);
 	pausemenu_quit_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, textureA, "Quit", { 1620, 325, 120, 30 }, this);
 
 	pausemenuCombat_resume_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, textureA, "Resume", { 1620, 80, 120,30 }, this);
 	pausemenuCombat_options_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, textureA, "Options", { 1620, 115, 120,30 }, this);
 	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, textureA, "Main Menu", { 1620, 150, 120,30 }, this);
-	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, textureA, "Return", { 1620, 80, 120,30 }, this);
+	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, returnButtonTexture, "", { 800, 950, 340,89 }, this);
 	pausemenuCombat_quit_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, textureA, "Quit", { 1620, 255, 120, 30 }, this);
 
 	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, textureA, "Attack", { 100, 780, 100, 30 }, app->battleManager);
@@ -153,6 +159,16 @@ bool UIModule::Start()
 	item_10_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 87, NULL, "+", { 960, 800, 100, 30 }, this);
 	item_11_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 88, NULL, "+", { 960, 850, 100, 30 }, this);
 	item_12_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 89, NULL, "+	", { 960, 900, 100, 30 }, this);
+
+	musicSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, sliderTexture, "", { 1659, 383, 60, 176}, this);
+	musicSlider->state = GuiControlState::NONE;
+	fxSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1235, sliderTexture, "", { 1659, 592, 60, 176 }, this);
+	fxSlider->state = GuiControlState::NONE;
+
+	fullScreenCheckBox = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 4321, checkboxTexture, "", { 678, 408, 162, 131}, this);
+	fullScreenCheckBox->state = GuiControlState::NONE;
+	vsyncCheckBox = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, 4322, checkboxTexture, "", { 678, 617, 162, 131 }, this);
+	vsyncCheckBox->state = GuiControlState::NONE;
 
 	AddButtonsToList();
 
@@ -209,6 +225,11 @@ void UIModule::DisableButtonsToNone()
 		button->state = GuiControlState::NONE;
 
 	}
+
+	musicSlider->state = GuiControlState::NONE;
+	fxSlider->state = GuiControlState::NONE;
+	fullScreenCheckBox->state = GuiControlState::NONE;
+	vsyncCheckBox->state = GuiControlState::NONE;
 }
 
 // Called each loop iteration
@@ -220,6 +241,33 @@ bool UIModule::PreUpdate()
 // Called each loop iteration
 bool UIModule::Update(float dt)
 {
+
+	// OPTIONS MENU LOGIC
+	if (fullScreenCheckBox->crossed)
+	{
+		SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		SDL_RenderSetLogicalSize(app->render->renderer, 1920, 1080);
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(app->win->window, 0);
+	}
+
+	if (vsyncCheckBox->crossed) {
+
+		SDL_GL_SetSwapInterval(1);
+	}
+	else 
+	{
+		SDL_GL_SetSwapInterval(0);
+	}
+
+	Mix_VolumeMusic((musicSlider->bounds.x - 1258) * (128 - 0) / (1659 - 1258) + 0);
+
+	for (int i = 0; i < app->audio->fx.Count(); i++) {
+
+		Mix_VolumeChunk(app->audio->fx.At(i)->data, (fxSlider->bounds.x - 1258) * (128 - 0) / (1659 - 1258) + 0);
+	}
 
 	// If Quit button is pressed in Main Menu or Pause, close app
 	if (quitButtonBool)
@@ -351,10 +399,37 @@ bool UIModule::PostUpdate()
 		}
 	}
 
+	if (currentMenuType == OPTIONS_GAME || currentMenuType == OPTIONS_MAIN || currentMenuType == OPTIONS_COMBAT)
+	{
+		app->render->DrawTexture(optionsBgTexture, -app->render->camera.x, -app->render->camera.y, NULL);
+	}
+
 	app->guiManager->Draw();
 
 	// SCENE 1 UI
 	if (app->scene->active) {
+
+
+		// CHESTS UI to draw over the player and the map
+		if (app->scene->player->playerState == app->scene->player->ITEM_INTERACT)
+		{
+			if (app->scene->player->isChest1Pickable)
+			{
+				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->ironchestRect);
+				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
+			}
+			if (app->scene->player->isChest2Pickable)
+			{
+				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->revhatRect);
+				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
+			}
+			if (app->scene->player->isChest3Pickable)
+			{
+				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->denturesRect);
+				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
+			}
+		}
+
 		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT && currentMenuType != ROPE_MINIGAME)
 		{
 			PrintDialogue(app->scene->GetDialogue());
@@ -365,22 +440,7 @@ bool UIModule::PostUpdate()
 				app->scene->player->dialogueActivate = false;
 			}
 
-			// Tutorial Battle draw
-			if (app->scene->battleTutorialCounter == 0 && app->scene->isTalkingToAngry)
-			{
-				SDL_Rect rect = { 0, 0, 1920, 1080 };
-				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
-			}
-			else if (app->scene->battleTutorialCounter == 1 && app->scene->isTalkingToAngry)
-			{
-				SDL_Rect rect = { 1920, 0, 1920, 1080 };
-				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
-			}
-			else if (app->scene->battleTutorialCounter == 2 && app->scene->isTalkingToAngry)
-			{
-				SDL_Rect rect = { 3840, 0, 1920, 1080 };
-				app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
-			}
+		
 		}
 
 
@@ -422,6 +482,27 @@ bool UIModule::PostUpdate()
 
 	// SCENE 2 UI
 	if (app->w2_scene->active) {
+
+		// CHESTS UI to draw over the player and the map
+		if (app->w2_scene->player->playerState == app->w2_scene->player->ITEM_INTERACT)
+		{
+			if (app->w2_scene->player->isChest4Pickable)
+			{
+				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->ironchestRect);
+				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
+			}
+			if (app->w2_scene->player->isChest5Pickable)
+			{
+				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->susjarRect);
+				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
+			}
+			if (app->w2_scene->player->isChest6Pickable)
+			{
+				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->denturesRect);
+				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
+			}
+		}
+
 		if (app->w2_scene->player->playerState == app->w2_scene->player->PlayerState::NPC_INTERACT)
 		{
 			PrintDialogue2(app->w2_scene->GetDialogue());
@@ -444,56 +525,126 @@ bool UIModule::PostUpdate()
 
 	}
 
+	if (app->sceneBattle->active) {
 
+		if (app->scene->battleTutorialCounter == 0)
+		{
+			SDL_Rect rect = { 0, 0, 1920, 1080 };
+			app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+		}
+		else if (app->scene->battleTutorialCounter == 1)
+		{
+			SDL_Rect rect = { 1920, 0, 1920, 1080 };
+			app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+		}
+		else if (app->scene->battleTutorialCounter == 2)
+		{
+			SDL_Rect rect = { 3840, 0, 1920, 1080 };
+			app->render->DrawTexture(app->scene->battleTutoTexture, -app->render->camera.x, -app->render->camera.y, &rect);
+		}
+
+	}
 	return ret;
 }
 
 void UIModule::PrintItemImages(int i)
 {
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+	if (app->scene->active)
 	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+		}
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+
+	if (app->w2_scene->active)
 	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+		}
 	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
-	}
-	if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
-	{
-		app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
-	}
+	
 }
 
 void UIModule::PrintItemName()
@@ -702,7 +853,7 @@ bool UIModule::CleanUp()
 	app->guiManager->guiControlsList.Clear();
 	buttonsList.Clear();
 
-
+	app->tex->UnLoad(optionsBgTexture);
 	app->tex->UnLoad(textureA);
 	app->tex->UnLoad(playButtonTexture);
 	app->tex->UnLoad(optionsButtonTexture);
@@ -711,6 +862,8 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(newgameButtonsTexture);
 	app->tex->UnLoad(continueButtonsTexture);
 	app->tex->UnLoad(returnButtonTexture);
+	app->tex->UnLoad(checkboxTexture);
+	app->tex->UnLoad(uiSpriteTexture);
 
 	return true;
 }
@@ -737,14 +890,10 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// When options pressed, go to options (image with settings)
 	case 2:
-		mainmenu_return_button->state = GuiControlState::NORMAL;
-
-		mainmenu_play_button->state = GuiControlState::NONE;
-		mainmenu_credits_button->state = GuiControlState::NONE;
-		mainmenu_options_button->state = GuiControlState::NONE;
-		mainmenu_quit_button->state = GuiControlState::NONE;
-		mainmenu_continueGame_button->state = GuiControlState::NONE;
-		mainmenu_newGame_button->state = GuiControlState::NONE;
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = OPTIONS_MAIN;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 		break;
 
@@ -789,13 +938,23 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		mainmenu_continueGame_button->state = GuiControlState::NONE;
 		mainmenu_newGame_button->state = GuiControlState::NONE;
 		mainmenu_return_button->state = GuiControlState::NONE;
+		musicSlider->state = GuiControlState::NONE;
+		fullScreenCheckBox->state = GuiControlState::NONE;
+		fullScreenCheckBox->state = GuiControlState::NONE;
+		vsyncCheckBox->state = GuiControlState::NONE;
 
 		mainmenu_play_button->state = GuiControlState::NORMAL;
 		mainmenu_credits_button->state = GuiControlState::NORMAL;
 		mainmenu_options_button->state = GuiControlState::NORMAL;
 		mainmenu_quit_button->state = GuiControlState::NORMAL;
 
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = MAIN;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 		app->sceneMainMenu->creditsOpen = false;
+		/*app->sceneMainMenu->settingsOpen = false;*/
 		break;
 	}
 
@@ -828,16 +987,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// When options pressed, go to options (image with settings)
 	case 9:
-		pausemenu_return_button->state = GuiControlState::NORMAL;
 
-		pausemenu_resume_button->state = GuiControlState::NONE;
-		pausemenu_save_button->state = GuiControlState::NONE;
-		pausemenu_options_button->state = GuiControlState::NONE;
-		pausemenu_load_button->state = GuiControlState::NONE;
-		pausemenu_backtomain_button->state = GuiControlState::NONE;
-		pausemenu_quit_button->state = GuiControlState::NONE;
-		pausemenu_inventory_button->state = GuiControlState::NONE;
-		pausemenu_party_button->state = GuiControlState::NONE;
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = OPTIONS_GAME;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 		break;
 		// Return pressed --> return from options or Inventory or Party to pause menu
@@ -868,6 +1022,21 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			lpigItem = false;
 			mpigItem = false;
 		}
+		else
+		{
+			musicSlider->state = GuiControlState::NONE;
+			fxSlider->state = GuiControlState::NONE;
+			fullScreenCheckBox->state = GuiControlState::NONE;
+			vsyncCheckBox->state = GuiControlState::NONE;
+
+			DisableButtonsToNone();
+
+			// Tell to UIModule which currentMenuType
+			app->uiModule->currentMenuType = PAUSE;
+			// Call this function only when buttons change
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+		}
+
 
 		break;
 		//Back to Main Menu
@@ -929,6 +1098,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	case 101:
 		pausemenuCombat_return_button->state = GuiControlState::NORMAL;
 
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = OPTIONS_COMBAT;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 		pausemenuCombat_backtomain_button->state = GuiControlState::NONE;
 		pausemenuCombat_resume_button->state = GuiControlState::NONE;
 		pausemenuCombat_options_button->state = GuiControlState::NONE;
@@ -941,6 +1115,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		pausemenuCombat_options_button->state = GuiControlState::NORMAL;
 		pausemenuCombat_quit_button->state = GuiControlState::NORMAL;
 		pausemenuCombat_backtomain_button->state = GuiControlState::NORMAL;
+
+		// Tell to UIModule which currentMenuType
+		app->uiModule->currentMenuType = COMBAT_PAUSE;
+		// Call this function only when buttons change
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 		pausemenuCombat_return_button->state = GuiControlState::NONE;
 		break;
@@ -1468,6 +1647,38 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		pausemenu_party_button->state = GuiControlState::NORMAL;
 
 		break;
+	case OPTIONS_GAME:
+		DisableButtonsToNone();
+		pausemenu_return_button->state = GuiControlState::NORMAL;
+
+		musicSlider->state = GuiControlState::NORMAL;
+		fxSlider->state = GuiControlState::NORMAL;
+		fullScreenCheckBox->state = GuiControlState::NORMAL;
+		vsyncCheckBox->state = GuiControlState::NORMAL;
+		break;
+
+	case OPTIONS_MAIN:
+		DisableButtonsToNone();
+
+		mainmenu_return_button->state = GuiControlState::NORMAL;
+		musicSlider->state = GuiControlState::NORMAL;
+		fxSlider->state = GuiControlState::NORMAL;
+		fullScreenCheckBox->state = GuiControlState::NORMAL;
+		vsyncCheckBox->state = GuiControlState::NORMAL;
+
+		break;
+	case OPTIONS_COMBAT:
+
+		DisableButtonsToNone();
+		pausemenuCombat_return_button->state = GuiControlState::NORMAL;
+
+		musicSlider->state = GuiControlState::NORMAL;
+		fxSlider->state = GuiControlState::NORMAL;
+		fullScreenCheckBox->state = GuiControlState::NORMAL;
+		vsyncCheckBox->state = GuiControlState::NORMAL;
+
+		break;
+
 	case INVENTORY:
 
 		DisableButtonsToNone();
@@ -1650,7 +1861,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 	// Draw dialogue text image
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
-	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
 	//---------------------
 	// Dialogue text block
@@ -1700,7 +1911,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
@@ -1714,7 +1925,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 2))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
@@ -1728,7 +1939,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 3))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
@@ -1742,7 +1953,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 4))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
@@ -1790,7 +2001,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 
 	// Draw dialogue text image
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
-	app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
 	//---------------------
 	// Dialogue text block
@@ -1840,7 +2051,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
@@ -1854,7 +2065,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 2))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
@@ -1868,7 +2079,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 3))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
@@ -1882,7 +2093,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 4))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);

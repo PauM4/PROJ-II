@@ -3,6 +3,7 @@
 #include "App.h"
 #include "Audio.h"
 #include "Window.h"
+#include "GuiManager.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, SDL_Texture* tex, const char* text) : GuiControl(GuiControlType::SLIDER, id)
@@ -60,7 +61,7 @@ bool GuiSlider::Update(float dt)
 
 				if (posx >= 0 && posx + bounds.w <= app->win->width) {
 
-					if (bounds.x >= 631 && bounds.x <= 753) {
+					if (bounds.x >= 1258 && bounds.x <= 1659) {
 
 						bounds.x = x0 - bounds.w / 2;
 						posx = x0 - bounds.w / 2;
@@ -68,16 +69,16 @@ bool GuiSlider::Update(float dt)
 					}
 					else {
 
-						if (bounds.x > 753) {
+						if (bounds.x > 1659) {
 
-							bounds.x = 753;
-							posx = 753;
+							bounds.x = 1659;
+							posx = 1659;
 
 						}
 						else {
 
-							bounds.x = 631;
-							posx = 631;
+							bounds.x = 1258;
+							posx = 1258;
 
 						}
 
@@ -126,9 +127,15 @@ bool GuiSlider::Draw(Render* render)
 	case GuiControlState::NORMAL:
 
 		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
+		hoverOnce = false;
 
 		break;
 	case GuiControlState::FOCUSED:
+
+		if (!hoverOnce) {
+			app->audio->PlayFx(app->guiManager->hoverFxId);
+			hoverOnce = true;
+		}
 
 		rect.y = bounds.h;
 		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);

@@ -46,7 +46,7 @@ bool W2_Scene_Maze::Awake(pugi::xml_node& config)
 
 	app->entityManager->Awake(config);
 
-	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
+	//uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 
 	fog = app->tex->Load("Assets/Maps/World_02/Assets/fog.png");
 
@@ -217,7 +217,6 @@ bool W2_Scene_Maze::CleanUp()
 	app->entityManager->CleanUp(); 
 	app->physics->Disable();
 
-	app->tex->UnLoad(uiSpriteTexture);
 	
 
 	return true;
