@@ -103,7 +103,6 @@ public:
 	bool takePortal, firstKeyPicked, secondKeyPicked, enteredThirdHouse;
 
 	SDL_Texture* npcPopUpTexture;
-	SDL_Texture* uiSpriteTexture;
 	SDL_Texture* questUiTexture;
 	SDL_Texture* lvlupTexture;
 	SDL_Texture* eKeyTexture;

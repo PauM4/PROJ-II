@@ -83,6 +83,7 @@ bool UIModule::Start()
 	newgameButtonsTexture = app->tex->Load("Assets/UI/newgameButtons.png");
 	continueButtonsTexture = app->tex->Load("Assets/UI/continueButtons.png");
 	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
+	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 
 	
 
@@ -862,6 +863,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(continueButtonsTexture);
 	app->tex->UnLoad(returnButtonTexture);
 	app->tex->UnLoad(checkboxTexture);
+	app->tex->UnLoad(uiSpriteTexture);
 
 	return true;
 }
@@ -1859,7 +1861,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 	// Draw dialogue text image
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
-	app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
 	//---------------------
 	// Dialogue text block
@@ -1909,7 +1911,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
@@ -1923,7 +1925,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 2))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
@@ -1937,7 +1939,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 3))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
@@ -1951,7 +1953,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 4))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
@@ -1999,7 +2001,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 
 	// Draw dialogue text image
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
-	app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
 	//---------------------
 	// Dialogue text block
@@ -2049,7 +2051,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
@@ -2063,7 +2065,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 2))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
@@ -2077,7 +2079,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 3))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
@@ -2091,7 +2093,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 4))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(app->w2_scene->uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);

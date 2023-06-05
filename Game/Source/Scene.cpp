@@ -109,7 +109,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	CreateDialogue(); //3MB
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
-	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	ropeTexture = app->tex->Load("Assets/UI/ropeImage.png");
 	pressKeyTexture = app->tex->Load("Assets/UI/pressEanimation.png");
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
@@ -535,7 +534,6 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 
 	app->tex->UnLoad(npcPopUpTexture);
-	app->tex->UnLoad(uiSpriteTexture);
 	app->tex->UnLoad(ropeTexture);
 	app->tex->UnLoad(pressKeyTexture);
 	app->tex->UnLoad(questUiTexture);

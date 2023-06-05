@@ -107,7 +107,6 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	chest6Col->ctype = ColliderType::UNKNOWN;
 
 	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters2_popupsDialogueCut.png");
-	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
@@ -473,7 +472,6 @@ bool W2_Scene::CleanUp()
 	app->physics->Disable();
 	
 	app->tex->UnLoad(npcPopUpTexture);
-	app->tex->UnLoad(uiSpriteTexture);
 	app->tex->UnLoad(questUiTexture);
 	app->tex->UnLoad(lvlupTexture);
 	app->tex->UnLoad(inventoryScrollTexture);

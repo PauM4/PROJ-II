@@ -46,8 +46,6 @@ bool W2_Scene_Maze::Awake(pugi::xml_node& config)
 
 	app->entityManager->Awake(config);
 
-	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
-
 	return ret;
 }
 
@@ -213,7 +211,6 @@ bool W2_Scene_Maze::CleanUp()
 	app->entityManager->CleanUp(); 
 	app->physics->Disable();
 
-	app->tex->UnLoad(uiSpriteTexture);
 	
 
 	return true;
