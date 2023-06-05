@@ -192,6 +192,7 @@ public:
 	SDL_Texture* newgameButtonsTexture;
 	SDL_Texture* continueButtonsTexture;
 	SDL_Texture* returnButtonTexture;
+	SDL_Texture* eKeyTexture;
 
 	bool timmyItem;
 	bool bunnyItem;
@@ -235,7 +236,6 @@ public:
 	SDL_Rect talismanRect;
 	SDL_Rect susjarRect;
 	SDL_Rect denturesRect;
-
 private:
 
 };

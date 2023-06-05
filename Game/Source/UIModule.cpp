@@ -77,6 +77,7 @@ bool UIModule::Start()
 	newgameButtonsTexture = app->tex->Load("Assets/UI/newgameButtons.png");
 	continueButtonsTexture = app->tex->Load("Assets/UI/continueButtons.png");
 	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
+	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
 
 	sliderTest = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, textureA, "", { 100, 100, 100, 100 }, this);
 	sliderTest->state = GuiControlState::NORMAL;
@@ -1647,6 +1648,10 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	// Dialogue text block
 	SDL_Rect rect = { 0 , 0, 800, 400 };
 
+	// Print E Key
+	SDL_Rect rectKey = { 0,0,80,80 };
+	app->render->DrawTexture(eKeyTexture, -app->render->camera.x + 1700, -app->render->camera.y + 700, &rectKey);
+
 
 	//Comprobar si el cronómetro para que se printe la siguiente letra ya ha llegado a su fin
 	//15 letras por segundo. A 60 frames/segundo -> 1 letra cada 0.25s;
@@ -1786,6 +1791,10 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	//---------------------
 	// Dialogue text block
 	SDL_Rect rect = { 0 , 0, 800, 400 };
+
+	// Print E Key
+	SDL_Rect rectKey = { 0,0,80,80 };
+	app->render->DrawTexture(eKeyTexture, -app->render->camera.x + 1700, -app->render->camera.y + 700, &rectKey);
 
 
 	//Comprobar si el cronómetro para que se printe la siguiente letra ya ha llegado a su fin
