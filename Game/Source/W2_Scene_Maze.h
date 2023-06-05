@@ -71,6 +71,8 @@ public:
 
 	SDL_Texture* uiSpriteTexture;
 
+	SDL_Texture* fog;
+
 	Portal* portal;
 
 private:

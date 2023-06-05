@@ -48,6 +48,8 @@ bool W2_Scene_Maze::Awake(pugi::xml_node& config)
 
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 
+	fog = app->tex->Load("Assets/Maps/World_02/Assets/fog.png");
+
 	return ret;
 }
 
@@ -172,7 +174,9 @@ bool W2_Scene_Maze::PostUpdate()
 		return false;
 	}
 
-	
+	if (!godMode) {
+		app->render->DrawTexture(fog, player->position.x - 1920, player->position.y - 1080);
+	}
 
 	return ret;
 }
