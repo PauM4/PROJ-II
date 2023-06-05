@@ -119,7 +119,7 @@ bool SceneBattle::Update(float dt) {
 
 	if (app->scene->battleTutorialCounter < 3)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		{
 			app->scene->battleTutorialCounter++;
 		}
