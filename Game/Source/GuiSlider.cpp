@@ -3,6 +3,7 @@
 #include "App.h"
 #include "Audio.h"
 #include "Window.h"
+#include "GuiManager.h"
 #include "SDL_mixer/include/SDL_mixer.h"
 
 GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, SDL_Texture* tex, const char* text) : GuiControl(GuiControlType::SLIDER, id)
@@ -126,9 +127,15 @@ bool GuiSlider::Draw(Render* render)
 	case GuiControlState::NORMAL:
 
 		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
+		hoverOnce = false;
 
 		break;
 	case GuiControlState::FOCUSED:
+
+		if (!hoverOnce) {
+			app->audio->PlayFx(app->guiManager->hoverFxId);
+			hoverOnce = true;
+		}
 
 		rect.y = bounds.h;
 		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);

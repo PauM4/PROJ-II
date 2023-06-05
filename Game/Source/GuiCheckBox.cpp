@@ -4,6 +4,7 @@
 #include "Audio.h"
 #include "Log.h"
 #include "Fonts.h"
+#include "GuiManager.h"
 
 GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds, SDL_Texture* tex, const char* text) : GuiControl(GuiControlType::CHECKBOX, id)
 {
@@ -88,6 +89,8 @@ bool GuiCheckBox::Draw(Render* render)
 
 		//render->DrawRectangle(bounds, 0, 0, 255, 255, true, false);
 		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
+		hoverOnce = false;
+		pressedOnce = false;
 
 		break;
 	case GuiControlState::FOCUSED:
@@ -95,11 +98,22 @@ bool GuiCheckBox::Draw(Render* render)
 		rect.y = bounds.h;
 		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
 
+		if (!hoverOnce) {
+			app->audio->PlayFx(app->guiManager->hoverFxId);
+			hoverOnce = true;
+		}
+		
+
 		break;
 	case GuiControlState::PRESSED:
 
 		rect.y = bounds.h * 2;
 		app->render->DrawTexture(tex, -app->render->camera.x + bounds.x, -app->render->camera.y + bounds.y, &rect);
+
+		if (!pressedOnce) {
+			app->audio->PlayFx(app->guiManager->pressedFxId);
+			pressedOnce = true;
+		}
 		break;
 	}
 
