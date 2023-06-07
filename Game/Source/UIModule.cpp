@@ -85,7 +85,10 @@ bool UIModule::Start()
 	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
 	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
-	battleButtonTexture = app->tex->Load("Assets/UI/battleButtonTexture.png");
+	attackButtonTexture = app->tex->Load("Assets/UI/attackbattleButton.png");
+	abilityButtonTexture = app->tex->Load("Assets/UI/abilitybattleButton.png");
+	moveButtonTexture = app->tex->Load("Assets/UI/movebattleButton.png");
+	skipButtonTexture = app->tex->Load("Assets/UI/skipbattleButton.png");
 	
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
@@ -112,10 +115,10 @@ bool UIModule::Start()
 	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, returnButtonTexture, "", { 800, 950, 340,89 }, this);
 	pausemenuCombat_quit_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, textureA, "Quit", { 1620, 255, 120, 30 }, this);
 
-	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, battleButtonTexture, "Attack", { 100, 780, 100, 30 }, app->battleManager);
-	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, battleButtonTexture, "Ability", { 100, 815, 100, 30 }, app->battleManager);
-	combat_move_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, battleButtonTexture, "Move", { 100, 850, 100, 30 }, app->battleManager);
-	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, battleButtonTexture, "End Turn", { 100, 885, 100, 30 }, app->battleManager);
+	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, attackButtonTexture, "", { 300, 950, 246, 93 }, app->battleManager);
+	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, abilityButtonTexture, "",{ 595, 950, 246, 93 }, app->battleManager);
+	combat_move_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, moveButtonTexture, "",{ 879, 950, 246, 93 }, app->battleManager);
+	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, skipButtonTexture, "", { 57, 960, 196, 84 }, app->battleManager);
 
 	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, textureA, "", { 100, 900, 800, 30 }, app->scene);
 	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, textureA, "", { 100, 950, 800, 30 }, app->scene);
