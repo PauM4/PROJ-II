@@ -204,6 +204,7 @@ public:
 	SDL_Texture* continueButtonsTexture;
 	SDL_Texture* returnButtonTexture;
 	SDL_Texture* eKeyTexture;
+	SDL_Texture* battleButtonTexture;
 
 	SDL_Texture* pauseButtonsTexture;
 

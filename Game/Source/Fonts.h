@@ -2,6 +2,7 @@
 #define __MODULE_FONTS_H__
 
 #include "Module.h"
+#include "Fonts.h"
 #include "SDL\include\SDL_pixels.h"
 
 #define MAX_FONTS 6
@@ -45,6 +46,7 @@ public:
 	int gameFont;
 	int gameFontNotThatBig;
 	int gameFontBig;
+	int battleFont;
 
 private:
 

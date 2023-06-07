@@ -11,14 +11,9 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="1857" y="5608" />
+		<player />
 		<rope_minigame rope_minigame_state="false" />
-		<chests>
-			<chest1 isPicked="false" />
-			<chest2 isPicked="false" />
-			<chest3 isPicked="false" />
-		</chests>
-		<saveBattleTutoState state="3" />
+		<saveBattleTutoState state="0" />
 		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
