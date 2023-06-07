@@ -56,6 +56,10 @@ public:
 
 	ColliderType GetPlayerLastCollision() { return player->lastCollision; }
 
+	void drawQuest(int posX, int posY);
+	void nextQuest();
+
+
 private:
 
 	void Camera();
@@ -71,6 +75,12 @@ public:
 	NpcW3* npc;
 	List<Door*> doors;
 
+	// A list of quests
+	std::vector<Quest> questList;
+	const char* questText;
+
+	// The index of the current quest
+	int currentQuestIndex;
 
 	// Load things
 	int loadPlayerPosX;
@@ -80,6 +90,12 @@ public:
 	bool isNewGame;
 
 	SDL_Texture* npcPopUpTexture;
+	SDL_Texture* inventoryItemsTexture;
+	SDL_Texture* eKeyTexture;
+	SDL_Texture* questUiTexture;
+	SDL_Texture* textDialogue;
+	SDL_Texture* inventoryScrollTexture;
+	SDL_Texture* lvlupTexture;
 
 	bool pedroDefeated, wolfDefeated;
 	int numTimesPedroDialogueTriggered, numTimesWolfDialogueTriggered;

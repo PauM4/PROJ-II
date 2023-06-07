@@ -21,6 +21,7 @@ enum CurrentMenuType
 	COMBAT_PAUSE,
 	DIALOG,
 	DIALOG2,
+	DIALOG3,
 	COMBAT,
 	ROPE_MINIGAME,
 	DISABLED,
@@ -89,6 +90,7 @@ public:
 
 	void PrintDialogue(std::vector<std::string> dialogue);
 	void PrintDialogue2(std::vector<std::string> dialogue);
+	void PrintDialogue3(std::vector<std::string> dialogue);
 
 	void CleaningDialogeOverTime();
 
@@ -147,6 +149,11 @@ public:
 	GuiButton* dialog2_option2_button;
 	GuiButton* dialog2_option3_button;
 	GuiButton* dialog2_option4_button;
+
+	GuiButton* dialog3_option1_button;
+	GuiButton* dialog3_option2_button;
+	GuiButton* dialog3_option3_button;
+	GuiButton* dialog3_option4_button;
 
 	GuiButton* levelup_defenseUp_button;
 	GuiButton* levelup_magicUp_button;

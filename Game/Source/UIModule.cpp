@@ -14,6 +14,7 @@
 #include "Scene.h"
 #include "W2_Scene.h"
 #include "W2_Scene_Maze.h"
+#include "W3_Scene.h"
 #include "Player.h"
 #include "Npc.h"
 #include <iostream>
@@ -133,6 +134,11 @@ bool UIModule::Start()
 	dialog2_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 31, textureA, "", { 100, 950, 800, 30 }, app->w2_scene);
 	dialog2_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 32, textureA, "", { 1000, 900, 800, 30 }, app->w2_scene);
 	dialog2_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 33, textureA, "", { 1000, 950, 800, 30 }, app->w2_scene);
+
+	dialog3_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 34, textureA, "", { 100, 900, 800, 30 }, app->w3_scene);
+	dialog3_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 35, textureA, "", { 100, 950, 800, 30 }, app->w3_scene);
+	dialog3_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 36, textureA, "", { 1000, 900, 800, 30 }, app->w3_scene);
+	dialog3_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 37, textureA, "", { 1000, 950, 800, 30 }, app->w3_scene);
 
 	levelup_defenseUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, plusButton, "", { 900, 400, 96, 73}, this);
 	levelup_magicUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, plusButton, "", { 900, 480, 96, 73 }, this);
@@ -333,6 +339,11 @@ bool UIModule::PostUpdate()
 		{
 			app->render->DrawTexture(app->w2_scene->inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
+		if (app->w3_scene->active)
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
+		}
+
 		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 
 		if (timmyItem)
@@ -400,6 +411,10 @@ bool UIModule::PostUpdate()
 		if (app->w2_scene->active)
 		{
 			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+		}
+		if (app->w3_scene->active)
+		{
+			app->render->DrawTexture(app->w3_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 		}
 		app->fonts->DrawText("PARTY", 800, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 
@@ -557,6 +572,51 @@ bool UIModule::PostUpdate()
 
 	}
 
+	// SCENE 3 UI
+	if (app->w3_scene->active) {
+
+		// CHESTS UI to draw over the player and the map
+		if (app->w3_scene->player->playerState == app->w3_scene->player->ITEM_INTERACT)
+		{
+			//if (app->w3_scene->player->isChest4Pickable)
+			//{
+			//	app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, app->w3_scene->player->position.x - 70, app->w3_scene->player->position.y - 220, &app->uiModule->ironchestRect);
+			//	app->render->DrawTexture(app->w3_scene->eKeyTexture, app->w3_scene->player->position.x + 60, app->w3_scene->player->position.y - 60, NULL);
+			//}
+			//if (app->w3_scene->player->isChest5Pickable)
+			//{
+			//	app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, app->w3_scene->player->position.x - 70, app->w3_scene->player->position.y - 220, &app->uiModule->susjarRect);
+			//	app->render->DrawTexture(app->w3_scene->eKeyTexture, app->w3_scene->player->position.x + 60, app->w3_scene->player->position.y - 60, NULL);
+			//}
+			//if (app->w3_scene->player->isChest6Pickable)
+			//{
+			//	app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, app->w3_scene->player->position.x - 70, app->w3_scene->player->position.y - 220, &app->uiModule->denturesRect);
+			//	app->render->DrawTexture(app->w3_scene->eKeyTexture, app->w3_scene->player->position.x + 60, app->w3_scene->player->position.y - 60, NULL);
+			//}
+		}
+
+		if (app->w3_scene->player->playerState == app->w3_scene->player->PlayerState::NPC_INTERACT)
+		{
+			PrintDialogue3(app->w3_scene->GetDialogue());
+			if (app->w3_scene->player->dialogueActivate)
+			{
+				app->w3_scene->AppearDialogue();
+
+				app->w3_scene->player->dialogueActivate = false;
+			}
+		}
+
+		// print UI that is on top of the w3_scene SCREEN here
+
+		// UI Quest
+		if (app->w3_scene->player->playerState == app->w3_scene->player->PlayerState::MOVING && !app->teamManager->lvlupbool)
+		{
+			app->render->DrawTexture(app->w3_scene->questUiTexture, -app->render->camera.x + 30, -app->render->camera.y + 30, NULL);
+			app->w3_scene->drawQuest(-app->render->camera.x + 120, -app->render->camera.y + 120);
+		}
+
+	}
+
 	if (app->sceneBattle->active) {
 
 		if (app->scene->battleTutorialCounter == 0)
@@ -675,6 +735,54 @@ void UIModule::PrintItemImages(int i)
 		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
 		{
 			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+		}
+	}
+
+	if (app->w3_scene->active)
+	{
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Yo-Yo")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &yoyoRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bunny Hand")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bunnyHandRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Bow")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &bowRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Knife")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &knifeRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Club")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &clubRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Shotgun")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &shotgunRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Iron Chestplate")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &ironchestRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Reverse Hat")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &revhatRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Talisman")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &talismanRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Sus-Jar")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &susjarRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
 		}
 	}
 	
@@ -1217,6 +1325,27 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// Option 4
 	case 33:
+		std::cout << "a" << std::endl;
+		break;
+	}
+
+	// Dialog3 Options Switch
+	switch (control->id)
+	{
+		// Option 1
+	case 34:
+		std::cout << "a" << std::endl;
+		break;
+		// Option 2
+	case 35:
+		std::cout << "a" << std::endl;
+		break;
+		// Option 3
+	case 36:
+		std::cout << "a" << std::endl;
+		break;
+		// Option 4
+	case 37:
 		std::cout << "a" << std::endl;
 		break;
 	}
@@ -1793,6 +1922,17 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		dialog2_option4_button->state = GuiControlState::NORMAL;
 
 		break;
+
+	case DIALOG3:
+
+		DisableButtonsToNone();
+		// Enable all dialog3 buttons
+		dialog3_option1_button->state = GuiControlState::NORMAL;
+		dialog3_option2_button->state = GuiControlState::NORMAL;
+		dialog3_option3_button->state = GuiControlState::NORMAL;
+		dialog3_option4_button->state = GuiControlState::NORMAL;
+
+		break;
 	case COMBAT:
 
 		DisableButtonsToNone();
@@ -2011,7 +2151,6 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 }
 
-
 void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 {
 	int posX, posY;
@@ -2077,6 +2216,144 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 
 	//Printar el textDialogue
 	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1700);
+	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);
+
+	//Printar el textDialogue -  //COMENTADO DE MOMENTO PARA HACER PRUEBAS
+	/*SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 0,0,0 }, 1700);
+	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);*/
+
+	//--------------------
+
+	// Change options buttons text
+	SDL_Rect rectO1 = { 0, 0, 800, 30 };
+	SDL_Rect rectO2 = { 0, 0, 800, 30 };
+	SDL_Rect rectO3 = { 0, 0, 800, 30 };
+	SDL_Rect rectO4 = { 0, 0, 800, 30 };
+
+	SDL_Rect optionRect = { 18, 238, 939, 69 };
+
+	// Check if there's dialogue available
+	if (!(dialogue.size() <= 1))
+	{
+		// Draw options text iamge
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+
+		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
+		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
+		SDL_DestroyTexture(textOption1);
+	}
+	else
+	{
+		dialog2_option1_button->state = GuiControlState::NONE;
+	}
+
+	if (!(dialogue.size() <= 2))
+	{
+		// Draw options text iamge
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+
+		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
+		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
+		SDL_DestroyTexture(textOption2);
+	}
+	else
+	{
+		dialog2_option2_button->state = GuiControlState::NONE;
+	}
+
+	if (!(dialogue.size() <= 3))
+	{
+		// Draw options text iamge
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+
+		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
+		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
+		SDL_DestroyTexture(textOption3);
+	}
+	else
+	{
+		dialog2_option3_button->state = GuiControlState::NONE;
+	}
+
+	if (!(dialogue.size() <= 4))
+	{
+		// Draw options text iamge
+		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+
+		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
+		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
+		SDL_DestroyTexture(textOption4);
+	}
+	else
+	{
+		dialog2_option4_button->state = GuiControlState::NONE;
+	}
+
+
+	SDL_DestroyTexture(textDialogue);
+
+}
+
+void UIModule::PrintDialogue3(std::vector<std::string> dialogue)
+{
+	int posX, posY;
+	if (app->w3_scene->active)
+	{
+		posX = app->w3_scene->player->position.x;
+		posY = app->w3_scene->player->position.y;
+	}
+
+
+	// Draw NPC Popup
+	SDL_Rect wolfRect = { 138, 175, 527, 882};
+
+	switch (app->w3_scene->GetPlayerLastCollision())
+	{
+	case ColliderType::WOLF:
+
+		app->render->DrawTexture(app->w3_scene->npcPopUpTexture, app->w3_scene->player->position.x - 800, app->w3_scene->player->position.y - 300, &wolfRect);
+		break;
+
+	default:
+		break;
+	}
+
+	// Draw dialogue text image
+	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
+	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+
+	//---------------------
+	// Dialogue text block
+	SDL_Rect rect = { 0 , 0, 800, 400 };
+
+	// Print E Key
+	SDL_Rect rectKey = { 0,0,80,80 };
+	app->render->DrawTexture(eKeyTexture, -app->render->camera.x + 1700, -app->render->camera.y + 700, &rectKey);
+
+
+	//Comprobar si el cronómetro para que se printe la siguiente letra ya ha llegado a su fin
+	//15 letras por segundo. A 60 frames/segundo -> 1 letra cada 0.25s;
+	if (indexDialogueOverTime <= dialogue[0].length())
+	{
+		//De haber llegado al final el cronónmetro:
+		//Pedirle a la función que nos dé el trozo que se tiene que pintar en este frame
+		if (textDialogueTimer.Test() == estadoTimerP::FIN)
+		{
+			indexDialogueOverTime++;
+			dialogueOverTime = DialogueOverTime(dialogue[0]);
+			textDialogueTimer.Start(timeToRefreshDialogue);
+		}
+	}
+
+
+	if (indexDialogueOverTime == dialogue[0].length())
+	{
+		std::cout << "Ad";
+	}
+
+
+	//Printar el textDialogue
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1600);
 	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);
 
 	//Printar el textDialogue -  //COMENTADO DE MOMENTO PARA HACER PRUEBAS
@@ -2307,6 +2584,11 @@ void UIModule::AddButtonsToList()
 	buttonsList.Add(dialog2_option2_button);
 	buttonsList.Add(dialog2_option3_button);
 	buttonsList.Add(dialog2_option4_button);
+
+	buttonsList.Add(dialog3_option1_button);
+	buttonsList.Add(dialog3_option2_button);
+	buttonsList.Add(dialog3_option3_button);
+	buttonsList.Add(dialog3_option4_button);
 
 	buttonsList.Add(levelup_defenseUp_button);
 	buttonsList.Add(levelup_magicUp_button);

@@ -49,7 +49,28 @@ bool W3_Scene::Awake(pugi::xml_node& config)
 
 	CreateDialogue(); //3MB
 
-	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters_popupsDialogueCut.png");
+	npcPopUpTexture = app->tex->Load("Assets/Characters/Characters3_popupsDialogueCut.png");
+	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
+	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
+	questUiTexture = app->tex->Load("Assets/UI/questUI.png");
+	inventoryScrollTexture = app->tex->Load("Assets/UI/.png");
+	inventoryScrollTexture = app->tex->Load("Assets/UI/inventoryScroll.png");
+	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
+	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
+
+
+	currentQuestIndex = 0;
+
+	Quest quest1;
+	quest1.completed = false;
+	quest1.description = "Stop the wolf!";
+	questList.push_back(quest1);
+
+	Quest quest2;
+	quest2.completed = false;
+	quest2.description = "Wake up...";
+	questList.push_back(quest2);
+
 
 	return ret;
 }
@@ -167,7 +188,7 @@ void W3_Scene::AppearDialogue()
 	if (player->playerState == player->PlayerState::NPC_INTERACT)
 	{
 		// Tell to UIModule which currentMenuType
-		app->uiModule->currentMenuType = DIALOG;
+		app->uiModule->currentMenuType = DIALOG3;
 		// Call this function only when buttons change
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
@@ -206,20 +227,20 @@ bool W3_Scene::OnGuiMouseClickEvent(GuiControl* control)
 	switch (control->id)
 	{
 		// Option 1
-	case 12:
-		app->scene->player->buttonOption1 = true;
+	case 34:
+		app->w3_scene->player->buttonOption1 = true;
 		break;
 		// Option 2
-	case 13:
-		app->scene->player->buttonOption2 = true;
+	case 35:
+		app->w3_scene->player->buttonOption2 = true;
 		break;
 		// Option 3
-	case 14:
-		app->scene->player->buttonOption3 = true;
+	case 36:
+		app->w3_scene->player->buttonOption3 = true;
 		break;
 		// Option 4
-	case 15:
-		app->scene->player->buttonOption4 = true;
+	case 37:
+		app->w3_scene->player->buttonOption4 = true;
 	default:
 		break;
 	}
@@ -236,7 +257,13 @@ bool W3_Scene::CleanUp()
 	app->physics->Disable();
 
 	app->tex->UnLoad(npcPopUpTexture);
-	
+	app->tex->UnLoad(inventoryItemsTexture);
+	app->tex->UnLoad(eKeyTexture);
+	app->tex->UnLoad(questUiTexture);
+	app->tex->UnLoad(inventoryScrollTexture);
+	app->tex->UnLoad(inventoryItemsTexture);
+	app->tex->UnLoad(lvlupTexture);
+
 
 	return true;
 }
@@ -460,7 +487,25 @@ void W3_Scene::MoveToBattleFromDialogue()
 		//doors.At(0)->data->TriggerDoor(GameScene::BATTLE);
 	}
 
+}
 
+// A function to draw the current quest on the screen
+void W3_Scene::drawQuest(int posX, int posY) {
 
+	questText = questList[currentQuestIndex].description;
 
+	SDL_Rect rect = { 0, 0, 280, 20 };
+
+	textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, questText, { 0,0,0 }, 280);
+
+	app->render->DrawTexture(textDialogue, posX, posY, &rect);
+}
+
+// A function to move to the next quest
+void W3_Scene::nextQuest() {
+	currentQuestIndex++;
+	if (currentQuestIndex >= questList.size()) {
+		// If we've reached the end of the quest list, wrap around to the beginning
+		currentQuestIndex = 0;
+	}
 }
