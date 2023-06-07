@@ -477,7 +477,8 @@ bool TeamManager::Update(float dt)
 
 bool TeamManager::PostUpdate()
 {
-	if (app->uiModule->currentMenuType == COMBAT) { app->battleManager->DrawResult(); }
+	// MOVED TO UI MODULE
+	/*if (app->uiModule->currentMenuType == COMBAT) { app->battleManager->DrawResult(); }*/
 
 
 	return true;

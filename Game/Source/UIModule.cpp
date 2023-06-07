@@ -410,6 +410,13 @@ bool UIModule::PostUpdate()
 
 	app->guiManager->Draw();
 
+
+	if (app->uiModule->currentMenuType == COMBAT) 
+	{
+		app->battleManager->DrawResult(); 
+	}
+
+
 	// SCENE 1 UI
 	if (app->scene->active) {
 
@@ -850,7 +857,6 @@ void UIModule::PrintNegativeItemStats(int id) {
 
 }
 
-// Called before quitting
 bool UIModule::CleanUp()
 {
 	LOG("Freeing UIModule");
@@ -858,6 +864,8 @@ bool UIModule::CleanUp()
 	buttonsList.Clear();
 
 	app->tex->UnLoad(optionsBgTexture);
+	app->tex->UnLoad(checkboxTexture);
+	app->tex->UnLoad(sliderTexture);
 	app->tex->UnLoad(textureA);
 	app->tex->UnLoad(playButtonTexture);
 	app->tex->UnLoad(optionsButtonTexture);
@@ -866,8 +874,12 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(newgameButtonsTexture);
 	app->tex->UnLoad(continueButtonsTexture);
 	app->tex->UnLoad(returnButtonTexture);
-	app->tex->UnLoad(checkboxTexture);
 	app->tex->UnLoad(uiSpriteTexture);
+	app->tex->UnLoad(eKeyTexture);
+	app->tex->UnLoad(attackButtonTexture);
+	app->tex->UnLoad(abilityButtonTexture);
+	app->tex->UnLoad(moveButtonTexture);
+	app->tex->UnLoad(skipButtonTexture);
 
 	return true;
 }
