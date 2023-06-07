@@ -20,11 +20,11 @@ NpcW3::~NpcW3() {
 
 bool NpcW3::Awake() {
 
-	NpcW3TexturePath = "Assets/Characters/Characters_popups.png";
+	NpcW3TexturePath = "Assets/Characters/Lobo_dialogos.png";
 
 
 	posWolf.x = 600, posWolf.y = 1500;
-	wolfAnimation.PushBack({ 284,55,127,189 });
+	wolfAnimation.PushBack({ 0,0,170,300 });
 
 
 	return true;
