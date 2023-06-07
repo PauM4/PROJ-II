@@ -565,12 +565,12 @@ void BattleManager::UIStatsForBattle()
 		const char* nameChar = enemyItem->data->namechar.GetString();
 
 
-		app->fonts->DrawText(nameChar, 1690+30, 200+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- HP: ", 1690+30, 230+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(hpChar, 1810+30, 230+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- Stamina: ", 1690+30, 260+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(staminaChar, 1810+30, 260+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		i += 120;
+		//app->fonts->DrawText(nameChar, 1690+30, 200+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		//app->fonts->DrawText("- HP: ", 1690+30, 230+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(hpChar, 1820, 150+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		//app->fonts->DrawText("- Stamina: ", 1690+30, 260+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(staminaChar, 1820, 225+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		i += 270;
 	}
 	
 

@@ -73,6 +73,7 @@ public:
 	void PrintItemName();
 
 	void PrintStats(int id);
+
 	void PrintPositiveItemStats(int id);
 	void PrintNegativeItemStats(int id);
 	// Called before quitting
@@ -211,6 +212,7 @@ public:
 	SDL_Texture* currentTurnTexture;
 	SDL_Texture* combatStatsTexture;
 	SDL_Texture* combatEnemyStatsTexture;
+	SDL_Texture* plusButton;
 
 	SDL_Texture* pauseButtonsTexture;
 

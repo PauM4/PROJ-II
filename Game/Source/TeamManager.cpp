@@ -930,6 +930,8 @@ bool TeamManager::addallstats()
 void TeamManager::PrintLvlUpText()
 {
 
+	app->fonts->DrawText("LEVEL UP", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
+
 	app->fonts->DrawText("Level Up! Choose between these stats to boost: ", -app->render->camera.x + 700, -app->render->camera.y + 300, 100, 100, { 0, 0, 0 });
 	std::string stringname = characters.At(cont)->data->namechar.GetString();
 	const char* charactername = stringname.c_str();
@@ -944,44 +946,45 @@ void TeamManager::PrintLvlUpText()
 	uint defense = characters.At(cont)->data->defense + statslist.At(cont)->data->defense - statslist2.At(cont)->data.defense;
 	std::string defenSestring = std::to_string(defense);
 	const char* defChar = defenSestring.c_str();
-	app->fonts->DrawText("Defense: ", -app->render->camera.x + 700, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(defChar, -app->render->camera.x + 860, -app->render->camera.y + 400, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Defense: ", -app->render->camera.x + 700, -app->render->camera.y + 420, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(defChar, -app->render->camera.x + 860, -app->render->camera.y + 420, 100, 100, { 0, 0, 0 });
 
 	uint magic = characters.At(cont)->data->magic + statslist.At(cont)->data->magic - statslist2.At(cont)->data.magic;
 	std::string magicString = std::to_string(magic);
 	const char* magicChar = magicString.c_str();
-	app->fonts->DrawText("Magic: ", -app->render->camera.x + 700, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(magicChar, -app->render->camera.x + 860, -app->render->camera.y + 450, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Magic: ", -app->render->camera.x + 700, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(magicChar, -app->render->camera.x + 860, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
 
 	uint speed = characters.At(cont)->data->speed + statslist.At(cont)->data->speed - statslist2.At(cont)->data.speed;
 	std::string speedString = std::to_string(speed);
 	const char* speedChar = speedString.c_str();
-	app->fonts->DrawText("Speed: ", -app->render->camera.x + 700, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(speedChar, -app->render->camera.x + 860, -app->render->camera.y + 500, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Speed: ", -app->render->camera.x + 700, -app->render->camera.y + 580, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(speedChar, -app->render->camera.x + 860, -app->render->camera.y + 580, 100, 100, { 0, 0, 0 });
 
 	uint movement = characters.At(cont)->data->movement + statslist.At(cont)->data->movement - statslist2.At(cont)->data.movement;
 	std::string movementString = std::to_string(movement);
 	const char* movementChar = movementString.c_str();
-	app->fonts->DrawText("Movement: ", -app->render->camera.x + 700, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(movementChar, -app->render->camera.x + 860, -app->render->camera.y + 550, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Movement: ", -app->render->camera.x + 700, -app->render->camera.y + 660, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(movementChar, -app->render->camera.x + 860, -app->render->camera.y + 660, 100, 100, { 0, 0, 0 });
 
 	uint attack = characters.At(cont)->data->attack + statslist.At(cont)->data->attack - statslist2.At(cont)->data.attack;
 	std::string attackString = std::to_string(attack);
 	const char* attackChar = attackString.c_str();
-	app->fonts->DrawText("Attack: ", -app->render->camera.x + 700, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(attackChar, -app->render->camera.x + 860, -app->render->camera.y + 600, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Attack: ", -app->render->camera.x + 700, -app->render->camera.y + 740, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(attackChar, -app->render->camera.x + 860, -app->render->camera.y + 740, 100, 100, { 0, 0, 0 });
 
 	uint ability = characters.At(cont)->data->Ab1Power + statslist.At(cont)->data->Ab1Power - statslist2.At(cont)->data.Ab1Power;
 	std::string abilityString = std::to_string(ability);
 	const char* abilityChar = abilityString.c_str();
-	app->fonts->DrawText("Ability Power: ", -app->render->camera.x + 700, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(abilityChar, -app->render->camera.x + 860, -app->render->camera.y + 650, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Ability Power: ", -app->render->camera.x + 700, -app->render->camera.y + 820, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(abilityChar, -app->render->camera.x + 860, -app->render->camera.y + 820, 100, 100, { 0, 0, 0 });
 
 	uint healPow = characters.At(cont)->data->healingpower + statslist.At(cont)->data->healingpower - statslist2.At(cont)->data.healingpower;
 	std::string healPowString = std::to_string(healPow);
 	const char* healPowChar = healPowString.c_str();
-	app->fonts->DrawText("Healing Power: ", -app->render->camera.x + 700, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(healPowChar, -app->render->camera.x + 860, -app->render->camera.y + 700, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Healing Power: ", -app->render->camera.x + 700, -app->render->camera.y + 900, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(healPowChar, -app->render->camera.x + 860, -app->render->camera.y + 900, 100, 100, { 0, 0, 0 });
+
 }
 
 void TeamManager::loadinventory() {

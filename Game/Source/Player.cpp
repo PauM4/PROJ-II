@@ -201,7 +201,6 @@ bool Player::Update(float dt)
 		}
 	}
 
-
 	if(app->teamManager->lvlupplayerstate == true)
 	{
 		if (playerState != PlayerState::LEVEL_UP)

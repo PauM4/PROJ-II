@@ -92,6 +92,7 @@ bool UIModule::Start()
 	currentTurnTexture = app->tex->Load("Assets/UI/currentTurn.png");
 	combatStatsTexture = app->tex->Load("Assets/UI/combatStats.png");
 	combatEnemyStatsTexture = app->tex->Load("Assets/UI/combatEnemyStats.png");
+	plusButton = app->tex->Load("Assets/UI/plusButton.png");
 	
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
@@ -133,13 +134,13 @@ bool UIModule::Start()
 	dialog2_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 32, textureA, "", { 1000, 900, 800, 30 }, app->w2_scene);
 	dialog2_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 33, textureA, "", { 1000, 950, 800, 30 }, app->w2_scene);
 
-	levelup_defenseUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, textureA, "+", { 900, 400, 100, 30 }, this);
-	levelup_magicUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, textureA, "+", { 900, 450, 100, 30 }, this);
-	levelup_speedUp_button =        (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, textureA, "+", { 900, 500, 100, 30 }, this);
-	levelup_movementUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, textureA, "+", { 900, 550, 100, 30 }, this);
-	levelup_attackUp_button =       (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, textureA, "+", { 900, 600, 100, 30 }, this);
-	levelup_AB1PowerUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, textureA, "+", { 900, 650, 100, 30 }, this);
-	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, textureA, "+", { 900, 700, 100, 30 }, this);
+	levelup_defenseUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, plusButton, "", { 900, 400, 96, 73}, this);
+	levelup_magicUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, plusButton, "", { 900, 480, 96, 73 }, this);
+	levelup_speedUp_button =        (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, plusButton, "", { 900, 560, 96, 73 }, this);
+	levelup_movementUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, plusButton, "", { 900, 640, 96, 73 }, this);
+	levelup_attackUp_button =       (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, plusButton, "", { 900, 720, 96, 73 }, this);
+	levelup_AB1PowerUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, plusButton, "", { 900, 800, 96, 73 }, this);
+	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, plusButton, "", { 900, 880, 96, 73 }, this);
 
 	party_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 67, textureA, "Unavailable", { 1000, 400, 100, 30 }, this);
 	party_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 68, textureA, "Unavailable", { 1000, 450, 100, 30 }, this);
@@ -575,6 +576,7 @@ bool UIModule::PostUpdate()
 		}
 
 	}
+
 	return ret;
 }
 
