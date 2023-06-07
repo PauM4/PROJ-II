@@ -561,7 +561,7 @@ void W2_Scene::RunDialogueTree(ColliderType NPC)
 
 		if (dialogue.empty())
 		{
-			dialogue.push_back("If you keep going this way, you will come across a cave, full of challenges and mysteries.");
+			dialogue.push_back("If you keep going this way, you will come across a cave, full of challenges and mysteries. Moreover, in this vast world, there exists a mysterious labyrinth. Be cautious, for its paths intertwine and illusions deceive. Only the clever ones will find the right path to the coveted reward.");
 		}
 		for (auto& text : dialogue)
 		{
