@@ -661,12 +661,6 @@ void W2_Scene::CreateDialogue()
 	}
 	else
 	{
-		auto firstNodeWolf = std::make_shared<DialogueNode>();
-		firstNodeWolf->SetText("You will pay for this, Timmy. And you, you pathetic pigs, couldn't even defeat him. You're all worthless.");
-		firstNodeWolf->ActivateNode();
-
-		wolfTree = std::make_shared<DialogueTree>();
-		wolfTree->SetRoot(firstNodeWolf);
 
 		//PigsAfterCombat:
 		//1rst level

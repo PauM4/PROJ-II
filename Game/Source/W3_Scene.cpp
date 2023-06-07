@@ -280,74 +280,23 @@ void W3_Scene::RunDialogueTree(ColliderType NPC)
 
 	switch (NPC)
 	{
-	case ColliderType::DEADVILLAGER:
-		dialogue = deadVillagerTree->Run();
-
-		if (dialogue.empty())
-		{
-			dialogue.push_back("He let out a final fart before departing.");
-		}
-		break;
-
-
 	case ColliderType::WOLF:
+		dialogue = wolfTree->Run();
 
-		if (wolfDefeated)
+
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+		{
+			UpdateDialogueTree(3);
+		}
+
+		for (auto& text : dialogue)
+		{
+			std::cout << text << std::endl;
+		}
+
+		if (dialogue.empty() && wolfDefeated)
 		{
 			dialogue.push_back("Timmy, thank you for showing me that there is still hope for me. Your bravery has inspired me to do what is right, even if it means sacrificing myself. The evil I have caused is too great to be ignored, and my existence will only perpetuate the darkness. But with my death, I can release my soul from this curse and protect others from its influence. -The wolf kneels down and impales his heart with the sword, falling to the ground in a pool of blood. - Finally, I was able to find redemption in your bravery.");
-		}
-		else
-		{
-			dialogue.push_back("Well... it seems you've got me, I know you're probably itching to defeat me right now, but let me tell you something, Timmy, I wasn't always like this. There was a time when I was a happy and friendly wolf, living in the forest with my family. But then, something changed in me. I started feeling frustrated because I was always cast as the evil antagonist in stories. I wanted to be the hero, the main character, but I was never allowed to. So, one day I started doing bad things, without really knowing why or having control over myself, things I had never done before. I started stealing and intimidating other animals in the forest out of a need to prove my strength. I think I believed that this way, I would finally get the respect I so desperately wanted. But I was wrong. The more evil I became, the more alone I felt and the less control I had over myself. Nobody wanted to be around me, and my family distanced themselves from me. I had become a lonely and sad wolf. Sometimes I feel like I'm not myself anymore, like something takes over me and makes me do things I don't want to... (suddenly his eyes turn red and he looks at Timmy with an aggressive face).");
-		}
-		break;
-
-	case ColliderType::PEDRO:
-		dialogue = pedroTree->Run();
-
-		if (dialogue.empty())
-		{
-			
-			if (pedroDefeated)
-			{
-				dialogue.push_back("I realize now that I was wrong to think that protecting the portal meant hurting others.The wolf used his dark magic to manipulate me, and I fell for it.But I want to make amendsand fight for what is right.I know I have a lot to prove, and I understand if you don't trust me. But please, give me a chance to prove myself. I want to join your group and fight against the wolf together.");
-			}
-		}
-		break;
-
-	case ColliderType::SHEEPA:
-		dialogue = sheepATree->Run();
-
-		if (dialogue.empty())
-		{
-			dialogue.push_back("Path 1 is the right one.");
-		}
-		break;
-
-	case ColliderType::SHEEPB:
-		dialogue = sheepBTree->Run();
-
-		if (dialogue.empty())
-		{
-			dialogue.push_back("Path 3 is the right one.");
-		}
-		break;
-
-	case ColliderType::SHEEPC:
-		dialogue = sheepCTree->Run();
-
-		if (dialogue.empty())
-		{
-			dialogue.push_back("D says path 2 is the right one.");
-		}
-		break;
-
-	case ColliderType::SHEEPD:
-		dialogue = sheepDTree->Run();
-
-		if (dialogue.empty())
-		{
-			dialogue.push_back("B and C tell lies.");
 		}
 		break;
 
@@ -367,12 +316,8 @@ void W3_Scene::UpdateDialogueTree(int option)
 	{
 		switch (app->w3_scene->player->lastCollision)
 		{
-		case ColliderType::DEADVILLAGER:
-			deadVillagerTree->Update(option);
-			break;
-
-		case ColliderType::PEDRO:
-			pedroTree->Update(option);
+		case ColliderType::WOLF:
+			wolfTree->Update(option);
 			break;
 
 		default:
@@ -388,35 +333,9 @@ void W3_Scene::UpdateDialogueTree(int option)
 //Create Tree Dialogues
 void W3_Scene::CreateDialogue()
 {
-	//deadVillager
-	auto firstOption1 = std::make_shared<DialogueNode>();
-	firstOption1->SetText("Don't worry, we'll do it. - He says as he approaches the already dead villager and closes his eyes.");
-
-	auto firstOption2 = std::make_shared<DialogueNode>();
-	firstOption2->SetText("We'll crush everything that crosses our path! We'll make the devil himself tremble if necessary!");
-
-	auto firstOption3 = std::make_shared<DialogueNode>();
-	firstOption3->SetText("Save Pedro? What if he hurts us? I don't want to go there! - He says while looking at the rest of the group with terrified eyes.");
-
-	auto firstOption4 = std::make_shared<DialogueNode>();
-	firstOption4->SetText("Meh, we'll save Pedro, I guess. But don't expect us to take it too seriously.");
-
-	auto firstDeadVillagerNode = std::make_shared<DialogueNode>();
-	firstDeadVillagerNode->SetText("Pedro became furious because no one believed his story about the wolf, and when corruption affected him, he became even more dangerous. He became obsessed with the idea that no one believed him and that his honor was tarnished. The corruption in his heart consumed him, and he became a destructive force that threatened the entire town. He wanted to kill everyone in the town, but some managed to escape. The person coughs and pauses to catch their breath before continuing. Pedro's farm is beyond the forest - he says urgently. I don't know what has happened there, but I can feel that something bad has happened. Pedro is under its influence, he is not himself. I beg you to save him, he does not deserve to die like this. The man coughs again and becomes weak. Timmy and his group look at each other, knowing that they have a new important mission: to save Pedro from corruption.");
-	firstDeadVillagerNode->AddChild(firstOption1);
-	firstDeadVillagerNode->AddChild(firstOption2);
-	firstDeadVillagerNode->AddChild(firstOption3);
-	firstDeadVillagerNode->AddChild(firstOption4);
-	firstDeadVillagerNode->ActivateNode();
-
-	deadVillagerTree = std::make_shared<DialogueTree>();
-	deadVillagerTree->SetRoot(firstDeadVillagerNode);
-	
-
-
-	if (!pedroDefeated)
+	if (!wolfDefeated)
 	{
-		// - Pedro
+		// - Wolf
 		//2nd Level
 		auto PToOption1 = std::make_shared<DialogueNode>();
 		PToOption1->SetText("There is no escape from my wrath. Prepare to face my power.");
@@ -459,44 +378,22 @@ void W3_Scene::CreateDialogue()
 		firstNodeP->ActivateNode();
 
 		//Tree
-		pedroTree = std::make_shared <DialogueTree>();
-		pedroTree->SetRoot(firstNodeP);
+		wolfTree = std::make_shared <DialogueTree>();
+		wolfTree->SetRoot(firstNodeP);
 	}
 	else
 	{
 		//LittleRedAfterCombat
 		auto fristNodePAC = std::make_shared<DialogueNode>();
-		fristNodePAC->SetText("I realize now that I was wrong to think that protecting the portal meant hurting others. The wolf used his dark magic to manipulate me, and I fell for it. But I want to make amends and fight for what is right. I know I have a lot to prove, and I understand if you don't trust me. But please, give me a chance to prove myself. I want to join your group and fight against the wolf together.");
+		fristNodePAC->SetText("Timmy, thank you for showing me that there is still hope for me. Your bravery has inspired me to do what is right, even if it means sacrificing myself. The evil I have caused is too great to be ignored, and my existence will only perpetuate the darkness. But with my death, I can release my soul from this curse and protect others from its influence. -The wolf kneels down and impales his heart with the sword, falling to the ground in a pool of blood. - Finally, I was able to find redemption in your bravery.");
 		fristNodePAC->ActivateNode();
 
-		pedroTree = std::make_shared<DialogueTree>();
-		pedroTree->SetRoot(fristNodePAC);
+		wolfTree = std::make_shared<DialogueTree>();
+		wolfTree->SetRoot(fristNodePAC);
 	}
 
 
-	//sheeps
-	auto sheepANode = std::make_shared<DialogueNode>();
-	sheepANode->SetText("Path 1 is the right one.");
-	sheepATree = std::make_shared<DialogueTree>();
-	sheepATree->SetRoot(sheepANode);
 
-
-	auto sheepBNode = std::make_shared<DialogueNode>();
-	sheepBNode->SetText("Path 3 is the right one.");
-	sheepBTree = std::make_shared<DialogueTree>();
-	sheepBTree->SetRoot(sheepBNode);
-
-
-	auto sheepCNode = std::make_shared<DialogueNode>();
-	sheepCNode->SetText("D says path 2 is the right one.");
-	sheepCTree = std::make_shared<DialogueTree>();
-	sheepCTree->SetRoot(sheepCNode);
-
-
-	auto sheepDNode = std::make_shared<DialogueNode>();
-	sheepDNode->SetText("B and C tell lies.");
-	sheepDTree = std::make_shared<DialogueTree>();
-	sheepDTree->SetRoot(sheepDNode);
 
 }
 
@@ -510,6 +407,19 @@ bool W3_Scene::LoadState(pugi::xml_node& data)
 	pugi::xml_node battleInfo = data.parent().child("BattleInfo");
 	pedroDefeated = battleInfo.attribute("isPereDefeated").as_bool();
 	wolfDefeated = battleInfo.attribute("isWolfDefeated").as_bool();
+
+	if (wolfDefeated)
+	{
+		wolfTree->~DialogueTree();
+
+		//WolfAfterCombat
+		auto fristNodeW = std::make_shared<DialogueNode>();
+		fristNodeW->SetText("Timmy, thank you for showing me that there is still hope for me. Your bravery has inspired me to do what is right, even if it means sacrificing myself. The evil I have caused is too great to be ignored, and my existence will only perpetuate the darkness. But with my death, I can release my soul from this curse and protect others from its influence. -The wolf kneels down and impales his heart with the sword, falling to the ground in a pool of blood. - Finally, I was able to find redemption in your bravery.");
+		fristNodeW->ActivateNode();
+
+		wolfTree = std::make_shared<DialogueTree>();
+		wolfTree->SetRoot(fristNodeW);
+	}
 
 	return true;
 }
@@ -537,18 +447,6 @@ bool W3_Scene::SaveState(pugi::xml_node& data)
 
 void W3_Scene::MoveToBattleFromDialogue()
 {
-	if (numTimesPedroDialogueTriggered == 1 && !pedroDefeated)
-	{
-		timerToPedroCombat.Start(2.0f);
-		numTimesPedroDialogueTriggered = 0;
-	}
-
-	if (timerToPedroCombat.Test() == estadoTimerP::FIN)
-	{
-		//Teleportar a GameScene::Pigcombat
-		//doors.At(0)->data->TriggerDoor(GameScene::BATTLE);
-	}
-
 
 	if (numTimesWolfDialogueTriggered == 1 && !wolfDefeated)
 	{

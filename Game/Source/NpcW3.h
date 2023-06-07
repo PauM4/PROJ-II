@@ -38,36 +38,13 @@ public:
 	SDL_Texture* NpcW3Texture;
 	const char* NpcW3TexturePath;
 
-	iPoint posDeadVillager;
-	PhysBody* pbodyDeadVillager;
-	Animation deadVillagerAnimation;
-
-
 	iPoint posWolf;
 	PhysBody* pbodyWolf;
 	Animation wolfAnimation;
 
 
-	iPoint posPedro;
-	PhysBody* pbodyPedro;
-	Animation pedroAnimation;
 
 
-	iPoint posSheepA;
-	PhysBody* pbodySheepA;
-	Animation sheepAAnimation;
-
-	iPoint posSheepB;
-	PhysBody* pbodySheepB;
-	Animation sheepBAnimation;
-
-	iPoint posSheepC;
-	PhysBody* pbodySheepC;
-	Animation sheepCAnimation;
-
-	iPoint posSheepD;
-	PhysBody* pbodySheepD;
-	Animation sheepDAnimation;
 
 
 
