@@ -20,7 +20,7 @@ NpcW3::~NpcW3() {
 
 bool NpcW3::Awake() {
 
-	NpcW3TexturePath = "Assets/Characters/Lobo_dialogos.png";
+	NpcW3TexturePath = "Assets/Characters/Lobo_dialogos.png";//provisional de momento hasta que tengamos de gameplay
 
 
 	posWolf.x = 600, posWolf.y = 1500;
