@@ -209,6 +209,8 @@ public:
 	SDL_Texture* moveButtonTexture;
 	SDL_Texture* skipButtonTexture;
 	SDL_Texture* currentTurnTexture;
+	SDL_Texture* combatStatsTexture;
+	SDL_Texture* combatEnemyStatsTexture;
 
 	SDL_Texture* pauseButtonsTexture;
 

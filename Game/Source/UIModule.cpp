@@ -90,6 +90,8 @@ bool UIModule::Start()
 	moveButtonTexture = app->tex->Load("Assets/UI/movebattleButton.png");
 	skipButtonTexture = app->tex->Load("Assets/UI/skipbattleButton.png");
 	currentTurnTexture = app->tex->Load("Assets/UI/currentTurn.png");
+	combatStatsTexture = app->tex->Load("Assets/UI/combatStats.png");
+	combatEnemyStatsTexture = app->tex->Load("Assets/UI/combatEnemyStats.png");
 	
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
@@ -304,10 +306,18 @@ bool UIModule::PostUpdate()
 
 	if (currentMenuType == COMBAT)
 	{
-		app->render->DrawTexture(currentTurnTexture, 296, 910);
+		app->render->DrawTexture(currentTurnTexture, 296, 930);
 
 		const char* charName = app->battleManager->currentTurn->namechar.GetString();
-		app->fonts->DrawText(charName, 300, 960, 100, 100, { 255, 255, 255 }, app->fonts->battleFont);
+		app->fonts->DrawText(charName, 300, 980, 100, 100, { 255, 255, 255 }, app->fonts->battleFont);
+
+		app->render->DrawTexture(combatStatsTexture, 0, 7);
+
+		// Enemy UI
+		app->render->DrawTexture(combatEnemyStatsTexture, 1755, 7);
+
+		// Draw Numbers and images over the basic UI
+		app->battleManager->UIStatsForBattle();
 
 	}
 

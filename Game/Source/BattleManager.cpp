@@ -410,7 +410,9 @@ bool BattleManager::PostUpdate() {
 		
     }
 	
-	UIStatsForBattle();
+	//Moved to UI Module in PostUpdate()
+	//UIStatsForBattle();
+
 	DisplayTurnList();
 
 
@@ -540,13 +542,13 @@ void BattleManager::UIStatsForBattle()
 		std::string hpString = std::to_string(hp);
 		const char* hpChar = hpString.c_str();
 	    
-		const char* nameChar = allyItem->data->namechar.GetString();
-		app->fonts->DrawText(nameChar, 80, 250 + i, 200, 200, {255,255,255}, app->fonts->gameFont);
-		app->fonts->DrawText("- HP: ", 80, 280 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(hpChar, 200, 280 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText("- Stamina: ", 80, 310 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		app->fonts->DrawText(staminaChar, 200, 310 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
-		i+= 120;
+		//const char* nameChar = allyItem->data->namechar.GetString();
+		//app->fonts->DrawText(nameChar, 80, 250 + i, 200, 200, {255,255,255}, app->fonts->gameFont);
+		//app->fonts->DrawText("- HP: ", 80, 280 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(hpChar, 70, 150 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		//app->fonts->DrawText("- Stamina: ", 80, 310 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(staminaChar, 70, 225 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		i+= 270;
 	}
 
 	i = 0;
