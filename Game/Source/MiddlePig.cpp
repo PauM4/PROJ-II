@@ -13,7 +13,7 @@
 MiddlePig::MiddlePig() : Entity(EntityType::MPIG)
 {
 	name.Create("middlePig");
-	namechar.Create("---Middle Pig---");
+	namechar.Create("Middle Pig");
 	isAlive = true;
 	battleState = IDLE; 
 	isEnemy = false;

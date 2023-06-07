@@ -16,7 +16,7 @@
 Enemy_AngryVillager::Enemy_AngryVillager() : Entity(EntityType::ANGRYVILLAGER) {
 
 	name.Create("enemy_angryVillager");
-	namechar.Create("---Villager---");
+	namechar.Create("Villager");
 	isAlive = true;
 	battleState = IDLE;
 	//Behavior Tree

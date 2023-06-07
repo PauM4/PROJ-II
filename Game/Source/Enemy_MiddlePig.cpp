@@ -15,7 +15,7 @@
 Enemy_MiddlePig::Enemy_MiddlePig() : Entity(EntityType::ENEMYMPIG) {
 
 	name.Create("enemy_middlePig");
-	namechar.Create("---Middle Pig---");
+	namechar.Create("Middle Pig");
 	isAlive = true;
 
 	//Behavior Tree

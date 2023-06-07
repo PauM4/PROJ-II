@@ -13,7 +13,7 @@
 Enemy_LRRH::Enemy_LRRH() : Entity(EntityType::ENEMYLRRH){
 	//texture = app->tex->Load("");
 	name.Create("enemy_lrrh");
-	namechar.Create("---RedHoody---");
+	namechar.Create("RedHoody");
 
 	//Behavior Tree
 	//Action Nodes

@@ -89,6 +89,7 @@ bool UIModule::Start()
 	abilityButtonTexture = app->tex->Load("Assets/UI/abilitybattleButton.png");
 	moveButtonTexture = app->tex->Load("Assets/UI/movebattleButton.png");
 	skipButtonTexture = app->tex->Load("Assets/UI/skipbattleButton.png");
+	currentTurnTexture = app->tex->Load("Assets/UI/currentTurn.png");
 	
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
@@ -115,9 +116,9 @@ bool UIModule::Start()
 	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, returnButtonTexture, "", { 800, 950, 340,89 }, this);
 	pausemenuCombat_quit_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, textureA, "Quit", { 1620, 255, 120, 30 }, this);
 
-	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, attackButtonTexture, "", { 300, 950, 246, 93 }, app->battleManager);
-	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, abilityButtonTexture, "",{ 595, 950, 246, 93 }, app->battleManager);
-	combat_move_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, moveButtonTexture, "",{ 879, 950, 246, 93 }, app->battleManager);
+	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, attackButtonTexture, "", { 526, 950, 246, 93 }, app->battleManager);
+	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, abilityButtonTexture, "",{ 821, 950, 246, 93 }, app->battleManager);
+	combat_move_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, moveButtonTexture, "",{ 1105, 950, 246, 93 }, app->battleManager);
 	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, skipButtonTexture, "", { 57, 960, 196, 84 }, app->battleManager);
 
 	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, textureA, "", { 100, 900, 800, 30 }, app->scene);
@@ -301,6 +302,15 @@ bool UIModule::PostUpdate()
 		app->teamManager->PrintLvlUpText();
 	}
 
+	if (currentMenuType == COMBAT)
+	{
+		app->render->DrawTexture(currentTurnTexture, 296, 910);
+
+		const char* charName = app->battleManager->currentTurn->namechar.GetString();
+		app->fonts->DrawText(charName, 300, 960, 100, 100, { 255, 255, 255 }, app->fonts->battleFont);
+
+	}
+
 	if (currentMenuType == INVENTORY)
 	{
 		
@@ -410,7 +420,7 @@ bool UIModule::PostUpdate()
 
 	app->guiManager->Draw();
 
-
+	// Draw Win or Lose when combat
 	if (app->uiModule->currentMenuType == COMBAT) 
 	{
 		app->battleManager->DrawResult(); 

@@ -12,7 +12,7 @@
 Enemy_CorruptedSprout::Enemy_CorruptedSprout() : Entity(EntityType::CORRUPTEDSPROUT) {
 	//texture = app->tex->Load("");
 	name.Create("sprout");
-	namechar.Create("---Sprout---");
+	namechar.Create("Sprout");
 
 	//Behavior Tree
 	//Action Nodes

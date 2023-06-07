@@ -16,7 +16,7 @@
 Enemy_LittlePig::Enemy_LittlePig() : Entity(EntityType::ENEMYLPIG) {
 
 	name.Create("enemy_littlePig");
-	namechar.Create("---Little Pig---");
+	namechar.Create("Little Pig");
 	isAlive = true;
 	battleState = IDLE;
 	//Behavior Tree
