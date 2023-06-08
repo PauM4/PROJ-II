@@ -168,7 +168,7 @@ public:
 	// Inventory Items Texture
 	SDL_Texture* inventoryItemsTexture;
 
-	
+	bool dialogueTutorial;
 
 private:
 
@@ -187,7 +187,7 @@ private:
 	bool exitButtonBool;
 
 	std::shared_ptr<DialogueTree> angryVillagerTree, angryVillagerTreePT, 
-		talismanVillagerTree, littleRedTree, grandmaTree, littleRedACTree;
+		talismanVillagerTree, littleRedTree, grandmaTree, littleRedACTree, bunnyTree;
 
 	std::vector<std::string> dialogue;
 

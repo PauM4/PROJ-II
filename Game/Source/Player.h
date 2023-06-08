@@ -144,6 +144,8 @@ public:
 	bool isChest5Pickable;
 	bool isChest6Pickable;
 
+	
+
 
 };
 

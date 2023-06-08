@@ -113,6 +113,8 @@ bool Player::Awake() {
 	}
 	
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
+
+	
 	
 	speed = 350;
 	vel = b2Vec2(0, 0);
@@ -176,6 +178,7 @@ bool Player::Start() {
 		app->LoadGameRequest();
 	}
 
+	
 
 
 	return true;
@@ -787,6 +790,11 @@ void Player::TriggerDialogueTree(ColliderType NPC)
 		app->w3_scene->RunDialogueTree(ColliderType::SHEEPD);
 		break;
 
+	case ColliderType::UNKNOWN:
+		app->scene->RunDialogueTree(ColliderType::UNKNOWN);
+
+		break;
+
 	default:
 		break;
 	}
@@ -908,7 +916,7 @@ void Player::InteractWithEntities()
 {
 	if (playerState != PlayerState::PAUSE)
 	{
-		if (npcInteractAvailable)
+		if (npcInteractAvailable || (!app->scene->dialogueTutorial && app->scene->basicTutorialCounter == 2))
 		{
 			if (playerState == NPC_INTERACT)
 			{

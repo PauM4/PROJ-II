@@ -584,7 +584,7 @@ void Scene::Camera()
 bool Scene::CheckInsideBoundaries()
 {
 	bool insideX = (player->position.x == clamp(player->position.x, 18, 2532 + (1920)));
-	bool insideY = (player->position.y == clamp(player->position.y, 1216, 4974 + 1080));
+	bool insideY = (player->position.y == clamp(player->position.y, 816, 4974 + 1080));
 
 	if (insideX && insideY)
 	{
@@ -710,8 +710,14 @@ void Scene::RunDialogueTree(ColliderType NPC)
 		{
 			dialogue.push_back(LastTextNPC(NPC));
 		}
-
 		break;
+
+	case ColliderType::UNKNOWN:
+
+
+		dialogue = bunnyTree->Run();
+		break;
+
 	default:
 		break;
 	}
@@ -743,6 +749,10 @@ void Scene::UpdateDialogueTree(int option)
 		case ColliderType::LRRH:
 			littleRedTree->Update(option);
 			numTimesLRRHDialogueTriggered++;
+			break;
+
+		case ColliderType::UNKNOWN:
+			bunnyTree->Update(option);
 			break;
 
 		default:
@@ -1043,6 +1053,64 @@ void Scene::CreateDialogue()
 	grandmaTree = std::make_shared<DialogueTree>();
 	grandmaTree->SetRoot(fristNodeG);
 
+	
+	
+	// - Bunny
+
+
+	//3rd Level
+	auto secondOption1B = std::make_shared<DialogueNode>();
+	secondOption1B->SetText("Okaaay, let's go.");
+
+
+	//2nd Level
+	auto bToOption1 = std::make_shared<DialogueNode>();
+	bToOption1->SetText("You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
+	bToOption1->AddChild(secondOption1B);
+
+	auto bToOption2 = std::make_shared<DialogueNode>();
+	bToOption2->SetText("You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
+	bToOption2->AddChild(secondOption1B);
+
+	auto bToOption3 = std::make_shared<DialogueNode>();
+	bToOption3->SetText("You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
+	bToOption3->AddChild(secondOption1B);
+
+	auto bToOption4 = std::make_shared<DialogueNode>();
+	bToOption4->SetText("You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
+	bToOption4->AddChild(secondOption1B);
+
+
+	//1st Level
+	auto firstOption1B = std::make_shared<DialogueNode>();
+	firstOption1B->SetText("Wait, what?");
+	firstOption1B->AddChild(bToOption1);
+
+	auto firstOption2B = std::make_shared<DialogueNode>();
+	firstOption2B->SetText("Sheeeesh.");
+	firstOption2B->AddChild(bToOption2);
+
+	auto firstOption3B = std::make_shared<DialogueNode>();
+	firstOption3B->SetText("*Yawns*");
+	firstOption3B->AddChild(bToOption3);
+
+	auto firstOption4B = std::make_shared<DialogueNode>();
+	firstOption4B->SetText("It's not like I really care.");
+	firstOption4B->AddChild(bToOption4);
+
+
+
+	auto firstNodeB = std::make_shared<DialogueNode>();
+	firstNodeB->SetText("Oh, you're awake! It seems that your dream world has been affected by the corruption. The corruption is like a dark force that is spreading and destroying everything beautiful and good.");
+	firstNodeB->AddChild(firstOption1G);
+	firstNodeB->AddChild(firstOption2G);
+	firstNodeB->AddChild(firstOption3G);
+	firstNodeB->AddChild(firstOption4G);
+	firstNodeB->ActivateNode();
+
+
+	bunnyTree = std::make_shared<DialogueTree>();
+	bunnyTree->SetRoot(firstNodeB);
 
 
 
@@ -1052,6 +1120,7 @@ bool Scene::LoadState(pugi::xml_node& data)
 {
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
+	dialogueTutorial = data.child("player").attribute("dialogueTutorial").as_bool();
 
 	if (active)
 	{
@@ -1185,7 +1254,10 @@ bool Scene::SaveState(pugi::xml_node& data)
 	pugi::xml_node stepQuestState = data.append_child("stepQuest");
 	stepQuestState.append_attribute("num") = currentQuestIndex;
 
-	
+	if (basicTutorialCounter >= 2)
+	{
+		playerNode.append_attribute("dialogueTutorial") = true;
+	}
 
 	return true;
 }
