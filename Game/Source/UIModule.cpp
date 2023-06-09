@@ -545,6 +545,7 @@ bool UIModule::PostUpdate()
 			}
 			if (app->w2_scene->player->isChest6Pickable)
 			{
+				//canviar
 				app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, app->w2_scene->player->position.x - 70, app->w2_scene->player->position.y - 220, &app->uiModule->denturesRect);
 				app->render->DrawTexture(app->w2_scene->eKeyTexture, app->w2_scene->player->position.x + 60, app->w2_scene->player->position.y - 60, NULL);
 			}

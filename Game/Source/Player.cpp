@@ -292,7 +292,7 @@ bool Player::Update(float dt)
 			}
 			if (isChest6Pickable)
 			{
-				app->teamManager->dentures.ininventory = true;
+				app->teamManager->bracelet.ininventory = true;
 				app->w2_scene->chest6->isPicked = true;
 				app->teamManager->loadinventory();
 			}

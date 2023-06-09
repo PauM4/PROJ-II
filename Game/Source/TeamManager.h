@@ -117,6 +117,7 @@ public:
 	item talisman;
 	item susjar;
 	item dentures;
+	item bracelet;
 
 	List<item*> inventory;
 	List<item*> equipment;

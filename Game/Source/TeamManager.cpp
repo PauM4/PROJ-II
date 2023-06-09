@@ -295,7 +295,25 @@ bool TeamManager::Awake(pugi::xml_node& config)
 		talisman.healingpower = newnode.attribute("healingpower").as_int();
 	}
 
-
+	if (config.child("item").child("bracelet")) {
+		pugi::xml_node newnode = config.child("item").child("bracelet");
+		bracelet.ininventory = newnode.attribute("ininventory").as_bool();
+		bracelet.type = newnode.attribute("type").as_int();
+		bracelet.weaponuser = newnode.attribute("weaponuser").as_int();
+		bracelet.character = newnode.attribute("character").as_int();
+		bracelet.name = newnode.attribute("name").as_string();
+		bracelet.defense = newnode.attribute("defense").as_int();
+		bracelet.magic = newnode.attribute("magic").as_int();
+		bracelet.speed = newnode.attribute("speed").as_int();
+		bracelet.movement = newnode.attribute("movement").as_int();
+		bracelet.attack = newnode.attribute("attack").as_int();
+		bracelet.AttArea = newnode.attribute("AttArea").as_int();
+		bracelet.Ab1Power = newnode.attribute("Ab1Power").as_int();
+		bracelet.Ab2Power = newnode.attribute("Ab2Power").as_int();
+		bracelet.Ab1Area = newnode.attribute("Ab1Area").as_int();
+		bracelet.Ab2Area = newnode.attribute("Ab2Area").as_int();
+		bracelet.healingpower = newnode.attribute("healingpower").as_int();
+	}
 	statslist.Add(&timmystats);
 	statslist.Add(&bunnystats);
 	statslist.Add(&lrrhstats);
@@ -632,6 +650,9 @@ bool TeamManager::LoadState(pugi::xml_node& data)
 	talisman.ininventory = data.child("inventory").child("talisman").attribute("isobtained").as_bool();
 	talisman.character = data.child("inventory").child("talisman").attribute("character").as_int();
 
+	bracelet.ininventory = data.child("inventory").child("bracelet").attribute("isobtained").as_bool();
+	bracelet.character = data.child("inventory").child("bracelet").attribute("character").as_int();
+
 	loadinventory();
 
 	//Apply equipped item stats
@@ -742,6 +763,10 @@ bool TeamManager::SaveState(pugi::xml_node& data)
 	inventory.append_child("talisman");
 	inventory.child("talisman").append_attribute("isobtained") = talisman.ininventory;
 	inventory.child("talisman").append_attribute("character") = talisman.character;
+
+	inventory.append_child("bracelet");
+	inventory.child("bracelet").append_attribute("isobtained") = bracelet.ininventory;
+	inventory.child("bracelet").append_attribute("character") = bracelet.character;
 
 	pugi::xml_node statsnode = data.append_child("stats");
 	statsnode.append_child("timmy");
@@ -1076,6 +1101,12 @@ void TeamManager::loadinventory() {
 		}
 	}
 
+	if (bracelet.ininventory == true) {
+		inventory.Add(&bracelet);
+		if (bracelet.character != 0) {
+			equipment.Add(&bracelet);
+		}
+	}
 }
 
 void TeamManager::ApplyEquipedItemStats()
