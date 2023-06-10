@@ -94,6 +94,7 @@ bool UIModule::Start()
 	combatStatsTexture = app->tex->Load("Assets/UI/combatStats.png");
 	combatEnemyStatsTexture = app->tex->Load("Assets/UI/combatEnemyStats.png");
 	plusButton = app->tex->Load("Assets/UI/plusButton.png");
+	pauseBGTexture = app->tex->Load("Assets/UI/pauseBG.png");
 	
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
@@ -104,21 +105,23 @@ bool UIModule::Start()
 	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, continueButtonsTexture, "", { 800, 740, 340, 89 }, this);
 	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, returnButtonTexture,"", { 800, 950, 340,89 }, this);
 
-	pausemenu_resume_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, defaultButtonTexture, "Resume", { 1620, 80, 127,33 }, this);
-	pausemenu_inventory_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, defaultButtonTexture, "Inventory", { 1620, 115, 127,33 }, this);
-	pausemenu_party_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 24, defaultButtonTexture, "Party", { 1620, 150, 127,33 }, this);
-	pausemenu_save_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, defaultButtonTexture, "Save", { 1620, 185, 127,33 }, this);
-	pausemenu_load_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, defaultButtonTexture, "Load", { 1620, 220, 127,33 }, this);
-	pausemenu_options_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, defaultButtonTexture, "Options", { 1620, 255, 127,33 }, this);
-	pausemenu_return_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, returnButtonTexture, "", { 800, 950, 340,89 }, this);
-	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, defaultButtonTexture, "MainMenu", { 1620, 290, 127,33 }, this);
-	pausemenu_quit_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, defaultButtonTexture, "Quit", { 1620, 325, 120, 30 }, this);
+	pausemenu_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, defaultButtonTexture, "Resume", { 896, 500, 127, 33 }, this);
+	pausemenu_inventory_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, defaultButtonTexture, "Inventory", { 896, 535 + 20, 127, 33 }, this);
+	pausemenu_party_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 24, defaultButtonTexture, "Party", { 896, 570 + 40, 127, 33 }, this);
+	pausemenu_save_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, defaultButtonTexture, "Save", { 896, 605 + 60, 127, 33 }, this);
+	pausemenu_load_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, defaultButtonTexture, "Load", { 896, 640 + 80, 127, 33 }, this);
+	pausemenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, defaultButtonTexture, "Options", { 896, 675 + 100, 127, 33 }, this);
+	pausemenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, returnButtonTexture, "", { 800, 950, 340, 89 }, this);
+	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, defaultButtonTexture, "MainMenu", { 896, 710 + 120, 127, 33 }, this);
+	pausemenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, defaultButtonTexture, "Quit", { 896, 745 + 140, 120, 30 }, this);
 
-	pausemenuCombat_resume_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, defaultButtonTexture, "Resume", { 1620, 80, 127,33 }, this);
-	pausemenuCombat_options_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, defaultButtonTexture, "Options", { 1620, 115, 127,33 }, this);
-	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, defaultButtonTexture, "MainMenu", { 1620, 150, 127,33 }, this);
-	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, returnButtonTexture, "", { 800, 950, 340,89 }, this);
-	pausemenuCombat_quit_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, defaultButtonTexture, "Quit", { 1620, 255, 127,33 }, this);
+
+	pausemenuCombat_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, defaultButtonTexture, "Resume", { 896, 500, 127, 33 }, this);
+	pausemenuCombat_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, defaultButtonTexture, "Options", { 896, 535 + 20, 127, 33 }, this);
+	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, defaultButtonTexture, "MainMenu", { 896, 570 + 40, 127, 33 }, this);
+	pausemenuCombat_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, returnButtonTexture, "", { 800, 950, 340, 89 }, this);
+	pausemenuCombat_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, defaultButtonTexture, "Quit", { 896, 605 + 60, 127, 33 }, this);
+
 
 	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, attackButtonTexture, "", { 526, 950, 246, 93 }, app->battleManager);
 	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, abilityButtonTexture, "",{ 821, 950, 246, 93 }, app->battleManager);
@@ -446,6 +449,11 @@ bool UIModule::PostUpdate()
 	if (currentMenuType == OPTIONS_GAME || currentMenuType == OPTIONS_MAIN || currentMenuType == OPTIONS_COMBAT)
 	{
 		app->render->DrawTexture(optionsBgTexture, -app->render->camera.x, -app->render->camera.y, NULL);
+	}
+
+	if (currentMenuType == PAUSE || currentMenuType == COMBAT_PAUSE)
+	{
+		app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, -app->render->camera.y);
 	}
 
 	app->guiManager->Draw();
@@ -1015,6 +1023,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(abilityButtonTexture);
 	app->tex->UnLoad(moveButtonTexture);
 	app->tex->UnLoad(skipButtonTexture);
+	app->tex->UnLoad(pauseBGTexture);
 
 	return true;
 }
@@ -1124,8 +1133,13 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		pausemenu_inventory_button->state = GuiControlState::NONE;
 		pausemenu_party_button->state = GuiControlState::NONE;
 
+
 		if(app->scene->active) app->scene->player->playerState = app->scene->player->playerPrevState;
 		if(app->w2_scene->active) app->w2_scene->player->playerState = app->w2_scene->player->playerPrevState;
+
+		app->uiModule->currentMenuType = DISABLED;
+		// Call this function only when scene is changed
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 		break;
 		// Save
@@ -2039,7 +2053,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 300, &lrrhRect);
 		break;
 	case ColliderType::UNKNOWN:
-		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 450, &bunnyRect);
+		app->render->DrawTexture(app->scene->npcPopUpTexture, -app->render->camera.x + 120, -app->render->camera.y + 170, &bunnyRect);
 		break;
 
 	default:

@@ -220,6 +220,7 @@ public:
 	SDL_Texture* combatStatsTexture;
 	SDL_Texture* combatEnemyStatsTexture;
 	SDL_Texture* plusButton;
+	SDL_Texture* pauseBGTexture;
 
 	SDL_Texture* pauseButtonsTexture;
 
