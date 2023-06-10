@@ -1101,7 +1101,7 @@ void Scene::CreateDialogue()
 
 
 	auto firstNodeB = std::make_shared<DialogueNode>();
-	firstNodeB->SetText("Oh, you're awake! It seems that your dream world has been affected by the corruption. The corruption is like a dark force that is spreading and destroying everything beautiful and good.");
+	firstNodeB->SetText("Oh, you're awake! Dream world has been affected by the corruption. Is like a dark force that is spreading and destroying everything beautiful and good.");
 	firstNodeB->AddChild(firstOption1G);
 	firstNodeB->AddChild(firstOption2G);
 	firstNodeB->AddChild(firstOption3G);

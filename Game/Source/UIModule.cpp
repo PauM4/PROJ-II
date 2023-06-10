@@ -2018,6 +2018,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Rect talismanVillagerRect = { 1174, 2024, 435, 726 };
 	SDL_Rect grandmaRect = { 107, 1958, 457, 748 };
 	SDL_Rect lrrhRect = { 176, 1097, 632, 701 };
+	SDL_Rect bunnyRect = {1212, 1162, 492, 665};
 
 	switch (app->scene->GetPlayerLastCollision())
 	{
@@ -2036,6 +2037,9 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 	case ColliderType::LRRH:
 		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 300, &lrrhRect);
+		break;
+	case ColliderType::UNKNOWN:
+		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 450, &bunnyRect);
 		break;
 
 	default:
@@ -2077,8 +2081,9 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	
 
 	//Printar el textDialogue
-	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1700);
-	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1600);
+	app->render->DrawTexture(textDialogue, -app->render->camera.x + 120, -app->render->camera.y + 730, NULL);
+
 
 	//Printar el textDialogue -  //COMENTADO DE MOMENTO PARA HACER PRUEBAS
 	/*SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 0,0,0 }, 1700);
@@ -2101,7 +2106,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
-		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
+		app->render->DrawTexture(textOption1, -app->render->camera.x + 107, -app->render->camera.y + 900, NULL);
 		SDL_DestroyTexture(textOption1);
 	}
 	else
@@ -2115,7 +2120,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
-		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
+		app->render->DrawTexture(textOption2, -app->render->camera.x + 107, -app->render->camera.y + 950, NULL);
 		SDL_DestroyTexture(textOption2);
 	}
 	else
@@ -2129,7 +2134,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
-		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
+		app->render->DrawTexture(textOption3, -app->render->camera.x + 1011, -app->render->camera.y + 900, NULL);
 		SDL_DestroyTexture(textOption3);
 	}
 	else
@@ -2143,7 +2148,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
-		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
+		app->render->DrawTexture(textOption4, -app->render->camera.x + 1011, -app->render->camera.y + 950, NULL);
 		SDL_DestroyTexture(textOption4);
 	}
 	else
@@ -2220,7 +2225,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 
 
 	//Printar el textDialogue
-	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1700);
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1600);
 	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);
 
 	//Printar el textDialogue -  //COMENTADO DE MOMENTO PARA HACER PRUEBAS

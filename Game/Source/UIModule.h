@@ -268,6 +268,7 @@ public:
 	SDL_Rect talismanRect;
 	SDL_Rect susjarRect;
 	SDL_Rect denturesRect;
+
 private:
 
 };
