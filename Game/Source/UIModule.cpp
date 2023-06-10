@@ -296,6 +296,10 @@ bool UIModule::Update(float dt)
 bool UIModule::PostUpdate()
 {
 	bool ret = true;
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		mainmenu_play_button->SetX(mainmenu_play_button->GetX() + 50);
+	}
 
 	// Pergami fons level up screen
 	if (app->teamManager->active && app->teamManager->lvlupbool)

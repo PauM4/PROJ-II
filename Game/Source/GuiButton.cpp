@@ -114,3 +114,23 @@ bool GuiButton::Draw(Render* render)
 
 	return false;
 }
+
+int GuiButton::GetX()
+{
+	return bounds.x;
+}
+
+int GuiButton::GetY()
+{
+	return bounds.y;
+}
+
+void GuiButton::SetX(int x)
+{
+	this->bounds.x = x;
+}
+
+void GuiButton::SetY(int y)
+{
+	this->bounds.y = y;
+}
