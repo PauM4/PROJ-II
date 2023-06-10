@@ -518,7 +518,7 @@ void BattleManager::UIStatsForBattle()
 	int i = 0;
 	// UI Stats for Battle
 
-	app->fonts->DrawText("--- NEXT  TURN --- ", 80, 100, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	app->fonts->DrawText("--- NEXT  TURN --- ", 1640, 900, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
 	if (turnList.Count() > 1) {
 	/*	int x = 1;
@@ -527,7 +527,7 @@ void BattleManager::UIStatsForBattle()
 			{
 				x++;
 			}*/
-			app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 110, 125, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+			app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 1670, 950, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
 	}
 
@@ -542,8 +542,8 @@ void BattleManager::UIStatsForBattle()
 		std::string hpString = std::to_string(hp);
 		const char* hpChar = hpString.c_str();
 	    
-		//const char* nameChar = allyItem->data->namechar.GetString();
-		//app->fonts->DrawText(nameChar, 80, 250 + i, 200, 200, {255,255,255}, app->fonts->gameFont);
+		const char* nameChar = allyItem->data->namechar.GetString();
+		app->fonts->DrawText(nameChar, 25, 80 + i, 200, 200, {255,255,255}, app->fonts->gameFont);
 		//app->fonts->DrawText("- HP: ", 80, 280 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 		app->fonts->DrawText(hpChar, 70, 150 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 		//app->fonts->DrawText("- Stamina: ", 80, 310 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
@@ -563,9 +563,7 @@ void BattleManager::UIStatsForBattle()
 		const char* hpChar = hpString.c_str();
 
 		const char* nameChar = enemyItem->data->namechar.GetString();
-
-
-		//app->fonts->DrawText(nameChar, 1690+30, 200+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		app->fonts->DrawText(nameChar, 1770, 80+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 		//app->fonts->DrawText("- HP: ", 1690+30, 230+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 		app->fonts->DrawText(hpChar, 1820, 150+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 		//app->fonts->DrawText("- Stamina: ", 1690+30, 260+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);

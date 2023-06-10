@@ -203,7 +203,7 @@ public:
 	SDL_Texture* optionsBgTexture;
 	SDL_Texture* checkboxTexture;
 
-	SDL_Texture* textureA;
+	SDL_Texture* defaultButtonTexture;
 	SDL_Texture* playButtonTexture;
 	SDL_Texture* optionsButtonTexture;
 	SDL_Texture* creditsButtonTexture;

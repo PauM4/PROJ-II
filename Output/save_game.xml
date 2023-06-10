@@ -11,15 +11,10 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="7942" y="690" dialogueTutorial="true" />
+		<player x="1857" y="5608" />
 		<rope_minigame rope_minigame_state="false" />
-		<chests>
-			<chest1 isPicked="false" />
-			<chest2 isPicked="false" />
-			<chest3 isPicked="false" />
-		</chests>
 		<saveBattleTutoState state="0" />
-		<stepQuest num="1" />
+		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -69,7 +64,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-7075" y="-195" />
+		<camera x="0" y="0" />
 	</renderer>
 	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>
