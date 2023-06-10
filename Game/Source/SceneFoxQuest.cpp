@@ -29,7 +29,7 @@ bool SceneFoxQuest::Awake(pugi::xml_node& config)
 	mapHeigth = 10;
 	app->render->camera.x = 0; 
 	app->render->camera.y = 0; 
-	rockTexture = app->tex->Load("Assets/Maps/World_02/Assets/Rocas_cueva.png");
+	rockTexture = app->tex->Load("Assets/Maps/World_02/Assets/RocasCueva.png");
 	mapTexture = app->tex->Load("Assets/Maps/World_02/Assets/Cueva_puzzle.png");
 	movingRock = false; 
 	return true;
@@ -203,11 +203,11 @@ bool SceneFoxQuest::PostUpdate()
 	for (int i = 0; i < mapLength; i++) {
 		for (int j = 0; j < mapHeigth; j++) {
 			if (map[i][j]->state == TileState::ROCK) {
-				SDL_Rect rect = { 326,431,108,108 };
+				SDL_Rect rect = { 55,71,108,108 };
 				app->render->DrawTexture(rockTexture, i*108 + 420, j*108, &rect);
 			}
 			if (map[i][j]->state == TileState::PULLROCK) {
-				SDL_Rect rect = { 490,436,108,108 };
+				SDL_Rect rect = { 224,89,108,108 };
 				app->render->DrawTexture(rockTexture, i * 108 + 420, j * 108, &rect);
 			}
 		}
