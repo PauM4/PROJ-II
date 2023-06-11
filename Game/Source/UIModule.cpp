@@ -76,7 +76,7 @@ bool UIModule::Start()
 	checkboxTexture = app->tex->Load("Assets/UI/checkbox.png");
 	sliderTexture = app->tex->Load("Assets/UI/sliderbar.png");
 
-	textureA = app->tex->Load("Assets/UI/UI_Spritesheet_FINAL.png");
+	defaultButtonTexture = app->tex->Load("Assets/UI/defaultButton.png");
 	playButtonTexture = app->tex->Load("Assets/UI/playButton.png");
 	optionsButtonTexture = app->tex->Load("Assets/UI/optionsButton.png");
 	creditsButtonTexture = app->tex->Load("Assets/UI/creditsButton.png");
@@ -94,6 +94,7 @@ bool UIModule::Start()
 	combatStatsTexture = app->tex->Load("Assets/UI/combatStats.png");
 	combatEnemyStatsTexture = app->tex->Load("Assets/UI/combatEnemyStats.png");
 	plusButton = app->tex->Load("Assets/UI/plusButton.png");
+	pauseBGTexture = app->tex->Load("Assets/UI/pauseBG.png");
 	
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
@@ -104,41 +105,43 @@ bool UIModule::Start()
 	mainmenu_continueGame_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, continueButtonsTexture, "", { 800, 740, 340, 89 }, this);
 	mainmenu_return_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, returnButtonTexture,"", { 800, 950, 340,89 }, this);
 
-	pausemenu_resume_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, textureA, "Resume", { 1620, 80, 120,30 }, this);
-	pausemenu_inventory_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, textureA, "Inventory", { 1620, 115, 120,30 }, this);
-	pausemenu_party_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 24, textureA, "Party", { 1620, 150, 120,30 }, this);
-	pausemenu_save_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, textureA, "Save", { 1620, 185, 120,30 }, this);
-	pausemenu_load_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, textureA, "Load", { 1620, 220, 120,30 }, this);
-	pausemenu_options_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, textureA, "Options", { 1620, 255, 120,30 }, this);
-	pausemenu_return_button =	  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, returnButtonTexture, "", { 800, 950, 340,89 }, this);
-	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, textureA, "Main Menu", { 1620, 290, 120,30 }, this);
-	pausemenu_quit_button =		  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, textureA, "Quit", { 1620, 325, 120, 30 }, this);
+	pausemenu_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 20, defaultButtonTexture, "Resume", { 896, 500, 127, 33 }, this);
+	pausemenu_inventory_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, defaultButtonTexture, "Inventory", { 896, 535 + 20, 127, 33 }, this);
+	pausemenu_party_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 24, defaultButtonTexture, "Party", { 896, 570 + 40, 127, 33 }, this);
+	pausemenu_save_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, defaultButtonTexture, "Save", { 896, 605 + 60, 127, 33 }, this);
+	pausemenu_load_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, defaultButtonTexture, "Load", { 896, 640 + 80, 127, 33 }, this);
+	pausemenu_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, defaultButtonTexture, "Options", { 896, 675 + 100, 127, 33 }, this);
+	pausemenu_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, returnButtonTexture, "", { 800, 950, 340, 89 }, this);
+	pausemenu_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, defaultButtonTexture, "MainMenu", { 896, 710 + 120, 127, 33 }, this);
+	pausemenu_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, defaultButtonTexture, "Quit", { 896, 745 + 140, 120, 30 }, this);
 
-	pausemenuCombat_resume_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, textureA, "Resume", { 1620, 80, 120,30 }, this);
-	pausemenuCombat_options_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, textureA, "Options", { 1620, 115, 120,30 }, this);
-	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, textureA, "Main Menu", { 1620, 150, 120,30 }, this);
-	pausemenuCombat_return_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, returnButtonTexture, "", { 800, 950, 340,89 }, this);
-	pausemenuCombat_quit_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, textureA, "Quit", { 1620, 255, 120, 30 }, this);
+
+	pausemenuCombat_resume_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, defaultButtonTexture, "Resume", { 896, 500, 127, 33 }, this);
+	pausemenuCombat_options_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, defaultButtonTexture, "Options", { 896, 535 + 20, 127, 33 }, this);
+	pausemenuCombat_backtomain_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, defaultButtonTexture, "MainMenu", { 896, 570 + 40, 127, 33 }, this);
+	pausemenuCombat_return_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, returnButtonTexture, "", { 800, 950, 340, 89 }, this);
+	pausemenuCombat_quit_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, defaultButtonTexture, "Quit", { 896, 605 + 60, 127, 33 }, this);
+
 
 	combat_attack_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 16, attackButtonTexture, "", { 526, 950, 246, 93 }, app->battleManager);
 	combat_ability_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 17, abilityButtonTexture, "",{ 821, 950, 246, 93 }, app->battleManager);
 	combat_move_button =	(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 18, moveButtonTexture, "",{ 1105, 950, 246, 93 }, app->battleManager);
 	combat_endTurn_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 19, skipButtonTexture, "", { 57, 960, 196, 84 }, app->battleManager);
 
-	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, textureA, "", { 100, 900, 800, 30 }, app->scene);
-	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, textureA, "", { 100, 950, 800, 30 }, app->scene);
-	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, textureA, "", { 1000, 900, 800, 30 }, app->scene);
-	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, textureA, "", { 1000, 950, 800, 30 }, app->scene);
+	dialog_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, nullptr, "", { 100, 900, 800, 30 }, app->scene);
+	dialog_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, nullptr, "", { 100, 950, 800, 30 }, app->scene);
+	dialog_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, nullptr, "", { 1000, 900, 800, 30 }, app->scene);
+	dialog_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 15, nullptr, "", { 1000, 950, 800, 30 }, app->scene);
 
-	dialog2_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 30, textureA, "", { 100, 900, 800, 30 }, app->w2_scene);
-	dialog2_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 31, textureA, "", { 100, 950, 800, 30 }, app->w2_scene);
-	dialog2_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 32, textureA, "", { 1000, 900, 800, 30 }, app->w2_scene);
-	dialog2_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 33, textureA, "", { 1000, 950, 800, 30 }, app->w2_scene);
+	dialog2_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 30, nullptr, "", { 100, 900, 800, 30 }, app->w2_scene);
+	dialog2_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 31, nullptr, "", { 100, 950, 800, 30 }, app->w2_scene);
+	dialog2_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 32, nullptr, "", { 1000, 900, 800, 30 }, app->w2_scene);
+	dialog2_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 33, nullptr, "", { 1000, 950, 800, 30 }, app->w2_scene);
 
-	dialog3_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 34, textureA, "", { 100, 900, 800, 30 }, app->w3_scene);
-	dialog3_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 35, textureA, "", { 100, 950, 800, 30 }, app->w3_scene);
-	dialog3_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 36, textureA, "", { 1000, 900, 800, 30 }, app->w3_scene);
-	dialog3_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 37, textureA, "", { 1000, 950, 800, 30 }, app->w3_scene);
+	dialog3_option1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 34, nullptr, "", { 100, 900, 800, 30 }, app->w3_scene);
+	dialog3_option2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 35, nullptr, "", { 100, 950, 800, 30 }, app->w3_scene);
+	dialog3_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 36, nullptr, "", { 1000, 900, 800, 30 }, app->w3_scene);
+	dialog3_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 37, nullptr, "", { 1000, 950, 800, 30 }, app->w3_scene);
 
 	levelup_defenseUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, plusButton, "", { 900, 400, 96, 73}, this);
 	levelup_magicUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, plusButton, "", { 900, 480, 96, 73 }, this);
@@ -148,18 +151,18 @@ bool UIModule::Start()
 	levelup_AB1PowerUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, plusButton, "", { 900, 800, 96, 73 }, this);
 	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, plusButton, "", { 900, 880, 96, 73 }, this);
 
-	party_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 67, textureA, "Unavailable", { 1000, 400, 100, 30 }, this);
-	party_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 68, textureA, "Unavailable", { 1000, 450, 100, 30 }, this);
-	party_lrrh_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 69, textureA, "Unavailable", { 1000, 500, 100, 30 }, this);
-	party_Lpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 70, textureA, "Unavailable", { 1000, 550, 100, 30 }, this);
-	party_Mpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 71, textureA, "Unavailable", { 1000, 600, 100, 30 }, this);
-	party_peter_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 72, textureA, "Unavailable", { 1000, 650, 100, 30 }, this);
+	party_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 67, defaultButtonTexture, "Absent", { 1000, 400, 127,33 }, this);
+	party_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 68, defaultButtonTexture, "Absent", { 1000, 450, 127,33 }, this);
+	party_lrrh_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 69, defaultButtonTexture, "Absent", { 1000, 500, 127,33 }, this);
+	party_Lpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 70, defaultButtonTexture, "Absent", { 1000, 550, 127,33 }, this);
+	party_Mpig_button =  (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 71, defaultButtonTexture, "Absent", { 1000, 600, 127,33 }, this);
+	party_peter_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 72, defaultButtonTexture, "Absent", { 1000, 650, 127,33 }, this);
 
-	inventory_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 73, textureA, "Timmy", { 300, 400, 100, 30 }, this);
-	inventory_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 74, textureA, "Bunny", { 300, 450, 100, 30 }, this);
-	inventory_lrrh_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 75, textureA, "LHRR", { 300, 500, 100, 30 }, this);
-	inventory_Lpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 76, textureA, "L. Pig", { 300, 550, 100, 30 }, this);
-	inventory_Mpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 77, textureA, "M. Pig", { 300, 600, 100, 30 }, this);
+	inventory_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 73, defaultButtonTexture, "Timmy", { 300, 400, 127,33 }, this);
+	inventory_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 74, defaultButtonTexture, "Bunny", { 300, 450, 127,33 }, this);
+	inventory_lrrh_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 75, defaultButtonTexture, "LHRR", { 300, 500, 127,33 }, this);
+	inventory_Lpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 76, defaultButtonTexture, "L. Pig", { 300, 550, 127,33 }, this);
+	inventory_Mpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 77, defaultButtonTexture, "M. Pig", { 300, 600, 127,33 }, this);
 
 	item_1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 78, NULL, "+", { 960, 350, 100, 30 }, this);
 	item_2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 79, NULL, "+", { 960, 400, 100, 30 }, this);
@@ -296,6 +299,10 @@ bool UIModule::Update(float dt)
 bool UIModule::PostUpdate()
 {
 	bool ret = true;
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		mainmenu_play_button->SetX(mainmenu_play_button->GetX() + 50);
+	}
 
 	// Pergami fons level up screen
 	if (app->teamManager->active && app->teamManager->lvlupbool)
@@ -442,6 +449,11 @@ bool UIModule::PostUpdate()
 	if (currentMenuType == OPTIONS_GAME || currentMenuType == OPTIONS_MAIN || currentMenuType == OPTIONS_COMBAT)
 	{
 		app->render->DrawTexture(optionsBgTexture, -app->render->camera.x, -app->render->camera.y, NULL);
+	}
+
+	if (currentMenuType == PAUSE || currentMenuType == COMBAT_PAUSE)
+	{
+		app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, -app->render->camera.y);
 	}
 
 	app->guiManager->Draw();
@@ -997,7 +1009,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(optionsBgTexture);
 	app->tex->UnLoad(checkboxTexture);
 	app->tex->UnLoad(sliderTexture);
-	app->tex->UnLoad(textureA);
+	app->tex->UnLoad(defaultButtonTexture);
 	app->tex->UnLoad(playButtonTexture);
 	app->tex->UnLoad(optionsButtonTexture);
 	app->tex->UnLoad(creditsButtonTexture);
@@ -1011,6 +1023,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(abilityButtonTexture);
 	app->tex->UnLoad(moveButtonTexture);
 	app->tex->UnLoad(skipButtonTexture);
+	app->tex->UnLoad(pauseBGTexture);
 
 	return true;
 }
@@ -1121,8 +1134,13 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		pausemenu_inventory_button->state = GuiControlState::NONE;
 		pausemenu_party_button->state = GuiControlState::NONE;
 
+
 		if(app->scene->active) app->scene->player->playerState = app->scene->player->playerPrevState;
 		if(app->w2_scene->active) app->w2_scene->player->playerState = app->w2_scene->player->playerPrevState;
+
+		app->uiModule->currentMenuType = DISABLED;
+		// Call this function only when scene is changed
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 		break;
 		// Save
@@ -1398,7 +1416,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else
 		{
-			party_timmy_button->text = "Unavailable";
+			party_timmy_button->text = "Absent";
 		}
 		break;
 
@@ -1419,7 +1437,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else
 		{
-			party_bunny_button->text = "Unavailable";
+			party_bunny_button->text = "Absent";
 		}
 		break;
 
@@ -1440,7 +1458,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else
 		{
-			party_lrrh_button->text = "Unavailable";
+			party_lrrh_button->text = "Absent";
 		}
 		break;
 
@@ -1461,7 +1479,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else
 		{
-			party_Lpig_button->text = "Unavailable";
+			party_Lpig_button->text = "Absent";
 		}
 		break;
 
@@ -1482,7 +1500,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else
 		{
-			party_Mpig_button->text = "Unavailable";
+			party_Mpig_button->text = "Absent";
 		}
 		break;
 
@@ -1503,7 +1521,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else
 		{
-			party_peter_button->text = "Unavailable";
+			party_peter_button->text = "Absent";
 		}
 	}
 
@@ -2015,6 +2033,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	SDL_Rect talismanVillagerRect = { 1174, 2024, 435, 726 };
 	SDL_Rect grandmaRect = { 107, 1958, 457, 748 };
 	SDL_Rect lrrhRect = { 176, 1097, 632, 701 };
+	SDL_Rect bunnyRect = {1212, 1162, 492, 665};
 
 	switch (app->scene->GetPlayerLastCollision())
 	{
@@ -2033,6 +2052,9 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 	case ColliderType::LRRH:
 		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 300, &lrrhRect);
+		break;
+	case ColliderType::UNKNOWN:
+		app->render->DrawTexture(app->scene->npcPopUpTexture, -app->render->camera.x + 120, -app->render->camera.y + 170, &bunnyRect);
 		break;
 
 	default:
@@ -2074,8 +2096,9 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	
 
 	//Printar el textDialogue
-	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1700);
-	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1600);
+	app->render->DrawTexture(textDialogue, -app->render->camera.x + 120, -app->render->camera.y + 730, NULL);
+
 
 	//Printar el textDialogue -  //COMENTADO DE MOMENTO PARA HACER PRUEBAS
 	/*SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogue[0].c_str(), { 0,0,0 }, 1700);
@@ -2098,7 +2121,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
-		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
+		app->render->DrawTexture(textOption1, -app->render->camera.x + 107, -app->render->camera.y + 900, NULL);
 		SDL_DestroyTexture(textOption1);
 	}
 	else
@@ -2112,7 +2135,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
-		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
+		app->render->DrawTexture(textOption2, -app->render->camera.x + 107, -app->render->camera.y + 950, NULL);
 		SDL_DestroyTexture(textOption2);
 	}
 	else
@@ -2126,7 +2149,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
-		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
+		app->render->DrawTexture(textOption3, -app->render->camera.x + 1011, -app->render->camera.y + 900, NULL);
 		SDL_DestroyTexture(textOption3);
 	}
 	else
@@ -2140,7 +2163,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
-		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
+		app->render->DrawTexture(textOption4, -app->render->camera.x + 1011, -app->render->camera.y + 950, NULL);
 		SDL_DestroyTexture(textOption4);
 	}
 	else
@@ -2217,7 +2240,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 
 
 	//Printar el textDialogue
-	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1700);
+	SDL_Texture* textDialogue = app->fonts->LoadRenderedParagraph(rect, app->fonts->gameFont, dialogueOverTime.c_str(), { 0,0,0 }, 1600);
 	app->render->DrawTexture(textDialogue, posX - 850, posY + 240, NULL);
 
 	//Printar el textDialogue -  //COMENTADO DE MOMENTO PARA HACER PRUEBAS
@@ -2451,7 +2474,7 @@ void UIModule::CheckPartyTextOnStart()
 	}
 	else
 	{
-		party_timmy_button->text = "Unavailable";
+		party_timmy_button->text = "Absent";
 	}
 
 	// Bunny
@@ -2468,7 +2491,7 @@ void UIModule::CheckPartyTextOnStart()
 	}
 	else
 	{
-		party_bunny_button->text = "Unavailable";
+		party_bunny_button->text = "Absent";
 	}
 
 	// LRRH
@@ -2485,7 +2508,7 @@ void UIModule::CheckPartyTextOnStart()
 	}
 	else
 	{
-		party_lrrh_button->text = "Unavailable";
+		party_lrrh_button->text = "Absent";
 	}
 
 	// LPig
@@ -2502,7 +2525,7 @@ void UIModule::CheckPartyTextOnStart()
 	}
 	else
 	{
-		party_Lpig_button->text = "Unavailable";
+		party_Lpig_button->text = "Absent";
 	}
 
 	// MPig
@@ -2519,7 +2542,7 @@ void UIModule::CheckPartyTextOnStart()
 	}
 	else
 	{
-		party_Mpig_button->text = "Unavailable";
+		party_Mpig_button->text = "Absent";
 	}
 
 	// Peter
@@ -2536,7 +2559,7 @@ void UIModule::CheckPartyTextOnStart()
 	}
 	else
 	{
-		party_peter_button->text = "Unavailable";
+		party_peter_button->text = "Absent";
 	}
 }
 

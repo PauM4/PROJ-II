@@ -965,8 +965,8 @@ void TeamManager::PrintLvlUpText()
 	uint remainPoints = LvlUpPoints;
 	std::string remainPointsString = std::to_string(remainPoints);
 	const char* remainPointsChar = remainPointsString.c_str();
-	app->fonts->DrawText("Points: ", -app->render->camera.x + 900, -app->render->camera.y + 350, 100, 100, { 0, 0, 0 });
-	app->fonts->DrawText(remainPointsChar, -app->render->camera.x + 975, -app->render->camera.y + 350, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText("Points: ", -app->render->camera.x + 1230, -app->render->camera.y + 380, 100, 100, { 0, 0, 0 });
+	app->fonts->DrawText(remainPointsChar, -app->render->camera.x + 1225, -app->render->camera.y + 420, 100, 100, { 0, 200, 25 }, app->fonts->gameFontBig);
 
 	uint defense = characters.At(cont)->data->defense + statslist.At(cont)->data->defense - statslist2.At(cont)->data.defense;
 	std::string defenSestring = std::to_string(defense);

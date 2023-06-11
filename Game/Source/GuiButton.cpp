@@ -110,7 +110,27 @@ bool GuiButton::Draw(Render* render)
 		break;
 	}
 
-	app->fonts->DrawText(text.GetString(), bounds.x + bounds.w / 4, bounds.y, bounds.w, bounds.h, { 255,255,255 }, app->fonts->gameFont, true);
+	app->fonts->DrawText(text.GetString(), bounds.x + bounds.w / 4 - 15, bounds.y, bounds.w, bounds.h, { 255,255,255 }, app->fonts->gameFont, true);
 
 	return false;
+}
+
+int GuiButton::GetX()
+{
+	return bounds.x;
+}
+
+int GuiButton::GetY()
+{
+	return bounds.y;
+}
+
+void GuiButton::SetX(int x)
+{
+	this->bounds.x = x;
+}
+
+void GuiButton::SetY(int y)
+{
+	this->bounds.y = y;
 }

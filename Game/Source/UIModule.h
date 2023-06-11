@@ -203,7 +203,7 @@ public:
 	SDL_Texture* optionsBgTexture;
 	SDL_Texture* checkboxTexture;
 
-	SDL_Texture* textureA;
+	SDL_Texture* defaultButtonTexture;
 	SDL_Texture* playButtonTexture;
 	SDL_Texture* optionsButtonTexture;
 	SDL_Texture* creditsButtonTexture;
@@ -220,6 +220,7 @@ public:
 	SDL_Texture* combatStatsTexture;
 	SDL_Texture* combatEnemyStatsTexture;
 	SDL_Texture* plusButton;
+	SDL_Texture* pauseBGTexture;
 
 	SDL_Texture* pauseButtonsTexture;
 
@@ -268,6 +269,7 @@ public:
 	SDL_Rect talismanRect;
 	SDL_Rect susjarRect;
 	SDL_Rect denturesRect;
+
 private:
 
 };
