@@ -516,23 +516,202 @@ bool BattleManager::OnGuiMouseClickEvent(GuiControl* control)
 void BattleManager::UIStatsForBattle()
 {
 	int i = 0;
+	int j = 0;
 	// UI Stats for Battle
 
-	app->fonts->DrawText("--- NEXT  TURN --- ", 1640, 900, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+	//app->fonts->DrawText("--- NEXT  TURN --- ", 1640, 900, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 
+
+	// Mini character photos
+	SDL_Rect timmyPicRect = { 13, 16, 142, 111 };
+	SDL_Rect bunnyPicRect = { 158, 16, 142, 111 };
+	SDL_Rect villagerPicRect = { 303, 16, 142, 111 };
+	SDL_Rect corrPicLRRHRect = { 450, 16, 142, 111 };
+	SDL_Rect LRRHPicRect = { 595, 16, 142, 111 };
+	SDL_Rect corrLPigPicRect = { 13, 142, 142, 111 };
+	SDL_Rect corrMPigPicRect = { 158, 142, 142, 111 };
+	SDL_Rect LPigPicRect = { 303, 142, 142, 111 };
+	SDL_Rect MPigPicRect = { 450, 142, 142, 111 };
+	SDL_Rect corrWolfPicRect = { 595, 142, 142, 111 };
+	SDL_Rect corrSproutRect = { 12, 267, 142, 111 };
+
+
+	// Next Turn Name
 	if (turnList.Count() > 1) {
+		
 	/*	int x = 1;
 
 			while (turnList.At(x)==nullptr && x <=turnList.Count())
 			{
 				x++;
 			}*/
-			app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 1670, 950, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		//if (turnList.At(1) != nullptr)
+		//{
+		//	app->fonts->DrawText(turnList.At(1)->data->namechar.GetString(), 1400, 950, 200, 200, { 255,0,255 }, app->fonts->gameFont);
+		//}
+		//if (turnList.At(2) != nullptr)
+		//{
+		//	app->fonts->DrawText(turnList.At(2)->data->namechar.GetString(), 1400, 980, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+		//}
 
+		if (turnList.At(0) != nullptr)
+		{
+			//Current Trun
+			if (turnList.At(0)->data->name == "timmy")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &timmyPicRect);
+			}
+			else if (turnList.At(0)->data->name == "bunny")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &bunnyPicRect);
+			}
+			else if (turnList.At(0)->data->name == "enemy_angryVillager")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &villagerPicRect);
+			}
+			else if (turnList.At(0)->data->name == "enemy_lrrh")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrPicLRRHRect);
+			}
+			else if (turnList.At(0)->data->name == "lrrh")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &LRRHPicRect);
+			}
+			else if (turnList.At(0)->data->name == "sprout")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrSproutRect);
+			}
+			else if (turnList.At(0)->data->name == "enemy_littlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrLPigPicRect);
+			}
+			else if (turnList.At(0)->data->name == "enemy_middlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrMPigPicRect);
+			}
+			else if (turnList.At(0)->data->name == "littlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &LPigPicRect);
+			}
+			else if (turnList.At(0)->data->name == "middlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &MPigPicRect);
+			}
+			// CAL CANVIAR EL NOM QUAN ES TINGUI
+			else if (turnList.At(0)->data->name == "wolf")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrWolfPicRect);
+			}
+		}
+
+		// Next turn 1 photos
+		if (turnList.At(1) != nullptr)
+		{
+			if (turnList.At(1)->data->name == "timmy")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &timmyPicRect);
+			}
+			else if (turnList.At(1)->data->name == "bunny")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &bunnyPicRect);
+			}
+			else if (turnList.At(1)->data->name == "enemy_angryVillager")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &villagerPicRect);
+			}
+			else if (turnList.At(1)->data->name == "enemy_lrrh")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &corrPicLRRHRect);
+			}
+			else if (turnList.At(1)->data->name == "lrrh")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &LRRHPicRect);
+			}
+			else if (turnList.At(1)->data->name == "sprout")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &corrSproutRect);
+			}
+			else if (turnList.At(1)->data->name == "enemy_littlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &corrLPigPicRect);
+			}
+			else if (turnList.At(1)->data->name == "enemy_middlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &corrMPigPicRect);
+			}
+			else if (turnList.At(1)->data->name == "littlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &LPigPicRect);
+			}
+			else if (turnList.At(1)->data->name == "middlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &MPigPicRect);
+			}
+			else if (turnList.At(1)->data->name == "wolf")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &corrWolfPicRect);
+			}
+
+		}
+
+
+		// TURN LIST SECOND
+		if (turnList.At(2) != nullptr)
+		{
+			if (turnList.At(2)->data->name == "timmy")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &timmyPicRect);
+			}
+			else if (turnList.At(2)->data->name == "bunny")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &bunnyPicRect);
+			}
+			else if (turnList.At(2)->data->name == "enemy_angryVillager")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &villagerPicRect);
+			}
+			else if (turnList.At(2)->data->name == "enemy_lrrh")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &corrPicLRRHRect);
+			}
+			else if (turnList.At(2)->data->name == "sprout")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &corrSproutRect);
+			}
+			else if (turnList.At(2)->data->name == "lrrh")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &LRRHPicRect);
+			}
+			else if (turnList.At(2)->data->name == "enemy_littlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &corrLPigPicRect);
+			}
+			else if (turnList.At(2)->data->name == "enemy_middlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &corrMPigPicRect);
+			}
+			else if (turnList.At(2)->data->name == "littlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &LPigPicRect);
+			}
+			else if (turnList.At(2)->data->name == "middlePig")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &MPigPicRect);
+			}
+			else if (turnList.At(2)->data->name == "wolf")
+			{
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &corrWolfPicRect);
+			}
+		}
 	}
 
 	for (ListItem<Entity*>* allyItem = allies.start; allyItem != NULL; allyItem = allyItem->next) {
 
+
+		// UI
+		// Lateral Stats IU
+		// Party UI
+		app->render->DrawTexture(app->uiModule->combatStatsTexture, 0, 7 + i);
 
 		uint stamina = allyItem->data->stamina;
 		std::string staminaString = std::to_string(stamina);
@@ -548,11 +727,17 @@ void BattleManager::UIStatsForBattle()
 		app->fonts->DrawText(hpChar, 70, 150 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 		//app->fonts->DrawText("- Stamina: ", 80, 310 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 		app->fonts->DrawText(staminaChar, 70, 225 + i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+
 		i+= 270;
 	}
 
 	i = 0;
 	for (ListItem<Entity*>* enemyItem = enemies.start; enemyItem != NULL; enemyItem = enemyItem->next) {
+
+		// Lateral Stats
+		// Enemy UI
+		app->render->DrawTexture(app->uiModule->combatEnemyStatsTexture, 1755, 7 + i);
 
 		uint stamina = enemyItem->data->stamina;
 		std::string staminaString = std::to_string(stamina);
@@ -568,6 +753,9 @@ void BattleManager::UIStatsForBattle()
 		app->fonts->DrawText(hpChar, 1820, 150+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 		//app->fonts->DrawText("- Stamina: ", 1690+30, 260+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
 		app->fonts->DrawText(staminaChar, 1820, 225+i, 200, 200, { 255,255,255 }, app->fonts->gameFont);
+
+
+
 		i += 270;
 	}
 	
