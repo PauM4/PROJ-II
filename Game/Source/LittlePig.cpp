@@ -42,6 +42,7 @@ bool LittlePig::Awake()
 	abilityAnim.loop = true;
 	abilityAnim.speed = 0.25;
 
+
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
 		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
@@ -156,6 +157,15 @@ bool LittlePig::PostUpdate()
 		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
 	}
 
+	if (currentAnimation == &abilityAnim)
+	{
+		if (abilityAnim.HasFinished())
+		{
+			finishAnimBool = true;
+			currentAnimation == &idleAnim;
+
+		}
+	}
 	return true;
 }
 

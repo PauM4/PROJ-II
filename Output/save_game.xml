@@ -62,10 +62,11 @@
 	</teamManager>
 	<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
 	<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
+	<moduleparticles />
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="false" isPereDefeated="" isWolfDefeated="" />
+	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

@@ -191,6 +191,7 @@ public:
 	bool displayEnemyAttackAreaOnce = false;
 
 	int changeScreenTimer;
+	int timercharge;
 
 
 	//Pathfinding varibles

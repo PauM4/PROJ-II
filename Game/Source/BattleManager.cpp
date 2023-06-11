@@ -63,6 +63,7 @@ bool BattleManager::Start() {
 	triggerMoveTimer = false;
 	win = false;
 	lose = false;
+	timercharge = 0;
 	battleState = BattleState::THINKING;
 	app->SaveGameRequest();
 
@@ -101,6 +102,9 @@ bool BattleManager::Update(float dt) {
 	if (godMode) {
 		GodMode();
 	}
+	if (timercharge > 0) {
+		timercharge--;
+	}
 
 	UpdateEntitiesTilePos();
 
@@ -110,6 +114,7 @@ bool BattleManager::Update(float dt) {
 		break;
 	case BattleState::THINKING:
 		actionfinish = false;
+		timercharge = 0;
 		origin = currentTurn->tilePos;
 		targets.Clear();
 		actionArea.Clear();
@@ -157,6 +162,7 @@ bool BattleManager::Update(float dt) {
 
 				currentTurn->GainStamina(10);
 				app->audio->PlayFx(rechargemanaFx);
+				timercharge = 50;
 				battleState = BattleState::INACTION;
 
 			}
@@ -221,8 +227,8 @@ bool BattleManager::Update(float dt) {
 			}
 
 		}
-		else {
-
+		else if (timercharge == 0) {
+		
 			battleState = BattleState::THINKING;
 			UpdateTurnList();
 
@@ -362,6 +368,7 @@ bool BattleManager::Update(float dt) {
 		
 		if (battleState == BattleState::ENEMY && actionType != ActionType::ATTACK) {
 			currentTurn->GainStamina(10);
+			timercharge = 100;
 			battleState = BattleState::INACTION;
 		}
 

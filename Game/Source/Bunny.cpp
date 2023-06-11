@@ -193,8 +193,9 @@ bool Bunny::PostUpdate()
 
 			if (thunder.HasFinished())
 			{
-				abilityAnimation = &none;
 				abilityAnimation->Reset();
+				abilityAnimation = &none;
+				
 
 			}
 		}
