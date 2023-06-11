@@ -11,9 +11,9 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player />
+		<player x="1857" y="5608" />
 		<rope_minigame rope_minigame_state="false" />
-		<saveBattleTutoState state="0" />
+		<saveBattleTutoState state="3" />
 		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
@@ -22,7 +22,7 @@
 	<sceneFoxQuest />
 	<battleScene_Pigs />
 	<w2_scene>
-		<player x="-57" y="-52" />
+		<player x="817" y="3085" />
 		<stepQuest num="0" />
 	</w2_scene>
 	<w2_scene_maze>
@@ -41,8 +41,8 @@
 			<yoyo isobtained="true" character="1" />
 			<handsxd isobtained="true" character="2" />
 			<bow isobtained="false" character="0" />
-			<club isobtained="true" character="5" />
-			<knife isobtained="true" character="4" />
+			<club isobtained="false" character="0" />
+			<knife isobtained="false" character="0" />
 			<shotgun isobtained="false" character="0" />
 			<ironchestplate isobtained="false" character="0" />
 			<ironchestplate2 isobtained="false" character="0" />

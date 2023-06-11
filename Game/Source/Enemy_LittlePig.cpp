@@ -127,7 +127,7 @@ bool Enemy_LittlePig::Awake()
 
 bool Enemy_LittlePig::Start()
 {
-
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_knife.wav");
 	return true;
 }
 

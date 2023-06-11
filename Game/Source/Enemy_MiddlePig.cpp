@@ -120,7 +120,7 @@ bool Enemy_MiddlePig::Awake()
 
 bool Enemy_MiddlePig::Start()
 {
-
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_cantmove.wav");
 	return true;
 }
 

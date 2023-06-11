@@ -85,7 +85,8 @@ bool LittlePig::Awake()
 
 bool LittlePig::Start()
 {
-
+	attackFx = app->audio->LoadFx("Assets/Sounds/FX/fx_attack.wav");
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_knife.wav");
 
 	return true;
 }

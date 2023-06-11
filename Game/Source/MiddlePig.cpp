@@ -80,7 +80,8 @@ bool MiddlePig::Awake()
 
 bool MiddlePig::Start()
 {
-
+	attackFx = app->audio->LoadFx("Assets/Sounds/FX/fx_attack.wav");
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_cantmove.wav");
 
 	return true;
 }
