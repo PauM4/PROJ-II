@@ -67,9 +67,20 @@ bool Portal::Update(float dt)
 bool Portal::PostUpdate()
 {
 	if (godMode) app->render->DrawRectangle({ position.x, position.y, width, height }, 0, 255, 0, 50);
-
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x - 55, position.y - 75, &rect);
+	switch (app->sceneManager->scene) {
+	case SCENE:
+		if (app->scene->currentQuestIndex >= 4 ) {
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x - 55, position.y - 75, &rect);
+		}
+		break; 
+	case W2_SCENE:
+		if (app->w2_scene->currentQuestIndex >= 3 || nextScene != 10) {
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x - 55, position.y - 75, &rect);
+		}
+	}
+	
 
 	return true;
 }
@@ -96,16 +107,20 @@ void Portal::OnCollision(PhysBody* physA, PhysBody* physB)
 		LOG("Collision portal/player");
 		switch (app->sceneManager->scene) {
 		case SCENE:
-			app->scene->takePortal = true; 
-			app->uiModule->doorPlayerPosition = true;
-			app->SaveGameRequest();
-			app->sceneManager->LoadScene((GameScene)nextScene);
+			if (app->scene->currentQuestIndex >= 4) {
+				app->scene->takePortal = true;
+				app->uiModule->doorPlayerPosition = true;
+				app->SaveGameRequest();
+				app->sceneManager->LoadScene((GameScene)nextScene);
+			}
 			break;
 		case W2_SCENE:
-			app->w2_scene->takePortal = true;
-			app->uiModule->doorPlayerPosition = true;
-			app->SaveGameRequest();
-			app->sceneManager->LoadScene((GameScene)nextScene);
+			if (app->w2_scene->currentQuestIndex >= 3 || nextScene != 10) {
+				app->w2_scene->takePortal = true;
+				app->uiModule->doorPlayerPosition = true;
+				app->SaveGameRequest();
+				app->sceneManager->LoadScene((GameScene)nextScene);
+			}
 			break; 
 		case W2_SCENE_MAZE:
 			app->uiModule->doorPlayerPosition = true;
