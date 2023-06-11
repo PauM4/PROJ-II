@@ -200,6 +200,9 @@ private:
 	int ropeSpeedLimit;
 	bool ropeWin;
 
+
+	int bunnyDialogueCounter;
+
 public:
 	int ropeX;
 	int ropeY;
@@ -212,6 +215,8 @@ public:
 	SDL_Texture* eKeyTexture;
 	Tween eKeyAnim;
 	bool inventoryOpen;
+
+	
 };
 
 #endif // __SCENE_H__
