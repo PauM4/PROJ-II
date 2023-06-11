@@ -45,6 +45,7 @@ class Fonts;
 class FadeToBlack;
 class SceneManager;
 class BattleManager;
+class ModuleParticles;
 //L07 DONE 2: Add Physics module
 class Physics;
 class PathFinding;
@@ -142,6 +143,7 @@ public:
 	//----------
 	SceneFoxQuest* sceneFoxQuest; 
 	EntityManager* entityManager;
+	ModuleParticles* moduleParticles;
 	Map* map;
 	Fonts* fonts; 
 	FadeToBlack* fadeToBlack;

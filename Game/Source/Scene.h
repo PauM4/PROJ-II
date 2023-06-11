@@ -15,6 +15,8 @@
 #include "Physics.h"
 #include "SDL_Timer.h"
 #include "Animation.h"
+#include "ParticleSystem.h"
+#include "ModuleParticles.h"
 
 
 #include <vector>
@@ -169,6 +171,8 @@ public:
 	SDL_Texture* inventoryItemsTexture;
 
 	bool dialogueTutorial;
+
+	ParticleProps exempleparticle;
 
 private:
 

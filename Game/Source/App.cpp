@@ -37,6 +37,8 @@
 #include "TeamManager.h"
 #include "Defs.h"
 #include "Log.h"
+#include "ModuleParticles.h"
+
 
 #include <iostream>
 #include <sstream>
@@ -80,6 +82,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//-----------------
 	battleManager = new BattleManager(false);
 	entityManager = new EntityManager(true);
+	moduleParticles = new ModuleParticles(true);
 	map = new Map(true);
 	guiManager = new GuiManager(true);
 	fonts = new Fonts(true);
@@ -122,6 +125,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(guiManager);
 	AddModule(teamManager);
+	AddModule(moduleParticles);
 	AddModule(uiModule);
 	AddModule(fadeToBlack);
 

@@ -98,8 +98,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ParticleSystem.cpp" />
-    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Source\BattleManager.cpp" />
     <ClCompile Include="Source\BattleScene_Pigs.cpp" />
     <ClCompile Include="Source\BattleSystem.cpp" />
@@ -127,14 +125,17 @@
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\MiddlePig.cpp" />
+    <ClCompile Include="Source\ModuleParticles.cpp" />
     <ClCompile Include="Source\Npc.cpp" />
     <ClCompile Include="Source\NpcW2.cpp" />
     <ClCompile Include="Source\NpcW3.cpp" />
+    <ClCompile Include="Source\ParticleSystem.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerformanceBar2.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Portal.cpp" />
+    <ClCompile Include="Source\Random.cpp" />
     <ClCompile Include="Source\SceneCombatLHHR.cpp" />
     <ClCompile Include="Source\SceneFoxQuest.cpp" />
     <ClCompile Include="Source\SceneGrandma.cpp" />
@@ -157,8 +158,6 @@
     <ClCompile Include="Source\W3_Scene.cpp" />
     <ClCompile Include="Source\W2_Scene_Maze.cpp" />
     <ClCompile Include="Source\Window.cpp" />
-    <ClInclude Include="ParticleSystem.h" />
-    <ClInclude Include="Random.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\BattleManager.h" />
     <ClInclude Include="Source\BattleScene_Pigs.h" />
@@ -185,14 +184,17 @@
     <ClInclude Include="Source\Lrrh.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\MiddlePig.h" />
+    <ClInclude Include="Source\ModuleParticles.h" />
     <ClInclude Include="Source\Npc.h" />
     <ClInclude Include="Source\NpcW2.h" />
     <ClInclude Include="Source\NpcW3.h" />
+    <ClInclude Include="Source\ParticleSystem.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerformanceBar2.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Portal.h" />
+    <ClInclude Include="Source\Random.h" />
     <ClInclude Include="Source\SceneCombatLHHR.h" />
     <ClInclude Include="Source\SceneFoxQuest.h" />
     <ClInclude Include="Source\SceneGrandma.h" />

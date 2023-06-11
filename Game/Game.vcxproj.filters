@@ -136,10 +136,11 @@
     <ClCompile Include="Source\GuiSlider.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Random.cpp">
+    <ClCompile Include="Source\ModuleParticles.cpp" />
+    <ClCompile Include="Source\ParticleSystem.cpp" />
+    <ClCompile Include="Source\Random.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -313,10 +314,11 @@
     <ClInclude Include="Source\GuiManager.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Random.h">
+    <ClInclude Include="Source\ModuleParticles.h" />
+    <ClInclude Include="Source\ParticleSystem.h" />
+    <ClInclude Include="Source\Random.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
