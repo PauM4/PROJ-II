@@ -99,7 +99,7 @@ bool W3_Scene::Start()
 
 	if (isNewGame)
 	{
-		player->ChangePosition(2030, 6178);
+		player->ChangePosition(1026, 3000);
 		isNewGame = false;
 	}
 	else
@@ -205,6 +205,8 @@ void W3_Scene::AppearDialogue()
 bool W3_Scene::PostUpdate()
 {
 	bool ret = true;
+
+	if (!godMode) app->map->PostDraw(player->position.y + 40);
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

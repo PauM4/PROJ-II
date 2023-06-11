@@ -412,6 +412,7 @@ bool TeamManager::Update(float dt)
 
 		if (lvlupbool)
 		{
+			
 			// Tell to UIModule which currentMenuType
 			app->uiModule->currentMenuType = LEVEL_UP;
 			// Call this function only when buttons change
@@ -424,8 +425,6 @@ bool TeamManager::Update(float dt)
 			// Call this function only when buttons change
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 		}
-		
-
 	}
 
 	if (lvlupbool == true) {
