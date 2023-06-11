@@ -653,7 +653,7 @@ std::string Scene::LastTextNPC(ColliderType NPC)
 		switch (index)
 		{
 		case 1:
-			auxString = "May God bless you?";
+			auxString = "Ewww... it's so wet! You can have it!";
 			break;
 		case 2:
 			auxString = "Look at this beautiful talisman!";
@@ -1090,19 +1090,19 @@ void Scene::CreateDialogue()
 
 	//2nd Level
 	auto bToOption1 = std::make_shared<DialogueNode>();
-	bToOption1->SetText("You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
+	bToOption1->SetText("Bunny: You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
 	//bToOption1->AddChild(secondOption1B);
 
 	auto bToOption2 = std::make_shared<DialogueNode>();
-	bToOption2->SetText("You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
+	bToOption2->SetText("Bunny: You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
 	//bToOption2->AddChild(secondOption1B);
 
 	auto bToOption3 = std::make_shared<DialogueNode>();
-	bToOption3->SetText("You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
+	bToOption3->SetText("Bunny: You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
 	//bToOption3->AddChild(secondOption1B);
 
 	auto bToOption4 = std::make_shared<DialogueNode>();
-	bToOption4->SetText("You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
+	bToOption4->SetText("Bunny: You see, I'm not just an ordinary stuffed animal. I'm the guardian of this dream world, and I have a special wand that can seal the corruption. But, unfortunately, I've lost it somewhere in this forest. We must find the wand and use its power to restore balance and harmony to this dream world.");
 	//bToOption4->AddChild(secondOption1B);
 
 
@@ -1126,7 +1126,7 @@ void Scene::CreateDialogue()
 
 
 	auto firstNodeB = std::make_shared<DialogueNode>();
-	firstNodeB->SetText("Oh, you're awake! Dream world has been affected by the corruption. Is like a dark force that is spreading and destroying everything beautiful and good.");
+	firstNodeB->SetText("Bunny: Oh, you're awake! Dream world has been affected by the corruption. Is like a dark force that is spreading and destroying everything beautiful and good.");
 	firstNodeB->AddChild(firstOption1B);
 	firstNodeB->AddChild(firstOption2B);
 	firstNodeB->AddChild(firstOption3B);

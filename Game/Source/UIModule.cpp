@@ -84,8 +84,12 @@ bool UIModule::Start()
 	newgameButtonsTexture = app->tex->Load("Assets/UI/newgameButtons.png");
 	continueButtonsTexture = app->tex->Load("Assets/UI/continueButtons.png");
 	returnButtonTexture = app->tex->Load("Assets/UI/returnButton.png");
-	uiSpriteTexture = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
+	dialogueTextures = app->tex->Load("Assets/UI/UI_SpriteSheet.png");
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
+	plusButtonTexture = app->tex->Load("Assets/UI/plusButton.png");
+	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
+
+	// Combat textures
 	attackButtonTexture = app->tex->Load("Assets/UI/attackbattleButton.png");
 	abilityButtonTexture = app->tex->Load("Assets/UI/abilitybattleButton.png");
 	moveButtonTexture = app->tex->Load("Assets/UI/movebattleButton.png");
@@ -93,8 +97,9 @@ bool UIModule::Start()
 	currentTurnTexture = app->tex->Load("Assets/UI/currentTurn.png");
 	combatStatsTexture = app->tex->Load("Assets/UI/combatStats.png");
 	combatEnemyStatsTexture = app->tex->Load("Assets/UI/combatEnemyStats.png");
-	plusButton = app->tex->Load("Assets/UI/plusButton.png");
 	pauseBGTexture = app->tex->Load("Assets/UI/pauseBG.png");
+	turnListTexture = app->tex->Load("Assets/UI/turnList.png");
+	smallCharPicTexture = app->tex->Load("Assets/UI/smallCharPic.png");
 	
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
@@ -143,13 +148,13 @@ bool UIModule::Start()
 	dialog3_option3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 36, nullptr, "", { 1000, 900, 800, 30 }, app->w3_scene);
 	dialog3_option4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 37, nullptr, "", { 1000, 950, 800, 30 }, app->w3_scene);
 
-	levelup_defenseUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, plusButton, "", { 900, 400, 96, 73}, this);
-	levelup_magicUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, plusButton, "", { 900, 480, 96, 73 }, this);
-	levelup_speedUp_button =        (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, plusButton, "", { 900, 560, 96, 73 }, this);
-	levelup_movementUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, plusButton, "", { 900, 640, 96, 73 }, this);
-	levelup_attackUp_button =       (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, plusButton, "", { 900, 720, 96, 73 }, this);
-	levelup_AB1PowerUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, plusButton, "", { 900, 800, 96, 73 }, this);
-	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, plusButton, "", { 900, 880, 96, 73 }, this);
+	levelup_defenseUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 60, plusButtonTexture, "", { 900, 400, 96, 73}, this);
+	levelup_magicUp_button =		(GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 61, plusButtonTexture, "", { 900, 480, 96, 73 }, this);
+	levelup_speedUp_button =        (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 62, plusButtonTexture, "", { 900, 560, 96, 73 }, this);
+	levelup_movementUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 63, plusButtonTexture, "", { 900, 640, 96, 73 }, this);
+	levelup_attackUp_button =       (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 64, plusButtonTexture, "", { 900, 720, 96, 73 }, this);
+	levelup_AB1PowerUp_button =     (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 65, plusButtonTexture, "", { 900, 800, 96, 73 }, this);
+	levelup_healingpowerUp_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 66, plusButtonTexture, "", { 900, 880, 96, 73 }, this);
 
 	party_timmy_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 67, defaultButtonTexture, "Absent", { 1000, 400, 127,33 }, this);
 	party_bunny_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 68, defaultButtonTexture, "Absent", { 1000, 450, 127,33 }, this);
@@ -230,6 +235,18 @@ bool UIModule::Start()
 	susjarRect = { 925, 3, 200, 200 };
 	denturesRect = { 792, 165, 200, 200 };
 
+	//// Mini character photos
+	//timmyPicRect = { 13, 16, 142, 111 };
+	//bunnyPicRect = { 158, 16, 142, 111 };
+	//villagerPicRect = { 13, 127, 142, 111 };
+	//corrPicLRRHRect = { 158, 127, 142, 111 };
+	//LRRHPicRect = { 303, 127, 142, 111 };
+	//corrLPigPicRect = { 13, 238, 142, 111 };
+	//corrMPigPicRect = { 158, 238, 142, 111 };
+	//LPigPicRect = { 13, 349, 142, 111 };
+	//MPigPicRect = { 158, 349, 142, 111 };
+	//corrWolfPicRect = { 303, 349, 142, 111 };
+
 	
 	return true;
 }
@@ -299,57 +316,43 @@ bool UIModule::Update(float dt)
 bool UIModule::PostUpdate()
 {
 	bool ret = true;
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-	{
-		mainmenu_play_button->SetX(mainmenu_play_button->GetX() + 50);
-	}
 
-	// Pergami fons level up screen
-	if (app->teamManager->active && app->teamManager->lvlupbool)
-	{
-		if (app->scene->active)
-		{
-			app->render->DrawTexture(app->scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
-		}
-		if (app->w2_scene->active)
-		{
-			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
-		}
-		app->teamManager->PrintLvlUpText();
-	}
 
+	//// Pergami fons level up screen
+	//if (app->teamManager->active && app->teamManager->lvlupbool)
+	//{
+	//	app->render->DrawTexture(lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+	//	app->teamManager->PrintLvlUpText();
+	//}
 	if (currentMenuType == COMBAT)
 	{
-		app->render->DrawTexture(currentTurnTexture, 296, 930);
 
-		const char* charName = app->battleManager->currentTurn->namechar.GetString();
-		app->fonts->DrawText(charName, 300, 980, 100, 100, { 255, 255, 255 }, app->fonts->battleFont);
+		/*const char* charName = app->battleManager->currentTurn->namechar.GetString();
+		app->fonts->DrawText(charName, 300, 980, 100, 100, { 255, 255, 255 }, app->fonts->battleFont);*/
 
+		// Lateral Stats
+		// Party UI
 		app->render->DrawTexture(combatStatsTexture, 0, 7);
-
 		// Enemy UI
 		app->render->DrawTexture(combatEnemyStatsTexture, 1755, 7);
 
+
+		// Turn list
+		app->render->DrawTexture(turnListTexture, 1732, 580);
+
+		// Current Turn
+		app->render->DrawTexture(currentTurnTexture, 296, 900);
+
 		// Draw Numbers and images over the basic UI
 		app->battleManager->UIStatsForBattle();
+
 
 	}
 
 	if (currentMenuType == INVENTORY)
 	{
 		
-		if (app->scene->active)
-		{
-			app->render->DrawTexture(app->scene->inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
-		}
-		if (app->w2_scene->active)
-		{
-			app->render->DrawTexture(app->w2_scene->inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
-		}
-		if (app->w3_scene->active)
-		{
-			app->render->DrawTexture(app->w3_scene->inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
-		}
+		app->render->DrawTexture(lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 
 		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 
@@ -411,18 +414,8 @@ bool UIModule::PostUpdate()
 
 	if (currentMenuType == PARTY)
 	{
-		if (app->scene->active)
-		{
-			app->render->DrawTexture(app->scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
-		}
-		if (app->w2_scene->active)
-		{
-			app->render->DrawTexture(app->w2_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
-		}
-		if (app->w3_scene->active)
-		{
-			app->render->DrawTexture(app->w3_scene->lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
-		}
+		app->render->DrawTexture(lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+
 		app->fonts->DrawText("PARTY", 800, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 
 		if (!errorWhenParty)
@@ -454,6 +447,13 @@ bool UIModule::PostUpdate()
 	if (currentMenuType == PAUSE || currentMenuType == COMBAT_PAUSE)
 	{
 		app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, -app->render->camera.y);
+	}
+
+	// Pergami fons level up screen
+	if (app->teamManager->active && app->teamManager->lvlupbool)
+	{
+		app->render->DrawTexture(lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+		app->teamManager->PrintLvlUpText();
 	}
 
 	app->guiManager->Draw();
@@ -1017,13 +1017,20 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(newgameButtonsTexture);
 	app->tex->UnLoad(continueButtonsTexture);
 	app->tex->UnLoad(returnButtonTexture);
-	app->tex->UnLoad(uiSpriteTexture);
 	app->tex->UnLoad(eKeyTexture);
 	app->tex->UnLoad(attackButtonTexture);
 	app->tex->UnLoad(abilityButtonTexture);
 	app->tex->UnLoad(moveButtonTexture);
 	app->tex->UnLoad(skipButtonTexture);
+	app->tex->UnLoad(currentTurnTexture);
+	app->tex->UnLoad(combatStatsTexture);
+	app->tex->UnLoad(combatEnemyStatsTexture);
+	app->tex->UnLoad(plusButtonTexture);
 	app->tex->UnLoad(pauseBGTexture);
+	app->tex->UnLoad(turnListTexture);
+	app->tex->UnLoad(smallCharPicTexture);
+	app->tex->UnLoad(pauseButtonsTexture);
+	app->tex->UnLoad(dialogueTextures);
 
 	return true;
 }
@@ -1971,6 +1978,9 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 		break;
 	case LEVEL_UP:
 
+		if (app->scene->active) app->scene->player->playerState = LEVEL_UP;
+		if (app->w2_scene->active) app->w2_scene->player->playerState = LEVEL_UP;
+
 		app->audio->PlayFx(levelUpFX);
 
 		DisableButtonsToNone();
@@ -2063,7 +2073,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 
 	// Draw dialogue text image
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
-	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+	app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
 	//---------------------
 	// Dialogue text block
@@ -2118,7 +2128,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
 		app->render->DrawTexture(textOption1, -app->render->camera.x + 107, -app->render->camera.y + 900, NULL);
@@ -2132,7 +2142,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 2))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
 		app->render->DrawTexture(textOption2, -app->render->camera.x + 107, -app->render->camera.y + 950, NULL);
@@ -2146,7 +2156,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 3))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
 		app->render->DrawTexture(textOption3, -app->render->camera.x + 1011, -app->render->camera.y + 900, NULL);
@@ -2160,7 +2170,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 4))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
 		app->render->DrawTexture(textOption4, -app->render->camera.x + 1011, -app->render->camera.y + 950, NULL);
@@ -2207,7 +2217,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 
 	// Draw dialogue text image
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
-	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+	app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
 	//---------------------
 	// Dialogue text block
@@ -2261,7 +2271,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
@@ -2275,7 +2285,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 2))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
@@ -2289,7 +2299,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 3))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
@@ -2303,7 +2313,7 @@ void UIModule::PrintDialogue2(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 4))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
@@ -2345,7 +2355,7 @@ void UIModule::PrintDialogue3(std::vector<std::string> dialogue)
 
 	// Draw dialogue text image
 	SDL_Rect dialogueRect = { 17, 16, 1700, 178 };
-	app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
+	app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 100, -app->render->camera.y + 680, &dialogueRect);
 
 	//---------------------
 	// Dialogue text block
@@ -2399,7 +2409,7 @@ void UIModule::PrintDialogue3(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 1))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 90, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption1 = app->fonts->LoadRenderedParagraph(rectO1, app->fonts->gameFont, dialogue[1].c_str(), { 0,0,0 }, rectO1.w);
 		app->render->DrawTexture(textOption1, posX - 850, posY + 405, NULL);
@@ -2413,7 +2423,7 @@ void UIModule::PrintDialogue3(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 2))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 90, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption2 = app->fonts->LoadRenderedParagraph(rectO2, app->fonts->gameFont, dialogue[2].c_str(), { 0,0,0 }, rectO2.w);
 		app->render->DrawTexture(textOption2, posX - 850, posY + 455, NULL);
@@ -2427,7 +2437,7 @@ void UIModule::PrintDialogue3(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 3))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 990, -app->render->camera.y + 885, &optionRect);
 
 		SDL_Texture* textOption3 = app->fonts->LoadRenderedParagraph(rectO3, app->fonts->gameFont, dialogue[3].c_str(), { 0,0,0 }, rectO3.w);
 		app->render->DrawTexture(textOption3, posX + 60, posY + 405, NULL);
@@ -2441,7 +2451,7 @@ void UIModule::PrintDialogue3(std::vector<std::string> dialogue)
 	if (!(dialogue.size() <= 4))
 	{
 		// Draw options text iamge
-		app->render->DrawTexture(uiSpriteTexture, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
+		app->render->DrawTexture(dialogueTextures, -app->render->camera.x + 990, -app->render->camera.y + 935, &optionRect);
 
 		SDL_Texture* textOption4 = app->fonts->LoadRenderedParagraph(rectO4, app->fonts->gameFont, dialogue[4].c_str(), { 0,0,0 }, rectO4.w);
 		app->render->DrawTexture(textOption4, posX + 60, posY + 455, NULL);
