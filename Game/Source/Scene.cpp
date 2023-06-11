@@ -120,6 +120,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	inventoryScrollTexture = app->tex->Load("Assets/UI/inventoryScroll.png");
 	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
+	starparticle_texture = app->tex->Load("Assets/UI/star_particle.png");
 
 	battleTutoTexture = app->tex->Load("Assets/UI/battleTutorial.png");
 
@@ -251,26 +252,66 @@ bool Scene::Start()
 		battleTutorialCounter = 3;
 	}	
 
-	exempleparticle.x = 1868;
-	exempleparticle.y = 5608;
-	exempleparticle.velocity_x = 100;
-	exempleparticle.velocity_y = -100;
-	exempleparticle.spreadfactor = 50;
-	exempleparticle.lifetime = 5;
-	exempleparticle.beginscale = 50;
-	exempleparticle.endscale = 0;
-	exempleparticle.r = 255;
-	exempleparticle.g = 0;
-	exempleparticle.b = 0;
-	exempleparticle.r2 = 0;
-	exempleparticle.g2= 0;
-	exempleparticle.b2 = 255;
-	exempleparticle.scaleVariation = 1;
-	exempleparticle.particlepersecond = 5;
-	exempleparticle.particletexture = chestTexture;
+	particle_chest1.x = 890;
+	particle_chest1.y = 4000;
+	particle_chest1.velocity_x = 0;
+	particle_chest1.velocity_y = -70;
+	particle_chest1.spreadfactor = 100;
+	particle_chest1.lifetime = 1.2;
+	particle_chest1.beginscale = 50;
+	particle_chest1.endscale = 0;
+	particle_chest1.r = 255;
+	particle_chest1.g = 0;
+	particle_chest1.b = 0;
+	particle_chest1.r2 = 0;
+	particle_chest1.g2= 0;
+	particle_chest1.b2 = 255;
+	particle_chest1.scaleVariation = 1;
+	particle_chest1.particlepersecond = 5;
+	particle_chest1.particletexture = starparticle_texture;
 
-	ParticleSystem* exemplesystem = new ParticleSystem(exempleparticle);
-	app->moduleParticles->emiters.push_back(exemplesystem);
+	particle_chest2.x = 808;
+	particle_chest2.y = 2100;
+	particle_chest2.velocity_x = 0;
+	particle_chest2.velocity_y = -70;
+	particle_chest2.spreadfactor = 100;
+	particle_chest2.lifetime = 1.2;
+	particle_chest2.beginscale = 50;
+	particle_chest2.endscale = 0;
+	particle_chest2.r = 255;
+	particle_chest2.g = 0;
+	particle_chest2.b = 0;
+	particle_chest2.r2 = 0;
+	particle_chest2.g2 = 0;
+	particle_chest2.b2 = 255;
+	particle_chest2.scaleVariation = 1;
+	particle_chest2.particlepersecond = 5;
+	particle_chest2.particletexture = starparticle_texture;
+
+	particle_chest2.x = 4170;
+	particle_chest2.y = 1037;
+	particle_chest2.velocity_x = 0;
+	particle_chest2.velocity_y = -70;
+	particle_chest2.spreadfactor = 100;
+	particle_chest2.lifetime = 1.2;
+	particle_chest2.beginscale = 50;
+	particle_chest2.endscale = 0;
+	particle_chest2.r = 255;
+	particle_chest2.g = 0;
+	particle_chest2.b = 0;
+	particle_chest2.r2 = 0;
+	particle_chest2.g2 = 0;
+	particle_chest2.b2 = 255;
+	particle_chest2.scaleVariation = 1;
+	particle_chest2.particlepersecond = 5;
+	particle_chest2.particletexture = starparticle_texture;
+
+	ParticleSystem* particlesystem_chest1 = new ParticleSystem(particle_chest1);
+	ParticleSystem* particlesystem_chest2 = new ParticleSystem(particle_chest2);
+	ParticleSystem* particlesystem_chest3 = new ParticleSystem(particle_chest3);
+	app->moduleParticles->emiters.push_back(particlesystem_chest1);
+	app->moduleParticles->emiters.push_back(particlesystem_chest2);
+	app->moduleParticles->emiters.push_back(particlesystem_chest3);
 
 	return true;
 }
@@ -567,7 +608,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(chestTexture);
 	app->tex->UnLoad(battleTutoTexture);
 	app->tex->UnLoad(inventoryItemsTexture);
-	
+	app->tex->UnLoad(starparticle_texture);
 
 	return true;
 }

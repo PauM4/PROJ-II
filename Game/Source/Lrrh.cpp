@@ -100,7 +100,8 @@ bool Lrrh::Awake()
 
 bool Lrrh::Start()
 {
-
+	attackFx = app->audio->LoadFx("Assets/Sounds/FX/fx_attack.wav");
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_arrows.wav");
 
 	return true;
 }
