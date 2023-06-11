@@ -653,7 +653,7 @@ std::string Scene::LastTextNPC(ColliderType NPC)
 		switch (index)
 		{
 		case 1:
-			auxString = "May God bless you?";
+			auxString = "Ewww... it's so wet! You can have it!";
 			break;
 		case 2:
 			auxString = "Look at this beautiful talisman!";
