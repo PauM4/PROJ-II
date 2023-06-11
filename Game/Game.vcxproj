@@ -98,6 +98,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Source\BattleManager.cpp" />
     <ClCompile Include="Source\BattleScene_Pigs.cpp" />
     <ClCompile Include="Source\BattleSystem.cpp" />
@@ -155,6 +157,8 @@
     <ClCompile Include="Source\W3_Scene.cpp" />
     <ClCompile Include="Source\W2_Scene_Maze.cpp" />
     <ClCompile Include="Source\Window.cpp" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\BattleManager.h" />
     <ClInclude Include="Source\BattleScene_Pigs.h" />

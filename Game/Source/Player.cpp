@@ -142,7 +142,6 @@ bool Player::Start() {
 	bunnyPbody = app->physics->CreateCircle(position.x, position.y+80, 25, bodyType::DYNAMIC);
 	bunnyPbody->body->SetFixedRotation(true);
 	bunnyPbody->listener = nullptr;
-	bunnyPbody->ctype = ColliderType::UNKNOWN;
 	bunnyPbody->body->SetLinearDamping(5.0f);
 
 	//Bunny Joint
@@ -178,7 +177,8 @@ bool Player::Start() {
 		app->LoadGameRequest();
 	}
 
-	
+	triggerBunnyDialogue = false;
+	endBunnyDialogue = false;
 
 
 	return true;
@@ -220,6 +220,27 @@ bool Player::Update(float dt)
 		}
 		app->teamManager->lvlupplayerstate = false;
 	}
+
+	if (triggerBunnyDialogue && endBunnyDialogue)
+	{
+		lastCollision = ColliderType::UNKNOWN;
+		app->scene->dialogueTutorial = true;
+	}
+
+	if (app->scene->basicTutorialCounter == 2 && !triggerBunnyDialogue)
+	{
+		lastCollision = ColliderType::BUNNY;
+		triggerBunnyDialogue = true;
+		npcInteractAvailable = true;
+		//playerState = NPC_INTERACT;
+		//StopVelocity();
+		app->uiModule->CleaningDialogeOverTime();
+		TriggerDialogueTree(lastCollision);
+		InteractWithEntities();
+		
+	}
+
+	
 
 
 	switch (playerState)
@@ -336,6 +357,7 @@ bool Player::Update(float dt)
 
 		teleport.turn = false;
 	}
+
 
 	//Print
 
@@ -790,8 +812,8 @@ void Player::TriggerDialogueTree(ColliderType NPC)
 		app->w3_scene->RunDialogueTree(ColliderType::SHEEPD);
 		break;
 
-	case ColliderType::UNKNOWN:
-		app->scene->RunDialogueTree(ColliderType::UNKNOWN);
+	case ColliderType::BUNNY:
+		app->scene->RunDialogueTree(ColliderType::BUNNY);
 
 		break;
 
@@ -916,7 +938,7 @@ void Player::InteractWithEntities()
 {
 	if (playerState != PlayerState::PAUSE)
 	{
-		if (npcInteractAvailable || (!app->scene->dialogueTutorial && app->scene->basicTutorialCounter == 2))
+		if (npcInteractAvailable)
 		{
 			if (playerState == NPC_INTERACT)
 			{
