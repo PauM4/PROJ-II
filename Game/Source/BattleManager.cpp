@@ -63,6 +63,7 @@ bool BattleManager::Start() {
 	triggerMoveTimer = false;
 	win = false;
 	lose = false;
+	finish = false;
 	timercharge = 0;
 	battleState = BattleState::THINKING;
 	app->SaveGameRequest();
@@ -227,7 +228,7 @@ bool BattleManager::Update(float dt) {
 			}
 
 		}
-		else if (timercharge == 0) {
+		else if (timercharge == 0 && finish==false) {
 		
 			battleState = BattleState::THINKING;
 			UpdateTurnList();
@@ -1193,9 +1194,11 @@ void BattleManager::CheckWinCondition()
 
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 
+		finish = true;
 		if (lose == false) {
 			if (changeScreenTimer == -1) {
 				changeScreenTimer = 100;
+			
 			}
 
 			changeScreenTimer--;
@@ -1209,9 +1212,11 @@ void BattleManager::CheckWinCondition()
 	
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 		
+		finish = true;
 		if (lose == false) {
 			if (changeScreenTimer == -1) {
 				changeScreenTimer = 100;
+
 			}
 
 			changeScreenTimer--;
