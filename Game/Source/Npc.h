@@ -36,8 +36,15 @@ public:
 	
 	Animation* currentAnimation;
 
-	SDL_Texture* npcTexture;
-	const char* npcTexturePath;
+	const char* npcTexturePathAngryVillager;
+	const char* npcTexturePathTalismanVillager;
+	const char* npcTexturePathLRRH;
+	const char* npcTexturePathGrandma;
+
+	SDL_Texture* npcTextureAngryVillager;
+	SDL_Texture* npcTextureTalismanVillager;
+	SDL_Texture* npcTextureGrandma;
+	SDL_Texture* npcTextureLRRH;
 
 	iPoint posAngryVillager;
 	PhysBody* pbodyAVillager;
