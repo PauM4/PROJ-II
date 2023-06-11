@@ -594,9 +594,6 @@ void W2_Scene::UpdateDialogueTree(int option)
 			break;
 		}
 	}
-
-
-
 }
 
 
@@ -709,6 +706,8 @@ bool W2_Scene::LoadState(pugi::xml_node& data)
 	pugi::xml_node battleInfo = data.parent().child("BattleInfo");
 	pigsDefeated = battleInfo.attribute("isPigDefeated").as_bool();
 
+	currentQuestIndex = data.child("stepQuest").attribute("num").as_int();
+
 	if (pigsDefeated)
 	{
 		pigsTree->~DialogueTree();
@@ -771,6 +770,21 @@ bool W2_Scene::SaveState(pugi::xml_node& data)
 			playerNode.append_attribute("y") = player->position.y;
 		}
 	}
+
+	// CHESTS
+	if (app->scene->active)
+	{
+		pugi::xml_node chestGameSave = data.append_child("chests");
+		pugi::xml_node chestNodeSave1 = chestGameSave.append_child("chest4");
+		chestNodeSave1.append_attribute("isPicked").set_value(chest4->isPicked);
+		pugi::xml_node chestNodeSave2 = chestGameSave.append_child("chest2");
+		chestNodeSave2.append_attribute("isPicked").set_value(chest5->isPicked);
+		pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
+		chestNodeSave3.append_attribute("isPicked").set_value(chest6->isPicked);
+	}
+
+	pugi::xml_node stepQuestState = data.append_child("stepQuest");
+	stepQuestState.append_attribute("num") = currentQuestIndex;
 	
 	
 
@@ -792,8 +806,6 @@ void W2_Scene::MoveToBattleFromDialogue()
 		//Teleportar a GameScene::Pigcombat
 		app->sceneManager->LoadScene(GameScene::COMBATOINK);
 	}
-
-
 
 }
 

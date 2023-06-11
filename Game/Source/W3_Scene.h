@@ -63,6 +63,7 @@ public:
 private:
 
 	void Camera();
+	bool CheckInsideBoundaries();
 	void GodMode();
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);

@@ -1067,6 +1067,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		app->scene->isNewGame = true;
 		app->w2_scene->isNewGame = true; 
 		app->w2_scene_maze->isNewGame = true; 
+		app->w3_scene->isNewGame = true; 
 		app->sceneManager->isBattle = false;
 		app->sceneManager->scene = SCENE;
 		app->teamManager->Disable();

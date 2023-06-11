@@ -96,7 +96,7 @@
 		
 	</w2_scene_maze>
 	
-	<w3_scene name="Assets/Maps/World_03/scene_01.tmx" path="Assets/Maps/World_03/">
+	<w3_scene name="Assets/Maps/World_03/wolfWorld.tmx" path="Assets/Maps/World_03/">
 		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
 	</w3_scene>
 

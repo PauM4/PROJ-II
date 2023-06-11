@@ -99,13 +99,14 @@ bool W3_Scene::Start()
 
 	if (isNewGame)
 	{
-		player->ChangePosition(1868, 5608);
+		player->ChangePosition(2030, 6178);
 		isNewGame = false;
 	}
 	else
 	{
 		app->LoadGameRequest();
 	}
+
 
 	pauseMenuActive = false;
 	exitButtonBool = false;
@@ -287,17 +288,30 @@ void W3_Scene::GodMode()
 //Updates the camera position based on the player's position. If god mode is on, the camera follows the player's position without any boundaries. If god mode is off, the camera follows the player's position while respecting the game's boundaries.
 void W3_Scene::Camera()
 {
-	if (godMode)
+	if (godMode || !CheckInsideBoundaries())
 	{
 		app->render->FollowObject(-(int)player->position.x, -(int)player->position.y - 35,
 			app->render->camera.w / 2, app->render->camera.h / 2);
 	}
-	//else
-	//{
-	//	app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-	//		app->render->camera.w / 2, app->render->camera.h / 2);
-	//}
+	else
+	{
+		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
+			app->render->camera.w / 2, app->render->camera.h / 2, -2816, -3, -5239, -24);
+	}
 
+}
+
+bool W3_Scene::CheckInsideBoundaries()
+{
+	bool insideX = (player->position.x == clamp(player->position.x, 3, 2816 + (1920)));
+	bool insideY = (player->position.y == clamp(player->position.y, 24, 5239 + 1080));
+
+	if (insideX && insideY)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 
