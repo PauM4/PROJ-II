@@ -14,6 +14,9 @@
 #include "UriBehaviorTree.h"
 #include "Physics.h"
 
+#include "ParticleSystem.h"
+#include "ModuleParticles.h"
+
 struct SDL_Texture;
 
 class W2_Scene : public Module
@@ -131,6 +134,12 @@ public:
 
 	// ITEMS UI
 	SDL_Texture* inventoryItemsTexture;
+
+	//Chest particles
+	ParticleProps particle_chest4;
+	ParticleProps particle_chest5;
+	ParticleProps particle_chest6;
+	SDL_Texture* starparticle_texture;
 
 
 private:

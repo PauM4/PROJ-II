@@ -12,6 +12,8 @@
 #include "Fonts.h"
 #include "TeamManager.h"
 #include "Defs.h"
+#include "ParticleSystem.h"
+#include "ModuleParticles.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -116,6 +118,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	brokenkeyTexture = app->tex->Load("Assets/UI/BrokenKey.png");
 	assets = app->tex->Load("Assets/Maps/Assets.png");
 	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
+	starparticle_texture = app->tex->Load("Assets/UI/star_particle.png");
 
 
 	key1interact = false;
@@ -221,6 +224,67 @@ bool W2_Scene::Start()
 	chestVRect = { 12, 135, 71, 101 };
 	chestopenHRect = { 105, 3, 88, 108 };
 	chestopenVRect = { 107, 134, 74, 100 };
+
+	particle_chest4.x = 1492;
+	particle_chest4.y = 2697;
+	particle_chest4.velocity_x = 0;
+	particle_chest4.velocity_y = -70;
+	particle_chest4.spreadfactor = 100;
+	particle_chest4.lifetime = 1.2;
+	particle_chest4.beginscale = 50;
+	particle_chest4.endscale = 0;
+	particle_chest4.r = 255;
+	particle_chest4.g = 0;
+	particle_chest4.b = 0;
+	particle_chest4.r2 = 0;
+	particle_chest4.g2 = 0;
+	particle_chest4.b2 = 255;
+	particle_chest4.scaleVariation = 1;
+	particle_chest4.particlepersecond = 5;
+	particle_chest4.particletexture = starparticle_texture;
+
+	particle_chest5.x = 3427;
+	particle_chest5.y = 2736;
+	particle_chest5.velocity_x = 0;
+	particle_chest5.velocity_y = -70;
+	particle_chest5.spreadfactor = 100;
+	particle_chest5.lifetime = 1.2;
+	particle_chest5.beginscale = 50;
+	particle_chest5.endscale = 0;
+	particle_chest5.r = 255;
+	particle_chest5.g = 0;
+	particle_chest5.b = 0;
+	particle_chest5.r2 = 0;
+	particle_chest5.g2 = 0;
+	particle_chest5.b2 = 255;
+	particle_chest5.scaleVariation = 1;
+	particle_chest5.particlepersecond = 5;
+	particle_chest5.particletexture = starparticle_texture;
+
+	particle_chest6.x = 2128;
+	particle_chest6.y = 1929;
+	particle_chest6.velocity_x = 0;
+	particle_chest6.velocity_y = -70;
+	particle_chest6.spreadfactor = 100;
+	particle_chest6.lifetime = 1.2;
+	particle_chest6.beginscale = 50;
+	particle_chest6.endscale = 0;
+	particle_chest6.r = 255;
+	particle_chest6.g = 0;
+	particle_chest6.b = 0;
+	particle_chest6.r2 = 0;
+	particle_chest6.g2 = 0;
+	particle_chest6.b2 = 255;
+	particle_chest6.scaleVariation = 1;
+	particle_chest6.particlepersecond = 5;
+	particle_chest6.particletexture = starparticle_texture;
+
+	ParticleSystem* particlesystem_chest4 = new ParticleSystem(particle_chest4);
+	ParticleSystem* particlesystem_chest5 = new ParticleSystem(particle_chest5);
+	ParticleSystem* particlesystem_chest6 = new ParticleSystem(particle_chest6);
+	app->moduleParticles->emiters.push_back(particlesystem_chest4);
+	app->moduleParticles->emiters.push_back(particlesystem_chest5);
+	app->moduleParticles->emiters.push_back(particlesystem_chest6);
 
 	return true;
 }
@@ -480,6 +544,7 @@ bool W2_Scene::CleanUp()
 	app->tex->UnLoad(keyTexture);
 	app->tex->UnLoad(brokenkeyTexture);
 	app->tex->UnLoad(assets);
+	app->tex->UnLoad(starparticle_texture);
 	return true;
 }
 
