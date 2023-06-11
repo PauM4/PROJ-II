@@ -120,7 +120,7 @@ bool W3_Scene::Start()
 
 	godMode = false;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_pere_world.ogg", 0.1f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_wolf_world.ogg", 0.1f);
 
 	return true;
 }
