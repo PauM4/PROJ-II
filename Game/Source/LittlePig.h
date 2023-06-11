@@ -48,6 +48,8 @@ public:
 	Animation walkLeftAnim;
 	Animation idleAnim;
 	Animation takedmgAnim;
+	Animation abilityAnim;
+	Animation* abilityAnimation;
 private:
 
 	

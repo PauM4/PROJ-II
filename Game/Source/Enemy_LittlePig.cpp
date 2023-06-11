@@ -77,6 +77,12 @@ bool Enemy_LittlePig::Awake()
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
 
+	for (int i = 0; i < 5; i++) {
+		abilityAnim.PushBack({ (i * 150) + 300, 0, 140, 140 });
+	}
+	abilityAnim.loop = false;
+	abilityAnim.speed = 0.25;
+
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
 		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
@@ -106,7 +112,10 @@ bool Enemy_LittlePig::Awake()
 	walkLeftAnim.speed = 0.15f;
 
 
-	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Pequeno.png");
+	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Pequeno_m.png");
+
+	IconGtexture = app->tex->Load("Assets/UI/LittlePigIconG.png");
+	Icontexture = app->tex->Load("Assets/UI/LittlePigIcon.png");	IconGtexture = app->tex->Load("Assets/UI/LittlePigIconG.png");
 
 	currentAnimation = &idleAnim;
 

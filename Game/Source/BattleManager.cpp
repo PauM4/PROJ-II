@@ -884,12 +884,23 @@ bool BattleManager::UpdateTurnList() {
 }
 
 bool BattleManager::DisplayTurnList() {
+	int y = 1;
+	int contador = 0;
+	app->render->DrawTexture(turnList.At(1)->data->IconGtexture, 1775, 750);
+	for (int i = 2; i <= turnList.Count()-1; i++) {
 
-	ListItem<Entity*>* listItem;
+		if (turnList.At(i)->data->isAlive == true&& contador < 2) {
 
-	for (listItem = turnList.start; listItem != NULL; listItem = listItem->next) {
-		//call icon draw function in entity. To yet be implemented
+			app->render->DrawTexture(turnList.At(i)->data->Icontexture, 1800, 820 + (70 * y));
+			contador++;
+		}
+		y++;
 	}
+	if (y >= turnList.Count()-1 && contador < 2 && turnList.At(0)->data->isAlive == true) {
+
+		app->render->DrawTexture(turnList.At(0)->data->Icontexture, 1800, 820+(70*y) );
+	}
+
 
 
 	return true;

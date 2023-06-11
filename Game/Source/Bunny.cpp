@@ -79,6 +79,8 @@ bool Bunny::Awake()
 	walkLeftAnim.speed = 0.15f;
 
 	texture = app->tex->Load("Assets/Characters/F_sprites_bunny-atack.png");
+	IconGtexture = app->tex->Load("Assets/UI/BunnyIconG.png");
+	Icontexture = app->tex->Load("Assets/UI/BunnyIcon.png");
 	currentAnimation = &idleAnim;
 	abilityAnimation = &none;
 	PrevPos = position;

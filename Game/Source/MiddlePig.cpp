@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include"BattleManager.h"
 #include "TeamManager.h"
 
 MiddlePig::MiddlePig() : Entity(EntityType::MPIG)
@@ -35,6 +36,11 @@ bool MiddlePig::Awake()
 	takedmgAnim.PushBack({ 225, 0, 210, 210 });
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
+
+	abilityAnim.PushBack({ 450, 0, 210, 210 });
+	abilityAnim.PushBack({ 675, 0, 210, 210 });
+	abilityAnim.loop = false;
+	abilityAnim.speed = 0.1;
 
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
@@ -65,8 +71,9 @@ bool MiddlePig::Awake()
 	walkLeftAnim.speed = 0.15f;
 
 	currentAnimation = &idleAnim;
-	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Mediano.png");
-
+	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Mediano_n.png");
+	IconGtexture = app->tex->Load("Assets/UI/MiddlePigIconG.png");
+	Icontexture = app->tex->Load("Assets/UI/MiddlePigIcon.png");
 	PrevPos = position;
 	return true;
 }
@@ -98,7 +105,22 @@ bool MiddlePig::Update(float dt)
 	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsMidPigOnTeam==true){
 		currentAnimation->Update();
 
-		if (position.x > PrevPos.x)
+		abilityAnimation->Update();
+
+
+		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (this->name == app->battleManager->currentTurn->name)
+			{
+				currentAnimation = &abilityAnim;
+			
+
+			}
+
+
+		}
+
+		else if (position.x > PrevPos.x)
 		{
 			currentAnimation = &walkRightAnim;
 		}

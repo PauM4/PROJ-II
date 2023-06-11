@@ -86,7 +86,9 @@ bool Timmy::Awake()
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
-	texture = app->tex->Load("Assets/Characters/F_sprites_timmy-atack.png");
+	texture = app->tex->Load("Assets/Characters/F_sprites_timmy.png");
+	IconGtexture = app->tex->Load("Assets/UI/TimmyIconG.png");
+	Icontexture = app->tex->Load("Assets/UI/TimmyIcon.png");
 	currentAnimation = &idleAnim;
 	PrevPos = position;
 	return true;

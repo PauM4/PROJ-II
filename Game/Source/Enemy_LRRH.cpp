@@ -136,7 +136,8 @@ bool Enemy_LRRH::Awake()
 
 
 	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh-atack.png");
-
+	IconGtexture = app->tex->Load("Assets/UI/RedHoodieIconG.png");
+	Icontexture = app->tex->Load("Assets/UI/RedHoodieIcon.png");
 	currentAnimation = &idleAnim;
 	abilityAnimation = &none;
 	return true;

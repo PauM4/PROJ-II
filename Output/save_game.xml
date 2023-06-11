@@ -11,10 +11,10 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="8028" y="708" dialogueTutorial="true" />
+		<player />
 		<rope_minigame rope_minigame_state="false" />
 		<saveBattleTutoState state="0" />
-		<stepQuest num="1" />
+		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -22,7 +22,7 @@
 	<sceneFoxQuest />
 	<battleScene_Pigs />
 	<w2_scene>
-		<player x="1614" y="4534" />
+		<player />
 		<stepQuest num="0" />
 	</w2_scene>
 	<w2_scene_maze>
@@ -65,7 +65,7 @@
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-652" y="-3674" />
+		<camera x="0" y="0" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
+	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="false" isPereDefeated="" isWolfDefeated="" />
 </save_state>

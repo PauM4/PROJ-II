@@ -202,8 +202,19 @@ void BattleScene_Pigs::MoveAnimation(const char* name)
 {
 	if (strcmp(name, "enemy_littlePig") == 0)
 	{
+		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (littlePig->name == app->battleManager->currentTurn->name)
+			{
+				littlePig->currentAnimation = &littlePig->abilityAnim;
+				
+
+			}
+
+
+		}
 		//Moverse a la derecha
-		if (littlePig->position.x > littlePigPrevPos.x)
+		else if (littlePig->position.x > littlePigPrevPos.x)
 		{
 			littlePig->currentAnimation = &littlePig->walkRightAnim;
 		}
@@ -242,8 +253,19 @@ void BattleScene_Pigs::MoveAnimation(const char* name)
 
 	if (strcmp(name, "enemy_middlePig") == 0)
 	{
+		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (middlePig->name == app->battleManager->currentTurn->name)
+			{
+				middlePig->currentAnimation = &middlePig->abilityAnim;
+
+
+			}
+
+
+		}
 		//Moverse a la derecha
-		if (middlePig->position.x > middlePigPrevPos.x)
+		else if (middlePig->position.x > middlePigPrevPos.x)
 		{
 			middlePig->currentAnimation = &middlePig->walkRightAnim;
 		}

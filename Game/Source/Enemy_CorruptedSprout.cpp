@@ -105,7 +105,8 @@ bool Enemy_CorruptedSprout::Awake()
 	walkLeftAnim.speed = 0.20f;
 
 	texture = app->tex->Load("Assets/Characters/F_sprites_esbirro.png");
-
+	IconGtexture = app->tex->Load("Assets/UI/SproutIconG.png");
+	Icontexture = app->tex->Load("Assets/UI/SproutIcon.png");
 	currentAnimation = &idleAnim;
 	return true;
 }

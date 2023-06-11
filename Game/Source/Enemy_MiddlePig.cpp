@@ -76,6 +76,11 @@ bool Enemy_MiddlePig::Awake()
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
 
+	abilityAnim.PushBack({ 450, 0, 225, 225 });
+	abilityAnim.PushBack({ 675, 0, 210, 225 });
+	abilityAnim.loop = false;
+	abilityAnim.speed = 0.1;
+
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
 		walkDownAnim.PushBack({ (i * 225), 225, 225, 225 });
@@ -105,7 +110,8 @@ bool Enemy_MiddlePig::Awake()
 	walkLeftAnim.speed = 0.15f;
 
 	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Mediano.png");
-
+	IconGtexture = app->tex->Load("Assets/UI/MiddlePigIconG.png");
+	Icontexture = app->tex->Load("Assets/UI/MiddlePigIcon.png");
 	currentAnimation = &idleAnim;
 
 

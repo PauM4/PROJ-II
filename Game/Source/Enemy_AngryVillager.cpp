@@ -104,7 +104,8 @@ bool Enemy_AngryVillager::Awake()
 	walkLeftAnim.speed = 0.15f;
 
 	texture = app->tex->Load("Assets/Characters/F_sprites_angry_Villager.png");
-
+	IconGtexture = app->tex->Load("Assets/UI/VilagerIconG.png");
+	Icontexture = app->tex->Load("Assets/UI/VilagerIcon.png");
 	currentAnimation = &idleAnim;
 
 	return true;

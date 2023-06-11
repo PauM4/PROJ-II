@@ -253,6 +253,9 @@ public:
 	//1 if timmy, 2 if bunny, 3 if villager, 4 i lrrh, 5 if sprout
 	int id;
 
+	SDL_Texture* Icontexture;
+	SDL_Texture* IconGtexture;
+
 	//SFX attack and ability
 	int attackFx = -1;
 	int abilityFx = -1;
