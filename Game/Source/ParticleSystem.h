@@ -18,6 +18,8 @@ struct ParticleProps {
 	int r2, g2, b2;
 	float scaleVariation;
 	float endscale;
+	int particlepersecond;
+	SDL_Texture* particletexture;
 };
 
 struct Particle {
@@ -38,17 +40,19 @@ class ParticleSystem
 {
 public:
 
-	ParticleSystem();
+	ParticleSystem(ParticleProps particleProps);
 
 	~ParticleSystem();
 
 	void UpdateParticles(float dt);
 
-	void Emit(ParticleProps& particleProps);
-	void render(SDL_Renderer* renderer);
+	void Emit();
+	void render();
 	float lerp(float a, float b, float f);
 
 	std::vector<Particle> ParticleList;
+	ParticleProps particleProps;
+	float acumulator;
 
 private:
 	int currentparticle;

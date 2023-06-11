@@ -772,7 +772,7 @@ bool W2_Scene::SaveState(pugi::xml_node& data)
 	}
 
 	// CHESTS
-	if (app->scene->active)
+	if (app->w2_scene->active)
 	{
 		pugi::xml_node chestGameSave = data.append_child("chests");
 		pugi::xml_node chestNodeSave1 = chestGameSave.append_child("chest4");

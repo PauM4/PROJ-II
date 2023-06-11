@@ -11,6 +11,8 @@
 #include "GuiManager.h"
 #include "Fonts.h"
 #include "TeamManager.h"
+#include "ParticleSystem.h"
+#include "ModuleParticles.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -248,6 +250,27 @@ bool Scene::Start()
 		basicTutorialCounter = 2;
 		battleTutorialCounter = 3;
 	}	
+
+	exempleparticle.x = 1868;
+	exempleparticle.y = 5608;
+	exempleparticle.velocity_x = 100;
+	exempleparticle.velocity_y = -100;
+	exempleparticle.spreadfactor = 50;
+	exempleparticle.lifetime = 5;
+	exempleparticle.beginscale = 50;
+	exempleparticle.endscale = 0;
+	exempleparticle.r = 255;
+	exempleparticle.g = 0;
+	exempleparticle.b = 0;
+	exempleparticle.r2 = 0;
+	exempleparticle.g2= 0;
+	exempleparticle.b2 = 255;
+	exempleparticle.scaleVariation = 1;
+	exempleparticle.particlepersecond = 5;
+	exempleparticle.particletexture = chestTexture;
+
+	ParticleSystem* exemplesystem = new ParticleSystem(exempleparticle);
+	app->moduleParticles->emiters.push_back(exemplesystem);
 
 	return true;
 }

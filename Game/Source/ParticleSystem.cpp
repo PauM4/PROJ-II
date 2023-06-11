@@ -1,10 +1,17 @@
 #include "ParticleSystem.h"
+#include "App.h"
 #include "Random.h"
+#include "Render.h"
+#include "Scene.h"
 
-ParticleSystem::ParticleSystem() {
+ParticleSystem::ParticleSystem(ParticleProps particleProps) {
 
     ParticleList.resize(1000);
 	currentparticle = 999;
+	this->particleProps = particleProps;
+	acumulator = 0;
+
+
 }
 
 ParticleSystem::~ParticleSystem()
@@ -28,7 +35,7 @@ void ParticleSystem::UpdateParticles(float dt) {
 	}
 }
 
-void ParticleSystem::Emit(ParticleProps& particleProps) {
+void ParticleSystem::Emit() {
 	if (currentparticle < 0) {
 		currentparticle = ParticleList.size() -1;
 	}
@@ -59,19 +66,25 @@ void ParticleSystem::Emit(ParticleProps& particleProps) {
 	currentparticle--;
 }
 
-void ParticleSystem::render(SDL_Renderer* renderer)
+void ParticleSystem::render()
 {
 	for (size_t i = 0; i < ParticleList.size(); i++)
 	{
-		float life = ParticleList[i].lifetimeremaining / ParticleList[i].lifetime;
-		float scale = lerp(ParticleList[i].endscale, ParticleList[i].beginscale, life);
+		if (ParticleList[i].Active) {
+			float life = ParticleList[i].lifetimeremaining / ParticleList[i].lifetime;
+			float scale = lerp(ParticleList[i].endscale, ParticleList[i].beginscale, life);
+			float colorR = lerp(ParticleList[i].r2, ParticleList[i].r, life);
+			float colorG = lerp(ParticleList[i].g2, ParticleList[i].g, life);
+			float colorB = lerp(ParticleList[i].b2, ParticleList[i].b, life);
 
-		SDL_Rect rect = { ParticleList[i].x, ParticleList[i].y, scale, scale };
+			SDL_Rect rect = { ParticleList[i].x, ParticleList[i].y, scale, scale };
 
-		int alpha = 255 - (ParticleList[i].lifetimeremaining * 255) / FADE_DELAY;
+			int alpha = 255 - (ParticleList[i].lifetimeremaining * 255) / FADE_DELAY;
 
-		SDL_SetRenderDrawColor(renderer, ParticleList[i].r, ParticleList[i].g, ParticleList[i].b, alpha);
-		SDL_RenderFillRect(renderer, &rect);
+			//app->render->DrawRectangle(rect, colorR, colorG, colorB, alpha, true);
+			app->render->DrawTexture(particleProps.particletexture, ParticleList[i].x, ParticleList[i].y);
+		}
+		
 	}
 
 }
