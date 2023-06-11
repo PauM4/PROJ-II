@@ -104,7 +104,7 @@ bool SceneCombatLHHR::Start()
 
 
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_battle.ogg", 0.1f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.ogg", 0.1f);
 	app->battleManager->MakeCombatMap();
 
 	sproutPrevPos = sprout->position;

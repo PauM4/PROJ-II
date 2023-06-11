@@ -137,7 +137,7 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
+	//player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	ropeFX = app->audio->LoadFx("Assets/Sounds/FX/fx_water_splash.wav");
 
 	app->entityManager->Start();
@@ -171,7 +171,7 @@ bool Scene::Start()
 	numTimesAVDialogueTriggered = 0;
 	numTimesLRRHDialogueTriggered = 0;
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_firstvillage_tension.wav", 0.1f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_village_world.ogg", 0.1f);
 
 	// Rect for Rope texture
 	ropeRect = { 0, 0, 177, 971};

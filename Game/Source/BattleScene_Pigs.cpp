@@ -104,7 +104,7 @@ bool BattleScene_Pigs::Start() {
 
 
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_2.wav", 0.1f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_3.wav", 0.1f);
 
 	app->battleManager->MakeCombatMap();
 	
