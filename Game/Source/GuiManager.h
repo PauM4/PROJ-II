@@ -43,10 +43,6 @@ public:
 	int hoverFxId = -1;
 	int pressedFxId = -1;
 
-	SDL_Texture* buttonNormalTexture;
-	SDL_Texture* buttonHoverTexture;
-	SDL_Texture* buttonPressedTexture;
-
 };
 
 #endif // __GUIMANAGER_H__

@@ -18,10 +18,6 @@ bool GuiManager::Start()
 	hoverFxId = app->audio->LoadFx("Assets/Sounds/FX/ui_hover_button.wav");
 	pressedFxId = app->audio->LoadFx("Assets/Sounds/FX/ui_pressed_button.wav");
 
-	buttonNormalTexture = app->tex->Load("Assets/UI/buttonNormal.png");
-	buttonHoverTexture = app->tex->Load("Assets/UI/buttonHover.png");
-	buttonPressedTexture = app->tex->Load("Assets/UI/buttonPressed.png");
-
 	return true;
 }
 
@@ -128,10 +124,6 @@ bool GuiManager::CleanUp()
 	{
 		RELEASE(control);
 	}
-
-	app->tex->UnLoad(buttonNormalTexture);
-	app->tex->UnLoad(buttonHoverTexture);
-	app->tex->UnLoad(buttonPressedTexture);
 
 	return true;
 

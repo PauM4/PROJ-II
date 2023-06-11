@@ -219,12 +219,16 @@ public:
 	SDL_Texture* currentTurnTexture;
 	SDL_Texture* combatStatsTexture;
 	SDL_Texture* combatEnemyStatsTexture;
-	SDL_Texture* plusButton;
+	SDL_Texture* plusButtonTexture;
 	SDL_Texture* pauseBGTexture;
+	SDL_Texture* turnListTexture;
+	SDL_Texture* smallCharPicTexture;
+	SDL_Texture* lvlupTexture;
+
 
 	SDL_Texture* pauseButtonsTexture;
 
-	SDL_Texture* uiSpriteTexture;
+	SDL_Texture* dialogueTextures;
 
 
 	bool timmyItem;
@@ -269,6 +273,18 @@ public:
 	SDL_Rect talismanRect;
 	SDL_Rect susjarRect;
 	SDL_Rect denturesRect;
+
+	// Mini character photos
+	SDL_Rect timmyPicRect;
+	SDL_Rect bunnyPicRect;
+	SDL_Rect villagerPicRect;
+	SDL_Rect corrPicLRRHRect;
+	SDL_Rect LRRHPicRect;
+	SDL_Rect corrLPigPicRect;
+	SDL_Rect corrMPigPicRect;
+	SDL_Rect LPigPicRect;
+	SDL_Rect MPigPicRect;
+	SDL_Rect corrWolfPicRect;
 
 private:
 
