@@ -23,7 +23,7 @@ bool NpcW3::Awake() {
 	NpcW3TexturePath = "Assets/Characters/W3_wolf.png";//provisional de momento hasta que tengamos de gameplay
 
 
-	posWolf.x = 600, posWolf.y = 1500;
+	posWolf.x = 1212, posWolf.y = 1564;
 	wolfAnimation.PushBack({ 0,0,170,300 });
 
 
@@ -36,7 +36,7 @@ bool NpcW3::Start() {
 	NpcW3Texture = app->tex->Load(NpcW3TexturePath);
 
 	
-	pbodyWolf = app->physics->CreateRectangle(posWolf.x + 40, posWolf.y, 150, 150, bodyType::STATIC);
+	pbodyWolf = app->physics->CreateRectangle(posWolf.x + 40, posWolf.y + 75, 150, 200, bodyType::STATIC);
 	pbodyWolf->listener = this;
 	pbodyWolf->ctype = ColliderType::WOLF;
 

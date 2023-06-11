@@ -141,6 +141,9 @@
     <ClCompile Include="Source\Random.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BattleScene_Wolf.cpp">
+      <Filter>Scenes\W3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -318,6 +321,9 @@
     <ClInclude Include="Source\ParticleSystem.h" />
     <ClInclude Include="Source\Random.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BattleScene_Wolf.h">
+      <Filter>Scenes\W3</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
