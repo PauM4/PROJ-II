@@ -413,7 +413,7 @@ bool BattleManager::PostUpdate() {
 	//Moved to UI Module in PostUpdate()
 	//UIStatsForBattle();
 
-	DisplayTurnList();
+	//DisplayTurnList();
 
 
 
