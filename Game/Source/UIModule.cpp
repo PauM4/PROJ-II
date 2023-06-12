@@ -235,6 +235,7 @@ bool UIModule::Start()
 	talismanRect = { 595, 175, 200, 200 };
 	susjarRect = { 925, 3, 200, 200 };
 	denturesRect = { 792, 165, 200, 200 };
+	braceletRect = {960, 175, 200, 200};
 
 	//// Mini character photos
 	//timmyPicRect = { 13, 16, 142, 111 };
@@ -276,7 +277,6 @@ bool UIModule::PreUpdate()
 // Called each loop iteration
 bool UIModule::Update(float dt)
 {
-
 	// OPTIONS MENU LOGIC
 	if (fullScreenCheckBox->crossed)
 	{
@@ -312,6 +312,11 @@ bool UIModule::Update(float dt)
 	if (quitButtonBool)
 	{
 		return false;
+	}
+
+	if (app->w2_scene_maze->active)
+	{
+		std::cout << app->w2_scene_maze->player->playerState << std::endl;
 	}
 
 	return true;
@@ -589,7 +594,7 @@ bool UIModule::PostUpdate()
 	{
 		if (app->w2_scene_maze->player->isChest3Pickable)
 		{
-			app->render->DrawTexture(app->w2_scene_maze->inventoryItemsTexture, app->w2_scene_maze->player->position.x - 70, app->w2_scene_maze->player->position.y - 220, &app->uiModule->denturesRect);
+			app->render->DrawTexture(app->w2_scene_maze->inventoryItemsTexture, app->w2_scene_maze->player->position.x - 70, app->w2_scene_maze->player->position.y - 220, &app->uiModule->braceletRect);
 			app->render->DrawTexture(app->scene->eKeyTexture, app->w2_scene_maze->player->position.x + 60, app->w2_scene_maze->player->position.y - 60, NULL);
 		}
 	}
@@ -710,6 +715,10 @@ void UIModule::PrintItemImages(int i)
 		{
 			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
 		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Hero's Bracelet")
+		{
+			app->render->DrawTexture(app->scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &braceletRect);
+		}
 	}
 
 	if (app->w2_scene->active)
@@ -758,6 +767,10 @@ void UIModule::PrintItemImages(int i)
 		{
 			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
 		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Hero's Bracelet")
+		{
+			app->render->DrawTexture(app->w2_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &braceletRect);
+		}
 	}
 
 	if (app->w3_scene->active)
@@ -805,6 +818,10 @@ void UIModule::PrintItemImages(int i)
 		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Dentures")
 		{
 			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &denturesRect);
+		}
+		if (app->teamManager->itemstoshow.At(inventoryButtonsList.At(i)->data->id - 78)->data->name == "Hero's Bracelet")
+		{
+			app->render->DrawTexture(app->w3_scene->inventoryItemsTexture, -app->render->camera.x + 1195, -app->render->camera.y + 353, &braceletRect);
 		}
 	}
 	
@@ -2009,8 +2026,41 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 		DisableButtonsToNone();
 
+		if (app->w2_scene_maze->active)
+		{
+			app->w2_scene_maze->player->playerPrevState = app->w2_scene_maze->player->playerState;
+			app->w2_scene_maze->player->playerState = app->w2_scene_maze->player->MOVING;
+		}
+
+		//if (app->scene->active)
+		//{
+		//	app->scene->player->playerPrevState = app->scene->player->playerState;
+		//	app->scene->player->playerState = app->scene->player->MOVING;
+		//}
+		//else if (app->w2_scene->active)
+		//{
+		//	app->w2_scene->player->playerPrevState = app->w2_scene->player->playerState;
+		//	app->w2_scene->player->playerState = app->w2_scene->player->MOVING;
+		//}
+		//else if (app->w3_scene->active)
+		//{
+		//	app->w3_scene->player->playerPrevState = app->w3_scene->player->playerState;
+		//	app->w3_scene->player->playerState = app->w3_scene->player->MOVING;
+		//}
+		//else if (app->w2_scene_maze->active)
+		//{
+		//	app->w2_scene_maze->player->playerPrevState = app->w2_scene_maze->player->playerState;
+		//	app->w2_scene_maze->player->playerState = app->w2_scene_maze->player->MOVING;
+		//}
+		//else if (app->sceneGrandma->active)
+		//{
+		//	app->sceneGrandma->player->playerPrevState = app->sceneGrandma->player->playerState;
+		//	app->sceneGrandma->player->playerState = app->sceneGrandma->player->MOVING;
+		//}
+
 		break;
 	}
+
 
 	return true;
 }
