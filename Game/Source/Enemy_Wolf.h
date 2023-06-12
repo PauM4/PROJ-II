@@ -6,11 +6,11 @@
 #include "Animation.h"
 #include "List.h"
 
-class Enemy_LittlePig : public Entity {
+class Enemy_Wolf : public Entity {
 public:
-	Enemy_LittlePig();
+	Enemy_Wolf();
 
-	virtual ~Enemy_LittlePig();
+	virtual ~Enemy_Wolf();
 
 	bool Awake() override;
 

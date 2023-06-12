@@ -11,7 +11,7 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="8028" y="707" dialogueTutorial="true" />
+		<player />
 		<rope_minigame rope_minigame_state="false" />
 		<saveBattleTutoState state="0" />
 		<stepQuest num="1" />
@@ -22,14 +22,11 @@
 	<sceneFoxQuest />
 	<battleScene_Pigs />
 	<w2_scene>
-		<player x="1590" y="4535" />
+		<player />
 		<stepQuest num="0" />
 	</w2_scene>
 	<w2_scene_maze>
-		<player x="1569" y="126" />
-		<chests>
-			<chest3 isPicked="false" />
-		</chests>
+		<player />
 	</w2_scene_maze>
 	<w3_scene>
 		<player />
@@ -43,7 +40,7 @@
 		<inventory>
 			<yoyo isobtained="true" character="1" />
 			<handsxd isobtained="true" character="2" />
-			<bow isobtained="true" character="3" />
+			<bow isobtained="false" character="0" />
 			<club isobtained="false" character="0" />
 			<knife isobtained="false" character="0" />
 			<shotgun isobtained="false" character="0" />
@@ -56,21 +53,21 @@
 			<bracelet isobtained="false" character="0" />
 		</inventory>
 		<stats>
-			<timmy defense="0" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
-			<bunny defense="0" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
-			<lrrh defense="0" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
+			<timmy defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
+			<bunny defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
+			<lrrh defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<littlePig defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<middlePig defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<peter defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 		</stats>
 	</teamManager>
-	<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
+	<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" islilpigplayable="true" ismidpigplayable="true" ispeterplayable="false" />
 	<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
 	<moduleparticles />
 	<UIModule />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-611" y="-52" />
+		<camera x="0" y="0" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="true" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
+	<BattleInfo isAngryVillagerDefeated="true" isLRRHDefeated="true" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>

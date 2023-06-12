@@ -6,6 +6,7 @@
 #include "GuiButton.h"
 #include "List.h"
 #include "UIModule.h"
+#include "Enemy_Wolf.h"
 #include "SDL_Timer.h"
 
 struct SDL_Texture;
@@ -54,10 +55,8 @@ private:
 	SString mapName;
 	SString mapFolder;
 
-	/*Enemy_LittlePig* littlePig;
-	Enemy_MiddlePig* middlePig;*/
-	/*iPoint middlePigPrevPos, littlePigPrevPos;*/
-
+	Enemy_Wolf* wolf;
+	iPoint wolfPrevPos;
 
 	int frames = 0;
 	

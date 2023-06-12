@@ -37,6 +37,7 @@ bool ModuleParticles::Update(float dt)
 			emiters[i]->Emit();
 			emiters[i]->acumulator -= 1.0f / emiters[i]->particleProps.particlepersecond;
 		}
+		
 		emiters[i]->UpdateParticles(dt);
 	}
 	return true;

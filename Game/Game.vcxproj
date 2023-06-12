@@ -109,6 +109,7 @@
     <ClCompile Include="Source\Enemy_LittlePig.cpp" />
     <ClCompile Include="Source\Enemy_LRRH.cpp" />
     <ClCompile Include="Source\Enemy_MiddlePig.cpp" />
+    <ClCompile Include="Source\Enemy_Wolf.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Source\Enemy_LittlePig.h" />
     <ClInclude Include="Source\Enemy_LRRH.h" />
     <ClInclude Include="Source\Enemy_MiddlePig.h" />
+    <ClInclude Include="Source\Enemy_Wolf.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FadeToBlack.h" />
