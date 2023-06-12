@@ -54,9 +54,7 @@ private:
 	SString mapName;
 	SString mapFolder;
 
-	/*Enemy_LittlePig* littlePig;
-	Enemy_MiddlePig* middlePig;*/
-	/*iPoint middlePigPrevPos, littlePigPrevPos;*/
+En
 
 
 	int frames = 0;

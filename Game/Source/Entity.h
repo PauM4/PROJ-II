@@ -46,6 +46,7 @@ enum class EntityType
 	ENEMYLPIG,
 	ENEMYMPIG,
 	CORRUPTEDSPROUT,
+	WOLF,
 };
 
 class Entity
