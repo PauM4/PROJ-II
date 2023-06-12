@@ -150,7 +150,8 @@
 			<talisman ininventory="false" type="3" weaponuser="0" character="0" name="Talisman" defense="1" magic="3" speed="0" movement="0" attack="0" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<susjar ininventory="false" type="3" weaponuser="0" character="0" name="Sus-Jar" defense="0" magic="0" speed="0" movement="0" attack="3" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
 			<dentures ininventory="false" type="3" weaponuser="0" character="0" name="Dentures" defense="0" magic="0" speed="0" movement="0" attack="1" AttArea="0" Ab1Area="0" Ab1Power="0" Ab2Area="0" Ab2Power="0" healingpower="0" />
-			<bracelet ininventory="false" type="3" weaponuser="0" character="0" name="Hero's Bracelet" defense="3" magic="0" speed="2" movement="2" attack="5" AttArea="0" Ab1Area="0" Ab1Power="2" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<bracelet ininventory="false" type="2" weaponuser="0" character="0" name="Hero's Bracelet" defense="3" magic="0" speed="2" movement="2" attack="5" AttArea="0" Ab1Area="0" Ab1Power="2" Ab2Area="0" Ab2Power="0" healingpower="0" />
+			<pedrito ininventory="false" type="3" weaponuser="0" character="0" name="Normal Plush" defense="3" magic="0" speed="2" movement="2" attack="5" AttArea="0" Ab1Area="0" Ab1Power="2" Ab2Area="0" Ab2Power="0" healingpower="0" />
 
 		</item>
 	</teamManager>

@@ -178,6 +178,7 @@ bool Player::Start() {
 		app->LoadGameRequest();
 	}
 
+
 	triggerBunnyDialogue = false;
 	endBunnyDialogue = false;
 
@@ -222,24 +223,28 @@ bool Player::Update(float dt)
 		app->teamManager->lvlupplayerstate = false;
 	}
 
-	if (triggerBunnyDialogue && endBunnyDialogue)
+
+	if (app->scene->active)
 	{
-		lastCollision = ColliderType::UNKNOWN;
-		app->scene->dialogueTutorial = true;
+		if (triggerBunnyDialogue && endBunnyDialogue)
+		{
+			lastCollision = ColliderType::UNKNOWN;
+			app->scene->dialogueTutorial = true;
+		}
+
+		if (app->scene->basicTutorialCounter == 2 && !triggerBunnyDialogue)
+		{
+			lastCollision = ColliderType::BUNNY;
+			triggerBunnyDialogue = true;
+			npcInteractAvailable = true;
+			//playerState = NPC_INTERACT;
+			//StopVelocity();
+			app->uiModule->CleaningDialogeOverTime();
+			TriggerDialogueTree(lastCollision);
+			InteractWithEntities();
+		}
 	}
 
-	if (app->scene->basicTutorialCounter == 2 && !triggerBunnyDialogue)
-	{
-		lastCollision = ColliderType::BUNNY;
-		triggerBunnyDialogue = true;
-		npcInteractAvailable = true;
-		//playerState = NPC_INTERACT;
-		//StopVelocity();
-		app->uiModule->CleaningDialogeOverTime();
-		TriggerDialogueTree(lastCollision);
-		InteractWithEntities();
-		
-	}
 
 	
 
@@ -296,7 +301,7 @@ bool Player::Update(float dt)
 		{
 			if (isChest3Pickable)
 			{
-				app->teamManager->dentures.ininventory = true;
+				app->teamManager->bracelet.ininventory = true;
 				app->w2_scene_maze->chest3->isPicked = true;
 				app->teamManager->loadinventory();
 			}
@@ -318,7 +323,7 @@ bool Player::Update(float dt)
 			}
 			if (isChest6Pickable)
 			{
-				app->teamManager->bracelet.ininventory = true;
+				app->teamManager->dentures.ininventory = true;
 				app->w2_scene->chest6->isPicked = true;
 				app->teamManager->loadinventory();
 			}
@@ -958,6 +963,7 @@ void Player::InteractWithEntities()
 			// Moving
 			else
 			{
+				
 				playerPrevState = playerState;
 				playerState = NPC_INTERACT;
 				StopVelocity();
