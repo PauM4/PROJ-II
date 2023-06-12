@@ -572,6 +572,9 @@ bool W2_Scene::CleanUp()
 	app->tex->UnLoad(assets);
 	app->tex->UnLoad(starparticle_texture);
 	app->tex->UnLoad(smokeparticle_texture);
+
+	app->moduleParticles->CleanUp();
+
 	return true;
 }
 

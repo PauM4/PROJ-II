@@ -578,6 +578,7 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(inventoryItemsTexture);
 	app->tex->UnLoad(starparticle_texture);
 
+	app->moduleParticles->CleanUp();
 	return true;
 }
 

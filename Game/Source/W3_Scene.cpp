@@ -125,12 +125,12 @@ bool W3_Scene::Start()
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_wolf_world.ogg", 0.1f);
 
-	particle_dark1.x = 3000;
-	particle_dark1.y = 5592;
+	particle_dark1.x = 300;
+	particle_dark1.y = 2661;
 	particle_dark1.velocity_x = 70;
 	particle_dark1.velocity_y = -70;
 	particle_dark1.spreadfactor = 360;
-	particle_dark1.lifetime = 5;
+	particle_dark1.lifetime = 3;
 	particle_dark1.beginscale = 50;
 	particle_dark1.endscale = 0;
 	particle_dark1.r = 255;
@@ -143,12 +143,12 @@ bool W3_Scene::Start()
 	particle_dark1.particlepersecond = 20;
 	particle_dark1.particletexture = darkparticle_texture;
 
-	particle_dark2.x = 500;
-	particle_dark2.y = 5592;
-	particle_dark2.velocity_x = 70;
+	particle_dark2.x = 1800;
+	particle_dark2.y = 2661;
+	particle_dark2.velocity_x = -70;
 	particle_dark2.velocity_y = -70;
 	particle_dark2.spreadfactor = 360;
-	particle_dark2.lifetime = 5;
+	particle_dark2.lifetime = 3;
 	particle_dark2.beginscale = 50;
 	particle_dark2.endscale = 0;
 	particle_dark2.r = 255;
@@ -180,7 +180,8 @@ bool W3_Scene::PreUpdate()
 // Called each loop iteration
 bool W3_Scene::Update(float dt)
 {
-
+	std::cout << "X: " << player->position.x << std::endl;
+	std::cout << "Y: " << player->position.y << std::endl;
 	Camera();
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
@@ -311,6 +312,8 @@ bool W3_Scene::CleanUp()
 	app->tex->UnLoad(inventoryItemsTexture);
 	app->tex->UnLoad(lvlupTexture);
 	app->tex->UnLoad(darkparticle_texture);
+
+	app->moduleParticles->CleanUp();
 
 	return true;
 }
