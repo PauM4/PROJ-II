@@ -84,28 +84,28 @@ bool Enemy_Wolf::Awake()
 	abilityAnim.speed = 0.25;
 	
 
-	for (int i = 0; i < 10; i++) //penutlima:cabezon
+	for (int i = 0; i < 6; i++) //penutlima:cabezon
 	{
 		walkDownAnim.PushBack({ (i * 200), 200, 200, 200 });
 	}
 	walkDownAnim.loop = true;
 	walkDownAnim.speed = 0.15f;
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		walkUpAnim.PushBack({ (i * 200), 800, 200, 200 });
 	}
 	walkUpAnim.loop = true;
 	walkUpAnim.speed = 0.15f;
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		walkRightAnim.PushBack({ (i * 200), 600, 200, 200 });
 	}
 	walkRightAnim.loop = true;
 	walkRightAnim.speed = 0.15f;
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		walkLeftAnim.PushBack({ (i * 200), 400, 200, 200 });
 	}
@@ -144,7 +144,7 @@ bool Enemy_Wolf::PostUpdate()
 	//Render
 	if (health > 0) {
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 25, position.y - 50, &rect);
+		app->render->DrawTexture(texture, position.x - 35, position.y - 70, &rect);
 	}
 
 	if (currentAnimation == &abilityAnim)
