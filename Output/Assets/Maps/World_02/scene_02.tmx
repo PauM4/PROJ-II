@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="81" nextobjectid="279">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="93" nextobjectid="288">
  <imagelayer id="2" name="BG">
   <image source="Assets/Maps/World_02/Assets/Fondo_map_cerditos.png" width="6319" height="4736"/>
   <properties>
@@ -353,6 +353,24 @@
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
+ <imagelayer id="80" name="Copy of Copy of Copy of Copy of Copy of tree" offsetx="3672.85" offsety="4131.33">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="91" name="Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="4006.19" offsety="4267.7">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="92" name="Copy of Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="4190.19" offsety="3563.7">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
  <imagelayer id="77" name="Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="-320.364" offsety="3794.12">
   <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
   <properties>
@@ -365,7 +383,49 @@
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
+ <imagelayer id="86" name="Copy of Copy of Copy of Copy of Copy of tree" offsetx="2019.64" offsety="1930.12">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="84" name="Copy of Copy of Copy of tree" offsetx="1499.64" offsety="2078.12">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="85" name="Copy of Copy of Copy of Copy of tree" offsetx="4023.64" offsety="2026.12">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
  <imagelayer id="78" name="Copy of Copy of Copy of tree" offsetx="2543.64" offsety="3922.12">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="89" name="Copy of Copy of Copy of Copy of tree" offsetx="2843.64" offsety="4222.12">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="90" name="Copy of Copy of Copy of Copy of Copy of tree" offsetx="3243.64" offsety="4298.12">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="87" name="Copy of Copy of Copy of Copy of tree" offsetx="2015.64" offsety="4234.12">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="88" name="Copy of Copy of Copy of Copy of Copy of tree" offsetx="2382.31" offsety="4322">
   <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
@@ -377,7 +437,19 @@
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
- <imagelayer id="80" name="Copy of Copy of Copy of Copy of Copy of tree" offsetx="3551.64" offsety="4010.12">
+ <imagelayer id="81" name="Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="-248.36" offsety="4174.12">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="83" name="Copy of Copy of Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="563.64" offsety="4202.12">
+  <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="82" name="Copy of Copy of Copy of Copy of Copy of Copy of Copy of tree" offsetx="23.64" offsety="4242.12">
   <image source="Assets/Maps/World_02/Assets/tree.png" width="780" height="587"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
@@ -462,13 +534,13 @@
   <object id="193" x="9382" y="2406" width="28" height="558"/>
   <object id="194" x="8898" y="2964" width="512" height="54"/>
   <object id="197" x="8696" y="3012" width="202" height="28"/>
-  <object id="200" x="8122" y="4682" width="1672" height="66"/>
-  <object id="203" x="8114" y="3898" width="46" height="820"/>
-  <object id="204" x="9082" y="4312" width="152" height="242"/>
-  <object id="205" x="9754" y="4298" width="52" height="412"/>
-  <object id="206" x="9754" y="3902" width="58" height="264"/>
-  <object id="207" x="8136" y="3858" width="1624" height="56"/>
-  <object id="208" x="9810" y="4130" width="36" height="206"/>
+  <object id="200" x="8100" y="4665" width="1704" height="66"/>
+  <object id="203" x="8073" y="3880" width="46" height="820"/>
+  <object id="204" x="9079.5" y="4304.5" width="120" height="237"/>
+  <object id="205" x="9800.5" y="4305" width="52" height="412"/>
+  <object id="206" x="9800.67" y="3920" width="52" height="264"/>
+  <object id="207" x="8107.5" y="3887" width="1706.67" height="56"/>
+  <object id="208" x="9844.67" y="4129.33" width="36" height="206"/>
   <object id="220" x="1448" y="1325.33" width="272" height="160"/>
   <object id="221" x="2386.67" y="1538.91" width="272" height="160"/>
   <object id="222" x="511.879" y="1322.55" width="272" height="160"/>
@@ -521,9 +593,18 @@
   <object id="272" x="6112" y="1028" width="272" height="160"/>
   <object id="274" x="6318.79" y="-187.635" width="242.424" height="1887.27"/>
   <object id="275" x="3422.55" y="3724.36" width="272" height="160"/>
-  <object id="276" x="3818.55" y="4426.06" width="272" height="160"/>
+  <object id="276" x="3906.43" y="4565.45" width="272" height="160"/>
   <object id="277" x="2806.42" y="4338.18" width="272" height="160"/>
   <object id="278" x="8661" y="2403" width="384" height="80"/>
+  <object id="279" x="824" y="4628" width="278" height="156"/>
+  <object id="280" x="302" y="4664" width="260" height="148"/>
+  <object id="281" x="28" y="4568" width="272" height="186"/>
+  <object id="282" x="1772" y="2502" width="258" height="142"/>
+  <object id="283" x="2296" y="2354" width="258" height="148"/>
+  <object id="284" x="4292" y="2448" width="269.333" height="146.667"/>
+  <object id="285" x="2290.91" y="4663.64" width="212.121" height="112.121"/>
+  <object id="286" x="3151.52" y="4630.3" width="215.152" height="133.333"/>
+  <object id="287" x="4472.73" y="3993.94" width="239.394" height="154.545"/>
  </objectgroup>
  <objectgroup color="#00ff00" id="4" name="Doors">
   <properties>
@@ -534,7 +615,7 @@
   <object id="112" x="5100.5" y="2211" width="227.5" height="75.5"/>
   <object id="113" x="5628.67" y="3023.33" width="66.6667" height="123.333"/>
   <object id="188" x="8844" y="982" width="140" height="26"/>
-  <object id="209" x="9758" y="4172" width="44" height="120"/>
+  <object id="209" x="9799.33" y="4184.67" width="44" height="120"/>
   <object id="210" x="8718" y="2968" width="176" height="40"/>
  </objectgroup>
  <objectgroup color="#00ffff" id="18" name="Portal">

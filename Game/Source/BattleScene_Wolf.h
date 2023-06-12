@@ -54,8 +54,6 @@ private:
 	SString mapName;
 	SString mapFolder;
 
-En
-
 
 	int frames = 0;
 	
