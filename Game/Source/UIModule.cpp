@@ -299,6 +299,7 @@ bool UIModule::Update(float dt)
 
 	if (currentMenuType != PAUSE)
 	{
+
 		Mix_VolumeMusic((musicSlider->bounds.x - 1258) * (128 - 0) / (1659 - 1258) + 0);
 	}
 
@@ -486,11 +487,6 @@ bool UIModule::PostUpdate()
 				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->revhatRect);
 				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
 			}
-			if (app->scene->player->isChest3Pickable)
-			{
-				app->render->DrawTexture(app->scene->inventoryItemsTexture, app->scene->player->position.x - 70, app->scene->player->position.y - 220, &app->uiModule->denturesRect);
-				app->render->DrawTexture(app->scene->eKeyTexture, app->scene->player->position.x + 60, app->scene->player->position.y - 60, NULL);
-			}
 		}
 
 		if (app->scene->player->playerState == app->scene->player->PlayerState::NPC_INTERACT && currentMenuType != ROPE_MINIGAME)
@@ -587,6 +583,15 @@ bool UIModule::PostUpdate()
 			app->w2_scene->drawQuest(-app->render->camera.x + 120, -app->render->camera.y + 120);
 		}
 
+	}
+
+	if (app->w2_scene_maze->active)
+	{
+		if (app->w2_scene_maze->player->isChest3Pickable)
+		{
+			app->render->DrawTexture(app->w2_scene_maze->inventoryItemsTexture, app->w2_scene_maze->player->position.x - 70, app->w2_scene_maze->player->position.y - 220, &app->uiModule->denturesRect);
+			app->render->DrawTexture(app->scene->eKeyTexture, app->w2_scene_maze->player->position.x + 60, app->w2_scene_maze->player->position.y - 60, NULL);
+		}
 	}
 
 	// SCENE 3 UI

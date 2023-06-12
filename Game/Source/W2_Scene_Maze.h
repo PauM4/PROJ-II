@@ -92,6 +92,18 @@ private:
 
 	bool godMode;
 
+public:
+	Item* chest3;
+	ParticleProps particle_chest3;
+	SDL_Texture* starparticle_texture;
+	SDL_Texture* inventoryItemsTexture;
+	SDL_Texture* chestTexture;
+
+	//Rect for chest Texture
+	SDL_Rect chestHRect;
+	SDL_Rect chestVRect;
+	SDL_Rect chestopenHRect;
+	SDL_Rect chestopenVRect;
 
 };
 

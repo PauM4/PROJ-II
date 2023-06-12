@@ -50,6 +50,26 @@ bool W2_Scene_Maze::Awake(pugi::xml_node& config)
 
 	fog = app->tex->Load("Assets/Maps/World_02/Assets/fog.png");
 
+	pugi::xml_node chestNode3 = config.child("chest3");
+	chest3 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+	chest3->parameters = chestNode3;
+	chest3->position.x = chestNode3.attribute("x").as_int();
+	chest3->position.y = chestNode3.attribute("y").as_int();
+	chest3->width = chestNode3.attribute("width").as_int();
+	chest3->height = chestNode3.attribute("height").as_int();
+	chest3->chestId = chestNode3.attribute("id").as_int();
+	PhysBody* chest3PB = app->physics->CreateRectangleSensor(chest3->position.x + chest3->width / 2, chest3->position.y + chest3->height / 2, chest3->width, chest3->height, bodyType::STATIC);
+	chest3PB->ctype = ColliderType::CHEST3;
+	PhysBody* chest3Col = app->physics->CreateRectangle(chest3->position.x + chest3->width / 2, chest3->position.y + chest3->height / 2, chest3->width, chest3->height, bodyType::STATIC);
+	chest3Col->ctype = ColliderType::UNKNOWN;
+
+	starparticle_texture = app->tex->Load("Assets/UI/star_particle.png");
+
+	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
+
+	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
+
+
 	return ret;
 }
 
@@ -96,6 +116,33 @@ bool W2_Scene_Maze::Start()
 	godMode = false;
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_maze.ogg", 0.1f);
+
+	//Rect for chest Texture
+	chestHRect = { 4, 36, 90, 77 };
+	chestVRect = { 12, 135, 71, 101 };
+	chestopenHRect = { 105, 3, 88, 108 };
+	chestopenVRect = { 107, 134, 74, 100 };
+
+	particle_chest3.x = 979;
+	particle_chest3.y = 1352;
+	particle_chest3.velocity_x = 0;
+	particle_chest3.velocity_y = -70;
+	particle_chest3.spreadfactor = 100;
+	particle_chest3.lifetime = 1.2;
+	particle_chest3.beginscale = 50;
+	particle_chest3.endscale = 0;
+	particle_chest3.r = 255;
+	particle_chest3.g = 0;
+	particle_chest3.b = 0;
+	particle_chest3.r2 = 0;
+	particle_chest3.g2 = 0;
+	particle_chest3.b2 = 255;
+	particle_chest3.scaleVariation = 1;
+	particle_chest3.particlepersecond = 5;
+	particle_chest3.particletexture = starparticle_texture;
+
+	ParticleSystem* particlesystem_chest3 = new ParticleSystem(particle_chest3);
+	app->moduleParticles->emiters.push_back(particlesystem_chest3);
 
 	return true;
 }
@@ -152,9 +199,11 @@ bool W2_Scene_Maze::Update(float dt)
 		}
 	}
 
-
 	// Draw map
 	app->map->Draw();
+
+	if (chest3->isPicked) app->render->DrawTexture(app->w2_scene_maze->chestTexture, 979, 1352, &chestopenHRect);
+	else app->render->DrawTexture(app->w2_scene_maze->chestTexture, 979, 1352, &chestHRect);
 
 	return true;
 }
@@ -276,6 +325,12 @@ bool W2_Scene_Maze::SaveState(pugi::xml_node& data)
 		playerNode.append_attribute("y") = (player->position.y + 100);
 	}
 
+	if (active)
+	{
+		pugi::xml_node chestGameSave = data.append_child("chests");
+		pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
+		chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
+	}
 
 	return true;
 }

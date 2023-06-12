@@ -42,8 +42,6 @@
 		<chest1 x="845" y="3969" width="100" height="75" isPicked="false" id="0"/>
 		<!-- Chest 2-->
 		<chest2 x="782" y="2081" width="67" height="111" isPicked="false" id="1"/>
-		<!-- Chest 3-->
-		<chest3 x="4125" y="1006" width="100" height="75" isPicked="false" id="2"/>
 
 		<!--Portal to w2-->
 		<portal x="8087" y="603" width="67" height="236" nextScene="9" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
@@ -96,6 +94,9 @@
 		<player x="1670" y="140" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
 		<!--Door to scene_02 -->
 		<portal x="1500" y="0" width="600" height="80" nextScene="9" nextPlayerX="0" nextPlayerY="0"/>
+
+		<!-- Chest 3-->
+		<chest3 x="979" y="1352" width="100" height="75" isPicked="false" id="2"/>
 		
 	</w2_scene_maze>
 	

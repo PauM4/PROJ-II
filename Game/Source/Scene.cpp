@@ -87,19 +87,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	PhysBody* chest2Col = app->physics->CreateRectangle(chest2->position.x + chest2->width / 2, chest2->position.y + chest2->height / 2, chest2->width, chest2->height, bodyType::STATIC);
 	chest2Col->ctype = ColliderType::UNKNOWN;
 
-	pugi::xml_node chestNode3 = config.child("chest3");
-	chest3 = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-	chest3->parameters = chestNode3;
-	chest3->position.x = chestNode3.attribute("x").as_int();
-	chest3->position.y = chestNode3.attribute("y").as_int();
-	chest3->width = chestNode3.attribute("width").as_int();
-	chest3->height = chestNode3.attribute("height").as_int();
-	chest3->chestId = chestNode3.attribute("id").as_int();
-	PhysBody* chest3PB = app->physics->CreateRectangleSensor(chest3->position.x + chest3->width / 2, chest3->position.y + chest3->height / 2, chest3->width, chest3->height, bodyType::STATIC);
-	chest3PB->ctype = ColliderType::CHEST3;
-	PhysBody* chest3Col = app->physics->CreateRectangle(chest3->position.x + chest3->width / 2, chest3->position.y + chest3->height / 2, chest3->width, chest3->height, bodyType::STATIC);
-	chest3Col->ctype = ColliderType::UNKNOWN;
-
 
 	pressKeyAnim.PushBack({ 0, 0, 485, 734 });
 	pressKeyAnim.PushBack({ 485, 0, 485, 735 });
@@ -288,30 +275,12 @@ bool Scene::Start()
 	particle_chest2.particlepersecond = 5;
 	particle_chest2.particletexture = starparticle_texture;
 
-	particle_chest2.x = 4170;
-	particle_chest2.y = 1037;
-	particle_chest2.velocity_x = 0;
-	particle_chest2.velocity_y = -70;
-	particle_chest2.spreadfactor = 100;
-	particle_chest2.lifetime = 1.2;
-	particle_chest2.beginscale = 50;
-	particle_chest2.endscale = 0;
-	particle_chest2.r = 255;
-	particle_chest2.g = 0;
-	particle_chest2.b = 0;
-	particle_chest2.r2 = 0;
-	particle_chest2.g2 = 0;
-	particle_chest2.b2 = 255;
-	particle_chest2.scaleVariation = 1;
-	particle_chest2.particlepersecond = 5;
-	particle_chest2.particletexture = starparticle_texture;
 
 	ParticleSystem* particlesystem_chest1 = new ParticleSystem(particle_chest1);
 	ParticleSystem* particlesystem_chest2 = new ParticleSystem(particle_chest2);
-	ParticleSystem* particlesystem_chest3 = new ParticleSystem(particle_chest3);
+
 	app->moduleParticles->emiters.push_back(particlesystem_chest1);
 	app->moduleParticles->emiters.push_back(particlesystem_chest2);
-	app->moduleParticles->emiters.push_back(particlesystem_chest3);
 
 	return true;
 }
@@ -376,8 +345,7 @@ bool Scene::Update(float dt)
 	else app->render->DrawTexture(app->scene->chestTexture, 851, 3965, &app->scene->chestHRect);
 	if (chest2->isPicked) app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestopenVRect);
 	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
-	if (chest3->isPicked) app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestopenHRect);
-	else app->render->DrawTexture(app->scene->chestTexture, 4129, 1002, &app->scene->chestHRect);
+
 
 	if(basicTutorialCounter < 2)
 	{
@@ -1311,8 +1279,7 @@ bool Scene::SaveState(pugi::xml_node& data)
 		chestNodeSave1.append_attribute("isPicked").set_value(chest1->isPicked);
 		pugi::xml_node chestNodeSave2 = chestGameSave.append_child("chest2");
 		chestNodeSave2.append_attribute("isPicked").set_value(chest2->isPicked);
-		pugi::xml_node chestNodeSave3 = chestGameSave.append_child("chest3");
-		chestNodeSave3.append_attribute("isPicked").set_value(chest3->isPicked);
+
 	}
 	pugi::xml_node saveBattleTutorialState = data.append_child("saveBattleTutoState");
 	saveBattleTutorialState.append_attribute("state") = battleTutorialCounter;
@@ -1333,7 +1300,6 @@ void Scene::LoadChests(pugi::xml_node& data)
 {
 	chest1->isPicked = data.child("chest1").attribute("isPicked").as_bool();
 	chest2->isPicked = data.child("chest2").attribute("isPicked").as_bool();
-	chest3->isPicked = data.child("chest3").attribute("isPicked").as_bool();
 	
 }
 
