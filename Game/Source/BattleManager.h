@@ -184,6 +184,7 @@ public:
 	bool isPaused;
 	bool win;
 	bool lose;
+	bool finish;
 	bool actionfinish;
 	SDL_Timer enemyAreaTimer;
 	SDL_Timer enemyAttackTimer;
@@ -191,6 +192,7 @@ public:
 	bool displayEnemyAttackAreaOnce = false;
 
 	int changeScreenTimer;
+	int timercharge;
 
 
 	//Pathfinding varibles

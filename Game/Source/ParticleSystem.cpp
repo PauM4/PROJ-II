@@ -10,8 +10,6 @@ ParticleSystem::ParticleSystem(ParticleProps particleProps) {
 	currentparticle = 999;
 	this->particleProps = particleProps;
 	acumulator = 0;
-
-
 }
 
 ParticleSystem::~ParticleSystem()

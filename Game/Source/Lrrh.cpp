@@ -48,7 +48,7 @@ bool Lrrh::Awake()
 
 	}
 	abilityAnim.loop = false;
-	abilityAnim.speed = 0.95f;
+	abilityAnim.speed = 0.5f;
 
 	//arrow
 	for (int i = 12; i < 15; i++)
@@ -100,7 +100,8 @@ bool Lrrh::Awake()
 
 bool Lrrh::Start()
 {
-
+	attackFx = app->audio->LoadFx("Assets/Sounds/FX/fx_attack.wav");
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_arrows.wav");
 
 	return true;
 }
@@ -213,6 +214,7 @@ bool Lrrh::PostUpdate()
 		{
 			if (abilityAnim.HasFinished())
 			{
+				abilityAnim.Reset();
 				finishAnimBool = true;
 				currentAnimation == &idleAnim;
 
@@ -229,8 +231,8 @@ bool Lrrh::PostUpdate()
 
 			if (arrow.HasFinished())
 			{
-				abilityAnimation = &none;
 				abilityAnim.Reset();
+				abilityAnimation = &none;
 				arrow.Reset();
 				finishAnimBool = false;
 

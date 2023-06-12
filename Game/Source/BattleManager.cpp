@@ -63,6 +63,8 @@ bool BattleManager::Start() {
 	triggerMoveTimer = false;
 	win = false;
 	lose = false;
+	finish = false;
+	timercharge = 0;
 	battleState = BattleState::THINKING;
 	app->SaveGameRequest();
 
@@ -101,6 +103,9 @@ bool BattleManager::Update(float dt) {
 	if (godMode) {
 		GodMode();
 	}
+	if (timercharge > 0) {
+		timercharge--;
+	}
 
 	UpdateEntitiesTilePos();
 
@@ -110,6 +115,7 @@ bool BattleManager::Update(float dt) {
 		break;
 	case BattleState::THINKING:
 		actionfinish = false;
+		timercharge = 0;
 		origin = currentTurn->tilePos;
 		targets.Clear();
 		actionArea.Clear();
@@ -157,6 +163,7 @@ bool BattleManager::Update(float dt) {
 
 				currentTurn->GainStamina(10);
 				app->audio->PlayFx(rechargemanaFx);
+				timercharge = 50;
 				battleState = BattleState::INACTION;
 
 			}
@@ -221,8 +228,8 @@ bool BattleManager::Update(float dt) {
 			}
 
 		}
-		else {
-
+		else if (timercharge == 0 && finish==false) {
+		
 			battleState = BattleState::THINKING;
 			UpdateTurnList();
 
@@ -362,6 +369,7 @@ bool BattleManager::Update(float dt) {
 		
 		if (battleState == BattleState::ENEMY && actionType != ActionType::ATTACK) {
 			currentTurn->GainStamina(10);
+			timercharge = 100;
 			battleState = BattleState::INACTION;
 		}
 
@@ -413,7 +421,7 @@ bool BattleManager::PostUpdate() {
 	//Moved to UI Module in PostUpdate()
 	//UIStatsForBattle();
 
-	DisplayTurnList();
+	//DisplayTurnList();
 
 
 
@@ -1186,9 +1194,11 @@ void BattleManager::CheckWinCondition()
 
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 
+		finish = true;
 		if (lose == false) {
 			if (changeScreenTimer == -1) {
 				changeScreenTimer = 100;
+			
 			}
 
 			changeScreenTimer--;
@@ -1202,9 +1212,11 @@ void BattleManager::CheckWinCondition()
 	
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 		
+		finish = true;
 		if (lose == false) {
 			if (changeScreenTimer == -1) {
 				changeScreenTimer = 100;
+
 			}
 
 			changeScreenTimer--;

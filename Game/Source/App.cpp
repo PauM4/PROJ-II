@@ -20,6 +20,7 @@
 
 //World_03
 #include "W3_Scene.h"
+#include "BattleScene_Wolf.h"
 
 //-------------------
 #include "SceneFoxQuest.h"
@@ -78,6 +79,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	//World_03
 	w3_scene = new W3_Scene(false);
+	battleScene_Wolf = new BattleScene_Wolf(false);
 
 	//-----------------
 	battleManager = new BattleManager(false);
@@ -118,6 +120,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	//World_03
 	AddModule(w3_scene);
+	AddModule(battleScene_Wolf);
 
 	//-----------------
 	AddModule(battleManager);

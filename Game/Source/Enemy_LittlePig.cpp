@@ -82,6 +82,7 @@ bool Enemy_LittlePig::Awake()
 	}
 	abilityAnim.loop = false;
 	abilityAnim.speed = 0.25;
+	
 
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
@@ -126,7 +127,7 @@ bool Enemy_LittlePig::Awake()
 
 bool Enemy_LittlePig::Start()
 {
-
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_knife.wav");
 	return true;
 }
 
@@ -144,6 +145,17 @@ bool Enemy_LittlePig::PostUpdate()
 	if (health > 0) {
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+	}
+
+	if (currentAnimation == &abilityAnim)
+	{
+		if (abilityAnim.HasFinished())
+		{
+			finishAnimBool = true;
+			abilityAnim.Reset();
+			currentAnimation = &idleAnim;
+		
+		}
 	}
 	return true;
 }

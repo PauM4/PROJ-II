@@ -100,6 +100,7 @@
   <ItemGroup>
     <ClCompile Include="Source\BattleManager.cpp" />
     <ClCompile Include="Source\BattleScene_Pigs.cpp" />
+    <ClCompile Include="Source\BattleScene_Wolf.cpp" />
     <ClCompile Include="Source\BattleSystem.cpp" />
     <ClCompile Include="Source\Bunny.cpp" />
     <ClCompile Include="Source\Door.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\BattleManager.h" />
     <ClInclude Include="Source\BattleScene_Pigs.h" />
+    <ClInclude Include="Source\BattleScene_Wolf.h" />
     <ClInclude Include="Source\BattleSystem.h" />
     <ClInclude Include="Source\Bunny.h" />
     <ClInclude Include="Source\DialogueTree.h" />

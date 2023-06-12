@@ -80,7 +80,8 @@ bool MiddlePig::Awake()
 
 bool MiddlePig::Start()
 {
-
+	attackFx = app->audio->LoadFx("Assets/Sounds/FX/fx_attack.wav");
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_cantmove.wav");
 
 	return true;
 }
@@ -165,6 +166,16 @@ bool MiddlePig::PostUpdate()
 	if (app->uiModule->currentMenuType == COMBAT && app->teamManager->IsMidPigOnTeam == true) {
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texture, position.x - 50, position.y - 120, &rect);
+	}
+	if (currentAnimation == &abilityAnim)
+	{
+		if (abilityAnim.HasFinished())
+		{
+			finishAnimBool = true;
+			abilityAnim.Reset();
+			currentAnimation = &idleAnim;
+
+		}
 	}
 	return true;
 }

@@ -96,7 +96,7 @@ bool Enemy_LRRH::Awake()
 		
 	}
 	abilityAnim.loop = false;
-	abilityAnim.speed = 0.95f;
+	abilityAnim.speed = 0.5f;
 
 	//arrow
 	for (int i = 12; i < 15; i++)
@@ -194,6 +194,7 @@ bool Enemy_LRRH::PostUpdate()
 
 			if (arrow.HasFinished())
 			{
+				abilityAnimation->Reset();
 				abilityAnimation = &none;
 				abilityAnim.Reset();
 				arrow.Reset();

@@ -50,6 +50,9 @@ public:
 	Animation takedmgAnim;
 	Animation abilityAnim;
 	Animation* abilityAnimation;
+
+	bool finishAnimBool;
+
 private:
 
 	

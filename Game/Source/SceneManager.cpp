@@ -60,12 +60,6 @@ bool SceneManager::PreUpdate()
 		app->sceneManager->isBattle = false;
 		scene = GameScene::MAIN_MENU;
 	}
-	if ((app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) && currentScene->active == true)
-	{
-		app->sceneManager->isBattle = false;
-		scene = GameScene::GRANDMA;
-	}
-
 	if ((app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) && currentScene->active == true)
 	{
 		app->sceneManager->isBattle = false;
@@ -92,6 +86,11 @@ bool SceneManager::PreUpdate()
 	{
 		app->sceneManager->isBattle = true;
 		scene = GameScene::COMBATOINK;
+	}
+	if ((app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) && currentScene->active == true)
+	{
+		app->sceneManager->isBattle = true;
+		scene = GameScene::COMBATWOLF;
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) && currentScene->active == true)
 	{
@@ -175,6 +174,14 @@ bool SceneManager::Update(float dt)
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->battleScene_Pigs, 20)) {
 				currentScene = (Module*)app->battleScene_Pigs;
 				LOG("SCENE_BATTLEOINK");
+			}
+		}
+		break;
+	case GameScene::COMBATWOLF:
+		if (currentScene != (Module*)app->battleScene_Wolf) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->battleScene_Wolf, 20)) {
+				currentScene = (Module*)app->battleScene_Wolf;
+				LOG("SCENE_BATTLEWOLF");
 			}
 		}
 		break;

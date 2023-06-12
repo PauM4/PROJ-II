@@ -113,7 +113,7 @@ bool Enemy_AngryVillager::Awake()
 
 bool Enemy_AngryVillager::Start()
 {
-	
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_shotgun.wav");
 	return true;
 }
 

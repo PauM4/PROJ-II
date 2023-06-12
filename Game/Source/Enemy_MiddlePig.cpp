@@ -120,7 +120,7 @@ bool Enemy_MiddlePig::Awake()
 
 bool Enemy_MiddlePig::Start()
 {
-
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_cantmove.wav");
 	return true;
 }
 
@@ -136,6 +136,17 @@ bool Enemy_MiddlePig::PostUpdate()
 	if (health > 0) {
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		app->render->DrawTexture(texture, position.x - 50, position.y - 125, &rect);
+	}
+
+	if (currentAnimation == &abilityAnim)
+	{
+		if (abilityAnim.HasFinished())
+		{
+			finishAnimBool = true;
+			abilityAnim.Reset();
+			currentAnimation = &idleAnim;
+
+		}
 	}
 	return true;
 }
