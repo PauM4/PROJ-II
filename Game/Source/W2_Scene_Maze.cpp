@@ -113,6 +113,8 @@ bool W2_Scene_Maze::Start()
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
+
+
 	godMode = false;
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_maze.ogg", 0.1f);
@@ -143,6 +145,12 @@ bool W2_Scene_Maze::Start()
 
 	ParticleSystem* particlesystem_chest3 = new ParticleSystem(particle_chest3);
 	app->moduleParticles->emiters.push_back(particlesystem_chest3);
+
+	//player->npcInteractAvailable = false;
+	//player->itemInteractAvailable = false;
+	//player->movementRestringed = false;
+	//player->playerState = player->PlayerState::MOVING;
+	//player->playerPrevState = player->PlayerState::MOVING;
 
 	return true;
 }
