@@ -274,6 +274,7 @@ public:
 	SDL_Rect talismanRect;
 	SDL_Rect susjarRect;
 	SDL_Rect denturesRect;
+	SDL_Rect braceletRect;
 
 	// Mini character photos
 	SDL_Rect timmyPicRect;
