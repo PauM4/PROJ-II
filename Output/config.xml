@@ -93,14 +93,14 @@
 	
 	<w2_scene_maze name="Assets/Maps/World_02/maze.tmx" path="Assets/Maps/World_02/">
 		
-		<player x="1670" y="140" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+		<player x="1670" y="140" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
 		<!--Door to scene_02 -->
 		<portal x="1500" y="0" width="600" height="80" nextScene="9" nextPlayerX="0" nextPlayerY="0"/>
 		
 	</w2_scene_maze>
 	
 	<w3_scene name="Assets/Maps/World_03/wolfWorld.tmx" path="Assets/Maps/World_03/">
-		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" />
+		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
 	</w3_scene>
 
 	

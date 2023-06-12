@@ -69,7 +69,7 @@ bool Npc::Start() {
 	pbodyGrandma->listener = this;				
 	pbodyGrandma->ctype = ColliderType::GRANDMA;
 
-	pbodyLRRH = app->physics->CreateRectangle(posLRRH.x+(122/2)+10, posLRRH.y+15, 150, 180, bodyType::STATIC);
+	pbodyLRRH = app->physics->CreateRectangle(posLRRH.x+(122/2), posLRRH.y - 10, 110, 110, bodyType::STATIC);
 	pbodyLRRH->listener = this;
 	pbodyLRRH->ctype = ColliderType::LRRH;
 
