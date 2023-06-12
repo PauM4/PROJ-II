@@ -1,4 +1,4 @@
-#include "Enemy_LittlePig.h"
+#include "Enemy_Wolf.h"
 
 #include "App.h"
 #include "Textures.h"
@@ -13,10 +13,10 @@
 #include "BattleManager.h"
 
 
-Enemy_LittlePig::Enemy_LittlePig() : Entity(EntityType::ENEMYLPIG) {
+Enemy_Wolf::Enemy_Wolf() : Entity(EntityType::WOLF) {
 
-	name.Create("enemy_littlePig");
-	namechar.Create("Little Pig");
+	name.Create("enemy_wolf");
+	namechar.Create("Wolf");
 	isAlive = true;
 	battleState = IDLE;
 	//Behavior Tree
@@ -37,10 +37,10 @@ Enemy_LittlePig::Enemy_LittlePig() : Entity(EntityType::ENEMYLPIG) {
 	behaviorTree->SetDebugEnabled(true);
 
 }
-Enemy_LittlePig::~Enemy_LittlePig() {
+Enemy_Wolf::~Enemy_Wolf() {
 
 }
-bool Enemy_LittlePig::Awake()
+bool Enemy_Wolf::Awake()
 {
 	id = 3;
 	position.x = parameters.attribute("x").as_int();
@@ -67,18 +67,18 @@ bool Enemy_LittlePig::Awake()
 	movement = stats.attribute("movement").as_int();
 	isEnemy = true;
 
-	idleAnim.PushBack({ 0, 0, 140, 140 });
+	idleAnim.PushBack({ 0, 0, 200, 200 });
 	idleAnim.loop = true;
 
-	takedmgAnim.PushBack({ 150, 0, 140, 140 });
-	takedmgAnim.PushBack({ 150, 0, 140, 140 });
-	takedmgAnim.PushBack({ 150, 0, 140, 140 });
-	takedmgAnim.PushBack({ 150, 0, 140, 140 });
+	takedmgAnim.PushBack({ 200, 0, 200, 200 });
+	takedmgAnim.PushBack({ 200, 0, 200, 200 });
+	takedmgAnim.PushBack({ 150, 0, 200, 200 });
+	takedmgAnim.PushBack({ 200, 0, 200, 140 });
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
 
 	for (int i = 0; i < 5; i++) {
-		abilityAnim.PushBack({ (i * 150) + 300, 0, 140, 140 });
+		abilityAnim.PushBack({ (i * 200) + 600, 0, 200, 200 });
 	}
 	abilityAnim.loop = false;
 	abilityAnim.speed = 0.25;
@@ -86,37 +86,37 @@ bool Enemy_LittlePig::Awake()
 
 	for (int i = 0; i < 10; i++) //penutlima:cabezon
 	{
-		walkDownAnim.PushBack({ (i * 150), 150, 150, 150 });
+		walkDownAnim.PushBack({ (i * 200), 200, 200, 200 });
 	}
 	walkDownAnim.loop = true;
 	walkDownAnim.speed = 0.15f;
 
 	for (int i = 0; i < 10; i++)
 	{
-		walkUpAnim.PushBack({ (i * 150), 600, 150, 150 });
+		walkUpAnim.PushBack({ (i * 200), 800, 200, 200 });
 	}
 	walkUpAnim.loop = true;
 	walkUpAnim.speed = 0.15f;
 
 	for (int i = 0; i < 10; i++)
 	{
-		walkRightAnim.PushBack({ (i * 150), 450, 150, 150 });
+		walkRightAnim.PushBack({ (i * 200), 600, 200, 200 });
 	}
 	walkRightAnim.loop = true;
 	walkRightAnim.speed = 0.15f;
 
 	for (int i = 0; i < 10; i++)
 	{
-		walkLeftAnim.PushBack({ (i * 150), 300, 150, 150 });
+		walkLeftAnim.PushBack({ (i * 200), 400, 200, 200 });
 	}
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
 
-	texture = app->tex->Load("Assets/Characters/Sprites_Cerdo_Pequeno_m.png");
+	texture = app->tex->Load("Assets/Characters/Lobo_Encapuchado.png");
 
-	IconGtexture = app->tex->Load("Assets/UI/LittlePigIconG.png");
-	Icontexture = app->tex->Load("Assets/UI/LittlePigIcon.png");	IconGtexture = app->tex->Load("Assets/UI/LittlePigIconG.png");
+	IconGtexture = app->tex->Load("Assets/UI/WolfIconG.png");
+	Icontexture = app->tex->Load("Assets/UI/WolfIcon.png");	
 
 	currentAnimation = &idleAnim;
 
@@ -125,13 +125,13 @@ bool Enemy_LittlePig::Awake()
 	return true;
 }
 
-bool Enemy_LittlePig::Start()
+bool Enemy_Wolf::Start()
 {
 	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_knife.wav");
 	return true;
 }
 
-bool Enemy_LittlePig::Update(float dt)
+bool Enemy_Wolf::Update(float dt)
 {
 	currentAnimation->Update();
 
@@ -139,12 +139,12 @@ bool Enemy_LittlePig::Update(float dt)
 	return true;
 }
 
-bool Enemy_LittlePig::PostUpdate()
+bool Enemy_Wolf::PostUpdate()
 {
 	//Render
 	if (health > 0) {
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 13, position.y - 35, &rect);
+		app->render->DrawTexture(texture, position.x - 25, position.y - 50, &rect);
 	}
 
 	if (currentAnimation == &abilityAnim)
@@ -160,42 +160,42 @@ bool Enemy_LittlePig::PostUpdate()
 	return true;
 }
 
-bool Enemy_LittlePig::CleanUp()
+bool Enemy_Wolf::CleanUp()
 {
 	return true;
 }
 
-bool Enemy_LittlePig::LoadState(pugi::xml_node&)
+bool Enemy_Wolf::LoadState(pugi::xml_node&)
 {
 	return true;
 }
 
-bool Enemy_LittlePig::SaveState(pugi::xml_node&)
+bool Enemy_Wolf::SaveState(pugi::xml_node&)
 {
 	return true;
 }
 
-void Enemy_LittlePig::OnCollision(PhysBody* physA, PhysBody* physB)
+void Enemy_Wolf::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 
 }
 
-int Enemy_LittlePig::GetState()
-{
-	return 0;
-}
-
-int Enemy_LittlePig::Attack()
+int Enemy_Wolf::GetState()
 {
 	return 0;
 }
 
-int Enemy_LittlePig::Ability(int id)
+int Enemy_Wolf::Attack()
 {
 	return 0;
 }
 
-void Enemy_LittlePig::Movement()
+int Enemy_Wolf::Ability(int id)
+{
+	return 0;
+}
+
+void Enemy_Wolf::Movement()
 {
 
 
@@ -203,14 +203,14 @@ void Enemy_LittlePig::Movement()
 }
 
 
-NodeStatus Enemy_LittlePig::GetCloser::Run() {
+NodeStatus Enemy_Wolf::GetCloser::Run() {
 	//Hacemos que actionType sea Move para que se mueva cuando entre al estado Inactive
 	app->battleManager->actionType = ActionType::MOVE;
 
 	return NodeStatus::Success;
 }
 
-NodeStatus Enemy_LittlePig::Shoot::Run() {
+NodeStatus Enemy_Wolf::Shoot::Run() {
 
 	//Ataca al player
 	app->battleManager->TriggerAIAttack();
@@ -223,7 +223,7 @@ NodeStatus Enemy_LittlePig::Shoot::Run() {
 	return NodeStatus::Success;
 }
 
-NodeStatus Enemy_LittlePig::MoveAway::Run() {
+NodeStatus Enemy_Wolf::MoveAway::Run() {
 	// implementacion detallada del nodo
 	return NodeStatus::Success;
 }

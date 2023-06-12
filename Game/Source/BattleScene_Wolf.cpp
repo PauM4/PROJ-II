@@ -50,27 +50,14 @@ bool BattleScene_Wolf::Awake(pugi::xml_node& config) {
 		i++;
 	}
 	
-	if (config.child("enemy_littlePig")) {
-		/*littlePig = (Enemy_LittlePig*)app->entityManager->CreateEntity(EntityType::ENEMYLPIG);
-		littlePig->parameters = config.child("enemy_littlePig");
-		littlePig->stats = config.parent().child("enemy_littlePig");
-		app->battleManager->AddCharacter(littlePig, littlePig->parameters.attribute("x").as_int() / 120, littlePig->parameters.attribute("y").as_int() / 120, true);*/
+	if (config.child("enemy_wolf")) {
+		wolf = (Enemy_Wolf*)app->entityManager->CreateEntity(EntityType::WOLF);
+		wolf->parameters = config.child("enemy_wolf");
+		wolf->stats = config.parent().child("wolf");
+		app->battleManager->AddCharacter(wolf, wolf->parameters.attribute("x").as_int() / 120, wolf->parameters.attribute("y").as_int() / 120, true);
 	}
 
-	if (config.child("enemy_middlePig")) {
-		/*middlePig = (Enemy_MiddlePig*)app->entityManager->CreateEntity(EntityType::ENEMYMPIG);
-		middlePig->parameters = config.child("enemy_middlePig");
-		middlePig->stats = config.parent().child("enemy_middlePig");
-		app->battleManager->AddCharacter(middlePig, middlePig->parameters.attribute("x").as_int() / 120, middlePig->parameters.attribute("y").as_int() / 120, true);*/
-	}
-
-	//Add enemies from config
-	/*if (config.child("enemy_angryVillager")) {
-		villager = (Enemy_AngryVillager*)app->entityManager->CreateEntity(EntityType::ANGRYVILLAGER);
-		villager->parameters = config.child("enemy_angryVillager");
-		villager->stats = config.parent().child("enemy_angryVillager");
-		app->battleManager->AddCharacter(villager, villager->parameters.attribute("x").as_int()/120, villager->parameters.attribute("y").as_int() / 120, true);
-	}*/
+	
 
 	app->entityManager->Awake(config);
 	app->battleManager->Enable();
@@ -109,8 +96,7 @@ bool BattleScene_Wolf::Start() {
 	
 
 
-	/*littlePigPrevPos = littlePig->position;
-	middlePigPrevPos = middlePig->position;*/
+	wolfPrevPos = wolf->position;
 
 	return true;
 }
@@ -198,120 +184,63 @@ bool BattleScene_Wolf::CleanUp(){
 
 void BattleScene_Wolf::MoveAnimation(const char* name)
 {
-	if (strcmp(name, "enemy_littlePig") == 0)
+	if (strcmp(name, "enemy_wolf") == 0)
 	{
 		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
 		{
-			/*if (littlePig->name == app->battleManager->currentTurn->name)
+			if (wolf->name == app->battleManager->currentTurn->name)
 			{
-				littlePig->currentAnimation = &littlePig->abilityAnim;
+				wolf->currentAnimation = &wolf->abilityAnim;
 
 
-			}*/
-
-
+			}
 		}
 		//Moverse a la derecha
-		/*else if (littlePig->position.x > littlePigPrevPos.x)
+		else if (wolf->position.x > wolfPrevPos.x)
 		{
-			littlePig->currentAnimation = &littlePig->walkRightAnim;
-		}*/
+			wolf->currentAnimation = &wolf->walkRightAnim;
+		}
 		//Moverse a la izquierda
-		/*else if (littlePig->position.x < littlePigPrevPos.x)
+		else if (wolf->position.x < wolfPrevPos.x)
 		{
-			littlePig->currentAnimation = &littlePig->walkLeftAnim;
-		}*/
+			wolf->currentAnimation = &wolf->walkLeftAnim;
+		}
 		//Moverse a abajo
-	//	else if (littlePig->position.y > littlePigPrevPos.y)
-	//	{
-	//		littlePig->currentAnimation = &littlePig->walkDownAnim;
-	//	}
-	//	//Moverse a arriba
-	//	else if (littlePig->position.y < littlePigPrevPos.y)
-	//	{
-	//		littlePig->currentAnimation = &littlePig->walkUpAnim;
-	//	}
-	//	else if (littlePig->position.y == littlePigPrevPos.y && littlePig->position.x == littlePigPrevPos.x)
-	//	{
+		else if (wolf->position.y > wolfPrevPos.y)
+		{
+			wolf->currentAnimation = &wolf->walkDownAnim;
+		}
+		//Moverse a arriba
+		else if (wolf->position.y < wolfPrevPos.y)
+		{
+			wolf->currentAnimation = &wolf->walkUpAnim;
+		}
+		else if (wolf->position.y == wolfPrevPos.y && wolf->position.x == wolfPrevPos.x)
+		{
 
-	//		if (frames > 60)
-	//		{
-	//			littlePig->currentAnimation = &littlePig->idleAnim;
-	//			frames = 0;
-	//		}
-	//		else
-	//		{
-	//			frames++;
-	//		}
-	//	}
+			if (frames > 60)
+			{
+				wolf->currentAnimation = &wolf->idleAnim;
+				frames = 0;
+			}
+			else
+			{
+				frames++;
+			}
+		}
 
-	//	littlePigPrevPos.x = littlePig->position.x;
-	//	littlePigPrevPos.y = littlePig->position.y;
-	//}
-
-	//if (strcmp(name, "enemy_middlePig") == 0)
-	//{
-	//	if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
-	//	{
-	//		if (middlePig->name == app->battleManager->currentTurn->name)
-	//		{
-	//			middlePig->currentAnimation = &middlePig->abilityAnim;
-
-
-	//		}
-
-
-	//	}
-	//	//Moverse a la derecha
-	//	else if (middlePig->position.x > middlePigPrevPos.x)
-	//	{
-	//		middlePig->currentAnimation = &middlePig->walkRightAnim;
-	//	}
-	//	//Moverse a la izquierda
-	//	else if (middlePig->position.x < middlePigPrevPos.x)
-	//	{
-	//		middlePig->currentAnimation = &middlePig->walkLeftAnim;
-	//	}
-	//	//Moverse a abajo
-	//	else if (middlePig->position.y > middlePigPrevPos.y)
-	//	{
-	//		middlePig->currentAnimation = &middlePig->walkDownAnim;
-	//	}
-	//	//Moverse a arriba
-	//	else if (middlePig->position.y < middlePigPrevPos.y)
-	//	{
-	//		middlePig->currentAnimation = &middlePig->walkUpAnim;
-	//	}
-	//	else if (middlePig->position.y == middlePigPrevPos.y && middlePig->position.x == middlePigPrevPos.x)
-	//	{
-
-	//		if (frames > 60)
-	//		{
-	//			middlePig->currentAnimation = &middlePig->idleAnim;
-	//			frames = 0;
-	//		}
-	//		else
-	//		{
-	//			frames++;
-	//		}
-	//	}
-
-	//	middlePigPrevPos.x = middlePig->position.x;
-	//	middlePigPrevPos.y = middlePig->position.y;
-	//}}
+		wolfPrevPos.x = wolf->position.x;
+		wolfPrevPos.y = wolf->position.y;
 	}
 }
 
 void BattleScene_Wolf::TakeDamageAnimation(const char* name)
 {
 	//Animación de ser dañado
-	if (strcmp(name, "enemy_middlePig") == 0)
+
+	if (strcmp(name, "enemy_wolf") == 0)
 	{
-		//middlePig->currentAnimation = &middlePig->takedmgAnim;
-	}
-	else if (strcmp(name, "enemy_littlePig") == 0)
-	{
-		//littlePig->currentAnimation = &littlePig->takedmgAnim;
+		wolf->currentAnimation = &wolf->takedmgAnim;
 	}
 
 
@@ -322,15 +251,11 @@ void BattleScene_Wolf::SaveResult()
 
 	if (app->battleManager->win)
 	{
-		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isPigDefeated", "true");
-		app->UpdateXMLAttributeFromNode("save_game.xml", "playable", "islilpigplayable", "true");
-		app->UpdateXMLAttributeFromNode("save_game.xml", "playable", "ismidpigplayable", "true");
-		app->teamManager->islilpigplayable = true;
-		app->teamManager->ismidpigplayable = true;
+
 	}
 	else if (app->battleManager->lose)
 	{
-		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isPigDefeated", "false");
+	
 	}
 
 }
