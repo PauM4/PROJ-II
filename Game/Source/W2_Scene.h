@@ -128,6 +128,8 @@ public:
 	bool key1state;
 	bool key2state;
 
+	bool pigsDefeated;
+
 	PhysBody* key1collider;
 	PhysBody* key2collider;
 	PhysBody* doorcollider;
@@ -155,7 +157,7 @@ private:
 	SString mapName;
 	SString mapFolder;
 
-	bool pigsDefeated;
+
 	int numTimesPigsDialogueTriggered;
 	SDL_Timer timerToPigsCombat;
 

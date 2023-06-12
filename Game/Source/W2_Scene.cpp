@@ -572,6 +572,9 @@ bool W2_Scene::CleanUp()
 	app->tex->UnLoad(assets);
 	app->tex->UnLoad(starparticle_texture);
 	app->tex->UnLoad(smokeparticle_texture);
+
+	app->moduleParticles->CleanUp();
+
 	return true;
 }
 
@@ -862,7 +865,7 @@ bool W2_Scene::SaveState(pugi::xml_node& data)
 	else if (portalToMaze) {
 		if (player != nullptr) {
 			playerNode.append_attribute("x") = player->position.x;
-			playerNode.append_attribute("y") = player->position.y - 100;
+			playerNode.append_attribute("y") = player->position.y - 150;
 		}
 	}
 	else if (portalToRocks) {
