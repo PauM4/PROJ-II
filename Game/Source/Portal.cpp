@@ -69,7 +69,7 @@ bool Portal::PostUpdate()
 	if (godMode) app->render->DrawRectangle({ position.x, position.y, width, height }, 0, 255, 0, 50);
 	switch (app->sceneManager->scene) {
 	case SCENE:
-		if (app->scene->currentQuestIndex >= 4 ) {
+		if (app->scene->LRRHDefeated ) {
 			SDL_Rect rect = currentAnimation->GetCurrentFrame();
 			app->render->DrawTexture(texture, position.x - 55, position.y - 75, &rect);
 		}
@@ -107,7 +107,7 @@ void Portal::OnCollision(PhysBody* physA, PhysBody* physB)
 		LOG("Collision portal/player");
 		switch (app->sceneManager->scene) {
 		case SCENE:
-			if (app->scene->currentQuestIndex >= 4) {
+			if (app->scene->LRRHDefeated) {
 				app->scene->takePortal = true;
 				app->uiModule->doorPlayerPosition = true;
 				app->SaveGameRequest();
@@ -115,12 +115,20 @@ void Portal::OnCollision(PhysBody* physA, PhysBody* physB)
 			}
 			break;
 		case W2_SCENE:
-			if (app->w2_scene->currentQuestIndex >= 3 || nextScene != 10) {
-				app->w2_scene->takePortal = true;
-				app->uiModule->doorPlayerPosition = true;
-				app->SaveGameRequest();
-				app->sceneManager->LoadScene((GameScene)nextScene);
+			if (nextScene == 3) { //Portal to W1
+				app->w2_scene->portalToW1 = true; 
 			}
+			else if (nextScene == 11) { //Portal to FoxQuest
+				app->w2_scene->portalToRocks = true;
+			}
+			else if (nextScene == 12) { //Portal to Maze
+				app->w2_scene->portalToMaze = true;
+			}
+			else if (nextScene == 10) { //Portal to W3
+				app->w2_scene->portalToW3 = true; 
+			}
+			app->SaveGameRequest();
+			app->sceneManager->LoadScene((GameScene)nextScene);
 			break; 
 		case W2_SCENE_MAZE:
 			app->uiModule->doorPlayerPosition = true;

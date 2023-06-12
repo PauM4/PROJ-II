@@ -97,6 +97,12 @@ public:
 	int loadPlayerPosX;
 	int loadPlayerPosY;
 
+	// Portals
+	bool portalToW1; 
+	bool portalToMaze; 
+	bool portalToRocks; 
+	bool portalToW3; 
+
 	// New Game things
 	bool isNewGame;
 	bool zorroDialogue;

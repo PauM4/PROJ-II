@@ -175,6 +175,11 @@ bool W2_Scene::Start()
 	firstKeyPicked = false; 
 	secondKeyPicked = false; 
 
+	portalToW1 = false;
+	portalToMaze = false;
+	portalToRocks = false;
+	portalToW3 = false; 
+
 	// Tell to UIModule which currentMenuType
 	app->uiModule->currentMenuType = DISABLED;
 	// Call this function only when buttons change
@@ -755,14 +760,30 @@ bool W2_Scene::SaveState(pugi::xml_node& data)
 	pugi::xml_node playerNode = data.append_child("player");
 
 	// If door, save mes lluny
-	if (app->uiModule->doorPlayerPosition)
+	if (portalToW1)
 	{
 		if (player != nullptr) {
-			playerNode.append_attribute("x") = player->position.x;
-			playerNode.append_attribute("y") = player->position.y + 75;
-			app->uiModule->doorPlayerPosition = false;
+			playerNode.append_attribute("x") = (player->position.x + 150);
+			playerNode.append_attribute("y") = player->position.y;
 		}
-	
+	}
+	else if (portalToMaze) {
+		if (player != nullptr) {
+			playerNode.append_attribute("x") = player->position.x;
+			playerNode.append_attribute("y") = player->position.y - 100;
+		}
+	}
+	else if (portalToRocks) {
+		if (player != nullptr) {
+			playerNode.append_attribute("x") = player->position.x - 100;
+			playerNode.append_attribute("y") = player->position.y;
+		}
+	}
+	else if (portalToW3) {
+		if (player != nullptr) {
+			playerNode.append_attribute("x") = player->position.x + 100;
+			playerNode.append_attribute("y") = player->position.y;
+		}
 	}
 	else {
 		if (player != nullptr) {

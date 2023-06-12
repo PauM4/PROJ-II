@@ -259,6 +259,11 @@ bool W2_Scene_Maze::LoadState(pugi::xml_node& data)
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
+	if (active)
+	{
+		player->ChangePosition(loadPlayerPosX, loadPlayerPosY);
+	}
+
 	return true;
 }
 
@@ -266,18 +271,11 @@ bool W2_Scene_Maze::SaveState(pugi::xml_node& data)
 {
 	pugi::xml_node playerNode = data.append_child("player");
 
-	//// If door, save mes lluny
-	//if (app->uiModule->doorPlayerPosition)
-	//{
-	//	playerNode.append_attribute("x") = player->position.x;
-	//	playerNode.append_attribute("y") = player->position.y + 75;
-	//	app->uiModule->doorPlayerPosition = false;
-	//}
+	if (player != nullptr) {
+		playerNode.append_attribute("x") = player->position.x;
+		playerNode.append_attribute("y") = (player->position.y + 100);
+	}
 
-	//playerNode.append_attribute("x") = player->position.x;
-	//playerNode.append_attribute("y") = player->position.y;
-
-	//
 
 	return true;
 }

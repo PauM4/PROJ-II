@@ -79,8 +79,11 @@
 		<!--Door to maze -->
 		<portal x="1532" y="4578" width="276" height="122" nextScene="12" nextPlayerX="0" nextPlayerY="0"/>
 
-		<!--Door to maze -->
+		<!--Door to RockPuzle -->
 		<portal x="5632" y="3020" width="56" height="124" nextScene="11" nextPlayerX="0" nextPlayerY="0"/>
+
+		<!--Portal to W3 -->
+		<portal x="8266" y="4438" width="124" height="240" nextScene="10" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png"/>
 		
 		
 		
