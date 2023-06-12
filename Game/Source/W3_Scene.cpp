@@ -10,6 +10,8 @@
 #include "PathFinding.h"
 #include "GuiManager.h"
 #include "Fonts.h"
+#include "ParticleSystem.h"
+#include "ModuleParticles.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -57,6 +59,7 @@ bool W3_Scene::Awake(pugi::xml_node& config)
 	inventoryScrollTexture = app->tex->Load("Assets/UI/inventoryScroll.png");
 	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
+	darkparticle_texture = app->tex->Load("Assets/UI/dark_particle.png");
 
 
 	currentQuestIndex = 0;
@@ -121,6 +124,47 @@ bool W3_Scene::Start()
 	godMode = false;
 
 	app->audio->PlayMusic("Assets/Sounds/Music/music_wolf_world.ogg", 0.1f);
+
+	particle_dark1.x = 3000;
+	particle_dark1.y = 5592;
+	particle_dark1.velocity_x = 70;
+	particle_dark1.velocity_y = -70;
+	particle_dark1.spreadfactor = 360;
+	particle_dark1.lifetime = 5;
+	particle_dark1.beginscale = 50;
+	particle_dark1.endscale = 0;
+	particle_dark1.r = 255;
+	particle_dark1.g = 0;
+	particle_dark1.b = 0;
+	particle_dark1.r2 = 0;
+	particle_dark1.g2 = 0;
+	particle_dark1.b2 = 255;
+	particle_dark1.scaleVariation = 1;
+	particle_dark1.particlepersecond = 20;
+	particle_dark1.particletexture = darkparticle_texture;
+
+	particle_dark2.x = 500;
+	particle_dark2.y = 5592;
+	particle_dark2.velocity_x = 70;
+	particle_dark2.velocity_y = -70;
+	particle_dark2.spreadfactor = 360;
+	particle_dark2.lifetime = 5;
+	particle_dark2.beginscale = 50;
+	particle_dark2.endscale = 0;
+	particle_dark2.r = 255;
+	particle_dark2.g = 0;
+	particle_dark2.b = 0;
+	particle_dark2.r2 = 0;
+	particle_dark2.g2 = 0;
+	particle_dark2.b2 = 255;
+	particle_dark2.scaleVariation = 1;
+	particle_dark2.particlepersecond = 20;
+	particle_dark2.particletexture = darkparticle_texture;
+
+	ParticleSystem* particlesystem_dark1 = new ParticleSystem(particle_dark1);
+	ParticleSystem* particlesystem_dark2 = new ParticleSystem(particle_dark2);
+	app->moduleParticles->emiters.push_back(particlesystem_dark1);
+	app->moduleParticles->emiters.push_back(particlesystem_dark2);
 
 	return true;
 }
@@ -266,7 +310,7 @@ bool W3_Scene::CleanUp()
 	app->tex->UnLoad(inventoryScrollTexture);
 	app->tex->UnLoad(inventoryItemsTexture);
 	app->tex->UnLoad(lvlupTexture);
-
+	app->tex->UnLoad(darkparticle_texture);
 
 	return true;
 }
