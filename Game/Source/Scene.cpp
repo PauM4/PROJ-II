@@ -1174,20 +1174,25 @@ bool Scene::LoadState(pugi::xml_node& data)
 	//LoadChests(data);
 	if (LRRHDefeated)
 	{
-		littleRedTree->~DialogueTree(); 
+		//littleRedTree->~DialogueTree(); 
 
 		//LittleRedAfterCombat
 		auto fristNodeLRAC = std::make_shared<DialogueNode>();
 		fristNodeLRAC->SetText("I want to join your group to help you. I realize that I have been acting wrongly. The wolf corrupted me with his magic and made me do terrible things. I thought I was protecting the portal, but in reality, I was hurting others. I cannot justify my actions, but I want to make amends and restore peace to the world of dreams.I want to join your group to fight together against the wolf and stop his evil plan. Together we can do it.");
 		fristNodeLRAC->ActivateNode();
 
-		littleRedTree = std::make_shared<DialogueTree>();
-		littleRedTree->SetRoot(fristNodeLRAC);
+		//littleRedTree = std::make_shared<DialogueTree>();
+		//littleRedTree->SetRoot(fristNodeLRAC);
+
+		auto newTree = std::make_shared<DialogueTree>();
+		newTree->SetRoot(fristNodeLRAC);
+
+		littleRedTree = newTree;
 	}
 
 	if (angryVillagerDefeated)
 	{
-		angryVillagerTreePT->~DialogueTree();
+		//angryVillagerTreePT->~DialogueTree();
 
 		// - Angry Villager Post Tutorial
 		//3rd level
@@ -1238,8 +1243,13 @@ bool Scene::LoadState(pugi::xml_node& data)
 		firstNodeAngryVillagerPT->ActivateNode();
 
 		//Tree
-		angryVillagerTreePT = std::make_shared<DialogueTree>();
-		angryVillagerTreePT->SetRoot(firstNodeAngryVillagerPT);
+	/*	angryVillagerTreePT = std::make_shared<DialogueTree>();
+		angryVillagerTreePT->SetRoot(firstNodeAngryVillagerPT);*/
+
+		auto newTree = std::make_shared<DialogueTree>();
+		newTree->SetRoot(firstNodeAngryVillagerPT);
+
+		angryVillagerTreePT = newTree;
 	}
 
 
