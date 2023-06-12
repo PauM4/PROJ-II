@@ -141,7 +141,7 @@ public:
 	// ITEMS UI
 	SDL_Texture* inventoryItemsTexture;
 
-	//Chest particles
+	//Particles
 	ParticleProps particle_chest4;
 	ParticleProps particle_chest5;
 	ParticleProps particle_chest6;

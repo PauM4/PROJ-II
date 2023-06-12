@@ -11,6 +11,8 @@
 #include "DialogueTree.h"
 #include "UriBehaviorTree.h"
 #include "Physics.h"
+#include "ParticleSystem.h"
+#include "ModuleParticles.h"
 
 struct SDL_Texture;
 
@@ -101,6 +103,11 @@ public:
 	bool pedroDefeated, wolfDefeated;
 	int numTimesPedroDialogueTriggered, numTimesWolfDialogueTriggered;
 	SDL_Timer timerToPedroCombat, timerToWolfCombat;
+
+	//Partciles
+	ParticleProps particle_dark1;
+	ParticleProps particle_dark2;
+	SDL_Texture* darkparticle_texture;
 
 private:
 
