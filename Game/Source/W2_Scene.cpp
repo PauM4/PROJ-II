@@ -802,7 +802,7 @@ bool W2_Scene::LoadState(pugi::xml_node& data)
 
 	if (pigsDefeated)
 	{
-		pigsTree->~DialogueTree();
+		//pigsTree->~DialogueTree();
 
 		auto firstNodeWolf = std::make_shared<DialogueNode>();
 		firstNodeWolf->SetText("You will pay for this, Timmy. And you, you pathetic pigs, couldn't even defeat him. You're all worthless.");
@@ -833,8 +833,13 @@ bool W2_Scene::LoadState(pugi::xml_node& data)
 		firstNodePigsAC->AddChild(firstOption4AC);
 		firstNodePigsAC->ActivateNode();
 
-		pigsTree = std::make_shared<DialogueTree>();
-		pigsTree->SetRoot(firstNodePigsAC);
+		/*pigsTree = std::make_shared<DialogueTree>();
+		pigsTree->SetRoot(firstNodePigsAC);*/
+
+		auto newTree = std::make_shared<DialogueTree>();
+		newTree->SetRoot(firstNodePigsAC);
+
+		pigsTree = newTree;
 
 	}
 
