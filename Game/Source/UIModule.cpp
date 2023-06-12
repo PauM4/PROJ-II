@@ -88,6 +88,7 @@ bool UIModule::Start()
 	eKeyTexture = app->tex->Load("Assets/UI/eKey.png");
 	plusButtonTexture = app->tex->Load("Assets/UI/plusButton.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
+	inventoryScrollTexture = app->tex->Load("Assets/UI/inventoryScroll.png");
 
 	// Combat textures
 	attackButtonTexture = app->tex->Load("Assets/UI/attackbattleButton.png");
@@ -296,7 +297,10 @@ bool UIModule::Update(float dt)
 		SDL_GL_SetSwapInterval(0);
 	}
 
-	Mix_VolumeMusic((musicSlider->bounds.x - 1258) * (128 - 0) / (1659 - 1258) + 0);
+	if (currentMenuType != PAUSE)
+	{
+		Mix_VolumeMusic((musicSlider->bounds.x - 1258) * (128 - 0) / (1659 - 1258) + 0);
+	}
 
 	for (int i = 0; i < app->audio->fx.Count(); i++) {
 
@@ -352,7 +356,7 @@ bool UIModule::PostUpdate()
 	if (currentMenuType == INVENTORY)
 	{
 		
-		app->render->DrawTexture(lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+		app->render->DrawTexture(inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
 
 		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 
@@ -1031,6 +1035,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(smallCharPicTexture);
 	app->tex->UnLoad(pauseButtonsTexture);
 	app->tex->UnLoad(dialogueTextures);
+	app->tex->UnLoad(inventoryScrollTexture);
 
 	return true;
 }
@@ -2063,7 +2068,7 @@ void UIModule::PrintDialogue(std::vector<std::string> dialogue)
 	case ColliderType::LRRH:
 		app->render->DrawTexture(app->scene->npcPopUpTexture, app->scene->player->position.x - 800, app->scene->player->position.y - 300, &lrrhRect);
 		break;
-	case ColliderType::UNKNOWN:
+	case ColliderType::BUNNY:
 		app->render->DrawTexture(app->scene->npcPopUpTexture, -app->render->camera.x + 120, -app->render->camera.y + 170, &bunnyRect);
 		break;
 

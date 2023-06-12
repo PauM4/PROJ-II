@@ -224,6 +224,7 @@ public:
 	SDL_Texture* turnListTexture;
 	SDL_Texture* smallCharPicTexture;
 	SDL_Texture* lvlupTexture;
+	SDL_Texture* inventoryScrollTexture;
 
 
 	SDL_Texture* pauseButtonsTexture;
