@@ -20,6 +20,7 @@
 #include "SceneBattle.h"
 #include "SceneCombatLHHR.h"
 #include"BattleScene_Pigs.h"
+#include "BattleScene_Wolf.h"
 
 
 BattleManager::BattleManager(bool isActive) : Module(isActive) {
@@ -415,6 +416,7 @@ bool BattleManager::PostUpdate() {
 		if(app->sceneBattle->active)app->sceneBattle->UpdateAnimation(entiyItem->data->name.GetString());
 		if(app->sceneCombatLHHR->active)app->sceneCombatLHHR->UpdateAnimation(entiyItem->data->name.GetString());
 		if (app->battleScene_Pigs->active)app->battleScene_Pigs->UpdateAnimation(entiyItem->data->name.GetString());
+		if (app->battleScene_Wolf->active)app->battleScene_Wolf->UpdateAnimation(entiyItem->data->name.GetString());
 		
     }
 	
@@ -785,6 +787,7 @@ bool BattleManager::MakeCombatMap() {
 			combatMap[i][j].y = j;
 			combatMap[i][j].inRange = false;
 			combatMap[i][j].type = (TILE_TYPE)app->map->metadataLayer[i][j];
+			combatMap[i][j].type = combatMap[i][j].type;
 		}
 	}
 
