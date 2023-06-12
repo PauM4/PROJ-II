@@ -132,6 +132,10 @@
 
 	<battleScene_Wolf name="Assets/Maps/World_03/wolfBattle.tmx" path="Assets/Maps/World_03/">
 
+		<enemy_Wolf x="960" y="480"/>
+		<enemy_FinalWolf x="960" y="480"/>
+	
+
 	</battleScene_Wolf>
 
 	<teamManager>
