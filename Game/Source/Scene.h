@@ -107,7 +107,6 @@ public:
 	Portal* portal;
 	Item* chest1;
 	Item* chest2;
-	Item* chest3;
 
 	// A list of quests
 	std::vector<Quest> questList;
@@ -175,7 +174,6 @@ public:
 	//Chest particles
 	ParticleProps particle_chest1;
 	ParticleProps particle_chest2;
-	ParticleProps particle_chest3;
 	SDL_Texture* starparticle_texture;
 
 private:

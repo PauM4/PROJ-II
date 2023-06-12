@@ -6,6 +6,7 @@
 #include "Render.h"
 #include "Scene.h"
 #include "W2_Scene.h"
+#include "W2_Scene_Maze.h"
 #include "W3_Scene.h"
 #include "Log.h"
 #include "Point.h"
@@ -290,12 +291,16 @@ bool Player::Update(float dt)
 				app->scene->chest2->isPicked = true;
 				app->teamManager->loadinventory();
 			}
+		}
+		if (app->w2_scene_maze->active)
+		{
 			if (isChest3Pickable)
 			{
 				app->teamManager->dentures.ininventory = true;
-				app->scene->chest3->isPicked = true;
+				app->w2_scene_maze->chest3->isPicked = true;
 				app->teamManager->loadinventory();
 			}
+
 		}
 		if (app->w2_scene->active)
 		{
