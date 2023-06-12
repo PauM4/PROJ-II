@@ -119,6 +119,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	assets = app->tex->Load("Assets/Maps/Assets.png");
 	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
 	starparticle_texture = app->tex->Load("Assets/UI/star_particle.png");
+	smokeparticle_texture = app->tex->Load("Assets/UI/smoke_particle.png");
 
 
 	key1interact = false;
@@ -284,12 +285,32 @@ bool W2_Scene::Start()
 	particle_chest6.particlepersecond = 5;
 	particle_chest6.particletexture = starparticle_texture;
 
+	particle_smoke.x = 5415;
+	particle_smoke.y = 1485;
+	particle_smoke.velocity_x = 70;
+	particle_smoke.velocity_y = -70;
+	particle_smoke.spreadfactor = 70;
+	particle_smoke.lifetime = 5;
+	particle_smoke.beginscale = 50;
+	particle_smoke.endscale = 0;
+	particle_smoke.r = 255;
+	particle_smoke.g = 0;
+	particle_smoke.b = 0;
+	particle_smoke.r2 = 0;
+	particle_smoke.g2 = 0;
+	particle_smoke.b2 = 255;
+	particle_smoke.scaleVariation = 1;
+	particle_smoke.particlepersecond = 10;
+	particle_smoke.particletexture = smokeparticle_texture;
+
 	ParticleSystem* particlesystem_chest4 = new ParticleSystem(particle_chest4);
 	ParticleSystem* particlesystem_chest5 = new ParticleSystem(particle_chest5);
 	ParticleSystem* particlesystem_chest6 = new ParticleSystem(particle_chest6);
+	ParticleSystem* particlesystem_smoke = new ParticleSystem(particle_smoke);
 	app->moduleParticles->emiters.push_back(particlesystem_chest4);
 	app->moduleParticles->emiters.push_back(particlesystem_chest5);
 	app->moduleParticles->emiters.push_back(particlesystem_chest6);
+	app->moduleParticles->emiters.push_back(particlesystem_smoke);
 
 	return true;
 }
@@ -550,6 +571,7 @@ bool W2_Scene::CleanUp()
 	app->tex->UnLoad(brokenkeyTexture);
 	app->tex->UnLoad(assets);
 	app->tex->UnLoad(starparticle_texture);
+	app->tex->UnLoad(smokeparticle_texture);
 	return true;
 }
 

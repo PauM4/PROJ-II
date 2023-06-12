@@ -145,7 +145,9 @@ public:
 	ParticleProps particle_chest4;
 	ParticleProps particle_chest5;
 	ParticleProps particle_chest6;
+	ParticleProps particle_smoke;
 	SDL_Texture* starparticle_texture;
+	SDL_Texture* smokeparticle_texture;
 
 
 private:
