@@ -213,6 +213,9 @@ bool W3_Scene::Update(float dt)
 			app->uiModule->pause_menu_animation.Backward();
 			player->playerState = player->playerPrevState;
 
+			app->uiModule->pause_menu_animation_bool = false;
+			app->uiModule->menu_pause = false;
+
 			app->uiModule->currentMenuType = DISABLED;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
