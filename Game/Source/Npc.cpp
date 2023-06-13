@@ -57,7 +57,7 @@ bool Npc::Start() {
 
 	npcTextureLRRH = app->tex->Load(npcTexturePathLRRH);
 
-	pbodyAVillager = app->physics->CreateRectangle(posAngryVillager.x + 40, posAngryVillager.y, 150, 150, bodyType::STATIC);
+	pbodyAVillager = app->physics->CreateRectangle(posAngryVillager.x + 60, posAngryVillager.y, 110, 110, bodyType::STATIC);
 	pbodyAVillager->listener = this;				
 	pbodyAVillager->ctype = ColliderType::ANGRYVILLAGER;
 

@@ -57,6 +57,7 @@ public:
 
 	iPoint thunderPos;
 
+
 	int prehealth;
 
 private:

@@ -80,6 +80,10 @@ bool LittlePig::Awake()
 
 	PrevPos = position;
 
+	// Attacks description
+	attackDescription = "Stab with the pocket knife";
+	abilityDescription = "Cross slash with two knives!";
+
 	return true;
 }
 

@@ -127,7 +127,7 @@ bool Enemy_Wolf::Awake()
 
 bool Enemy_Wolf::Start()
 {
-	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_knife.wav");
+	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_bite.wav");
 	return true;
 }
 

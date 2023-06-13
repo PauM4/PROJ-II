@@ -75,6 +75,11 @@ bool MiddlePig::Awake()
 	IconGtexture = app->tex->Load("Assets/UI/MiddlePigIconG.png");
 	Icontexture = app->tex->Load("Assets/UI/MiddlePigIcon.png");
 	PrevPos = position;
+
+	// Attacks description
+	attackDescription = "      bonk";
+	abilityDescription = "SUPER BONK!";
+
 	return true;
 }
 

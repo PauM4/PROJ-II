@@ -140,7 +140,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool W2_Scene::Start()
 {
-	//player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	app->entityManager->Start();
 	chestFX = app->audio->LoadFx("Assets/Sounds/FX/fx_open_chest.wav");
 

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Door.h"
 #include "NpcW3.h"
+#include "Portal.h"
 
 #include "UIModule.h"
 #include "GuiButton.h"
@@ -77,6 +78,7 @@ public:
 	Player* player;
 	NpcW3* npc;
 	List<Door*> doors;
+	Portal* portal; 
 
 	// A list of quests
 	std::vector<Quest> questList;
@@ -108,6 +110,8 @@ public:
 	ParticleProps particle_dark1;
 	ParticleProps particle_dark2;
 	SDL_Texture* darkparticle_texture;
+
+	bool takePortal;
 
 private:
 

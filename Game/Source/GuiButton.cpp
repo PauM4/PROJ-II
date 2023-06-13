@@ -101,6 +101,7 @@ bool GuiButton::Draw(Render* render)
 			app->audio->PlayFx(app->guiManager->hoverFxId);
 			hoverOnce = true;
 		}
+
 		//render->DrawTexture(app->guiManager->buttonHoverTexture, bounds.x - app->render->camera.x, bounds.y - app->render->camera.y, NULL);
 		break;
 	case GuiControlState::PRESSED:

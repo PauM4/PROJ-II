@@ -47,6 +47,9 @@ bool W3_Scene::Awake(pugi::xml_node& config)
 		player->position.y = config.child("player").attribute("y").as_int();
 	}
 
+	portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
+	portal->parameters = config.child("portal");
+
 	app->entityManager->Awake(config);
 
 	CreateDialogue(); //3MB
@@ -81,7 +84,7 @@ bool W3_Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool W3_Scene::Start()
 {
-	//player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	app->entityManager->Start();
 	
 
@@ -165,6 +168,8 @@ bool W3_Scene::Start()
 	ParticleSystem* particlesystem_dark2 = new ParticleSystem(particle_dark2);
 	app->moduleParticles->emiters.push_back(particlesystem_dark1);
 	app->moduleParticles->emiters.push_back(particlesystem_dark2);
+
+	takePortal = false; 
 
 	return true;
 }
@@ -358,15 +363,15 @@ void W3_Scene::Camera()
 	else
 	{
 		app->render->FollowObjectRespectBoundaries(-(int)player->position.x, -(int)player->position.y - 35,
-			app->render->camera.w / 2, app->render->camera.h / 2, -2816, -3, -5239, -24);
+			app->render->camera.w / 2, app->render->camera.h / 2, -448, -3, -2079, -24);
 	}
 
 }
 
 bool W3_Scene::CheckInsideBoundaries()
 {
-	bool insideX = (player->position.x == clamp(player->position.x, 3, 2816 + (1920)));
-	bool insideY = (player->position.y == clamp(player->position.y, 24, 5239 + 1080));
+	bool insideX = (player->position.x == clamp(player->position.x, 3, 448 + (1920)));
+	bool insideY = (player->position.y == clamp(player->position.y, 24, 2079 + 1080));
 
 	if (insideX && insideY)
 	{
@@ -505,10 +510,13 @@ bool W3_Scene::LoadState(pugi::xml_node& data)
 	loadPlayerPosX = data.child("player").attribute("x").as_int();
 	loadPlayerPosY = data.child("player").attribute("y").as_int();
 
+	if (active) {
+		player->ChangePosition(loadPlayerPosX, loadPlayerPosY);
+	}
+
 	//player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
 	pugi::xml_node battleInfo = data.parent().child("BattleInfo");
-	pedroDefeated = battleInfo.attribute("isPereDefeated").as_bool();
 	wolfDefeated = battleInfo.attribute("isWolfDefeated").as_bool();
 
 	if (wolfDefeated)
@@ -531,18 +539,22 @@ bool W3_Scene::SaveState(pugi::xml_node& data)
 {
 	pugi::xml_node playerNode = data.append_child("player");
 
-	//// If door, save mes lluny
-	//if (app->uiModule->doorPlayerPosition)
-	//{
-	//	playerNode.append_attribute("x") = player->position.x;
-	//	playerNode.append_attribute("y") = player->position.y + 75;
-	//	app->uiModule->doorPlayerPosition = false;
-	//}
 
-	//playerNode.append_attribute("x") = player->position.x;
-	//playerNode.append_attribute("y") = player->position.y;
+	// If door, save mes lluny
+	if (takePortal)
+	{
+		if (player != nullptr) {
+			playerNode.append_attribute("x") = player->position.x + 100;
+			playerNode.append_attribute("y") = player->position.y;
+		}
+	}
+	else {
+		if (player != nullptr) {
+			playerNode.append_attribute("x") = player->position.x + 16;
+			playerNode.append_attribute("y") = player->position.y + 16;
+		}
 
-	//
+	}
 
 	return true;
 }

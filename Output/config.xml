@@ -102,6 +102,9 @@
 	
 	<w3_scene name="Assets/Maps/World_03/wolfWorld.tmx" path="Assets/Maps/World_03/">
 		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
+
+		<!--Portal to W2 -->
+		<portal x="794" y="2860" width="124" height="240" nextScene="9" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png"/>
 	</w3_scene>
 
 	
