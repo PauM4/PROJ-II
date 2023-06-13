@@ -90,7 +90,7 @@ bool BattleScene_Wolf::Start() {
 
 
 
-	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_3.ogg", 0.1f);
+	app->audio->PlayMusic("Assets/Sounds/Music/music_battle_4.ogg", 0.1f);
 
 	app->battleManager->MakeCombatMap();
 	
