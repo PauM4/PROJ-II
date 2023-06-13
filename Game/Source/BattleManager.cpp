@@ -390,11 +390,12 @@ bool BattleManager::Update(float dt) {
 
 	case BattleState::WIN:
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
-			app->teamManager->arasiva = true;
 			if (app->sceneManager->scene == GameScene::BATTLE || app->sceneManager->scene == GameScene::COMBATLHHR) {
+				app->teamManager->arasiva = true;
 				app->sceneManager->LoadScene(GameScene::SCENE);
 			}
 			else if(app->sceneManager->scene == GameScene::COMBATOINK){
+				app->teamManager->arasiva = true;
 				app->sceneManager->LoadScene(GameScene::W2_SCENE);
 			}
 			else if (app->sceneManager->scene == GameScene::COMBATWOLF) {

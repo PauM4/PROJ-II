@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "EndScene.h"
 #include "UIModule.h"
+#include "TeamManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -53,7 +54,6 @@ bool EndScene::Update(float dt)
 {
 	
 	app->render->DrawTexture(endComicTexture, -app->render->camera.x, -app->render->camera.y);
-	
 	return true;
 }
 
