@@ -95,6 +95,9 @@ public:
 	int walkFx = -1;
 	int chestFX = -1;
 
+	float mouseSpeed; 
+	int mouseX, mouseY; 
+
 private:
 
 	PhysBody* pbody;

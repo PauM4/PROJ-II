@@ -217,6 +217,7 @@ public:
 
 
 	int mouseX, mouseY;
+	float mouseSpeed; 
 
 };
 

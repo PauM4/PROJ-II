@@ -55,7 +55,7 @@ bool GuiSlider::Update(float dt)
 
 			state = GuiControlState::FOCUSED;
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT) {
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_REPEAT) {
 
 				state = GuiControlState::PRESSED;
 
@@ -87,7 +87,7 @@ bool GuiSlider::Update(float dt)
 				}
 			}
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_UP) {
 
 				NotifyObserver();
 			}

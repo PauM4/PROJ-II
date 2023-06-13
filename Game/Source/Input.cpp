@@ -341,3 +341,29 @@ int Input::GetWorldMouseYRelativeToPlayer(int playerPosY) const
 
 	return mousePosY;
 }
+
+void Input::HandlePadMouse(int mouseX, int mouseY, float mouseSpeed)
+{
+	if (pad->left_x > 0.5)
+	{
+		SDL_WarpMouseInWindow(app->win->window, mouseX + mouseSpeed, mouseY);
+
+	}
+
+	else if (pad->left_x < -0.5)
+	{
+		SDL_WarpMouseInWindow(app->win->window, mouseX - mouseSpeed, mouseY);
+	}
+
+	else if (pad->left_y > 0.5)
+	{
+		SDL_WarpMouseInWindow(app->win->window, mouseX, mouseY + mouseSpeed);
+
+	}
+
+	else if (pad->left_y < -0.5)
+	{
+		SDL_WarpMouseInWindow(app->win->window, mouseX, mouseY - mouseSpeed);
+
+	}
+}

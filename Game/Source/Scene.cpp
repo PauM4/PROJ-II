@@ -304,6 +304,8 @@ bool Scene::Update(float dt)
 	//std::cout << "X: " << player->position.x << std::endl;
 	//std::cout << "Y: " << player->position.y << std::endl;
 	Camera();
+
+	app->input->GetMousePosition(mouseX, mouseY);
 	if (app->teamManager->arasiva == true) {
 		app->teamManager->startstatsup = true;
 		app->teamManager->arasiva = false;
@@ -319,8 +321,11 @@ bool Scene::Update(float dt)
 
 	GodMode();
 
+	
 	// Menu appear
 	MenuAppear();
+
+	
 
 	MoveToBattleFromDialogue();
 
@@ -354,7 +359,7 @@ bool Scene::Update(float dt)
 
 	if(basicTutorialCounter < 3)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
 		{
 			basicTutorialCounter++;
 		}
@@ -385,7 +390,7 @@ void Scene::MenuAppear()
 {
 	//offset + point * (-app->render->camera.y - offset)
 	std::cout << "Y: " << -app->render->camera.y << std::endl;
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && !app->teamManager->lvlupbool)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN && !app->teamManager->lvlupbool)
 	{
 		app->uiModule->pause_menu_animation_bool = true;
 		// If player is in pause, close it
@@ -1342,7 +1347,7 @@ void Scene::UpdateRopeMinigame(float dt)
 {
 	if (!ropeWin)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
 		{
 			ropeSpeed += ropeJump;
 			app->audio->PlayFx(ropeFX);

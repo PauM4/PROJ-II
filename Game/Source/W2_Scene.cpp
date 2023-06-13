@@ -347,7 +347,7 @@ bool W2_Scene::Update(float dt)
 
 	if (key1interact == true) {
 
-		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 			if (key1state == false) {
 				app->audio->Play1Fx(chestFX);
 			}
@@ -361,7 +361,7 @@ bool W2_Scene::Update(float dt)
 	}
 	if (key2interact == true) {
 
-		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 			if (key2state == false) {
 				app->audio->Play1Fx(chestFX);
 			}
@@ -400,7 +400,7 @@ bool W2_Scene::Update(float dt)
 	}
 
 	// Menu appear
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN)
 	{
 		app->uiModule->pause_menu_animation_bool = true;
 		// If player is in pause, close it

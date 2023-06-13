@@ -121,6 +121,8 @@ public:
 
 	int GetWorldMouseYRelativeToPlayer(int playerPosY) const;
 
+	void HandlePadMouse(int mouseX, int mouseY, float mouseSpeed);
+
 private:
 	bool windowEvents[WE_COUNT];
 	KeyState*	keyboard;

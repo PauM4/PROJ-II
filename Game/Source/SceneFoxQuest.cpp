@@ -182,7 +182,7 @@ bool SceneFoxQuest::Update(float dt)
 		
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN) {
 		CleanUp(); 
 		Start();
 	}
@@ -250,31 +250,31 @@ bool SceneFoxQuest::HitRock(int x, int y)
 
 void SceneFoxQuest::Movement()
 {
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN || app->input->pad->left_x > 0.5) {
 		player->Move(1, 0);
 		if (player->isMoving == true) {
 			player->direction = Direction::RIGHT;
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN || app->input->pad->left_x < -0.5) {
 		player->Move(-1, 0);
 		if (player->isMoving == true) {
 			player->direction = Direction::LEFT;
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN || app->input->pad->left_y < -0.5) {
 		player->Move(0, -1);
 		if (player->isMoving == true) {
 			player->direction = Direction::UP;
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN || app->input->pad->left_y > 0.5) {
 		player->Move(0, 1);
 		if (player->isMoving == true) {
 			player->direction = Direction::DOWN;
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) {
 		switch (player->direction) {
 		case Direction::LEFT:
 			if (map[player->pos.x - 1][player->pos.y]->state == TileState::PULLROCK) {
