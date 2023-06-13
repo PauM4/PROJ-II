@@ -228,6 +228,7 @@ bool SceneManager::Update(float dt)
 				LOG("SCENE_FOXQUEST");
 			}
 		}
+		break;
 	case GameScene::ENDSCENE:
 		if (currentScene != (Module*)app->endScene) {
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->endScene, 20)) {
@@ -235,6 +236,7 @@ bool SceneManager::Update(float dt)
 				LOG("END_SCENE");
 			}
 		}
+		break;
 	default:
 		break;
 	}
