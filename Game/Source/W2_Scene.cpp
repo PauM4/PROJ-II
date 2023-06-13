@@ -814,7 +814,8 @@ bool W2_Scene::LoadState(pugi::xml_node& data)
 	pigsDefeated = battleInfo.attribute("isPigDefeated").as_bool();
 
 	currentQuestIndex = data.child("stepQuest").attribute("num").as_int();
-
+	key1state= data.attribute("key1state").as_bool();
+	key2state = data.attribute("key2state").as_bool();
 	if (pigsDefeated)
 	{
 		//pigsTree->~DialogueTree();
@@ -865,7 +866,8 @@ bool W2_Scene::SaveState(pugi::xml_node& data)
 {
 	
 	pugi::xml_node playerNode = data.append_child("player");
-
+	data.append_attribute("key1state") = key1state;
+	data.append_attribute("key2state") = key2state;
 	// If door, save mes lluny
 	if (portalToW1)
 	{
