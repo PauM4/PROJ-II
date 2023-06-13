@@ -10,6 +10,7 @@
 #include "Physics.h"
 #include "W2_Scene.h"
 #include "W2_Scene_Maze.h"
+#include "W3_Scene.h"
 
 Portal::Portal() : Entity(EntityType::PORTAL)
 {
@@ -79,6 +80,11 @@ bool Portal::PostUpdate()
 			SDL_Rect rect = currentAnimation->GetCurrentFrame();
 			app->render->DrawTexture(texture, position.x - 55, position.y - 75, &rect);
 		}
+		break; 
+	case W3_SCENE:
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x - 55, position.y - 75, &rect);
+		break; 
 	}
 	
 
@@ -137,7 +143,11 @@ void Portal::OnCollision(PhysBody* physA, PhysBody* physB)
 			}
 			break; 
 		case W2_SCENE_MAZE:
-			app->uiModule->doorPlayerPosition = true;
+			app->SaveGameRequest();
+			app->sceneManager->LoadScene((GameScene)nextScene);
+			break;
+		case W3_SCENE:
+			app->w3_scene->takePortal = true; 
 			app->SaveGameRequest();
 			app->sceneManager->LoadScene((GameScene)nextScene);
 			break;

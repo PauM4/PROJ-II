@@ -384,13 +384,31 @@ bool BattleManager::Update(float dt) {
 	case BattleState::WIN:
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
 			app->teamManager->arasiva = true;
-			app->sceneManager->LoadScene(GameScene::SCENE);
+			if (app->sceneManager->scene == GameScene::BATTLE || app->sceneManager->scene == GameScene::COMBATLHHR) {
+				app->sceneManager->LoadScene(GameScene::SCENE);
+			}
+			else if(app->sceneManager->scene == GameScene::COMBATOINK){
+				app->sceneManager->LoadScene(GameScene::W2_SCENE);
+			}
+			else if (app->sceneManager->scene == GameScene::COMBATWOLF) {
+				app->sceneManager->LoadScene(GameScene::W3_SCENE);
+			}
 
 		}
 
 		break;
 	case BattleState::LOSE:
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) app->sceneManager->LoadScene(GameScene::SCENE);
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+			if (app->sceneManager->scene == GameScene::BATTLE || app->sceneManager->scene == GameScene::COMBATLHHR) {
+				app->sceneManager->LoadScene(GameScene::SCENE);
+			}
+			else if (app->sceneManager->scene == GameScene::COMBATOINK) {
+				app->sceneManager->LoadScene(GameScene::W2_SCENE);
+			}
+			else if (app->sceneManager->scene == GameScene::COMBATWOLF) {
+				app->sceneManager->LoadScene(GameScene::W3_SCENE);
+			}
+		}
 		break;
 	default:
 		break;

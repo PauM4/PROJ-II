@@ -108,6 +108,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	inventoryScrollTexture = app->tex->Load("Assets/UI/inventoryScroll.png");
 	chestTexture = app->tex->Load("Assets/Maps/World_01/highRes_Assets/hr_chest_spriteSheet.png");
 	starparticle_texture = app->tex->Load("Assets/UI/star_particle.png");
+	comicTexture = app->tex->Load("Assets/UI/ComicStart.png");
 
 	battleTutoTexture = app->tex->Load("Assets/UI/battleTutorial.png");
 
@@ -235,7 +236,7 @@ bool Scene::Start()
 	{
 		app->teamManager->Enable();
 		app->LoadGameRequest();
-		basicTutorialCounter = 2;
+		basicTutorialCounter = 3;
 		battleTutorialCounter = 3;
 	}	
 
@@ -284,6 +285,7 @@ bool Scene::Start()
 
 
 	app->uiModule->menu_pause = false;
+	app->uiModule->doorPlayerPosition = false;
 
 	return true;
 }
@@ -350,7 +352,7 @@ bool Scene::Update(float dt)
 	else app->render->DrawTexture(app->scene->chestTexture, 777, 2062, &app->scene->chestVRect);
 
 
-	if(basicTutorialCounter < 2)
+	if(basicTutorialCounter < 3)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		{
@@ -359,7 +361,7 @@ bool Scene::Update(float dt)
 		player->playerPrevState = player->playerState;
 		player->playerState = player->TUTORIAL;
 
-		if (basicTutorialCounter >= 2)
+		if (basicTutorialCounter >= 3)
 		{
 			player->playerPrevState = player->playerState;
 			player->playerState = player->MOVING;
@@ -1287,7 +1289,6 @@ bool Scene::SaveState(pugi::xml_node& data)
 		if (player != nullptr) {
 			playerNode.append_attribute("x") = player->position.x - 100;
 			playerNode.append_attribute("y") = player->position.y;
-			app->uiModule->doorPlayerPosition = false;
 		}
 	}
 	else {
@@ -1317,7 +1318,7 @@ bool Scene::SaveState(pugi::xml_node& data)
 	pugi::xml_node stepQuestState = data.append_child("stepQuest");
 	stepQuestState.append_attribute("num") = currentQuestIndex;
 
-	if (basicTutorialCounter >= 2)
+	if (basicTutorialCounter >= 3)
 	{
 		playerNode.append_attribute("dialogueTutorial") = true;
 	}
