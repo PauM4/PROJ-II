@@ -105,6 +105,7 @@ bool UIModule::Start()
 	smallCharPicTexture = app->tex->Load("Assets/UI/smallCharPic.png");
 	attackDataTexture = app->tex->Load("Assets/UI/dataAttack.png");
 	descriptionScrollTexture = app->tex->Load("Assets/UI/descriptionScroll.png");
+	wolfIcon= app->tex->Load("Assets/UI/WolfIcon.png");
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
 	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, optionsButtonTexture,"", { 690, 640, 540, 136 }, this);
@@ -1113,6 +1114,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(inventoryScrollTexture);
 	app->tex->UnLoad(attackDataTexture);
 	app->tex->UnLoad(descriptionScrollTexture);
+	app->tex->UnLoad(wolfIcon);
 
 	return true;
 }

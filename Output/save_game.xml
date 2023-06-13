@@ -11,10 +11,10 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="7329" y="5008" dialogueTutorial="true" />
+		<player />
 		<rope_minigame rope_minigame_state="false" />
 		<saveBattleTutoState state="0" />
-		<stepQuest num="1" />
+		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -26,10 +26,10 @@
 		<stepQuest num="0" />
 	</w2_scene>
 	<w2_scene_maze>
-		<player x="1966108" y="18688164" />
+		<player x="1966108" y="9324292" />
 	</w2_scene_maze>
 	<w3_scene>
-		<player x="1966208" y="18688064" />
+		<player x="1966124" y="9324208" />
 	</w3_scene>
 	<battleScene_Wolf />
 	<battleManager />
@@ -61,7 +61,7 @@
 			<peter defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 		</stats>
 	</teamManager>
-	<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="false" islilpigplayable="false" ismidpigplayable="false" ispeterplayable="false" />
+	<playable istimmyplayable="true" isbunnyplayable="true" islrrhplayable="true" islilpigplayable="true" ismidpigplayable="true" ispeterplayable="false" />
 	<onteam IsTimmyOnTeam="true" IsBunnyOnTeam="true" IsLrrhOnTeam="false" IsLilPigOnTeam="false" IsMidPigOnTeam="false" IsPeterOnTeam="false" />
 	<moduleparticles />
 	<UIModule />
@@ -69,5 +69,5 @@
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
+	<BattleInfo isAngryVillagerDefeated="true" isLRRHDefeated="true" isPigDefeated="true" isPereDefeated="" isWolfDefeated="" />
 </save_state>

@@ -649,8 +649,13 @@ void BattleManager::UIStatsForBattle()
 			// CAL CANVIAR EL NOM QUAN ES TINGUI
 			else if (turnList.At(0)->data->name == "enemy_wolf")
 			{
-				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrWolfPicRect);
+				app->render->DrawTexture(app->uiModule->wolfIcon, 315, 945);
 			}
+			else if (turnList.At(0)->data->name == "enemy_finalwolf")
+			{
+
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrWolfPicRect);
+			}		
 		}
 
 		// Next turn 1 photos
@@ -698,8 +703,14 @@ void BattleManager::UIStatsForBattle()
 			}
 			else if (turnList.At(1)->data->name == "enemy_wolf")
 			{
+				app->render->DrawTexture(app->uiModule->wolfIcon, 1735, 660);
+			}
+			else if (turnList.At(1)->data->name == "enemy_finalwolf")
+			{
+
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &corrWolfPicRect);
 			}
+
 
 		}
 
@@ -748,6 +759,10 @@ void BattleManager::UIStatsForBattle()
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &MPigPicRect);
 			}
 			else if (turnList.At(2)->data->name == "enemy_wolf")
+			{
+				app->render->DrawTexture(app->uiModule->wolfIcon, 1735, 800);
+			}
+			else if (turnList.At(2)->data->name == "enemy_finalwolf")
 			{
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &corrWolfPicRect);
 			}
