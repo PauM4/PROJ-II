@@ -420,9 +420,11 @@ void Scene::MenuAppear()
 
 	if (app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN && !app->teamManager->lvlupbool)
 	{
+		app->uiModule->pause_menu_animation_bool = true;
 		// If player is in pause, close it
 		if (player->playerState == player->PlayerState::PAUSE)
 		{
+			app->uiModule->inventory_menu_animation.Backward();
 			player->playerState = player->playerPrevState;
 
 			app->uiModule->currentMenuType = DISABLED;
@@ -436,6 +438,7 @@ void Scene::MenuAppear()
 		// If player is NOT in pause, open it
 		else
 		{
+			app->uiModule->inventory_menu_animation.Foward();
 			// Save previous state to go back
 			player->playerPrevState = player->playerState;
 			player->playerState = player->PlayerState::PAUSE;

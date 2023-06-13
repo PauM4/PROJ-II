@@ -11,10 +11,10 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="2081" y="3277" dialogueTutorial="true" />
+		<player />
 		<rope_minigame rope_minigame_state="false" />
 		<saveBattleTutoState state="0" />
-		<stepQuest num="1" />
+		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />

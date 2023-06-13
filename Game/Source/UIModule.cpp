@@ -254,10 +254,18 @@ bool UIModule::Start()
 	pause_menu_animation.Set();
 	pause_menu_animation.smoothness = 4;
 	pause_menu_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
+	inventory_menu_animation.Set();
+	inventory_menu_animation.smoothness = 4;
+	inventory_menu_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
 	offset = -1080;
+	offset2 = -100;
 	point = app->uiModule->pause_menu_animation.GetPoint();
+	point2 = app->uiModule->inventory_menu_animation.GetPoint();
 
 	pause_menu_animation_bool = false;
+	pausecombat_menu_animation_bool = false;
 	
 	return true;
 }
@@ -338,11 +346,16 @@ bool UIModule::PostUpdate()
 	bool ret = true;
 
 	pause_menu_animation.Step(2, false);
+	inventory_menu_animation.Step(2, false);
 
 	point = pause_menu_animation.GetPoint();
+	point2 = inventory_menu_animation.GetPoint();
 
 	if (pause_menu_animation_bool && menu_pause) app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, offset + point * (-app->render->camera.y - offset));
 	else if (pause_menu_animation_bool) app->render->DrawTexture(pauseBG2Texture, -app->render->camera.x, -app->render->camera.y);
+
+	if (pausecombat_menu_animation_bool && app->battleManager->isPaused) app->render->DrawTexture(pauseBGTexture, 0, offset2 + point2 * (-app->render->camera.y - offset2));
+	else if (pausecombat_menu_animation_bool) app->render->DrawTexture(pauseBG2Texture, 0, 0);
 
 	//// Pergami fons level up screen
 	//if (app->teamManager->active && app->teamManager->lvlupbool)
@@ -377,8 +390,8 @@ bool UIModule::PostUpdate()
 
 	if (currentMenuType == INVENTORY)
 	{
-		
-		app->render->DrawTexture(inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
+		app->render->DrawTexture(inventoryScrollTexture, -app->render->camera.x, offset2 + point2 * (-app->render->camera.y - offset2));
+		//app->render->DrawTexture(inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
 
 		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 
@@ -1310,6 +1323,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Resume
 	case 100:
+		//pausecombat_menu_animation.Backward();
+		app->uiModule->menu_pause_combat = true;
 		pausemenuCombat_resume_button->state = GuiControlState::NONE;
 		pausemenuCombat_options_button->state = GuiControlState::NONE;
 		pausemenuCombat_quit_button->state = GuiControlState::NONE;

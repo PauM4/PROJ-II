@@ -77,6 +77,8 @@ bool BattleManager::Start() {
 	win_screen_animation.smoothness = 4;
 	win_screen_animation.AddTween(100, 50, EXPONENTIAL_OUT);
 
+	app->uiModule->menu_pause = false;
+
 	return true;
 }
 
@@ -90,8 +92,11 @@ bool BattleManager::PreUpdate() {
 
 bool BattleManager::Update(float dt) {
 
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->uiModule->currentMenuType == COMBAT)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->uiModule->currentMenuType == COMBAT) {
+		app->uiModule->pausecombat_menu_animation_bool = true;
 		PauseMenuAppear();
+	}
+		
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		return false;
@@ -404,6 +409,16 @@ bool BattleManager::Update(float dt) {
 }
 
 bool BattleManager::PostUpdate() {
+	std::cout << "Y: " << app->uiModule->offset2 + app->uiModule->point2 * (-app->render->camera.y - app->uiModule->offset2) << std::endl;
+
+	if ((-(app->uiModule->offset2 + app->uiModule->point2 * (app->uiModule->offset2))) >= 1080 && app->uiModule->menu_pause_combat) {
+		if (app->uiModule->currentMenuType == COMBAT_PAUSE) {
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+			app->uiModule->menu_pause_combat = false;
+		}
+
+	}
 
 	if (battleState == BattleState::SELCETED /*|| battleState == BattleState::ENEMY*/ || enemyAreaTimer.Test()==EJECUTANDO || enemyAttackTimer.Test() == EJECUTANDO) {
 
@@ -1285,21 +1300,21 @@ void BattleManager::PauseMenuAppear()
 	// If player is in pause, close it
 	if (!isPaused)
 	{
-		app->uiModule->pause_menu_animation.Foward();
+		//app->uiModule->pausecombat_menu_animation.Foward();
 		app->uiModule->currentMenuType = COMBAT;
 		// Call this function only when scene is changed
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-
+		app->uiModule->menu_pause_combat = true;
 		isPaused = true;
 	}
 	// If player is NOT in pause, open it
 	else
 	{
-		app->uiModule->pause_menu_animation.Backward();
+		//app->uiModule->pausecombat_menu_animation.Backward();
 		app->uiModule->currentMenuType = COMBAT_PAUSE;
 		// Call this function only when scene is changed
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-
+		app->uiModule->menu_pause_combat = true;
 		isPaused = false;
 	}
 }
