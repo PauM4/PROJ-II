@@ -51,6 +51,10 @@ public:
 	Animation* abilityAnimation;
 
 	bool finishAnimBool;
+
+	const char* attackDescription;
+	const char* abilityDescription;
+
 private:
 
 	

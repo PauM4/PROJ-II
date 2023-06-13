@@ -57,6 +57,9 @@ public:
 
 	iPoint thunderPos;
 
+	const char* attackDescription;
+	const char* abilityDescription;
+
 	int prehealth;
 
 private:

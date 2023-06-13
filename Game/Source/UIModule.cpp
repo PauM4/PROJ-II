@@ -103,7 +103,8 @@ bool UIModule::Start()
 	pauseBG2Texture = app->tex->Load("Assets/UI/pauseBG2.png");
 	turnListTexture = app->tex->Load("Assets/UI/turnList.png");
 	smallCharPicTexture = app->tex->Load("Assets/UI/smallCharPic.png");
-	
+	attackDataTexture = app->tex->Load("Assets/UI/dataAttack.png");
+	descriptionScrollTexture = app->tex->Load("Assets/UI/descriptionScroll.png");
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
 	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, optionsButtonTexture,"", { 690, 640, 540, 136 }, this);
@@ -394,6 +395,9 @@ bool UIModule::PostUpdate()
 
 		// Current Turn
 		app->render->DrawTexture(currentTurnTexture, 296, 900);
+
+		// Attacks data rectangle
+		app->render->DrawTexture(attackDataTexture, 1406, 927);
 
 		// Draw Numbers and images over the basic UI
 		app->battleManager->UIStatsForBattle();
@@ -1104,6 +1108,8 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(pauseButtonsTexture);
 	app->tex->UnLoad(dialogueTextures);
 	app->tex->UnLoad(inventoryScrollTexture);
+	app->tex->UnLoad(attackDataTexture);
+	app->tex->UnLoad(descriptionScrollTexture);
 
 	return true;
 }

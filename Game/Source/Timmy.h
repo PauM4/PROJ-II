@@ -64,6 +64,9 @@ public:
 	
 	AnimDirection animDirection;
 
+	const char* attackDescription;
+	const char* abilityDescription;
+
 	int prehealth;
 
 private:

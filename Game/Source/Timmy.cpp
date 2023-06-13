@@ -91,6 +91,11 @@ bool Timmy::Awake()
 	Icontexture = app->tex->Load("Assets/UI/TimmyIcon.png");
 	currentAnimation = &idleAnim;
 	PrevPos = position;
+
+	// Attacks description
+	attackDescription = "Melee attack with the yo-yo";
+	abilityDescription = "Circular attack with the yo-yo";
+
 	return true;
 }
 

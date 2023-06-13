@@ -216,6 +216,8 @@ public:
 	Tween win_screen_animation;
 
 
+	int mouseX, mouseY;
+
 };
 
 

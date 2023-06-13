@@ -42,6 +42,8 @@ public:
 	SDL_Texture* LoadRenderedParagraph(SDL_Rect& rect, int font_id, const char* text, SDL_Color color, uint32 wrapedLength);
 
 	bool DrawText(const char* text, int posx, int posy, int w, int h, SDL_Color color, int font_id = app->fonts->gameFont, bool followCam = false);
+	bool DrawTextParagraph(const char* text, int posx, int posy, int w, int h, SDL_Color color, int font_id = app->fonts->gameFont, bool followCam = false);
+
 
 	int gameFont;
 	int gameFontNotThatBig;

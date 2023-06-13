@@ -226,6 +226,8 @@ public:
 	SDL_Texture* smallCharPicTexture;
 	SDL_Texture* lvlupTexture;
 	SDL_Texture* inventoryScrollTexture;
+	SDL_Texture* attackDataTexture;
+	SDL_Texture* descriptionScrollTexture;
 
 
 	SDL_Texture* pauseButtonsTexture;
