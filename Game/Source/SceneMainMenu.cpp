@@ -78,6 +78,8 @@ bool SceneMainMenu::Start()
 	right_animation.smoothness = 4;
 	right_animation.AddTween(100, 50, EXPONENTIAL_OUT);
 
+	mouseSpeed = 15; 
+
 	return true;
 }
 
@@ -90,8 +92,11 @@ bool SceneMainMenu::PreUpdate()
 // Called each loop iteration
 bool SceneMainMenu::Update(float dt)
 {
+	app->input->GetMousePosition(mouseX, mouseY); 
+	app->input->HandlePadMouse(mouseX, mouseY, mouseSpeed);
+
 	currentAnimation->Update();
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN)
 	{
 		// Tell to UIModule which currentMenuType
 		app->uiModule->currentMenuType = MAIN;

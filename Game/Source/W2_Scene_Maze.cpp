@@ -183,7 +183,7 @@ bool W2_Scene_Maze::Update(float dt)
 	GodMode();
 
 	// Menu appear
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN)
 	{
 		app->uiModule->pause_menu_animation_bool = true;
 		// If player is in pause, close it

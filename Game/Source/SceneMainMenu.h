@@ -64,6 +64,9 @@ public:
 	Animation* currentAnimation;
 	Animation press_enter_animation;
 
+	int mouseX, mouseY; 
+	float mouseSpeed; 
+
 private:
 
 };

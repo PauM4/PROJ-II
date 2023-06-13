@@ -182,7 +182,7 @@ bool Player::Start() {
 	triggerBunnyDialogue = false;
 	endBunnyDialogue = false;
 
-
+	mouseSpeed = 15; 
 	return true;
 }
 
@@ -190,6 +190,8 @@ bool Player::Update(float dt)
 {	
 	currentAnimation->Update();
 	bunnyCurrentAnimation->Update();
+
+	app->input->GetMousePosition(mouseX, mouseY);
 
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
 	{
@@ -252,6 +254,7 @@ bool Player::Update(float dt)
 	switch (playerState)
 	{
 	case PAUSE:
+		app->input->HandlePadMouse(mouseX, mouseY, mouseSpeed);
 		movementRestringed = true;
 		StopVelocity();
 
@@ -271,6 +274,7 @@ bool Player::Update(float dt)
 	case NPC_INTERACT:
 		LOG("TALKING TO NPC1");
 		movementRestringed = true;
+		app->input->HandlePadMouse(mouseX, mouseY, mouseSpeed);
 		StopVelocity();
 		TriggerDialogueTree(lastCollision);
 		InteractWithTree();
@@ -336,6 +340,7 @@ bool Player::Update(float dt)
 		StopVelocity();
 		break;
 	case LEVEL_UP:
+		app->input->HandlePadMouse(mouseX, mouseY, mouseSpeed);
 		LOG("LEVEL_UP MODE");
 		movementRestringed = true;
 		StopVelocity();

@@ -177,6 +177,8 @@ public:
 	ParticleProps particle_chest2;
 	SDL_Texture* starparticle_texture;
 
+	int mouseX, mouseY;
+	float mouseSpeed; 
 
 private:
 

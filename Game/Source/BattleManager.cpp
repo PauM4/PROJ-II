@@ -80,6 +80,8 @@ bool BattleManager::Start() {
 
 	app->uiModule->menu_pause = false;
 
+	mouseSpeed = 15; 
+
 	return true;
 }
 
@@ -93,7 +95,7 @@ bool BattleManager::PreUpdate() {
 
 bool BattleManager::Update(float dt) {
 
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_Y) == KEY_DOWN) {
 		app->uiModule->pausecombat_menu_animation_bool = true;
 		PauseMenuAppear();
 	}
@@ -113,6 +115,9 @@ bool BattleManager::Update(float dt) {
 	if (timercharge > 0) {
 		timercharge--;
 	}
+
+	app->input->GetMousePosition(mouseX, mouseY);
+	app->input->HandlePadMouse(mouseX, mouseY, mouseSpeed);
 
 	UpdateEntitiesTilePos();
 
@@ -150,7 +155,7 @@ bool BattleManager::Update(float dt) {
 
 			if (actionType == ActionType::MOVE) {
 
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN)
 				{
 					for (ListItem<TileData*>* area = actionArea.start; area != NULL; area = area->next) {
 						iPoint pos = iPoint(area->data->x, area->data->y);
@@ -183,7 +188,7 @@ bool BattleManager::Update(float dt) {
 
 
 					if (targets.At(i)->data->tilePos == mouseTile && actionfinish == false) {
-						if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+						if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
 
 
 
@@ -383,7 +388,7 @@ bool BattleManager::Update(float dt) {
 		break;
 
 	case BattleState::WIN:
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
 			app->teamManager->arasiva = true;
 			if (app->sceneManager->scene == GameScene::BATTLE || app->sceneManager->scene == GameScene::COMBATLHHR) {
 				app->sceneManager->LoadScene(GameScene::SCENE);
@@ -399,7 +404,7 @@ bool BattleManager::Update(float dt) {
 
 		break;
 	case BattleState::LOSE:
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) {
 			if (app->sceneManager->scene == GameScene::BATTLE || app->sceneManager->scene == GameScene::COMBATLHHR) {
 				app->sceneManager->LoadScene(GameScene::SCENE);
 			}

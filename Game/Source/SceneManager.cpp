@@ -100,7 +100,7 @@ bool SceneManager::PreUpdate()
 
 	switch (scene) {
 	case GameScene::INTRO:
-		if ((app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && currentScene->active == true)
+		if ((app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && currentScene->active == true)
 		{
 			scene = MAIN_MENU; 
 		}

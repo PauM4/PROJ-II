@@ -48,12 +48,12 @@ bool GuiCheckBox::Update(float dt)
 				LOG("Change state from %d to %d", previousState, state);
 			}
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN) {
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN) {
 				state = GuiControlState::PRESSED;
 			}
 
 			//
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_X) == KEY_UP) {
 				NotifyObserver();
 			}
 		}
