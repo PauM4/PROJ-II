@@ -457,6 +457,8 @@ bool W2_Scene::Update(float dt)
 		// If player is in pause, close it
 		if (player->playerState == player->PlayerState::PAUSE)
 		{
+			app->uiModule->inventory_menu_animation.Backward();
+
 			player->playerState = player->playerPrevState;
 
 			app->uiModule->currentMenuType = DISABLED;
@@ -470,6 +472,7 @@ bool W2_Scene::Update(float dt)
 		// If player is NOT in pause, open it
 		else
 		{
+			app->uiModule->inventory_menu_animation.Foward();
 			// Save previous state to go back
 			player->playerPrevState = player->playerState;
 			player->playerState = player->PlayerState::PAUSE;
