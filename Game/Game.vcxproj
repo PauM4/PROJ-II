@@ -162,6 +162,7 @@
     <ClCompile Include="Source\W3_Scene.cpp" />
     <ClCompile Include="Source\W2_Scene_Maze.cpp" />
     <ClCompile Include="Source\Window.cpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\BattleManager.h" />
     <ClInclude Include="Source\BattleScene_Pigs.h" />
@@ -241,6 +242,12 @@
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="pedroItem.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -343,6 +343,7 @@
     <ClInclude Include="Source\EndScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -378,5 +379,11 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{87a7ce3b-7584-4d96-abee-c045359adbe5}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="pedroItem.ico" />
   </ItemGroup>
 </Project>
