@@ -66,6 +66,7 @@ private:
 public:
 	bool conditionToRangeChecker;
 	bool noStaminaToMove;
+	bool finalstate;
 	
 };
 

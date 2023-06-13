@@ -11,6 +11,7 @@
 #include "Physics.h"
 #include "SceneBattle.h"
 #include "BattleManager.h"
+#include "BattleScene_Wolf.h"
 
 
 Enemy_FinalWolf::Enemy_FinalWolf() : Entity(EntityType::FINALWOLF) {
@@ -142,19 +143,21 @@ bool Enemy_FinalWolf::Update(float dt)
 bool Enemy_FinalWolf::PostUpdate()
 {
 	//Render
-	if (health > 0) {
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 55, position.y - 90, &rect);
-	}
+	if (app->battleScene_Wolf->finalstate == false) {
+		if (health > 0) {
+			SDL_Rect rect = currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(texture, position.x - 55, position.y - 90, &rect);
+		}
 
-	if (currentAnimation == &abilityAnim)
-	{
-		if (abilityAnim.HasFinished())
+		if (currentAnimation == &abilityAnim)
 		{
-			finishAnimBool = true;
-			abilityAnim.Reset();
-			currentAnimation = &idleAnim;
-		
+			if (abilityAnim.HasFinished())
+			{
+				finishAnimBool = true;
+				abilityAnim.Reset();
+				currentAnimation = &idleAnim;
+
+			}
 		}
 	}
 	return true;
