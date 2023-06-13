@@ -71,6 +71,9 @@
 		<!-- Chest 6-->
 		<chest6 x="2101" y="1910" width="67" height="111" isPicked="false" id="5"/>
 
+		<!-- Chest PEDRO-->
+		<chestpedro x="0" y="0" width="100" height="75" isPicked="false" id="999"/>
+
 		<!--Portal to w1-->
 		<portal x="592" y="2996" width="124" height="240" nextScene="3" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png" />
 		

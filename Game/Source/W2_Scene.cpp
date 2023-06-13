@@ -14,6 +14,7 @@
 #include "Defs.h"
 #include "ParticleSystem.h"
 #include "ModuleParticles.h"
+#include "SceneFoxQuest.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -120,6 +121,7 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
 	starparticle_texture = app->tex->Load("Assets/UI/star_particle.png");
 	smokeparticle_texture = app->tex->Load("Assets/UI/smoke_particle.png");
+	pedroTexture = app->tex->Load("Assets/UI/pedroItem.png");
 
 
 	key1interact = false;
@@ -133,6 +135,8 @@ bool W2_Scene::Awake(pugi::xml_node& config)
 	key2collider->ctype = ColliderType::KEY2COLIDER;
 
 	currentQuestIndex = 0;
+
+	pedroHasAppeared = false;
 
 	return ret;
 }
@@ -303,14 +307,34 @@ bool W2_Scene::Start()
 	particle_smoke.particlepersecond = 10;
 	particle_smoke.particletexture = smokeparticle_texture;
 
+	particle_pedroItem.x = 2128;
+	particle_pedroItem.y = 1929;
+	particle_pedroItem.velocity_x = 0;
+	particle_pedroItem.velocity_y = -70;
+	particle_pedroItem.spreadfactor = 100;
+	particle_pedroItem.lifetime = 1.2;
+	particle_pedroItem.beginscale = 50;
+	particle_pedroItem.endscale = 0;
+	particle_pedroItem.r = 255;
+	particle_pedroItem.g = 0;
+	particle_pedroItem.b = 0;
+	particle_pedroItem.r2 = 0;
+	particle_pedroItem.g2 = 0;
+	particle_pedroItem.b2 = 255;
+	particle_pedroItem.scaleVariation = 1;
+	particle_pedroItem.particlepersecond = 5;
+	particle_pedroItem.particletexture = starparticle_texture;
+
 	ParticleSystem* particlesystem_chest4 = new ParticleSystem(particle_chest4);
 	ParticleSystem* particlesystem_chest5 = new ParticleSystem(particle_chest5);
 	ParticleSystem* particlesystem_chest6 = new ParticleSystem(particle_chest6);
+	ParticleSystem* particlesystem_pedro = new ParticleSystem(particle_pedroItem);
 	ParticleSystem* particlesystem_smoke = new ParticleSystem(particle_smoke);
 	app->moduleParticles->emiters.push_back(particlesystem_chest4);
 	app->moduleParticles->emiters.push_back(particlesystem_chest5);
 	app->moduleParticles->emiters.push_back(particlesystem_chest6);
 	app->moduleParticles->emiters.push_back(particlesystem_smoke);
+	app->moduleParticles->emiters.push_back(particlesystem_pedro);
 
 	return true;
 }
@@ -319,7 +343,7 @@ bool W2_Scene::Start()
 bool W2_Scene::PreUpdate()
 {
 	return true;
-}
+}	
 
 
 
@@ -478,6 +502,12 @@ bool W2_Scene::Update(float dt)
 	else app->render->DrawTexture(app->w2_scene->chestTexture, 3382, 2705, &app->w2_scene->chestHRect);
 	if (chest6->isPicked) app->render->DrawTexture(app->w2_scene->chestTexture, 2101, 1910, &app->w2_scene->chestopenVRect);
 	else app->render->DrawTexture(app->w2_scene->chestTexture, 2101, 1910, &app->w2_scene->chestVRect);
+
+	// If not picked, draw. When picked, don't draw
+	if (app->sceneFoxQuest->rockQuestCompleted)
+	{
+		app->render->DrawTexture(pedroTexture, 4795, 2953);
+	}
 
 	return true;
 }

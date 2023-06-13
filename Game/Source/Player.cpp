@@ -331,6 +331,12 @@ bool Player::Update(float dt)
 				app->w2_scene->chest6->isPicked = true;
 				app->teamManager->loadinventory();
 			}
+			if (isChestPedroPickable)
+			{
+				app->teamManager->dentures.ininventory = true;
+				app->w2_scene->chestPedro->isPicked = true;
+				app->teamManager->loadinventory();
+			}
 		}
 
 		break;
@@ -550,6 +556,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::CHEST6:
 			isChest6Pickable = true;
 			break;
+		case ColliderType::PEDROCOLLIDER:
+			isChestPedroPickable = true;
+			break;
 		case ColliderType::BARRIER:
 			LOG("Collision BARRIER");
 			break;
@@ -673,6 +682,9 @@ void Player::EndContact(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::CHEST6:
 		isChest6Pickable = false;
+		break;
+	case ColliderType::PEDROCOLLIDER:
+		isChestPedroPickable = false;
 		break;
 	case ColliderType::BARRIER:
 		break;

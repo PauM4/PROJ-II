@@ -791,10 +791,10 @@ void BattleManager::UIStatsForBattle()
 			app->fonts->DrawText(powerChar, 1500, 962, 100, 100, { 194, 168, 130 });
 
 			// Stamina
-			uint staminaNum = turnList.At(0)->data->stamina;
-			std::string staminaString = std::to_string(staminaNum);
-			const char* staminaChar = staminaString.c_str();
-			app->fonts->DrawText(staminaChar, 1616, 962, 100, 100, { 194, 168, 130 });
+			//uint staminaNum = turnList.At(0)->data->stamina;
+			//std::string staminaString = std::to_string(staminaNum);
+			//const char* staminaChar = staminaString.c_str();
+			app->fonts->DrawText("10", 1616, 962, 100, 100, { 194, 168, 130 });
 
 			app->input->GetMousePosition(mouseX, mouseY);
 			app->render->DrawTexture(app->uiModule->descriptionScrollTexture, mouseX - 185, mouseY - 185, NULL);

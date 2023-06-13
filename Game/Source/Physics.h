@@ -57,6 +57,7 @@ enum class ColliderType {
 	KEY1COLIDER,
 	KEY2COLIDER,
 	BUNNY,
+	PEDROCOLLIDER,
 
 	// ..
 	// QUESTS
