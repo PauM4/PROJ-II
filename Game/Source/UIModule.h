@@ -228,6 +228,7 @@ public:
 	SDL_Texture* inventoryScrollTexture;
 	SDL_Texture* attackDataTexture;
 	SDL_Texture* descriptionScrollTexture;
+	SDL_Texture* wolfIcon;
 
 
 	SDL_Texture* pauseButtonsTexture;

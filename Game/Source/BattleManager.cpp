@@ -650,8 +650,13 @@ void BattleManager::UIStatsForBattle()
 			// CAL CANVIAR EL NOM QUAN ES TINGUI
 			else if (turnList.At(0)->data->name == "enemy_wolf")
 			{
-				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrWolfPicRect);
+				app->render->DrawTexture(app->uiModule->wolfIcon, 315, 945);
 			}
+			else if (turnList.At(0)->data->name == "enemy_finalwolf")
+			{
+
+				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrWolfPicRect);
+			}		
 		}
 
 		// Next turn 1 photos
@@ -699,8 +704,14 @@ void BattleManager::UIStatsForBattle()
 			}
 			else if (turnList.At(1)->data->name == "enemy_wolf")
 			{
+				app->render->DrawTexture(app->uiModule->wolfIcon, 1735, 660);
+			}
+			else if (turnList.At(1)->data->name == "enemy_finalwolf")
+			{
+
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &corrWolfPicRect);
 			}
+
 
 		}
 
@@ -750,6 +761,10 @@ void BattleManager::UIStatsForBattle()
 			}
 			else if (turnList.At(2)->data->name == "enemy_wolf")
 			{
+				app->render->DrawTexture(app->uiModule->wolfIcon, 1735, 800);
+			}
+			else if (turnList.At(2)->data->name == "enemy_finalwolf")
+			{
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &corrWolfPicRect);
 			}
 		}
@@ -792,10 +807,10 @@ void BattleManager::UIStatsForBattle()
 			app->fonts->DrawText(powerChar, 1500, 962, 100, 100, { 194, 168, 130 });
 
 			// Stamina
-			uint staminaNum = turnList.At(0)->data->stamina;
-			std::string staminaString = std::to_string(staminaNum);
-			const char* staminaChar = staminaString.c_str();
-			app->fonts->DrawText(staminaChar, 1616, 962, 100, 100, { 194, 168, 130 });
+			//uint staminaNum = turnList.At(0)->data->stamina;
+			//std::string staminaString = std::to_string(staminaNum);
+			//const char* staminaChar = staminaString.c_str();
+			app->fonts->DrawText("10", 1616, 962, 100, 100, { 194, 168, 130 });
 
 			app->input->GetMousePosition(mouseX, mouseY);
 			app->render->DrawTexture(app->uiModule->descriptionScrollTexture, mouseX - 185, mouseY - 185, NULL);

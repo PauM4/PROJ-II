@@ -88,6 +88,7 @@ bool BattleScene_Wolf::Start() {
 	}
 
 	finalstate = true;
+	finalwin = false;
 
 	// Tell to UIModule which currentMenuType
 	app->uiModule->currentMenuType = COMBAT;	
@@ -144,6 +145,7 @@ bool BattleScene_Wolf::Update(float dt) {
 		app->battleManager->finish = false;
 		finalstate = false;
 		app->battleManager->finalboss = false;
+		finalwin = false;
 	}
 
 	return true;

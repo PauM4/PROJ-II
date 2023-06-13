@@ -88,6 +88,13 @@ public:
 	Item* chest5;
 	Item* chest6;
 
+	Item* chestPedro;
+	ParticleProps particle_pedroItem;
+	SDL_Texture* pedroTexture;
+
+	PhysBody* pedroPB;
+	PhysBody* pedroCol;
+
 	// A list of quests
 	std::vector<Quest> questList;
 	const char* questText;
@@ -178,6 +185,9 @@ private:
 	bool godMode;
 
 
+public:
+
+	bool pedroHasAppeared;
 
 };
 

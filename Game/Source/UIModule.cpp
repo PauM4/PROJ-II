@@ -105,6 +105,7 @@ bool UIModule::Start()
 	smallCharPicTexture = app->tex->Load("Assets/UI/smallCharPic.png");
 	attackDataTexture = app->tex->Load("Assets/UI/dataAttack.png");
 	descriptionScrollTexture = app->tex->Load("Assets/UI/descriptionScroll.png");
+	wolfIcon= app->tex->Load("Assets/UI/WolfIcon.png");
 
 	mainmenu_play_button =		   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, playButtonTexture, "", { 720, 400, 478, 220 }, this);
 	mainmenu_options_button =	   (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, optionsButtonTexture,"", { 690, 640, 540, 136 }, this);
@@ -173,18 +174,18 @@ bool UIModule::Start()
 	inventory_Lpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 76, defaultButtonTexture, "L. Pig", { 300, 550, 127,33 }, this);
 	inventory_Mpig_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 77, defaultButtonTexture, "M. Pig", { 300, 600, 127,33 }, this);
 
-	item_1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 78, NULL, "+", { 960, 350, 100, 30 }, this);
-	item_2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 79, NULL, "+", { 960, 400, 100, 30 }, this);
-	item_3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 80, NULL, "+", { 960, 450, 100, 30 }, this);
-	item_4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, NULL, "+", { 960, 500, 100, 30 }, this);
-	item_5_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, NULL, "+", { 960, 550, 100, 30 }, this);
-	item_6_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 83, NULL, "+", { 960, 600, 100, 30 }, this);
-	item_7_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 84, NULL, "+", { 960, 650, 100, 30 }, this);
-	item_8_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 85, NULL, "+", { 960, 700, 100, 30 }, this);
-	item_9_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 86, NULL, "+", { 960, 750, 100, 30 }, this);
-	item_10_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 87, NULL, "+", { 960, 800, 100, 30 }, this);
-	item_11_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 88, NULL, "+", { 960, 850, 100, 30 }, this);
-	item_12_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 89, NULL, "+	", { 960, 900, 100, 30 }, this);
+	item_1_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 78, defaultButtonTexture, "+", { 960, 350, 127, 33 }, this);
+	item_2_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 79, defaultButtonTexture, "+", { 960, 400, 127, 33 }, this);
+	item_3_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 80, defaultButtonTexture, "+", { 960, 450, 127, 33 }, this);
+	item_4_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 81, defaultButtonTexture, "+", { 960, 500, 127, 33 }, this);
+	item_5_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 82, defaultButtonTexture, "+", { 960, 550, 127, 33 }, this);
+	item_6_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 83, defaultButtonTexture, "+", { 960, 600, 127, 33 }, this);
+	item_7_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 84, defaultButtonTexture, "+", { 960, 650, 127, 33 }, this);
+	item_8_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 85, defaultButtonTexture, "+", { 960, 700, 127, 33 }, this);
+	item_9_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 86, defaultButtonTexture, "+", { 960, 750, 127, 33 }, this);
+	item_10_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 87, defaultButtonTexture, "+", { 960, 800, 127, 33 }, this);
+	item_11_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 88, defaultButtonTexture, "+", { 960, 850, 127, 33 }, this);
+	item_12_button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 89, defaultButtonTexture, "+	", { 960, 900, 127, 33 }, this);
 
 	musicSlider = (GuiSlider*)app->guiManager->CreateGuiControl(GuiControlType::SLIDER, 1234, sliderTexture, "", { 1659, 383, 60, 176}, this);
 	musicSlider->state = GuiControlState::NONE;
@@ -368,8 +369,14 @@ bool UIModule::PostUpdate()
 	point3 = party_menu_animation.GetPoint();
 	point4 = pausecombat_menu_animation.GetPoint();
 
-	if (pause_menu_animation_bool && menu_pause) app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, offset + point * (-app->render->camera.y - offset));
-	else if (pause_menu_animation_bool) app->render->DrawTexture(pauseBG2Texture, -app->render->camera.x, -app->render->camera.y);
+	if (pause_menu_animation_bool && menu_pause)
+	{
+		app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, offset + point * (-app->render->camera.y - offset));
+	}
+	else if (pause_menu_animation_bool)
+	{
+		app->render->DrawTexture(pauseBG2Texture, -app->render->camera.x, -app->render->camera.y);
+	}
 
 	//// Pergami fons level up screen
 	//if (app->teamManager->active && app->teamManager->lvlupbool)
@@ -1113,6 +1120,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(inventoryScrollTexture);
 	app->tex->UnLoad(attackDataTexture);
 	app->tex->UnLoad(descriptionScrollTexture);
+	app->tex->UnLoad(wolfIcon);
 
 	return true;
 }
