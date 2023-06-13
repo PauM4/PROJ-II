@@ -292,11 +292,17 @@ public:
 
 	Tween pause_menu_animation;
 	Tween inventory_menu_animation;
+	Tween party_menu_animation;
+	Tween pausecombat_menu_animation;
 
 	int offset;
 	int offset2;
+	int offset3;
+	int offset4;
 	float point;
 	float point2;
+	float point3;
+	float point4;
 
 	bool pause_menu_animation_bool;
 	bool pausecombat_menu_animation_bool;

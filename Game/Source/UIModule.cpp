@@ -255,14 +255,26 @@ bool UIModule::Start()
 	pause_menu_animation.smoothness = 4;
 	pause_menu_animation.AddTween(100, 50, EXPONENTIAL_OUT);
 
+	pausecombat_menu_animation.Set();
+	pausecombat_menu_animation.smoothness = 4;
+	pausecombat_menu_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
 	inventory_menu_animation.Set();
 	inventory_menu_animation.smoothness = 4;
 	inventory_menu_animation.AddTween(100, 50, EXPONENTIAL_OUT);
 
+	party_menu_animation.Set();
+	party_menu_animation.smoothness = 4;
+	party_menu_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
 	offset = -1080;
 	offset2 = -100;
+	offset3 = -100;
+	offset4 = -1080;
 	point = app->uiModule->pause_menu_animation.GetPoint();
 	point2 = app->uiModule->inventory_menu_animation.GetPoint();
+	point3 = app->uiModule->party_menu_animation.GetPoint();
+	point4 = pausecombat_menu_animation.GetPoint();
 
 	pause_menu_animation_bool = false;
 	pausecombat_menu_animation_bool = false;
@@ -347,15 +359,16 @@ bool UIModule::PostUpdate()
 
 	pause_menu_animation.Step(2, false);
 	inventory_menu_animation.Step(2, false);
+	party_menu_animation.Step(2, false);
+	pausecombat_menu_animation.Step(2, false);
 
 	point = pause_menu_animation.GetPoint();
 	point2 = inventory_menu_animation.GetPoint();
+	point3 = party_menu_animation.GetPoint();
+	point4 = pausecombat_menu_animation.GetPoint();
 
 	if (pause_menu_animation_bool && menu_pause) app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, offset + point * (-app->render->camera.y - offset));
 	else if (pause_menu_animation_bool) app->render->DrawTexture(pauseBG2Texture, -app->render->camera.x, -app->render->camera.y);
-
-	if (pausecombat_menu_animation_bool && app->battleManager->isPaused) app->render->DrawTexture(pauseBGTexture, 0, offset2 + point2 * (-app->render->camera.y - offset2));
-	else if (pausecombat_menu_animation_bool) app->render->DrawTexture(pauseBG2Texture, 0, 0);
 
 	//// Pergami fons level up screen
 	//if (app->teamManager->active && app->teamManager->lvlupbool)
@@ -453,7 +466,8 @@ bool UIModule::PostUpdate()
 
 	if (currentMenuType == PARTY)
 	{
-		app->render->DrawTexture(lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
+		app->render->DrawTexture(lvlupTexture, -app->render->camera.x, offset3 + point3 * (-app->render->camera.y - offset3 - 200));
+		//app->render->DrawTexture(lvlupTexture, -app->render->camera.x, -app->render->camera.y - 200);
 
 		app->fonts->DrawText("PARTY", 800, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
 
@@ -483,9 +497,9 @@ bool UIModule::PostUpdate()
 		app->render->DrawTexture(optionsBgTexture, -app->render->camera.x, -app->render->camera.y, NULL);
 	}
 
-	if (currentMenuType == PAUSE || currentMenuType == COMBAT_PAUSE)
+	if (currentMenuType == COMBAT_PAUSE)
 	{
-		
+		app->render->DrawTexture(pauseBG2Texture, -app->render->camera.x, offset4 + point4 * (-app->render->camera.y - offset4));
 		
 		//app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, -app->render->camera.y);
 	}
@@ -1308,7 +1322,7 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 
 		// Party
 	case 24:
-
+		app->uiModule->party_menu_animation.Foward();
 		CheckPartyTextOnStart();
 
 		// Tell to UIModule which currentMenuType
@@ -1354,6 +1368,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 		// Return pressed --> return from options to pause menu
 	case 102:
+		app->uiModule->inventory_menu_animation.Backward();
+		app->uiModule->party_menu_animation.Backward();
 		pausemenuCombat_resume_button->state = GuiControlState::NORMAL;
 		pausemenuCombat_options_button->state = GuiControlState::NORMAL;
 		pausemenuCombat_quit_button->state = GuiControlState::NORMAL;

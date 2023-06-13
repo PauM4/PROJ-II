@@ -125,7 +125,7 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	//player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
+	player->walkFx = app->audio->LoadFx("Assets/Sounds/FX/fx_grass_walk.wav");
 	ropeFX = app->audio->LoadFx("Assets/Sounds/FX/fx_water_splash.wav");
 
 	app->entityManager->Start();
@@ -420,7 +420,7 @@ void Scene::MenuAppear()
 
 	if (app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN && !app->teamManager->lvlupbool)
 	{
-		app->uiModule->pause_menu_animation_bool = true;
+		//app->uiModule->pause_menu_animation_bool = true;
 		// If player is in pause, close it
 		if (player->playerState == player->PlayerState::PAUSE)
 		{

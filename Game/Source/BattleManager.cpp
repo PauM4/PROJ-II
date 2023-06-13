@@ -1299,14 +1299,14 @@ void BattleManager::PauseMenuAppear()
 {
 	if (app->uiModule->currentMenuType == COMBAT)
 	{
-		app->uiModule->pause_menu_animation.Backward();
+		app->uiModule->pausecombat_menu_animation.Foward();
 		app->uiModule->currentMenuType = COMBAT_PAUSE;
 		// Call this function only when scene is changed
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 	}
 	else
 	{
-		app->uiModule->pause_menu_animation.Foward();
+		app->uiModule->pausecombat_menu_animation.Backward();
 		app->uiModule->currentMenuType = COMBAT;
 		// Call this function only when scene is changed
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
