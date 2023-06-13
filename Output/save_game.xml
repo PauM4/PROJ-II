@@ -70,5 +70,5 @@
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="true" isLRRHDefeated="true" isPigDefeated="true" isPereDefeated="" isWolfDefeated="true" />
+	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="true" />
 </save_state>
