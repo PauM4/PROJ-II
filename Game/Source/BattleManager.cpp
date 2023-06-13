@@ -641,7 +641,7 @@ void BattleManager::UIStatsForBattle()
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &MPigPicRect);
 			}
 			// CAL CANVIAR EL NOM QUAN ES TINGUI
-			else if (turnList.At(0)->data->name == "wolf")
+			else if (turnList.At(0)->data->name == "enemy_wolf")
 			{
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 315, 945, &corrWolfPicRect);
 			}
@@ -690,7 +690,7 @@ void BattleManager::UIStatsForBattle()
 			{
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &MPigPicRect);
 			}
-			else if (turnList.At(1)->data->name == "wolf")
+			else if (turnList.At(1)->data->name == "enemy_wolf")
 			{
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 660, &corrWolfPicRect);
 			}
@@ -741,11 +741,72 @@ void BattleManager::UIStatsForBattle()
 			{
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &MPigPicRect);
 			}
-			else if (turnList.At(2)->data->name == "wolf")
+			else if (turnList.At(2)->data->name == "enemy_wolf")
 			{
 				app->render->DrawTexture(app->uiModule->smallCharPicTexture, 1735, 800, &corrWolfPicRect);
 			}
 		}
+
+		// HOVER ATTACK BUTTON INFO DRAW:
+		if (app->uiModule->combat_attack_button->state == GuiControlState::FOCUSED)
+		{
+			uint attackNum = turnList.At(0)->data->attack;
+			std::string attackString = std::to_string(attackNum);
+			const char* attackChar = attackString.c_str();
+
+			app->fonts->DrawText(attackChar, 1500, 962, 100, 100, { 194, 168, 130 });
+
+			// Stamina
+			uint staminaNum = turnList.At(0)->data->stamina;
+			std::string staminaString = std::to_string(staminaNum);
+			const char* staminaChar = staminaString.c_str();
+			app->fonts->DrawText(staminaChar, 1616, 962, 100, 100, { 194, 168, 130 });
+
+			app->input->GetMousePosition(mouseX, mouseY);
+			app->render->DrawTexture(app->uiModule->descriptionScrollTexture, mouseX - 185, mouseY - 185, NULL);
+			app->fonts->DrawTextParagraph(turnList.At(0)->data->attackDescription, mouseX - 145, mouseY - 150, 300, 100, { 0, 0, 0 });
+
+			if (turnList.At(0)->data->Ab1RangeType == 1)
+			{
+				// Lineal
+				app->fonts->DrawText("Lineal", 1550, 1016, 100, 100, { 194, 168, 130 });
+			}
+
+
+		}
+
+		// HOVER ABILITY BUTTON INFO DRAW:
+		if (app->uiModule->combat_ability_button->state == GuiControlState::FOCUSED)
+		{
+			uint powerNum = turnList.At(0)->data->Ab1Power;
+			std::string powerString = std::to_string(powerNum);
+			const char* powerChar = powerString.c_str();
+
+			app->fonts->DrawText(powerChar, 1500, 962, 100, 100, { 194, 168, 130 });
+
+			// Stamina
+			uint staminaNum = turnList.At(0)->data->stamina;
+			std::string staminaString = std::to_string(staminaNum);
+			const char* staminaChar = staminaString.c_str();
+			app->fonts->DrawText(staminaChar, 1616, 962, 100, 100, { 194, 168, 130 });
+
+			app->input->GetMousePosition(mouseX, mouseY);
+			app->render->DrawTexture(app->uiModule->descriptionScrollTexture, mouseX - 185, mouseY - 185, NULL);
+
+			app->fonts->DrawTextParagraph(turnList.At(0)->data->abilityDescription, mouseX - 145, mouseY - 150, 300, 100, { 0, 0, 0 });
+
+			if (turnList.At(0)->data->Ab1RangeType == 1)
+			{
+				// Lineal
+				app->fonts->DrawText("Lineal", 1550, 1016, 100, 100, { 194, 168, 130 });
+			}
+			else if (turnList.At(0)->data->Ab1RangeType == 2)
+			{
+				// Circular
+				app->fonts->DrawText("Area", 1550, 1016, 100, 100, { 194, 168, 130 });
+			}
+		}
+
 	}
 
 	for (ListItem<Entity*>* allyItem = allies.start; allyItem != NULL; allyItem = allyItem->next) {

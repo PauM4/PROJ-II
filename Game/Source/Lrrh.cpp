@@ -95,6 +95,12 @@ bool Lrrh::Awake()
 
 	prehealth = health;
 	PrevPos = position;
+
+	// Attacks description
+	attackDescription = "Shots an arrow";
+	abilityDescription = "Shoot a magic arrow!";
+
+
 	return true;
 }
 

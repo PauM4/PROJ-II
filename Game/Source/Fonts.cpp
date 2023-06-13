@@ -218,3 +218,29 @@ bool Fonts::DrawText(const char* text, int posx, int posy, int w, int h, SDL_Col
 	SDL_DestroyTexture(texture);
 	return ret;
 }
+
+bool Fonts::DrawTextParagraph(const char* text, int posx, int posy, int w, int h, SDL_Color color, int font_id, bool followCam) {
+
+	bool ret = true;
+	int result = -1;
+	SDL_Rect rect = { posx, posy, w, h };
+	SDL_Texture* texture = LoadRenderedParagraph(rect, font_id, text, color, rect.w);
+
+	if (followCam)
+	{
+		result = app->render->DrawTexture(texture, posx - app->render->camera.x, posy - app->render->camera.y, NULL);
+	}
+	else
+	{
+		result = app->render->DrawTexture(texture, posx, posy, NULL);
+	}
+
+	if (result != 0)
+	{
+		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	SDL_DestroyTexture(texture);
+	return ret;
+}

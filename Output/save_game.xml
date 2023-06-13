@@ -13,7 +13,7 @@
 	<scene>
 		<player />
 		<rope_minigame rope_minigame_state="false" />
-		<saveBattleTutoState state="0" />
+		<saveBattleTutoState state="3" />
 		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
@@ -22,7 +22,7 @@
 	<sceneFoxQuest />
 	<battleScene_Pigs />
 	<w2_scene>
-		<player />
+		<player x="-57" y="-52" />
 		<stepQuest num="0" />
 	</w2_scene>
 	<w2_scene_maze>

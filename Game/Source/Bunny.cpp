@@ -84,6 +84,12 @@ bool Bunny::Awake()
 	currentAnimation = &idleAnim;
 	abilityAnimation = &none;
 	PrevPos = position;
+
+
+	// Attacks description
+	attackDescription = "Cast a magic thunder";
+	abilityDescription = "Cast a magic super thunder!";
+
 	return true;
 }
 
