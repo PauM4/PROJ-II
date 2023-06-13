@@ -135,6 +135,7 @@ public:
 	SDL_Texture* interactTutorialTextutre;
 	SDL_Texture* lvlupTexture;
 	SDL_Texture* inventoryScrollTexture;
+	SDL_Texture* comicTexture; 
 
 	// Battle tutorial
 	SDL_Texture* battleTutoTexture;

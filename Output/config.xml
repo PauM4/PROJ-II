@@ -102,6 +102,9 @@
 	
 	<w3_scene name="Assets/Maps/World_03/wolfWorld.tmx" path="Assets/Maps/World_03/">
 		<player x="0" y="0" texturepath="Assets/Characters/Medidas_sprites_anim-sombra_def.png" bunnyTexturepath="Assets/Characters/F_sprites_bunny.png"/>
+
+		<!--Portal to W2 -->
+		<portal x="794" y="2860" width="124" height="240" nextScene="9" nextPlayerX="0" nextPlayerY="0" texturepath="Assets/Maps/Portal.png"/>
 	</w3_scene>
 
 	
@@ -133,7 +136,7 @@
 	<battleScene_Wolf name="Assets/Maps/World_03/wolfBattle.tmx" path="Assets/Maps/World_03/">
 
 		<enemy_wolf x="960" y="480"/>
-		<enemy_finalwolf x="960" y="480"/>
+		<enemy_finalwolf x="960" y="360"/>
 	
 
 	</battleScene_Wolf>
@@ -171,5 +174,6 @@
 	<littlePig level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
 	<middlePig level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
 	<peter level="1" health="20" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="2" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="3" />
-	<wolf level="1" health="30" maxHealth="20" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="3" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
+	<wolf level="1" health="40" maxHealth="40" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="3" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
+	<finalwolf level="1" health="40" maxHealth="40" defense="3" magic="1" stamina="15" maxStamina="15" speed="6" attack="10" AttArea="3" Ab1Type="1" Ab1Area="3" Ab1RangeType="1" Ab1Power="18" Ab2Type="0" Ab2Area="0" Ab2RangeType="0" Ab2Power="0" healingpower="0" movement="4" />
 </config>

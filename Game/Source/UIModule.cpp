@@ -571,10 +571,13 @@ bool UIModule::PostUpdate()
 			// Tutorial Textures here (on top of quest)
 			if (app->scene->basicTutorialCounter == 0)
 			{
-				app->render->DrawTexture(app->scene->moveTutorialTextutre, -app->render->camera.x, -app->render->camera.y);
+				app->render->DrawTexture(app->scene->comicTexture, -app->render->camera.x, -app->render->camera.y);
 			}
 			else if (app->scene->basicTutorialCounter == 1)
 			{
+				app->render->DrawTexture(app->scene->moveTutorialTextutre, -app->render->camera.x, -app->render->camera.y);
+			}
+			else if (app->scene->basicTutorialCounter == 2) {
 				app->render->DrawTexture(app->scene->interactTutorialTextutre, -app->render->camera.x, -app->render->camera.y);
 			}
 			else // If no longer tutorial, print Quest

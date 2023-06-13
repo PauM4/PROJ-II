@@ -7,6 +7,7 @@
 #include "List.h"
 #include "UIModule.h"
 #include "Enemy_Wolf.h"
+#include "Enemy_FinalWolf.h"
 #include "SDL_Timer.h"
 
 struct SDL_Texture;
@@ -57,6 +58,8 @@ private:
 
 	Enemy_Wolf* wolf;
 	iPoint wolfPrevPos;
+	Enemy_FinalWolf* finalwolf;
+	iPoint finalwolfPrevPos;
 
 	int frames = 0;
 	
