@@ -106,8 +106,8 @@ bool Timmy::Start()
 	prehealth = health;
 
 	// Attacks description
-	attackDescription = "Melee attack with the yo-yo";
-	abilityDescription = "Circular attack with the yo-yo";
+	attackDescription = "Throw the yo-yo with power!";
+	abilityDescription = "Circular attack with the yo-yo!";
 	return true;
 }
 
