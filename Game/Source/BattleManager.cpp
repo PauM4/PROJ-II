@@ -92,7 +92,7 @@ bool BattleManager::PreUpdate() {
 
 bool BattleManager::Update(float dt) {
 
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && app->uiModule->currentMenuType == COMBAT) {
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 		app->uiModule->pausecombat_menu_animation_bool = true;
 		PauseMenuAppear();
 	}
@@ -1297,25 +1297,20 @@ void BattleManager::LiveCondition() {
 
 void BattleManager::PauseMenuAppear()
 {
-	// If player is in pause, close it
-	if (!isPaused)
+	if (app->uiModule->currentMenuType == COMBAT)
 	{
-		//app->uiModule->pausecombat_menu_animation.Foward();
-		app->uiModule->currentMenuType = COMBAT;
-		// Call this function only when scene is changed
-		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-		app->uiModule->menu_pause_combat = true;
-		isPaused = true;
-	}
-	// If player is NOT in pause, open it
-	else
-	{
-		//app->uiModule->pausecombat_menu_animation.Backward();
+		app->uiModule->pause_menu_animation.Backward();
 		app->uiModule->currentMenuType = COMBAT_PAUSE;
 		// Call this function only when scene is changed
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-		app->uiModule->menu_pause_combat = true;
-		isPaused = false;
+	}
+	else
+	{
+		app->uiModule->pause_menu_animation.Foward();
+		app->uiModule->currentMenuType = COMBAT;
+		// Call this function only when scene is changed
+		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
 	}
 }
 

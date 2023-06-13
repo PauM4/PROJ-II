@@ -390,7 +390,7 @@ bool UIModule::PostUpdate()
 
 	if (currentMenuType == INVENTORY)
 	{
-		app->render->DrawTexture(inventoryScrollTexture, -app->render->camera.x, offset2 + point2 * (-app->render->camera.y - offset2));
+		app->render->DrawTexture(inventoryScrollTexture, -app->render->camera.x, offset2 + point2 * (-app->render->camera.y - offset2-200));
 		//app->render->DrawTexture(inventoryScrollTexture, -app->render->camera.x, -app->render->camera.y - 200);
 
 		app->fonts->DrawText("INVENTORY", 640, 150, 100, 100, { 255, 255, 255 }, app->fonts->gameFontBig, true);
