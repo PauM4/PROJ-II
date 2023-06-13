@@ -20,6 +20,7 @@
 #include "Enemy_LittlePig.h"
 #include "Enemy_MiddlePig.h"
 #include"Enemy_Wolf.h"
+#include"Enemy_FinalWolf.h"
 #include "Portal.h"
 #include "Log.h"
 
@@ -161,6 +162,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::WOLF:
 		entity = new Enemy_Wolf();
+		break;
+	case EntityType::FINALWOLF:
+		entity = new Enemy_FinalWolf();
 		break;
 	default: break;
 	}

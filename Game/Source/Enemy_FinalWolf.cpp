@@ -1,4 +1,4 @@
-#include "Enemy_Wolf.h"
+#include "Enemy_FinalWolf.h"
 
 #include "App.h"
 #include "Textures.h"
@@ -13,10 +13,10 @@
 #include "BattleManager.h"
 
 
-Enemy_Wolf::Enemy_Wolf() : Entity(EntityType::WOLF) {
+Enemy_FinalWolf::Enemy_FinalWolf() : Entity(EntityType::FINALWOLF) {
 
-	name.Create("enemy_wolf");
-	namechar.Create("Wolf");
+	name.Create("enemy_finalwolf");
+	namechar.Create("FinalWolf");
 	isAlive = true;
 	battleState = IDLE;
 	//Behavior Tree
@@ -37,10 +37,10 @@ Enemy_Wolf::Enemy_Wolf() : Entity(EntityType::WOLF) {
 	behaviorTree->SetDebugEnabled(true);
 
 }
-Enemy_Wolf::~Enemy_Wolf() {
+Enemy_FinalWolf::~Enemy_FinalWolf() {
 
 }
-bool Enemy_Wolf::Awake()
+bool Enemy_FinalWolf::Awake()
 {
 	id = 3;
 	position.x = parameters.attribute("x").as_int();
@@ -67,18 +67,18 @@ bool Enemy_Wolf::Awake()
 	movement = stats.attribute("movement").as_int();
 	isEnemy = true;
 
-	idleAnim.PushBack({ 0, 0, 200, 200 });
+	idleAnim.PushBack({ 0, 0, 225, 225 });
 	idleAnim.loop = true;
 
-	takedmgAnim.PushBack({ 200, 0, 200, 200 });
-	takedmgAnim.PushBack({ 200, 0, 200, 200 });
-	takedmgAnim.PushBack({ 200, 0, 200, 200 });
-	takedmgAnim.PushBack({ 200, 0, 200, 140 });
+	takedmgAnim.PushBack({ 1575, 0, 225, 225 });
+	takedmgAnim.PushBack({ 1575, 0, 225, 225 });
+	takedmgAnim.PushBack({ 1575, 0, 225, 225 });
+	takedmgAnim.PushBack({ 1575, 0, 225, 225 });
 	takedmgAnim.loop = false;
 	takedmgAnim.speed = 0.20f;
 
 	for (int i = 0; i < 5; i++) {
-		abilityAnim.PushBack({ (i * 200) + 600, 0, 200, 200 });
+		abilityAnim.PushBack({ (i * 225) + 225, 0, 225, 225 });
 	}
 	abilityAnim.loop = false;
 	abilityAnim.speed = 0.25;
@@ -86,34 +86,34 @@ bool Enemy_Wolf::Awake()
 
 	for (int i = 0; i < 6; i++) //penutlima:cabezon
 	{
-		walkDownAnim.PushBack({ (i * 200), 200, 200, 200 });
+		walkDownAnim.PushBack({ (i * 225), 225, 225, 225 });
 	}
 	walkDownAnim.loop = true;
 	walkDownAnim.speed = 0.15f;
 
 	for (int i = 0; i < 6; i++)
 	{
-		walkUpAnim.PushBack({ (i * 200), 800, 200, 200 });
+		walkUpAnim.PushBack({ ( 225), 900, 225, 225 });
 	}
 	walkUpAnim.loop = true;
 	walkUpAnim.speed = 0.15f;
 
 	for (int i = 0; i < 6; i++)
 	{
-		walkRightAnim.PushBack({ (i * 200), 600, 200, 200 });
+		walkRightAnim.PushBack({ (i * 225), 450, 225, 225 });
 	}
 	walkRightAnim.loop = true;
 	walkRightAnim.speed = 0.15f;
 
 	for (int i = 0; i < 6; i++)
 	{
-		walkLeftAnim.PushBack({ (i * 200), 400, 200, 200 });
+		walkLeftAnim.PushBack({ (i * 225), 675, 225, 225 });
 	}
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
 
-	texture = app->tex->Load("Assets/Characters/Lobo_Encapuchado.png");
+	texture = app->tex->Load("Assets/Characters/Lobo_Corrompido.png");
 
 	IconGtexture = app->tex->Load("Assets/UI/WolfIconG.png");
 	Icontexture = app->tex->Load("Assets/UI/WolfIcon.png");	
@@ -125,13 +125,13 @@ bool Enemy_Wolf::Awake()
 	return true;
 }
 
-bool Enemy_Wolf::Start()
+bool Enemy_FinalWolf::Start()
 {
 	abilityFx = app->audio->LoadFx("Assets/Sounds/FX/fx_knife.wav");
 	return true;
 }
 
-bool Enemy_Wolf::Update(float dt)
+bool Enemy_FinalWolf::Update(float dt)
 {
 	currentAnimation->Update();
 
@@ -139,12 +139,12 @@ bool Enemy_Wolf::Update(float dt)
 	return true;
 }
 
-bool Enemy_Wolf::PostUpdate()
+bool Enemy_FinalWolf::PostUpdate()
 {
 	//Render
 	if (health > 0) {
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		app->render->DrawTexture(texture, position.x - 35, position.y - 70, &rect);
+		app->render->DrawTexture(texture, position.x - 55, position.y - 90, &rect);
 	}
 
 	if (currentAnimation == &abilityAnim)
@@ -160,42 +160,42 @@ bool Enemy_Wolf::PostUpdate()
 	return true;
 }
 
-bool Enemy_Wolf::CleanUp()
+bool Enemy_FinalWolf::CleanUp()
 {
 	return true;
 }
 
-bool Enemy_Wolf::LoadState(pugi::xml_node&)
+bool Enemy_FinalWolf::LoadState(pugi::xml_node&)
 {
 	return true;
 }
 
-bool Enemy_Wolf::SaveState(pugi::xml_node&)
+bool Enemy_FinalWolf::SaveState(pugi::xml_node&)
 {
 	return true;
 }
 
-void Enemy_Wolf::OnCollision(PhysBody* physA, PhysBody* physB)
+void Enemy_FinalWolf::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 
 }
 
-int Enemy_Wolf::GetState()
-{
-	return 0;
-}
-
-int Enemy_Wolf::Attack()
+int Enemy_FinalWolf::GetState()
 {
 	return 0;
 }
 
-int Enemy_Wolf::Ability(int id)
+int Enemy_FinalWolf::Attack()
 {
 	return 0;
 }
 
-void Enemy_Wolf::Movement()
+int Enemy_FinalWolf::Ability(int id)
+{
+	return 0;
+}
+
+void Enemy_FinalWolf::Movement()
 {
 
 
@@ -203,14 +203,14 @@ void Enemy_Wolf::Movement()
 }
 
 
-NodeStatus Enemy_Wolf::GetCloser::Run() {
+NodeStatus Enemy_FinalWolf::GetCloser::Run() {
 	//Hacemos que actionType sea Move para que se mueva cuando entre al estado Inactive
 	app->battleManager->actionType = ActionType::MOVE;
 
 	return NodeStatus::Success;
 }
 
-NodeStatus Enemy_Wolf::Shoot::Run() {
+NodeStatus Enemy_FinalWolf::Shoot::Run() {
 
 	//Ataca al player
 	app->battleManager->TriggerAIAttack();
@@ -223,7 +223,7 @@ NodeStatus Enemy_Wolf::Shoot::Run() {
 	return NodeStatus::Success;
 }
 
-NodeStatus Enemy_Wolf::MoveAway::Run() {
+NodeStatus Enemy_FinalWolf::MoveAway::Run() {
 	// implementacion detallada del nodo
 	return NodeStatus::Success;
 }

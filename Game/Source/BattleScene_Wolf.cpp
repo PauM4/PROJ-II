@@ -57,7 +57,12 @@ bool BattleScene_Wolf::Awake(pugi::xml_node& config) {
 		app->battleManager->AddCharacter(wolf, wolf->parameters.attribute("x").as_int() / 120, wolf->parameters.attribute("y").as_int() / 120, true);
 	}
 
-	
+	if (config.child("enemy_finalwolf")) {
+		finalwolf = (Enemy_FinalWolf*)app->entityManager->CreateEntity(EntityType::FINALWOLF);
+		finalwolf->parameters = config.child("enemy_finalwolf");
+		finalwolf->stats = config.parent().child("finalwolf");
+		app->battleManager->AddCharacter(finalwolf, finalwolf->parameters.attribute("x").as_int() / 120, finalwolf->parameters.attribute("y").as_int() / 120, true);
+	}
 
 	app->entityManager->Awake(config);
 	app->battleManager->Enable();
@@ -97,6 +102,7 @@ bool BattleScene_Wolf::Start() {
 
 
 	wolfPrevPos = wolf->position;
+	finalwolfPrevPos = finalwolf->position;
 
 	return true;
 }
@@ -232,11 +238,65 @@ void BattleScene_Wolf::MoveAnimation(const char* name)
 		wolfPrevPos.x = wolf->position.x;
 		wolfPrevPos.y = wolf->position.y;
 	}
+
+	if (strcmp(name, "enemy_finalwolf") == 0)
+	{
+		if ((app->battleManager->actionType == ActionType::ATTACK || app->battleManager->actionType == ActionType::ABILITY) && app->battleManager->battleState == BattleState::INACTION)
+		{
+			if (finalwolf->name == app->battleManager->currentTurn->name)
+			{
+				finalwolf->currentAnimation = &finalwolf->abilityAnim;
+
+
+			}
+		}
+		//Moverse a la derecha
+		else if (finalwolf->position.x > finalwolfPrevPos.x)
+		{
+			finalwolf->currentAnimation = &finalwolf->walkRightAnim;
+		}
+		//Moverse a la izquierda
+		else if (finalwolf->position.x < finalwolfPrevPos.x)
+		{
+			finalwolf->currentAnimation = &finalwolf->walkLeftAnim;
+		}
+		//Moverse a abajo
+		else if (finalwolf->position.y > finalwolfPrevPos.y)
+		{
+			finalwolf->currentAnimation = &finalwolf->walkDownAnim;
+		}
+		//Moverse a arriba
+		else if (finalwolf->position.y < finalwolfPrevPos.y)
+		{
+			finalwolf->currentAnimation = &finalwolf->walkUpAnim;
+		}
+		else if (finalwolf->position.y == finalwolfPrevPos.y && finalwolf->position.x == finalwolfPrevPos.x)
+		{
+
+			if (frames > 60)
+			{
+				finalwolf->currentAnimation = &finalwolf->idleAnim;
+				frames = 0;
+			}
+			else
+			{
+				frames++;
+			}
+		}
+
+		finalwolfPrevPos.x = finalwolf->position.x;
+		finalwolfPrevPos.y = finalwolf->position.y;
+	}
 }
 
 void BattleScene_Wolf::TakeDamageAnimation(const char* name)
 {
 	//Animación de ser dañado
+
+	if (strcmp(name, "enemy_wolf") == 0)
+	{
+		wolf->currentAnimation = &wolf->takedmgAnim;
+	}
 
 	if (strcmp(name, "enemy_wolf") == 0)
 	{

@@ -106,6 +106,7 @@
     <ClCompile Include="Source\Door.cpp" />
     <ClCompile Include="Source\Enemy_AngryVillager.cpp" />
     <ClCompile Include="Source\Enemy_CorruptedSprout.cpp" />
+    <ClCompile Include="Source\Enemy_FinalWolf.cpp" />
     <ClCompile Include="Source\Enemy_LittlePig.cpp" />
     <ClCompile Include="Source\Enemy_LRRH.cpp" />
     <ClCompile Include="Source\Enemy_MiddlePig.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Source\Door.h" />
     <ClInclude Include="Source\Enemy_AngryVillager.h" />
     <ClInclude Include="Source\Enemy_CorruptedSprout.h" />
+    <ClInclude Include="Source\Enemy_FinalWolf.h" />
     <ClInclude Include="Source\Enemy_LittlePig.h" />
     <ClInclude Include="Source\Enemy_LRRH.h" />
     <ClInclude Include="Source\Enemy_MiddlePig.h" />
