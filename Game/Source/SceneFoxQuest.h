@@ -119,6 +119,8 @@ public:
 	SDL_Texture* mapTexture; 
 
 	bool movingRock;
+	bool rockQuestCompleted;
+
 
 	//SFX audios
 	int cantmoveFx = -1;

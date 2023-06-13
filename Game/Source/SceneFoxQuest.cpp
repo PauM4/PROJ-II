@@ -1,4 +1,5 @@
 #include "SceneFoxQuest.h"
+#include "W2_Scene.h"
 #include "App.h"
 #include "Input.h"
 #include "Textures.h"
@@ -32,6 +33,9 @@ bool SceneFoxQuest::Awake(pugi::xml_node& config)
 	rockTexture = app->tex->Load("Assets/Maps/World_02/Assets/RocasCueva.png");
 	mapTexture = app->tex->Load("Assets/Maps/World_02/Assets/Cueva_puzzle.png");
 	movingRock = false; 
+
+	rockQuestCompleted = false;
+
 	return true;
 }
 
@@ -300,6 +304,7 @@ void SceneFoxQuest::Movement()
 	}
 
 	if (map[player->pos.x][player->pos.y]->state == TileState::EXIT) {
+		rockQuestCompleted = true;
 		app->sceneManager->LoadScene(GameScene::W2_SCENE); //Change to world 2
 	}
 

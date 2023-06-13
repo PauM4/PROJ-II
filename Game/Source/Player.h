@@ -146,6 +146,7 @@ public:
 	bool isChest4Pickable;
 	bool isChest5Pickable;
 	bool isChest6Pickable;
+	bool isChestPedroPickable;
 
 	bool triggerBunnyDialogue;
 	bool endBunnyDialogue;
