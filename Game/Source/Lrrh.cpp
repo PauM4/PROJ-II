@@ -86,7 +86,7 @@ bool Lrrh::Awake()
 	walkLeftAnim.loop = true;
 	walkLeftAnim.speed = 0.15f;
 
-	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh-n.png");
+	texture = app->tex->Load("Assets/Characters/F_sprites_lrrh_n.png");
 	IconGtexture = app->tex->Load("Assets/UI/RedHoodieIconG.png");
 	Icontexture = app->tex->Load("Assets/UI/RedHoodieIcon.png");
 
