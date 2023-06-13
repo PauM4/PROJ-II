@@ -288,6 +288,11 @@ public:
 	SDL_Rect MPigPicRect;
 	SDL_Rect corrWolfPicRect;
 
+
+	Tween pause_menu_animation;
+
+	bool menu_animation;
+
 private:
 
 };

@@ -380,9 +380,11 @@ void Scene::MenuAppear()
 {
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && !app->teamManager->lvlupbool)
 	{
+		app->uiModule->menu_animation = true;
 		// If player is in pause, close it
 		if (player->playerState == player->PlayerState::PAUSE)
 		{
+			app->uiModule->pause_menu_animation.Backward();
 			player->playerState = player->playerPrevState;
 
 			app->uiModule->currentMenuType = DISABLED;
@@ -396,6 +398,8 @@ void Scene::MenuAppear()
 		// If player is NOT in pause, open it
 		else
 		{
+			app->uiModule->pause_menu_animation.Foward();
+	
 			// Save previous state to go back
 			player->playerPrevState = player->playerState;
 			player->playerState = player->PlayerState::PAUSE;
@@ -512,6 +516,18 @@ void Scene::AppearDialogue()
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+
+	
+
+	app->uiModule->pause_menu_animation.Step(2, false);
+
+	int offset = -1080;
+
+	float point = app->uiModule->pause_menu_animation.GetPoint();
+
+	if(app->uiModule->menu_animation) app->render->DrawTexture(app->uiModule->pauseBGTexture, -app->render->camera.x, offset + point * (-app->render->camera.y - offset));
+
+	//-app->render->camera.y
 
 
 

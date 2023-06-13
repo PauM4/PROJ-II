@@ -6,6 +6,7 @@
 #include "GuiManager.h"
 #include "Fonts.h"
 #include "TeamManager.h"
+#include "UIModule.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, SDL_Texture* tex, const char* text) : GuiControl(GuiControlType::BUTTON, id) {
 	this->bounds = bounds;
@@ -75,6 +76,10 @@ bool GuiButton::Draw(Render* render)
 	rect.y = 0;
 	rect.w = bounds.w;
 	rect.h = bounds.h;
+
+	//app->render->DrawTexture(app->uiModule->pauseBGTexture, offset + point * (-2500 + offset), -app->render->camera.y);
+
+
 
 	switch (state)
 	{

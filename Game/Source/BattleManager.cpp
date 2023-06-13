@@ -1285,6 +1285,7 @@ void BattleManager::PauseMenuAppear()
 	// If player is in pause, close it
 	if (!isPaused)
 	{
+		app->uiModule->pause_menu_animation.Foward();
 		app->uiModule->currentMenuType = COMBAT;
 		// Call this function only when scene is changed
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
@@ -1294,6 +1295,7 @@ void BattleManager::PauseMenuAppear()
 	// If player is NOT in pause, open it
 	else
 	{
+		app->uiModule->pause_menu_animation.Backward();
 		app->uiModule->currentMenuType = COMBAT_PAUSE;
 		// Call this function only when scene is changed
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);

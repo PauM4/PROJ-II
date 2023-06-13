@@ -249,6 +249,11 @@ bool UIModule::Start()
 	//MPigPicRect = { 158, 349, 142, 111 };
 	//corrWolfPicRect = { 303, 349, 142, 111 };
 
+	pause_menu_animation.Set();
+	pause_menu_animation.smoothness = 4;
+	pause_menu_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+
+	menu_animation = false;
 	
 	return true;
 }
@@ -325,8 +330,10 @@ bool UIModule::Update(float dt)
 // Called each loop iteration
 bool UIModule::PostUpdate()
 {
+	
 	bool ret = true;
 
+	
 
 	//// Pergami fons level up screen
 	//if (app->teamManager->active && app->teamManager->lvlupbool)
@@ -456,7 +463,9 @@ bool UIModule::PostUpdate()
 
 	if (currentMenuType == PAUSE || currentMenuType == COMBAT_PAUSE)
 	{
-		app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, -app->render->camera.y);
+		
+		
+		//app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, -app->render->camera.y);
 	}
 
 	// Pergami fons level up screen
@@ -474,7 +483,7 @@ bool UIModule::PostUpdate()
 		app->battleManager->DrawResult(); 
 	}
 
-
+	
 	// SCENE 1 UI
 	if (app->scene->active) {
 
