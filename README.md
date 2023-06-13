@@ -1,6 +1,8 @@
 # Timmy and the corrupted Dreamland
 
+## [Official Website](https://timmyandthecorrupteddreamland.vercel.app/index.html)
 ## [Github Link](https://github.com/PauM4/TimmyAndTheCorruptedDreamland)
+## [Official Trailer](https://youtu.be/3B7PQrMxQCc)
 
 ## Description
 
