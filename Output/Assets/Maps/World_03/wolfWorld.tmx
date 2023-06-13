@@ -1,262 +1,262 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="32" height="43" tilewidth="120" tileheight="120" infinite="1" nextlayerid="102" nextobjectid="779">
  <imagelayer id="2" name="BG">
-  <image source="Assets/Maps/World_03/Assets/Mundo_lobo_bg.png"/>
+  <image source="Assets/Maps/World_03/Assets/Mundo_lobo_bg.png" width="2368" height="3159"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="59" name="rock_01" offsetx="1192" offsety="2741.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_01.png" width="36" height="107"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="77" name="Copy of rock_01" offsetx="1942" offsety="1777.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_01.png" width="36" height="107"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="73" name="Copy of rock_01" offsetx="1924" offsety="1825.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_01.png" width="36" height="107"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="60" name="rock_02" offsetx="984" offsety="2527.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_02.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_02.png" width="48" height="132"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="83" name="Copy of rock_02" offsetx="778" offsety="1339.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_02.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_02.png" width="48" height="132"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="61" name="rock_03" offsetx="802" offsety="2247.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_03.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_03.png" width="106" height="99"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="82" name="Copy of rock_03" offsetx="544" offsety="1493.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_03.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_03.png" width="106" height="99"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="76" name="Copy of rock_03" offsetx="1876" offsety="1517.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_03.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_03.png" width="106" height="99"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="70" name="Copy of rock_03" offsetx="1766" offsety="1939.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_03.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_03.png" width="106" height="99"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="62" name="rock_04" offsetx="1192" offsety="2143.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_04.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_04.png" width="113" height="198"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="74" name="Copy of rock_04" offsetx="1780" offsety="1335.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_04.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_04.png" width="113" height="198"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="63" name="rock_05" offsetx="590" offsety="1999.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_05.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_05.png" width="136" height="218"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="87" name="Copy of rock_05" offsetx="1396" offsety="963.333">
-  <image source="Assets/Maps/World_03/Assets/Rock_05.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_05.png" width="136" height="218"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="75" name="Copy of rock_05" offsetx="1782" offsety="1449.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_05.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_05.png" width="136" height="218"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="64" name="rock_06" offsetx="1432" offsety="2079.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_06.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_06.png" width="59" height="170"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="86" name="Copy of rock_06" offsetx="1532" offsety="1079.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_06.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_06.png" width="59" height="170"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="79" name="Copy of rock_06" offsetx="294" offsety="1733.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_06.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_06.png" width="59" height="170"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="78" name="Copy of rock_06" offsetx="336" offsety="1781.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_06.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_06.png" width="59" height="170"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="65" name="rock_07" offsetx="944" offsety="2683.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_07.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_07.png" width="54" height="139"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="85" name="Copy of rock_07" offsetx="1568" offsety="1197.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_07.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_07.png" width="54" height="139"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="66" name="rock_08" offsetx="1728" offsety="1987.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_08.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_08.png" width="68" height="147"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="80" name="Copy of rock_08" offsetx="406" offsety="1519.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_08.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_08.png" width="68" height="147"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="67" name="rock_09" offsetx="724" offsety="1363.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_09.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_09.png" width="40" height="109"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="84" name="Copy of rock_09" offsetx="1070" offsety="1131.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_09.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_09.png" width="40" height="109"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="81" name="Copy of rock_09" offsetx="252" offsety="1655.33">
-  <image source="Assets/Maps/World_03/Assets/Rock_09.png"/>
+  <image source="Assets/Maps/World_03/Assets/Rock_09.png" width="40" height="109"/>
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="68" name="pebble_01" offsetx="808" offsety="2109.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_01.png" width="79" height="42"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="100" name="Copy of pebble_01" offsetx="360" offsety="1705.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_01.png" width="79" height="42"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="99" name="Copy of pebble_01" offsetx="1524" offsety="1879.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_01.png" width="79" height="42"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="98" name="Copy of pebble_01" offsetx="1170" offsety="3047.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_01.png" width="79" height="42"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="97" name="Copy of pebble_01" offsetx="932" offsety="2921.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_01.png" width="79" height="42"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="91" name="Copy of pebble_01" offsetx="942" offsety="1431.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_01.png" width="79" height="42"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="90" name="Copy of pebble_01" offsetx="818" offsety="1957.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_01.png" width="79" height="42"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="88" name="Copy of pebble_01" offsetx="450" offsety="1981.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_01.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_01.png" width="79" height="42"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="69" name="pebble_02" offsetx="1644" offsety="1381.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_02.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_02.png" width="43" height="32"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="101" name="Copy of pebble_02" offsetx="1138" offsety="1179.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_02.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_02.png" width="43" height="32"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="96" name="Copy of pebble_02" offsetx="1188" offsety="2645.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_02.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_02.png" width="43" height="32"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="95" name="Copy of pebble_02" offsetx="1314" offsety="2069.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_02.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_02.png" width="43" height="32"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="94" name="Copy of pebble_02" offsetx="1836" offsety="1709.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_02.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_02.png" width="43" height="32"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="93" name="Copy of pebble_02" offsetx="1336" offsety="1303.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_02.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_02.png" width="43" height="32"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="92" name="Copy of pebble_02" offsetx="1408" offsety="1415.33">
-  <image source="Assets/Maps/World_03/Assets/Pebble_02.png"/>
+  <image source="Assets/Maps/World_03/Assets/Pebble_02.png" width="43" height="32"/>
   <properties>
    <property name="BG" type="bool" value="true"/>
    <property name="Draw" type="bool" value="true"/>

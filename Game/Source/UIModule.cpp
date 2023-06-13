@@ -1255,15 +1255,19 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	case 23:
 		if (currentMenuType == INVENTORY || currentMenuType == PARTY)
 		{
+
+			app->uiModule->inventory_menu_animation.Backward();
+			
+
 			app->teamManager->UpdateParty();
 			app->teamManager->ApplyEquipedItemStats();
 
 			if (app->teamManager->team.Count() > 0 && app->teamManager->team.Count() < 4)
 			{
 				errorWhenParty = false;
-
 				// Tweening pause background
 				pause_menu_animation.Foward();
+				app->uiModule->party_menu_animation.Backward();
 				app->uiModule->menu_pause = false;
 
 				// Tell to UIModule which currentMenuType
@@ -1327,6 +1331,9 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		app->uiModule->currentMenuType = INVENTORY;
 		// Call this function only when buttons change
 		app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+
+		app->uiModule->inventory_menu_animation.Foward();
+
 		break;
 
 		// Party

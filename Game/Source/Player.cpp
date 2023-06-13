@@ -775,6 +775,32 @@ void Player::InteractWithTree()
 			buttonOption4 = false;
 		}
 	}
+	else if (app->w3_scene->active) {
+		if (buttonOption1)
+		{
+			app->w3_scene->UpdateDialogueTree(1);
+			app->uiModule->CleaningDialogeOverTime();
+			buttonOption1 = false;
+		}
+		else if (buttonOption2)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w3_scene->UpdateDialogueTree(2);
+			buttonOption2 = false;
+		}
+		else if (buttonOption3)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w3_scene->UpdateDialogueTree(3);
+			buttonOption3 = false;
+		}
+		else if (buttonOption4)
+		{
+			app->uiModule->CleaningDialogeOverTime();
+			app->w3_scene->UpdateDialogueTree(4);
+			buttonOption4 = false;
+		}
+	}
 }
 
 //This function takes a ColliderType parameter and runs the corresponding dialogue tree in the game's scene

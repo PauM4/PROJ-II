@@ -488,6 +488,24 @@ bool TeamManager::Update(float dt)
 	}
 	//timmy->attack;
 	//bunny->magic;
+
+	//DEBUG
+
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+		istimmyplayable = false;
+		isbunnyplayable = false;
+		islrrhplayable = false;
+		islilpigplayable = false;
+		ismidpigplayable = false;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		istimmyplayable = true;
+		isbunnyplayable = true;
+		islrrhplayable = true;
+		islilpigplayable = true;
+		ismidpigplayable = true;
+	}
+
 	return true;
 
 }

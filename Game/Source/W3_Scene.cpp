@@ -231,7 +231,7 @@ bool W3_Scene::Update(float dt)
 			app->uiModule->menu_pause = true;
 		}
 	}
-
+	MoveToBattleFromDialogue();
 
 	// Draw map
 	app->map->Draw();
@@ -426,6 +426,7 @@ void W3_Scene::UpdateDialogueTree(int option)
 		{
 		case ColliderType::WOLF:
 			wolfTree->Update(option);
+			numTimesWolfDialogueTriggered++;
 			break;
 
 		default:
@@ -460,7 +461,7 @@ void W3_Scene::CreateDialogue()
 
 		//1st Level
 		auto firstOption1P = std::make_shared<DialogueNode>();
-		firstOption1P->SetText("I’m ready to fight.");
+		firstOption1P->SetText("I'm ready to fight.");
 		firstOption1P->AddChild(PToOption1);
 
 		auto firstOption2P = std::make_shared<DialogueNode>();
@@ -572,7 +573,7 @@ void W3_Scene::MoveToBattleFromDialogue()
 	if (timerToWolfCombat.Test() == estadoTimerP::FIN)
 	{
 		//Teleportar a GameScene::Pigcombat
-		//doors.At(0)->data->TriggerDoor(GameScene::BATTLE);
+		doors.At(0)->data->TriggerDoor(GameScene::COMBATWOLF);
 	}
 
 }
