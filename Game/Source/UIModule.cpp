@@ -1225,6 +1225,11 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 			if (app->teamManager->team.Count() > 0 && app->teamManager->team.Count() < 4)
 			{
 				errorWhenParty = false;
+
+				// Tweening pause background
+				pause_menu_animation.Foward();
+				app->uiModule->menu_pause = false;
+
 				// Tell to UIModule which currentMenuType
 				app->uiModule->currentMenuType = PAUSE;
 				// Call this function only when buttons change
