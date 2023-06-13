@@ -332,11 +332,11 @@ void BattleScene_Wolf::SaveResult()
 
 	if (app->battleManager->win)
 	{
-
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isWolfDefeated", "true");
 	}
 	else if (app->battleManager->lose)
 	{
-	
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isWolfDefeated", "false");
 	}
 
 }

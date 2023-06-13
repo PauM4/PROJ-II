@@ -110,8 +110,10 @@ public:
 	ParticleProps particle_dark1;
 	ParticleProps particle_dark2;
 	SDL_Texture* darkparticle_texture;
+	SDL_Texture* endComicTexture; 
 
 	bool takePortal;
+	bool finalBossDefeated; 
 
 private:
 

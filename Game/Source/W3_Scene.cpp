@@ -63,6 +63,7 @@ bool W3_Scene::Awake(pugi::xml_node& config)
 	inventoryItemsTexture = app->tex->Load("Assets/UI/itemImage_petita.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	darkparticle_texture = app->tex->Load("Assets/UI/dark_particle.png");
+	endComicTexture = app->tex->Load("Assets/UI/EndGame.png");
 
 
 	currentQuestIndex = 0;
@@ -260,6 +261,7 @@ void W3_Scene::AppearDialogue()
 bool W3_Scene::PostUpdate()
 {
 	bool ret = true;
+
 	if ((app->uiModule->offset + app->uiModule->point * (-app->render->camera.y - app->uiModule->offset)) >= -app->render->camera.y - 20 && app->uiModule->menu_pause) {
 		if (player->playerState == player->PlayerState::PAUSE) {
 			// Call this function only when scene is changed
@@ -268,12 +270,11 @@ bool W3_Scene::PostUpdate()
 		}
 
 	}
-
+	
 	if (!godMode) app->map->PostDraw(player->position.y + 40);
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-
 
 	// When exit button click, close app
 	if (exitButtonBool == true)
@@ -330,6 +331,7 @@ bool W3_Scene::CleanUp()
 	app->tex->UnLoad(inventoryItemsTexture);
 	app->tex->UnLoad(lvlupTexture);
 	app->tex->UnLoad(darkparticle_texture);
+	app->tex->UnLoad(endComicTexture); 
 
 	app->moduleParticles->CleanUp();
 
@@ -515,7 +517,6 @@ bool W3_Scene::LoadState(pugi::xml_node& data)
 		player->ChangePosition(loadPlayerPosX, loadPlayerPosY);
 	}
 
-	//player->ChangePosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
 	pugi::xml_node battleInfo = data.parent().child("BattleInfo");
 	wolfDefeated = battleInfo.attribute("isWolfDefeated").as_bool();

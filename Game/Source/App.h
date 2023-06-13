@@ -36,6 +36,7 @@ class W2_Scene_Maze;
 //World_03
 class W3_Scene;
 class BattleScene_Wolf;
+class EndScene; 
 
 //----------
 class SceneFoxQuest; 
@@ -141,6 +142,7 @@ public:
 	//World_03
 	W3_Scene* w3_scene;
 	BattleScene_Wolf* battleScene_Wolf;
+	EndScene* endScene; 
 
 	//----------
 	SceneFoxQuest* sceneFoxQuest; 

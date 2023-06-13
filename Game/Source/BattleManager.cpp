@@ -21,6 +21,7 @@
 #include "SceneCombatLHHR.h"
 #include"BattleScene_Pigs.h"
 #include "BattleScene_Wolf.h"
+#include "W3_Scene.h"
 
 
 BattleManager::BattleManager(bool isActive) : Module(isActive) {
@@ -397,7 +398,7 @@ bool BattleManager::Update(float dt) {
 				app->sceneManager->LoadScene(GameScene::W2_SCENE);
 			}
 			else if (app->sceneManager->scene == GameScene::COMBATWOLF) {
-				app->sceneManager->LoadScene(GameScene::W3_SCENE);
+				app->sceneManager->LoadScene(GameScene::ENDSCENE);
 			}
 
 		}

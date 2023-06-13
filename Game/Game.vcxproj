@@ -104,6 +104,7 @@
     <ClCompile Include="Source\BattleSystem.cpp" />
     <ClCompile Include="Source\Bunny.cpp" />
     <ClCompile Include="Source\Door.cpp" />
+    <ClCompile Include="Source\EndScene.cpp" />
     <ClCompile Include="Source\Enemy_AngryVillager.cpp" />
     <ClCompile Include="Source\Enemy_CorruptedSprout.cpp" />
     <ClCompile Include="Source\Enemy_FinalWolf.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Source\Bunny.h" />
     <ClInclude Include="Source\DialogueTree.h" />
     <ClInclude Include="Source\Door.h" />
+    <ClInclude Include="Source\EndScene.h" />
     <ClInclude Include="Source\Enemy_AngryVillager.h" />
     <ClInclude Include="Source\Enemy_CorruptedSprout.h" />
     <ClInclude Include="Source\Enemy_FinalWolf.h" />

@@ -95,7 +95,7 @@ bool SceneManager::PreUpdate()
 	if ((app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) && currentScene->active == true)
 	{
 		app->sceneManager->isBattle = false;
-		scene = GameScene::W2_SCENE_MAZE;
+		scene = GameScene::ENDSCENE;
 	}
 
 	switch (scene) {
@@ -109,8 +109,12 @@ bool SceneManager::PreUpdate()
 		break;
 	case GameScene::SCENE:
 		break; 
-	case GameScene::GAME_OVER:
-		break; 
+	case GameScene::ENDSCENE:
+		if ((app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || app->input->pad->GetButton(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && currentScene->active == true)
+		{
+			scene = MAIN_MENU;
+		}
+		break;
 	default:
 		break; 
 	}
@@ -222,6 +226,13 @@ bool SceneManager::Update(float dt)
 			if (app->fadeToBlack->Fade(currentScene, (Module*)app->sceneFoxQuest, 20)) {
 				currentScene = (Module*)app->sceneFoxQuest;
 				LOG("SCENE_FOXQUEST");
+			}
+		}
+	case GameScene::ENDSCENE:
+		if (currentScene != (Module*)app->endScene) {
+			if (app->fadeToBlack->Fade(currentScene, (Module*)app->endScene, 20)) {
+				currentScene = (Module*)app->endScene;
+				LOG("END_SCENE");
 			}
 		}
 	default:

@@ -150,6 +150,9 @@
     <ClCompile Include="Source\Enemy_FinalWolf.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\EndScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -336,6 +339,9 @@
     </ClInclude>
     <ClInclude Include="Source\Enemy_FinalWolf.h">
       <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EndScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
