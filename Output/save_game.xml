@@ -11,10 +11,10 @@
 	<sceneIntro />
 	<sceneMainMenu />
 	<scene>
-		<player x="7194" y="472" dialogueTutorial="true" />
+		<player />
 		<rope_minigame rope_minigame_state="false" />
 		<saveBattleTutoState state="0" />
-		<stepQuest num="2" />
+		<stepQuest num="0" />
 	</scene>
 	<scenecombatLHHR />
 	<sceneBattle />
@@ -53,8 +53,8 @@
 			<bracelet isobtained="false" character="0" />
 		</inventory>
 		<stats>
-			<timmy defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="3" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
-			<bunny defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="3" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
+			<timmy defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
+			<bunny defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<lrrh defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<littlePig defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
 			<middlePig defense="0" magic="0" speed="0" movement="0" attack="0" AttArea="0" Ab1Power="0" Ab2Power="0" Ab1Area="0" Ab2Area="0" healingpower="0" />
@@ -69,5 +69,5 @@
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>
-	<BattleInfo isAngryVillagerDefeated="true" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
+	<BattleInfo isAngryVillagerDefeated="" isLRRHDefeated="" isPigDefeated="" isPereDefeated="" isWolfDefeated="" />
 </save_state>
