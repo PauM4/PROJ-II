@@ -775,8 +775,6 @@ void BattleManager::UIStatsForBattle()
 			app->input->GetMousePosition(mouseX, mouseY);
 			app->render->DrawTexture(app->uiModule->descriptionScrollTexture, mouseX - 185, mouseY - 185, NULL);
 
-
-
 			app->fonts->DrawTextParagraph(turnList.At(0)->data->abilityDescription, mouseX - 145, mouseY - 150, 300, 100, { 0, 0, 0 });
 
 			if (turnList.At(0)->data->Ab1RangeType == 1)

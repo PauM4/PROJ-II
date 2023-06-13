@@ -52,9 +52,6 @@ public:
 
 	bool finishAnimBool;
 
-	const char* attackDescription;
-	const char* abilityDescription;
-
 private:
 
 	

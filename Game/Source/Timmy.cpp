@@ -92,9 +92,7 @@ bool Timmy::Awake()
 	currentAnimation = &idleAnim;
 	PrevPos = position;
 
-	// Attacks description
-	attackDescription = "Melee attack with the yo-yo";
-	abilityDescription = "Circular attack with the yo-yo";
+
 
 	return true;
 }
@@ -106,6 +104,10 @@ bool Timmy::Start()
 	PrevPos = position;
 	frames = 0;
 	prehealth = health;
+
+	// Attacks description
+	attackDescription = "Melee attack with the yo-yo";
+	abilityDescription = "Circular attack with the yo-yo";
 	return true;
 }
 
