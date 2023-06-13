@@ -373,7 +373,7 @@ bool UIModule::PostUpdate()
 	{
 		app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, offset + point * (-app->render->camera.y - offset));
 	}
-	else if (pause_menu_animation_bool)
+	else if (pause_menu_animation_bool && currentMenuType != COMBAT)
 	{
 		app->render->DrawTexture(pauseBG2Texture, -app->render->camera.x, -app->render->camera.y);
 	}

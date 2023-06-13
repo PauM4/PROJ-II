@@ -399,6 +399,9 @@ void Scene::MenuAppear()
 			app->uiModule->pause_menu_animation.Backward();
 			player->playerState = player->playerPrevState;
 
+			app->uiModule->pause_menu_animation_bool = false;
+			app->uiModule->menu_pause = false;
+
 			app->uiModule->currentMenuType = DISABLED;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
@@ -433,6 +436,9 @@ void Scene::MenuAppear()
 		{
 			app->uiModule->inventory_menu_animation.Backward();
 			player->playerState = player->playerPrevState;
+
+			app->uiModule->pause_menu_animation_bool = false;
+			app->uiModule->menu_pause = false;
 
 			app->uiModule->currentMenuType = DISABLED;
 			// Call this function only when scene is changed
