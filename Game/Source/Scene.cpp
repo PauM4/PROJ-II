@@ -419,7 +419,7 @@ void Scene::MenuAppear()
 			app->uiModule->menu_pause = true;
 			
 			// Mid-Low volume
-			app->audio->SetMusicVolume(32);
+			if (app->audio->volume != 0) app->audio->SetMusicVolume(app->audio->volume / 2);
 		}
 	}
 	//MENU PAUSE APAREIX CORRECTE
@@ -455,7 +455,8 @@ void Scene::MenuAppear()
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 			// Mid-Low volume
-			app->audio->SetMusicVolume(32);
+			if (app->audio->volume != 0) app->audio->SetMusicVolume(app->audio->volume / 2);
+			LOG("Music volume: %i", app->audio->volume);
 		}
 	}
 }

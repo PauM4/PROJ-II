@@ -455,7 +455,7 @@ bool W2_Scene::Update(float dt)
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
 			// Mid-Low volume
-			app->audio->SetMusicVolume(32);
+			if (app->audio->volume != 0) app->audio->SetMusicVolume(app->audio->volume / 2);
 		}
 	}
 

@@ -41,6 +41,7 @@ private:
 	_Mix_Music* music;
 public:
 	List<Mix_Chunk*>	fx;
+	int volume = 128;
 };
 
 #endif // __AUDIO_H__

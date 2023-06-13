@@ -186,6 +186,7 @@ public:
 	bool lose;
 	bool finish;
 	bool actionfinish;
+	bool finalboss;
 	SDL_Timer enemyAreaTimer;
 	SDL_Timer enemyAttackTimer;
 	bool triggerMoveTimer;

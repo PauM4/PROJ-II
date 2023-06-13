@@ -68,6 +68,7 @@ bool BattleManager::Start() {
 	timercharge = 0;
 	battleState = BattleState::THINKING;
 	app->SaveGameRequest();
+	finalboss = false;
 
 	lose_screen_animation.Set();
 	lose_screen_animation.smoothness = 4;
@@ -1294,13 +1295,16 @@ void BattleManager::CheckWinCondition()
 {
 	LiveCondition();
 
+	
+
 	if (allies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
 
-		finish = true;
-		if (lose == false) {
+		if (finalboss == false){
+			
+		  if (lose == false) {
 			if (changeScreenTimer == -1) {
 				changeScreenTimer = 100;
-			
+
 			}
 
 			changeScreenTimer--;
@@ -1309,24 +1313,28 @@ void BattleManager::CheckWinCondition()
 				battleState = BattleState::LOSE;
 				lose = true;
 			}
+		   }
 		}
+	
 	}
 	
 	if (enemies.Count() == 0 || app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 		
-		finish = true;
-		if (lose == false) {
-			if (changeScreenTimer == -1) {
-				changeScreenTimer = 100;
+		if (finalboss == false) {
+			finish = true;
+			if (lose == false) {
+				if (changeScreenTimer == -1) {
+					changeScreenTimer = 100;
 
-			}
+				}
 
-			changeScreenTimer--;
-			if (changeScreenTimer == 0) {
-				app->audio->PlayFx(victoryFx);
-				battleState = BattleState::WIN;
-				win = true;
+				changeScreenTimer--;
+				if (changeScreenTimer == 0) {
+					app->audio->PlayFx(victoryFx);
+					battleState = BattleState::WIN;
+					win = true;
 
+				}
 			}
 		}
 	}

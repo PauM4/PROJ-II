@@ -44,9 +44,9 @@ bool BattleScene_Wolf::Awake(pugi::xml_node& config) {
 	
 	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
 		teamItem->data->health = teamItem->data->maxHealth;
-		teamItem->data->isAlive = true;
-		app->battleManager->AddCharacter(teamItem->data, 4, 3 + i, false);
-		app->entityManager->AddEntity(teamItem->data);
+			teamItem->data->isAlive = true;
+			app->battleManager->AddCharacter(teamItem->data, 4, 3 + i, false);
+			app->entityManager->AddEntity(teamItem->data);
 		i++;
 	}
 	
@@ -61,7 +61,7 @@ bool BattleScene_Wolf::Awake(pugi::xml_node& config) {
 		finalwolf = (Enemy_FinalWolf*)app->entityManager->CreateEntity(EntityType::FINALWOLF);
 		finalwolf->parameters = config.child("enemy_finalwolf");
 		finalwolf->stats = config.parent().child("finalwolf");
-		app->battleManager->AddCharacter(finalwolf, finalwolf->parameters.attribute("x").as_int() / 120, finalwolf->parameters.attribute("y").as_int() / 120, true);
+		
 	}
 
 	app->entityManager->Awake(config);
@@ -87,9 +87,10 @@ bool BattleScene_Wolf::Start() {
 
 	}
 
+	finalstate = true;
 
 	// Tell to UIModule which currentMenuType
-	app->uiModule->currentMenuType = COMBAT;
+	app->uiModule->currentMenuType = COMBAT;	
 	// Call this function only when buttons change
 	app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
 
@@ -100,7 +101,7 @@ bool BattleScene_Wolf::Start() {
 	app->battleManager->MakeCombatMap();
 	
 
-
+		
 	wolfPrevPos = wolf->position;
 	finalwolfPrevPos = finalwolf->position;
 
@@ -122,8 +123,28 @@ bool BattleScene_Wolf::PreUpdate() {
 
 // Called each loop iteration
 bool BattleScene_Wolf::Update(float dt) {
-	
+	int i = 0;
 	app->map->Draw();
+	if (wolf->isAlive == false && finalstate == true) {
+		app->battleManager->finalboss = true;
+		app->battleManager->battleState = BattleState::THINKING;
+	}
+	if (app->battleManager->finalboss == true && finalstate== true) {
+		app->battleManager->enemies.Add(finalwolf);
+		finalwolf->position = iPoint(960, 360);
+	/*	for (ListItem<Entity*>* teamItem = app->teamManager->team.start; teamItem != NULL; teamItem = teamItem->next) {
+			teamItem->data->health = teamItem->data->maxHealth;
+			teamItem->data->isAlive = true;
+			app->battleManager->AddCharacter(teamItem->data, 4, 3 + i, false);
+			i++;
+		}*/
+		app->battleManager->MakeTurnList();
+		app->battleManager->currentTurn = app->battleManager->turnList.start->data;
+		app->battleManager->origin = app->battleManager->currentTurn->tilePos;
+		app->battleManager->finish = false;
+		finalstate = false;
+		app->battleManager->finalboss = false;
+	}
 
 	return true;
 }
