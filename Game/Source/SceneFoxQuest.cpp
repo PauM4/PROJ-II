@@ -194,6 +194,8 @@ bool SceneFoxQuest::PostUpdate()
 {
 	//Print all the map
 	bool ret = true;
+
+
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 

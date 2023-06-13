@@ -176,6 +176,7 @@ public:
 	ParticleProps particle_chest2;
 	SDL_Texture* starparticle_texture;
 
+
 private:
 
 	SString mapName;

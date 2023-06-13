@@ -18,6 +18,7 @@
 #include "Player.h"
 #include "Npc.h"
 #include <iostream>
+#include "Player.h"
 
 #include "SDL_mixer/include/SDL_mixer.h"
 
@@ -89,7 +90,7 @@ bool UIModule::Start()
 	plusButtonTexture = app->tex->Load("Assets/UI/plusButton.png");
 	lvlupTexture = app->tex->Load("Assets/UI/blank.png");
 	inventoryScrollTexture = app->tex->Load("Assets/UI/inventoryScroll.png");
-
+	
 	// Combat textures
 	attackButtonTexture = app->tex->Load("Assets/UI/attackbattleButton.png");
 	abilityButtonTexture = app->tex->Load("Assets/UI/abilitybattleButton.png");
@@ -99,6 +100,7 @@ bool UIModule::Start()
 	combatStatsTexture = app->tex->Load("Assets/UI/combatStats.png");
 	combatEnemyStatsTexture = app->tex->Load("Assets/UI/combatEnemyStats.png");
 	pauseBGTexture = app->tex->Load("Assets/UI/pauseBG.png");
+	pauseBG2Texture = app->tex->Load("Assets/UI/pauseBG2.png");
 	turnListTexture = app->tex->Load("Assets/UI/turnList.png");
 	smallCharPicTexture = app->tex->Load("Assets/UI/smallCharPic.png");
 	
@@ -252,8 +254,10 @@ bool UIModule::Start()
 	pause_menu_animation.Set();
 	pause_menu_animation.smoothness = 4;
 	pause_menu_animation.AddTween(100, 50, EXPONENTIAL_OUT);
+	offset = -1080;
+	point = app->uiModule->pause_menu_animation.GetPoint();
 
-	menu_animation = false;
+	pause_menu_animation_bool = false;
 	
 	return true;
 }
@@ -333,7 +337,12 @@ bool UIModule::PostUpdate()
 	
 	bool ret = true;
 
-	
+	pause_menu_animation.Step(2, false);
+
+	point = pause_menu_animation.GetPoint();
+
+	if (pause_menu_animation_bool && menu_pause) app->render->DrawTexture(pauseBGTexture, -app->render->camera.x, offset + point * (-app->render->camera.y - offset));
+	else if (pause_menu_animation_bool) app->render->DrawTexture(pauseBG2Texture, -app->render->camera.x, -app->render->camera.y);
 
 	//// Pergami fons level up screen
 	//if (app->teamManager->active && app->teamManager->lvlupbool)
@@ -1062,6 +1071,7 @@ bool UIModule::CleanUp()
 	app->tex->UnLoad(combatEnemyStatsTexture);
 	app->tex->UnLoad(plusButtonTexture);
 	app->tex->UnLoad(pauseBGTexture);
+	app->tex->UnLoad(pauseBG2Texture);
 	app->tex->UnLoad(turnListTexture);
 	app->tex->UnLoad(smallCharPicTexture);
 	app->tex->UnLoad(pauseButtonsTexture);
@@ -1167,6 +1177,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 	{
 		// Resume
 	case 20:
+		pause_menu_animation.Backward();
+		app->uiModule->menu_pause = true;
 		pausemenu_resume_button->state = GuiControlState::NONE;
 		pausemenu_save_button->state = GuiControlState::NONE;
 		pausemenu_options_button->state = GuiControlState::NONE;
@@ -1233,6 +1245,8 @@ bool UIModule::OnGuiMouseClickEvent(GuiControl* control)
 		}
 		else
 		{
+			pause_menu_animation.Foward();
+			app->uiModule->menu_pause = false;
 			musicSlider->state = GuiControlState::NONE;
 			fxSlider->state = GuiControlState::NONE;
 			fullScreenCheckBox->state = GuiControlState::NONE;
@@ -1862,9 +1876,8 @@ bool UIModule::ChangeButtonState(int& currentMenuType)
 
 		break;
 	case PAUSE:
-
 		DisableButtonsToNone();
-
+		
 		// Activate pause buttons
 		pausemenu_resume_button->state = GuiControlState::NORMAL;
 		pausemenu_save_button->state = GuiControlState::NORMAL;

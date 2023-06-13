@@ -185,18 +185,22 @@ bool W2_Scene_Maze::Update(float dt)
 	// Menu appear
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
+		app->uiModule->pause_menu_animation_bool = true;
 		// If player is in pause, close it
 		if (player->playerState == player->PlayerState::PAUSE)
 		{
+			app->uiModule->pause_menu_animation.Backward();
 			player->playerState = player->playerPrevState;
 
 			app->uiModule->currentMenuType = DISABLED;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+			app->uiModule->menu_pause = true;
 		}
 		// If player is NOT in pause, open it
 		else
 		{
+			app->uiModule->pause_menu_animation.Foward();
 			// Save previous state to go back
 			player->playerPrevState = player->playerState;
 			player->playerState = player->PlayerState::PAUSE;
@@ -204,6 +208,7 @@ bool W2_Scene_Maze::Update(float dt)
 			app->uiModule->currentMenuType = PAUSE;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+			app->uiModule->menu_pause = true;
 		}
 	}
 
@@ -220,6 +225,15 @@ bool W2_Scene_Maze::Update(float dt)
 bool W2_Scene_Maze::PostUpdate()
 {
 	bool ret = true;
+
+	if ((app->uiModule->offset + app->uiModule->point * (-app->render->camera.y - app->uiModule->offset)) >= -app->render->camera.y - 20 && app->uiModule->menu_pause) {
+		if (player->playerState == player->PlayerState::PAUSE) {
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+			app->uiModule->menu_pause = false;
+		}
+
+	}
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

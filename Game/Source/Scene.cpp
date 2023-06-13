@@ -282,6 +282,9 @@ bool Scene::Start()
 	app->moduleParticles->emiters.push_back(particlesystem_chest1);
 	app->moduleParticles->emiters.push_back(particlesystem_chest2);
 
+
+	app->uiModule->menu_pause = false;
+
 	return true;
 }
 
@@ -296,8 +299,8 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	std::cout << "X: " << player->position.x << std::endl;
-	std::cout << "Y: " << player->position.y << std::endl;
+	//std::cout << "X: " << player->position.x << std::endl;
+	//std::cout << "Y: " << player->position.y << std::endl;
 	Camera();
 	if (app->teamManager->arasiva == true) {
 		app->teamManager->startstatsup = true;
@@ -378,9 +381,11 @@ bool Scene::Update(float dt)
 
 void Scene::MenuAppear()
 {
+	//offset + point * (-app->render->camera.y - offset)
+	std::cout << "Y: " << -app->render->camera.y << std::endl;
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN && !app->teamManager->lvlupbool)
 	{
-		app->uiModule->menu_animation = true;
+		app->uiModule->pause_menu_animation_bool = true;
 		// If player is in pause, close it
 		if (player->playerState == player->PlayerState::PAUSE)
 		{
@@ -390,7 +395,7 @@ void Scene::MenuAppear()
 			app->uiModule->currentMenuType = DISABLED;
 			// Call this function only when scene is changed
 			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-
+			app->uiModule->menu_pause = true;
 			// Max volume
 			app->audio->SetMusicVolume(128);
 
@@ -403,15 +408,16 @@ void Scene::MenuAppear()
 			// Save previous state to go back
 			player->playerPrevState = player->playerState;
 			player->playerState = player->PlayerState::PAUSE;
-
 			app->uiModule->currentMenuType = PAUSE;
-			// Call this function only when scene is changed
-			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
-
+			app->uiModule->menu_pause = true;
+			
 			// Mid-Low volume
 			app->audio->SetMusicVolume(32);
 		}
 	}
+	//MENU PAUSE APAREIX CORRECTE
+	
+
 	if (app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN && !app->teamManager->lvlupbool)
 	{
 		// If player is in pause, close it
@@ -516,20 +522,14 @@ void Scene::AppearDialogue()
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+	if ((app->uiModule->offset + app->uiModule->point * (-app->render->camera.y - app->uiModule->offset)) >= -app->render->camera.y - 20 && app->uiModule->menu_pause) {
+		if (player->playerState == player->PlayerState::PAUSE) {
+			// Call this function only when scene is changed
+			app->uiModule->ChangeButtonState(app->uiModule->currentMenuType);
+			app->uiModule->menu_pause = false;
+		}
 
-	
-
-	app->uiModule->pause_menu_animation.Step(2, false);
-
-	int offset = -1080;
-
-	float point = app->uiModule->pause_menu_animation.GetPoint();
-
-	if(app->uiModule->menu_animation) app->render->DrawTexture(app->uiModule->pauseBGTexture, -app->render->camera.x, offset + point * (-app->render->camera.y - offset));
-
-	//-app->render->camera.y
-
-
+	}
 
 	if (!godMode) app->map->PostDraw((player->position.y + 40));
 

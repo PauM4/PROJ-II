@@ -221,6 +221,7 @@ public:
 	SDL_Texture* combatEnemyStatsTexture;
 	SDL_Texture* plusButtonTexture;
 	SDL_Texture* pauseBGTexture;
+	SDL_Texture* pauseBG2Texture;
 	SDL_Texture* turnListTexture;
 	SDL_Texture* smallCharPicTexture;
 	SDL_Texture* lvlupTexture;
@@ -290,8 +291,10 @@ public:
 
 
 	Tween pause_menu_animation;
-
-	bool menu_animation;
+	int offset;
+	float point;
+	bool pause_menu_animation_bool;
+	bool menu_pause;
 
 private:
 
