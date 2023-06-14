@@ -228,6 +228,8 @@ bool Scene::Start()
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "");
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isPigDefeated", "");
 		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isLRRHDefeated", "");
+		app->UpdateXMLAttributeFromNode("save_game.xml", "BattleInfo", "isWolfDefeated", "");
+
 		basicTutorialCounter = 0;
 		battleTutorialCounter = 0;
 		isNewGame = false;
